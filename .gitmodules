@@ -1,0 +1,3 @@
+[submodule "test/GridData"]
+	path = test/GridData
+	url = git@git.rwth-aachen.de:PowerSystemSimulation/GridData.git
