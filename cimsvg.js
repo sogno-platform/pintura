@@ -67,7 +67,7 @@ var cimsvg = cimsvg || (function() {
     return {
         init : function(node) {
             svgNode = node;
-            includeFile("node_modules/handlebars/dist/handlebars.js");
+            includeFile("handlebars-latest.js");
             includeFile("src/model/power/components.js");
             includeFile("src/model/diagram.js");
             includeFile("src/model/cimjson.js");

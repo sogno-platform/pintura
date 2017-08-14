@@ -11,10 +11,9 @@
         <xsl:sort select="@name"/>
             <p>
             <a href="#"
-                class="w3-bar-item w3-button"
-                type="file"
-                id="upload-file"
-                onclick="javascript:fileinput.click()">
+                class="component-list-item w3-bar-item w3-button"
+                id="componentTypeFilter"
+                onclick="javascript:cimmenu.filterByComponentType(this.innerHTML)">
                     <xsl:value-of select="@name" />
             </a>
             </p>

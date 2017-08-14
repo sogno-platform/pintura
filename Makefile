@@ -1,11 +1,14 @@
 # Copyright © 2016-2017, RWTH Aachen University
 # Authors: Richard Marston
 
-html.tgz: css images index.html src
-	tar zcvf html.tgz css images index.html src *.js node_modules/handlebars/dist/handlebars.js
+html.tgz: css images index.html src handlebars-latest.js
+	tar zcvf html.tgz css images index.html src *.js
 
 build_docker: html.tgz ssl.tgz
 	docker build --no-cache -t pintura .
+
+handlebars-latest.js:
+	wget http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-latest.js
 
 ssl.tgz:
 	mkdir -p ssl

@@ -46,7 +46,7 @@ var cimmenu = cimmenu || (function() {
     };
 
     var searchSidebar=function(searchString) {
-        var elements = document.getElementsByClassName('w3-bar-item');
+        var elements = document.getElementsByClassName('component-list-item');
         for (var i=0; i<elements.length; i++)
         {
             if (elements[i].text.toUpperCase().startsWith(searchString.toUpperCase())) {
