@@ -18,6 +18,8 @@
 
 var cimjson = cimjson || (function() {
 
+    const PinturaDiagramObject = "Pintura:DiagramObject";
+    const PinturaDiagramObjectPoints = "Pintura:DiagramObjectPoints";
     var jsonData;
     var xmlDoc;
     var rdfFileCount = 0;
@@ -100,7 +102,6 @@ var cimjson = cimjson || (function() {
      */
     var createObjectGraphFromXml = function( xmlData ) {
         let graph = {};
-        graph.ObjectsWithNoPoints = {};
     
         let topLevelNodes = xmlData.documentElement.childNodes;
     
@@ -187,10 +188,37 @@ var cimjson = cimjson || (function() {
         return false;
     };
 
+    var indexDiagramObjectGraphByIdentifiedObjectId = function(diagramObjectGraph) {
+        /*
+         * Index the diagram object graph by the identified object's id so we don't
+         * have to go hunting for the referenced object inside the diagram objects.
+         */
+        let graph = {'Diagrams':{}, 'DiagramObjects':{}};
+        let newDiagramList = graph['Diagrams'];
+        let newDiagramObjectList = graph['DiagramObjects'];
+        for (let key in diagramObjectGraph) {
+            let diagramObject = diagramObjectGraph[key];
+            let diagram = diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1);
+            if (newDiagramList[diagram] === undefined){
+                newDiagramList[diagram] = {};
+            }
+            if (diagramObject["cim:DiagramObject.IdentifiedObject"]) {
+                let identifiedObject = diagramObjectGraph[key]["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
+                if (newDiagramList[diagram][identifiedObject] === undefined){
+                    newDiagramList[diagram][identifiedObject] = {};
+                }
+                newDiagramList[diagram][identifiedObject] = diagramObjectGraph[key];
+                newDiagramObjectList[identifiedObject] = diagramObjectGraph[key];
+            }
+        }
+        console.log(graph);
+        return graph;
+    };
+
     var copyDiagramObjectFromDiagramIntoComponent = function(categoryGraph, diagramObjectGraph) {
         for (let key in categoryGraph) {
             try {
-                categoryGraph[key].diagramObject = diagramObjectGraph["#"+key];
+                categoryGraph[key][PinturaDiagramObject] = diagramObjectGraph[key];
             }
             catch (error) {
                 console.log(error.message);
@@ -198,10 +226,67 @@ var cimjson = cimjson || (function() {
         }
     };
 
+    var addDiagramObjectPointsToDiagramObjects = function(diagramObjectPointGraph, diagramObjectGraph){
+        for (let key in diagramObjectPointGraph) {
+            mergeMatchingDataIntoParentNodeArray(diagramObjectPointGraph[key], "cim:DiagramObjectPoint.DiagramObject", diagramObjectGraph, PinturaDiagramObjectPoints);
+        }
+    };
+
+    /*
+     * Create link to a member of an array of e.g. points
+     */
+    var mergeMatchingDataIntoParentNodeArray = function(node, matchingElement, destinationGraph, destinationElement) {
+        if (node[matchingElement]) {
+            let id = node[matchingElement]["rdf:resource"].substr(1);
+            if (destinationGraph[id]) {
+                if (destinationGraph[id][destinationElement] === undefined) {
+                    destinationGraph[id][destinationElement] = [];
+                }
+                destinationGraph[id][destinationElement].push(node);
+            }
+            else {
+                console.log("Could not find destination "+matchingElement+" to merge into "+destinationElement+".");
+            }
+        }
+        else {
+            console.log("Could not find matching element "+matchingElement+" to merge "+destinationElement+" into .");
+        }
+    };
+
     var consolidateObjectGraph = function(graph) {
         console.log(graph);
-        //var create_template_string = "{{#each this}} {{@key}}: {{#items}} {{name}} \n{{/items}}\n{{/each}}\n";
-        //var create_template_string = "{{#each components}} [[#{{@key}}]]\n{{#items}}   {{name}}: [[{{inputName}}]] \n{{/items}} [[/{{@key}}]]\n{{/each}}\n";
+
+        const categoryGraphNames = [
+            "cim:Terminal",
+            "cim:ACLineSegment",
+            "cim:Breaker",
+            "cim:ConnectivityNode",
+            "cim:EnergyConsumer",
+            "cim:EquivalentInjection",
+            "cim:ExternalNetworkInjection",
+            "cim:PowerTransformer",
+            "cim:SolarGeneratingUnit",
+            "cim:SynchronousMachine",
+            "cim:TopologicalNode",
+            "cim:TransformerWinding",
+        ];
+
+        diagramObjects = graph['cim:DiagramObject'];
+        diagramObjectPoints = graph['cim:DiagramObjectPoint'];
+
+        addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
+
+        let restructuredGraph = indexDiagramObjectGraphByIdentifiedObjectId(diagramObjects);
+        restructuredGraph['Components'] = {};
+
+        for (let index in categoryGraphNames) {
+            categoryName = categoryGraphNames[index]
+            copyDiagramObjectFromDiagramIntoComponent(graph[categoryName], restructuredGraph['DiagramObjects']);
+        }
+
+        console.log(graph);
+/*
+
         var create_template_string = ` 
 { 
   {{#each components}}
@@ -237,13 +322,14 @@ var cimjson = cimjson || (function() {
         var template = Handlebars.compile(create_template_output);
         var output = template(graph);
         console.log(output);
-
+*/
 /*
         var create_diagram_template_output = create_template({ "components": diagram_components });
         create_diagram_template_output = create_diagram_template_output.replace(/\[\[/g, '{{');
         create_diagram_template_output = create_diagram_template_output.replace(/\]\]/g, '}}');
         console.log(create_diagram_template_output);
 */
+/*
 var create_diagram_template_output = `{ 
     'cim:DiagramObject': [
       {{#cim:DiagramObject}}
@@ -275,6 +361,7 @@ var create_diagram_template_output = `{
         var diagram_template = Handlebars.compile(create_diagram_template_output);
         var diagram_output = diagram_template(graph);
         console.log(diagram_output);
+*/
     };
 
     /*
@@ -283,7 +370,6 @@ var create_diagram_template_output = `{
     var checkIfParseReady = function() {
         if (rdfFileReceived > 0) {
             if (rdfFileCount == rdfFileReceived) {
-                console.log("rdf file count: "+rdfFileCount+" is greater than "+rdfFileReceived);
                 return true;
             }
         }

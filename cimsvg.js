@@ -49,7 +49,6 @@ var cimsvg = cimsvg || (function() {
     };
 
     var setFileCount = function(count) {
-        console.log("Setting rdf file count to: "+count);
         cimjson.setRdfFileCount(count);
     };
 
