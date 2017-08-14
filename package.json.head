@@ -1,0 +1,9 @@
+{
+  "name": "CoSi_Front-End",
+  "version": "0.1.0",
+  "main": "./main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "electron-mocha ./test"
+  }
+}

@@ -1,0 +1,100 @@
+<!--
+    Copyright © 2016-2017, RWTH Aachen University
+    Authors: Richard Marston
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    A copy of the GNU General Public License is in the LICENSE file
+    in the top level directory of this source tree.
+-->
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+        <title>Pintura</title>
+    </head>
+    <body id="body">
+        <script type="text/javascript">
+            searchSidebar=function(searchString) {
+                var elements = document.getElementsByClassName('w3-bar-item');
+                for (var i=0; i<elements.length; i++)
+                {
+                    if (elements[i].text.toUpperCase().startsWith(searchString.toUpperCase())) {
+                        elements[i].style='display:inline';
+                    }
+                    else {
+                        elements[i].style='display:none';
+                    }
+                }
+            };
+        </script>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <div id="menu" class="w3-bar w3-black w3-border">
+            <input type="file" id="fileinput" style="display:none" multiple/>
+            <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Open File</a>
+            <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Export File</a>
+        </div>
+        <div id="sidebar" class="w3-sidebar w3-red w3-border" style="width:25%">
+            <a href="#"
+                class="w3-bar-item w3-button w3-darkblue"
+                type="file"
+                id="searchSidebar"
+                onclick="javascript:searchSidebar()">
+                Search
+            </a>
+            <input
+                type="text"
+                oninput="searchSidebar(this.value)" >
+            </input>
+        </div>
+        <div id="main" class="w3-main w3-teal" style="margin-left:25%">
+            <svg
+                id="svg"
+                width="2000"
+                height="2000"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink" >
+                <rect id="backing"/>
+                <g id="grid"/>
+                <g id="diagram-elements"/>
+            </svg>
+            <script type="text/javascript" src="cimsvg.js"></script>
+            <script type="text/javascript" src="cimmenu.js"></script>
+            <script type="text/javascript">
+                cimsvg.init(document.getElementById("svg"));
+                cimmenu.init(document.getElementById("sidebar"));
+                function readFile(e) {
+                    var files = e.target.files; 
+    	
+                    if (files) {
+                        cimsvg.setFileCount(files.length);
+                        console.log(files.length);
+                        for (var i=0, f; f=files[i]; i++) {
+                            if (!f) {
+                                return;
+                            }
+                            var reader = new FileReader();
+                            reader.onload = function(e) {
+                                var contents = e.target.result;
+                                loadContents(contents);
+                            };
+                            reader.readAsText(f);
+                        }
+                    }
+                };
+                function loadContents(contents) {
+                    cimsvg.loadFile(contents);
+                };
+                document.getElementById("fileinput").addEventListener('change', readFile, false);
+            </script>
+        </div>
+    </body>
+</html>
