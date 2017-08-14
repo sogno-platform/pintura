@@ -45,6 +45,19 @@ var cimmenu = cimmenu || (function() {
         Connect.send(null);
     };
 
+    var searchSidebar=function(searchString) {
+        var elements = document.getElementsByClassName('w3-bar-item');
+        for (var i=0; i<elements.length; i++)
+        {
+            if (elements[i].text.toUpperCase().startsWith(searchString.toUpperCase())) {
+                elements[i].style='display:inline';
+            }
+            else {
+                elements[i].style='display:none';
+            }
+        }
+    };
+
     var init = function(menuNode) {
         xsltProcessor = new XSLTProcessor();
         loadXml("src/model/power/cim_xml_scheme_test.xslt", function(xslt) {
@@ -60,6 +73,7 @@ var cimmenu = cimmenu || (function() {
 
     return {
         init,
+        searchSidebar,
     };
 }());
 
