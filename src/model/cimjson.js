@@ -282,9 +282,7 @@ var cimjson = cimjson || (function() {
             if (diagramList[diagram][categoryGraphName] === undefined){
                 diagramList[diagram][categoryGraphName] = {};
             }
-            diagramList[diagram][categoryGraphName][identifiedObject] = categoryGraph[identifiedObject]
-            diagramList[diagram][categoryGraphName][identifiedObject][PinturaDiagramObject] = diagramObject;
-            diagramList[diagram][categoryGraphName][identifiedObject][PinturaDataObject] = object;
+            diagramList[diagram][categoryGraphName][identifiedObject] = object;
         }
     };
 

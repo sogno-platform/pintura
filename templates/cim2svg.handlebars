@@ -1,0 +1,56 @@
+var template_string = `
+{{#each Diagram}}
+  {{#each this as |value typeName|}}
+    <g class={{typeName}} >
+    {{#each this as |value componentId|}}
+      <g
+        id="{{pintura:rdfId}}"
+        name="{{pintura:label.text}}"
+        type="{{typeName}}"
+        class="image">
+      {{#each pintura:points}}
+        <image
+          x="{{x}}"
+          y="{{y}}"
+          href="{{../pintura:image}}"
+          id="{{componentId}}-img{{@key}}"
+          height="{{imageHeight}}"
+          width="{{imageWidth}}"
+          imageIndex="1"
+          onmousedown="onMouseDown(evt)"
+          onmouseup="onMouseUp(evt)"
+          onmousemove="onMouseMove(evt)"
+          onmouseover="onMouseOver(evt)"
+          onmouseleave="onMouseLeave(evt)"
+        />
+      {{/each}}
+      {{#pintura:label}}
+        <text
+          x="{{x}}"
+          y="{{y}}"
+          class="svglabel"
+          type="{{typeName}}"
+          id="{{componentId}}-txt0"
+          onmouseup="onMouseUp(evt)"
+        >{{text}}</text>
+      {{/pintura:label}}
+      {{#pintura:line}}
+        <line
+          x1="{{x1}}"
+          y1="{{y1}}"
+          x2="{{x2}}"
+          y2="{{y2}}"
+          id="{{componentId}}-bar0"
+          class="line"
+          onmouseup="onMouseUp(evt)"
+          onmouseover="onMouseOver(evt)"
+          onmouseleave="onMouseLeave(evt)"
+        />
+      {{/pintura:line}}
+      </g>
+    {{/each}}
+  </g>
+  {{/each}}
+{{/each}}\n`;
+
+
