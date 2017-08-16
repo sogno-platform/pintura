@@ -28,7 +28,6 @@ var cimmenu = cimmenu || (function() {
         // Define which file to open and
         Connect.open("GET", fileName, true);
         Connect.setRequestHeader("Content-Type", "text/xml");
-        //Connect.overrideMimeType('text/xml');
         Connect.onreadystatechange = handler;
         Connect.onload = function (e) {
             if(Connect.readyState === 4) {

@@ -89,7 +89,7 @@ var cimsvg = cimsvg || (function() {
           <g id="{{@key}}" name="{{[cim:IdentifiedObject.name]}}" type="{{typeName}}" class="image">
             {{#if Pintura:Line}}
             {{#Pintura:DiagramObject}}
-            <line id="_17086487-56ba-4979-b8de-064025a6b4da-bar"
+            <line id="{{componentId}}-bar"
                    {{#each [Pintura:DiagramObjectPoints]}}
                    x{{inc @index}}="{{[cim:DiagramObjectPoint.xPosition]}}" y{{inc @index}}="{{[cim:DiagramObjectPoint.yPosition]}}"
                    {{/each}}

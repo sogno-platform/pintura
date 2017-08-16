@@ -18,6 +18,22 @@
 
 var cimjson = cimjson || (function() {
 
+    const categoryGraphNames = [
+        "cim:ACLineSegment",
+        "cim:Terminal",
+        "cim:Breaker",
+        "cim:ConnectivityNode",
+        "cim:EnergyConsumer",
+        "cim:EquivalentInjection",
+        "cim:ExternalNetworkInjection",
+        "cim:PowerTransformer",
+        "cim:SolarGeneratingUnit",
+        "cim:SynchronousMachine",
+        "cim:TopologicalNode",
+        "cim:TransformerWinding",
+    ];
+
+
     const PinturaDiagramObject = "Pintura:DiagramObject";
     const PinturaDiagramObjectPoints = "Pintura:DiagramObjectPoints";
     const PinturaLine = "Pintura:Line";
@@ -189,28 +205,41 @@ var cimjson = cimjson || (function() {
         return false;
     };
 
-    var copyComponentIntoDiagramGraph = function(categoryGraphName, diagramObjects, categoryGraph, output) {
-        /*
-         * Index the component graph by the identified object's id so we don't
-         * have to go hunting for the referenced object inside the diagram objects.
-         */
-        let newDiagramList = output['Diagram'];
-        for (let key in categoryGraph) {
-            let diagramObject = diagramObjects[key];
-            if (diagramObject === undefined) {
+    var convertDiagramObjectToTemplateFormat = function(diagramObject, categoryGraph, categoryGraphName, diagramList) {
+        let diagram = diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1);
+        if (diagramList[diagram] === undefined){
+            diagramList[diagram] = {};
+        }
+        if (diagramObject["cim:DiagramObject.IdentifiedObject"]) {
+            let identifiedObject = diagramObject["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
+            if (diagramList[diagram][categoryGraphName] === undefined){
+                diagramList[diagram][categoryGraphName] = {};
             }
-            else {
-                let diagram = diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1);
-                if (newDiagramList[diagram] === undefined){
-                    newDiagramList[diagram] = {};
+            diagramList[diagram][categoryGraphName][identifiedObject] = categoryGraph[identifiedObject]
+            diagramList[diagram][categoryGraphName][identifiedObject][PinturaDiagramObject] = diagramObject;
+        }
+    };
+
+    var convertToTemplatableFormat = function(diagramObjects, graph) {
+
+        let output = { 'Diagram' : {} };
+
+        for (let index in categoryGraphNames) {
+
+            categoryGraphName = categoryGraphNames[index]
+            categoryGraph = graph[categoryGraphName];
+
+            /*
+             * Index the component graph by the identified object's id so we don't
+             * have to go hunting for the referenced object inside the diagram objects.
+             */
+            let diagramList = output['Diagram'];
+            for (let key in categoryGraph) {
+                let diagramObject = diagramObjects[key];
+                if (diagramObject === undefined) {
                 }
-                if (diagramObject["cim:DiagramObject.IdentifiedObject"]) {
-                    let identifiedObject = diagramObjects[key]["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
-                    if (newDiagramList[diagram][categoryGraphName] === undefined){
-                        newDiagramList[diagram][categoryGraphName] = {};
-                    }
-                    newDiagramList[diagram][categoryGraphName][identifiedObject] = categoryGraph[identifiedObject]
-                    newDiagramList[diagram][categoryGraphName][identifiedObject][PinturaDiagramObject] = diagramObjects[key];
+                else {
+                    convertDiagramObjectToTemplateFormat(diagramObject, categoryGraph, categoryGraphName, diagramList);
                 }
             }
         }
@@ -286,21 +315,6 @@ var cimjson = cimjson || (function() {
     var consolidateObjectGraph = function(graph) {
         console.log(graph);
 
-        const categoryGraphNames = [
-            "cim:ACLineSegment",
-            "cim:Terminal",
-            "cim:Breaker",
-            "cim:ConnectivityNode",
-            "cim:EnergyConsumer",
-            "cim:EquivalentInjection",
-            "cim:ExternalNetworkInjection",
-            "cim:PowerTransformer",
-            "cim:SolarGeneratingUnit",
-            "cim:SynchronousMachine",
-            "cim:TopologicalNode",
-            "cim:TransformerWinding",
-        ];
-
         const categoriesWithLines = [
             "cim:ACLineSegment",
             "cim:ConnectivityNode",
@@ -326,14 +340,11 @@ var cimjson = cimjson || (function() {
 
         console.log(graph);
 
-        let graphOrderedByDiagram = { 'Diagram' : {} };
+        templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
 
-        for (let index in categoryGraphNames) {
-            categoryName = categoryGraphNames[index]
-            copyComponentIntoDiagramGraph(categoryName, diagramObjectsByIdentifiedObjects, graph[categoryName], graphOrderedByDiagram);
-        }
+        console.log(templateReadyFormat);
 
-        return graphOrderedByDiagram;
+        return templateReadyFormat;
     };
 
     /*
