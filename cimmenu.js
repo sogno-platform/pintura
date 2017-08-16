@@ -33,7 +33,6 @@ var cimmenu = cimmenu || (function() {
         Connect.onload = function (e) {
             if(Connect.readyState === 4) {
                 if(Connect.status === 200) {
-                    console.log(Connect.response);
                     callback(Connect.responseXML);
                 }
                 else {
@@ -61,10 +60,8 @@ var cimmenu = cimmenu || (function() {
     var init = function(menuNode) {
         xsltProcessor = new XSLTProcessor();
         loadXml("src/model/power/cim_xml_scheme_test.xslt", function(xslt) {
-            console.log(xslt);
             xsltProcessor.importStylesheet(xslt);
             loadXml("src/model/power/cim_xml_scheme_test.xsd", function(xsd) {
-                console.log(xsd);
                 var result = xsltProcessor.transformToFragment(xsd, menuNode.ownerDocument);
                 menuNode.append(result);
             });

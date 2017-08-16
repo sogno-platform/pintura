@@ -20,6 +20,7 @@ var cimjson = cimjson || (function() {
 
     const PinturaDiagramObject = "Pintura:DiagramObject";
     const PinturaDiagramObjectPoints = "Pintura:DiagramObjectPoints";
+    const PinturaLine = "Pintura:Line";
     var jsonData;
     var xmlDoc;
     var rdfFileCount = 0;
@@ -230,8 +231,18 @@ var cimjson = cimjson || (function() {
                 graph[identifiedObject] = input[key];
             }
         }
-        console.log(graph);
         return graph;
+    };
+
+    var markComponentForLineDrawing = function(categoryGraph) {
+        for (let key in categoryGraph) {
+            try {
+                categoryGraph[key][PinturaLine] = true;
+            }
+            catch (error) {
+                console.log(error.message);
+            }
+        }
     };
 
     var copyDiagramObjectIntoComponent = function(categoryGraph, diagramObjectGraph) {
@@ -290,12 +301,23 @@ var cimjson = cimjson || (function() {
             "cim:TransformerWinding",
         ];
 
+        const categoriesWithLines = [
+            "cim:ACLineSegment",
+            "cim:ConnectivityNode",
+            "cim:TopologicalNode",
+        ];
+
         diagramObjects = graph['cim:DiagramObject'];
         diagramObjectPoints = graph['cim:DiagramObjectPoint'];
 
         addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
 
         let diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(diagramObjects);
+
+        for (let index in categoriesWithLines) {
+            categoryName = categoriesWithLines[index]
+            markComponentForLineDrawing(graph[categoryName]);
+        }
 
         for (let index in categoryGraphNames) {
             categoryName = categoryGraphNames[index]
