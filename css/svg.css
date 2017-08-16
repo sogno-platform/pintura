@@ -46,12 +46,19 @@ line {
    therefore we disable pointer events */
 
 .svglabel {
-    font-size: 10px;
+    visibility: hidden;
+    pointer-events: none;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+}
+.svglabel-high {
+    visibility: visible;
+    font-size: 12px;
     font-family: "sans-serif";
     text-anchor: right;
-    width: 8px;
     fill: black;
-    stroke-width: 0px;
+    stroke-width: 1px;
     pointer-events: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */

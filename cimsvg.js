@@ -44,69 +44,8 @@ var cimsvg = cimsvg || (function() {
         svgNode.appendChild(newTag);
     };
 
-    const imageNames = {
-        "cim:ACLineSegment":             "images/term.svg",
-        "cim:Terminal":                  "images/term.svg",
-        "cim:Breaker":                   "images/brea.svg",
-        "cim:ConnectivityNode":          "images/conn.svg",
-        "cim:EnergyConsumer":            "images/cons.svg",
-        "cim:EquivalentInjection":       "images/cons.svg",
-        "cim:ExternalNetworkInjection":  "images/net.svg",
-        "cim:PowerTransformer":          "images/trans.svg",
-        "cim:SolarGeneratingUnit":       "images/solar.svg",
-        "cim:SynchronousMachine":        "images/sync.svg",
-        "cim:TopologicalNode":           "images/topo.svg",
-        "cim:TransformerWinding":        "images/trans.svg",
-    };
-
     var applyTemplate = function(data) {
-        const imageSize = 12;
-        Handlebars.registerHelper('imageSize', function() {
-            return imageSize;
-        });
-        Handlebars.registerHelper('needsLine', function(typeName, contents) {
-            if (typeName == "cim:ACLineSegment") {
-                return contents.fn();
-            }
-            return;
-        });
-        Handlebars.registerHelper('imageCentreOffset', function(x) {
-            let newX = parseInt(x)-(imageSize/2);
-            return newX;
-        });
-        Handlebars.registerHelper('findImage', function(typeName) {
-            return new Handlebars.SafeString(imageNames[typeName]);
-        });
-        Handlebars.registerHelper('inc', function(number) {
-            return parseInt(number)+1;
-        });
-        
-        var template_string = `
-  {{#each Diagram}}
-      {{#each this as |value typeName|}}
-        {{#each this as |value componentId|}}
-          <g id="{{@key}}" name="{{[cim:IdentifiedObject.name]}}" type="{{typeName}}" class="image">
-            {{#if Pintura:Line}}
-            {{#Pintura:DiagramObject}}
-            <line id="{{componentId}}-bar"
-                   {{#each [Pintura:DiagramObjectPoints]}}
-                   x{{inc @index}}="{{[cim:DiagramObjectPoint.xPosition]}}" y{{inc @index}}="{{[cim:DiagramObjectPoint.yPosition]}}"
-                   {{/each}}
-                   class="line" onmouseup="onMouseUp(evt)" onmouseover="onMouseOver(evt)" onmouseleave="onMouseLeaveNode(evt)"/>
-            {{/Pintura:DiagramObject}}
-            {{/if}}
-            {{#Pintura:DiagramObject}}
-              {{#each [Pintura:DiagramObjectPoints]}}
-            <image x="{{imageCentreOffset [cim:DiagramObjectPoint.xPosition]}}" y="{{imageCentreOffset [cim:DiagramObjectPoint.yPosition]}}" href="{{findImage typeName}}" id="{{componentId}}-image{{@key}}" height="{{imageSize}}" width="{{imageSize}}" imageIndex="1" onmousedown="onMouseDown(evt)" onmouseup="onMouseUp(evt)" onmousemove="onMouseMove(evt)"/>
-              {{/each}}
-            {{/Pintura:DiagramObject}}
-            <text x="429.2" y="123" class="svglabel" type="text" id="{{componentId}}-text" visibility="hidden" onmouseup="onMouseUp(evt)"></text>
-          </g>
-        {{/each}}
-      {{/each}}
-  {{/each}}\n
-`;
-        var template = Handlebars.compile(template_string);
+        var template = Handlebars.templates['cim2svg'];
         var output = template(data);
         console.log(output);
         return output;
@@ -137,7 +76,7 @@ var cimsvg = cimsvg || (function() {
     return {
         init : function(node) {
             svgNode = node;
-            includeFile("handlebars-latest.js");
+            includeFile("templates/template.js");
             includeFile("src/model/power/components.js");
             includeFile("src/model/diagram.js");
             includeFile("src/model/cimjson.js");

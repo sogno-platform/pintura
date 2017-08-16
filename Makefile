@@ -3,14 +3,18 @@
 
 all: build_docker
 
-html.tgz: css images index.html src handlebars-latest.js
-	tar zcvf html.tgz css images index.html src *.js
+html.tgz: css images index.html src templates/template.js handlebars.runtime.js
+	tar zcvf html.tgz css images index.html src *.js templates/template.js
 
 build_docker: html.tgz ssl.tgz
 	docker build --no-cache -t pintura .
 
-handlebars-latest.js:
-	wget http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-latest.js
+handlebars.runtime.js:
+	wget https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.runtime.js
+
+templates/template.js:
+	# sudo npm -g handlebars
+	handlebars templates/cim2svg.handlebars > templates/template.js
 
 ssl.tgz:
 	mkdir -p ssl

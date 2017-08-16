@@ -14,6 +14,7 @@ $ exit # You have to log out and back in to apply the group change in the previo
 ### Install other deps ###
 ```bash
 $ sudo apt-get install -y git make
+$ sudo npm install -g handlebars
 $ git clone https://git.rwth-aachen.de/PowerSystemSimulation/Pintura
 $ cd Pintura/
 $ make

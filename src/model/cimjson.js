@@ -33,8 +33,8 @@ var cimjson = cimjson || (function() {
         "cim:TransformerWinding",
     ];
 
-
     const PinturaDiagramObject = "Pintura:DiagramObject";
+    const PinturaDataObject = "Pintura:DataObject";
     const PinturaDiagramObjectPoints = "Pintura:DiagramObjectPoints";
     const PinturaLine = "Pintura:Line";
     var jsonData;
@@ -205,7 +205,74 @@ var cimjson = cimjson || (function() {
         return false;
     };
 
+    var getImageName = function(type) {
+        const imageNames = {
+            "cim:ACLineSegment":             "images/term.svg",
+            "cim:Terminal":                  "images/term.svg",
+            "cim:Breaker":                   "images/brea.svg",
+            "cim:ConnectivityNode":          "images/conn.svg",
+            "cim:EnergyConsumer":            "images/cons.svg",
+            "cim:EquivalentInjection":       "images/cons.svg",
+            "cim:ExternalNetworkInjection":  "images/net.svg",
+            "cim:PowerTransformer":          "images/trans.svg",
+            "cim:SolarGeneratingUnit":       "images/solar.svg",
+            "cim:SynchronousMachine":        "images/sync.svg",
+            "cim:TopologicalNode":           "images/topo.svg",
+            "cim:TransformerWinding":        "images/trans.svg",
+        };
+        return imageNames[type];
+    }
     var convertDiagramObjectToTemplateFormat = function(diagramObject, categoryGraph, categoryGraphName, diagramList) {
+
+        let originalPoints = diagramObject[PinturaDiagramObjectPoints];
+        let preOffsetPoints = [];
+        let imagePoints = [];
+        let labelPoint;
+        let object;
+        const imageHeight = 12;
+        const imageWidth = 12;
+        if (diagramObject["cim:DiagramObject.IdentifiedObject"] != undefined) {
+            let rdfId = diagramObject["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
+            for (let index in originalPoints) {
+                let point = originalPoints[index];
+                preOffsetPoints.push(
+                {
+                    "x": parseInt(point["cim:DiagramObjectPoint.xPosition"]).toString(),
+                    "y": parseInt(point["cim:DiagramObjectPoint.yPosition"]).toString()
+                });
+                imagePoints.push(
+                {
+                    "imageHeight" : imageHeight.toString(),
+                    "imageWidth"  : imageWidth.toString(),
+                    "x"           : (parseInt(point["cim:DiagramObjectPoint.xPosition"]) - (imageWidth/2)).toString(),
+                    "y"           : (parseInt(point["cim:DiagramObjectPoint.yPosition"]) - (imageHeight/2)).toString()
+                });
+            };
+            labelPoint = {
+                "x": (parseInt(preOffsetPoints[0].x) + (imageWidth/2)).toString(),
+                "y": (parseInt(preOffsetPoints[0].y) - (imageHeight/2)).toString()
+            };
+            object =
+            {
+                "pintura:image"  : getImageName(categoryGraphName),
+                "pintura:rdfId"  : rdfId,
+                "pintura:points" : imagePoints,
+                "pintura:label"  : {
+                    "text": categoryGraph[rdfId]["cim:IdentifiedObject.name"],
+                    "x"   : labelPoint.x,
+                    "y"   : labelPoint.y
+                }
+            }
+            if (preOffsetPoints.length == 2) {
+                let line = {
+                        "x1": preOffsetPoints[0].x,
+                        "y1": preOffsetPoints[0].y,
+                        "x2": preOffsetPoints[1].x,
+                        "y2": preOffsetPoints[1].y
+                };
+                object["pintura:line"] = line;
+            }
+        }
         let diagram = diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1);
         if (diagramList[diagram] === undefined){
             diagramList[diagram] = {};
@@ -217,6 +284,7 @@ var cimjson = cimjson || (function() {
             }
             diagramList[diagram][categoryGraphName][identifiedObject] = categoryGraph[identifiedObject]
             diagramList[diagram][categoryGraphName][identifiedObject][PinturaDiagramObject] = diagramObject;
+            diagramList[diagram][categoryGraphName][identifiedObject][PinturaDataObject] = object;
         }
     };
 
