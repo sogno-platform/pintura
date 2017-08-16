@@ -34,17 +34,17 @@
     <body id="body" style="overflow:hidden">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
         <link rel="stylesheet" href="css/svg.css"/>
-        <div id="menu" class="w3-bar w3-black w3-border" style="height:5%">
+        <div id="menu" class="w3-bar w3-black w3-border" style="height:5%;position:fixed; top:0;left:0">
             <input type="file" id="fileinput" style="display:none" multiple/>
             <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Open File</a>
             <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Export File</a>
         </div>
-        <div id="sidebar" class="w3-sidebar w3-blue-grey w3-border" style="width:25%;height:95%;overflow-y:hidden">
+        <div id="sidebar" class="w3-sidebar w3-blue-grey w3-border" style="position:fixed; top:5%;left:0;width:25%;margin-top:0%;height:95%;overflow-y:hidden">
             <button onclick="javascript:showContainer('diagrams')" class="w3-btn w3-block w3-grey w3-left-align">Diagrams</button>
             <div id="diagrams" class="w3-container w3-hide">
             </div>
             <button onclick="javascript:showContainer('search')" class="w3-btn w3-block w3-grey w3-left-align">All Components</button>
-            <div id="search" class="w3-container w3-hide" style="height:95%;overflow-y:hidden">
+            <div id="search" class="w3-container w3-hide" style="margin-top:0;height:95%;overflow-y:hidden">
                 <a href="#"
                     class="w3-bar-button w3-button w3-darkblue"
                     type="file"
@@ -56,7 +56,7 @@
                     type="text"
                     oninput="cimmenu.searchSidebar(this.value)" >
                 </input>
-                <div id="componentAccordion" class="w3-container" style="height:95%;overflow-y:auto"></div>
+                <div id="componentAccordion" class="w3-container" style="margin-top:0;height:95%;overflow-y:auto"></div>
             </div>
         </div>
         <div id="main" class="w3-main w3-light-grey" style="margin-left:25%;overflow:auto">
