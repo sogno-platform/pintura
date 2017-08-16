@@ -1,6 +1,8 @@
 # Copyright © 2016-2017, RWTH Aachen University
 # Authors: Richard Marston
 
+all: build_docker
+
 html.tgz: css images index.html src handlebars-latest.js
 	tar zcvf html.tgz css images index.html src *.js
 
