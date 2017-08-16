@@ -287,8 +287,8 @@ var cimjson = cimjson || (function() {
         console.log(graph);
 
         const categoryGraphNames = [
-            "cim:Terminal",
             "cim:ACLineSegment",
+            "cim:Terminal",
             "cim:Breaker",
             "cim:ConnectivityNode",
             "cim:EnergyConsumer",

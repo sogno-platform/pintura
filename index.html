@@ -31,9 +31,9 @@
             }
         </script>
     </head>
-    <body id="body">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <link rel="stylesheet" href="css/svg.css">
+    <body id="body" style="overflow:hidden">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+        <link rel="stylesheet" href="css/svg.css"/>
         <div id="menu" class="w3-bar w3-black w3-border" style="height:5%">
             <input type="file" id="fileinput" style="display:none" multiple/>
             <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Open File</a>
@@ -59,11 +59,12 @@
                 <div id="componentAccordion" class="w3-container" style="height:95%;overflow-y:auto"></div>
             </div>
         </div>
-        <div id="main" class="w3-main w3-light-grey" style="margin-left:25%">
+        <div id="main" class="w3-main w3-light-grey" style="margin-left:25%;overflow:auto">
             <svg
                 id="svg"
-                width="2000"
-                height="2000"
+                width="1000"
+                height="1000"
+                viewBox="0 0 1024 768"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" >
                 <rect id="backing"/>
