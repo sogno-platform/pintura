@@ -13,7 +13,7 @@ line {
 }
 
 .line {
-    stroke: #f00;
+    stroke: #000;
     stroke-width: 2px;
 }
 .terminal-connnode {
