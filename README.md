@@ -17,6 +17,14 @@ $ sudo apt-get install -y git make
 $ git clone https://git.rwth-aachen.de/PowerSystemSimulation/Pintura
 $ cd Pintura/
 $ make
+
+### Start it up ###
+```bash
 $ docker run --rm -p 443:443 pintura
 ```
 
+### Update it ###
+```bash
+$ git pull
+$ make
+```
