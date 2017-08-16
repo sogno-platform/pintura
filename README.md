@@ -1,5 +1,5 @@
 
-== Running in nginx server mode ==
+## Running in nginx server mode ##
 
 ```bash
 $ sudo apt-get update
