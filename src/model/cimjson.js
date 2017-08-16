@@ -188,34 +188,53 @@ var cimjson = cimjson || (function() {
         return false;
     };
 
-    var indexDiagramObjectGraphByIdentifiedObjectId = function(diagramObjectGraph) {
+    var copyComponentIntoDiagramGraph = function(categoryGraphName, diagramObjects, categoryGraph, output) {
+        /*
+         * Index the component graph by the identified object's id so we don't
+         * have to go hunting for the referenced object inside the diagram objects.
+         */
+        let newDiagramList = output['Diagram'];
+        for (let key in categoryGraph) {
+            let diagramObject = diagramObjects[key];
+            if (diagramObject === undefined) {
+            }
+            else {
+                let diagram = diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1);
+                if (newDiagramList[diagram] === undefined){
+                    newDiagramList[diagram] = {};
+                }
+                if (diagramObject["cim:DiagramObject.IdentifiedObject"]) {
+                    let identifiedObject = diagramObjects[key]["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
+                    if (newDiagramList[diagram][categoryGraphName] === undefined){
+                        newDiagramList[diagram][categoryGraphName] = {};
+                    }
+                    newDiagramList[diagram][categoryGraphName][identifiedObject] = categoryGraph[identifiedObject]
+                    newDiagramList[diagram][categoryGraphName][identifiedObject][PinturaDiagramObject] = diagramObjects[key];
+                }
+            }
+        }
+        return output;
+    };
+
+    var indexDiagramGraphByComponentType = function(input) {
         /*
          * Index the diagram object graph by the identified object's id so we don't
          * have to go hunting for the referenced object inside the diagram objects.
          */
-        let graph = {'Diagrams':{}, 'DiagramObjects':{}};
-        let newDiagramList = graph['Diagrams'];
-        let newDiagramObjectList = graph['DiagramObjects'];
-        for (let key in diagramObjectGraph) {
-            let diagramObject = diagramObjectGraph[key];
+        let graph = {};
+        for (let key in input) {
+            let diagramObject = input[key];
             let diagram = diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1);
-            if (newDiagramList[diagram] === undefined){
-                newDiagramList[diagram] = {};
-            }
             if (diagramObject["cim:DiagramObject.IdentifiedObject"]) {
-                let identifiedObject = diagramObjectGraph[key]["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
-                if (newDiagramList[diagram][identifiedObject] === undefined){
-                    newDiagramList[diagram][identifiedObject] = {};
-                }
-                newDiagramList[diagram][identifiedObject] = diagramObjectGraph[key];
-                newDiagramObjectList[identifiedObject] = diagramObjectGraph[key];
+                let identifiedObject = input[key]["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
+                graph[identifiedObject] = input[key];
             }
         }
         console.log(graph);
         return graph;
     };
 
-    var copyDiagramObjectFromDiagramIntoComponent = function(categoryGraph, diagramObjectGraph) {
+    var copyDiagramObjectIntoComponent = function(categoryGraph, diagramObjectGraph) {
         for (let key in categoryGraph) {
             try {
                 categoryGraph[key][PinturaDiagramObject] = diagramObjectGraph[key];
@@ -276,92 +295,23 @@ var cimjson = cimjson || (function() {
 
         addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
 
-        let restructuredGraph = indexDiagramObjectGraphByIdentifiedObjectId(diagramObjects);
-        restructuredGraph['Components'] = {};
+        let diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(diagramObjects);
 
         for (let index in categoryGraphNames) {
             categoryName = categoryGraphNames[index]
-            copyDiagramObjectFromDiagramIntoComponent(graph[categoryName], restructuredGraph['DiagramObjects']);
+            copyDiagramObjectIntoComponent(graph[categoryName], diagramObjectsByIdentifiedObjects);
         }
 
         console.log(graph);
-/*
 
-        var create_template_string = ` 
-{ 
-  {{#each components}}
-    {{!-- first key is the component name --}}
-    '{{@key}}': [
-      {{!-- loop 1: key here tells the template to loop over the component --}}
-      [[#{{@key}}]]
-        {{!-- loop 2: then we loop over the array of rdfId-indexed objects --}}
-        [[#each this]]
-        {
-            'rdfId': '[[@key]]'
-          {{!-- loop 3: loop over items in definition --}}
-          {{#items}}
-            '{{name}}': '[[ {{inputName}} ]]'
-          {{!-- close loop 3 --}}
-          {{/items}}
-        },
-        {{!-- close loop 2 --}}
-        [[/each]]
-      {{!-- close loop 1 --}}
-      [[/{{@key}}]]
-    ]
-  {{/each}}\n
-}`;
+        let graphOrderedByDiagram = { 'Diagram' : {} };
 
-        console.log("create_template_string: "+create_template_string);
-        var create_template = Handlebars.compile(create_template_string);
-        var create_template_output = create_template({ "components": components });
-        create_template_output = create_template_output.replace(/\[\[/g, '{{');
-        create_template_output = create_template_output.replace(/\]\]/g, '}}');
-        console.log(create_template_output);
+        for (let index in categoryGraphNames) {
+            categoryName = categoryGraphNames[index]
+            copyComponentIntoDiagramGraph(categoryName, diagramObjectsByIdentifiedObjects, graph[categoryName], graphOrderedByDiagram);
+        }
 
-        var template = Handlebars.compile(create_template_output);
-        var output = template(graph);
-        console.log(output);
-*/
-/*
-        var create_diagram_template_output = create_template({ "components": diagram_components });
-        create_diagram_template_output = create_diagram_template_output.replace(/\[\[/g, '{{');
-        create_diagram_template_output = create_diagram_template_output.replace(/\]\]/g, '}}');
-        console.log(create_diagram_template_output);
-*/
-/*
-var create_diagram_template_output = `{ 
-    'cim:DiagramObject': [
-      {{#cim:DiagramObject}}
-        {{#each this}}
-        {
-            'rdfId': '{{@key}}'
-            'Diagram': '{{ [cim:DiagramObject.Diagram].rdf:resource }}'
-            'IdentifiedObject': '{{ [cim:DiagramObject.IdentifiedObject].rdf:resource }}'
-            'rotation': '{{ [cim:DiagramObject.rotation] }}'
-            'Name': '{{ [cim:IdentifiedObject.name] }}'
-            'pointList': [
-              {{#cim:DiagramObjectPoint}}
-              {{#each this}}
-              {
-                'rdfId': '{{@key}}'
-                'object': '{{ [cim:DiagramObjectPoint.DiagramObject].rdf:resource }}'
-                'sequenceNumber': '{{ [cim:DiagramObjectPoint.sequenceNumber] }}'
-                'x': '{{ [cim:DiagramObjectPoint.xPosition] }}'
-                'y': '{{ [cim:DiagramObjectPoint.yPosition] }}'
-              },
-              {{/each}}
-              {{/cim:DiagramObjectPoint}}
-            ]
-        },
-        {{/each}}
-      {{/cim:DiagramObject}}
-    ]
-}`
-        var diagram_template = Handlebars.compile(create_diagram_template_output);
-        var diagram_output = diagram_template(graph);
-        console.log(diagram_output);
-*/
+        return graphOrderedByDiagram;
     };
 
     /*

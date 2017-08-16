@@ -43,9 +43,56 @@ var cimsvg = cimsvg || (function() {
         newTag.src=fileName;
         svgNode.appendChild(newTag);
     };
+        const imageNames = {
+            "cim:ACLineSegment":             "images/acline.svg",
+            "cim:Terminal":                  "images/term.svg",
+            "cim:Breaker":                   "images/brea.svg",
+            "cim:ConnectivityNode":          "images/conn.svg",
+            "cim:EnergyConsumer":            "images/cons.svg",
+            "cim:EquivalentInjection":       "images/cons.svg",
+            "cim:ExternalNetworkInjection":  "images/net.svg",
+            "cim:PowerTransformer":          "images/trans.svg",
+            "cim:SolarGeneratingUnit":       "images/solar.svg",
+            "cim:SynchronousMachine":        "images/sync.svg",
+            "cim:TopologicalNode":           "images/topo.svg",
+            "cim:TransformerWinding":        "images/trans.svg",
+        };
+    var applyTemplate = function(data) {
+        Handlebars.registerHelper('trimString', function(passedString) {
+            var theString = passedString.substring(4);
+            return new Handlebars.SafeString(theString)
+        });
+        Handlebars.registerHelper('findImage', function(typeName) {
+            return new Handlebars.SafeString(imageNames[typeName])
+        });
+        var template_string = `
+  {{#each Diagram}}
+      {{#each this as |value typeName|}}
+        {{#each this as |value componentId|}}
+          <g id="{{@key}}" name="{{[cim:IdentifiedObject.name]}}" type="{{typeName}}" class="image">
+            {{#Pintura:DiagramObject}}
+              {{#each [Pintura:DiagramObjectPoints]}}
+            <image class="{{trimString typeName}}-image" x="{{[cim:DiagramObjectPoint.xPosition]}}" y="{{[cim:DiagramObjectPoint.yPosition]}}" href="{{findImage typeName}}" id="{{componentId}}-image{{@key}}" height="12" width="12" imageIndex="1" onmousedown="onMouseDown(evt)" onmouseup="onMouseUp(evt)" onmousemove="onMouseMove(evt)"/>
+              {{/each}}
+            {{/Pintura:DiagramObject}}
+            <text x="429.2" y="123" class="svglabel" type="text" id="{{componentId}}-text" visibility="hidden" onmouseup="onMouseUp(evt)"></text>
+          </g>
+        {{/each}}
+      {{/each}}
+  {{/each}}\n
+`;
+        var template = Handlebars.compile(template_string);
+        var output = template(data);
+        console.log(output);
+        return output;
+    };
 
     var loadFile = function(fileContents) {
-        cimjson.moreXmlData(fileContents);
+        if (cimjson.moreXmlData(fileContents)) {
+            data = cimjson.getJsonData();
+            console.log(data);
+            svgNode.getElementById('diagram-elements').innerHTML = applyTemplate(data);
+        }
     };
 
     var setFileCount = function(count) {
