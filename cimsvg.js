@@ -72,7 +72,6 @@ var cimsvg = cimsvg || (function() {
         });
         Handlebars.registerHelper('imageCentreOffset', function(x) {
             let newX = parseInt(x)-(imageSize/2);
-            console.log("image after offset: "+(x).toString());
             return newX;
         });
         Handlebars.registerHelper('findImage', function(typeName) {

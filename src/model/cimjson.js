@@ -263,24 +263,37 @@ var cimjson = cimjson || (function() {
         return graph;
     };
 
-    var markComponentForLineDrawing = function(categoryGraph) {
-        for (let key in categoryGraph) {
-            try {
-                categoryGraph[key][PinturaLine] = true;
-            }
-            catch (error) {
-                console.log(error.message);
+    var markComponentForLineDrawing = function(graph) {
+
+        const categoriesWithLines = [
+            "cim:ACLineSegment",
+            "cim:ConnectivityNode",
+            "cim:TopologicalNode",
+        ];
+
+        for (let index in categoriesWithLines) {
+            categoryName = categoriesWithLines[index];
+            for (let key in graph[categoryName]) {
+                try {
+                    graph[categoryName][key][PinturaLine] = true;
+                }
+                catch (error) {
+                    console.log(error.message);
+                }
             }
         }
     };
 
-    var copyDiagramObjectIntoComponent = function(categoryGraph, diagramObjectGraph) {
-        for (let key in categoryGraph) {
-            try {
-                categoryGraph[key][PinturaDiagramObject] = diagramObjectGraph[key];
-            }
-            catch (error) {
-                console.log(error.message);
+    var copyDiagramObjectIntoComponent = function(graph, diagramObjectGraph) {
+        for (let index in categoryGraphNames) {
+            categoryName = categoryGraphNames[index]
+            for (let key in graph[categoryName]) {
+                try {
+                    graph[categoryName][key][PinturaDiagramObject] = diagramObjectGraph[key];
+                }
+                catch (error) {
+                    console.log(error.message);
+                }
             }
         }
     };
@@ -313,33 +326,14 @@ var cimjson = cimjson || (function() {
     };
 
     var consolidateObjectGraph = function(graph) {
-        console.log(graph);
-
-        const categoriesWithLines = [
-            "cim:ACLineSegment",
-            "cim:ConnectivityNode",
-            "cim:TopologicalNode",
-        ];
 
         diagramObjects = graph['cim:DiagramObject'];
         diagramObjectPoints = graph['cim:DiagramObjectPoint'];
 
         addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
-
         let diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(diagramObjects);
-
-        for (let index in categoriesWithLines) {
-            categoryName = categoriesWithLines[index]
-            markComponentForLineDrawing(graph[categoryName]);
-        }
-
-        for (let index in categoryGraphNames) {
-            categoryName = categoryGraphNames[index]
-            copyDiagramObjectIntoComponent(graph[categoryName], diagramObjectsByIdentifiedObjects);
-        }
-
-        console.log(graph);
-
+        copyDiagramObjectIntoComponent(graph, diagramObjectsByIdentifiedObjects);
+        markComponentForLineDrawing(graph);
         templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
 
         console.log(templateReadyFormat);
