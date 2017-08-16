@@ -43,26 +43,37 @@ var cimsvg = cimsvg || (function() {
         newTag.src=fileName;
         svgNode.appendChild(newTag);
     };
-        const imageNames = {
-            "cim:ACLineSegment":             "images/term.svg",
-            "cim:Terminal":                  "images/term.svg",
-            "cim:Breaker":                   "images/brea.svg",
-            "cim:ConnectivityNode":          "images/conn.svg",
-            "cim:EnergyConsumer":            "images/cons.svg",
-            "cim:EquivalentInjection":       "images/cons.svg",
-            "cim:ExternalNetworkInjection":  "images/net.svg",
-            "cim:PowerTransformer":          "images/trans.svg",
-            "cim:SolarGeneratingUnit":       "images/solar.svg",
-            "cim:SynchronousMachine":        "images/sync.svg",
-            "cim:TopologicalNode":           "images/topo.svg",
-            "cim:TransformerWinding":        "images/trans.svg",
-        };
+
+    const imageNames = {
+        "cim:ACLineSegment":             "images/term.svg",
+        "cim:Terminal":                  "images/term.svg",
+        "cim:Breaker":                   "images/brea.svg",
+        "cim:ConnectivityNode":          "images/conn.svg",
+        "cim:EnergyConsumer":            "images/cons.svg",
+        "cim:EquivalentInjection":       "images/cons.svg",
+        "cim:ExternalNetworkInjection":  "images/net.svg",
+        "cim:PowerTransformer":          "images/trans.svg",
+        "cim:SolarGeneratingUnit":       "images/solar.svg",
+        "cim:SynchronousMachine":        "images/sync.svg",
+        "cim:TopologicalNode":           "images/topo.svg",
+        "cim:TransformerWinding":        "images/trans.svg",
+    };
+
     var applyTemplate = function(data) {
+        const imageSize = 12;
+        Handlebars.registerHelper('imageSize', function() {
+            return imageSize;
+        });
         Handlebars.registerHelper('needsLine', function(typeName, contents) {
             if (typeName == "cim:ACLineSegment") {
                 return contents.fn();
             }
             return;
+        });
+        Handlebars.registerHelper('imageCentreOffset', function(x) {
+            let newX = parseInt(x)-(imageSize/2);
+            console.log("image after offset: "+(x).toString());
+            return newX;
         });
         Handlebars.registerHelper('findImage', function(typeName) {
             return new Handlebars.SafeString(imageNames[typeName]);
@@ -87,7 +98,7 @@ var cimsvg = cimsvg || (function() {
             {{/if}}
             {{#Pintura:DiagramObject}}
               {{#each [Pintura:DiagramObjectPoints]}}
-            <image x="{{[cim:DiagramObjectPoint.xPosition]}}" y="{{[cim:DiagramObjectPoint.yPosition]}}" href="{{findImage typeName}}" id="{{componentId}}-image{{@key}}" height="12" width="12" imageIndex="1" onmousedown="onMouseDown(evt)" onmouseup="onMouseUp(evt)" onmousemove="onMouseMove(evt)"/>
+            <image x="{{imageCentreOffset [cim:DiagramObjectPoint.xPosition]}}" y="{{imageCentreOffset [cim:DiagramObjectPoint.yPosition]}}" href="{{findImage typeName}}" id="{{componentId}}-image{{@key}}" height="{{imageSize}}" width="{{imageSize}}" imageIndex="1" onmousedown="onMouseDown(evt)" onmouseup="onMouseUp(evt)" onmousemove="onMouseMove(evt)"/>
               {{/each}}
             {{/Pintura:DiagramObject}}
             <text x="429.2" y="123" class="svglabel" type="text" id="{{componentId}}-text" visibility="hidden" onmouseup="onMouseUp(evt)"></text>
