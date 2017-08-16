@@ -17,6 +17,7 @@ $ sudo apt-get install -y git make
 $ git clone https://git.rwth-aachen.de/PowerSystemSimulation/Pintura
 $ cd Pintura/
 $ make
+```
 
 ### Start it up ###
 ```bash
