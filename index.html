@@ -57,19 +57,28 @@
             </div>
             <button onclick="javascript:showContainer('search')" class="w3-btn w3-block w3-grey w3-left-align">All Components</button>
             <div id="search" class="w3-container w3-hide" style="margin-top:0;height:95%;overflow-y:hidden">
-                <a href="#"
-                    class="w3-bar-button w3-button w3-darkblue"
-                    type="file"
-                    id="searchSidebar"
-                    onclick="javascript:searchSidebar()">
-                    Search
-                </a>
+                <label id="searchSidebar">Search Components</label>
                 <input
                     type="text"
                     oninput="cimmenu.searchSidebar(this.value)" >
                 </input>
                 <div id="componentAccordion" class="w3-container" style="margin-top:0;height:95%;overflow-y:auto"></div>
             </div>
+<!--
+            <button onclick="javascript:showContainer('cimxml')" class="w3-btn w3-block w3-grey w3-left-align">Cim XML</button>
+            <div id="cimxml" class="w3-container w3-hide" style="margin-top:0;height:95%;overflow-y:hidden">
+                <label
+                    id="searchRawXML">Search Raw CIM XML</label>
+                <input
+                    type="text"
+                    oninput="cimmenu.searchRawXML(this.value)" >
+                </input>
+                <div id="rawXMLAccordion" class="w3-container" style="margin-top:0;height:95%;overflow-y:auto">
+                    <textarea id="raw" rows="50" cols="40">
+                    </textarea>
+                </div>
+            </div>
+-->
         </div>
         <div id="main" class="w3-main w3-light-grey" style="position:fixed;left:25%;top:5%;overflow:auto">
             <svg
@@ -88,7 +97,7 @@
             <script type="text/javascript" src="cimmenu.js"></script>
             <script type="text/javascript">
                 cimsvg.init(document.getElementById("svg"));
-                cimmenu.init(document.getElementById("componentAccordion"));
+                cimsvg.addSidebar(document.getElementById("sidebar"));
                 function readFile(e) {
                     var files = e.target.files; 
     	

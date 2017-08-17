@@ -18,6 +18,9 @@
 
 var cimsvg = cimsvg || (function() {
 
+    var svgNode = null;
+    var sidebarNode = null;
+
     var includeFile = function(fileName) {
         let dom = svgNode.ownerDocument;
         let newTag = dom.createElement("script");
@@ -33,11 +36,22 @@ var cimsvg = cimsvg || (function() {
 
     var loadFile = function(fileContents) {
         if (cimxml.moreXmlData(fileContents)) {
+            console.log(cimxml.getRawXML().childNodes.length);
             baseJson = cimxml.getBaseJson();
+            console.log(cimxml.getRawXML().childNodes.length);
             console.log(baseJson);
             templateJson = cimjson.getTemplateJson(baseJson);
+            console.log(cimxml.getRawXML().childNodes.length);
             console.log(templateJson);
             svgNode.getElementById('diagram-elements').innerHTML = applyTemplate(templateJson);
+            console.log(cimxml.getRawXML().childNodes.length);
+            if(sidebarNode != null) {
+                console.log(cimxml.getRawXML().childNodes.length);
+                cimmenu.populateSidebar(sidebarNode, cimxml.getRawXML());
+            }
+            else {
+                console.log("Sidebar node null");
+            }
         }
     };
 
@@ -45,15 +59,14 @@ var cimsvg = cimsvg || (function() {
         cimxml.setRdfFileCount(count);
     };
 
-    var svgNode = null;
-
     var isNode = false;
     if (typeof module !== 'undefined' && module.exports) {
         isNode = true;
     }
 
-    var createSideBar = function(xsd) {
-        
+    var addSidebar = function(node) {
+        sidebarNode = node;
+        cimmenu.init(sidebarNode);
     };
 
     return {
@@ -67,6 +80,7 @@ var cimsvg = cimsvg || (function() {
         },
         loadFile,
         setFileCount,
+        addSidebar,
     };
 
 }());

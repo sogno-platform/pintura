@@ -22,6 +22,13 @@ var cimmenu = cimmenu || (function() {
         console.log(this.getResponseHeader('content-type'));
     }
 
+    var populateSidebar = function(sidebar, rawXML) {
+        console.log(rawXML);
+        console.log(rawXML.childNodes.length);
+        console.log(rawXML.documentElement);
+        sidebar.querySelector('#raw').innerHTML = "some xml";
+    };
+
     var loadXml = function(fileName, callback) {
         // Create a connection to the file.
         var Connect = new XMLHttpRequest();
@@ -56,13 +63,14 @@ var cimmenu = cimmenu || (function() {
         }
     };
 
-    var init = function(menuNode) {
+    var init = function(sidebarNode) {
+        console.log(sidebarNode)
         xsltProcessor = new XSLTProcessor();
         loadXml("src/model/power/cim_xml_scheme_test.xslt", function(xslt) {
             xsltProcessor.importStylesheet(xslt);
             loadXml("src/model/power/cim_xml_scheme_test.xsd", function(xsd) {
-                var result = xsltProcessor.transformToFragment(xsd, menuNode.ownerDocument);
-                menuNode.append(result);
+                let components = xsltProcessor.transformToFragment(xsd, sidebarNode.ownerDocument);
+                sidebarNode.querySelector('#componentAccordion').append(components);
             });
         });
     };
@@ -70,6 +78,7 @@ var cimmenu = cimmenu || (function() {
     return {
         init,
         searchSidebar,
+        populateSidebar,
     };
 }());
 
