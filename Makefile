@@ -13,8 +13,7 @@ handlebars.runtime.js:
 	wget https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.runtime.js
 
 templates/template.js:
-	# sudo npm -g handlebars
-	handlebars templates/cim2svg.handlebars > templates/template.js
+	templates/compile.sh
 
 ssl.tgz:
 	mkdir -p ssl

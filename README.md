@@ -11,6 +11,13 @@ $ sudo apt-get install -y docker-ce
 $ sudo usermod -aG docker $USER
 $ exit # You have to log out and back in to apply the group change in the previous step
 ```
+
+### Install node 6 and npm ###
+```bash
+$ curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -s
+$ sudo apt-get install nodejs
+```
+
 ### Install other deps ###
 ```bash
 $ sudo apt-get install -y git make
