@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # check handlebars is installed
-handlebars > /dev/null
+handlebars 2> /dev/null
 handlebars_inst=$?
 if [ ${handlebars_inst} -ne 0 ];
 then
