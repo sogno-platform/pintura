@@ -18,43 +18,24 @@
 
 var cimjson = cimjson || (function() {
 
-    const categoryGraphNames = [
-        "cim:ACLineSegment",
-        "cim:Terminal",
-        "cim:Breaker",
-        "cim:ConnectivityNode",
-        "cim:EnergyConsumer",
-        "cim:EquivalentInjection",
-        "cim:ExternalNetworkInjection",
-        "cim:PowerTransformer",
-        "cim:SolarGeneratingUnit",
-        "cim:SynchronousMachine",
-        "cim:TopologicalNode",
-        "cim:TransformerWinding",
-    ];
+    const imageNames = {
+        "cim:ACLineSegment":             "images/term.svg",
+        "cim:Terminal":                  "images/term.svg",
+        "cim:Breaker":                   "images/brea.svg",
+        "cim:ConnectivityNode":          "images/conn.svg",
+        "cim:EnergyConsumer":            "images/cons.svg",
+        "cim:EquivalentInjection":       "images/cons.svg",
+        "cim:ExternalNetworkInjection":  "images/net.svg",
+        "cim:PowerTransformer":          "images/trans.svg",
+        "cim:SolarGeneratingUnit":       "images/solar.svg",
+        "cim:SynchronousMachine":        "images/sync.svg",
+        "cim:TopologicalNode":           "images/topo.svg",
+        "cim:TransformerWinding":        "images/trans.svg",
+    };
 
-    const PinturaDiagramObject = "Pintura:DiagramObject";
-    const PinturaDataObject = "Pintura:DataObject";
     const PinturaDiagramObjectPoints = "Pintura:DiagramObjectPoints";
-    const PinturaLine = "Pintura:Line";
 
     var getImageName = function(type) {
-
-        const imageNames = {
-            "cim:ACLineSegment":             "images/term.svg",
-            "cim:Terminal":                  "images/term.svg",
-            "cim:Breaker":                   "images/brea.svg",
-            "cim:ConnectivityNode":          "images/conn.svg",
-            "cim:EnergyConsumer":            "images/cons.svg",
-            "cim:EquivalentInjection":       "images/cons.svg",
-            "cim:ExternalNetworkInjection":  "images/net.svg",
-            "cim:PowerTransformer":          "images/trans.svg",
-            "cim:SolarGeneratingUnit":       "images/solar.svg",
-            "cim:SynchronousMachine":        "images/sync.svg",
-            "cim:TopologicalNode":           "images/topo.svg",
-            "cim:TransformerWinding":        "images/trans.svg",
-        };
-
         return imageNames[type];
     }
 
@@ -126,9 +107,8 @@ var cimjson = cimjson || (function() {
 
         let output = { 'Diagram' : {} };
 
-        for (let index in categoryGraphNames) {
+        for (categoryGraphName in imageNames) {
 
-            categoryGraphName = categoryGraphNames[index]
             categoryGraph = graph[categoryGraphName];
 
             /*
@@ -138,9 +118,7 @@ var cimjson = cimjson || (function() {
             let diagramList = output['Diagram'];
             for (let key in categoryGraph) {
                 let diagramObject = diagramObjects[key];
-                if (diagramObject === undefined) {
-                }
-                else {
+                if (diagramObject != undefined) {
                     convertDiagramObjectToTemplateFormat(diagramObject, categoryGraph, categoryGraphName, diagramList);
                 }
             }
@@ -163,41 +141,6 @@ var cimjson = cimjson || (function() {
             }
         }
         return graph;
-    };
-
-    var markComponentForLineDrawing = function(graph) {
-
-        const categoriesWithLines = [
-            "cim:ACLineSegment",
-            "cim:ConnectivityNode",
-            "cim:TopologicalNode",
-        ];
-
-        for (let index in categoriesWithLines) {
-            categoryName = categoriesWithLines[index];
-            for (let key in graph[categoryName]) {
-                try {
-                    graph[categoryName][key][PinturaLine] = true;
-                }
-                catch (error) {
-                    console.log(error.message);
-                }
-            }
-        }
-    };
-
-    var copyDiagramObjectIntoComponent = function(graph, diagramObjectGraph) {
-        for (let index in categoryGraphNames) {
-            categoryName = categoryGraphNames[index]
-            for (let key in graph[categoryName]) {
-                try {
-                    graph[categoryName][key][PinturaDiagramObject] = diagramObjectGraph[key];
-                }
-                catch (error) {
-                    console.log(error.message);
-                }
-            }
-        }
     };
 
     var addDiagramObjectPointsToDiagramObjects = function(diagramObjectPointGraph, diagramObjectGraph){
@@ -229,39 +172,15 @@ var cimjson = cimjson || (function() {
 
     var getTemplateJson = function(graph) {
 
-        diagramObjects = graph['cim:DiagramObject'];
-        diagramObjectPoints = graph['cim:DiagramObjectPoint'];
-
+        let diagramObjects = graph['cim:DiagramObject'];
+        let diagramObjectPoints = graph['cim:DiagramObjectPoint'];
         addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
+
         let diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(diagramObjects);
-        copyDiagramObjectIntoComponent(graph, diagramObjectsByIdentifiedObjects);
-        markComponentForLineDrawing(graph);
+
         templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
 
-        console.log(templateReadyFormat);
-
         return templateReadyFormat;
-    };
-
-    /*
-     * Different method of getting DOM required for some platforms
-     */
-    var getDOM = function(text) {
-        let newDoc;
-        if ( window.DOMParser ) {
-            newDoc = ( new DOMParser() ).parseFromString( text, "application/xml" );
-        }
-        else if( window.ActiveXObject ) {
-            let xmlObject = new ActiveXObject( "Microsoft.XMLDOM" );
-            xmlObject.async = false;
-            xmlObject.loadXML( text );
-            newDoc = xmlObject;
-            xmlObject = undefined;
-        }
-        else {
-            throw new Error( "Cannot find an XML parser!" );
-        }
-        return newDoc;
     };
 
     return {

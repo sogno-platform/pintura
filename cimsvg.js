@@ -28,15 +28,15 @@ var cimsvg = cimsvg || (function() {
 
     var applyTemplate = function(data) {
         var template = Handlebars.templates['cim2svg'];
-        var output = template(data);
-        console.log(output);
-        return output;
+        return template(data);
     };
 
     var loadFile = function(fileContents) {
         if (cimxml.moreXmlData(fileContents)) {
             baseJson = cimxml.getBaseJson();
+            console.log(baseJson);
             templateJson = cimjson.getTemplateJson(baseJson);
+            console.log(templateJson);
             svgNode.getElementById('diagram-elements').innerHTML = applyTemplate(templateJson);
         }
     };

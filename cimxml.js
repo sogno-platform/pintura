@@ -178,7 +178,6 @@ var cimxml = cimxml || (function() {
         rdfFileReceived++;
         if (checkIfParseReady()) {
             jsonBaseData = createObjectGraphFromXml(xmlDoc);
-            console.log(jsonBaseData);
             rdfFileReceived = 0;
             rdfFileCount = 0;
             return true;
