@@ -18,24 +18,6 @@
 
 var cimsvg = cimsvg || (function() {
 
-    var getDOM = function(text) {
-        let newDoc;
-        if ( window.DOMParser ) {
-            newDoc = ( new DOMParser() ).parseFromString( text, "application/xml" );
-        }
-        else if( window.ActiveXObject ) {
-            let xmlObject = new ActiveXObject( "Microsoft.XMLDOM" );
-            xmlObject.async = false;
-            xmlObject.loadXML( text );
-            newDoc = xmlObject;
-            xmlObject = undefined;
-        }
-        else {
-            throw new Error( "Cannot find an XML parser!" );
-        }
-        return newDoc;
-    };
-
     var includeFile = function(fileName) {
         let dom = svgNode.ownerDocument;
         let newTag = dom.createElement("script");
@@ -52,14 +34,15 @@ var cimsvg = cimsvg || (function() {
     };
 
     var loadFile = function(fileContents) {
-        if (cimjson.moreXmlData(fileContents)) {
-            data = cimjson.getJsonData();
-            svgNode.getElementById('diagram-elements').innerHTML = applyTemplate(data);
+        if (cimxml.moreXmlData(fileContents)) {
+            baseJson = cimxml.getBaseJson();
+            templateJson = cimjson.getTemplateJson(baseJson);
+            svgNode.getElementById('diagram-elements').innerHTML = applyTemplate(templateJson);
         }
     };
 
     var setFileCount = function(count) {
-        cimjson.setRdfFileCount(count);
+        cimxml.setRdfFileCount(count);
     };
 
     var svgNode = null;
@@ -76,6 +59,7 @@ var cimsvg = cimsvg || (function() {
     return {
         init : function(node) {
             svgNode = node;
+            includeFile("cimxml.js");
             includeFile("templates/template.js");
             includeFile("src/model/power/components.js");
             includeFile("src/model/diagram.js");
