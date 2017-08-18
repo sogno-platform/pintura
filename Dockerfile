@@ -1,9 +1,18 @@
 
 from nginx 
 
+run apt-get update
+run apt-get install -y curl gnupg
+run curl -sL https://deb.nodesource.com/setup_6.x | bash -s
+run apt-get install -y nodejs
 copy web/default.conf /etc/nginx/conf.d/
 run  mkdir -p /var/www/html/
 add  html.tgz /var/www/html/
-run  mkdir -p /etc/nginx
-add  ssl.tgz /etc/nginx
-expose 443
+run  curl https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.runtime.js -o /var/www/html/handlebars.runtime.js
+run  mkdir -p /etc/nginx/ssl
+run  openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/server.key \
+        -out /etc/nginx/ssl/server.crt \
+        -subj "/C=UK/ST=Warwickshire/L=Leamington/O=OrgName/OU=IT Department/CN=192.168.1.204"
+run npm install -g handlebars
+run /var/www/html/templates/compile.sh
+expose 8082

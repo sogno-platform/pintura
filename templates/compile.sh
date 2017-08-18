@@ -12,4 +12,8 @@ then
 fi
 
 # ok, do the work
-handlebars templates/cim2svg.handlebars templates/pintura2html.handlebars templates/pintura2diaglist.handlebars > templates/template.js
+handlebars \
+  /var/www/html/templates/cim2svg.handlebars \
+  /var/www/html/templates/pintura2html.handlebars \
+  /var/www/html/templates/pintura2diaglist.handlebars \
+> /var/www/html/templates/template.js
