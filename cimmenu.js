@@ -22,11 +22,20 @@ var cimmenu = cimmenu || (function() {
         console.log(this.getResponseHeader('content-type'));
     }
 
-    var populateSidebar = function(sidebar, rawXML) {
-        console.log(rawXML);
-        console.log(rawXML.childNodes.length);
-        console.log(rawXML.documentElement);
-        sidebar.querySelector('#raw').innerHTML = "some xml";
+    var populateSidebar = function(sidebar, templateJson) {
+        template = Handlebars.templates['pintura2diaglist'];
+        data = template(templateJson);
+        sidebar.querySelector('#diagrams').innerHTML = data;
+    };
+
+    populateRawXML = function(node, rawXML) {
+        var XMLS = new XMLSerializer();
+        var xmls = XMLS.serializeToString(rawXML);
+        node.querySelector('#raw').insertAdjacentHTML('afterbegin', xmls);
+    };
+
+    populatePinturaData = function(node, templateJson) {
+        node.querySelector('#pintura-data-text').innerHTML = JSON.stringify(templateJson, null, 4);
     };
 
     var loadXml = function(fileName, callback) {
@@ -79,6 +88,8 @@ var cimmenu = cimmenu || (function() {
         init,
         searchSidebar,
         populateSidebar,
+        populateRawXML,
+        populatePinturaData,
     };
 }());
 

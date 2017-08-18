@@ -12,4 +12,4 @@ then
 fi
 
 # ok, do the work
-handlebars templates/cim2svg.handlebars > templates/template.js
+handlebars templates/cim2svg.handlebars templates/pintura2html.handlebars templates/pintura2diaglist.handlebars > templates/template.js

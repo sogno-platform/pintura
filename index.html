@@ -34,13 +34,25 @@
              txt.classList.remove("svglabel-high");
            }
            var showContainer = function(id){
-                var x = document.getElementById(id);
-                if (x.className.indexOf("w3-show") == -1) {
-                    x.className += " w3-show";
-                } else {
-                    x.className = x.className.replace(" w3-show", "");
-                }
-            }
+             var x = document.getElementById(id);
+             if (x.className.indexOf("w3-show") == -1) {
+               x.className += " w3-show";
+             } else {
+               x.className = x.className.replace(" w3-show", "");
+             }
+           }
+           function showBigContainer(id, close=false) {
+             console.log("show big: "+id+close.toString());
+             var x = document.getElementById(id);
+             if (!close && x.className.indexOf("w3-show") == -1) {
+               x.className += " w3-show";
+               document.getElementById(id).style.width = "75%";
+               document.getElementById(id).style.display = "block";
+             } else {
+               x.className = x.className.replace(" w3-show", "");
+               document.getElementById(id).style.display = "none";
+             }
+           }
         </script>
     </head>
     <body id="body" style="overflow:hidden">
@@ -51,34 +63,37 @@
             <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Open File</a>
             <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Export File</a>
         </div>
+        <div id="pintura-data-sidebar" class="w3-sidebar w3-bar-block w3-hide" style="width:25%;right:0;top:50%;display:none">
+            <button onclick="showBigContainer('pintura-data-sidebar')" class="w3-bar-item w3-large">Close &times;</button>
+            <label class="w3-button">Pintura JSON</label>
+            <textarea id="pintura-data-text" rows="15" cols="140"></textarea>
+        </div>
+        <div id="cim-xml-sidebar" class="w3-sidebar w3-bar-block w3-hide" style="width:25%;right:0;top:50%;display:none">
+            <button onclick="showBigContainer('cim-xml-sidebar')" class="w3-bar-item w3-large">Close &times;</button>
+            <label class="w3-button">Raw XML</label>
+<!--
+            <label style="left:25%" id="searchRawXML">Search Raw CIM XML</label>
+            <input style="left:25%" type="text" oninput="cimmenu.searchRawXML(this.value)" > </input>
+-->
+            <textarea style="left:25" id="raw" rows="15" cols="140"></textarea>
+        </div>
         <div id="sidebar" class="w3-sidebar w3-blue-grey w3-border" style="position:fixed; top:5%;left:0;width:25%;margin-top:0%;height:95%;overflow-y:hidden">
             <button onclick="javascript:showContainer('diagrams')" class="w3-btn w3-block w3-grey w3-left-align">Diagrams</button>
             <div id="diagrams" class="w3-container w3-hide">
             </div>
             <button onclick="javascript:showContainer('search')" class="w3-btn w3-block w3-grey w3-left-align">All Components</button>
-            <div id="search" class="w3-container w3-hide" style="margin-top:0;height:95%;overflow-y:hidden">
+            <div id="search" class="w3-container w3-hide" style="margin-top:0;overflow-y:hidden">
                 <label id="searchSidebar">Search Components</label>
                 <input
                     type="text"
                     oninput="cimmenu.searchSidebar(this.value)" >
                 </input>
-                <div id="componentAccordion" class="w3-container" style="margin-top:0;height:95%;overflow-y:auto"></div>
+                <div id="componentAccordion" class="w3-container" style="margin-top:0;overflow-y:auto"></div>
             </div>
-<!--
-            <button onclick="javascript:showContainer('cimxml')" class="w3-btn w3-block w3-grey w3-left-align">Cim XML</button>
-            <div id="cimxml" class="w3-container w3-hide" style="margin-top:0;height:95%;overflow-y:hidden">
-                <label
-                    id="searchRawXML">Search Raw CIM XML</label>
-                <input
-                    type="text"
-                    oninput="cimmenu.searchRawXML(this.value)" >
-                </input>
-                <div id="rawXMLAccordion" class="w3-container" style="margin-top:0;height:95%;overflow-y:auto">
-                    <textarea id="raw" rows="50" cols="40">
-                    </textarea>
-                </div>
-            </div>
--->
+            <button onclick="javascript:showBigContainer('pintura-data-sidebar');showBigContainer('cim-xml-sidebar', true)"
+                    class="w3-btn w3-block w3-grey w3-left-align">Pintura Data</button>
+            <button onclick="javascript:showBigContainer('cim-xml-sidebar');showBigContainer('pintura-data-sidebar', true)"
+                    class="w3-btn w3-block w3-grey w3-left-align">Raw XML</button>
         </div>
         <div id="main" class="w3-main w3-light-grey" style="position:fixed;left:25%;top:5%;overflow:auto">
             <svg
@@ -98,6 +113,8 @@
             <script type="text/javascript">
                 cimsvg.init(document.getElementById("svg"));
                 cimsvg.addSidebar(document.getElementById("sidebar"));
+                cimsvg.addRawXML(document.getElementById("cim-xml-sidebar"));
+                cimsvg.addPinturaData(document.getElementById("pintura-data-sidebar"));
                 function readFile(e) {
                     var files = e.target.files; 
     	

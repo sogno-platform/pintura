@@ -7,12 +7,12 @@ html.tgz: css images index.html src templates/template.js handlebars.runtime.js
 	tar zcvf html.tgz css images index.html src *.js templates/template.js
 
 build_docker: html.tgz ssl.tgz
-	docker build --no-cache -t pintura .
+	docker build -t pintura .
 
 handlebars.runtime.js:
 	wget https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.runtime.js
 
-templates/template.js:
+templates/template.js: templates/cim2svg.handlebars templates/pintura2html.handlebars templates/pintura2diaglist.handlebars
 	templates/compile.sh
 
 ssl.tgz:

@@ -39,13 +39,14 @@ var cimjson = cimjson || (function() {
         return imageNames[type];
     }
 
-    var convertDiagramObjectToTemplateFormat = function(diagramObject, categoryGraph, categoryGraphName, diagramList) {
+    var convertDiagramObjectToTemplateFormat = function(diagramObject, graph, categoryGraphName, diagramList) {
 
         let originalPoints = diagramObject[PinturaDiagramObjectPoints];
         let preOffsetPoints = [];
         let imagePoints = [];
         let labelPoint;
         let object;
+        let categoryGraph = graph[categoryGraphName];
         const imageHeight = 12;
         const imageWidth = 12;
         if (diagramObject["cim:DiagramObject.IdentifiedObject"] != undefined) {
@@ -92,7 +93,7 @@ var cimjson = cimjson || (function() {
         }
         let diagram = diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1);
         if (diagramList[diagram] === undefined){
-            diagramList[diagram] = {};
+            diagramList[diagram] = { "pintura:name" : graph["cim:Diagram"][diagram]["cim:IdentifiedObject.name"] };
         }
         if (diagramObject["cim:DiagramObject.IdentifiedObject"]) {
             let identifiedObject = diagramObject["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
@@ -106,20 +107,15 @@ var cimjson = cimjson || (function() {
     var convertToTemplatableFormat = function(diagramObjects, graph) {
 
         let output = { 'Diagram' : {} };
+        let diagramList = output['Diagram'];
 
         for (categoryGraphName in imageNames) {
 
-            categoryGraph = graph[categoryGraphName];
-
-            /*
-             * Index the component graph by the identified object's id so we don't
-             * have to go hunting for the referenced object inside the diagram objects.
-             */
-            let diagramList = output['Diagram'];
+            let categoryGraph = graph[categoryGraphName];
             for (let key in categoryGraph) {
                 let diagramObject = diagramObjects[key];
                 if (diagramObject != undefined) {
-                    convertDiagramObjectToTemplateFormat(diagramObject, categoryGraph, categoryGraphName, diagramList);
+                    convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName, diagramList);
                 }
             }
         }

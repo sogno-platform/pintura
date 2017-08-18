@@ -19,6 +19,8 @@
 var cimsvg = cimsvg || (function() {
 
     var svgNode = null;
+    var xmlNode = null;
+    var pinturaNode = null;
     var sidebarNode = null;
 
     var includeFile = function(fileName) {
@@ -36,21 +38,19 @@ var cimsvg = cimsvg || (function() {
 
     var loadFile = function(fileContents) {
         if (cimxml.moreXmlData(fileContents)) {
-            console.log(cimxml.getRawXML().childNodes.length);
             baseJson = cimxml.getBaseJson();
-            console.log(cimxml.getRawXML().childNodes.length);
             console.log(baseJson);
             templateJson = cimjson.getTemplateJson(baseJson);
-            console.log(cimxml.getRawXML().childNodes.length);
             console.log(templateJson);
             svgNode.getElementById('diagram-elements').innerHTML = applyTemplate(templateJson);
-            console.log(cimxml.getRawXML().childNodes.length);
             if(sidebarNode != null) {
-                console.log(cimxml.getRawXML().childNodes.length);
-                cimmenu.populateSidebar(sidebarNode, cimxml.getRawXML());
+                cimmenu.populateSidebar(sidebarNode, templateJson);
             }
-            else {
-                console.log("Sidebar node null");
+            if(xmlNode != null) {
+                cimmenu.populateRawXML(xmlNode, cimxml.getRawXML());
+            }
+            if(pinturaNode != null) {
+                cimmenu.populatePinturaData(pinturaNode, templateJson);
             }
         }
     };
@@ -69,6 +69,14 @@ var cimsvg = cimsvg || (function() {
         cimmenu.init(sidebarNode);
     };
 
+    var addRawXML = function(node) {
+        xmlNode = node;
+    };
+
+    var addPinturaData = function(node) {
+        pinturaNode = node;
+    };
+
     return {
         init : function(node) {
             svgNode = node;
@@ -81,6 +89,8 @@ var cimsvg = cimsvg || (function() {
         loadFile,
         setFileCount,
         addSidebar,
+        addRawXML,
+        addPinturaData,
     };
 
 }());
