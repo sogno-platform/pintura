@@ -1,0 +1,8 @@
+{{#each Diagram}}
+  <button onclick="javascript:showContainer('{{@key}}')" class="w3-btn w3-block w3-grey w3-left-align">Diagram: {{pintura:name}} {{@key}}</button>
+  <div id="{{@key}}" class="w3-container w3-hide" style="margin-top:0;overflow-y:hidden">
+    <button onclick="javascript:showContainer('he')" class="w3-btn w3-block w3-grey w3-left-align">hehe</button>
+    <div id="he" class="w3-container w3-hide" style="margin-top:0;overflow-y:hidden">
+    </div>
+  </div>
+{{/each}}
