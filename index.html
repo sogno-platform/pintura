@@ -33,111 +33,110 @@
              let txt = document.getElementById(id+"-txt0");
              txt.classList.remove("svglabel-high");
            }
-           var showContainer = function(id){
+           var showContainer = function(id, hide="false"){
              var x = document.getElementById(id);
-             if (x.className.indexOf("w3-show") == -1) {
-               x.className += " w3-show";
+             if ((hide == "true") || (x.style.display == "block")) {
+               x.style.display = "none";
              } else {
-               x.className = x.className.replace(" w3-show", "");
+               x.style.display = "block";
              }
            }
-           function showBigContainer(id, close=false) {
-             console.log("show big: "+id+close.toString());
-             var x = document.getElementById(id);
-             if (!close && x.className.indexOf("w3-show") == -1) {
-               x.className += " w3-show";
-               document.getElementById(id).style.width = "75%";
-               document.getElementById(id).style.display = "block";
-             } else {
-               x.className = x.className.replace(" w3-show", "");
-               document.getElementById(id).style.display = "none";
-             }
+           function doSearch(inputId, textareaId) {
+               var searchStr=document.getElementById(inputId).value;
+               var box=document.getElementById(textareaId);
+               var index=box.value.indexOf(searchStr)*1.0;
+               var length=box.value.length*1.0;
+               box.setSelectionRange(index, index);
+               box.blur();
+               box.focus();
+               //box.scrollTop=(index/length)*100;
            }
         </script>
     </head>
-    <body id="body" style="overflow:hidden">
+    <body id="body" style="overflow:hidden;max-height:100%">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
         <link rel="stylesheet" href="css/svg.css"/>
-        <div id="menu" class="w3-bar w3-black w3-border" style="height:5%;position:fixed; top:0;left:0">
+        <link rel="stylesheet" href="css/layout.css"/>
+        <div id="menu" class="w3-bar w3-black">
             <input type="file" id="fileinput" style="display:none" multiple/>
             <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Open File</a>
             <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Export File</a>
         </div>
-        <div id="pintura-data-sidebar" class="w3-sidebar w3-bar-block w3-hide" style="width:25%;right:0;top:50%;display:none">
-            <button onclick="showBigContainer('pintura-data-sidebar')" class="w3-bar-item w3-large">Close &times;</button>
-            <label class="w3-button">Pintura JSON</label>
-            <textarea id="pintura-data-text" rows="15" cols="140"></textarea>
-        </div>
-        <div id="cim-xml-sidebar" class="w3-sidebar w3-bar-block w3-hide" style="width:25%;right:0;top:50%;display:none">
-            <button onclick="showBigContainer('cim-xml-sidebar')" class="w3-bar-item w3-large">Close &times;</button>
-            <label class="w3-button">Raw XML</label>
-<!--
-            <label style="left:25%" id="searchRawXML">Search Raw CIM XML</label>
-            <input style="left:25%" type="text" oninput="cimmenu.searchRawXML(this.value)" > </input>
--->
-            <textarea style="left:25" id="raw" rows="15" cols="140"></textarea>
-        </div>
-        <div id="sidebar" class="w3-sidebar w3-blue-grey w3-border" style="position:fixed; top:5%;left:0;width:25%;margin-top:0%;height:95%;overflow-y:hidden">
-            <button onclick="javascript:showContainer('diagrams')" class="w3-btn w3-block w3-grey w3-left-align">Diagrams</button>
-            <div id="diagrams" class="w3-container w3-hide">
-            </div>
-            <button onclick="javascript:showContainer('search')" class="w3-btn w3-block w3-grey w3-left-align">All Components</button>
-            <div id="search" class="w3-container w3-hide" style="margin-top:0;overflow-y:hidden">
-                <label id="searchSidebar">Search Components</label>
-                <input
-                    type="text"
-                    oninput="cimmenu.searchSidebar(this.value)" >
-                </input>
-                <div id="componentAccordion" class="w3-container" style="margin-top:0;overflow-y:auto"></div>
-            </div>
-            <button onclick="javascript:showBigContainer('pintura-data-sidebar');showBigContainer('cim-xml-sidebar', true)"
-                    class="w3-btn w3-block w3-grey w3-left-align">Pintura Data</button>
-            <button onclick="javascript:showBigContainer('cim-xml-sidebar');showBigContainer('pintura-data-sidebar', true)"
-                    class="w3-btn w3-block w3-grey w3-left-align">Raw XML</button>
-        </div>
-        <div id="main" class="w3-main w3-light-grey" style="position:fixed;left:25%;top:5%;overflow:auto">
-            <svg
-                id="svg"
-                width="1000"
-                height="1000"
-                viewBox="0 0 1024 768"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink" >
-                <rect id="backing"/>
-                <g id="grid"/>
-                <g id="diagram-elements"/>
-            </svg>
-            <script type="text/javascript" src="handlebars.runtime.js"></script>
-            <script type="text/javascript" src="cimsvg.js"></script>
-            <script type="text/javascript" src="cimmenu.js"></script>
-            <script type="text/javascript">
-                cimsvg.init(document.getElementById("svg"));
-                cimsvg.addSidebar(document.getElementById("sidebar"));
-                cimsvg.addRawXML(document.getElementById("cim-xml-sidebar"));
-                cimsvg.addPinturaData(document.getElementById("pintura-data-sidebar"));
-                function readFile(e) {
-                    var files = e.target.files; 
-    	
-                    if (files) {
-                        cimsvg.setFileCount(files.length);
-                        for (var i=0, f; f=files[i]; i++) {
-                            if (!f) {
-                                return;
+        <div id="middle" style="overflow-y:auto">
+            <div id="sidebar" class="w3-blue-grey" style="overflow-y:auto">
+                <button onclick="javascript:showContainer('diagrams')" class="w3-btn w3-block w3-grey">Diagrams</button>
+                <div id="diagrams" class="w3-container" style="display:none">
+                </div>
+                <button onclick="javascript:showContainer('pintura-data-sidebar');showContainer('cim-xml-sidebar', 'true');"
+                        class="w3-button w3-grey">Pintura Data</button>
+                <button onclick="javascript:showContainer('cim-xml-sidebar');showContainer('pintura-data-sidebar', 'true');"
+                        class="w3-button w3-grey">Raw XML</button>
+                <button onclick="javascript:showContainer('search');" class="w3-button w3-grey">All Components</button>
+                <div id="search" class="w3-container" style="display:none;overflow-y:auto">
+                    <label id="searchSidebar">Search Components</label>
+                    <input
+                        type="text"
+                        oninput="cimmenu.searchSidebar(this.value)" >
+                    </input>
+                    <div id="componentAccordion" ></div>
+                </div>
+            </div>          <!-- end of sidebar div -->
+            <div id="main" class="w3-light-grey" style="background:grey;overflow:hidden">
+                <svg
+                    id="svg"
+                    width="1024"
+                    height="768"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" >
+                    <rect id="backing"/>
+                    <g id="grid"/>
+                    <g id="diagram-elements"/>
+                </svg>
+                <div class="w3-container data-panel" id="pintura-data-sidebar" style="display:none">
+                    <label class="w3-bar-item w3-large w3-button data-panel-label">Pintura JSON</label>
+                    <button class="w3-bar-item w3-button data-panel-button" onclick="showContainer('pintura-data-sidebar')">Close &times;</button>
+                    <textarea class="data-panel-text" id="pintura-data-text"></textarea>
+                </div>
+                <div class="w3-container data-panel" id="cim-xml-sidebar" style="display:none">
+                    <label class="w3-bar-item w3-large w3-button">Raw XML</label>
+                    <button class="w3-bar-item w3-button data-panel-button" onclick="showContainer('cim-xml-sidebar')">Close &times;</button>
+                        <input class="data-search-input"
+                               id="cim-xml-search"
+                               type="text" onkeyup="if (event.keyCode == 13) doSearch('cim-xml-search', 'cim-xml-textarea');">
+                        </input>
+                    <textarea class="data-panel-text" class="data-panel-text" id="cim-xml-textarea"></textarea>
+                </div>
+                <script type="text/javascript" src="handlebars.runtime.js"></script>
+                <script type="text/javascript" src="cimsvg.js"></script>
+                <script type="text/javascript" src="cimmenu.js"></script>
+                <script type="text/javascript">
+                    cimsvg.init(document.getElementById("svg"));
+                    cimsvg.addSidebar(document.getElementById("sidebar"));
+                    cimsvg.addRawXML(document.getElementById("cim-xml-sidebar"));
+                    cimsvg.addPinturaData(document.getElementById("pintura-data-sidebar"));
+                    function readFile(e) {
+                        var files = e.target.files;
+                        if (files) {
+                            cimsvg.setFileCount(files.length);
+                            for (var i=0, f; f=files[i]; i++) {
+                                if (!f) {
+                                    return;
+                                }
+                                var reader = new FileReader();
+                                reader.onload = function(e) {
+                                    var contents = e.target.result;
+                                    loadContents(contents);
+                                };
+                                reader.readAsText(f);
                             }
-                            var reader = new FileReader();
-                            reader.onload = function(e) {
-                                var contents = e.target.result;
-                                loadContents(contents);
-                            };
-                            reader.readAsText(f);
                         }
-                    }
-                };
-                function loadContents(contents) {
-                    cimsvg.loadFile(contents);
-                };
-                document.getElementById("fileinput").addEventListener('change', readFile, false);
-            </script>
-        </div>
+                    };
+                    function loadContents(contents) {
+                        cimsvg.loadFile(contents);
+                    };
+                    document.getElementById("fileinput").addEventListener('change', readFile, false);
+                </script>
+            </div>          <!-- end of main svg div -->
+        </div>              <!-- end of middle div -->
     </body>
 </html>

@@ -1,0 +1,93 @@
+
+/* tag name are just so.
+   id begins with #
+   class begins with . */
+
+/* body contains menu and middle
+   arranged in a column */
+html, body {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+}
+button {
+    min-height: 40px;
+}
+/* middle contains the sidebar and
+   the main content in a row so they
+   are next to each other */
+#middle {
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex: 1;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.data-panel-text {
+    height:100%;
+    width:100%;
+}
+.data-panel {
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex: 1;
+    flex-grow: 1;
+}
+/* sidebar is a column of menu items
+   to the right of middle section */
+#sidebar {
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-wrap: nowrap;
+    order: -1;
+    width: 100px;
+    min-width: 100px;
+}
+/* main contains the svg and optionally
+   the raw xml or pintura data object
+   it is to the right of middle*/
+#main {
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    flex-grow: 2;
+    order: 1;
+}
+svg {
+    flex: 1;
+    flex-grow: 1;
+}
+@media all and (max-width: 1000px) {
+    #middle {
+        flex-direction: column;
+    }
+    #sidebar {
+        width: 100%;
+    }
+    #main {
+    }
+}
