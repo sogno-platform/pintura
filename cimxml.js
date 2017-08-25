@@ -7,7 +7,6 @@ var cimxml = cimxml || (function() {
     const xmlnsString = "xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:cim='http://iec.ch/TC57/2012/CIM-schema-cim16#' xmlns:md='http://iec.ch/TC57/61970-552/ModelDescription/1#' xmlns:entsoe='http://entsoe.eu/Secretariat/ProfileExtension/2#'";
 
     var getRawXML = function() {
-        console.log(xmlDoc);
         return xmlDoc;
     };
 

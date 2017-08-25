@@ -39,9 +39,7 @@ var cimsvg = cimsvg || (function() {
     var loadFile = function(fileContents) {
         if (cimxml.moreXmlData(fileContents)) {
             baseJson = cimxml.getBaseJson();
-            console.log(baseJson);
             templateJson = cimjson.getTemplateJson(baseJson);
-            console.log(templateJson);
             svgNode.getElementById('diagram-elements').innerHTML = applyTemplate(templateJson);
             if(sidebarNode != null) {
                 cimmenu.populateSidebar(sidebarNode, templateJson);

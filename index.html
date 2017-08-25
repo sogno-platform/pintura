@@ -17,7 +17,6 @@
 -->
 <!DOCTYPE HTML>
 <html>
-
     <head>
         <title>Pintura</title>
         <script type="text/javascript">
@@ -34,15 +33,19 @@
              txt.classList.remove("svglabel-high");
            }
            var showContainer = function(container, icon, hide="false"){
-             var x = document.getElementById(container);
-             var y = document.getElementById(icon);
-             if ((hide == "true") || (x.style.display == "block")) {
-               x.style.display = "none";
-               y.innerHTML = '&nbsp;&crarr;';
-             } else {
-               x.style.display = "block";
-               y.innerHTML = '&nbsp;&darr;';
-             }
+               var x = document.getElementById(container);
+               var y = document.getElementById(icon);
+               if ((hide == "true") || (x.style.display == "block")) {
+                   x.style.display = "none";
+                   if (y != undefined) {
+                       y.innerHTML = '&nbsp;&crarr;';
+                   }
+               } else {
+                   x.style.display = "block";
+                   if (y != undefined) {
+                       y.innerHTML = '&nbsp;&darr;';
+                   }
+               }
            }
            function doSearch(inputId, textareaId) {
                var searchStr=document.getElementById(inputId).value;
@@ -67,12 +70,12 @@
         </div>
         <div id="middle">
             <div id="sidebar" class="w3-blue-grey">
-                <button onclick="javascript:showContainer('diagrams')" class="w3-btn w3-block w3-grey">Diagrams</button>
+                <button onclick="javascript:showContainer('diagrams', null)" class="w3-btn w3-block w3-grey">Diagrams</button>
                 <div id="diagrams" class="w3-container" style="display:none">
                 </div>
-                <button onclick="javascript:showContainer('pintura-data-sidebar');showContainer('cim-xml-sidebar', 'true');"
+                <button onclick="javascript:showContainer('pintura-data-sidebar', null);showContainer('cim-xml-sidebar', null, 'true');"
                         class="w3-button w3-grey">Pintura Data</button>
-                <button onclick="javascript:showContainer('cim-xml-sidebar');showContainer('pintura-data-sidebar', 'true');"
+                <button onclick="javascript:showContainer('cim-xml-sidebar', null);showContainer('pintura-data-sidebar', null, 'true');"
                         class="w3-button w3-grey">Raw XML</button>
                 <button
                         onclick="javascript:showContainer('search', 'cim-xml-drop');"

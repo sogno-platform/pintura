@@ -19,7 +19,7 @@
 var cimmenu = cimmenu || (function() {
 
     function handler() {
-        console.log(this.getResponseHeader('content-type'));
+        //console.log(this.getResponseHeader('content-type'));
     }
 
     var populateSidebar = function(sidebar, templateJson) {
@@ -73,7 +73,6 @@ var cimmenu = cimmenu || (function() {
     };
 
     var init = function(sidebarNode) {
-        console.log(sidebarNode)
         xsltProcessor = new XSLTProcessor();
         loadXml("src/model/power/cim_xml_scheme_test.xslt", function(xslt) {
             xsltProcessor.importStylesheet(xslt);
