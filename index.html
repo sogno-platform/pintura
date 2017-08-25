@@ -33,12 +33,15 @@
              let txt = document.getElementById(id+"-txt0");
              txt.classList.remove("svglabel-high");
            }
-           var showContainer = function(id, hide="false"){
-             var x = document.getElementById(id);
+           var showContainer = function(container, icon, hide="false"){
+             var x = document.getElementById(container);
+             var y = document.getElementById(icon);
              if ((hide == "true") || (x.style.display == "block")) {
                x.style.display = "none";
+               y.innerHTML = '&nbsp;&crarr;';
              } else {
                x.style.display = "block";
+               y.innerHTML = '&nbsp;&darr;';
              }
            }
            function doSearch(inputId, textareaId) {
@@ -53,7 +56,7 @@
            }
         </script>
     </head>
-    <body id="body" style="overflow:hidden;max-height:100%">
+    <body id="body">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
         <link rel="stylesheet" href="css/svg.css"/>
         <link rel="stylesheet" href="css/layout.css"/>
@@ -62,8 +65,8 @@
             <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Open File</a>
             <a href="#" class="w3-button" type="file" id="upload-file" onclick="javascript:fileinput.click()">Export File</a>
         </div>
-        <div id="middle" style="overflow-y:auto">
-            <div id="sidebar" class="w3-blue-grey" style="overflow-y:auto">
+        <div id="middle">
+            <div id="sidebar" class="w3-blue-grey">
                 <button onclick="javascript:showContainer('diagrams')" class="w3-btn w3-block w3-grey">Diagrams</button>
                 <div id="diagrams" class="w3-container" style="display:none">
                 </div>
@@ -71,17 +74,23 @@
                         class="w3-button w3-grey">Pintura Data</button>
                 <button onclick="javascript:showContainer('cim-xml-sidebar');showContainer('pintura-data-sidebar', 'true');"
                         class="w3-button w3-grey">Raw XML</button>
-                <button onclick="javascript:showContainer('search');" class="w3-button w3-grey">All Components</button>
-                <div id="search" class="w3-container" style="display:none;overflow-y:auto">
-                    <label id="searchSidebar">Search Components</label>
-                    <input
-                        type="text"
-                        oninput="cimmenu.searchSidebar(this.value)" >
-                    </input>
+                <button
+                        onclick="javascript:showContainer('search', 'cim-xml-drop');"
+                        class="row w3-button w3-grey">
+                    <span style="flex-grow: 1">All Components</span>
+                    <span style="flex-grow: 1" id="cim-xml-drop">&nbsp;&crarr;</span></button>
+                <div id="search" class="w3-container">
+                    <div class="row">
+                        <input size="10"
+                            type="text"
+                            oninput="cimmenu.searchSidebar(this.value)" >
+                        </input>
+                        <label class="w3-label w3-button" id="searchSidebar">&#x2315;</label>
+                    </div>
                     <div id="componentAccordion" ></div>
                 </div>
             </div>          <!-- end of sidebar div -->
-            <div id="main" class="w3-light-grey" style="background:grey;overflow:hidden">
+            <div id="main" class="w3-light-grey">
                 <svg
                     id="svg"
                     width="1024"
@@ -99,12 +108,12 @@
                 </div>
                 <div class="w3-container data-panel" id="cim-xml-sidebar" style="display:none">
                     <label class="w3-bar-item w3-large w3-button">Raw XML</label>
-                    <button class="w3-bar-item w3-button data-panel-button" onclick="showContainer('cim-xml-sidebar')">Close &times;</button>
+                    <button class="w3-bar-item w3-button data-panel-button" onclick="showContainer('cim-xml-sidebar')">Close &#x21b4; &uarr;</button>
                         <input class="data-search-input"
                                id="cim-xml-search"
                                type="text" onkeyup="if (event.keyCode == 13) doSearch('cim-xml-search', 'cim-xml-textarea');">
                         </input>
-                    <textarea class="data-panel-text" class="data-panel-text" id="cim-xml-textarea"></textarea>
+                    <textarea class="data-panel-text" id="cim-xml-textarea"></textarea>
                 </div>
                 <script type="text/javascript" src="handlebars.runtime.js"></script>
                 <script type="text/javascript" src="cimsvg.js"></script>

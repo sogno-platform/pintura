@@ -16,6 +16,8 @@ html, body {
     box-sizing: border-box;
     height: 100%;
     width: 100%;
+    overflow:hidden;
+    max-height:100%;
 }
 button {
     min-height: 40px;
@@ -32,6 +34,13 @@ button {
     flex: 1;
     flex-direction: row;
     flex-wrap: nowrap;
+    overflow-y:auto;
+}
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    min-height: 40px;
 }
 .data-panel-text {
     height:100%;
@@ -60,8 +69,14 @@ button {
     flex-grow: 1;
     flex-wrap: nowrap;
     order: -1;
-    width: 100px;
-    min-width: 100px;
+    width: 120px;
+    min-width: 120px;
+    overflow-y:auto;
+}
+#search {
+    display:none;
+    overflow-x:hidden;
+    overflow-y:auto;
 }
 /* main contains the svg and optionally
    the raw xml or pintura data object
@@ -76,6 +91,7 @@ button {
     flex-wrap: nowrap;
     flex-grow: 2;
     order: 1;
+    overflow:hidden;
 }
 svg {
     flex: 1;
