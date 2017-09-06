@@ -19,45 +19,6 @@
 <html>
     <head>
         <title>Pintura</title>
-        <script type="text/javascript">
-           var onMouseMove = function(){
-           }
-           var onMouseOver = function(evt){
-             let id = evt.currentTarget.id.slice(0,-5);
-             let txt = document.getElementById(id+"-txt0");
-             txt.classList.add("svglabel-high");
-           }
-           var onMouseLeave = function(evt){
-             let id = evt.currentTarget.id.slice(0,-5);
-             let txt = document.getElementById(id+"-txt0");
-             txt.classList.remove("svglabel-high");
-           }
-           var showContainer = function(container, icon, hide="false"){
-               var x = document.getElementById(container);
-               var y = document.getElementById(icon);
-               if ((hide == "true") || (x.style.display == "block")) {
-                   x.style.display = "none";
-                   if (y != undefined) {
-                       y.innerHTML = '&nbsp;&crarr;';
-                   }
-               } else {
-                   x.style.display = "block";
-                   if (y != undefined) {
-                       y.innerHTML = '&nbsp;&darr;';
-                   }
-               }
-           }
-           function doSearch(inputId, textareaId) {
-               var searchStr=document.getElementById(inputId).value;
-               var box=document.getElementById(textareaId);
-               var index=box.value.indexOf(searchStr)*1.0;
-               var length=box.value.length*1.0;
-               box.setSelectionRange(index, index);
-               box.blur();
-               box.focus();
-               //box.scrollTop=(index/length)*100;
-           }
-        </script>
     </head>
     <body id="body">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
@@ -118,6 +79,7 @@
                         </input>
                     <textarea class="data-panel-text" id="cim-xml-textarea"></textarea>
                 </div>
+                <script type="text/javascript" src="index.js"> </script>
                 <script type="text/javascript" src="handlebars.runtime.js"></script>
                 <script type="text/javascript" src="cimsvg.js"></script>
                 <script type="text/javascript" src="cimmenu.js"></script>
@@ -126,26 +88,6 @@
                     cimsvg.addSidebar(document.getElementById("sidebar"));
                     cimsvg.addRawXML(document.getElementById("cim-xml-sidebar"));
                     cimsvg.addPinturaData(document.getElementById("pintura-data-sidebar"));
-                    function readFile(e) {
-                        var files = e.target.files;
-                        if (files) {
-                            cimsvg.setFileCount(files.length);
-                            for (var i=0, f; f=files[i]; i++) {
-                                if (!f) {
-                                    return;
-                                }
-                                var reader = new FileReader();
-                                reader.onload = function(e) {
-                                    var contents = e.target.result;
-                                    loadContents(contents);
-                                };
-                                reader.readAsText(f);
-                            }
-                        }
-                    };
-                    function loadContents(contents) {
-                        cimsvg.loadFile(contents);
-                    };
                     document.getElementById("fileinput").addEventListener('change', readFile, false);
                 </script>
             </div>          <!-- end of main svg div -->
