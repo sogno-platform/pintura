@@ -41,25 +41,26 @@ function doSearch(inputId, textareaId) {
     box.setSelectionRange(startIndexStr, endIndexStr);//searchStr.length);
     //box.scrollTop=(index/length)*100;
 }
-                    function readFile(e) {
-                        var files = e.target.files;
-                        if (files) {
-                            cimsvg.setFileCount(files.length);
-                            for (var i=0, f; f=files[i]; i++) {
-                                if (!f) {
-                                    return;
-                                }
-                                var reader = new FileReader();
-                                reader.onload = function(e) {
-                                    var contents = e.target.result;
-                                    loadContents(contents);
-                                };
-                                reader.readAsText(f);
-                            }
-                        }
-                    };
-                    function loadContents(contents) {
-                        cimsvg.loadFile(contents);
-                    };
-                    document.getElementById("fileinput").addEventListener('change', readFile, false);
+function readFile(e) {
+    console.log("reading file")
+    var files = e.target.files;
+    if (files) {
+        cimsvg.setFileCount(files.length);
+        for (var i=0, f; f=files[i]; i++) {
+            if (!f) {
+                return;
+            }
+            var reader = new FileReader();
+                reader.onload = function(e) {
+                var contents = e.target.result;
+                loadContents(contents);
+            };
+            reader.readAsText(f);
+        }
+    }
+};
+function loadContents(contents) {
+    console.log("loading contents")
+    cimsvg.loadFile(contents);
+};
 

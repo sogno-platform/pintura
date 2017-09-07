@@ -73,7 +73,7 @@ button {
     min-width: 120px;
     overflow-y:auto;
 }
-#search {
+#component-search {
     display:none;
     overflow-x:hidden;
     overflow-y:auto;

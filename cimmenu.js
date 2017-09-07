@@ -31,7 +31,7 @@ var cimmenu = cimmenu || (function() {
     populateRawXML = function(node, rawXML) {
         var XMLS = new XMLSerializer();
         var xmls = XMLS.serializeToString(rawXML);
-        node.querySelector('#cim-xml-textarea').insertAdjacentHTML('afterbegin', xmls);
+        node.querySelector('#cim-xml-text').insertAdjacentHTML('afterbegin', xmls);
     };
 
     populatePinturaData = function(node, templateJson) {
@@ -78,7 +78,7 @@ var cimmenu = cimmenu || (function() {
             xsltProcessor.importStylesheet(xslt);
             loadXml("src/model/power/cim_xml_scheme_test.xsd", function(xsd) {
                 let components = xsltProcessor.transformToFragment(xsd, sidebarNode.ownerDocument);
-                sidebarNode.querySelector('#componentAccordion').append(components);
+                sidebarNode.querySelector('#component-search-accordion').append(components);
             });
         });
     };
