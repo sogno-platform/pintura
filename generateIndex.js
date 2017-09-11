@@ -248,7 +248,7 @@ var setup = `
                     cimsvg.addSidebar(document.getElementById("sidebar"));
                     cimsvg.addRawXML(document.getElementById("cim-xml-sidebar"));
                     cimsvg.addPinturaData(document.getElementById("pintura-data-sidebar"));
-                    document.getElementById("fileinput").addEventListener('change', readFile, false);`
+                    document.getElementById("fileopen").addEventListener('change', readFile, false);`
 
 var main = tag('div',
                [ attr('id', '"main"') ],

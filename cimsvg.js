@@ -83,6 +83,9 @@ var cimsvg = cimsvg || (function() {
             includeFile("src/model/power/components.js");
             includeFile("src/model/diagram.js");
             includeFile("src/model/cimjson.js");
+            includeFile("cimview.js");
+            includeFile("cimcontrol.js");
+            cimview.init(svgNode);
         },
         loadFile,
         setFileCount,
