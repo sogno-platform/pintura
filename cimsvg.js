@@ -23,12 +23,17 @@ var cimsvg = cimsvg || (function() {
     var pinturaNode = null;
     var sidebarNode = null;
 
-    var includeFile = function(fileName) {
+    var includeFile = function(fileName, callback) {
         let dom = svgNode.ownerDocument;
         let newTag = dom.createElement("script");
         newTag.type = "text/javascript";
         newTag.src=fileName;
-        svgNode.appendChild(newTag);
+        if ( callback != undefined ) {
+            newTag.onload=function() {
+                callback();
+            };
+        }
+        svgNode.parentElement.appendChild(newTag);
     };
 
     var applyTemplate = function(data) {
@@ -75,17 +80,25 @@ var cimsvg = cimsvg || (function() {
         pinturaNode = node;
     };
 
+    var loadViewAndMenu = function() {
+        includeFile("cimview.js", function() {
+            cimview.init(svgNode);
+        });
+        includeFile("cimmenu.js", function() {
+            cimmenu.init(sidebarNode);
+        });
+    };
+
     return {
-        init : function(node) {
+        init : function(node, side) {
             svgNode = node;
+            sidebarNode = side;
+            includeFile("handlebars.runtime.js", loadViewAndMenu);
             includeFile("cimxml.js");
             includeFile("templates/template.js");
             includeFile("src/model/power/components.js");
             includeFile("src/model/diagram.js");
             includeFile("src/model/cimjson.js");
-            includeFile("cimview.js");
-            includeFile("cimcontrol.js");
-            cimview.init(svgNode);
         },
         loadFile,
         setFileCount,

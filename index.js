@@ -1,3 +1,10 @@
+
+
+cimsvg.init(document.getElementById("svg"), document.getElementById("sidebar"));
+cimsvg.addRawXML(document.getElementById("cim-xml-sidebar"));
+cimsvg.addPinturaData(document.getElementById("pintura-data-sidebar"));
+document.getElementById("fileopen").addEventListener('change', readFile, false);
+
 document.onkeydown = function(evt) {
     evt = evt || window.event;
     let key_press = String.fromCharCode(evt.charCode || evt.keyCode);
