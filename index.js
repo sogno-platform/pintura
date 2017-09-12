@@ -8,7 +8,6 @@ document.getElementById("fileopen").addEventListener('change', readFile, false);
 document.onkeydown = function(evt) {
     evt = evt || window.event;
     let key_press = String.fromCharCode(evt.charCode || evt.keyCode);
-    console.log(evt.keyCode);
 
     /* ctrl + up key */
     if (evt.ctrlKey && (evt.keyCode == 38)) {
@@ -79,7 +78,6 @@ function doSearch(inputId, textareaId) {
     //box.scrollTop=(index/length)*100;
 }
 function readFile(e) {
-    console.log("reading file")
     var files = e.target.files;
     if (files) {
         cimsvg.setFileCount(files.length);
@@ -97,7 +95,6 @@ function readFile(e) {
     }
 };
 function loadContents(contents) {
-    console.log("loading contents")
     cimsvg.loadFile(contents);
 };
 

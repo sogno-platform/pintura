@@ -33,7 +33,6 @@ var cimview = cimview || (function() {
     var zoomLevel = 0;
 
     var zoomToLevel = function(level) {
-        console.log("zoomToLevel"+level);
         zoomLevel = level;
         let rect = getViewBox();
         centreOfGrid = { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };

@@ -243,13 +243,6 @@ var largeTextBox = function(idBase, text) {
               ])
 }
 
-var setup = ` 
-                    cimsvg.init(document.getElementById("svg"));
-                    cimsvg.addSidebar(document.getElementById("sidebar"));
-                    cimsvg.addRawXML(document.getElementById("cim-xml-sidebar"));
-                    cimsvg.addPinturaData(document.getElementById("pintura-data-sidebar"));
-                    document.getElementById("fileopen").addEventListener('change', readFile, false);`
-
 var main = tag('div',
                [ attr('id', '"main"') ],
                [
@@ -259,30 +252,13 @@ var main = tag('div',
                  tag('script',
                      [
                        attr('type', '"text/javascript"'),
-                       attr('src', '"index.js"'),
-                     ], [], " "),
-                 tag('script',
-                     [
-                       attr('type', '"text/javascript"'),
-                       attr('src', '"handlebars.runtime.js"'),
-                     ], [], " "),
-                 tag('script',
-                     [
-                       attr('type', '"text/javascript"'),
                        attr('src', '"cimsvg.js"'),
                      ], [], " "),
                  tag('script',
                      [
                        attr('type', '"text/javascript"'),
-                       attr('src', '"cimmenu.js"'),
+                       attr('src', '"index.js"'),
                      ], [], " "),
-                 tag('script',
-                     [
-                       attr('type', '"text/javascript"'),
-                     ],
-                     [],
-                     setup
-                    ),
                ])
 
 var middle = tag('div', [ attr('id', '"middle"') ], [ sidebar, main ])
@@ -306,10 +282,10 @@ var makeFileMenuItem = function (text, input_name, action) {
   ]
 }
 
-var fileopen = makeFileMenuItem ('Open to file', 'fileopen', 'fileopen.click()')
-var fileexport =makeFileMenuItem('Export to file', 'fileinput', 'fileinput.click()')
+var fileopen = makeFileMenuItem ('Open file', 'fileopen', 'fileopen.click()')
+var fileexport = makeFileMenuItem('Export to file', 'fileinput', 'fileinput.click()')
 
-var makeFileMenu = [ fileopen, fileexport ]
+var makeFileMenu = [ fileopen ]
 
 var menu = tag('div',
                [
