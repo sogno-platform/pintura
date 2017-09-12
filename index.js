@@ -14,23 +14,23 @@ document.onkeydown = function(evt) {
         cimview.zoomIn();
     }
     /* ctrl + down key */
-    if (evt.ctrlKey && (evt.keyCode == 40)) {
+    else if (evt.ctrlKey && (evt.keyCode == 40)) {
         cimview.zoomOut();
     }
     /* left key */
-    if (evt.keyCode == 37) {
+    else if (evt.keyCode == 37) {
         cimview.pan({ x: -50, y: 0 });
     }
     /* up key */
-    if (evt.keyCode == 38) {
+    else if (evt.keyCode == 38) {
         cimview.pan({ x: 0, y: -50 });
     }
     /* right key */
-    if (evt.keyCode == 39) {
+    else if (evt.keyCode == 39) {
         cimview.pan({ x: 50, y: 0 });
     }
     /* down key */
-    if (evt.keyCode == 40) {
+    else if (evt.keyCode == 40) {
         cimview.pan({ x: 0, y: 50 });
     }
 };
