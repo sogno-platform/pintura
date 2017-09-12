@@ -166,8 +166,8 @@ var cimview = cimview || (function() {
         let bg = svgNode.getElementById("backing");
         bg.setAttribute("x", rect.x);
         bg.setAttribute("y", rect.y);
-        bg.setAttribute("width", rect.width);
-        bg.setAttribute("height", rect.height);
+        bg.setAttribute("width", "100%");
+        bg.setAttribute("height", "100%");
         createGrid();
     };
 
@@ -187,7 +187,6 @@ var cimview = cimview || (function() {
         svgNode = svg; 
         let rect = { x: "0", y: "0", width: "1024", height: "768" };
         setViewBox(rect);
-        createGrid();
     };
 
     /*

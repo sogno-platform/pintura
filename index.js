@@ -19,19 +19,19 @@ document.onkeydown = function(evt) {
     }
     /* left key */
     else if (evt.keyCode == 37) {
-        cimview.pan({ x: -50, y: 0 });
+        cimview.pan({ x: -10, y: 0 });
     }
     /* up key */
     else if (evt.keyCode == 38) {
-        cimview.pan({ x: 0, y: -50 });
+        cimview.pan({ x: 0, y: -10 });
     }
     /* right key */
     else if (evt.keyCode == 39) {
-        cimview.pan({ x: 50, y: 0 });
+        cimview.pan({ x: 10, y: 0 });
     }
     /* down key */
     else if (evt.keyCode == 40) {
-        cimview.pan({ x: 0, y: 50 });
+        cimview.pan({ x: 0, y: 10 });
     }
 };
 var onMouseMove = function(){

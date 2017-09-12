@@ -69,8 +69,9 @@ button {
     flex-grow: 1;
     flex-wrap: nowrap;
     order: -1;
-    width: 120px;
-    min-width: 120px;
+    width: 300px;
+    min-width: 200px;
+    max-width: 400px;
     overflow-y:auto;
 }
 #component-search {
@@ -89,21 +90,14 @@ button {
     display: -webkit-flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    flex-grow: 2;
-    order: 1;
+    flex-grow: -1;
+    order: 2;
     overflow:hidden;
+    height:100%;
 }
-svg {
+#diagram {
     flex: 1;
     flex-grow: 1;
-}
-@media all and (max-width: 1000px) {
-    #middle {
-        flex-direction: column;
-    }
-    #sidebar {
-        width: 100%;
-    }
-    #main {
-    }
+    width: auto;
+    height: 100%;
 }
