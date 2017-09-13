@@ -185,7 +185,7 @@ var cimview = cimview || (function() {
 
     var init = function(svg) {
         svgNode = svg; 
-        let rect = { x: "0", y: "0", width: "1024", height: "768" };
+        let rect = { x: "-100", y: "-100", width: "1024", height: "768" };
         setViewBox(rect);
     };
 
