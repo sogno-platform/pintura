@@ -16,4 +16,6 @@ run  openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/
 run npm install -g handlebars
 env template_dir=/var/www/html/templates
 run ${template_dir}/compile.sh $template_dir
+run node /var/www/html/generateIndex.js > /var/www/html/index.html
+run rm /var/www/html/generateIndex.js
 expose 8082
