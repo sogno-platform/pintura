@@ -72,6 +72,21 @@ var cimmenu = cimmenu || (function() {
         }
     };
 
+    var selectComponentType = function(type) {
+        var elements = document.getElementsByClassName('component-type-accordion');
+        for (var i=0; i<elements.length; i++)
+        {
+            elementIdSubStringLength = elements[i].id.length - 10;
+            let elementId = elements[i].id.substring( 0, elementIdSubStringLength ).toUpperCase();
+            if ( elementId == type.toUpperCase() ) {
+                elements[i].style='display:inline';
+            }
+            else {
+                elements[i].style='display:none';
+            }
+        }
+    };
+
     var init = function(sidebarNode) {
         xsltProcessor = new XSLTProcessor();
         loadXml("src/model/power/cim_xml_scheme_test.xslt", function(xslt) {
@@ -89,6 +104,7 @@ var cimmenu = cimmenu || (function() {
         populateSidebar,
         populateRawXML,
         populatePinturaData,
+        selectComponentType,
     };
 }());
 
