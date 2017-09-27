@@ -20,3 +20,6 @@ templates: templates/templates.js
 template_dir=$(PWD)/templates
 templates/templates.js:
 	${template_dir}/compile.sh ${template_dir}
+
+run:
+	docker run -p 8082:443 pintura:latest
