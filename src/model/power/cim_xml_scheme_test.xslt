@@ -10,12 +10,21 @@
         <xsl:for-each select="xs:schema/xs:complexType">
         <xsl:sort select="@name"/>
             <p>
-            <a href="#"
-                class="component-list-item w3-bar-item w3-button"
-                id="componentTypeFilter"
-                onclick="javascript:cimmenu.filterByComponentType(this.innerHTML)">
-                    <xsl:value-of select="@name" />
-            </a>
+                <a href="#"
+                    class="component-list-item w3-bar-item w3-button"
+                    id="componentTypeFilter"
+                    onclick="javascript:cimmenu.selectComponentType(this.innerHTML)">
+                        <xsl:value-of select="@name"/>
+                </a>
+                <div class="component-type-accordion">
+                    <xsl:attribute name="id">
+                        <xsl:variable name="post" select="'-accordion'"/>
+                        <xsl:value-of select="concat(@name, $post)"/>
+                    </xsl:attribute>
+                    <xsl:attribute name="style">
+                        <xsl:value-of select="'display:none'"/>
+                    </xsl:attribute>
+                </div>
             </p>
         </xsl:for-each>
     </xsl:template>
