@@ -97,10 +97,13 @@ var cimjson = cimjson || (function() {
         }
         if (diagramObject["cim:DiagramObject.IdentifiedObject"]) {
             let identifiedObject = diagramObject["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
-            if (diagramList[diagram][categoryGraphName] === undefined){
-                diagramList[diagram][categoryGraphName] = {};
+            if (diagramList[diagram]["components"] === undefined){
+                diagramList[diagram]["components"] = {};
             }
-            diagramList[diagram][categoryGraphName][identifiedObject] = object;
+            if (diagramList[diagram]["components"][categoryGraphName] === undefined){
+                diagramList[diagram]["components"][categoryGraphName] = {};
+            }
+            diagramList[diagram]["components"][categoryGraphName][identifiedObject] = object;
         }
     };
 

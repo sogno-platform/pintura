@@ -23,9 +23,12 @@ var cimmenu = cimmenu || (function() {
     }
 
     var populateSidebar = function(sidebar, templateJson) {
-        template = Handlebars.templates['pintura2diaglist'];
-        data = template(templateJson);
+        let template = Handlebars.templates['pintura2diaglist'];
+        let data = template(templateJson);
         sidebar.querySelector('#diagrams').innerHTML = data;
+        template = Handlebars.templates['pintura2html'];
+        data = template(templateJson);
+        sidebar.querySelector('#component-search-accordion').innerHTML = data;
     };
 
     populateRawXML = function(node, rawXML) {
