@@ -1,15 +1,15 @@
-<ul class="w3-ul" style="width:100%">
+<ul class="w3-ul component-list">
   {{#each Diagram}}
-    <li id={{@key}}>{{pintura:name}} &#x2795; </li>
+    <li class="diagram-list-item">{{pintura:name}}</li>
     {{#each components as |value typeName|}}
-      {{#unless pintura:name}}
-      <button class="row w3-btn w3-block w3-blue" onclick="javascript:showContainer('{{typeName}}-accordion', null);">{{typeName}}</button>
+      <button style="border:none;color:black;width:98%;background:rgb(230, 200, 130)" class="row w3-btn w3-block w3-tomato" onclick="javascript:showContainer('{{typeName}}-accordion', null);">{{typeName}}</button>
       <div id="{{typeName}}-accordion" style="display:none">
       {{#each this as |value id|}}
-        <button class="row w3-btn w3-block w3-white" onclick="javascript:showContainer('{{id}}-accordion', null);">{{this.pintura:label.text}}</button>
+        <button style="width:96%;background:rgb(230, 150, 130)" class="row w3-btn w3-block"
+                onclick="javascript:populateAttributes('{{typeName}}', '{{id}}');javascript:showContainer('{{id}}-accordion', null);">{{this.pintura:label.text}}</button>
+        <div id="{{id}}-accordion" style="display:none"></div>
       {{/each}}
       </div>
-      {{/unless}}
     {{/each}}
   {{/each}}
 </ul>

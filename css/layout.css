@@ -101,3 +101,12 @@ button {
     width: auto;
     height: 100%;
 }
+.attribute-list {
+    width:94%;
+}
+.attribute-item {
+    width:94%;
+}
+.component-list {
+    width:100%;
+}

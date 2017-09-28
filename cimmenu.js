@@ -23,11 +23,8 @@ var cimmenu = cimmenu || (function() {
     }
 
     var populateSidebar = function(sidebar, templateJson) {
-        let template = Handlebars.templates['pintura2diaglist'];
+        let template = Handlebars.templates['pintura2html'];
         let data = template(templateJson);
-        sidebar.querySelector('#diagrams').innerHTML = data;
-        template = Handlebars.templates['pintura2html'];
-        data = template(templateJson);
         sidebar.querySelector('#component-search-accordion').innerHTML = data;
     };
 
@@ -39,6 +36,15 @@ var cimmenu = cimmenu || (function() {
 
     populatePinturaData = function(node, templateJson) {
         node.querySelector('#pintura-data-text').innerHTML = JSON.stringify(templateJson, null, 4);
+    };
+
+    populateAttributes = function(type, id) {
+        var accordion = document.getElementById(id+'-accordion');
+        baseJson = cimxml.getBaseJson();
+        let template = Handlebars.templates['basejson2sidebar'];
+        let data = template(baseJson[type][id]);
+        console.log(data);
+        accordion.innerHTML = data;
     };
 
     var loadXml = function(fileName, callback) {
@@ -91,6 +97,7 @@ var cimmenu = cimmenu || (function() {
     };
 
     var init = function(sidebarNode) {
+/*
         xsltProcessor = new XSLTProcessor();
         loadXml("src/model/power/cim_xml_scheme_test.xslt", function(xslt) {
             xsltProcessor.importStylesheet(xslt);
@@ -99,6 +106,7 @@ var cimmenu = cimmenu || (function() {
                 sidebarNode.querySelector('#component-search-accordion').append(components);
             });
         });
+*/
     };
 
     return {

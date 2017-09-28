@@ -102,4 +102,7 @@ function readFile(e) {
 function loadContents(contents) {
     cimsvg.loadFile(contents);
 };
+function populateAttributes(type, id) {
+    cimmenu.populateAttributes(type, id);
+};
 

@@ -117,28 +117,7 @@ var makeSearchDiv = function(id, action) {
         attr('id', '"'+id+'"'),
         attr('class', '"w3-container"'),
       ],
-      [ tag('div',
-            [
-              attr('class', '"row"')
-            ],
-            [
-              tag('input',
-                  [
-                    attr('size', '"10"'),
-                    attr('type', '"text"'),
-                    attr('oninput', action),
-                  ]
-                 ),
-              tag('label',
-                  [
-                    attr('class', '"w3-label w3-button"'),
-                    attr('id', '"searchSidebar"'),
-                  ],
-                  [],
-                  '&#x2315;'
-                 )
-            ]
-           ),
+      [
         tag('div',
             [
               attr('id', '"'+id+'-accordion"')
@@ -169,14 +148,18 @@ var svg_stylesheet_attributes = [ attr('href', '"css/svg.css"') ]
 svg_stylesheet_attributes.unshift(stylesheet_attribute)
 var layout_stylesheet_attributes = [ attr('href', '"css/layout.css"') ]
 layout_stylesheet_attributes.unshift(stylesheet_attribute)
+var colour_stylesheet_attributes = [ attr('href', '"css/colours.css"') ]
+colour_stylesheet_attributes.unshift(stylesheet_attribute)
 var stylesheets = [
   tag(name = 'link', attributes = w3_stylesheet_attributes),
   tag(name = 'link', attributes = svg_stylesheet_attributes),
-  tag(name = 'link', attributes = layout_stylesheet_attributes)
+  tag(name = 'link', attributes = layout_stylesheet_attributes),
+  tag(name = 'link', attributes = colour_stylesheet_attributes),
 ]
 
 var sidebarContents = [
 
+/*
   makeDropButton('Diagrams', 'diagrams'),
 
   makeHiddenContainerDiv('"diagrams"'),
@@ -188,8 +171,9 @@ var sidebarContents = [
   makeButton('Raw XML',
              '"javascript:showContainer(\'cim-xml-sidebar\', null);showContainer(\'pintura-data-sidebar\', null, \'true\');"',
              []),
+*/
 
-  makeDropButton('All Components', 'component-search'),
+  makeDropButton('Components', 'component-search'),
 
   makeSearchDiv('component-search', '"cimmenu.searchSidebar(this.value)"')
 
