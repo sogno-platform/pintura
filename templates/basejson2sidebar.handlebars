@@ -1,8 +1,13 @@
-<ul class="attribute-list">
+  <div class="wide-row blue-grey-background">
+    <span class="w3-button row-left">Attributes in Component: {{"cim:IdentifiedObject.name"}}</span>
+    <span class="w3-button row-right"
+          onclick="showContainer('component-attributes', null);"><b>Close x</b></span>
+  </div>
+  <ul class="attribute-list blue-grey-background w3-ul">
   {{#each this}}
-    <li class="attribute-item">
-      <p class="attribute-name">{{@key}}</p>
-      <p class="attribute-value">{{this}}</p>
+    <li class="attribute-item blue-grey-background">
+      <p class="attribute-name blue-grey-background">{{@key}}</p>
+      <p class="attribute-value blue-grey-background">{{this}}</p>
     </li>
   {{/each}}
-</ul>
+  </ul>

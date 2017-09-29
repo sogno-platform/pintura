@@ -1,17 +1,38 @@
-.attribute-list {
-    background:rgb(60,165,255);
-}
-.attribute-item {
+.light-background {
     color:white;
-    font-size:12px;
+    /*background:#607d8b;*/
+    background:#bbb;
 }
-.diagram-list-item {
-    background:yellow;
+.dark-background {
     color:black;
+    background:lightgrey;
+}
+.blue-grey-background {
+    color:white;
+    background:#607d8b;
 }
 #component-attributes {
-    background:rgb(60,165,255);
+    border-right:thick solid black;
+}
+.attribute-item {
+    font-size:12px;
+}
+#component-attributes {
 }
 .component-list {
-    background:yellow;
+    background:grey;
+    border:none;
+}
+.w3-ul li {
+    border-bottom:0px;
+}
+#sidebar {
+    background:#607d8b;
+    border-right:thick solid black;
+}
+#component-search {
+}
+.component-list-name {
+    color:black;
+    background:#ddd;
 }

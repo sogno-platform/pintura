@@ -40,7 +40,7 @@ var onMouseUp = function(evt){
     let id = evt.currentTarget.id.slice(0,-5);
     let type = evt.currentTarget.parentElement.getAttribute("type");
     populateAttributes(type, id);
-    showContainer('component-attributes', null);
+    showContainer('component-attributes', null, 'true');
 };
 var onMouseMove = function(){
 };

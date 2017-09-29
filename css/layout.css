@@ -75,7 +75,7 @@ button {
     overflow-y:auto;
 }
 #component-search {
-    display:none;
+    /* display:none;*/
     overflow-x:hidden;
     overflow-y:auto;
 }
@@ -129,4 +129,18 @@ button {
 }
 .component-list {
     width:100%;
+}
+.component-list-name {
+    width:100%;
+}
+.wide-row {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.row-left {
+    order: 0;
+}
+.row-right {
+    order: 1;
 }

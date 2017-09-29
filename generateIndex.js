@@ -171,16 +171,16 @@ var sidebarContents = [
   makeButton('Raw XML',
              '"javascript:showContainer(\'cim-xml-sidebar\', null);showContainer(\'pintura-data-sidebar\', null, \'true\');"',
              []),
-*/
 
   makeDropButton('Components', 'component-search'),
+*/
 
   makeSearchDiv('component-search', '"cimmenu.searchSidebar(this.value)"')
 
 ]
 
 var sidebar = tag('div',
-                  [ attr('id', '"sidebar"'), attr('class', '"w3-blue-grey"') ],
+                  [ attr('id', '"sidebar"') ],
                   sidebarContents
                   )
 
