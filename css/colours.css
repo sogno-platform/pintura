@@ -17,8 +17,6 @@
 .attribute-item {
     font-size:12px;
 }
-#component-attributes {
-}
 .component-list {
     background:grey;
     border:none;
@@ -30,9 +28,11 @@
     background:#607d8b;
     border-right:thick solid black;
 }
-#component-search {
-}
-.component-list-name {
+.component-type-name {
     color:black;
     background:#ddd;
+    font-size:12px;
+}
+.component-list-name {
+    font-size:12px;
 }
