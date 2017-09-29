@@ -1,0 +1,14 @@
+.attribute-list {
+    background:grey;
+}
+.attribute-item {
+    color:white;
+    font-size:12px;
+}
+.diagram-list-item {
+    background:yellow;
+    color:black;
+}
+.component-list {
+    background:yellow;
+}
