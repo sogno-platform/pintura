@@ -3,7 +3,7 @@
 
 all: build_docker
 
-html.tgz: css images src templates/compile.sh templates/cim2svg.handlebars templates/pintura2html.handlebars templates/pintura2diaglist.handlebars
+html.tgz: css images src templates/compile.sh templates/*.handlebars
 	tar zcvf html.tgz *.js $?
 
 build_docker: html.tgz
