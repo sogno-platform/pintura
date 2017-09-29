@@ -38,6 +38,9 @@ var onMouseDown = function(){
 };
 var onMouseUp = function(evt){
     let id = evt.currentTarget.id.slice(0,-5);
+    let type = evt.currentTarget.parentElement.getAttribute("type");
+    populateAttributes(type, id);
+    showContainer('component-attributes', null);
 };
 var onMouseMove = function(){
 };
@@ -51,18 +54,18 @@ var onMouseLeave = function(evt){
     let txt = document.getElementById(id+"-txt0");
     txt.classList.remove("svglabel-high");
 };
-var showContainer = function(container, icon, hide="false"){
+var showContainer = function(container, icon, show="false"){
     var x = document.getElementById(container);
     var y = document.getElementById(icon);
-    if ((hide == "true") || (x.style.display == "block")) {
-        x.style.display = "none";
-        if (y != undefined) {
-            y.innerHTML = '&nbsp;&crarr;';
-        }
-    } else {
+    if ((show == "true") || (x.style.display == "") || (x.style.display == "none")) {
         x.style.display = "block";
         if (y != undefined) {
             y.innerHTML = '&nbsp;&darr;';
+        }
+    } else {
+        x.style.display = "none";
+        if (y != undefined) {
+            y.innerHTML = '&nbsp;&crarr;';
         }
     }
 };
@@ -73,7 +76,6 @@ function doSearch(inputId, textareaId) {
     var length=box.value.length*1.0;
     var startIndexStr=index;
     var endIndexStr=index+searchStr.length;
-    console.log(startIndexStr, endIndexStr);
     
     box.setSelectionRange(index, index);
     //box.setSelectionRange(startIndexStr, endIndexStr);//searchStr.length);

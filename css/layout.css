@@ -69,8 +69,8 @@ button {
     flex-grow: 1;
     flex-wrap: nowrap;
     order: -1;
-    width: 300px;
-    min-width: 200px;
+    width: 400px;
+    min-width: 400px;
     max-width: 400px;
     overflow-y:auto;
 }
@@ -88,24 +88,44 @@ button {
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: nowrap;
     flex-grow: -1;
     order: 2;
     overflow:hidden;
     height:100%;
+    width:100%;
+}
+#component-attributes {
+    display:none;
+    border:none;
+    flex: 1;
+    flex-grow:-1;
+    order:1;
+    width:500px;
+    min-width: 500px;
+    max-width: 500px;
+    height:100%;
 }
 #diagram {
     flex: 1;
     flex-grow: 1;
+    order:2;
     width: auto;
     height: 100%;
 }
 .attribute-list {
-    width:94%;
+    margin-top:0;
+    height:100%;
+    width:100%;
+    overflow-y:auto;
 }
-.attribute-item {
-    width:94%;
+.attribute-name {
+    text-align:left;
+}
+.attribute-value {
+    margin-right:10px;
+    text-align:right;
 }
 .component-list {
     width:100%;

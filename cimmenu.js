@@ -39,12 +39,11 @@ var cimmenu = cimmenu || (function() {
     };
 
     populateAttributes = function(type, id) {
-        var accordion = document.getElementById(id+'-accordion');
-        baseJson = cimxml.getBaseJson();
+        let list = document.getElementById('component-attributes');
+        let baseJson = cimxml.getBaseJson();
         let template = Handlebars.templates['basejson2sidebar'];
         let data = template(baseJson[type][id]);
-        console.log(data);
-        accordion.innerHTML = data;
+        list.innerHTML = data;
     };
 
     var loadXml = function(fileName, callback) {

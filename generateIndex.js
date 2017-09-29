@@ -115,7 +115,7 @@ var makeSearchDiv = function(id, action) {
   return tag('div', 
       [
         attr('id', '"'+id+'"'),
-        attr('class', '"w3-container"'),
+        attr('class', '"w3-container"')
       ],
       [
         tag('div',
@@ -231,6 +231,9 @@ var main = tag('div',
                  tag('div',
                      [ attr('id', '"diagram"') ],
                      [ svg ]),
+                 tag('div',
+                     [ attr('id', '"component-attributes"') ],
+                     [ ]),
                  largeTextBox('pintura-data', "Pintura JSON"),
                  largeTextBox('cim-xml', "Raw XML"),
                  tag('script',

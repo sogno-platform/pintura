@@ -1,5 +1,5 @@
 .attribute-list {
-    background:grey;
+    background:rgb(60,165,255);
 }
 .attribute-item {
     color:white;
@@ -8,6 +8,9 @@
 .diagram-list-item {
     background:yellow;
     color:black;
+}
+#component-attributes {
+    background:rgb(60,165,255);
 }
 .component-list {
     background:yellow;

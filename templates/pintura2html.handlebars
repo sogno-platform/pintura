@@ -6,7 +6,7 @@
       <div id="{{typeName}}-accordion" style="display:none">
       {{#each this as |value id|}}
         <button style="width:96%;background:rgb(230, 150, 130)" class="row w3-btn w3-block"
-                onclick="javascript:populateAttributes('{{typeName}}', '{{id}}');javascript:showContainer('{{id}}-accordion', null);">{{this.pintura:label.text}}</button>
+                onclick="javascript:populateAttributes('{{typeName}}', '{{id}}');showContainer('component-attributes', null);">{{this.pintura:label.text}}</button>
         <div id="{{id}}-accordion" style="display:none"></div>
       {{/each}}
       </div>
