@@ -54,6 +54,9 @@ var onMouseLeave = function(evt){
     let txt = document.getElementById(id+"-txt0");
     txt.classList.remove("svglabel-high");
 };
+var swapSides = function(container) {
+    document.getElementById(container).style='right:0;display:inline'
+};
 var showContainer = function(container, icon, show="false"){
     var x = document.getElementById(container);
     var y = document.getElementById(icon);
