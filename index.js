@@ -55,7 +55,14 @@ var onMouseLeave = function(evt){
     txt.classList.remove("svglabel-high");
 };
 var swapSides = function(container) {
-    document.getElementById(container).style='right:0;display:inline'
+    if (document.getElementById('swap-sides').innerHTML == '<b>Right</b>') {
+        document.getElementById(container).style='right:0;display:inline'
+        document.getElementById('swap-sides').innerHTML='<b>Left</b>'
+    }
+    else {
+        document.getElementById(container).style='display:inline'
+        document.getElementById('swap-sides').innerHTML='<b>Right</b>'
+    }
 };
 var showContainer = function(container, icon, show="false"){
     var x = document.getElementById(container);
