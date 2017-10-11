@@ -3,8 +3,11 @@
 
 all: build_docker
 
-html.tgz: css images src templates/compile.sh templates/*.handlebars
-	tar zcvf html.tgz *.js $?
+SRCS=$(wildcard src/*.js)
+JS=$(wildcard *.js)
+
+html.tgz: css images ${JS} ${SRCS} templates/compile.sh templates/*.handlebars
+	tar zcvf html.tgz $^
 
 build_docker: html.tgz
 	docker build -t pintura .

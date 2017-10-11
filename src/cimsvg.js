@@ -81,10 +81,10 @@ var cimsvg = cimsvg || (function() {
     };
 
     var loadViewAndMenu = function() {
-        includeFile("cimview.js", function() {
+        includeFile("src/cimview.js", function() {
             cimview.init(svgNode);
         });
-        includeFile("cimmenu.js", function() {
+        includeFile("src/cimmenu.js", function() {
             cimmenu.init(sidebarNode);
         });
     };
@@ -94,11 +94,11 @@ var cimsvg = cimsvg || (function() {
             svgNode = node;
             sidebarNode = side;
             includeFile("handlebars.runtime.js", loadViewAndMenu);
-            includeFile("cimxml.js");
+            includeFile("src/cimxml.js");
             includeFile("templates/template.js");
-            includeFile("src/model/power/components.js");
-            includeFile("src/model/diagram.js");
-            includeFile("src/model/cimjson.js");
+            includeFile("src/components.js");
+            includeFile("src/diagram.js");
+            includeFile("src/cimjson.js");
         },
         loadFile,
         setFileCount,
