@@ -207,7 +207,7 @@ var largeTextBox = function(idBase, text) {
               ])
 }
 
-var radio_input = function(onchange, name, id, text) {
+var radio_input = function(onchange, name, id, text, checked='"false"') {
     return tag('a',
                [],
                [
@@ -215,7 +215,8 @@ var radio_input = function(onchange, name, id, text) {
                        [ attr('type', '"radio"'),
                          attr('onchange', onchange),
                          attr('name', name),
-                         attr('id', id)
+                         attr('id', id),
+			 attr('checked', checked)
                        ]),
                    tag('label',
                        [ attr('class', '"dark-font"'),
@@ -248,7 +249,7 @@ var attribute_list_settings = function() {
                        ],
                        [
                            radio_input('"addClass(\'component-attributes\', \'dialog-over-diagram\', \'dialog-over-sidebar\', \'dialog-shrink-diagram\');"',
-                                       '"attribute-list-placement"', '\"attribute-list-placement-diagram\"', 'Over diagram'), //#checked
+                                       '"attribute-list-placement"', '\"attribute-list-placement-diagram\"', 'Over diagram', '"true"'),
                            radio_input('"addClass(\'component-attributes\', \'dialog-shrink-diagram\', \'dialog-over-diagram\', \'dialog-over-sidebar\');"',
                                        '"attribute-list-placement"', '"attribute-list-placement-shrink"', 'Shrink diagram'),
                            tag('div',
@@ -256,7 +257,7 @@ var attribute_list_settings = function() {
                                [],
 			       " "),
                            radio_input('"addClass(\'diagram\', \'row-right\', \'row-left\');addClass(\'component-attributes\', \'dialog-left\', \'dialog-right\', \'row-right\');"',
-                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-left"', 'Left'),
+                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-left"', 'Left', '"true"'),
                            radio_input('"addClass(\'diagram\', \'row-left\', \'row-right\');addClass(\'component-attributes\', \'dialog-right\', \'dialog-left\', \'row-left\');"',
                                        '"attribute-list-placement-align"', '"attribute-list-placement-align-right"', 'Right'),
                        ]),
