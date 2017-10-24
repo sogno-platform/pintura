@@ -101,8 +101,6 @@ var cimmenu = cimmenu || (function() {
             xsltProcessor.importStylesheet(xslt);
             loadXml("src/model/power/cim_xml_scheme_test.xsd", function(xsd) {
                 let components = xsltProcessor.transformToFragment(xsd, sidebarNode.ownerDocument);
-                //sidebarNode.querySelector('#component-search-accordion').append(components);
-                console.log(new XMLSerializer().serializeToString(components));
             });
         });
     };

@@ -22,4 +22,7 @@ templates/templates.js:
 	${template_dir}/compile.sh ${template_dir}
 
 run:
-	docker run -p 8082:443 pintura:latest
+	docker run --rm -d -p 8082:443 --name=pintura pintura:latest
+
+stop:
+	docker container stop pintura

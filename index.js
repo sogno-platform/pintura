@@ -55,9 +55,6 @@ var onMouseLeave = function(evt){
     txt.classList.remove("svglabel-high");
 };
 var addClass = function(container, newClass, oldClass1, oldClass2) {
-    console.log(oldClass1)
-    console.log(oldClass2)
-    console.log(document.getElementById(container))
     elem = document.getElementById(container);
     if (oldClass1 != '')
     {
@@ -68,8 +65,6 @@ var addClass = function(container, newClass, oldClass1, oldClass2) {
         elem.classList.remove(oldClass2)
     }
     elem.classList.add(newClass)
-    console.log(elem.classList)
-    console.log(document.getElementById(container))
 };
 var showContainer = function(container, icon, show="false"){
     var x = document.getElementById(container);
