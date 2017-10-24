@@ -104,7 +104,6 @@ button {
     width:500px;
     min-width: 500px;
     max-width: 500px;
-    height:100%;
 }
 #diagram {
     flex: 1;
@@ -119,7 +118,6 @@ button {
     height:100%;
     width:100%;
     overflow-y:auto;
-    border-right:thick solid white;
 }
 .attribute-name {
     text-align:left;
