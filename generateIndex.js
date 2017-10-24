@@ -6,7 +6,12 @@
 var startTag = function (name, attributes) {
   let tag = '<' + name
   for (let attr in attributes) {
-    tag += ' ' + attributes[attr]['key'] + '=' + attributes[attr]['value']
+    if (attributes[attr]['value'] != 'NO VALUE') {
+      tag += ' ' + attributes[attr]['key'] + '=' + attributes[attr]['value']
+    }
+    else {
+      tag += ' ' + attributes[attr]['key']
+    }
   }
   return tag
 }
@@ -17,7 +22,7 @@ var endTag = function (name) {
 
 var depth = -1 
 
-var attr = function (name, value) {
+var attr = function (name, value="NO VALUE") {
   return { 'key': name, 'value': value }
 }
 
@@ -178,46 +183,20 @@ var svg = tag('svg',
                 tag('g', [ attr('id', '"diagram-elements"') ] ),
               ])
 
-var largeTextBox = function(idBase, text) {
-  return tag('div',
-              [
-                attr('class', '"w3-container data-panel"'),
-                attr('id', '"'+idBase+'-sidebar"'),
-                attr('style', '"display:none"'),
-              ],
-              [
-                tag('label', [ attr('class', '"w3-bar-item w3-large w3-button data-panel-label"') ], [], text),
-                tag('button',
-                    [
-                      attr('class', '"w3-bar-item w3-button data-panel-button"'),
-                      attr('onclick', '"showContainer(\''+idBase+'-sidebar\')"'),
-                    ], [], "Close &times;"),
-                tag('input',
-                    [
-                      attr('class', '"'+idBase+'-input"'),
-                      attr('id', '"'+idBase+'-search"'),
-                      attr('type', '"text"'),
-                      attr('onkeyup', '"if (event.keyCode == 13) doSearch(\''+idBase+'-search\', \''+idBase+'-textarea\')"'),
-                    ]),
-                tag('textarea',
-                    [
-                      attr('class', '"data-panel-text"'),
-                      attr('id', '"'+idBase+'-text"'),
-                    ], [], " ")
-              ])
-}
-
-var radio_input = function(onchange, name, id, text, checked='"false"') {
-    return tag('a',
-               [],
-               [
-                   tag('input',
+var radio_input = function(onchange, name, id, text, checked=false) {
+    var input = tag('input',
                        [ attr('type', '"radio"'),
                          attr('onchange', onchange),
                          attr('name', name),
                          attr('id', id),
-			 attr('checked', checked)
-                       ]),
+                       ])
+    if (checked) {
+        input.attributes.push({ 'key':'checked', 'value':'NO VALUE' })
+    }
+    return tag('a',
+               [],
+               [
+                   input,
                    tag('label',
                        [ attr('class', '"dark-font"'),
                          attr('for', id)
@@ -232,7 +211,7 @@ var attribute_list_settings = function() {
     return tag('div',
                [
                    attr('id', '"attribute-list-settings"'),
-		   attr('class', '"dropdown-menu"')
+		           attr('class', '"dropdown-menu"')
                ],
                [
                    tag('h4',
@@ -266,7 +245,7 @@ var attribute_list_settings = function() {
 
 var attribute_list_header = function() {
     return tag('div',
-        [ //attr('id', '"attribute-list-header"'),
+        [
             attr('class', '"wide-row blue-grey-background"') ],
             [
                 tag('span',
