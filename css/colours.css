@@ -1,18 +1,14 @@
-.light-background {
-    color:white;
-    /*background:#607d8b;*/
-    background:#bbb;
-}
-.dark-background {
+.dark-grey-background {
     color:black;
     background:#aaa;
+}
+.light-grey-background {
+    color:black;
+    background:#ddd;
 }
 .blue-grey-background {
     color:white;
     background:#607d8b;
-}
-#component-attributes {
-    border-right:thick solid white;
 }
 .attribute-item {
     font-size:12px;
@@ -30,7 +26,6 @@
 }
 .component-type-name {
     color:black;
-    background:#ddd;
     font-size:12px;
 }
 .component-list-name {
@@ -38,4 +33,20 @@
 }
 .dark-font {
     color:black;
+}
+.dropdown-menu {
+    border:medium solid black;
+    background:#607d8b;
+}
+.dropdown-menu h4 {
+    color:white;
+}
+.dropdown-menu a {
+    color: black;
+    background:#ddd;
+    font-size:14px;
+}
+.dropdown-menu a:hover {
+    background:#bbb;
+    color: white;
 }

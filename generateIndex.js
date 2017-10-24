@@ -158,25 +158,7 @@ var stylesheets = [
 ]
 
 var sidebarContents = [
-
-/*
-  makeDropButton('Diagrams', 'diagrams'),
-
-  makeHiddenContainerDiv('"diagrams"'),
-
-  makeButton('Pintura Data',
-             '"javascript:showContainer(\'pintura-data-sidebar\', null);showContainer(\'cim-xml-sidebar\', null, \'true\');"',
-             []),
-
-  makeButton('Raw XML',
-             '"javascript:showContainer(\'cim-xml-sidebar\', null);showContainer(\'pintura-data-sidebar\', null, \'true\');"',
-             []),
-
-  makeDropButton('Components', 'component-search'),
-*/
-
   makeSearchDiv('component-search', '"cimmenu.searchSidebar(this.value)"')
-
 ]
 
 var sidebar = tag('div',
@@ -225,29 +207,138 @@ var largeTextBox = function(idBase, text) {
               ])
 }
 
+var radio_input = function(onchange, name, id, text) {
+    return tag('a',
+               [],
+               [
+                   tag('input',
+                       [ attr('type', '"radio"'),
+                         attr('onchange', onchange),
+                         attr('name', name),
+                         attr('id', id)
+                       ]),
+                   tag('label',
+                       [ attr('class', '"dark-font"'),
+                         attr('for', id)
+                       ],
+                       [],
+                       text)
+              ]
+              );
+};
+
+var attribute_list_settings = function() {
+    return tag('div',
+               [
+                   attr('id', '"attribute-list-settings"'),
+		   attr('class', '"dropdown-menu"')
+               ],
+               [
+                   tag('h4',
+                   [
+                       attr('class', '"dark-font blue-grey-background"'),
+                       attr('style', '"height:100%"')
+                   ],
+                   [],
+                   "Sidebar placement"),
+                   tag('div',
+                       [
+                           attr('id', '"attribute-list-options"'),
+                           attr('class', '"blue-grey-background"')
+                       ],
+                       [
+                           radio_input('"addClass(\'component-attributes\', \'dialog-over-diagram\', \'dialog-over-sidebar\', \'dialog-shrink-diagram\');"',
+                                       '"attribute-list-placement"', '\"attribute-list-placement-diagram\"', 'Over diagram'), //#checked
+                           radio_input('"addClass(\'component-attributes\', \'dialog-shrink-diagram\', \'dialog-over-diagram\', \'dialog-over-sidebar\');"',
+                                       '"attribute-list-placement"', '"attribute-list-placement-shrink"', 'Shrink diagram'),
+                           tag('div',
+                               [ attr('class', '"line"') ],
+                               [],
+			       " "),
+                           radio_input('"addClass(\'diagram\', \'row-right\', \'row-left\');addClass(\'component-attributes\', \'dialog-left\', \'dialog-right\', \'row-right\');"',
+                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-left"', 'Left'),
+                           radio_input('"addClass(\'diagram\', \'row-left\', \'row-right\');addClass(\'component-attributes\', \'dialog-right\', \'dialog-left\', \'row-left\');"',
+                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-right"', 'Right'),
+                       ]),
+               ]);
+};
+
+var attribute_list_header = function() {
+    return tag('div',
+        [ //attr('id', '"attribute-list-header"'),
+            attr('class', '"wide-row blue-grey-background"') ],
+            [
+                tag('span',
+                    [   attr('id', '"attribute-list-component-name"'),
+                        attr('class', '"w3-button row-left"')
+                    ],
+                    [],
+                    "Attributes in Component:"),
+                tag('span',
+                    [   attr('id', '"close-attributes"'),
+                        attr('class', '"w3-button row-right"'),
+                        attr('onclick', '"showContainer(\'component-attributes\', null);"')
+                    ],
+                    [],
+                    "<b>&times;</b>"),
+                tag('span',
+                    [   attr('class', '"w3-button row-right"'),
+                        attr('onclick', '"showContainer(\'attribute-list-settings\');"')
+                    ],
+                    [],
+                    "&#9881;")
+                ]
+            )
+};
+
 var main = tag('div',
                [ attr('id', '"main"') ],
                [
-                 tag('div',
-                     [ attr('id', '"diagram"') ],
-                     [ svg ]),
-                 tag('div',
-                     [ attr('id', '"component-attributes"'),
-                       attr('class', '"blue-grey-background w3-sidebar"') ],
-                     [ ]),
-                 largeTextBox('pintura-data', "Pintura JSON"),
-                 largeTextBox('cim-xml', "Raw XML"),
-                 tag('script',
-                     [
-                       attr('type', '"text/javascript"'),
-                       attr('src', '"src/cimsvg.js"'),
-                     ], [], " "),
-                 tag('script',
-                     [
-                       attr('type', '"text/javascript"'),
-                       attr('src', '"index.js"'),
-                     ], [], " "),
-               ])
+                   tag('div',
+                   [
+                       attr('id', '"diagram"'),
+                       attr('class', '"row-right"')
+                   ],
+                   [ svg ]),
+                   tag('div',
+                   [
+                       attr('id', '"component-attributes"'),
+                       attr('class', '"blue-grey-background row-left dialog-over-diagram"')
+                   ],
+                   [
+                       attribute_list_header(),
+                       tag('div',
+                       [
+                           attr('id', '"dropdown-float"')
+                       ],
+                       [
+                           tag('div',
+                           [
+                               attr('class', '"dropdown"')
+                           ],
+                           [
+                               attribute_list_settings(),
+                               tag('script',
+                               [
+                                   attr('type', '"text/javascript"'),
+                                   attr('src', '"src/cimsvg.js"'),
+                               ],
+                               [], " "),
+                               tag('script',
+                               [
+                                   attr('type', '"text/javascript"'),
+                                   attr('src', '"index.js"'),
+                               ],
+                               [], " "),
+                           ]),
+                       ]),
+                       tag('div',
+                       [
+                           attr('id', '"attribute-list-div"')
+                       ],
+                       [], " ")
+                   ]),
+               ]);
 
 var middle = tag('div', [ attr('id', '"middle"') ], [ sidebar, main ])
 
@@ -283,7 +374,7 @@ var menu = tag('div',
                makeFileMenu
             )
 
-var body_attributes = [ attr('id', '"body"' ) ]
+var body_attributes = [ ]
 
 var body_children = [ stylesheets, menu, middle ]
 

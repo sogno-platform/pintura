@@ -1,46 +1,9 @@
-  <div class="wide-row blue-grey-background">
-    <span id="attribute-list-component-name" class="w3-button row-left">Attributes in Component: {{"cim:IdentifiedObject.name"}}</span>
-    <span id="close-attributes" class="w3-button row-right"
-          onclick="showContainer('component-attributes', null);"><b>&times;</b></span>
-    <span id="swap-sides" class="w3-button row-right"
-          onclick="showContainer('attribute-list-settings');">&#9881;</span>
-  </div>
-  <div id="dropdown-float">
-    <div class="dropdown">
-      <div id="attribute-list-settings" class="dropdown-menu">
-        <h4 class="dark-font">Sidebar placement</h2>
-        <a>
-          <input type="radio" name="attribute-list-placement" id="attribute-list-placement-diagram">
-          <label class="dark-font" for="attribute-list-placement-diagram">Over diagram</label>
-        </a>
-        <a>
-          <input type="radio" name="attribute-list-placement" id="attribute-list-placement-sidebar">
-          <label class="dark-font" for="attribute-list-placement-sidebar">Over sidebar</label>
-        </a>
-        <a>
-          <input type="radio" name="attribute-list-placement" id="attribute-list-placement-shrink">
-          <label class="dark-font" for="attribute-list-placement-shrink">Shrink diagram</label>
-        </a>
-        <div class="line">
-        </div>
-        <a>
-          <input type="radio" onselect="swapSides('attribute-list-settings');" name="attribute-list-placement-align" id="attribute-list-placement-align-left">
-          <label class="dark-font" for="attribute-list-placement-align-left">Left</label>
-        </a>
-        <a>
-          <input type="radio" onselect="swapSides('attribute-list-settings');" name="attribute-list-placement-align" id="attribute-list-placement-align-right">
-          <label class="dark-font" for="attribute-list-placement-align-right">Right</label>
-        </a>
-      </div>
-    </div>
-    <div>
-      <ul class="attribute-list w3-ul">
-      {{#each this}}
-        <li class="wide-row attribute-item dark-background">
-          <span class="row-left attribute-name dark-background">{{@key}}</span>
-          <span class="row-right attribute-value dark-background">{{this}}</span>
-        </li>
-      {{/each}}
-      </ul>
-    </div>
-  </div>
+<ul class="attribute-list w3-ul">
+{{#each this}}
+  <li class="wide-row attribute-item dark-grey-background">
+    <span class="row-left attribute-name">{{@key}}</span>
+    <span class="row-right attribute-value">{{this}}</span>
+  </li>
+{{/each}}
+</ul>
+

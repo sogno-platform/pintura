@@ -101,7 +101,6 @@ button {
     border:none;
     flex: 1;
     flex-grow:-1;
-    order:1;
     width:500px;
     min-width: 500px;
     max-width: 500px;
@@ -110,14 +109,17 @@ button {
 #diagram {
     flex: 1;
     flex-grow: 1;
-    order:2;
     width: auto;
     height: 100%;
+}
+#attribute-list-header {
+    border-right:thick solid white;
 }
 .attribute-list {
     height:100%;
     width:100%;
     overflow-y:auto;
+    border-right:thick solid white;
 }
 .attribute-name {
     text-align:left;
@@ -174,15 +176,28 @@ button {
     padding:4px 6px;
     font-size:14px;
 }
-.dropdown-menu a:hover {
-    background:#999;
-    color: white;
-}
 h4 {
+    font-size:16px;
     text-align: center;
 }
 .line {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
     border-bottom: 1px solid black;
+}
+input:focus {
+    outline:none;
+}
+.dialog-over-diagram {
+    position: fixed!important;
+    z-index: 1;
+}
+.dialog-shrink-diagram{
+}
+.dialog-right {
+    right: 0;
+    order: 1;
+}
+.dialog-left {
+    order: 0;
 }

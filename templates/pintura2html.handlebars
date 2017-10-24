@@ -2,10 +2,10 @@
   {{#each Diagram}}
     <li class="blue-grey-background">Components in Diagram: {{pintura:name}}</li>
     {{#each components as |value typeName|}}
-      <button class="component-type-name w3-btn w3-block" onclick="javascript:showContainer('{{typeName}}-accordion', null);">{{typeName}}</button>
+      <button class="component-list-name row w3-btn w3-block dark-grey-background" onclick="javascript:showContainer('{{typeName}}-accordion', null);">{{typeName}}</button>
       <div id="{{typeName}}-accordion" style="display:none">
       {{#each this as |value id|}}
-        <button style="width:100%" class="component-list-name w3-btn dark-background"
+        <button style="width:100%" class="row w3-btn w3-block light-grey-background"
                 onclick="javascript:populateAttributes('{{typeName}}', '{{id}}');showContainer('component-attributes', null, 'true');">{{this.pintura:label.text}}</button>
         <div id="{{id}}-accordion" style="display:none"></div>
       {{/each}}
