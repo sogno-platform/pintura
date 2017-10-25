@@ -96,8 +96,6 @@ var cimsvg = cimsvg || (function() {
             includeFile("handlebars.runtime.js", loadViewAndMenu);
             includeFile("src/cimxml.js");
             includeFile("templates/template.js");
-            includeFile("src/components.js");
-            includeFile("src/diagram.js");
             includeFile("src/cimjson.js");
         },
         loadFile,
