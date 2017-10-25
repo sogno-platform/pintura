@@ -47,8 +47,30 @@ var logTag = function(tag) {
 
 var printArrayOfChildren = function(children) {
   for (let index in children) {
+    console.error("in array: "+children[index].name)
     printTag(children[index])
   }
+}
+
+var startJson = function(name, attributes) {
+  let tag = name+':{'
+  for (let attr in attributes) {
+    tag += ' ' + attributes[attr]['key'] + '=' + attributes[attr]['value']
+  }
+  tag += '\n'
+  return tag
+}
+
+var printTagJson = function(tag) {
+  var indent = '    '.repeat(++depth)
+  var numberOfChildren = invalidOrZeroLength(tag.children) ? 0 : tag.children.length
+  var emptyInside = tag.text === undefined || tag.text.length === 0
+  process.stderr.write(indent + startJson(tag.name, tag.attributes))
+  for (let index in tag.children) {
+    printTagJson(tag.children[index])
+  }
+  process.stderr.write(indent+'}\n')
+  indent = '    '.repeat(depth--)
 }
 
 var printTag = function(tag) {
@@ -67,12 +89,7 @@ var printTag = function(tag) {
     } else {
       process.stdout.write('>' + '\n')
       for (let index in tag.children) {
-        if (Array.isArray(tag.children[index])) {
-          printArrayOfChildren(tag.children[index])
-        }
-        else {
-          printTag(tag.children[index])
-        }
+        printTag(tag.children[index])
       }
       indent = '    '.repeat(depth--)
       console.log(indent + endTag(tag.name))
@@ -211,7 +228,7 @@ var attribute_list_settings = function() {
     return tag('div',
                [
                    attr('id', '"attribute-list-settings"'),
-		           attr('class', '"dropdown-menu"')
+		   attr('class', '"dropdown-menu"')
                ],
                [
                    tag('h4',
@@ -335,28 +352,25 @@ var makeFileMenuItem = function (text, input_name, action) {
     attr('type', '"file"'),
     attr('onclick', '"javascript:' + input_name + '.click()"')
   ]
-  return [
-    tag(name = 'input', attributes = input_attributes, children = []),
-    tag(name = 'a', attributes = a_attributes, children = [], inner = text)
-  ]
+  let input = tag('input', input_attributes, [])
+  let a = tag(name = 'a', a_attributes, [], text)
+  return [ input, a ]
 }
 
 var fileopen = makeFileMenuItem ('Open file', 'fileopen', 'fileopen.click()')
 var fileexport = makeFileMenuItem('Export to file', 'fileinput', 'fileinput.click()')
-
-var makeFileMenu = [ fileopen ]
 
 var menu = tag('div',
                [
                  attr('id', '"menu"' ),
                  attr('class', '"w3-bar w3-black"'),
                ],
-               makeFileMenu
+               fileopen
             )
 
 var body_attributes = [ ]
 
-var body_children = [ stylesheets, menu, middle ]
+var body_children = stylesheets.concat([ menu, middle] )
 
 var body = tag(name = 'body', attributes = body_attributes, children = body_children)
 
@@ -380,4 +394,5 @@ console.log(`<!--
     in the top level directory of this source tree.
 -->
 <!DOCTYPE HTML>`)
+printTagJson(html)
 printTag(html)
