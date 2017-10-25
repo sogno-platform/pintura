@@ -18,7 +18,7 @@ electron_deps:
 templates: templates/templates.js
 
 template_dir=$(PWD)/templates
-templates/templates.js:
+templates/templates.js: templates/*.handlebars
 	${template_dir}/compile.sh ${template_dir}
 
 run:
@@ -26,3 +26,8 @@ run:
 
 stop:
 	docker container stop pintura
+
+local: templates/templates.js index.html
+
+index.html: generateIndex.js
+	node generateIndex.js > index.html
