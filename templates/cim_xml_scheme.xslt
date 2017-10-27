@@ -36,7 +36,7 @@
                         <xsl:text>&#xa;        </xsl:text>
                         <span class="row-left attribute-name"><xsl:value-of select="concat($type, '.', @name)"/></span>
                         <xsl:text>&#xa;        </xsl:text>
-                        <span class="row-right attribute-value">{{<xsl:value-of select="concat($type, '.', @name)"/>}}</span>
+                        <span class="row-right attribute-value">{{[<xsl:value-of select="concat($type, '.', @name)"/>]}}</span>
                         <xsl:text>&#xa;    </xsl:text>
                     </li>
                 </xsl:for-each>

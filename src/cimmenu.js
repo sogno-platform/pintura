@@ -41,7 +41,7 @@ var cimmenu = cimmenu || (function() {
     populateAttributes = function(type, id) {
         let list = document.getElementById('attribute-list-div');
         let baseJson = cimxml.getBaseJson();
-        let template = Handlebars.templates['basejson2sidebar'];
+        let template = Handlebars.templates[type.substring(4)];
         let data = template(baseJson[type][id]);
         list.innerHTML = data;
     };
@@ -95,18 +95,7 @@ var cimmenu = cimmenu || (function() {
         }
     };
 
-    var init = function(sidebarNode) {
-        xsltProcessor = new XSLTProcessor();
-        loadXml("src/model/power/cim_xml_scheme_test.xslt", function(xslt) {
-            xsltProcessor.importStylesheet(xslt);
-            loadXml("src/model/power/cim_xml_scheme_test.xsd", function(xsd) {
-                let components = xsltProcessor.transformToFragment(xsd, sidebarNode.ownerDocument);
-            });
-        });
-    };
-
     return {
-        init,
         searchSidebar,
         populateSidebar,
         populateRawXML,

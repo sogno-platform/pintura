@@ -85,7 +85,6 @@ var cimsvg = cimsvg || (function() {
             cimview.init(svgNode);
         });
         includeFile("src/cimmenu.js", function() {
-            cimmenu.init(sidebarNode);
         });
     };
 
