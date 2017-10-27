@@ -4,7 +4,7 @@ from nginx
 run apt-get update
 run apt-get install -y curl gnupg
 run curl -sL https://deb.nodesource.com/setup_6.x | bash -s
-run apt-get install -y nodejs
+run apt-get install -y nodejs xsltproc
 copy web/default.conf /etc/nginx/conf.d/
 run  mkdir -p /var/www/html/
 add  html.tgz /var/www/html/
