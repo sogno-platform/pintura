@@ -34,7 +34,7 @@ run:
 stop:
 	docker container stop pintura
 
-local: templates/templates.js index.html
+local: index.html templates/Core.xsd templates/Wires.xsd templates/Topology.xsd templates/templates.js
 
 index.html: generateIndex.js
 	node generateIndex.js > index.html
