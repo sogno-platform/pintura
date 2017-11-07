@@ -13,6 +13,9 @@
 .attribute-item {
     font-size:12px;
 }
+#attribute-list-div {
+    background:#aaa;
+}
 .component-list {
     background:grey;
     border:none;

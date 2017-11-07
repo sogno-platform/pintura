@@ -27,7 +27,11 @@
                     <xsl:text>&#xa;        </xsl:text>
                     <span class="row-left attribute-name">cim:IdentifiedObject.name</span>
                     <xsl:text>&#xa;        </xsl:text>
-                    <span class="row-right attribute-value">{{[cim:IdentifiedObject.name]}}</span>
+                    <span class="row-right attribute-value">
+                        <input type="text">
+                            <xsl:attribute name="value">{{[cim:IdentifiedObject.name]}}</xsl:attribute>
+                        </input>
+                    </span>
                     <xsl:text>&#xa;    </xsl:text>
                 </li>
                 <xsl:for-each select="xs:sequence/xs:element">
@@ -36,7 +40,11 @@
                         <xsl:text>&#xa;        </xsl:text>
                         <span class="row-left attribute-name"><xsl:value-of select="concat($type, '.', @name)"/></span>
                         <xsl:text>&#xa;        </xsl:text>
-                        <span class="row-right attribute-value">{{[<xsl:value-of select="concat($type, '.', @name)"/>]}}</span>
+                        <span class="row-right attribute-value">
+                            <input type="text">
+                                <xsl:attribute name="value">{{[<xsl:value-of select="concat($type, '.', @name)"/>]}}</xsl:attribute>
+                            </input>
+                        </span>
                         <xsl:text>&#xa;    </xsl:text>
                     </li>
                 </xsl:for-each>
