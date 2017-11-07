@@ -126,10 +126,13 @@ button {
     padding-right:10px;
 }
 .attribute-name {
+    margin-top:10px;
     text-align:left;
 }
 .attribute-value {
     margin-right:10px;
+}
+.attribute-value input{
     text-align:right;
 }
 .component-list {
