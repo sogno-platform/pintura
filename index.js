@@ -21,6 +21,13 @@ cimsvg.addRawXML(document.getElementById("cim-xml-sidebar"));
 cimsvg.addPinturaData(document.getElementById("pintura-data-sidebar"));
 document.getElementById("fileopen").addEventListener('change', readFile, false);
 
+var noInputFocus = function(evt) {
+    if (evt.target.nodeName === "BODY") {
+        return true
+    }
+    return false
+}
+
 document.onkeydown = function(evt) {
     evt = evt || window.event;
     let key_press = String.fromCharCode(evt.charCode || evt.keyCode);
@@ -35,19 +42,27 @@ document.onkeydown = function(evt) {
     }
     /* left key */
     else if (evt.keyCode == 37) {
-        cimview.pan({ x: -10, y: 0 });
+        if (noInputFocus(evt)) {
+            cimview.pan({ x: -10, y: 0 });
+        }
     }
     /* up key */
     else if (evt.keyCode == 38) {
-        cimview.pan({ x: 0, y: -10 });
+        if (noInputFocus(evt)) {
+            cimview.pan({ x: 0, y: -10 });
+        }
     }
     /* right key */
     else if (evt.keyCode == 39) {
-        cimview.pan({ x: 10, y: 0 });
+        if (noInputFocus(evt)) {
+            cimview.pan({ x: 10, y: 0 });
+        }
     }
     /* down key */
     else if (evt.keyCode == 40) {
-        cimview.pan({ x: 0, y: 10 });
+        if (noInputFocus(evt)) {
+            cimview.pan({ x: 0, y: 10 });
+        }
     }
 };
 var onMouseDown = function(){
