@@ -67,6 +67,9 @@ var cimxml = cimxml || (function() {
     var importXmlNodeIntoGraph = function(graph, nodeCategory, node, id) {
 
         let thisObject = { };
+
+        thisObject['rdfid'] = id
+
         copyXmlDataIntoObject(thisObject, node);
 
         if (!graph[nodeCategory]) {

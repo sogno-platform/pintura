@@ -30,6 +30,7 @@
                     <span class="row-right attribute-value">
                         <input type="text">
                             <xsl:attribute name="value">{{[cim:IdentifiedObject.name]}}</xsl:attribute>
+                            <xsl:attribute name="onchange">javascript:updateAttribute('<xsl:value-of select="$type"/>', '{{rdfid}}', '<xsl:value-of select="concat($type, '.name')"/>', this.value)</xsl:attribute>
                         </input>
                     </span>
                     <xsl:text>&#xa;    </xsl:text>
@@ -43,6 +44,7 @@
                         <span class="row-right attribute-value">
                             <input type="text">
                                 <xsl:attribute name="value">{{[<xsl:value-of select="concat($type, '.', @name)"/>]}}</xsl:attribute>
+                                <xsl:attribute name="onchange">javascript:updateAttribute('<xsl:value-of select="$type"/>', '<xsl:value-of select="concat($type, '.', @name)"/>')</xsl:attribute>
                             </input>
                         </span>
                         <xsl:text>&#xa;    </xsl:text>
