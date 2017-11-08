@@ -21,7 +21,8 @@ cimsvg.addRawXML(document.getElementById("cim-xml-sidebar"));
 cimsvg.addPinturaData(document.getElementById("pintura-data-sidebar"));
 document.getElementById("fileopen").addEventListener('change', readFile, false);
 
-var updateAttribute = function(type, id, attribute, value) {
+var updateComponent = function(type, id, attribute, value) {
+    cimsvg.updateComponent(type, id, attribute, value)
 }
 
 var noInputFocus = function(evt) {

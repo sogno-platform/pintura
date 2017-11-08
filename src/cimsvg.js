@@ -88,6 +88,10 @@ var cimsvg = cimsvg || (function() {
         });
     };
 
+    var updateComponent = function(type, id, attribute, value) {
+        cimxml.updateComponentInBaseJson(type, id, attribute, value)
+    };
+
     return {
         init : function(node, side) {
             svgNode = node;
@@ -102,6 +106,7 @@ var cimsvg = cimsvg || (function() {
         addSidebar,
         addRawXML,
         addPinturaData,
+        updateComponent,
     };
 
 }());
