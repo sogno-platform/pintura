@@ -1,6 +1,6 @@
 [submodule "test/GridData"]
 	path = test/GridData
-	url = git@git.rwth-aachen.de:PowerSystemSimulation/GridData.git
+	url = git@git.rwth-aachen.de:acs/core/simulation/grid-data
 [submodule "PinturaDataModel"]
 	path = PinturaDataModel
-	url = https://git.rwth-aachen.de/acs/core/cim/PinturaDataModel
+	url = git@git.rwth-aachen.de:acs/core/cim/data-models/pintura-data-model
