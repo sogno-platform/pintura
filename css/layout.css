@@ -90,7 +90,6 @@ button {
     display: -webkit-flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    flex-grow: -1;
     order: 2;
     overflow:hidden;
     height:100%;
@@ -100,7 +99,6 @@ button {
     display:none;
     border:none;
     flex: 1;
-    flex-grow:-1;
     width:700px;
     min-width: 700px;
     max-width: 700px;
@@ -155,12 +153,6 @@ button {
 }
 #attribute-list-component-name {
     flex-grow: 1;
-}
-#swap-sides {
-    flex-grow: -1;
-}
-#close-sides {
-    flex-grow: -1;
 }
 .dropdown {
     float: right!important;

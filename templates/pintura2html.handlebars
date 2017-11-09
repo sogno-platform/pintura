@@ -5,9 +5,8 @@
       <button class="component-list-name row w3-btn w3-block dark-grey-background" onclick="javascript:showContainer('{{typeName}}-accordion', null);">{{typeName}}</button>
       <div id="{{typeName}}-accordion" style="display:none">
       {{#each this as |value id|}}
-        <button style="width:100%" class="row w3-btn w3-block light-grey-background"
+        <button id="{{id}}-sidebar-button" style="width:100%" class="row w3-btn w3-block light-grey-background"
                 onclick="javascript:populateAttributes('{{typeName}}', '{{id}}');showContainer('component-attributes', null, 'true');">{{this.pintura:label.text}}</button>
-        <div id="{{id}}-accordion" style="display:none"></div>
       {{/each}}
       </div>
     {{/each}}

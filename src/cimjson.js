@@ -170,12 +170,11 @@ var cimjson = cimjson || (function() {
     };
 
     var getTemplateJson = function(graph) {
-
-        let diagramObjects = graph['cim:DiagramObject'];
+        let updatedDiagramObjects = JSON.parse(JSON.stringify(graph['cim:DiagramObject']));
         let diagramObjectPoints = graph['cim:DiagramObjectPoint'];
-        addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
+        addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, updatedDiagramObjects);
 
-        let diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(diagramObjects);
+        let diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(updatedDiagramObjects);
 
         templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
 

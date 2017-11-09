@@ -28,16 +28,6 @@ var cimmenu = cimmenu || (function() {
         sidebar.querySelector('#component-search-accordion').innerHTML = data;
     };
 
-    populateRawXML = function(node, rawXML) {
-        var XMLS = new XMLSerializer();
-        var xmls = XMLS.serializeToString(rawXML);
-        node.querySelector('#cim-xml-text').insertAdjacentHTML('afterbegin', xmls);
-    };
-
-    populatePinturaData = function(node, templateJson) {
-        node.querySelector('#pintura-data-text').innerHTML = JSON.stringify(templateJson, null, 4);
-    };
-
     populateAttributes = function(type, id) {
         let list = document.getElementById('attribute-list-div');
         let baseJson = cimxml.getBaseJson();
@@ -98,8 +88,6 @@ var cimmenu = cimmenu || (function() {
     return {
         searchSidebar,
         populateSidebar,
-        populateRawXML,
-        populatePinturaData,
         selectComponentType,
     };
 }());

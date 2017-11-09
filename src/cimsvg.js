@@ -49,12 +49,6 @@ var cimsvg = cimsvg || (function() {
             if(sidebarNode != null) {
                 cimmenu.populateSidebar(sidebarNode, templateJson);
             }
-            if(xmlNode != null) {
-                cimmenu.populateRawXML(xmlNode, cimxml.getRawXML());
-            }
-            if(pinturaNode != null) {
-                cimmenu.populatePinturaData(pinturaNode, templateJson);
-            }
         }
     };
 
@@ -90,6 +84,11 @@ var cimsvg = cimsvg || (function() {
 
     var updateComponent = function(type, id, attribute, value) {
         cimxml.updateComponentInBaseJson(type, id, attribute, value)
+        baseJson = cimxml.getBaseJson();
+        templateJson = cimjson.getTemplateJson(baseJson);
+        buttonId = '#' + id + "-sidebar-button"
+        button = sidebarNode.querySelector(buttonId)
+        button.innerHTML = value;
     };
 
     return {
