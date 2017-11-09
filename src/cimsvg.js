@@ -86,9 +86,11 @@ var cimsvg = cimsvg || (function() {
         cimxml.updateComponentInBaseJson(type, id, attribute, value)
         baseJson = cimxml.getBaseJson();
         templateJson = cimjson.getTemplateJson(baseJson);
-        buttonId = '#' + id + "-sidebar-button"
-        button = sidebarNode.querySelector(buttonId)
-        button.innerHTML = value;
+        if (attribute === "cim:IdentifiedObject.name") {
+            buttonId = '#' + id + "-sidebar-button"
+            button = sidebarNode.querySelector(buttonId)
+            button.innerHTML = value;
+        }
     };
 
     return {
