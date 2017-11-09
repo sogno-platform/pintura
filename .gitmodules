@@ -3,4 +3,4 @@
 	url = git@git.rwth-aachen.de:PowerSystemSimulation/GridData.git
 [submodule "PinturaDataModel"]
 	path = PinturaDataModel
-	url = https://git.rwth-aachen.de/PowerSystemSimulation/PinturaDataModel
+	url = https://git.rwth-aachen.de/acs/core/cim/PinturaDataModel
