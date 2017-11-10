@@ -44,6 +44,8 @@
 .dropdown-menu {
     border:medium solid black;
     background:#607d8b;
+    border:medium solid black;
+    border-width: 1px 1px 1px 1px;
 }
 .dropdown-menu h4 {
     color:white;

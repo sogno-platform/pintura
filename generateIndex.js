@@ -165,27 +165,32 @@ var radio_input = function(onchange, name, id, text, checked=false) {
 };
 
 var attribute_list_settings = function() {
+
+    let over_diagram_radio = radio_input('"addClass(\'component-attributes\', \'dialog-over-diagram\', \'dialog-over-sidebar\', \'dialog-shrink-diagram\');"',
+                                       '"attribute-list-placement"', '\"attribute-list-placement-diagram\"', 'Over diagram', '"true"')
+    let shrink_diagram_radio = radio_input('"addClass(\'component-attributes\', \'dialog-shrink-diagram\', \'dialog-over-diagram\', \'dialog-over-sidebar\');"',
+                                       '"attribute-list-placement"', '"attribute-list-placement-shrink"', 'Shrink diagram')
+    let left_radio = radio_input('"addClass(\'diagram\', \'row-right\', \'row-left\');addClass(\'component-attributes\', \'dialog-left\', \'dialog-right\', \'row-right\');"',
+                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-left"', 'Left', '"true"')
+    let right_radio = radio_input('"addClass(\'diagram\', \'row-left\', \'row-right\');addClass(\'component-attributes\', \'dialog-right\', \'dialog-left\', \'row-left\');"',
+                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-right"', 'Right')
     return new tag('div').
                  a('id', '"attribute-list-settings"').
-		 a('class', '"dropdown-menu"').
-		 c(new tag('h4').
-                         a('class', '"dark-font blue-grey-background"').
+		             a('class', '"dropdown-menu"').
+		             c(new tag('span').
+                         a('class', '"button blue-grey-background"').
                          a('style', '"height:100%"').
                          t("Sidebar placement")).
-                 c(new tag('div').
-			 a('id', '"attribute-list-options"').
+                     c(new tag('div').
+			             a('id', '"attribute-list-options"').
                          a('class', '"blue-grey-background"').
-			 c(radio_input('"addClass(\'component-attributes\', \'dialog-over-diagram\', \'dialog-over-sidebar\', \'dialog-shrink-diagram\');"',
-                                       '"attribute-list-placement"', '\"attribute-list-placement-diagram\"', 'Over diagram', '"true"')).
-                         c(radio_input('"addClass(\'component-attributes\', \'dialog-shrink-diagram\', \'dialog-over-diagram\', \'dialog-over-sidebar\');"',
-                                       '"attribute-list-placement"', '"attribute-list-placement-shrink"', 'Shrink diagram')).
+			             c(over_diagram_radio).
+                         c(shrink_diagram_radio).
                          c(new tag('div').
-                                 a('class', '"line"').
-			         t(" ")).
-                         c(radio_input('"addClass(\'diagram\', \'row-right\', \'row-left\');addClass(\'component-attributes\', \'dialog-left\', \'dialog-right\', \'row-right\');"',
-                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-left"', 'Left', '"true"')).
-                         c(radio_input('"addClass(\'diagram\', \'row-left\', \'row-right\');addClass(\'component-attributes\', \'dialog-right\', \'dialog-left\', \'row-left\');"',
-                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-right"', 'Right')))
+                             a('class', '"line"').
+			                 t(" ")).
+                         c(right_radio).
+                         c(left_radio))
 }
 
 var attribute_list_header = function() {
