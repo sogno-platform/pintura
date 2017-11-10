@@ -9,7 +9,7 @@
     <xsl:template match="/">
         <xsl:for-each select="xs:schema/xs:complexType">
         <xsl:sort select="@name"/>
-           <xsl:text>&#xa;</xsl:text>
+            <xsl:text>&#xa;</xsl:text>
             <ul class="attribute-list">
             <xsl:attribute name="id">
                 <xsl:value-of select="@name"/>

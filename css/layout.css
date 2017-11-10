@@ -19,6 +19,10 @@ html, body {
     overflow:hidden;
     max-height:100%;
 }
+#menu {
+    width:100%;
+    order:0;
+}
 button {
     min-height: 40px;
 }
@@ -26,6 +30,7 @@ button {
    the main content in a row so they
    are next to each other */
 #middle {
+    height: 100%;
     display: flex;
     display: -webkit-box;
     display: -moz-box;
@@ -75,9 +80,9 @@ button {
     overflow-y: auto;
 }
 #component-search {
-    /* display:none;*/
     overflow-x:hidden;
     overflow-y:auto;
+    order: 2;
 }
 /* main contains the svg and optionally
    the raw xml or pintura data object
@@ -102,6 +107,7 @@ button {
     width:700px;
     min-width: 700px;
     max-width: 700px;
+    height:40%;
 }
 #diagram {
     flex: 1;
@@ -113,11 +119,15 @@ button {
     border-right:thick solid white;
 }
 #attribute-list-div {
+    margin-top:0px;
+    padding:0px;
     margin-left:10px;
+    height:calc( 100% - 40px - 10px );
     margin-right:10px;
 }
 .attribute-list {
     margin-right:0px;
+    margin-top:0px;
     height:100%;
     overflow-y:auto;
     padding-left:10px;
@@ -135,6 +145,9 @@ button {
 }
 .component-list {
     width:100%;
+    list-style-type:none;
+    padding:0;
+    margin:0
 }
 .component-type-name {
     width:100%;
@@ -184,6 +197,21 @@ h4 {
     margin-left: 0px;
     margin-right: 0px;
     border-bottom: 1px solid black;
+}
+.button {
+    border:none;
+    display:inline-block;
+    outline:0;
+    padding:8px 16px;
+    vertical-align:middle;
+    overflow:hidden;
+    text-decoration:none;
+    color:inherit;
+    background-color:inherit;
+    text-align:center;
+    cursor:pointer;
+    white-space:nowrap;
+    width:100%;
 }
 input:focus {
     outline:none;

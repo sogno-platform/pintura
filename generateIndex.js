@@ -113,12 +113,12 @@ function tag(name){
 
 var makeFileMenu = function (text, input_name, action) {
   let input = new tag('input').a('id', '"' + input_name + '"').a('type', '"file"').a('style', '"display:none"').a('multiple', '"true"')
-  let a_tag = new tag('a').t(text).a('href', '"#"').a('class', '"w3-button"').a('type', '"file"').a('onclick', '"javascript:' + input_name + '.click()"')
-  return new tag('div').c(input).c(a_tag).a('id', '"menu"').a('class', '"w3-bar w3-black"')
+  let a_tag = new tag('a').t(text).a('href', '"#"').a('type', '"file"').a('onclick', '"javascript:' + input_name + '.click()"')
+  return new tag('div').c(input).c(a_tag).a('id', '"menu"')
 }
 
 var makeAccordionDiv = function(id, action) {
-  return new tag('div').a('id', '"'+id+'"').a('class', '"w3-container"').c(new tag('div').a('id', '"'+id+'-accordion"').t(" "))
+  return new tag('div').a('id', '"'+id+'"').c(new tag('div').a('id', '"'+id+'-accordion"').t(" "))
 }
 
 /*
@@ -131,9 +131,14 @@ body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"https://www.w3school
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
-body.c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()'))
 
-var middle = new tag('div').a('id', '"middle"').c(new tag('div').a('id', '"sidebar"').c(makeAccordionDiv('component-search', '"cimmenu.searchSidebar(this.value)"')))
+var middle = new tag('div').a('id', '"middle"').c(            // make a div called middle
+                 new tag('div').a('id', '"sidebar"').c(       // with a child div called sidebar
+                     makeAccordionDiv('component-search', '"cimmenu.searchSidebar(this.value)"')
+                 ).c(
+                     makeFileMenu('Open file', 'fileopen', 'fileopen.click()')
+                 )
+             )
 
 var svg = new tag('svg').a('id', '"svg"').
 	        a('xmlns', '"http://www.w3.org/2000/svg"').

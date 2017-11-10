@@ -33,7 +33,19 @@ var cimmenu = cimmenu || (function() {
         let baseJson = cimxml.getBaseJson();
         let template = Handlebars.templates[type.substring(4)];
         let data = template(baseJson[type][id]);
+        links = data.split('<li')
+        number_of_attributes = links.length - 1;
         list.innerHTML = data;
+        integer_list_height = 38 + 10 + number_of_attributes * 34
+        body_height = document.body.getBoundingClientRect().height
+        height = 0
+        if (integer_list_height < body_height) {
+            height = 'height:' + integer_list_height.toString() + 'px'
+        } else {
+            height = 'height:100%'
+        }
+        let component_attributes = document.getElementById('component-attributes');
+        component_attributes.setAttribute("style", height)
     };
 
     var loadXml = function(fileName, callback) {
