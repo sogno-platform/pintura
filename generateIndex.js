@@ -131,20 +131,17 @@ body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 
-var middle = new tag('div').a('id', '"middle"').c(            // make a div called middle
-                 new tag('div').a('id', '"sidebar"').c(       // with a child div called sidebar
-                     makeAccordionDiv('component-search', '"cimmenu.searchSidebar(this.value)"')
-                 ).c(
-                     makeFileMenu('Open file', 'fileopen', 'fileopen.click()')
-                 )
-             )
+var middle = new tag('div').a('id', '"middle"').c(new tag('div').
+                 a('id', '"sidebar"').
+                 c(makeAccordionDiv('component-search', '"cimmenu.searchSidebar(this.value)"')).
+                 c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()')))
 
 var svg = new tag('svg').a('id', '"svg"').
-	        a('xmlns', '"http://www.w3.org/2000/svg"').
-	        a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
-	        c(new tag('rect').a('id', '"backing"')).
-	        c(new tag('g').a('id', '"grid"')).
-	        c(new tag('g').a('id', '"diagram-elements"'))
+	          a('xmlns', '"http://www.w3.org/2000/svg"').
+	          a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
+	          c(new tag('rect').a('id', '"backing"')).
+	          c(new tag('g').a('id', '"grid"')).
+	          c(new tag('g').a('id', '"diagram-elements"'))
 
 var radio_input = function(onchange, name, id, text, checked=false) {
     var input = new tag('input').
@@ -197,43 +194,43 @@ var attribute_list_header = function() {
     return new tag('div').
 	         a('class', '"wide-row blue-grey-background"').
 	         c(new tag('span').
-                         a('id', '"attribute-list-component-name"').
-                         a('class', '"button row-left"').
-                         t("Attributes in Component:")).
-                 c(new tag('span').
-                         a('id', '"close-attributes"').
-                         a('class', '"button row-right"').
-                         a('onclick', '"showContainer(\'component-attributes\', null);"').
-                         t("<b>&times;</b>")).
-                 c(new tag('span').
-                         a('class', '"button row-right"').
-                         a('onclick', '"showContainer(\'attribute-list-settings\');"').
-                         t("&#9881;"))
+                   a('id', '"attribute-list-component-name"').
+                   a('class', '"button row-left"').
+                   t("Attributes in Component:")).
+             c(new tag('span').
+                   a('id', '"close-attributes"').
+                   a('class', '"button row-right"').
+                   a('onclick', '"showContainer(\'component-attributes\', null);"').
+                   t("<b>&times;</b>")).
+             c(new tag('span').
+                   a('class', '"button row-right"').
+                   a('onclick', '"showContainer(\'attribute-list-settings\');"').
+                   t("&#9881;"))
 };
 
 
 var diagram = new tag('div').a('id', '"diagram"').a('class', '"row-right"').c(svg)
+
 var dropdown = new tag('div').
 	             a('class', '"dropdown"').
                      c(attribute_list_settings()).
                      c(new tag('script').
-                             a('type', '"text/javascript"').
-                             a('src', '"src/cimsvg.js"').
-                             t(" ")).
+                           a('type', '"text/javascript"').
+                           a('src', '"src/cimsvg.js"').
+                           t(" ")).
                      c(new tag('script').
-                             a('type', '"text/javascript"').
-                             a('src', '"index.js"').
-                             t(" "))
-
+                           a('type', '"text/javascript"').
+                           a('src', '"index.js"').
+                           t(" "))
 
 var component_attributes = new tag('div').
-	                         a('id', '"component-attributes"').
-                                 a('class', '"blue-grey-background row-left dialog-over-diagram"').
-                                 c(attribute_list_header()).
-                                 c(dropdown).
-                                 c(new tag('div').
-                                         a('id', '"attribute-list-div"').
-					 t(" "))
+	                           a('id', '"component-attributes"').
+                               a('class', '"blue-grey-background row-left dialog-over-diagram"').
+                               c(attribute_list_header()).
+                           c(dropdown).
+                           c(new tag('div').
+                                 a('id', '"attribute-list-div"').
+					             t(" "))
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes)
 
