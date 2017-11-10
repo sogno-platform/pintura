@@ -11,7 +11,7 @@ html, body {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: nowrap;
     box-sizing: border-box;
     height: 100%;
@@ -60,21 +60,6 @@ button::-moz-focus-inner,
 }
 button {
     min-height: 40px;
-}
-/* middle contains the sidebar and
-   the main content in a row so they
-   are next to each other */
-#middle {
-    height: 100%;
-    display: flex;
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    flex: 1;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-y:auto;
 }
 .row {
     display: flex;

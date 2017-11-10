@@ -131,10 +131,10 @@ body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 
-var middle = new tag('div').a('id', '"middle"').c(new tag('div').
-                 a('id', '"sidebar"').
-                 c(makeAccordionDiv('component-search', '"cimmenu.searchSidebar(this.value)"')).
-                 c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()')))
+var sidebar = new tag('div').
+                  a('id', '"sidebar"').
+                  c(makeAccordionDiv('component-search', '"cimmenu.searchSidebar(this.value)"')).
+                  c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()'))
 
 var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns', '"http://www.w3.org/2000/svg"').
@@ -234,8 +234,7 @@ var component_attributes = new tag('div').
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes)
 
-middle.c(main)
-body.c(middle)
+body.c(sidebar).c(main)
 
 html.c(body)
 
