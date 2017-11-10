@@ -113,7 +113,7 @@ function tag(name){
 
 var makeFileMenu = function (text, input_name, action) {
   let input = new tag('input').a('id', '"' + input_name + '"').a('type', '"file"').a('style', '"display:none"').a('multiple', '"true"')
-  let a_tag = new tag('a').t(text).a('href', '"#"').a('type', '"file"').a('onclick', '"javascript:' + input_name + '.click()"')
+  let a_tag = new tag('a').t(text).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', '"javascript:' + input_name + '.click()"')
   return new tag('div').c(input).c(a_tag).a('id', '"menu"')
 }
 
@@ -127,7 +127,6 @@ var makeAccordionDiv = function(id, action) {
 var html = new tag('html').c(new tag('head').c(new tag('title').t('Pintura')))
 
 var body = new tag('body')
-body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"https://www.w3schools.com/w3css/4/w3.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
@@ -194,15 +193,15 @@ var attribute_list_header = function() {
 	         a('class', '"wide-row blue-grey-background"').
 	         c(new tag('span').
                          a('id', '"attribute-list-component-name"').
-                         a('class', '"w3-button row-left"').
+                         a('class', '"button row-left"').
                          t("Attributes in Component:")).
                  c(new tag('span').
                          a('id', '"close-attributes"').
-                         a('class', '"w3-button row-right"').
+                         a('class', '"button row-right"').
                          a('onclick', '"showContainer(\'component-attributes\', null);"').
                          t("<b>&times;</b>")).
                  c(new tag('span').
-                         a('class', '"w3-button row-right"').
+                         a('class', '"button row-right"').
                          a('onclick', '"showContainer(\'attribute-list-settings\');"').
                          t("&#9881;"))
 };

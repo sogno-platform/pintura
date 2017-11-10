@@ -1,11 +1,11 @@
 <ul class="component-list">
   {{#each Diagram}}
-    <li class="button blue-grey-background">Components in Diagram: {{pintura:name}}</li>
+    <li class="button wide-button blue-grey-background">Components in Diagram: {{pintura:name}}</li>
     {{#each components as |value typeName|}}
-      <button class="component-list-name row button dark-grey-background" onclick="javascript:showContainer('{{typeName}}-accordion', null);">{{typeName}}</button>
+      <button class="component-list-name row button wide-button dark-grey-background" onclick="javascript:showContainer('{{typeName}}-accordion', null);">{{typeName}}</button>
       <div id="{{typeName}}-accordion" style="display:none">
       {{#each this as |value id|}}
-        <button id="{{id}}-sidebar-button" style="width:100%" class="button row light-grey-background"
+        <button id="{{id}}-sidebar-button" style="width:100%" class="button wide-button row light-grey-background"
                 onclick="javascript:populateAttributes('{{typeName}}', '{{id}}');showContainer('component-attributes', null, 'true');">{{this.pintura:label.text}}</button>
       {{/each}}
       </div>

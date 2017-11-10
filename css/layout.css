@@ -20,6 +20,8 @@ html, body {
     max-height:100%;
 }
 #menu {
+    display:flex;
+    justify-content:space-around;
     width:100%;
     order:0;
 }
@@ -82,6 +84,8 @@ button {
 #component-search {
     overflow-x:hidden;
     overflow-y:auto;
+    margin-left:10px;
+    margin-right:10px;
     order: 2;
 }
 /* main contains the svg and optionally
@@ -157,6 +161,29 @@ button {
     flex-direction:row;
     justify-content:space-between;
 }
+.button {
+    border:none;
+    display:inline-block;
+    outline:0;
+    padding:8px 16px;
+    vertical-align:middle;
+    overflow:hidden;
+    text-decoration:none;
+    color:inherit;
+    background-color:inherit;
+    cursor:pointer;
+    white-space:nowrap;
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -khtml-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    padding:8px 16px;
+}
+.wide-button {
+    width:100%;
+}
 .row-left {
     order: 0;
 }
@@ -197,21 +224,6 @@ h4 {
     margin-left: 0px;
     margin-right: 0px;
     border-bottom: 1px solid black;
-}
-.button {
-    border:none;
-    display:inline-block;
-    outline:0;
-    padding:8px 16px;
-    vertical-align:middle;
-    overflow:hidden;
-    text-decoration:none;
-    color:inherit;
-    background-color:inherit;
-    text-align:center;
-    cursor:pointer;
-    white-space:nowrap;
-    width:100%;
 }
 input:focus {
     outline:none;
