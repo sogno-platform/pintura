@@ -2,6 +2,6 @@ handlebars.runtime.js
 html.tgz
 index.html
 templates/template.js
-templates/[A-Z]*.handlebars
+templates/generated_attribute_lists/[A-Z]*.handlebars
 templates/[A-Z]*.xsd
 node_modules/*

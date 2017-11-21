@@ -1,20 +1,25 @@
 #!/bin/bash
 template_dir=$1
+
+attribute_lists_dir=$template_dir/generated_attribute_lists
+if [ ! -d "${attribute_lists_dir}" ]; then
+  mkdir "${attribute_lists_dir}"
+fi
 xsltproc $template_dir/cim_xml_scheme.xslt \
   $template_dir/Core.xsd | \
-  csplit --digits=3  --quiet --prefix=$template_dir/template_c_ - "/</ul>/+1" "{*}"
+  csplit --digits=3  --quiet --prefix=${attribute_lists_dir}/template_c_ - "/</ul>/+1" "{*}"
 xsltproc $template_dir/cim_xml_scheme.xslt \
   $template_dir/Wires.xsd | \
-  csplit --digits=3  --quiet --prefix=$template_dir/template_w_ - "/</ul>/+1" "{*}"
+  csplit --digits=3  --quiet --prefix=${attribute_lists_dir}/template_w_ - "/</ul>/+1" "{*}"
 xsltproc $template_dir/cim_xml_scheme.xslt \
   $template_dir/Topology.xsd | \
-  csplit --digits=3  --quiet --prefix=$template_dir/template_t_ - "/</ul>/+1" "{*}"
-for file in $(ls $template_dir/template_?_*); do
+  csplit --digits=3  --quiet --prefix=${attribute_lists_dir}/template_t_ - "/</ul>/+1" "{*}"
+for file in $(ls $attribute_lists_dir/template_?_*); do
   echo ${file}
   TYPE=$(sed -n 's/.*id="\(.*\)" base.*/\1/p' ${file})
   echo ${TYPE};
   if [ "${TYPE}" != "" ]; then
-    mv ${file} $template_dir/${TYPE}.handlebars;
+    mv ${file} ${attribute_lists_dir}/${TYPE}.handlebars;
   else
     echo "Clearing up invalid file: $file"
     rm $file
@@ -22,4 +27,5 @@ for file in $(ls $template_dir/template_?_*); do
 done;
 handlebars \
   ${template_dir}/*.handlebars \
+  ${attribute_lists_dir}/*.handlebars \
 > ${template_dir}/template.js
