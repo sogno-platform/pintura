@@ -23,6 +23,10 @@ var cimsvg = cimsvg || (function() {
     var pinturaNode = null;
     var sidebarNode = null;
 
+    function handler() {
+        //console.log(this.getResponseHeader('content-type'));
+    }
+
     var includeFile = function(fileName, callback) {
         let dom = svgNode.ownerDocument;
         let newTag = dom.createElement("script");
@@ -61,19 +65,6 @@ var cimsvg = cimsvg || (function() {
         isNode = true;
     }
 
-    var addSidebar = function(node) {
-        sidebarNode = node;
-        cimmenu.init(sidebarNode);
-    };
-
-    var addRawXML = function(node) {
-        xmlNode = node;
-    };
-
-    var addPinturaData = function(node) {
-        pinturaNode = node;
-    };
-
     var loadViewAndMenu = function() {
         includeFile("src/cimview.js", function() {
             cimview.init(svgNode);
@@ -93,6 +84,27 @@ var cimsvg = cimsvg || (function() {
         }
     };
 
+    var loadXml = function(fileName, callback) {
+        // Create a connection to the file.
+        var Connect = new XMLHttpRequest();
+        // Define which file to open and
+        Connect.open("GET", fileName, true);
+        Connect.setRequestHeader("Content-Type", "text/xml");
+        Connect.onreadystatechange = handler;
+        Connect.onload = function (e) {
+            if(Connect.readyState === 4) {
+                if(Connect.status === 200) {
+                    callback(Connect.responseXML);
+                }
+                else {
+                    console.log(Connect.statusText);
+                }
+            }
+        };
+        // send the request.
+        Connect.send(null);
+    };
+
     return {
         init : function(node, side) {
             svgNode = node;
@@ -101,15 +113,16 @@ var cimsvg = cimsvg || (function() {
             includeFile("src/cimxml.js");
             includeFile("templates/template.js");
             includeFile("src/cimjson.js");
+            loadXml("templates/generated_add_components/menu.xml", function(xml, node=sidebarNode){
+                accordion = node.querySelector('#component-add-accordion')
+                accordion.innerHTML = xml.documentElement.innerHTML;
+            });
         },
         setSVG : function(svg) {
             svgNode = svg;
         },
         loadFile,
         setFileCount,
-        addSidebar,
-        addRawXML,
-        addPinturaData,
         updateComponent,
     };
 

@@ -148,6 +148,7 @@ body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
                   c(makeAccordionDiv('component-search', '"cimmenu.searchSidebar(this.value)"')).
+                  c(makeAccordionDiv('component-add', '"cimmenu.searchSidebar(this.value)"')).
                   c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()'))
 
 var svg = new tag('svg').a('id', '"svg"').
@@ -236,14 +237,14 @@ var make_floating_panel = function(id) {
                c(floating_panel_header(id, id + '-settings')).
            c(dropdown_panel().c(floating_panel_settings(id + '-settings'))).
            c(new tag('div').
-               a('id', '"attribute-list-div"').
+               a('id', '"' + id + '-list-div"').
 			   t(" "))
 }
 
 var component_attributes = make_floating_panel('component-attributes')
-var component_creation = make_floating_panel('component-creation')
+//var component_creation = make_floating_panel('component-creation')
 
-var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes)
+var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes)//.c(component_creation)
 
 body.c(sidebar).c(main)
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"src/cimsvg.js"').t(" "))

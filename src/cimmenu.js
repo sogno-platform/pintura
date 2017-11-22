@@ -18,10 +18,6 @@
 
 var cimmenu = cimmenu || (function() {
 
-    function handler() {
-        //console.log(this.getResponseHeader('content-type'));
-    }
-
     var populateSidebar = function(sidebar, templateJson) {
         let template = Handlebars.templates['pintura2html'];
         let data = template(templateJson);
@@ -46,27 +42,6 @@ var cimmenu = cimmenu || (function() {
         }
         let component_attributes = document.getElementById('component-attributes');
         component_attributes.setAttribute("style", height)
-    };
-
-    var loadXml = function(fileName, callback) {
-        // Create a connection to the file.
-        var Connect = new XMLHttpRequest();
-        // Define which file to open and
-        Connect.open("GET", fileName, true);
-        Connect.setRequestHeader("Content-Type", "text/xml");
-        Connect.onreadystatechange = handler;
-        Connect.onload = function (e) {
-            if(Connect.readyState === 4) {
-                if(Connect.status === 200) {
-                    callback(Connect.responseXML);
-                }
-                else {
-                    console.log(Connect.statusText);
-                }
-            }
-        };
-        // send the request.
-        Connect.send(null);
     };
 
     var searchSidebar=function(searchString) {

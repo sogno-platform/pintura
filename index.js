@@ -17,8 +17,6 @@
  */
 
 cimsvg.init(document.getElementById("svg"), document.getElementById("sidebar"));
-cimsvg.addRawXML(document.getElementById("cim-xml-sidebar"));
-cimsvg.addPinturaData(document.getElementById("pintura-data-sidebar"));
 document.getElementById("fileopen").addEventListener('change', readFile, false);
 
 var updateComponent = function(type, id, attribute, value) {

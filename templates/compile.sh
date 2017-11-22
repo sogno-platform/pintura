@@ -1,4 +1,5 @@
 #!/bin/bash
+
 template_dir=$1
 
 attribute_lists_dir=$template_dir/generated_attribute_lists
@@ -25,6 +26,19 @@ for file in $(ls $attribute_lists_dir/template_?_*); do
     rm $file
   fi;
 done;
+
+add_components_dir=$template_dir/generated_add_components
+if [ ! -d "${add_components_dir}" ]; then
+  mkdir "${add_components_dir}"
+fi
+echo '<menu>' > $add_components_dir/menu.xml
+echo '  <ul class="component-list">' >> $add_components_dir/menu.xml
+xsltproc $template_dir/cim_add_components_menu.xslt \
+  $template_dir/Core.xsd $template_dir/Topology.xsd $template_dir/Wires.xsd \
+  | grep -v "^$" | sort >> $add_components_dir/menu.xml
+echo '  </ul>' >> $add_components_dir/menu.xml
+echo '</menu>' >> $add_components_dir/menu.xml
+
 handlebars \
   ${template_dir}/*.handlebars \
   ${attribute_lists_dir}/*.handlebars \
