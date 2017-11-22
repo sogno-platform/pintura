@@ -165,7 +165,7 @@ var radio_input = function(onchange, name, id, text, checked=false) {
                       a('id', id)
 
     var label = new tag('label').
-	              a('class', '"dark-font"').
+	              a('class', '"dark-font panel-button"').
 	              a('for', id).t(text)
 
     if (checked) {
@@ -213,11 +213,11 @@ var floating_panel_header = function(floating_panel_id, settings_panel_id) {
                    t("Attributes in Component:")).
                c(new tag('span').
                    c(new tag('span').
-                       a('class', '"button row-right"').
+                       a('class', '"button row-right panel-button"').
                        a('onclick', '"showContainer(\'' + floating_panel_id + '\', null);"').
                        t("<b>&times;</b>")).
                    c(new tag('span').
-                       a('class', '"button row-right"').
+                       a('class', '"button row-right panel-button"').
                        a('onclick', '"showContainer(\'' + settings_panel_id + '\');"').
                        t("&#9881;")))
 };

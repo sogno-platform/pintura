@@ -140,23 +140,23 @@ button {
 #attribute-list-header {
     border-right:thick solid white;
 }
-#attribute-list-div {
+#component-attributes-list-div {
     margin-top:0px;
-    padding:0px;
     margin-left:10px;
-    height:calc( 100% - 40px - 10px );
     margin-right:10px;
+    margin-bottom:10px;
+    padding:0px;
+    height:calc( 100% - 40px - 10px );
 }
 .attribute-list {
-    margin-right:0px;
-    margin-top:0px;
+    margin:0px;
     height:100%;
     overflow-y:auto;
-    padding-left:10px;
-    padding-right:10px;
+    padding:0px;
 }
 .attribute-name {
     margin-top:10px;
+    margin-left:10px;
     text-align:left;
 }
 .attribute-value {
@@ -211,9 +211,11 @@ button:hover {
 }
 .row-right {
     order: 1;
+}
+.panel-button {
     margin:0px;
-    padding-left:0px;
-    padding-right:16px;
+    padding-left:8px;
+    padding-right:8px;
 }
 #attribute-list-component-name {
     flex-grow: 1;

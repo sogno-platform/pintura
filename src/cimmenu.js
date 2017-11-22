@@ -29,14 +29,14 @@ var cimmenu = cimmenu || (function() {
     };
 
     populateAttributes = function(type, id) {
-        let list = document.getElementById('attribute-list-div');
+        let list = document.getElementById('component-attributes-list-div');
         let baseJson = cimxml.getBaseJson();
         let template = Handlebars.templates[type.substring(4)];
         let data = template(baseJson[type][id]);
         links = data.split('<li')
         number_of_attributes = links.length - 1;
         list.innerHTML = data;
-        integer_list_height = 38 + 10 + number_of_attributes * 34
+        integer_list_height = 40 + 10 + number_of_attributes * 33
         body_height = document.body.getBoundingClientRect().height
         height = 0
         if (integer_list_height < body_height) {
