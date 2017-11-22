@@ -39,26 +39,40 @@ var endTag = function (name) {
 
 var depth = -1
 
-var printTag = function(tag) {
+print_with_endl_and_indent = function(front_indent, text, endl='') {
+  process.stdout.write(front_indent + text + endl)
+}
+
+print_without_endl_or_indent = function(front_indent, text, endl='') {
+  process.stdout.write(text)
+}
+
+var printTag = function(tag, readable=false) {
+  var print_func
+  if (readable) {
+    print_func = print_with_endl_and_indent
+  } else {
+    print_func = print_without_endl_or_indent
+  }
   var indent = '    '.repeat(++depth)
   var numberOfChildren = invalidOrZeroLength(tag.children) ? 0 : tag.children.length
   var emptyInside = tag.text === undefined || tag.text.length === 0
-  process.stdout.write(indent + startTag(tag.name, tag.attributes))
+  print_func(indent, startTag(tag.name, tag.attributes))
   if (numberOfChildren === 0 && emptyInside) {
-    console.log('/>')
+    print_func('', '/>', '\n')
     depth--
   } else {
     if (tag.text.length > 0) {
-      process.stdout.write('>' + tag.text)
-      console.log(endTag(tag.name))
+      print_func('', '>' + tag.text)
+      print_func('', endTag(tag.name), '\n')
       indent = '    '.repeat(depth--)
     } else {
-      process.stdout.write('>' + '\n')
+      print_func('', '>', '\n')
       for (let index in tag.children) {
-        printTag(tag.children[index])
+        printTag(tag.children[index], readable)
       }
       indent = '    '.repeat(depth--)
-      console.log(indent + endTag(tag.name))
+      print_func(indent, endTag(tag.name), '\n')
     }
   }
 }
@@ -161,18 +175,18 @@ var radio_input = function(onchange, name, id, text, checked=false) {
     return new tag('a').c(input).c(label)
 };
 
-var attribute_list_settings = function() {
+var floating_panel_settings = function(id) {
 
     let over_diagram_radio = radio_input('"addClass(\'component-attributes\', \'dialog-over-diagram\', \'dialog-over-sidebar\', \'dialog-shrink-diagram\');"',
-                                       '"attribute-list-placement"', '\"attribute-list-placement-diagram\"', 'Over diagram', '"true"')
+                                       '"attribute-list-placement"', '\"attribute-list-placement-diagram\"', 'Over diagram', true)
     let shrink_diagram_radio = radio_input('"addClass(\'component-attributes\', \'dialog-shrink-diagram\', \'dialog-over-diagram\', \'dialog-over-sidebar\');"',
                                        '"attribute-list-placement"', '"attribute-list-placement-shrink"', 'Shrink diagram')
     let left_radio = radio_input('"addClass(\'diagram\', \'row-right\', \'row-left\');addClass(\'component-attributes\', \'dialog-left\', \'dialog-right\', \'row-right\');"',
-                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-left"', 'Left', '"true"')
+                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-left"', 'Left', true)
     let right_radio = radio_input('"addClass(\'diagram\', \'row-left\', \'row-right\');addClass(\'component-attributes\', \'dialog-right\', \'dialog-left\', \'row-left\');"',
                                        '"attribute-list-placement-align"', '"attribute-list-placement-align-right"', 'Right')
     return new tag('div').
-                 a('id', '"attribute-list-settings"').
+                 a('id', '"' + id + '"').
 		             a('class', '"dropdown-menu"').
 		             c(new tag('span').
                          a('class', '"button blue-grey-background"').
@@ -186,55 +200,54 @@ var attribute_list_settings = function() {
                          c(new tag('div').
                              a('class', '"line"').
 			                 t(" ")).
-                         c(right_radio).
-                         c(left_radio))
+                         c(left_radio)).
+                         c(right_radio)
 }
 
-var attribute_list_header = function() {
+var floating_panel_header = function(floating_panel_id, settings_panel_id) {
     return new tag('div').
-	         a('class', '"wide-row blue-grey-background"').
-	         c(new tag('span').
-                   a('id', '"attribute-list-component-name"').
+	           a('class', '"wide-row blue-grey-background"').
+	           c(new tag('span').
+                   a('id', '"' + floating_panel_id + '-component-name"').
                    a('class', '"button row-left"').
                    t("Attributes in Component:")).
-             c(new tag('span').
-                   a('id', '"close-attributes"').
-                   a('class', '"button row-right"').
-                   a('onclick', '"showContainer(\'component-attributes\', null);"').
-                   t("<b>&times;</b>")).
-             c(new tag('span').
-                   a('class', '"button row-right"').
-                   a('onclick', '"showContainer(\'attribute-list-settings\');"').
-                   t("&#9881;"))
+               c(new tag('span').
+                   c(new tag('span').
+                       a('class', '"button row-right"').
+                       a('onclick', '"showContainer(\'' + floating_panel_id + '\', null);"').
+                       t("<b>&times;</b>")).
+                   c(new tag('span').
+                       a('class', '"button row-right"').
+                       a('onclick', '"showContainer(\'' + settings_panel_id + '\');"').
+                       t("&#9881;")))
 };
-
 
 var diagram = new tag('div').a('id', '"diagram"').a('class', '"row-right"').c(svg)
 
-var dropdown = new tag('div').
-	             a('class', '"dropdown"').
-                     c(attribute_list_settings()).
-                     c(new tag('script').
-                           a('type', '"text/javascript"').
-                           a('src', '"src/cimsvg.js"').
-                           t(" ")).
-                     c(new tag('script').
-                           a('type', '"text/javascript"').
-                           a('src', '"index.js"').
-                           t(" "))
+var dropdown_panel = function(){
+    return new tag('div').
+	    a('class', '"dropdown"')
+}
 
-var component_attributes = new tag('div').
-	                           a('id', '"component-attributes"').
-                               a('class', '"blue-grey-background row-left dialog-over-diagram"').
-                               c(attribute_list_header()).
-                           c(dropdown).
-                           c(new tag('div').
-                                 a('id', '"attribute-list-div"').
-					             t(" "))
+var make_floating_panel = function(id) {
+    return new tag('div').
+	           a('id', '"'+id+'"').
+               a('class', '"blue-grey-background row-left dialog-over-diagram"').
+               c(floating_panel_header(id, id + '-settings')).
+           c(dropdown_panel().c(floating_panel_settings(id + '-settings'))).
+           c(new tag('div').
+               a('id', '"attribute-list-div"').
+			   t(" "))
+}
+
+var component_attributes = make_floating_panel('component-attributes')
+var component_creation = make_floating_panel('component-creation')
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes)
 
 body.c(sidebar).c(main)
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"src/cimsvg.js"').t(" "))
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
 
 html.c(body)
 
@@ -257,4 +270,4 @@ console.log(`<!--
 -->
 <!DOCTYPE HTML>`)
 //printTagJson(html)
-printTag(html)
+printTag(html) //, true)
