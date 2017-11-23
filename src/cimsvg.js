@@ -113,8 +113,8 @@ var cimsvg = cimsvg || (function() {
             includeFile("src/cimxml.js");
             includeFile("templates/template.js");
             includeFile("src/cimjson.js");
-            loadXml("templates/generated_add_components/menu.xml", function(xml, node=sidebarNode){
-                accordion = node.querySelector('#component-add-accordion')
+            loadXml("templates/generated_add_components/menu.xml", function(xml){
+                accordion = sidebarNode.querySelector('#component-add-accordion')
                 accordion.innerHTML = xml.documentElement.innerHTML;
             });
         },

@@ -127,7 +127,7 @@ function tag(name){
 
 var makeFileMenu = function (text, input_name, action) {
   let input = new tag('input').a('id', '"' + input_name + '"').a('type', '"file"').a('style', '"display:none"').a('multiple', '"true"')
-  let a_tag = new tag('a').t(text).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', '"javascript:' + input_name + '.click()"')
+  let a_tag = new tag('a').t(text).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', action)
   return new tag('div').c(input).c(a_tag).a('id', '"menu"')
 }
 
