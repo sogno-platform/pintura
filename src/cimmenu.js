@@ -18,6 +18,8 @@
 
 var cimmenu = cimmenu || (function() {
 
+    var componentAttributeNode = null;
+
     var populateSidebar = function(sidebar, templateJson) {
         let template = Handlebars.templates['pintura2html'];
         let data = template(templateJson);
@@ -25,7 +27,7 @@ var cimmenu = cimmenu || (function() {
     };
 
     populateAttributes = function(type, id) {
-        let list = document.getElementById('component-attributes-list-div');
+        let list = componentAttributeNode.getChildByName('component-attribute-list-div')
         let baseJson = cimxml.getBaseJson();
         let template = Handlebars.templates[type.substring(4)];
         let data = template(baseJson[type][id]);
@@ -73,6 +75,9 @@ var cimmenu = cimmenu || (function() {
     };
 
     return {
+        init: function(componentAttributes){
+            componentAttributeNode = componentAttributes;
+        },
         searchSidebar,
         populateSidebar,
         selectComponentType,
