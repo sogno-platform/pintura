@@ -14,13 +14,13 @@
     color:white;
     background:#607d8b;
 }
-.attribute-item {
+.floating-panel-item {
     font-size:12px;
 }
-#attribute-list-div {
+#floating-panel-list-div {
     background:#aaa;
 }
-.component-list {
+.floating-panel-list {
     background:grey;
     border:none;
 }
@@ -35,7 +35,7 @@
     color:black;
     font-size:12px;
 }
-.component-list-name {
+.floating-panel-name {
     font-size:12px;
 }
 .dark-font {

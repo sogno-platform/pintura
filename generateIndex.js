@@ -138,7 +138,7 @@ var makeAccordionDiv = function(id, action) {
 makePanelOpeningButton = function(id, text, action) {
   return new tag('div').a('id', '"'+id+'"').
                a('class', '"button blue-grey-background"').
-               a('action', action).
+               a('onclick', action).
                c(new tag('a').t(text))
 }
 
@@ -155,7 +155,7 @@ body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
                   c(makeAccordionDiv('component-search', '"cimmenu.searchSidebar(this.value)"')).
-                  c(makePanelOpeningButton('component-add', "Add New Component", "javascript:showComponent('component-creation')")).
+                  c(makePanelOpeningButton('component-add', "Add New Component", "javascript:showContainer('component-creation')")).
                   c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()'))
 
 var svg = new tag('svg').a('id', '"svg"').
@@ -183,25 +183,25 @@ var radio_input = function(onchange, name, id, text, checked=false) {
     return new tag('a').c(input).c(label)
 };
 
-var floating_panel_settings = function(id) {
+var floating_panel_settings = function(floating_panel_settings_id, floating_panel_div_id) {
 
-    let over_diagram_radio = radio_input('"addClass(\'component-attributes\', \'dialog-over-diagram\', \'dialog-over-sidebar\', \'dialog-shrink-diagram\');"',
+    let over_diagram_radio = radio_input('"addClass(\'' + floating_panel_div_id + '\', \'dialog-over-diagram\', \'dialog-over-sidebar\', \'dialog-shrink-diagram\');"',
                                        '"attribute-list-placement"', '\"attribute-list-placement-diagram\"', 'Over diagram', true)
-    let shrink_diagram_radio = radio_input('"addClass(\'component-attributes\', \'dialog-shrink-diagram\', \'dialog-over-diagram\', \'dialog-over-sidebar\');"',
+    let shrink_diagram_radio = radio_input('"addClass(\'' + floating_panel_div_id + '\', \'dialog-shrink-diagram\', \'dialog-over-diagram\', \'dialog-over-sidebar\');"',
                                        '"attribute-list-placement"', '"attribute-list-placement-shrink"', 'Shrink diagram')
-    let left_radio = radio_input('"addClass(\'diagram\', \'row-right\', \'row-left\');addClass(\'component-attributes\', \'dialog-left\', \'dialog-right\', \'row-right\');"',
+    let left_radio = radio_input('"addClass(\'diagram\', \'row-right\', \'row-left\');addClass(\'' + floating_panel_div_id + '\', \'dialog-left\', \'dialog-right\', \'row-right\');"',
                                        '"attribute-list-placement-align"', '"attribute-list-placement-align-left"', 'Left', true)
-    let right_radio = radio_input('"addClass(\'diagram\', \'row-left\', \'row-right\');addClass(\'component-attributes\', \'dialog-right\', \'dialog-left\', \'row-left\');"',
+    let right_radio = radio_input('"addClass(\'diagram\', \'row-left\', \'row-right\');addClass(\'' + floating_panel_div_id + '\', \'dialog-right\', \'dialog-left\', \'row-left\');"',
                                        '"attribute-list-placement-align"', '"attribute-list-placement-align-right"', 'Right')
     return new tag('div').
-                 a('id', '"' + id + '"').
+                 a('id', '"' + floating_panel_settings_id + '"').
 		             a('class', '"dropdown-menu"').
 		             c(new tag('span').
                          a('class', '"button blue-grey-background"').
                          a('style', '"height:100%"').
                          t("Sidebar placement")).
                      c(new tag('div').
-			             a('id', '"attribute-list-options"').
+			             a('id', '"' + floating_panel_div_id + '-options"').
                          a('class', '"blue-grey-background"').
 			             c(over_diagram_radio).
                          c(shrink_diagram_radio).
@@ -242,9 +242,10 @@ var make_floating_panel = function(id) {
 	           a('id', '"'+id+'"').
                a('class', '"blue-grey-background row-left dialog-over-diagram"').
                c(floating_panel_header(id, id + '-settings')).
-           c(dropdown_panel().c(floating_panel_settings(id + '-settings'))).
+           c(dropdown_panel().c(floating_panel_settings(id + '-settings', id))).
            c(new tag('div').
                a('id', '"' + id + '-list-div"').
+               a('class', '"floating-panel-list-div"').
 			   t(" "))
 }
 

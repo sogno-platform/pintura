@@ -140,7 +140,7 @@ button {
 #attribute-list-header {
     border-right:thick solid white;
 }
-#component-attributes-list-div {
+.floating-panel-list-div {
     margin-top:0px;
     margin-left:10px;
     margin-right:10px;
@@ -148,28 +148,22 @@ button {
     padding:0px;
     height:calc( 100% - 40px - 10px );
 }
-.attribute-list {
+.floating-panel-list {
     margin:0px;
     height:100%;
     overflow-y:auto;
     padding:0px;
 }
-.attribute-name {
+.floating-panel-name {
     margin-top:10px;
     margin-left:10px;
     text-align:left;
 }
-.attribute-value {
+.floating-panel-value {
     margin-right:10px;
 }
-.attribute-value input{
+.floating-panel-value input{
     text-align:right;
-}
-.component-list {
-    width:100%;
-    list-style-type:none;
-    padding:0;
-    margin:0
 }
 .component-type-name {
     width:100%;

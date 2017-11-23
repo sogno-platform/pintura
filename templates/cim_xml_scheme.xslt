@@ -10,7 +10,7 @@
         <xsl:for-each select="xs:schema/xs:complexType">
         <xsl:sort select="@name"/>
             <xsl:text>&#xa;</xsl:text>
-            <ul class="attribute-list">
+            <ul class="floating-panel-list">
             <xsl:attribute name="id">
                 <xsl:value-of select="@name"/>
             </xsl:attribute>
@@ -23,11 +23,11 @@
                     <xsl:value-of select="@base"/>
                 </xsl:attribute>
                 <xsl:text>&#xa;    </xsl:text>
-                <li class="wide-row attribute-item dark-grey-background">
+                <li class="wide-row floating-panel-item dark-grey-background">
                     <xsl:text>&#xa;        </xsl:text>
-                    <span class="row-left attribute-name">cim:IdentifiedObject.name</span>
+                    <span class="row-left floating-panel-name">cim:IdentifiedObject.name</span>
                     <xsl:text>&#xa;        </xsl:text>
-                    <span class="row-right attribute-value">
+                    <span class="row-right floating-panel-value">
                         <input type="text">
                             <xsl:attribute name="value">{{[cim:IdentifiedObject.name]}}</xsl:attribute>
                             <xsl:attribute name="onchange">javascript:updateComponent('<xsl:value-of select="$type"/>', '{{rdfid}}', 'cim:IdentifiedObject.name', this.value)</xsl:attribute>
@@ -37,11 +37,11 @@
                 </li>
                 <xsl:for-each select="xs:sequence/xs:element">
                     <xsl:text>&#xa;    </xsl:text>
-                    <li class="wide-row attribute-item dark-grey-background">
+                    <li class="wide-row floating-panel-item dark-grey-background">
                         <xsl:text>&#xa;        </xsl:text>
-                        <span class="row-left attribute-name"><xsl:value-of select="concat($type, '.', @name)"/></span>
+                        <span class="row-left floating-panel-name"><xsl:value-of select="concat($type, '.', @name)"/></span>
                         <xsl:text>&#xa;        </xsl:text>
-                        <span class="row-right attribute-value">
+                        <span class="row-right floating-panel-value">
                             <input type="text">
                                 <xsl:attribute name="value">{{[<xsl:value-of select="concat($type, '.', @name)"/>]}}</xsl:attribute>
                                 <xsl:attribute name="onchange">javascript:updateComponent('<xsl:value-of select="$type"/>', '{{rdfid}}', '<xsl:value-of select="concat($type, '.', @name)"/>', this.value)</xsl:attribute>

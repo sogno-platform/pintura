@@ -65,7 +65,7 @@ var cimsvg = cimsvg || (function() {
         isNode = true;
     }
 
-    var loadViewAndMenu = function(componentAttributes) {
+    var loadViewAndMenu = function(componentAttributes, componentCreation) {
         includeFile("src/cimview.js", function() {
             cimview.init(svgNode);
         });
@@ -107,15 +107,15 @@ var cimsvg = cimsvg || (function() {
     };
 
     return {
-        init : function(svg, sidebar, componentAttributes) {
+        init : function(svg, sidebar, componentAttributes, componentCreation) {
             svgNode = svg;
             sidebarNode = sidebar;
-            includeFile("handlebars.runtime.js", loadViewAndMenu(componentAttributes));
+            includeFile("handlebars.runtime.js", loadViewAndMenu(componentAttributes, componentCreation));
             includeFile("src/cimxml.js");
             includeFile("templates/template.js");
             includeFile("src/cimjson.js");
             loadXml("templates/generated_add_components/menu.xml", function(xml){
-                accordion = sidebarNode.querySelector('#component-creation')
+                accordion = componentCreation.querySelector('#component-creation-list-div')
                 accordion.innerHTML = xml.documentElement.innerHTML;
             });
         },

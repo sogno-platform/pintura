@@ -9,11 +9,18 @@
         <xsl:for-each select="xs:schema/xs:complexType">
         <xsl:sort select="@name"/>
             <xsl:text>    </xsl:text>
-            <li class="button wide-button attribute-item dark-grey-background">
+            <li class="wide-row floating-panel-item dark-grey-background">
                 <xsl:attribute name="id">
                     <xsl:value-of select="@name"/>
                 </xsl:attribute>
-                <xsl:value-of select="@name"/>
+                <xsl:text>&#xa;        </xsl:text>
+                <span class="row-left floating-panel-name">
+                    <xsl:value-of select="@name"/>
+                </span>
+                <span class="row-right floating-panel-value">
+                    <xsl:value-of select="@name"/>
+                </span>
+                <xsl:text>&#xa;    </xsl:text>
             </li>
             <xsl:text>&#xa;</xsl:text>
         </xsl:for-each>

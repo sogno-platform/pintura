@@ -16,7 +16,13 @@
  *  in the top level directory of this source tree.
  */
 
-cimsvg.init(document.getElementById("svg"), document.getElementById("sidebar"));
+cimsvg.init(
+    document.getElementById("svg"),
+    document.getElementById("sidebar"),
+    document.getElementById("component-attributes"),
+    document.getElementById("component-creation")
+);
+
 document.getElementById("fileopen").addEventListener('change', readFile, false);
 
 var updateComponent = function(type, id, attribute, value) {
