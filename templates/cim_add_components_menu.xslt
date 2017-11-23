@@ -14,12 +14,9 @@
                     <xsl:value-of select="@name"/>
                 </xsl:attribute>
                 <xsl:text>&#xa;        </xsl:text>
-                <span class="row-left floating-panel-name">
+                <button class="component-type-name row button wide-button dark-grey-background">
                     <xsl:value-of select="@name"/>
-                </span>
-                <span class="row-right floating-panel-value">
-                    <xsl:value-of select="@name"/>
-                </span>
+                </button>
                 <xsl:text>&#xa;    </xsl:text>
             </li>
             <xsl:text>&#xa;</xsl:text>
