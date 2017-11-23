@@ -99,12 +99,18 @@ button {
     max-width: 400px;
     overflow-y: auto;
 }
+#component-add {
+    order: 1;
+}
 #component-search {
     overflow-x:hidden;
     overflow-y:auto;
     margin-left:10px;
     margin-right:10px;
     order: 2;
+}
+.floating-panel {
+    display: none;
 }
 /* main contains the svg and optionally
    the raw xml or pintura data object

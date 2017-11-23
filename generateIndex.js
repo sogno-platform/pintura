@@ -240,7 +240,7 @@ var dropdown_panel = function(){
 var make_floating_panel = function(id) {
     return new tag('div').
 	           a('id', '"'+id+'"').
-               a('class', '"blue-grey-background row-left dialog-over-diagram"').
+               a('class', '"floating-panel blue-grey-background row-left dialog-over-diagram"').
                c(floating_panel_header(id, id + '-settings')).
            c(dropdown_panel().c(floating_panel_settings(id + '-settings', id))).
            c(new tag('div').
