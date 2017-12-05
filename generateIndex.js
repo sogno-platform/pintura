@@ -241,12 +241,13 @@ var make_floating_panel = function(id) {
     return new tag('div').
 	           a('id', '"'+id+'"').
                a('class', '"floating-panel blue-grey-background row-left dialog-over-diagram"').
+               c(new tag('div').a('class', '"floating-panel-table"').
                c(floating_panel_header(id, id + '-settings')).
            c(dropdown_panel().c(floating_panel_settings(id + '-settings', id))).
            c(new tag('div').
                a('id', '"' + id + '-list-div"').
                a('class', '"floating-panel-list-div"').
-			   t(" "))
+			   t(" ")))
 }
 
 var component_attributes = make_floating_panel('component-attributes')

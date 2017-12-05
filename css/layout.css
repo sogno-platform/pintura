@@ -109,10 +109,6 @@ button {
     margin-right:10px;
     order: 2;
 }
-.floating-panel {
-    display: none;
-    height: 100%;
-}
 /* main contains the svg and optionally
    the raw xml or pintura data object
    it is to the right of middle*/
@@ -147,34 +143,45 @@ button {
 #attribute-list-header {
     border-right:thick solid white;
 }
+.floating-panel {
+    display: none;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 14px;
+}
+.floating-panel-table {
+    display: table;
+}
 .floating-panel-list-div {
     margin-top:0px;
     margin-left:10px;
     margin-right:10px;
     margin-bottom:10px;
     padding:0px;
-    height: 100%;
 }
 .floating-panel-list {
     margin: 0px;
-    height: calc(100% - 40px - 10px);
-    overflow-y: auto;
-    overflow-x: hidden;
     padding: 0px;
 }
 .floating-panel-name {
+    display: table-cell;
     margin-top:10px;
     margin-left:10px;
     text-align:left;
+    overflow:hidden;
 }
 .floating-panel-value {
+    display: table-cell;
     margin-top:3px;
     margin-bottom:3px;
     margin-left:10px;
     margin-right:10px;
+    overflow:hidden;
 }
 .floating-panel-value input{
     text-align:right;
+    width: auto;
 }
 .component-type-name {
     width:100%;
