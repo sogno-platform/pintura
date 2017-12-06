@@ -149,6 +149,7 @@ button {
     overflow-y: auto;
     overflow-x: hidden;
     padding-right: 14px;
+    padding-left: 14px;
 }
 .floating-panel-table {
     display: table;
