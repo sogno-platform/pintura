@@ -72,6 +72,7 @@ var cimsvg = cimsvg || (function() {
         includeFile("src/cimmenu.js", function() {
             cimmenu.init(componentAttributes)
         });
+        includeFile("templates/template.js", function(){});
     };
 
     var updateComponent = function(type, id, attribute, value) {

@@ -31,13 +31,14 @@ add_components_dir=$template_dir/generated_add_components
 if [ ! -d "${add_components_dir}" ]; then
   mkdir "${add_components_dir}"
 fi
-echo '<menu>' > $add_components_dir/menu.xml
-echo '  <ul class="floating-panel-list">' >> $add_components_dir/menu.xml
+echo '<menu>' > $add_components_dir/temp.xml
+echo '  <ul class="floating-panel-list">' >> $add_components_dir/temp.xml
 xsltproc $template_dir/cim_add_components_menu.xslt \
   $template_dir/Core.xsd $template_dir/Topology.xsd $template_dir/Wires.xsd \
-  | grep -v "^$" >> $add_components_dir/menu.xml
-echo '  </ul>' >> $add_components_dir/menu.xml
-echo '</menu>' >> $add_components_dir/menu.xml
+  | grep -v "^$" >> $add_components_dir/temp.xml
+echo '  </ul>' >> $add_components_dir/temp.xml
+echo '</menu>' >> $add_components_dir/temp.xml
+xsltproc $template_dir/sort_menu.xslt $add_components_dir/temp.xml > $add_components_dir/menu.xml
 
 handlebars \
   ${template_dir}/*.handlebars \
