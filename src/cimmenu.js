@@ -23,7 +23,7 @@ var cimmenu = cimmenu || (function() {
     var populateSidebar = function(sidebar, templateJson) {
         let template = Handlebars.templates['pintura2html'];
         let data = template(templateJson);
-        sidebar.querySelector('#component-search-accordion').innerHTML = data;
+        sidebar.querySelector('#component-sidebar-list').innerHTML = data;
     };
 
     populateAttributes = function(type, id) {

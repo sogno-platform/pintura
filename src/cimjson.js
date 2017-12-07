@@ -82,14 +82,18 @@ var cimjson = cimjson || (function() {
                     "y"   : labelPoint.y
                 }
             }
-            if (preOffsetPoints.length == 2) {
+            while (preOffsetPoints.length > 1) {
+                if (object["pintura:line"] == null) {
+                    object["pintura:line"] = [];
+                }
                 let line = {
                         "x1": preOffsetPoints[0].x,
                         "y1": preOffsetPoints[0].y,
                         "x2": preOffsetPoints[1].x,
                         "y2": preOffsetPoints[1].y
                 };
-                object["pintura:line"] = line;
+                object["pintura:line"].push(line);
+                preOffsetPoints.shift()
             }
         }
         let diagram = diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1);

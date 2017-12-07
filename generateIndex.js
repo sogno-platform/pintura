@@ -154,8 +154,7 @@ body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
-                  c(makeAccordionDiv('component-search', '"cimmenu.searchSidebar(this.value)"')).
-                  c(makePanelOpeningButton('component-add', "Add New Component", "javascript:showContainer('component-creation')")).
+                  c(new tag('div').a('id', '"component-sidebar-list"').t(' ')).
                   c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()'))
 
 var svg = new tag('svg').a('id', '"svg"').

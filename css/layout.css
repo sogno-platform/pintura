@@ -102,7 +102,7 @@ button {
 #component-add {
     order: 1;
 }
-#component-search {
+#component-sidebar-list {
     overflow-x:hidden;
     overflow-y:auto;
     margin-left:10px;

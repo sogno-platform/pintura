@@ -35,19 +35,19 @@
           onmouseup="onMouseUp(evt)"
         >{{text}}</text>
       {{/pintura:label}}
-      {{#pintura:line}}
+      {{#each pintura:line}}
         <line
           x1="{{x1}}"
           y1="{{y1}}"
           x2="{{x2}}"
           y2="{{y2}}"
-          id="{{componentId}}-bar0"
+          id="{{componentId}}-bar{{@index}}"
           class="line"
           onmouseup="onMouseUp(evt)"
           onmouseover="onMouseOver(evt)"
           onmouseleave="onMouseLeave(evt)"
         />
-      {{/pintura:line}}
+      {{/each}}
       </g>
     {{/each}}
   </g>
