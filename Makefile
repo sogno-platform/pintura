@@ -10,7 +10,6 @@ templates/%.xsd: PinturaDataModel/XSD/$(@F)
 	cp PinturaDataModel/XSD/$(@F) templates
 
 html.tgz: css images src templates/compile.sh templates/*.handlebars \
-      templates/generated_attribute_lists/*.handlebars \
 	  templates/*.xslt templates/Core.xsd templates/Topology.xsd templates/Wires.xsd
 	tar zcvf html.tgz *.js $^
 
@@ -26,8 +25,10 @@ electron_deps:
 templates: templates/templates.js
 
 template_dir=$(PWD)/templates
-templates/templates.js: templates/*.handlebars templates/generated_attribute_lists/*.handlebars \
-                        PinturaDataModel/XSD/Core.xsd PinturaDataModel/XSD/Topology.xsd PinturaDataModel/XSD/Wires.xsd
+templates/templates.js: templates/*.handlebars \
+                        PinturaDataModel/XSD/Core.xsd \
+                        PinturaDataModel/XSD/Topology.xsd \
+                        PinturaDataModel/XSD/Wires.xsd
 	${template_dir}/compile.sh ${template_dir}
 
 run:
