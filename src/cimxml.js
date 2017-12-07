@@ -239,6 +239,7 @@ var cimxml = cimxml || (function() {
     return {
         getBaseJson,
         setRdfFileCount,
+        clearXmlData,
         moreXmlData,
         getRawXML,
         updateComponentInBaseJson,

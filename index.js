@@ -138,6 +138,7 @@ function doSearch(inputId, textareaId) {
 function readFile(e) {
     var files = e.target.files;
     if (files) {
+        cimxml.clearXmlData()
         cimsvg.setFileCount(files.length);
         for (var i=0, f; f=files[i]; i++) {
             if (!f) {
