@@ -163,7 +163,7 @@ var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
 	          c(new tag('rect').a('id', '"backing"')).
 	          c(new tag('g').a('id', '"grid"')).
-	          c(new tag('g').a('id', '"diagram-elements"'))
+	          c(new tag('g').a('id', '"diagrams"'))
 
 var radio_input = function(onchange, name, id, text, checked=false) {
     var input = new tag('input').
@@ -189,9 +189,9 @@ var floating_panel_settings = function(floating_panel_settings_id, floating_pane
                                        '"attribute-list-placement"', '\"attribute-list-placement-diagram\"', 'Over diagram', true)
     let shrink_diagram_radio = radio_input('"addClass(\'' + floating_panel_div_id + '\', \'dialog-shrink-diagram\', \'dialog-over-diagram\', \'dialog-over-sidebar\');"',
                                        '"attribute-list-placement"', '"attribute-list-placement-shrink"', 'Shrink diagram')
-    let left_radio = radio_input('"addClass(\'diagram\', \'row-right\', \'row-left\');addClass(\'' + floating_panel_div_id + '\', \'dialog-left\', \'dialog-right\', \'row-right\');"',
+    let left_radio = radio_input('"addClass(\'diagram-display\', \'row-right\', \'row-left\');addClass(\'' + floating_panel_div_id + '\', \'dialog-left\', \'dialog-right\', \'row-right\');"',
                                        '"attribute-list-placement-align"', '"attribute-list-placement-align-left"', 'Left', true)
-    let right_radio = radio_input('"addClass(\'diagram\', \'row-left\', \'row-right\');addClass(\'' + floating_panel_div_id + '\', \'dialog-right\', \'dialog-left\', \'row-left\');"',
+    let right_radio = radio_input('"addClass(\'diagram-display\', \'row-left\', \'row-right\');addClass(\'' + floating_panel_div_id + '\', \'dialog-right\', \'dialog-left\', \'row-left\');"',
                                        '"attribute-list-placement-align"', '"attribute-list-placement-align-right"', 'Right')
     return new tag('div').
                  a('id', '"' + floating_panel_settings_id + '"').
@@ -212,13 +212,13 @@ var floating_panel_settings = function(floating_panel_settings_id, floating_pane
                          c(right_radio)
 }
 
-var floating_panel_header = function(floating_panel_id, settings_panel_id) {
+var floating_panel_header = function(title, floating_panel_id, settings_panel_id) {
     return new tag('div').
 	           a('class', '"wide-row blue-grey-background"').
 	           c(new tag('span').
                    a('id', '"' + floating_panel_id + '-component-name"').
                    a('class', '"button row-left"').
-                   t("Attributes in Component:")).
+                   t(title)).
                c(new tag('span').
                    c(new tag('span').
                        a('class', '"button row-right panel-button"').
@@ -230,19 +230,19 @@ var floating_panel_header = function(floating_panel_id, settings_panel_id) {
                        t("&#9881;")))
 };
 
-var diagram = new tag('div').a('id', '"diagram"').a('class', '"row-right"').c(svg)
+var diagram = new tag('div').a('id', '"diagram-display"').a('class', '"row-right"').c(svg)
 
 var dropdown_panel = function(){
     return new tag('div').
 	    a('class', '"dropdown"')
 }
 
-var make_floating_panel = function(id) {
+var make_floating_panel = function(title, id) {
     return new tag('div').
 	           a('id', '"'+id+'"').
                a('class', '"floating-panel blue-grey-background row-left dialog-over-diagram"').
                c(new tag('div').a('class', '"floating-panel-table"').
-               c(floating_panel_header(id, id + '-settings')).
+               c(floating_panel_header(title, id, id + '-settings')).
            c(dropdown_panel().c(floating_panel_settings(id + '-settings', id))).
            c(new tag('div').
                a('id', '"' + id + '-list-div"').
@@ -250,8 +250,8 @@ var make_floating_panel = function(id) {
 			   t(" ")))
 }
 
-var component_attributes = make_floating_panel('component-attributes')
-var component_creation = make_floating_panel('component-creation')
+var component_attributes = make_floating_panel("Attributes in Component", 'component-attributes')
+var component_creation = make_floating_panel("Component Type To Add", 'component-creation')
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes).c(component_creation)
 

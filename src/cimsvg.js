@@ -49,7 +49,7 @@ var cimsvg = cimsvg || (function() {
         if (cimxml.moreXmlData(fileContents)) {
             baseJson = cimxml.getBaseJson();
             templateJson = cimjson.getTemplateJson(baseJson);
-            svgNode.getElementById('diagram-elements').innerHTML = applyTemplate(templateJson);
+            svgNode.getElementById('diagrams').innerHTML = applyTemplate(templateJson);
             if(sidebarNode != null) {
                 cimmenu.populateSidebar(sidebarNode, templateJson);
             }
