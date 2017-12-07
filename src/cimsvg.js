@@ -72,7 +72,6 @@ var cimsvg = cimsvg || (function() {
         includeFile("src/cimmenu.js", function() {
             cimmenu.init(componentAttributes)
         });
-        includeFile("templates/template.js");
     };
 
     var updateComponent = function(type, id, attribute, value) {
@@ -114,6 +113,7 @@ var cimsvg = cimsvg || (function() {
             includeFile("handlebars.runtime.js", loadViewAndMenu(componentAttributes, componentCreation));
             includeFile("src/cimxml.js");
             includeFile("src/cimjson.js");
+            includeFile("templates/template.js");
             loadXml("templates/generated_add_components/menu.xml", function(xml){
                 accordion = componentCreation.querySelector('#component-creation-list-div')
                 accordion.innerHTML = xml.documentElement.innerHTML;
