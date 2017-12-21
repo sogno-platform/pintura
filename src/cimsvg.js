@@ -65,15 +65,6 @@ var cimsvg = cimsvg || (function() {
         isNode = true;
     }
 
-    var loadViewAndMenu = function(componentAttributes, componentCreation) {
-        includeFile("src/cimview.js", function() {
-            cimview.init(svgNode);
-        });
-        includeFile("src/cimmenu.js", function() {
-            cimmenu.init(componentAttributes)
-        });
-    };
-
     var updateComponent = function(type, id, attribute, value) {
         cimxml.updateComponentInBaseJson(type, id, attribute, value)
         baseJson = cimxml.getBaseJson();
@@ -110,10 +101,21 @@ var cimsvg = cimsvg || (function() {
         init : function(svg, sidebar, componentAttributes, componentCreation) {
             svgNode = svg;
             sidebarNode = sidebar;
-            includeFile("handlebars.runtime.js", loadViewAndMenu(componentAttributes, componentCreation));
-            includeFile("src/cimxml.js");
-            includeFile("src/cimjson.js");
-            includeFile("templates/template.js");
+            includeFile("handlebars.runtime.js", function() {
+                includeFile("src/cimview.js", function() {
+                    cimview.init(svgNode);
+                    includeFile("src/cimmenu.js", function() {
+                        if(componentCreation != undefined) {
+                            cimmenu.init(componentAttributes)
+                        }
+                        includeFile("templates/template.js", function(){
+                            includeFile("src/cimxml.js", function(){
+                                includeFile("src/cimjson.js", function(){});
+                            });
+                        });
+                    });
+                });
+            });
             loadXml("templates/generated_add_components/menu.xml", function(xml){
                 if(componentCreation != undefined) {
                     accordion = componentCreation.querySelector('#component-creation-list-div')
