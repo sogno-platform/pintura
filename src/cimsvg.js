@@ -104,14 +104,14 @@ var cimsvg = cimsvg || (function() {
             includeFile("handlebars.runtime.js", function() {
                 includeFile("src/cimview.js", function() {
                     cimview.init(svgNode);
-                    includeFile("src/cimmenu.js", function() {
-                        if(componentCreation != undefined) {
+                    if(sidebarNode != undefined) {
+                        includeFile("src/cimmenu.js", function() {
                             cimmenu.init(componentAttributes)
-                        }
-                        includeFile("templates/template.js", function(){
-                            includeFile("src/cimxml.js", function(){
-                                includeFile("src/cimjson.js", function(){});
-                            });
+                        });
+                    }
+                    includeFile("templates/template.js", function(){
+                        includeFile("src/cimxml.js", function(){
+                            includeFile("src/cimjson.js", function(){});
                         });
                     });
                 });
