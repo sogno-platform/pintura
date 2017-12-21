@@ -1,0 +1,75 @@
+<!--
+    Copyright © 2016-2017, RWTH Aachen University
+    Authors: Richard Marston
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    A copy of the GNU General Public License is in the LICENSE file
+    in the top level directory of this source tree.
+-->
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Pintura</title>
+    </head>
+    <body>
+        <link rel="stylesheet" href="css/svg.css"/>
+        <div id="main">
+            <input id="fileopen" type="file" style="display:none" multiple="true"/>
+            <div id="diagram-display" >
+                <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <rect id="backing"/></rect>
+                    <g id="grid"></g>
+                    <g id="diagrams"/></g>
+                    <!-- START OF test button - you don't need this bit -->
+                    <g>
+                        <rect id="testbutton" onclick="javascript:document.getElementById('testbutton').style='display:none';fileopen.click()" x="2" y="6", width="70", height="20"></rect>
+                        <text class="svglabel-high" style="font-size:10pt;fill:white" x="8" y="20">Click Me!</text>
+                    </g>
+                    <!-- END OF test button - you don't need this bit -->
+                </svg>
+            </div>
+        </div>
+        <script type="text/javascript" src="src/cimsvg.js"> </script>
+        <!-- This script tells cimsvg which html component to draw the svg items to -->
+        <!-- The onMouse... functions are here to avoid errors appearing in the console -->
+        <script>
+            cimsvg.init(
+                document.getElementById("svg"),
+            );
+            var onMouseLeave = function(evt){};
+            var onMouseMove = function(evt){};
+            var onMouseOver = function(evt){};
+        </script>
+        <script>
+            document.getElementById("fileopen").addEventListener('change', readFile, false);
+
+            function readFile(e) {
+                var files = e.target.files;
+                if (files) {
+                    cimxml.clearXmlData()
+                    cimsvg.setFileCount(files.length);
+                    for (var i=0, f; f=files[i]; i++) {
+                        if (!f) {
+                            return;
+                        }
+                        var reader = new FileReader();
+                            reader.onload = function(e) {
+                            var contents = e.target.result;
+                            cimsvg.loadFile(contents);
+                        };
+                        reader.readAsText(f);
+                    }
+                }
+            };
+        </script>
+    </body>
+</html>

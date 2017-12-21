@@ -115,8 +115,10 @@ var cimsvg = cimsvg || (function() {
             includeFile("src/cimjson.js");
             includeFile("templates/template.js");
             loadXml("templates/generated_add_components/menu.xml", function(xml){
-                accordion = componentCreation.querySelector('#component-creation-list-div')
-                accordion.innerHTML = xml.documentElement.innerHTML;
+                if(componentCreation != undefined) {
+                    accordion = componentCreation.querySelector('#component-creation-list-div')
+                    accordion.innerHTML = xml.documentElement.innerHTML;
+                }
             });
         },
         setSVG : function(svg) {
