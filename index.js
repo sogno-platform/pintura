@@ -105,11 +105,11 @@ var addClass = function(container, newClass, oldClass1, oldClass2) {
     }
     elem.classList.add(newClass)
 };
-var showContainer = function(container, icon, show="false"){
+var showContainer = function(container, icon, show="false", newClass="block"){
     var x = document.getElementById(container);
     var y = document.getElementById(icon);
     if ((show == "true") || (x.style.display == "") || (x.style.display == "none")) {
-        x.style.display = "block";
+        x.style.display = newClass;
         if (y != undefined) {
             y.innerHTML = '&nbsp;&darr;';
         }

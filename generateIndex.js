@@ -207,8 +207,8 @@ var floating_panel_settings = function(floating_panel_settings_id, floating_pane
                          c(new tag('div').
                              a('class', '"line"').
 			                 t(" ")).
-                         c(left_radio)).
-                         c(right_radio)
+                         c(left_radio).
+                         c(right_radio))
 }
 
 var floating_panel_header = function(title, floating_panel_id, settings_panel_id) {

@@ -134,7 +134,7 @@ button {
     max-width: 70px;
     height:40%;
 }
-#diagram {
+#diagram-display {
     flex: 1;
     flex-grow: 1;
     width: auto;

@@ -6,7 +6,7 @@
       <div id="{{typeName}}-accordion" style="display:none">
       {{#each this as |value id|}}
         <button id="{{id}}-sidebar-button" style="width:100%" class="button wide-button row light-grey-background"
-                onclick="javascript:populateAttributes('{{typeName}}', '{{id}}');showContainer('component-attributes', null, 'true');">{{this.pintura:label.text}}</button>
+                onclick="javascript:populateAttributes('{{typeName}}', '{{id}}');showContainer('component-attributes', null, 'true', 'table');">{{this.pintura:label.text}}</button>
       {{/each}}
       </div>
     {{/each}}
