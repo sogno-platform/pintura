@@ -36,6 +36,8 @@ $ exit # You have to log out and back in to apply the group change in the previo
 $ sudo apt-get install -y git make
 $ git clone https://git.rwth-aachen.de/PowerSystemSimulation/Pintura
 $ cd Pintura/
+$ git submodule init
+$ git submodule update
 $ make
 ```
 
