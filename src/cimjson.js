@@ -87,10 +87,10 @@ var cimjson = cimjson || (function() {
                     object["pintura:line"] = [];
                 }
                 let line = {
-                        "x1": preOffsetPoints[0].x,
-                        "y1": preOffsetPoints[0].y,
-                        "x2": preOffsetPoints[1].x,
-                        "y2": preOffsetPoints[1].y
+                    "x1": preOffsetPoints[0].x,
+                    "y1": preOffsetPoints[0].y,
+                    "x2": preOffsetPoints[1].x,
+                    "y2": preOffsetPoints[1].y
                 };
                 object["pintura:line"].push(line);
                 preOffsetPoints.shift()

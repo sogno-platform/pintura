@@ -29,6 +29,9 @@ var cimxml = cimxml || (function() {
     };
 
     var getBaseJson = function() {
+        if (jsonBaseData === null) {
+            jsonBaseData = {}
+        }
         return jsonBaseData;
     };
 

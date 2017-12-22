@@ -45,6 +45,16 @@ var cimsvg = cimsvg || (function() {
         return template(data);
     };
 
+    var addComponent = function(type) {
+        baseJson = cimxml.getBaseJson();
+        cimedit.addComponentToBaseJson(baseJson, type);
+        templateJson = cimjson.getTemplateJson(baseJson);
+        svgNode.getElementById('diagrams').innerHTML = applyTemplate(templateJson);
+        if(sidebarNode != null) {
+            cimmenu.populateSidebar(sidebarNode, templateJson);
+        }
+    };
+
     var loadFile = function(fileContents) {
         if (cimxml.moreXmlData(fileContents)) {
             baseJson = cimxml.getBaseJson();
@@ -108,6 +118,7 @@ var cimsvg = cimsvg || (function() {
                         includeFile("src/cimmenu.js", function() {
                             cimmenu.init(componentAttributes)
                         });
+                        includeFile("src/cimedit.js", function() {});
                     }
                     includeFile("templates/template.js", function(){
                         includeFile("src/cimxml.js", function(){
@@ -129,6 +140,7 @@ var cimsvg = cimsvg || (function() {
         loadFile,
         setFileCount,
         updateComponent,
+        addComponent,
     };
 
 }());
