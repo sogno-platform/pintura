@@ -26,7 +26,6 @@ var cimedit = cimedit || (function() {
             },
             "cim:IdentifiedObject.name": "Diagram "+id,
         };
-        console.log(newStuff)
         addCategorizedItem(newStuff, "cim:Diagram", id, diagram);
         return id;
     };
@@ -45,10 +44,19 @@ var cimedit = cimedit || (function() {
 
     var makeAComponentWithTerminals = function(diagramId, graph, type, attributes, numberOfPoints, numberOfTerminals) {
         let id = createNewId();
-        let diagramObjectPoints = makeDiagramObjectWithPoints(graph, diagramId, id, numberOfPoints);
+        points = [];
+        for (let i = 0; i<numberOfPoints; i++) {
+            point = {};
+            point.x = (100 * i);
+            point.y = (100 * i);
+            points.push(point);
+            console.log(points[i])
+        }
+
+        let diagramObjectPoints = makeDiagramObjectWithPoints(graph, diagramId, id, points);
         let terminalIds = [];
-        for (let i = 1; i<= numberOfTerminals; i++) {
-            terminalIds.push(makeTerminal(diagramId, graph, i.toString(), id));
+        for (let i = 0; i<numberOfTerminals; i++) {
+            terminalIds.push(makeTerminal(diagramId, graph, (i+1).toString(), id, points[i]));
         }
         newAttributes = {
             "cim:IdentifiedObject.name": type+id,
@@ -62,15 +70,14 @@ var cimedit = cimedit || (function() {
             "terminals": terminalIds,
         };
         let componentData = Object.assign({}, attributes, newAttributes);
-        console.log(graph)
         addCategorizedItem(graph, type, id, componentData);
         return id;
     };
 
 
-    var makeTerminal = function(diagramId, newStuff, sequenceNumber, conductingEquipmentId) {
+    var makeTerminal = function(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point) {
         let id = createNewId();
-        let diagramObjectPoints = makeDiagramObjectWithPoints(newStuff, diagramId, id, 1);
+        let diagramObjectPoints = makeDiagramObjectWithPoints(newStuff, diagramId, id, [ point ]);
         let terminal = {
             "cim:ACDCTerminal.sequenceNumber": sequenceNumber,
             "cim:IdentifiedObject.name": "terminal"+id,
@@ -80,22 +87,21 @@ var cimedit = cimedit || (function() {
             "diagramObject": { ["#"+diagramId] : { points: diagramObjectPoints }},
             "dirty": true,
         }
-        console.log(newStuff)
         addCategorizedItem(newStuff, "cim:Terminal", id, terminal);
         return id;
     };
 
-    var makeDiagramObjectWithPoints = function(graph, diagramId, identifiedObjectId, numberOfPoints) {
+    var makeDiagramObjectWithPoints = function(graph, diagramId, identifiedObjectId, points) {
         let diagramObjectPointId = createNewId();
         let diagramObjectId = createNewId();
         let diagramObject = makeDiagramObject(graph, diagramId, identifiedObjectId, diagramObjectId);
-        let points = [];
-        for (let i = 0; i < numberOfPoints; i++) {
+        let diagramObjectPoints = [];
+        for (let i = 0; i < points.length; i++) {
             index = (1+i);
-            let diagramObjectPoint = makeDiagramObjectPoint(graph, diagramObjectId, index, "100", (index*100).toString());
-            points.push(diagramObjectPoint);
+            let diagramObjectPoint = makeDiagramObjectPoint(graph, diagramObjectId, index, points[i].x.toString(), points[i].y.toString());
+            diagramObjectPoints.push(diagramObjectPoint);
         }
-        return points;
+        return diagramObjectPoints;
     };
 
     var makeDiagramObject = function(newStuff, diagramId, identifiedObjectId, diagramObjectId) {
@@ -109,7 +115,6 @@ var cimedit = cimedit || (function() {
             "cim:DiagramObject.rotation" : "90",
             "cim:IdentifiedObject.name" : "diagram object "+diagramObjectId,
         };
-        console.log(newStuff)
         addCategorizedItem(newStuff, "cim:DiagramObject", diagramObjectId, diagramObject);
         return diagramObject;
     };
@@ -124,10 +129,17 @@ var cimedit = cimedit || (function() {
             "cim:DiagramObjectPoint.yPosition" : y
         };
         let id = createNewId();
-        console.log(newStuff)
         addCategorizedItem(newStuff, "cim:DiagramObjectPoint", id, diagramObjectPoint);
         return diagramObjectPoint;
     };
+
+    const oneTerminalTypes = [
+        "cim:PowerTransformer",
+    ];
+
+    const twoTerminalTypes = [
+        "cim:ACLineSegment",
+    ];
 
     var addComponentToBaseJson = function(jsonBaseData, type) {
         let diagramId = makeDiagram(jsonBaseData)
@@ -135,10 +147,15 @@ var cimedit = cimedit || (function() {
         if (jsonBaseData[type] == undefined) {
             jsonBaseData[type] = {}
         }
-        console.log(jsonBaseData[type])
 
-        makeAComponentWithTerminals(diagramId, jsonBaseData, type, {}, 1, 1);
-        console.log(jsonBaseData)
+        if (oneTerminalTypes.indexOf(type) != -1) {
+            makeAComponentWithTerminals(diagramId, jsonBaseData, type, {}, 1, 1);
+	} else if (twoTerminalTypes.indexOf(type) != -1) {
+            makeAComponentWithTerminals(diagramId, jsonBaseData, type, {}, 2, 2);
+        } else {
+            return null;
+	}
+
     };
 
     return {

@@ -175,15 +175,19 @@ var cimjson = cimjson || (function() {
     };
 
     var getTemplateJson = function(graph) {
-        let updatedDiagramObjects = JSON.parse(JSON.stringify(graph['cim:DiagramObject']));
-        let diagramObjectPoints = graph['cim:DiagramObjectPoint'];
-        addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, updatedDiagramObjects);
+        if (!(graph['cim:DiagramObject'] === undefined)) {
+            let updatedDiagramObjects = JSON.parse(JSON.stringify(graph['cim:DiagramObject']));
+            let diagramObjectPoints = graph['cim:DiagramObjectPoint'];
+            addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, updatedDiagramObjects);
 
-        let diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(updatedDiagramObjects);
+            let diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(updatedDiagramObjects);
 
-        templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
+            templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
 
-        return templateReadyFormat;
+            return templateReadyFormat;
+        } else {
+            return {};
+        }
     };
 
     return {
