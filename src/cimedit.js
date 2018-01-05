@@ -19,21 +19,41 @@
 var cimedit = cimedit || (function() {
 
     var makeDiagram = function(newStuff, type) {
-        let id = createNewId();
+        let id = generateUUID();
+        let counter = getNameCounter();
         let diagram = {
            "cim:Diagram.orientation" : {
                 "rdf:resource" : "http://iec.ch/TC57/2013/CIM-schema-cim16#OrientationKind.negative",
             },
-            "cim:IdentifiedObject.name": "Diagram "+id,
+            "cim:IdentifiedObject.name": "Diagram " + counter.toString(),
         };
         addCategorizedItem(newStuff, "cim:Diagram", id, diagram);
         return id;
     };
 
-    var createNewId = function() {
-        return idCounter++;
+    var nameCounter = 0;
+    var getNameCounter = function() {
+        return nameCounter++;
     };
-    var idCounter = 2;
+
+    /*
+     * Start of Public Domain/MIT section.
+     * Taken from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+     */
+    var generateUUID = function() {
+        var d = new Date().getTime();
+        if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+            d += performance.now(); //use high-precision timer if available
+        }
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    }
+    /*
+     * End of Public Domain/MIT function
+     */
 
     var addCategorizedItem = function(object, category, id, item) {
         if (!object[category]) {
@@ -43,7 +63,7 @@ var cimedit = cimedit || (function() {
     };
 
     var makeAComponentWithTerminals = function(diagramId, graph, type, attributes, numberOfPoints, numberOfTerminals) {
-        let id = createNewId();
+        let id = generateUUID();
         points = [];
         for (let i = 0; i<numberOfPoints; i++) {
             point = {};
@@ -57,8 +77,9 @@ var cimedit = cimedit || (function() {
         for (let i = 0; i<numberOfTerminals; i++) {
             terminalIds.push(makeTerminal(diagramId, graph, (i+1).toString(), id, points[i]));
         }
+        let counter = getNameCounter();
         newAttributes = {
-            "cim:IdentifiedObject.name": type+id,
+            "cim:IdentifiedObject.name": type + counter.toString(),
             "diagramObject": {
                 ["#"+diagramId] : {
                     "cim:DiagramObject.rotation" : "90",
@@ -74,11 +95,12 @@ var cimedit = cimedit || (function() {
     };
 
     var makeTerminal = function(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point) {
-        let id = createNewId();
+        let id = generateUUID();
+        let counter = getNameCounter();
         let diagramObjectPoints = makeDiagramObjectWithPoints(newStuff, diagramId, id, [ point ]);
         let terminal = {
             "cim:ACDCTerminal.sequenceNumber": sequenceNumber,
-            "cim:IdentifiedObject.name": "terminal"+id,
+            "cim:IdentifiedObject.name": "terminal" + counter.toString(),
             "cim:Terminal.ConductingEquipment": { "rdf:resource": "#"+conductingEquipmentId },
             "cim:Terminal.ConnectivityNode": { "rdf:resource":"#none" },
             "cim:Terminal.phases": {},
@@ -90,8 +112,8 @@ var cimedit = cimedit || (function() {
     };
 
     var makeDiagramObjectWithPoints = function(graph, diagramId, identifiedObjectId, points) {
-        let diagramObjectPointId = createNewId();
-        let diagramObjectId = createNewId();
+        let diagramObjectPointId = generateUUID();
+        let diagramObjectId = generateUUID();
         let diagramObject = makeDiagramObject(graph, diagramId, identifiedObjectId, diagramObjectId);
         let diagramObjectPoints = [];
         for (let i = 0; i < points.length; i++) {
@@ -103,6 +125,7 @@ var cimedit = cimedit || (function() {
     };
 
     var makeDiagramObject = function(newStuff, diagramId, identifiedObjectId, diagramObjectId) {
+        let counter = getNameCounter();
         let diagramObject = {
             "cim:DiagramObject.Diagram": {
                 "rdf:resource" : "#"+diagramId,
@@ -111,7 +134,7 @@ var cimedit = cimedit || (function() {
                 "rdf:resource" : "#"+identifiedObjectId,
             },
             "cim:DiagramObject.rotation" : "90",
-            "cim:IdentifiedObject.name" : "diagram object "+diagramObjectId,
+            "cim:IdentifiedObject.name" : "diagram object " + counter.toString(),
         };
         addCategorizedItem(newStuff, "cim:DiagramObject", diagramObjectId, diagramObject);
         return diagramObject;
@@ -126,7 +149,7 @@ var cimedit = cimedit || (function() {
             "cim:DiagramObjectPoint.xPosition" : x,
             "cim:DiagramObjectPoint.yPosition" : y
         };
-        let id = createNewId();
+        let id = generateUUID();
         addCategorizedItem(newStuff, "cim:DiagramObjectPoint", id, diagramObjectPoint);
         return diagramObjectPoint;
     };
