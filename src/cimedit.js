@@ -50,7 +50,6 @@ var cimedit = cimedit || (function() {
             point.x = (100 * i);
             point.y = (100 * i);
             points.push(point);
-            console.log(points[i])
         }
 
         let diagramObjectPoints = makeDiagramObjectWithPoints(graph, diagramId, id, points);
@@ -73,7 +72,6 @@ var cimedit = cimedit || (function() {
         addCategorizedItem(graph, type, id, componentData);
         return id;
     };
-
 
     var makeTerminal = function(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point) {
         let id = createNewId();
@@ -141,25 +139,31 @@ var cimedit = cimedit || (function() {
         "cim:ACLineSegment",
     ];
 
-    var addComponentToBaseJson = function(jsonBaseData, type) {
-        let diagramId = makeDiagram(jsonBaseData)
-        
-        if (jsonBaseData[type] == undefined) {
-            jsonBaseData[type] = {}
-        }
+    var currentDiagramId = undefined;
+
+    var setCurrentDiagramId = function(diagramId) {
+        currentDiagramId = diagramId;
+    };
+
+    var addComponentToBaseJson = function(jsonBaseData, type, diagramId) {
+
+        if (type == "cim:Diagram") {
+            makeDiagram(jsonBaseData);
+            return;
+        };
 
         if (oneTerminalTypes.indexOf(type) != -1) {
-            makeAComponentWithTerminals(diagramId, jsonBaseData, type, {}, 1, 1);
-	} else if (twoTerminalTypes.indexOf(type) != -1) {
-            makeAComponentWithTerminals(diagramId, jsonBaseData, type, {}, 2, 2);
+            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, {}, 1, 1);
+        } else if (twoTerminalTypes.indexOf(type) != -1) {
+            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, {}, 2, 2);
         } else {
-            return null;
-	}
-
+            console.error("I don't know what type of component a " + type + " is.")
+        }
     };
 
     return {
         addComponentToBaseJson,
+        setCurrentDiagramId,
     };
 }());
 

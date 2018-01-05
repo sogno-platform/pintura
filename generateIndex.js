@@ -155,6 +155,7 @@ body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
                   c(new tag('div').a('id', '"component-sidebar-list"').t(' ')).
+                  c(makePanelOpeningButton('diagram-add', "Add Diagram", "javascript:cimsvg.addDiagram()")).
                   c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()'))
 
 var svg = new tag('svg').a('id', '"svg"').

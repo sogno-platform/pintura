@@ -1,6 +1,12 @@
 <ul class="floating-panel-list">
   {{#each Diagram}}
-    <li class="button wide-button blue-grey-background">Components in Diagram: {{pintura:name}}</li>
+    <div class="wide-row blue-grey-background" >
+        <span class="button blue-grey-background row-left">Components in Diagram: {{pintura:name}}</li>
+        <span class="button blue-grey-background row-right" onclick="cimsvg.setCurrentDiagramId('{{@key}}');">&#9788;</span>
+        <div id="{{id}}" class="wide-row blue-grey-background" >
+            <span id="component-add" class="button blue-grey-background row-left" onclick="javascript:cimsvg.setCurrentDiagramId('{{@key}}');showContainer('component-creation')">Add New Component</span>
+        </div>
+    </div>
     {{#each components as |value typeName|}}
       <button class="component-type-name row button wide-button dark-grey-background" onclick="javascript:showContainer('{{typeName}}-accordion', null);">{{typeName}}</button>
       <div id="{{typeName}}-accordion" style="display:none">

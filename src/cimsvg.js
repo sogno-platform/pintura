@@ -45,6 +45,10 @@ var cimsvg = cimsvg || (function() {
         return template(data);
     };
 
+    var addDiagram = function() {
+        addComponent("cim:Diagram")
+    };
+
     var addComponent = function(type) {
         baseJson = cimxml.getBaseJson();
         cimedit.addComponentToBaseJson(baseJson, type);
@@ -99,7 +103,7 @@ var cimsvg = cimsvg || (function() {
                     callback(Connect.responseXML);
                 }
                 else {
-                    console.log(Connect.statusText);
+                    console.error(Connect.statusText);
                 }
             }
         };
@@ -141,6 +145,8 @@ var cimsvg = cimsvg || (function() {
         setFileCount,
         updateComponent,
         addComponent,
+        addDiagram,
+        setCurrentDiagramId : function(id) { cimedit.setCurrentDiagramId(id); },
     };
 
 }());

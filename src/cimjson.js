@@ -127,6 +127,11 @@ var cimjson = cimjson || (function() {
                 }
             }
         }
+        for (let diagramId in graph["cim:Diagram"]) {
+            if (output["Diagram"][diagramId] === undefined){
+               diagramList[diagramId] = { "pintura:name" : graph["cim:Diagram"][diagramId]["cim:IdentifiedObject.name"] };
+            }
+        }
         return output;
     };
 
@@ -166,28 +171,25 @@ var cimjson = cimjson || (function() {
                 destinationGraph[id][destinationElement].push(node);
             }
             else {
-                console.log("Could not find destination "+matchingElement+" to merge into "+destinationElement+".");
+                console.error("Could not find destination "+matchingElement+" to merge into "+destinationElement+".");
             }
         }
         else {
-            console.log("Could not find matching element "+matchingElement+" to merge "+destinationElement+" into .");
+            console.error("Could not find matching element "+matchingElement+" to merge "+destinationElement+" into .");
         }
     };
 
     var getTemplateJson = function(graph) {
+        let diagramObjectsByIdentifiedObjects = {};
         if (!(graph['cim:DiagramObject'] === undefined)) {
             let updatedDiagramObjects = JSON.parse(JSON.stringify(graph['cim:DiagramObject']));
             let diagramObjectPoints = graph['cim:DiagramObjectPoint'];
             addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, updatedDiagramObjects);
 
-            let diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(updatedDiagramObjects);
-
-            templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
-
-            return templateReadyFormat;
-        } else {
-            return {};
+            diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(updatedDiagramObjects);
         }
+        templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
+        return templateReadyFormat;
     };
 
     return {
