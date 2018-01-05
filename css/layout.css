@@ -279,3 +279,6 @@ input:focus {
 .dialog-left {
     order: 0;
 }
+.component-accordion {
+    min-height: 10pt;
+}
