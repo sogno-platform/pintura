@@ -90,6 +90,18 @@ var cimsvg = cimsvg || (function() {
         }
     };
 
+    var toggleDiagramVisible = function(id, icon) {
+        let diagram = svgNode.getElementById(id);
+        let iconNode = sidebarNode.querySelector('#' + icon);
+        if (diagram.style.display == "none") {
+            diagram.style.display = "";
+            iconNode.innerHTML = "&#9728;";
+        } else {
+            diagram.style.display = "none";
+            iconNode.innerHTML = "&#9788;";
+        }
+    };
+
     var loadXml = function(fileName, callback) {
         // Create a connection to the file.
         var Connect = new XMLHttpRequest();
@@ -147,6 +159,7 @@ var cimsvg = cimsvg || (function() {
         addComponent,
         addDiagram,
         setCurrentDiagramId : function(id) { cimedit.setCurrentDiagramId(id); },
+        toggleDiagramVisible,
     };
 
 }());

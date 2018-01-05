@@ -1,19 +1,18 @@
 <ul class="floating-panel-list">
-    {{#each Diagram}}
-        <div class="wide-row blue-grey-background" onclick="javascript:showContainer('{{@key}}-accordion', null);">
-            <span class="button blue-grey-background row-left">Components in: {{pintura:name}}</span>
+    {{#each Diagram as |value diagramId|}}
+        <div class="wide-row blue-grey-background">
+            <span class="button blue-grey-background row-left" onclick="javascript:showContainer('{{diagramId}}-accordion', null);">Components in: {{pintura:name}}</span>
             <span class="blue-grey-background row-right">
-                <span class="button panel-button blue-grey-background row-right" onclick="cimsvg.setCurrentDiagramId('{{@key}}');">&#9788;</span>
-                <span class="button panel-button blue-grey-background row-right" onclick="javascript:cimsvg.setCurrentDiagramId('{{@key}}');showContainer('component-creation')">&#43;</span>
+                <span id='{{diagramId}}-visibility-icon' class="button panel-button blue-grey-background row-right" onclick="cimsvg.toggleDiagramVisible('{{diagramId}}', '{{diagramId}}-visibility-icon');">&#9728;</span><span class="button panel-button blue-grey-background row-right" onclick="javascript:cimsvg.setCurrentDiagramId('{{diagramId}}');showContainer('component-creation')">&#43;</span>
             </span>
         </div>
-        <div id="{{@key}}-accordion" class="component-accordion" style="display:none">
+        <div id="{{diagramId}}-accordion" class="component-accordion" style="display:none">
             {{#each components as |value typeName|}}
-                <button class="component-type-name row button wide-button dark-grey-background" onclick="javascript:showContainer('{{typeName}}-accordion', null);">{{typeName}}</button>
-                <div id="{{typeName}}-accordion" style="display:none">
-                {{#each this as |value id|}}
-                    <button id="{{id}}-sidebar-button" style="width:100%" class="button wide-button row light-grey-background"
-                        onclick="javascript:populateAttributes('{{typeName}}', '{{id}}');showContainer('component-attributes', null, 'true', 'table');">{{this.pintura:label.text}}</button>
+                <button class="component-type-name row button wide-button dark-grey-background" onclick="javascript:showContainer('{{diagramId}}-{{typeName}}-accordion', null);">{{typeName}}</button>
+                <div id="{{diagramId}}-{{typeName}}-accordion" style="display:none">
+                {{#each this as |value componentId|}}
+                    <button id="{{componentId}}-sidebar-button" style="width:100%" class="button wide-button row light-grey-background"
+                        onclick="javascript:populateAttributes('{{typeName}}', '{{componentId}}');showContainer('component-attributes', null, 'true', 'table');">{{this.pintura:label.text}}</button>
                 {{/each}}
                 </div>
             {{/each}}

@@ -1,5 +1,5 @@
 {{#each Diagram}}
-  <g id="diagram-{{@index}}" name="{{pintura:name}}">
+  <g id="{{@key}}" name="{{pintura:name}}">
   {{#with components}}
   {{#each this as |value typeName|}}
     <g class={{typeName}} >
