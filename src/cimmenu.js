@@ -19,6 +19,7 @@
 var cimmenu = cimmenu || (function() {
 
     var componentAttributeNode = null;
+    var componentCreationNode = null;
 
     var populateSidebar = function(sidebar, templateJson) {
         let template = Handlebars.templates['pintura2html'];
@@ -26,24 +27,33 @@ var cimmenu = cimmenu || (function() {
         sidebar.querySelector('#component-sidebar-list').innerHTML = data;
     };
 
-    populateAttributes = function(type, id) {
+    var calculatePanelHeight = function(data, panelNode, containingNode) {
+        let links = data.split('<li')
+        let listLength = links.length - 1;
+        panelHeight = 40 + 10 + (listLength * 39)
+        containingPanelHeight = containingNode.getBoundingClientRect().height
+        height = 0
+        if (panelHeight < containingPanelHeight) {
+            height = 'height:' + panelHeight.toString() + 'px'
+        } else {
+            height = 'height:100%'
+        }
+        panelNode.setAttribute("style", height)
+    };
+
+    var populateComponentCreation = function(menuXml) {
+        accordion = componentCreationNode.querySelector('#component-creation-list-div')
+        accordion.innerHTML = menuXml.documentElement.innerHTML;
+        calculatePanelHeight(menuXml.documentElement.innerHTML, componentCreationNode, document.body);
+    };
+
+    var populateAttributes = function(type, id) {
         let list = componentAttributeNode.querySelector('#component-attributes-list-div')
         let baseJson = cimxml.getBaseJson();
         let template = Handlebars.templates[type.substring(4)];
         let data = template(baseJson[type][id]);
-        links = data.split('<li')
-        number_of_attributes = links.length - 1;
         list.innerHTML = data;
-        integer_list_height = 40 + 10 + (number_of_attributes * 39)
-        body_height = document.body.getBoundingClientRect().height
-        height = 0
-        if (integer_list_height < body_height) {
-            height = 'height:' + integer_list_height.toString() + 'px'
-        } else {
-            height = 'height:100%'
-        }
-        let component_attributes = document.getElementById('component-attributes');
-        component_attributes.setAttribute("style", height)
+        calculatePanelHeight(data, componentAttributeNode, document.body);
     };
 
     var searchSidebar=function(searchString) {
@@ -59,28 +69,15 @@ var cimmenu = cimmenu || (function() {
         }
     };
 
-    var selectComponentType = function(type) {
-        var elements = document.getElementsByClassName('component-type-accordion');
-        for (var i=0; i<elements.length; i++)
-        {
-            elementIdSubStringLength = elements[i].id.length - 10;
-            let elementId = elements[i].id.substring( 0, elementIdSubStringLength ).toUpperCase();
-            if ( elementId == type.toUpperCase() ) {
-                elements[i].style='display:inline';
-            }
-            else {
-                elements[i].style='display:none';
-            }
-        }
-    };
-
     return {
-        init: function(componentAttributes){
+        init: function(componentAttributes, componentCreation, menuXml){
             componentAttributeNode = componentAttributes;
+            componentCreationNode = componentCreation;
+            populateComponentCreation(menuXml);
         },
         searchSidebar,
         populateSidebar,
-        selectComponentType,
+        populateAttributes,
     };
 }());
 

@@ -16,13 +16,10 @@ xsltproc $template_dir/cim_xml_scheme.xslt \
   $template_dir/Topology.xsd | \
   csplit --digits=3  --quiet --prefix=${attribute_lists_dir}/template_t_ - "/</ul>/+1" "{*}"
 for file in $(ls $attribute_lists_dir/template_?_*); do
-  echo ${file}
   TYPE=$(sed -n 's/.*id="\(.*\)" base.*/\1/p' ${file})
-  echo ${TYPE};
-  if [ "${TYPE}" != "" ]; then
+  if [ "x${TYPE}" != "x" ]; then
     mv ${file} ${attribute_lists_dir}/${TYPE}.handlebars;
   else
-    echo "Clearing up invalid file: $file"
     rm $file
   fi;
 done;
@@ -39,6 +36,7 @@ xsltproc $template_dir/cim_add_components_menu.xslt \
 echo '  </ul>' >> $add_components_dir/temp.xml
 echo '</menu>' >> $add_components_dir/temp.xml
 xsltproc $template_dir/sort_menu.xslt $add_components_dir/temp.xml > $add_components_dir/menu.xml
+rm $add_components_dir/temp.xml
 
 handlebars \
   ${template_dir}/*.handlebars \

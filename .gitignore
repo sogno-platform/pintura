@@ -3,6 +3,7 @@ html.tgz
 index.html
 templates/template.js
 templates/generated_attribute_lists/[A-Z]*.handlebars
+templates/generated_add_components/*
 templates/[A-Z]*.xsd
 templates/attributes
 templates/add_components_menu.xml

@@ -132,7 +132,9 @@ var cimsvg = cimsvg || (function() {
                     cimview.init(svgNode);
                     if(sidebarNode != undefined) {
                         includeFile("src/cimmenu.js", function() {
-                            cimmenu.init(componentAttributes)
+                            loadXml("templates/generated_add_components/menu.xml", function(xml){
+                                cimmenu.init(componentAttributes, componentCreation, xml)
+                            });
                         });
                         includeFile("src/cimedit.js", function() {});
                     }
@@ -142,12 +144,6 @@ var cimsvg = cimsvg || (function() {
                         });
                     });
                 });
-            });
-            loadXml("templates/generated_add_components/menu.xml", function(xml){
-                if(componentCreation != undefined) {
-                    accordion = componentCreation.querySelector('#component-creation-list-div')
-                    accordion.innerHTML = xml.documentElement.innerHTML;
-                }
             });
         },
         setSVG : function(svg) {
