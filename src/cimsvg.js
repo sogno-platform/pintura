@@ -102,6 +102,9 @@ var cimsvg = cimsvg || (function() {
             includeFile("templates/template.js");
             includeFile("src/cimjson.js");
         },
+        setSVG : function(svg) {
+            svgNode = svg;
+        },
         loadFile,
         setFileCount,
         addSidebar,
