@@ -18,6 +18,7 @@
 
 var cimjson = cimjson || (function() {
 
+    var pathBase = '';
     const imageNames = {
         "cim:ACLineSegment":             "images/term.svg",
         "cim:Terminal":                  "images/term.svg",
@@ -36,7 +37,7 @@ var cimjson = cimjson || (function() {
     const PinturaDiagramObjectPoints = "Pintura:DiagramObjectPoints";
 
     var getImageName = function(type) {
-        return imageNames[type];
+        return pathBase + imageNames[type];
     }
 
     var convertDiagramObjectToTemplateFormat = function(diagramObject, graph, categoryGraphName, diagramList) {
@@ -182,6 +183,9 @@ var cimjson = cimjson || (function() {
     };
 
     return {
+        setImagePathBase : function(path) {
+            pathBase = path;
+        },
         getTemplateJson,
     };
 }());
