@@ -160,6 +160,10 @@ var cimview = cimview || (function() {
         return position.matrixTransform(m.inverse());
     };
 
+    var fit = function() {
+        setViewBox(svgNode.getElementById('diagrams').getBBox());
+    };
+
     var getViewBox = function() {
         let rect = {};
         viewBoxString = svgNode.getAttribute("viewBox");
@@ -195,7 +199,7 @@ var cimview = cimview || (function() {
     };
 
     var init = function(svg) {
-        svgNode = svg; 
+        svgNode = svg;
         let rect = { x: "-100", y: "-100", width: "1024", height: "768" };
         setViewBox(rect);
     };
@@ -206,6 +210,7 @@ var cimview = cimview || (function() {
     return {
         init,
         pan,
+        fit,
         zoomIn,
         zoomOut,
         getMouseCoordFromWindow,
