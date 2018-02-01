@@ -35,6 +35,12 @@ $(template_dir)/template.js: $(handlebars) $(handlebars_attr)
 	handlebars $^ > $@
 
 run:
+$(template_dir)/add_components_menu.xml: $(template_dir)/cim_add_components_menu.xslt $(template_dir)/sort_menu.xslt | $(template_dir)/
+	xsltproc $(template_dir)/cim_add_components_menu.xslt $(xsds) > temp.xml
+	echo "<menu><ul class=\"floating-panel-list\">$$(cat temp.xml)</ul></menu>" > unsorted.xml
+	xsltproc $(template_dir)/sort_menu.xslt unsorted.xml > $@
+	rm -rf unsorted.xml temp.xml
+
 	# The environment variables are required for https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion
 	docker run --rm --detach --publish 8082:443 --name=pintura \
 		--env VIRTUAL_HOST=web.pintura.fein-aachen.org \
