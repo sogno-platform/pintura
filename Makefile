@@ -55,3 +55,5 @@ index.html: generateIndex.js
 .PRECIOUS: %/
 %/:
 	mkdir -p $@
+
+.PHONY: all clean electron_deps templates run_docker build_docker local
