@@ -2,10 +2,7 @@ handlebars.runtime.js
 html.tgz
 index.html
 templates/template.js
-templates/generated_attribute_lists/[A-Z]*.handlebars
-templates/generated_add_components/*
-templates/[A-Z]*.xsd
-templates/attributes
+templates/attributes/*.handlebars
 templates/add_components_menu.xml
 node_modules/*
 package-lock.json

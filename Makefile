@@ -1,24 +1,22 @@
-# Copyright © 2016-2017, RWTH Aachen University
-# Authors: Richard Marston
+# Copyright © 2016-2018, RWTH Aachen University
+# Authors:
+#   - Richard Marston
+#  - Steffen Vogel
 
-all: build_docker
 template_dir=templates
 attribute_dir=$(template_dir)/attributes
 
-posttar:
-	rm templates/*.xsd
 xsds=$(wildcard PinturaDataModel/XSD/*.xsd)
 attributes=$(shell xsltproc $(template_dir)/attribute_list.xslt $(xsds))
+handlebars_attr=$(patsubst %,$(attribute_dir)/%.handlebars,$(attributes))
+handlebars=$(wildcard $(template_dir)/*.handlebars)
 
-templates/%.xsd: PinturaDataModel/XSD/$(@F)
-	cp PinturaDataModel/XSD/$(@F) templates
+all: build_docker
 
-html.tgz: css images src templates/compile.sh templates/*.handlebars \
-	  templates/*.xslt templates/Core.xsd templates/Topology.xsd templates/Wires.xsd
-	tar zcvf html.tgz *.js $^
-
-build_docker: templates/Core.xsd templates/Topology.xsd templates/Wires.xsd html.tgz posttar
-	docker build -t pintura .
+clean:
+	rm -f $(template_dir)/template.js
+	rm -f $(template)/add_components_menu.xml
+	rm -fr $(attribute_dir)
 
 electron_deps:
 	rm -f package.json
@@ -28,19 +26,22 @@ electron_deps:
 
 templates: $(template_dir)/template.js
 
+handlebars.runtime.js:
+	wget -O $@ 'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.runtime.js'
+
 $(attribute_dir)/%.handlebars: $(template_dir)/cim_xml_scheme.xslt $(xsds) | $(attribute_dir)/
 	xsltproc --stringparam attribute $* $^ > $@
 
 $(template_dir)/template.js: $(handlebars) $(handlebars_attr)
 	handlebars $^ > $@
 
-run:
 $(template_dir)/add_components_menu.xml: $(template_dir)/cim_add_components_menu.xslt $(template_dir)/sort_menu.xslt | $(template_dir)/
 	xsltproc $(template_dir)/cim_add_components_menu.xslt $(xsds) > temp.xml
 	echo "<menu><ul class=\"floating-panel-list\">$$(cat temp.xml)</ul></menu>" > unsorted.xml
 	xsltproc $(template_dir)/sort_menu.xslt unsorted.xml > $@
 	rm -rf unsorted.xml temp.xml
 
+run_docker:
 	# The environment variables are required for https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion
 	docker run --rm --detach --publish 8082:443 --name=pintura \
 		--env VIRTUAL_HOST=web.pintura.fein-aachen.org \
@@ -48,13 +49,21 @@ $(template_dir)/add_components_menu.xml: $(template_dir)/cim_add_components_menu
 		--env LETSENCRYPT_EMAIL=post@steffenvogel.de \
 		pintura:latest
 
-stop:
+build_docker:
+	docker build -t pintura .
+
+stop_docker:
 	docker container stop pintura
 
-local: index.html templates/Core.xsd templates/Wires.xsd templates/Topology.xsd templates/templates.js
+local: index.html $(template_dir)/template.js $(template_dir)/add_components_menu.xml handlebars.runtime.js
+
+develop: local
+	docker run --rm --detach --publish 80:80 --name pintura-dev \
+		--volume $(shell pwd):/usr/share/nginx/html \
+		nginx
 
 index.html: generateIndex.js
-	node generateIndex.js > index.html
+	node $<  > $@
 
 # Create non-existent directories
 .SECONDEXPANSION:
