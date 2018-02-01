@@ -157,7 +157,7 @@ var cimsvg = cimsvg || (function() {
                     cimview.init(svgNode);
                     if(sidebarNode != undefined) {
                         includeFile("src/cimmenu.js", function() {
-                            loadXml("templates/generated_add_components/menu.xml", function(xml){
+                            loadXml("templates/add_components_menu.xml", function(xml){
                                 cimmenu.init(componentAttributes, componentCreation, xml)
                             });
                         });
@@ -188,6 +188,6 @@ var cimsvg = cimsvg || (function() {
 
 if (cimsvg.isNode) {
     module.exports = {
-        cimsvg 
+        cimsvg
     }
 }

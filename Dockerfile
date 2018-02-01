@@ -1,16 +1,25 @@
+FROM node AS builder
 
-from nginx 
+RUN apt-get update && \
+    apt-get install -y xsltproc make
 
-run apt-get update
-run apt-get install -y curl gnupg
-run curl -sL https://deb.nodesource.com/setup_6.x | bash -s
-run apt-get install -y nodejs xsltproc
-copy web/default.conf /etc/nginx/conf.d/
-run  mkdir -p /var/www/html/
-add  html.tgz /var/www/html/
-run  curl https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.runtime.js -o /var/www/html/handlebars.runtime.js
-run npm install -g handlebars
-env template_dir=/var/www/html/templates
-run ${template_dir}/compile.sh $template_dir
-run node /var/www/html/generateIndex.js > /var/www/html/index.html
-run rm /var/www/html/generateIndex.js
+RUN npm install -g handlebars
+
+COPY . /pintura
+WORKDIR pintura
+RUN make local
+
+FROM nginx
+
+RUN mkdir -p /usr/share/nginx/html/templates
+
+ADD --chown=nginx https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.runtime.js /usr/share/nginx/html/handlebars.runtime.js
+
+COPY images /usr/share/nginx/html/images
+COPY css /usr/share/nginx/html/css
+COPY src /usr/share/nginx/html/src
+COPY index.js /usr/share/nginx/html
+
+COPY --from=builder /pintura/index.html /usr/share/nginx/html/
+COPY --from=builder /pintura/templates/template.js /usr/share/nginx/html/templates/
+COPY --from=builder /pintura/templates/add_components_menu.xml /usr/share/nginx/html/templates/
