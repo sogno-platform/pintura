@@ -7,9 +7,8 @@
     <xsl:output omit-xml-declaration="yes" indent="yes"/>
     <xsl:strip-space elements="*"/>
     <xsl:template match="/">
-        <xsl:for-each select="xs:schema/xs:complexType">
+        <xsl:for-each select="xs:schema/xs:complexType[@name=$attribute]">
         <xsl:sort select="@name"/>
-            <xsl:text>&#xa;</xsl:text>
             <ul class="floating-panel-list">
             <xsl:attribute name="id">
                 <xsl:value-of select="@name"/>
