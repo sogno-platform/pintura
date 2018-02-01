@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Simple Pintura Integration</title>
+		<link rel="stylesheet" href="../css/svg.css"/>
+		<style>
+			#grid {
+				display: none;
+			}
+			#backing {
+				fill: transparent;
+			}
+		</style>
+		<script type="text/javascript" src="../handlebars.runtime.js"></script>
+		<script type="text/javascript" src="../templates/template.js"></script>
+		<script type="text/javascript" src="../src/cimsvg.js"></script>
+		<script type="text/javascript" src="../src/cimview.js"></script>
+		<script type="text/javascript" src="../src/cimxml.js"></script>
+		<script type="text/javascript" src="../src/cimjson.js"></script>
+
+	</head>
+	<body>
+		<svg id="cim" width="800" >
+			<rect id="backing" />
+			<g id="grid" />
+			<g id="diagrams" />
+		</svg>
+		<script language="javascript" type="text/javascript">
+			(function() {
+				var client = new XMLHttpRequest();
+				client.open('GET', 'IEEE-09_ME.xml');
+				client.onreadystatechange = function() {
+					svgelm = document.getElementById("cim");
+
+					window.cimjson.setImagePathBase('../');
+					window.cimsvg.setSVG(svgelm); // function not available in upstream source
+					window.cimview.init(svgelm);
+					window.cimxml.clearXmlData();
+					window.cimsvg.setFileCount(1);
+					window.cimsvg.loadFile(client.responseText);
+					window.cimview.fit();
+
+					window.onMouseLeave =
+					window.onMouseOver =
+					window.onMouseLeave =
+					window.onMouseUp =
+					window.onMouseDown =
+					window.onMouseMove = function() {};
+				}
+				client.send();
+			})();
+		</script>
+	</body>
+</html>
+
