@@ -1,0 +1,661 @@
+<menu>
+  <ul class="floating-panel-list">
+    <li class="wide-row floating-panel-item dark-grey-background" id="ACDCTerminal">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ACDCTerminal')">ACDCTerminal</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ACLineSegment">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ACLineSegment')">ACLineSegment</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ACLineSegmentPhase">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ACLineSegmentPhase')">ACLineSegmentPhase</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ActivePower">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ActivePower')">ActivePower</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ActivePowerChangeRate">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ActivePowerChangeRate')">ActivePowerChangeRate</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ActivePowerLimit">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ActivePowerLimit')">ActivePowerLimit</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ActivePowerPerCurrentFlow">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ActivePowerPerCurrentFlow')">ActivePowerPerCurrentFlow</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ActivePowerPerFrequency">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ActivePowerPerFrequency')">ActivePowerPerFrequency</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Admittance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Admittance')">Admittance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="AngleDegrees">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:AngleDegrees')">AngleDegrees</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="AngleRadians">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:AngleRadians')">AngleRadians</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ApparentPower">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ApparentPower')">ApparentPower</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ApparentPowerLimit">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ApparentPowerLimit')">ApparentPowerLimit</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Area">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Area')">Area</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="AsynchronousMachine">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:AsynchronousMachine')">AsynchronousMachine</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="BaseFrequency">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:BaseFrequency')">BaseFrequency</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="BasePower">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:BasePower')">BasePower</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="BaseVoltage">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:BaseVoltage')">BaseVoltage</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="BasicIntervalSchedule">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:BasicIntervalSchedule')">BasicIntervalSchedule</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Bay">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Bay')">Bay</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Boolean">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Boolean')">Boolean</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="BranchGroup">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:BranchGroup')">BranchGroup</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="BranchGroupTerminal">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:BranchGroupTerminal')">BranchGroupTerminal</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Breaker">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Breaker')">Breaker</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="BusNameMarker">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:BusNameMarker')">BusNameMarker</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="BusbarSection">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:BusbarSection')">BusbarSection</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Capacitance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Capacitance')">Capacitance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="CapacitancePerLength">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:CapacitancePerLength')">CapacitancePerLength</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Clamp">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Clamp')">Clamp</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="CompositeSwitch">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:CompositeSwitch')">CompositeSwitch</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Conductance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Conductance')">Conductance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ConductancePerLength">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ConductancePerLength')">ConductancePerLength</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ConductingEquipment">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ConductingEquipment')">ConductingEquipment</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Conductor">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Conductor')">Conductor</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ConformLoad">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ConformLoad')">ConformLoad</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ConformLoadGroup">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ConformLoadGroup')">ConformLoadGroup</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ConformLoadSchedule">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ConformLoadSchedule')">ConformLoadSchedule</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ConnectivityNode">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ConnectivityNode')">ConnectivityNode</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ConnectivityNodeContainer">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ConnectivityNodeContainer')">ConnectivityNodeContainer</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Connector">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Connector')">Connector</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="CostPerEnergyUnit">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:CostPerEnergyUnit')">CostPerEnergyUnit</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="CostPerVolume">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:CostPerVolume')">CostPerVolume</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="CostRate">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:CostRate')">CostRate</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="CurrentFlow">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:CurrentFlow')">CurrentFlow</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="CurrentLimit">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:CurrentLimit')">CurrentLimit</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Curve">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Curve')">Curve</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="CurveData">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:CurveData')">CurveData</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Cut">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Cut')">Cut</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DCTopologicalNode">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DCTopologicalNode')">DCTopologicalNode</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Damping">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Damping')">Damping</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Date">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Date')">Date</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DateInterval">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DateInterval')">DateInterval</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DateTime">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DateTime')">DateTime</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DateTimeInterval">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DateTimeInterval')">DateTimeInterval</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DayType">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DayType')">DayType</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Decimal">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Decimal')">Decimal</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DecimalQuantity">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DecimalQuantity')">DecimalQuantity</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Diagram">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Diagram')">Diagram</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DiagramObject">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DiagramObject')">DiagramObject</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DiagramObjectGluePoint">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DiagramObjectGluePoint')">DiagramObjectGluePoint</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DiagramObjectPoint">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DiagramObjectPoint')">DiagramObjectPoint</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DiagramObjectStyle">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DiagramObjectStyle')">DiagramObjectStyle</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="DiagramStyle">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:DiagramStyle')">DiagramStyle</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Disconnector">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Disconnector')">Disconnector</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Displacement">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Displacement')">Displacement</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Duration">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Duration')">Duration</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EarthFaultCompensator">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EarthFaultCompensator')">EarthFaultCompensator</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EnergyArea">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EnergyArea')">EnergyArea</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EnergyConsumer">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EnergyConsumer')">EnergyConsumer</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EnergyConsumerPhase">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EnergyConsumerPhase')">EnergyConsumerPhase</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EnergySource">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EnergySource')">EnergySource</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Equipment">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Equipment')">Equipment</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EquipmentContainer">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EquipmentContainer')">EquipmentContainer</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EquivalentBranch">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EquivalentBranch')">EquivalentBranch</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EquivalentEquipment">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EquivalentEquipment')">EquivalentEquipment</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EquivalentInjection">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EquivalentInjection')">EquivalentInjection</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EquivalentNetwork">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EquivalentNetwork')">EquivalentNetwork</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="EquivalentShunt">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:EquivalentShunt')">EquivalentShunt</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ExternalNetworkInjection">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ExternalNetworkInjection')">ExternalNetworkInjection</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Float">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Float')">Float</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="FloatQuantity">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:FloatQuantity')">FloatQuantity</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Frequency">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Frequency')">Frequency</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="FrequencyConverter">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:FrequencyConverter')">FrequencyConverter</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Fuse">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Fuse')">Fuse</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="GeographicalRegion">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:GeographicalRegion')">GeographicalRegion</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Ground">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Ground')">Ground</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="GroundDisconnector">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:GroundDisconnector')">GroundDisconnector</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="GroundingImpedance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:GroundingImpedance')">GroundingImpedance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Hours">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Hours')">Hours</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="IdentifiedObject">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:IdentifiedObject')">IdentifiedObject</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Impedance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Impedance')">Impedance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Inductance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Inductance')">Inductance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="InductancePerLength">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:InductancePerLength')">InductancePerLength</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Integer">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Integer')">Integer</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="IntegerQuantity">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:IntegerQuantity')">IntegerQuantity</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="IrregularIntervalSchedule">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:IrregularIntervalSchedule')">IrregularIntervalSchedule</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="IrregularTimePoint">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:IrregularTimePoint')">IrregularTimePoint</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Jumper">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Jumper')">Jumper</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Junction">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Junction')">Junction</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="KiloActivePower">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:KiloActivePower')">KiloActivePower</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Length">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Length')">Length</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Line">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Line')">Line</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="LinearShuntCompensator">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:LinearShuntCompensator')">LinearShuntCompensator</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="LinearShuntCompensatorPhase">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:LinearShuntCompensatorPhase')">LinearShuntCompensatorPhase</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="LoadArea">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:LoadArea')">LoadArea</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="LoadBreakSwitch">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:LoadBreakSwitch')">LoadBreakSwitch</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="LoadGroup">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:LoadGroup')">LoadGroup</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="LoadResponseCharacteristic">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:LoadResponseCharacteristic')">LoadResponseCharacteristic</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Minutes">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Minutes')">Minutes</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Money">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Money')">Money</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="MonthDay">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:MonthDay')">MonthDay</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="MonthDayInterval">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:MonthDayInterval')">MonthDayInterval</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="MutualCoupling">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:MutualCoupling')">MutualCoupling</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Name">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Name')">Name</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="NameType">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:NameType')">NameType</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="NameTypeAuthority">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:NameTypeAuthority')">NameTypeAuthority</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="NonConformLoad">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:NonConformLoad')">NonConformLoad</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="NonConformLoadGroup">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:NonConformLoadGroup')">NonConformLoadGroup</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="NonConformLoadSchedule">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:NonConformLoadSchedule')">NonConformLoadSchedule</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="NonlinearShuntCompensator">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:NonlinearShuntCompensator')">NonlinearShuntCompensator</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="NonlinearShuntCompensatorPhase">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:NonlinearShuntCompensatorPhase')">NonlinearShuntCompensatorPhase</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="NonlinearShuntCompensatorPhasePoint">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:NonlinearShuntCompensatorPhasePoint')">NonlinearShuntCompensatorPhasePoint</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="NonlinearShuntCompensatorPoint">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:NonlinearShuntCompensatorPoint')">NonlinearShuntCompensatorPoint</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="OperatingParticipant">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:OperatingParticipant')">OperatingParticipant</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="OperatingShare">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:OperatingShare')">OperatingShare</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="OperationalLimit">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:OperationalLimit')">OperationalLimit</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="OperationalLimitSet">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:OperationalLimitSet')">OperationalLimitSet</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="OperationalLimitType">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:OperationalLimitType')">OperationalLimitType</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PSRType">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PSRType')">PSRType</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PU">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PU')">PU</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PerCent">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PerCent')">PerCent</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PerLengthImpedance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PerLengthImpedance')">PerLengthImpedance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PerLengthLineParameter">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PerLengthLineParameter')">PerLengthLineParameter</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PerLengthPhaseImpedance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PerLengthPhaseImpedance')">PerLengthPhaseImpedance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PerLengthSequenceImpedance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PerLengthSequenceImpedance')">PerLengthSequenceImpedance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PetersenCoil">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PetersenCoil')">PetersenCoil</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PhaseImpedanceData">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PhaseImpedanceData')">PhaseImpedanceData</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PhaseTapChanger">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PhaseTapChanger')">PhaseTapChanger</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PhaseTapChangerAsymmetrical">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PhaseTapChangerAsymmetrical')">PhaseTapChangerAsymmetrical</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PhaseTapChangerLinear">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PhaseTapChangerLinear')">PhaseTapChangerLinear</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PhaseTapChangerNonLinear">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PhaseTapChangerNonLinear')">PhaseTapChangerNonLinear</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PhaseTapChangerSymmetrical">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PhaseTapChangerSymmetrical')">PhaseTapChangerSymmetrical</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PhaseTapChangerTable">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PhaseTapChangerTable')">PhaseTapChangerTable</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PhaseTapChangerTablePoint">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PhaseTapChangerTablePoint')">PhaseTapChangerTablePoint</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PhaseTapChangerTabular">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PhaseTapChangerTabular')">PhaseTapChangerTabular</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Plant">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Plant')">Plant</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PowerCutZone">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PowerCutZone')">PowerCutZone</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PowerSystemResource">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PowerSystemResource')">PowerSystemResource</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PowerTransformer">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PowerTransformer')">PowerTransformer</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="PowerTransformerEnd">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:PowerTransformerEnd')">PowerTransformerEnd</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Pressure">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Pressure')">Pressure</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ProtectedSwitch">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ProtectedSwitch')">ProtectedSwitch</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RatioTapChanger">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RatioTapChanger')">RatioTapChanger</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RatioTapChangerTable">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RatioTapChangerTable')">RatioTapChangerTable</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RatioTapChangerTablePoint">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RatioTapChangerTablePoint')">RatioTapChangerTablePoint</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Reactance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Reactance')">Reactance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ReactancePerLength">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ReactancePerLength')">ReactancePerLength</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ReactiveCapabilityCurve">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ReactiveCapabilityCurve')">ReactiveCapabilityCurve</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ReactivePower">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ReactivePower')">ReactivePower</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RealEnergy">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RealEnergy')">RealEnergy</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Recloser">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Recloser')">Recloser</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RegularIntervalSchedule">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RegularIntervalSchedule')">RegularIntervalSchedule</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RegularTimePoint">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RegularTimePoint')">RegularTimePoint</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RegulatingCondEq">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RegulatingCondEq')">RegulatingCondEq</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RegulatingControl">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RegulatingControl')">RegulatingControl</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RegulationSchedule">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RegulationSchedule')">RegulationSchedule</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ReportingSuperGroup">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ReportingSuperGroup')">ReportingSuperGroup</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Resistance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Resistance')">Resistance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ResistancePerLength">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ResistancePerLength')">ResistancePerLength</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RotatingMachine">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RotatingMachine')">RotatingMachine</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="RotationSpeed">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:RotationSpeed')">RotationSpeed</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Season">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Season')">Season</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="SeasonDayTypeSchedule">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:SeasonDayTypeSchedule')">SeasonDayTypeSchedule</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Seconds">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Seconds')">Seconds</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Sectionaliser">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Sectionaliser')">Sectionaliser</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="SeriesCompensator">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:SeriesCompensator')">SeriesCompensator</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ShuntCompensator">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ShuntCompensator')">ShuntCompensator</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="ShuntCompensatorPhase">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:ShuntCompensatorPhase')">ShuntCompensatorPhase</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Speed">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Speed')">Speed</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="StaticVarCompensator">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:StaticVarCompensator')">StaticVarCompensator</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="StationSupply">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:StationSupply')">StationSupply</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="String">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:String')">String</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="StringQuantity">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:StringQuantity')">StringQuantity</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="SubGeographicalRegion">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:SubGeographicalRegion')">SubGeographicalRegion</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="SubLoadArea">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:SubLoadArea')">SubLoadArea</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Substation">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Substation')">Substation</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Susceptance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Susceptance')">Susceptance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="SusceptancePerLength">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:SusceptancePerLength')">SusceptancePerLength</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Switch">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Switch')">Switch</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="SwitchPhase">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:SwitchPhase')">SwitchPhase</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="SwitchSchedule">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:SwitchSchedule')">SwitchSchedule</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="SynchronousMachine">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:SynchronousMachine')">SynchronousMachine</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TapChanger">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TapChanger')">TapChanger</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TapChangerControl">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TapChangerControl')">TapChangerControl</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TapChangerTablePoint">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TapChangerTablePoint')">TapChangerTablePoint</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TapSchedule">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TapSchedule')">TapSchedule</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Temperature">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Temperature')">Temperature</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Terminal">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Terminal')">Terminal</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TextDiagramObject">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TextDiagramObject')">TextDiagramObject</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Time">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Time')">Time</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TimeInterval">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TimeInterval')">TimeInterval</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TopologicalIsland">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TopologicalIsland')">TopologicalIsland</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TopologicalNode">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TopologicalNode')">TopologicalNode</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TransformerCoreAdmittance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TransformerCoreAdmittance')">TransformerCoreAdmittance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TransformerEnd">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TransformerEnd')">TransformerEnd</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TransformerMeshImpedance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TransformerMeshImpedance')">TransformerMeshImpedance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TransformerStarImpedance">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TransformerStarImpedance')">TransformerStarImpedance</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TransformerTank">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TransformerTank')">TransformerTank</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="TransformerTankEnd">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:TransformerTankEnd')">TransformerTankEnd</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="VisibilityLayer">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:VisibilityLayer')">VisibilityLayer</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Voltage">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Voltage')">Voltage</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="VoltageControlZone">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:VoltageControlZone')">VoltageControlZone</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="VoltageLevel">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:VoltageLevel')">VoltageLevel</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="VoltageLimit">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:VoltageLimit')">VoltageLimit</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="VoltagePerReactivePower">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:VoltagePerReactivePower')">VoltagePerReactivePower</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Volume">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Volume')">Volume</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="VolumeFlowRate">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:VolumeFlowRate')">VolumeFlowRate</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="WaterLevel">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:WaterLevel')">WaterLevel</button>
+    </li>
+    <li class="wide-row floating-panel-item dark-grey-background" id="Weight">
+        <button class="component-type-name row button wide-button dark-grey-background" onclick="cimsvg.addComponent('cim:Weight')">Weight</button>
+    </li>
+  </ul>
+</menu>

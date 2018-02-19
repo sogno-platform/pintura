@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation>This package models a specification of limits associated with equipment and other operational entities.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Domain.xsd"/>
+	<xs:include/>
+	<xs:include schemaLocation="Core.xsd"/>
+	<xs:simpleType name="OperationalLimitDirectionKind">
+		<xs:annotation>
+			<xs:documentation>The direction attribute describes the side of  a limit that is a violation.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="high">
+				<xs:annotation>
+					<xs:documentation>High means that a monitored value above the limit value is a violation.   If applied to a terminal flow, the positive direction is into the terminal.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="low">
+				<xs:annotation>
+					<xs:documentation>Low means a monitored value below the limit is a violation.  If applied to a terminal flow, the positive direction is into the terminal.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="absoluteValue">
+				<xs:annotation>
+					<xs:documentation>An absoluteValue limit means that a monitored absolute value above the limit value is a violation.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="OperationalLimit">
+		<xs:annotation>
+			<xs:documentation>A value associated with a specific kind of limit. 
+The sub class value attribute shall be positive. 
+The sub class value attribute is inversely proportional to OperationalLimitType.acceptableDuration (acceptableDuration for short). A pair of value_x and acceptableDuration_x are related to each other as follows:
+if value_1 &gt; value_2 &gt; value_3 &gt;... then
+acceptableDuration_1 &lt; acceptableDuration_2 &lt; acceptableDuration_3 &lt; ...
+A value_x with direction="high" shall be greater than a value_y with direction="low".</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="OperationalLimitType" type="OperationalLimitType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The limit type associated with this limit.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LimitDependencyModel" type="LimitDependency" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The limit dependency models which are used to calculate this limit.   If no limit dependencies are specified then the native limit value is used.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ActivePowerLimit">
+		<xs:annotation>
+			<xs:documentation>Limit on active power flow.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="OperationalLimit">
+				<xs:sequence>
+					<xs:element name="value" type="ActivePower" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Value of active power limit.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ApparentPowerLimit">
+		<xs:annotation>
+			<xs:documentation>Apparent power limit.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="OperationalLimit">
+				<xs:sequence>
+					<xs:element name="value" type="ApparentPower" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The apparent power limit.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CurrentLimit">
+		<xs:annotation>
+			<xs:documentation>Operational limit on current. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="OperationalLimit">
+				<xs:sequence>
+					<xs:element name="value" type="CurrentFlow" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Limit on current flow.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="VoltageLimit">
+		<xs:annotation>
+			<xs:documentation>Operational limit applied to voltage.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="OperationalLimit">
+				<xs:sequence>
+					<xs:element name="value" type="Voltage" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Limit on voltage. High or low limit nature of the limit depends upon the properties of the operational limit type.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BranchGroup">
+		<xs:annotation>
+			<xs:documentation>A group of branch terminals whose directed flow summation is to be monitored. A branch group need not form a cutset of the network.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="maximumActivePower" type="ActivePower" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The maximum active power flow.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="maximumReactivePower" type="ReactivePower" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The maximum reactive power flow.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="minimumActivePower" type="ActivePower" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The minimum active power flow.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="minimumReactivePower" type="ReactivePower" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The minimum reactive power flow.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="monitorActivePower" type="Boolean" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Monitor the active power flow.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="monitorReactivePower" type="Boolean" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Monitor the reactive power flow.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BranchGroupTerminal" type="BranchGroupTerminal" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The branch group to which the directed branch group terminals belong.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BranchGroupTerminal">
+		<xs:annotation>
+			<xs:documentation>A specific directed terminal flow for a branch group.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="positiveFlowIn" type="Boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The flow into the terminal is summed if set true.   The flow out of the terminanl is summed if set false.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Terminal" type="Terminal" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The terminal to be summed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OperationalLimitSet">
+		<xs:annotation>
+			<xs:documentation>A set of limits associated with equipment.  Sets of limits might apply to a specific temperature, or season for example. A set of limits may contain different severities of limit levels that would apply to the same equipment. The set may contain limits of different types such as apparent power and current limits or high and low voltage limits  that are logically applied together as a set.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="OperationalLimitValue" type="OperationalLimit" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The limit set to which the limit values belong.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Equipment" type="Equipment" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The equipment to which the limit set applies.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Terminal" type="ACDCTerminal" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OperationalLimitType">
+		<xs:annotation>
+			<xs:documentation>The operational meaning of a category of limits.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="acceptableDuration" type="Seconds" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The nominal acceptable duration of the limit.  Limits are commonly expressed in terms of the a time limit for which the limit is normally acceptable.   The actual acceptable duration of a specific limit may depend on other local factors such as temperature or wind speed.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="direction" type="OperationalLimitDirectionKind" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The direction of the limit.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

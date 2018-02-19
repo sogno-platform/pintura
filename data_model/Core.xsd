@@ -1,0 +1,910 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation>Contains the core PowerSystemResource and ConductingEquipment entities shared by all applications plus common collections of those entities. Not all applications require all the Core entities.  This package does not depend on any other package except the Domain package, but most of the other packages have associations and generalizations that depend on it.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Domain.xsd"/>
+	<xs:include/>
+	<xs:include/>
+	<xs:include/>
+	<xs:include/>
+	<xs:include schemaLocation="Wires.xsd"/>
+	<xs:include schemaLocation="Topology.xsd"/>
+	<xs:include schemaLocation="DiagramLayout.xsd"/>
+	<xs:complexType name="PowerSystemResource">
+		<xs:annotation>
+			<xs:documentation>A power system resource can be an item of equipment such as a switch, an equipment container containing many individual items of equipment such as a substation, or an organisational entity such as sub-control area. Power system resources can have measurements associated.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="Controls" type="Control" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The controller outputs used to actually govern a regulating device, e.g. the magnetization of a synchronous machine or capacitor bank breaker actuator.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Measurements" type="Measurement" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The measurements associated with this power system resource.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="PSRType" type="PSRType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Custom classification for this power system resource.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OperatingParticipant">
+		<xs:annotation>
+			<xs:documentation>An operator of multiple power system resource objects. Note multple operating participants may operate the same power system resource object.   This can be used for modeling jointly owned units where each owner operates as a contractual share.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="IdentifiedObject">
+		<xs:annotation>
+			<xs:documentation>This is a root class to provide common identification for all classes needing identification and naming attributes.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="aliasName" type="String" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The aliasName is free text human readable name of the object alternative to IdentifiedObject.name. It may be non unique and may not correlate to a naming hierarchy.
+The attribute aliasName is retained because of backwards compatibility between CIM relases. It is however recommended to replace aliasName with the Name class as aliasName is planned for retirement at a future time.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="String" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The description is a free human readable text describing or naming the object. It may be non unique and may not correlate to a naming hierarchy.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mRID" type="String" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Master resource identifier issued by a model authority. The mRID is globally unique within an exchange context. Global uniqueness is easily achieved by using a UUID,  as specified in RFC 4122, for the mRID.  The use of UUID is strongly recommended.
+For CIMXML data files in RDF syntax conforming to IEC 61970-552 Edition 1, the mRID is mapped to rdf:ID or rdf:about attributes that identify CIM object elements.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="String" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The name is any free human readable and possibly non unique text naming the object.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DiagramObjects" type="DiagramObject" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The diagram objects that are associated with the domain object.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Terminal">
+		<xs:annotation>
+			<xs:documentation>An AC electrical connection point to a piece of conducting equipment. Terminals are connected at physical connection points called connectivity nodes.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ACDCTerminal">
+				<xs:sequence>
+					<xs:element name="phases" type="PhaseCode" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Represents the normal network phasing condition.
+If the attribute is missing three phases (ABC or ABCN) shall be assumed.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ConnectivityNode" type="ConnectivityNode" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The connectivity node to which this terminal connects with zero impedance.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ConductingEquipment" type="ConductingEquipment" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The conducting equipment of the terminal.  Conducting equipment have  terminals that may be connected to other conducting equipment terminals via connectivity nodes or topological nodes.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RegulatingControl" type="RegulatingControl" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The controls regulating this terminal.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BaseVoltage">
+		<xs:annotation>
+			<xs:documentation>Defines a system base voltage which is referenced. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="nominalVoltage" type="Voltage" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The power system resource's base voltage.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ConductingEquipment" type="ConductingEquipment" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>All conducting equipment with this base voltage.  Use only when there is no voltage level container used and only one base voltage applies.  For example, not used for transformers.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="PhaseCode">
+		<xs:annotation>
+			<xs:documentation>Enumeration of phase identifiers. Allows designation of phases for both transmission and distribution equipment, circuits and loads.
+Residential and small commercial loads are often served from single-phase, or split-phase, secondary circuits. For example of s12N, phases 1 and 2 refer to hot wires that are 180 degrees out of phase, while N refers to the neutral wire. Through single-phase transformer connections, these secondary circuits may be served from one or two of the primary phases A, B, and C. For three-phase loads, use the A, B, C phase codes instead of s12N.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ABCN">
+				<xs:annotation>
+					<xs:documentation>Phases A, B, C, and N.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABC">
+				<xs:annotation>
+					<xs:documentation>Phases A, B, and C.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ABN">
+				<xs:annotation>
+					<xs:documentation>Phases A, B, and neutral.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ACN">
+				<xs:annotation>
+					<xs:documentation>Phases A, C and neutral.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BCN">
+				<xs:annotation>
+					<xs:documentation>Phases B, C, and neutral.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AB">
+				<xs:annotation>
+					<xs:documentation>Phases A and B.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AC">
+				<xs:annotation>
+					<xs:documentation>Phases A and C.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BC">
+				<xs:annotation>
+					<xs:documentation>Phases B and C.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="AN">
+				<xs:annotation>
+					<xs:documentation>Phases A and neutral.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="BN">
+				<xs:annotation>
+					<xs:documentation>Phases B and neutral.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CN">
+				<xs:annotation>
+					<xs:documentation>Phases C and neutral.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="A">
+				<xs:annotation>
+					<xs:documentation>Phase A.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="B">
+				<xs:annotation>
+					<xs:documentation>Phase B.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="C">
+				<xs:annotation>
+					<xs:documentation>Phase C.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="N">
+				<xs:annotation>
+					<xs:documentation>Neutral phase.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="s1N">
+				<xs:annotation>
+					<xs:documentation>Secondary phase 1 and neutral.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="s2N">
+				<xs:annotation>
+					<xs:documentation>Secondary phase 2 and neutral.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="s12N">
+				<xs:annotation>
+					<xs:documentation>Secondary phases 1, 2, and neutral.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="s1">
+				<xs:annotation>
+					<xs:documentation>Secondary phase 1.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="s2">
+				<xs:annotation>
+					<xs:documentation>Secondary phase 2.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="s12">
+				<xs:annotation>
+					<xs:documentation>Secondary phase 1 and 2.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CurveStyle">
+		<xs:annotation>
+			<xs:documentation>Style or shape of curve.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="constantYValue">
+				<xs:annotation>
+					<xs:documentation>The Y-axis values are assumed constant until the next curve point and prior to the first curve point.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="straightLineYValues">
+				<xs:annotation>
+					<xs:documentation>The Y-axis values are assumed to be a straight line between values.  Also known as linear interpolation.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BreakerConfiguration">
+		<xs:annotation>
+			<xs:documentation>Switching arrangement for bay. </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="singleBreaker">
+				<xs:annotation>
+					<xs:documentation>Single breaker.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="breakerAndAHalf">
+				<xs:annotation>
+					<xs:documentation>Breaker and a half.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="doubleBreaker">
+				<xs:annotation>
+					<xs:documentation>Double breaker.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="noBreaker">
+				<xs:annotation>
+					<xs:documentation>No breaker.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="IrregularIntervalSchedule">
+		<xs:annotation>
+			<xs:documentation>The schedule has time points where the time between them varies.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="BasicIntervalSchedule">
+				<xs:sequence>
+					<xs:element name="TimePoints" type="IrregularTimePoint" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The point data values that define a curve.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Bay">
+		<xs:annotation>
+			<xs:documentation>A collection of power system resources (within a given substation) including conducting equipment, protection relays, measurements, and telemetry.  A bay typically represents a physical grouping related to modularization of equipment.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EquipmentContainer">
+				<xs:sequence>
+					<xs:element name="bayEnergyMeasFlag" type="Boolean" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Indicates the presence/absence of energy measurements.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="bayPowerMeasFlag" type="Boolean" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Indicates the presence/absence of active/reactive power measurements.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="breakerConfiguration" type="BreakerConfiguration" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Breaker configuration. </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="busBarConfiguration" type="BusbarConfiguration" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Bus bar configuration.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="CurveData">
+		<xs:annotation>
+			<xs:documentation>Multi-purpose data points for defining a curve.  The use of this generic class is discouraged if a more specific class  can be used to specify the x and y axis values along with their specific data types.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="xvalue" type="Float" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The data value of the X-axis variable,  depending on the X-axis units.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="y1value" type="Float" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The data value of the  first Y-axis variable, depending on the Y-axis units.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="y2value" type="Float" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The data value of the second Y-axis variable (if present), depending on the Y-axis units.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="y3value" type="Float" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The data value of the third Y-axis variable (if present), depending on the Y-axis units.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NameType">
+		<xs:annotation>
+			<xs:documentation>Type of name. Possible values for attribute 'name' are implementation dependent but standard profiles may specify types. An enterprise may have multiple IT systems each having its own local name for the same object, e.g. a planning system may have different names from an EMS. An object may also have different names within the same IT system, e.g. localName as defined in CIM version 14. The definition from CIM14 is:
+The localName is a human readable name of the object. It is a free text name local to a node in a naming hierarchy similar to a file directory structure. A power system related naming hierarchy may be: Substation, VoltageLevel, Equipment etc. Children of the same parent in such a hierarchy have names that typically are unique among them.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="description" type="String" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Description of the name type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="String" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Name of the name type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NameTypeAuthority" type="NameTypeAuthority" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Authority responsible for managing names of this type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReportingSuperGroup">
+		<xs:annotation>
+			<xs:documentation>A reporting super group, groups reporting groups for a higher level report.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="ReportingGroup" type="ReportingGroup" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Reporting super group to which this reporting group belongs.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ReportingGroup">
+						<xs:complexType>
+							<xs:annotation>
+								<xs:documentation>A reporting group is used for various ad-hoc groupings used for reporting.</xs:documentation>
+							</xs:annotation>
+							<xs:complexContent>
+								<xs:extension base="IdentifiedObject">
+									<xs:sequence>
+										<xs:element name="PowerSystemResource" type="PowerSystemResource" minOccurs="0" maxOccurs="unbounded">
+											<xs:annotation>
+												<xs:documentation>Power system resources which belong to this reporting group.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Curve">
+		<xs:annotation>
+			<xs:documentation>A multi-purpose curve or functional relationship between an independent variable (X-axis) and dependent (Y-axis) variables. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="curveStyle" type="CurveStyle" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The style or shape of the curve.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="xMultiplier" type="UnitMultiplier" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Multiplier for X-axis.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="xUnit" type="UnitSymbol" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The X-axis units of measure.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="y1Multiplier" type="UnitMultiplier" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Multiplier for Y1-axis.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="y1Unit" type="UnitSymbol" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The Y1-axis units of measure.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="y2Multiplier" type="UnitMultiplier" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Multiplier for Y2-axis.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="y2Unit" type="UnitSymbol" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The Y2-axis units of measure.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="y3Multiplier" type="UnitMultiplier" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Multiplier for Y3-axis.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="y3Unit" type="UnitSymbol" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The Y3-axis units of measure.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CurveDatas" type="CurveData" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The curve of  this curve data point.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ConductingEquipment">
+		<xs:annotation>
+			<xs:documentation>The parts of the AC power system that are designed to carry current or that are conductively connected through terminals.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="Equipment">
+				<xs:sequence>
+					<xs:element name="ProtectiveActionAdjustment" type="ProtectiveActionAdjustment" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BasicIntervalSchedule">
+		<xs:annotation>
+			<xs:documentation>Schedule of values at points in time.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="startTime" type="DateTime" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The time for the first time point.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="value1Multiplier" type="UnitMultiplier" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Multiplier for value1.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="value1Unit" type="UnitSymbol" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Value1 units of measure.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="value2Multiplier" type="UnitMultiplier" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Multiplier for value2.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="value2Unit" type="UnitSymbol" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Value2 units of measure.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ConnectivityNode">
+		<xs:annotation>
+			<xs:documentation>Connectivity nodes are points where terminals of AC conducting equipment are connected together with zero impedance.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="ConnectivityNodeContainer" type="ConnectivityNodeContainer" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Container of this connectivity node.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RegularTimePoint">
+		<xs:annotation>
+			<xs:documentation>Time point for a schedule where the time between the consecutive points is constant.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="sequenceNumber" type="Integer" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The position of the regular time point in the sequence. Note that time points don't have to be sequential, i.e. time points may be omitted. The actual time for a RegularTimePoint is computed by multiplying the associated regular interval schedule's time step with the regular time point sequence number and adding the associated schedules start time.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value1" type="Float" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The first value at the time. The meaning of the value is defined by the derived type of the associated schedule.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value2" type="Float" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The second value at the time. The meaning of the value is defined by the derived type of the associated schedule.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BasePower">
+		<xs:annotation>
+			<xs:documentation>The BasePower class defines the base power used in the per unit calculations.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="basePower" type="ApparentPower" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Value used as base power.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="RegularIntervalSchedule">
+		<xs:annotation>
+			<xs:documentation>The schedule has time points where the time between them is constant.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="BasicIntervalSchedule">
+				<xs:sequence>
+					<xs:element name="endTime" type="DateTime" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The time for the last time point.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="timeStep" type="Seconds" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The time between each pair of subsequent regular time points in sequence order.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TimePoints" type="RegularTimePoint" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The regular interval time point data values that define this schedule.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="VoltageLevel">
+		<xs:annotation>
+			<xs:documentation>A collection of equipment at one common system voltage forming a switchgear. The equipment typically consist of breakers, busbars, instrumentation, control, regulation and protection devices as well as assemblies of all these.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EquipmentContainer">
+				<xs:sequence>
+					<xs:element name="highVoltageLimit" type="Voltage" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The bus bar's high voltage limit</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="lowVoltageLimit" type="Voltage" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The bus bar's low voltage limit</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Bays" type="Bay" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The bays within this voltage level.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BaseVoltage" type="BaseVoltage" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The base voltage used for all equipment within the voltage level.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ConnectivityNodeContainer">
+		<xs:annotation>
+			<xs:documentation>A base class for all objects that may contain connectivity nodes or topological nodes.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="PowerSystemResource">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="PSRType">
+		<xs:annotation>
+			<xs:documentation>Classifying instances of the same class, e.g. overhead and underground ACLineSegments. This classification mechanism is intended to provide flexibility outside the scope of this standard, i.e. provide customisation that is non standard.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SubGeographicalRegion">
+		<xs:annotation>
+			<xs:documentation>A subset of a geographical region of a power system network model.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="Lines" type="Line" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The lines within the sub-geographical region.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Substations" type="Substation" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The substations in this sub-geographical region.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="OperatingShare">
+		<xs:annotation>
+			<xs:documentation>Specifies the operations contract relationship between a power system resource and a contract participant.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="percentage" type="PerCent" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Percentage operational ownership between the pair (power system resource and operatging participant) associated with this share. The total percentage ownership for a power system resource should add to 100%.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperatingParticipant" type="OperatingParticipant" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The operating participant having this share with the associated power system resource.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="PowerSystemResource" type="PowerSystemResource" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The power system resource to which the share applies.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Name">
+		<xs:annotation>
+			<xs:documentation>The Name class provides the means to define any number of human readable  names for an object. A name is not to be used for defining inter-object relationships. For inter-object relationships instead use the object identification 'mRID'.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="String" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Any free text that name the object.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NameType" type="NameType" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Type of this name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IdentifiedObject" type="IdentifiedObject" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Identified object that this name designates.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Substation">
+		<xs:annotation>
+			<xs:documentation>A collection of equipment for purposes other than generation or utilization, through which electric energy in bulk is passed for the purposes of switching or modifying its characteristics. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EquipmentContainer">
+				<xs:sequence>
+					<xs:element name="VoltageLevels" type="VoltageLevel" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The voltage levels within this substation.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Bays" type="Bay" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Substation containing the bay.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="DCConverterUnit" type="DCConverterUnit" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="BusbarConfiguration">
+		<xs:annotation>
+			<xs:documentation>Busbar layout for bay.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="singleBus">
+				<xs:annotation>
+					<xs:documentation>Single bus.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="doubleBus">
+				<xs:annotation>
+					<xs:documentation>Double bus.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="mainWithTransfer">
+				<xs:annotation>
+					<xs:documentation>Main bus with transfer bus.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ringBus">
+				<xs:annotation>
+					<xs:documentation>Ring bus.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="IrregularTimePoint">
+		<xs:annotation>
+			<xs:documentation>TimePoints for a schedule where the time between the points varies.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="time" type="Seconds" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The time is relative to the schedule starting time.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value1" type="Float" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The first value at the time. The meaning of the value is defined by the derived type of the associated schedule.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="value2" type="Float" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The second value at the time. The meaning of the value is defined by the derived type of the associated schedule.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EquipmentContainer">
+		<xs:annotation>
+			<xs:documentation>A modeling construct to provide a root class for containing equipment. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="ConnectivityNodeContainer">
+				<xs:sequence>
+					<xs:element name="Equipments" type="Equipment" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Contained equipment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="NameTypeAuthority">
+		<xs:annotation>
+			<xs:documentation>Authority responsible for creation and management of names of a given type; typically an organization or an enterprise system.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="description" type="String" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Description of the name type authority.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="String" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Name of the name type authority.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Equipment">
+		<xs:annotation>
+			<xs:documentation>The parts of a power system that are physical devices, electronic or mechanical.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="PowerSystemResource">
+				<xs:sequence>
+					<xs:element name="aggregate" type="Boolean" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The single instance of equipment represents multiple pieces of equipment that have been modeled together as an aggregate.  Examples would be power transformers or synchronous machines operating in parallel modeled as a single aggregate power transformer or aggregate synchronous machine.  This is not to be used to indicate equipment that is part of a group of interdependent equipment produced by a network production program.  </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="normallyInService" type="Boolean" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>If true, the equipment is normally in service.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="WeatherStation" type="WeatherStation" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="GeographicalRegion">
+		<xs:annotation>
+			<xs:documentation>A geographical region of a power system network model.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="Regions" type="SubGeographicalRegion" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>All sub-geograhpical regions within this geographical region.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ACDCTerminal">
+		<xs:annotation>
+			<xs:documentation>An electrical connection point (AC or DC) to a piece of conducting equipment. Terminals are connected at physical connection points called connectivity nodes.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="connected" type="Boolean" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The connected status is related to a bus-branch model and the topological node to terminal relation.  True implies the terminal is connected to the related topological node and false implies it is not. 
+In a bus-branch model, the connected status is used to tell if equipment is disconnected without having to change the connectivity described by the topological node to terminal relation. A valid case is that conducting equipment can be connected in one end and open in the other. In particular for an AC line segment, where the reactive line charging can be significant, this is a relevant case.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="sequenceNumber" type="Integer" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The orientation of the terminal connections for a multiple terminal conducting equipment.  The sequence numbering starts with 1 and additional terminals should follow in increasing order.   The first terminal is the "starting point" for a two terminal branch.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="BaseFrequency">
+		<xs:annotation>
+			<xs:documentation>The class describe a base frequency for a power system network. In case of multiple power networks with different frequencies, e.g. 50 or 60 Hertz each network will have it's own base frequency class. Hence it is assumed that power system objects having different base frequencies appear in separate documents where each document has a single base frequency instance.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="frequency" type="Frequency" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The base frequency.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
