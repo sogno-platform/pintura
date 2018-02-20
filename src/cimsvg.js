@@ -22,6 +22,8 @@ var cimsvg = cimsvg || (function() {
     var xmlNode = null;
     var pinturaNode = null;
     var sidebarNode = null;
+    var addingType = null;
+    var addingPoint = null;
 
     function handler() {
         //console.log(this.getResponseHeader('content-type'));
@@ -46,12 +48,35 @@ var cimsvg = cimsvg || (function() {
     };
 
     var addDiagram = function() {
-        addComponent("cim:Diagram")
+        addComponentAndApplyTemplates("cim:Diagram")
     };
 
     var addComponent = function(type) {
+        addingType = type;
+        image = cimjson.getImageName(type);
+        let backing = document.getElementById("backing");
+        backing.style.cursor = 'url("' + image + '"), crosshair';
+        showContainer('component-creation');
+    };
+
+    var checkComponentReadyToAdd = function(evt) {
+
+        addingPoint = cimview.getMouseCoordFromWindow(evt);
+
+        if (addingType != null) {
+            let type = addingType;
+            let point = addingPoint;
+            addComponentAndApplyTemplates(type, point);
+            addingType = null;
+            addingPoint = null;
+        };
+        let backing = document.getElementById("backing");
+        backing.style.cursor = 'initial';
+    };
+
+    var addComponentAndApplyTemplates = function(type, point) {
         baseJson = cimxml.getBaseJson();
-        cimedit.addComponentToBaseJson(baseJson, type);
+        cimedit.addComponentToBaseJson(baseJson, type, point);
         templateJson = cimjson.getTemplateJson(baseJson);
         svgNode.getElementById('diagrams').innerHTML = applyTemplate(templateJson);
         if(sidebarNode != null) {
@@ -153,6 +178,7 @@ var cimsvg = cimsvg || (function() {
         setFileCount,
         updateComponent,
         addComponent,
+        checkComponentReadyToAdd,
         addDiagram,
         setCurrentDiagramId : function(id) { cimedit.setCurrentDiagramId(id); },
         toggleDiagramVisible,

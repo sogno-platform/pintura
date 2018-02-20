@@ -161,7 +161,9 @@ var sidebar = new tag('div').
 var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns', '"http://www.w3.org/2000/svg"').
 	          a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
-	          c(new tag('rect').a('id', '"backing"')).
+	          c(new tag('rect').
+                      a('id', '"backing"').
+                      a('onclick', '"cimsvg.checkComponentReadyToAdd(evt)"')).
 	          c(new tag('g').a('id', '"grid"')).
 	          c(new tag('g').a('id', '"diagrams"'))
 

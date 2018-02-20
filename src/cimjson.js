@@ -197,6 +197,7 @@ var cimjson = cimjson || (function() {
             pathBase = path;
         },
         getTemplateJson,
+        getImageName,
     };
 }());
 

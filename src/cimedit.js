@@ -62,14 +62,15 @@ var cimedit = cimedit || (function() {
         object[category][id] = item;
     };
 
-    var makeAComponentWithTerminals = function(diagramId, graph, type, attributes, numberOfPoints, numberOfTerminals) {
+    var makeAComponentWithTerminals = function(diagramId, graph, type, point, attributes, numberOfPoints, numberOfTerminals) {
         let id = generateUUID();
         points = [];
-        for (let i = 0; i<numberOfPoints; i++) {
-            point = {};
-            point.x = (100 * i);
-            point.y = (100 * i);
-            points.push(point);
+        points[0] = point;
+        for (let i = 1; i<numberOfPoints; i++) {
+            nextPoint = {};
+            nextPoint.x = point.x;
+            nextPoint.y = (100 * i) + point.y;
+            points.push(nextPoint);
         }
 
         let diagramObjectPoints = makeDiagramObjectWithPoints(graph, diagramId, id, points);
@@ -168,7 +169,8 @@ var cimedit = cimedit || (function() {
         currentDiagramId = diagramId;
     };
 
-    var addComponentToBaseJson = function(jsonBaseData, type, diagramId) {
+    var addComponentToBaseJson = function(jsonBaseData, type, point, diagramId) {
+        // TODO: diagramId is ignored.
 
         if (type == "cim:Diagram") {
             makeDiagram(jsonBaseData);
@@ -176,9 +178,9 @@ var cimedit = cimedit || (function() {
         };
 
         if (oneTerminalTypes.indexOf(type) != -1) {
-            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, {}, 1, 1);
+            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, point, {}, 1, 1);
         } else if (twoTerminalTypes.indexOf(type) != -1) {
-            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, {}, 2, 2);
+            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, point, {}, 2, 2);
         } else {
             console.error("I don't know what type of component a " + type + " is.")
         }

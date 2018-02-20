@@ -149,6 +149,17 @@ var cimview = cimview || (function() {
         }
     };
 
+    /*
+     * Convert a point in the window into a point in the svg component.
+     */
+    var getMouseCoordFromWindow = function(evt) {
+        let m = evt.target.getScreenCTM();
+        let position = svgNode.createSVGPoint();
+        position.x = (Number(evt.clientX));
+        position.y = (Number(evt.clientY));
+        return position.matrixTransform(m.inverse());
+    };
+
     var getViewBox = function() {
         let rect = {};
         viewBoxString = svgNode.getAttribute("viewBox");
@@ -197,6 +208,7 @@ var cimview = cimview || (function() {
         pan,
         zoomIn,
         zoomOut,
+        getMouseCoordFromWindow,
     };
 
 }());
