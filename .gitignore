@@ -1,8 +1,10 @@
 handlebars.runtime.js
 html.tgz
 index.html
+templates/template.js
 templates/generated_attribute_lists/[A-Z]*.handlebars
 templates/[A-Z]*.xsd
 templates/attributes
+templates/add_components_menu.xml
 node_modules/*
 package-lock.json
