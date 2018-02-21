@@ -33,7 +33,8 @@ $(attribute_dir)/%.handlebars: $(template_dir)/cim_xml_scheme.xslt $(xsds) | $(a
 	xsltproc --stringparam attribute $* $^ > $@
 
 $(template_dir)/template.js: $(handlebars) $(handlebars_attr)
-	handlebars $^ > $@
+	handlebars $(template_dir) > $@
+#	handlebars $^ > $@
 
 $(template_dir)/add_components_menu.xml: $(template_dir)/cim_add_components_menu.xslt $(template_dir)/sort_menu.xslt | $(template_dir)/
 	xsltproc $(template_dir)/cim_add_components_menu.xslt $(xsds) > temp.xml
