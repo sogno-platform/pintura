@@ -72,6 +72,12 @@ document.onkeydown = function(evt) {
             cimview.pan({ x: 0, y: 10 });
         }
     }
+    /* spacebar */
+    else if (evt.keyCode == 32) {
+        if (noInputFocus(evt)) {
+            cimview.fit();
+        }
+    }
 };
 var onMouseDown = function(){
 };
@@ -127,7 +133,7 @@ function doSearch(inputId, textareaId) {
     var length=box.value.length*1.0;
     var startIndexStr=index;
     var endIndexStr=index+searchStr.length;
-    
+
     box.setSelectionRange(index, index);
     //box.setSelectionRange(startIndexStr, endIndexStr);//searchStr.length);
     box.blur();
