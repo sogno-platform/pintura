@@ -24,24 +24,20 @@ electron_deps:
 	npm install --save electron
 	npm install --save-dev electron-mocha gulp gulp-cli gulp-jshint gulp-livereload gulp-mocha gulp-notify jshint mocha
 
-templates: $(template_dir)/template.js
-
 handlebars.runtime.js:
 	wget -O $@ 'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.runtime.js'
 
-$(attribute_dir)/%.handlebars: $(template_dir)/cim_xml_scheme.xslt $(xsds) | $(attribute_dir)/
-	xsltproc --stringparam attribute $* $^ > $@
+local: index.html $(template_dir)/template.js $(template_dir)/add_components_menu.xml handlebars.runtime.js
 
-$(template_dir)/template.js: $(handlebars) $(handlebars_attr)
-	handlebars $(template_dir) > $@
-#	handlebars $^ > $@
+develop: local
+	docker run --rm --detach --publish 80:80 --name pintura-dev \
+		--volume $(shell pwd):/usr/share/nginx/html \
+		nginx
 
-$(template_dir)/add_components_menu.xml: $(template_dir)/cim_add_components_menu.xslt $(template_dir)/sort_menu.xslt | $(template_dir)/
-	xsltproc $(template_dir)/cim_add_components_menu.xslt $(xsds) > temp.xml
-	echo "<menu><ul class=\"floating-panel-list\">$$(cat temp.xml)</ul></menu>" > unsorted.xml
-	xsltproc $(template_dir)/sort_menu.xslt unsorted.xml > $@
-	rm -rf unsorted.xml temp.xml
+index.html: generateIndex.js
+	node $<  > $@
 
+# Docker related targets
 run_docker:
 	# The environment variables are required for https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion
 	docker run --rm --detach --publish 8082:443 --name=pintura \
@@ -56,15 +52,21 @@ build_docker:
 stop_docker:
 	docker container stop pintura
 
-local: index.html $(template_dir)/template.js $(template_dir)/add_components_menu.xml handlebars.runtime.js
+# Create templates
+templates: $(template_dir)/template.js
 
-develop: local
-	docker run --rm --detach --publish 80:80 --name pintura-dev \
-		--volume $(shell pwd):/usr/share/nginx/html \
-		nginx
+$(attribute_dir)/%.handlebars: $(template_dir)/cim_xml_scheme.xslt $(xsds) | $(attribute_dir)/
+	xsltproc --stringparam attribute $* $^ > $@
 
-index.html: generateIndex.js
-	node $<  > $@
+$(template_dir)/template.js: $(handlebars) $(handlebars_attr)
+	handlebars $(template_dir) > $@
+#	handlebars $^ > $@
+
+$(template_dir)/add_components_menu.xml: $(template_dir)/cim_add_components_menu.xslt $(template_dir)/sort_menu.xslt | $(template_dir)/
+	xsltproc $(template_dir)/cim_add_components_menu.xslt $(xsds) > temp.xml
+	echo "<menu><ul class=\"floating-panel-list\">$$(cat temp.xml)</ul></menu>" > unsorted.xml
+	xsltproc $(template_dir)/sort_menu.xslt unsorted.xml > $@
+	rm -rf unsorted.xml temp.xml
 
 # Create non-existent directories
 .SECONDEXPANSION:
