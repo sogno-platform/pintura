@@ -16,6 +16,22 @@
  *  in the top level directory of this source tree.
  */
 
+if (typeof module !== 'undefined' && module.exports) {
+    var Handlebars = require('handlebars/runtime')
+    global.Handlebars = Handlebars;
+    var templates = require('../templates/template.js');
+    var CIMXML = require('./cimxml.js')
+    global.cimxml = CIMXML.cimxml
+    var CIMVIEW = require('./cimview.js')
+    global.cimview = CIMVIEW.cimview
+    var CIMMENU = require('./cimmenu.js')
+    global.cimmenu = CIMMENU.cimmenu
+    var CIMEDIT = require('./cimedit.js')
+    global.cimedit = CIMEDIT.cimedit
+    var CIMJSON = require('./cimjson.js')
+    global.cimjson = CIMJSON.cimjson
+};
+
 var cimsvg = cimsvg || (function() {
 
     var svgNode = null;
@@ -148,28 +164,43 @@ var cimsvg = cimsvg || (function() {
         Connect.send(null);
     };
 
+    var loadDependencies = function(componentAttributes, componentCreation) {
+        includeFile("handlebars.runtime.js", function() {
+            includeFile("src/cimview.js", function() {
+                cimview.init(svgNode);
+                if(sidebarNode != undefined) {
+                    console.log(sidebarNode)
+                    includeFile("src/cimmenu.js", function() {
+                        loadXml("templates/add_components_menu.xml", function(xml){
+                            cimmenu.init(componentAttributes, componentCreation, xml)
+                        });
+                    });
+                    includeFile("src/cimedit.js", function() {});
+                }
+                includeFile("templates/template.js", function(){
+                    includeFile("src/cimxml.js", function(){
+                        includeFile("src/cimjson.js", function(){});
+                    });
+                });
+            });
+        });
+    };
+
     return {
         init : function(svg, sidebar, componentAttributes, componentCreation) {
             svgNode = svg;
             sidebarNode = sidebar;
-            includeFile("handlebars.runtime.js", function() {
-                includeFile("src/cimview.js", function() {
-                    cimview.init(svgNode);
-                    if(sidebarNode != undefined) {
-                        includeFile("src/cimmenu.js", function() {
-                            loadXml("templates/add_components_menu.xml", function(xml){
-                                cimmenu.init(componentAttributes, componentCreation, xml)
-                            });
-                        });
-                        includeFile("src/cimedit.js", function() {});
-                    }
-                    includeFile("templates/template.js", function(){
-                        includeFile("src/cimxml.js", function(){
-                            includeFile("src/cimjson.js", function(){});
-                        });
+            if (typeof module !== 'undefined' && module.exports) {
+                cimview.init(svgNode);
+                if(sidebarNode != undefined) {
+                    loadXml("templates/add_components_menu.xml", function(xml){
+                        cimmenu.init(componentAttributes, componentCreation, xml)
                     });
-                });
-            });
+                }
+            }
+            else {
+                loadDependencies(componentAttributes, componentCreation);
+            }
         },
         setSVG : function(svg) {
             svgNode = svg;
@@ -190,4 +221,5 @@ if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         cimsvg
     }
+    global.cimsvg = cimsvg
 }

@@ -38,7 +38,7 @@
                 </svg>
             </div>
         </div>
-        <script type="text/javascript" src="src/cimsvg.js"> </script>
+        <script type="text/javascript" src="html/cimsvg.js"> </script>
         <!-- This script tells cimsvg which html component to draw the svg items to -->
         <!-- The onMouse... functions are here to avoid errors appearing in the console -->
         <script>
@@ -55,7 +55,6 @@
             function readFile(e) {
                 var files = e.target.files;
                 if (files) {
-                    cimxml.clearXmlData()
                     cimsvg.setFileCount(files.length);
                     for (var i=0, f; f=files[i]; i++) {
                         if (!f) {

@@ -16,13 +16,6 @@
  *  in the top level directory of this source tree.
  */
 
-if (typeof module !== 'undefined' && module.exports) {
-    var CIMSVG = require('./src/cimsvg.js')
-    global.cimsvg = CIMSVG.cimsvg
-    var CIMXML = require('./src/cimxml.js')
-    var cimxml = CIMXML.cimxml
-};
-
 cimsvg.init(
     document.getElementById("svg"),
     document.getElementById("sidebar"),

@@ -258,7 +258,7 @@ var component_creation = make_floating_panel("Component Type To Add", 'component
 var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes).c(component_creation)
 
 body.c(sidebar).c(main)
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"src/cimsvg.js"').t(" "))
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/cimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
 
 html.c(body)
