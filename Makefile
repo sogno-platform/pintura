@@ -22,7 +22,7 @@ electron_deps:
 	rm -f package.json
 	cp package.json.head package.json
 	npm install --save electron
-	npm install --save-dev electron-mocha gulp gulp-cli gulp-jshint gulp-livereload gulp-mocha gulp-notify jshint mocha
+	npm install --save-dev electron-mocha jshint mocha webpack
 
 handlebars.runtime.js:
 	wget -O $@ 'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.runtime.js'

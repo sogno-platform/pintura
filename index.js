@@ -16,6 +16,13 @@
  *  in the top level directory of this source tree.
  */
 
+if (typeof module !== 'undefined' && module.exports) {
+    var CIMSVG = require('./src/cimsvg.js')
+    global.cimsvg = CIMSVG.cimsvg
+    var CIMXML = require('./src/cimxml.js')
+    var cimxml = CIMXML.cimxml
+};
+
 cimsvg.init(
     document.getElementById("svg"),
     document.getElementById("sidebar"),
@@ -166,3 +173,11 @@ function populateAttributes(type, id) {
     cimmenu.populateAttributes(type, id);
 };
 
+if (typeof module !== 'undefined' && module.exports) {
+    global.showContainer = showContainer;
+    global.onMouseLeave = onMouseLeave;
+    global.onMouseOver = onMouseOver;
+    global.onMouseUp = onMouseUp;
+    global.onMouseDown = onMouseDown;
+    global.onMouseMove = onMouseMove;
+};

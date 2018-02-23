@@ -186,7 +186,7 @@ var cimsvg = cimsvg || (function() {
 
 }());
 
-if (cimsvg.isNode) {
+if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         cimsvg
     }
