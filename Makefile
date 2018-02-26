@@ -6,7 +6,7 @@
 template_dir=templates
 attribute_dir=$(template_dir)/attributes
 
-xsds=$(wildcard PinturaDataModel/XSD/*.xsd)
+xsds=$(wildcard data_model/*.xsd)
 attributes=$(shell xsltproc $(template_dir)/attribute_list.xslt $(xsds))
 handlebars_attr=$(patsubst %,$(attribute_dir)/%.handlebars,$(attributes))
 handlebars=$(wildcard $(template_dir)/*.handlebars)
@@ -24,10 +24,7 @@ electron_deps:
 	npm install --save electron
 	npm install --save-dev electron-mocha jshint mocha webpack
 
-handlebars.runtime.js:
-	wget -O $@ 'https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.runtime.js'
-
-local: index.html $(template_dir)/template.js $(template_dir)/add_components_menu.xml handlebars.runtime.js
+local: index.html $(template_dir)/template.js $(template_dir)/add_components_menu.xml
 
 develop: local
 	docker run --rm --detach --publish 80:80 --name pintura-dev \
