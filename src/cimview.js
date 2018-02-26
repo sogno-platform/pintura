@@ -219,7 +219,5 @@ var cimview = cimview || (function() {
 }());
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        cimview
-    }
+    module.exports = cimview
 }

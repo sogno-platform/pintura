@@ -17,19 +17,13 @@
  */
 
 if (typeof module !== 'undefined' && module.exports) {
-    var Handlebars = require('handlebars/runtime')
-    global.Handlebars = Handlebars;
+    global.Handlebars = require('handlebars/runtime')
     var templates = require('../templates/template.js');
-    var CIMXML = require('./cimxml.js')
-    global.cimxml = CIMXML.cimxml
-    var CIMVIEW = require('./cimview.js')
-    global.cimview = CIMVIEW.cimview
-    var CIMMENU = require('./cimmenu.js')
-    global.cimmenu = CIMMENU.cimmenu
-    var CIMEDIT = require('./cimedit.js')
-    global.cimedit = CIMEDIT.cimedit
-    var CIMJSON = require('./cimjson.js')
-    global.cimjson = CIMJSON.cimjson
+    global.cimxml = require('./cimxml.js');
+    global.cimview = require('./cimview.js');
+    global.cimmenu = require('./cimmenu.js');
+    global.cimedit = require('./cimedit.js');
+    global.cimjson = require('./cimjson.js');
 };
 
 var cimsvg = cimsvg || (function() {
@@ -218,8 +212,6 @@ var cimsvg = cimsvg || (function() {
 }());
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        cimsvg
-    }
+    module.exports = cimsvg
     global.cimsvg = cimsvg
 }

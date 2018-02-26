@@ -193,7 +193,5 @@ var cimedit = cimedit || (function() {
 }());
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        cimedit
-    };
+    module.exports = cimedit;
 }

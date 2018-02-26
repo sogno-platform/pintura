@@ -82,7 +82,5 @@ var cimmenu = cimmenu || (function() {
 }());
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        cimmenu
-    }
+    module.exports = cimmenu
 }

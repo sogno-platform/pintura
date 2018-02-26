@@ -202,7 +202,5 @@ var cimjson = cimjson || (function() {
 }());
 
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        cimjson 
-    };
+    module.exports = cimjson;
 }
