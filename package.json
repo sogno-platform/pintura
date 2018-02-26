@@ -7,9 +7,6 @@
     "test": "electron-mocha ./test",
     "build": "webpack src/*.js templates/template.js html/cimsvg.js"
   },
-  "dependencies": {
-    "electron": "^1.8.2"
-  },
   "devDependencies": {
     "electron-mocha": "^5.0.0",
     "handlebars": "^4.0.11",
