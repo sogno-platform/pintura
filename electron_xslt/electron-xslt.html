@@ -4,51 +4,13 @@
 <script>
 
 const remote = require('electron').remote;
-//const list = list_components.js;
+const list = require('./list_components.js');
+const xslt = require('./xslt.js');
 
-function loadXMLDoc(filename)
-{
-  process.stderr.write("Loading " + filename + '\n');
-  if (window.ActiveXObject)
-  {
-      xhttp = new ActiveXObject("Msxml2.XMLHTTP");
-  }
-  else
-  {
-      xhttp = new XMLHttpRequest();
-  }
-  xhttp.open("GET", filename, false);
-  xhttp.send("");
-  return xhttp.responseXML;
-}
-
-
-function performXSLTTranslation(options)
-{
-  xml = loadXMLDoc(options['--xmlFile']);
-  xsl = loadXMLDoc(options['--xsltFile']);
-
-  // code for IE
-  if (window.ActiveXObject || xhttp.responseType == "msxml-document")
-  {
-    ex = xml.transformNode(xsl);
-    document.getElementById("example").innerHTML = ex;
-  }
-  // code for Chrome, Firefox, Opera, etc.
-  else if (document.implementation && document.implementation.createDocument)
-  {
-    xsltProcessor = new XSLTProcessor();
-    process.stderr.write("Importing stylesheet..\n")
-    if (options['--attribute'] != undefined) {
-      process.stderr.write("Setting attribute to: \n" + options['--attribute'])
-      xsltProcessor.setParameter(null, "attribute", options['--attribute'])
-    }
-    xsltProcessor.importStylesheet(xsl);
-    process.stderr.write("Attempting transform..\n")
-    let resultDocument = xsltProcessor.transformToDocument(xml, document);
-    process.stderr.write(resultDocument.body.innerHTML)
-  }
-}
+const xmlOpt = '--xmlFile';
+const xsltOpt = '--xsltFile';
+const attrOpt = '--attribute';
+const dbgOpt = '--debug';
 
 var getOptions = function(args) {
   let options = {};
@@ -58,7 +20,7 @@ var getOptions = function(args) {
       options[keyPair[0]] = keyPair[1];
     }
   }
-  if (options['--debug'] == 'true') {
+  if (options[dbgOpt] == 'true') {
     for (let optionIndex in options){
       process.stderr.write("option: " + optionIndex + " = " + options[optionIndex] + "\n");
     }
@@ -66,15 +28,21 @@ var getOptions = function(args) {
   return options;
 };
 
+var XSLTTranslation = function(options) {
+  return xslt.performXSLTTranslationFilenames(options[xmlOpt], options[xsltOpt], options[attrOpt]);
+};
+
 var parseOptions= function() {
   let arguments = remote.getGlobal('sharedObject').prop1;
   let options = getOptions(arguments);
-  if ((options['--xmlFile'] == null) || (options['--xsltFile'] == null))
+  if ((options[xmlOpt] == null) || (options[xsltOpt] == null))
   {
     process.stderr.write('I need at least an xmlFile and an xsltFile')
     window.close();
   }
-  performXSLTTranslation(options);
+  //list(options[xmlOpt])
+  let result = XSLTTranslation(options);
+  process.stderr.write(result);
   window.close();
 };
 
