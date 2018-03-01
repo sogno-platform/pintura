@@ -15,7 +15,7 @@ all: build_docker
 
 clean:
 	rm -f $(template_dir)/template.js
-	rm -f $(template)/add_components_menu.xml
+	rm -f $(template_dir)/add_components_menu.xml
 	rm -fr $(attribute_dir)
 
 electron_deps:

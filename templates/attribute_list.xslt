@@ -4,7 +4,7 @@
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     version="1.0">
 
-    <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
+    <xsl:output method="html" omit-xml-declaration="yes" indent="no"/>
     <xsl:strip-space elements="*"/>
     <xsl:template match="/">
         <xsl:for-each select="xs:schema/xs:complexType">
