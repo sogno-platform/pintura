@@ -18,7 +18,7 @@ component_list_xslt = `<?xml version="1.0" encoding="UTF-8"?>
 
 var loadXMLDoc = function(filename) {
 
-  process.stderr.write("Loading " + filename + '\n');
+  log("Loading " + filename);
   if (window.ActiveXObject)
   {
       xhttp = new ActiveXObject("Msxml2.XMLHTTP");
@@ -32,6 +32,14 @@ var loadXMLDoc = function(filename) {
   return xhttp.responseXML;
 }
 
+var logOutput = false;
+
+var log = function(str) {
+  if (logOutput) {
+    process.stderr.write(str + "\n")
+  }
+};
+
 var performXSLTTranslation = function(xml, xsl, attribute) {
 
   // code for IE
@@ -44,32 +52,44 @@ var performXSLTTranslation = function(xml, xsl, attribute) {
   else if (document.implementation && document.implementation.createDocument)
   {
     xsltProcessor = new XSLTProcessor();
-    process.stderr.write("Importing stylesheet..\n")
+    log("Importing stylesheet..")
     if (attribute != undefined) {
-      process.stderr.write("Setting attribute to: \n" + attribute)
+      log("Setting attribute to: " + attribute)
       xsltProcessor.setParameter(null, "attribute", attribute)
     }
     xsltProcessor.importStylesheet(xsl);
-    process.stderr.write("Attempting transform..\n")
+    log("Attempting transform..")
     let resultDocument = xsltProcessor.transformToDocument(xml, document);
     return resultDocument.body.innerHTML
   }
 };
 
-var performXSLTTranslationFilenames = function(xmlFile, xsltFile) {
+var performXSLTTranslationFilenames = function(xmlFile, attributeXSLTFile, menuXSLTFile, debug) {
 
-  let xml = loadXMLDoc(xmlFile);
-  let xsl = loadXMLDoc(xsltFile);
-  
-  let componentList = listComponentsAndPerformXSLTranslation(xmlFile).split('\n');
-
-  returnString = "";
-
-  for (let index in componentList) {
-    returnString += performXSLTTranslation(xml, xsl, componentList[index]);
+  let returnVariable = { 'menuEntries': '', 'attributeList': ''}
+  if (debug) {
+    logOutput = true;
   }
 
-  return returnString;
+  let xml = loadXMLDoc(xmlFile);
+  let attributeXSLT = loadXMLDoc(attributeXSLTFile);
+  let menuXSLT = loadXMLDoc(menuXSLTFile);
+  let componentList = listComponentsAndPerformXSLTranslation(xmlFile).split('\n');
+
+  returnVariable['menuEntries'] = performXSLTTranslation(xml, menuXSLT, null, debug);
+
+  let thisResult = "";
+
+  for (let index in componentList) {
+    if (componentList[index] != "") {
+      log("Creating attribute list for [" + componentList[index] + "]");
+      thisResult = performXSLTTranslation(xml, attributeXSLT, componentList[index], debug);
+      log("This result: " + thisResult)
+      returnVariable['attributeList'] += thisResult + "\n";
+    }
+  }
+
+  return returnVariable;
 };
 
 listComponentsAndPerformXSLTranslation = function(xmlFile) {

@@ -3,14 +3,20 @@
 <head>
 <script>
 
+var fs = require('fs');
+var path = require('path');
+
 const remote = require('electron').remote;
-const list = require('./list_components.js');
 const xslt = require('./xslt.js');
 
-const xmlOpt = '--xmlFile';
-const xsltOpt = '--xsltFile';
-const attrOpt = '--attribute';
+const xmlOpt = '--xmlDir';
 const dbgOpt = '--debug';
+
+const createAddComponentMenuFilename = "../templates/cim_add_components_menu.xslt";
+const createAttributeListFilename = "../templates/cim_xml_scheme.xslt";
+
+const menuDir = "templates/menu/";
+const attributeDir = "templates/attributes/";
 
 var getOptions = function(args) {
   let options = {};
@@ -28,22 +34,45 @@ var getOptions = function(args) {
   return options;
 };
 
-var XSLTTranslation = function(options) {
-  return xslt.performXSLTTranslationFilenames(options[xmlOpt], options[xsltOpt], options[attrOpt]);
+var XSLTTranslation = function(xmlFile, options) {
+  return xslt.performXSLTTranslationFilenames(xmlFile, createAttributeListFilename,
+                                              createAddComponentMenuFilename, options[dbgOpt]);
 };
+
+var writeToFile = function(filename, data) {
+
+  path.parse(filename).name;
+  fs.writeFile(filename, data, function(err) {
+    if(err) {
+        return process.stderr.write(err.message);
+    }
+  });
+}
 
 var parseOptions= function() {
   let arguments = remote.getGlobal('sharedObject').prop1;
   let options = getOptions(arguments);
-  if ((options[xmlOpt] == null) || (options[xsltOpt] == null))
-  {
-    process.stderr.write('I need at least an xmlFile and an xsltFile')
+  if (options[xmlOpt] == null) {
+    process.stderr.write('I need at least a directory for xml Files')
     window.close();
   }
-  //list(options[xmlOpt])
-  let result = XSLTTranslation(options);
-  process.stderr.write(result);
-  window.close();
+  fs.readdir(options[xmlOpt], function(err, items) {
+    if (err) {
+      process.stderr.write(err.message)
+    }
+    else {
+      for (var i=0; i<items.length; i++) {
+        let result = XSLTTranslation("../" + options[xmlOpt] + "/" + items[i], options);
+        process.stderr.write("menu entries: " + result['menuEntries']);
+        process.stderr.write("attribute list: " + result['attributeList']);
+        writeToFile(menuDir + path.parse(items[i]).name + '.xml', result['menuEntries']);
+        writeToFile(attributeDir + path.parse(items[i]).name + '.xml', result['attributeList']);
+      }
+    }
+  });
+
+
+  //window.close();
 };
 
 </script>
