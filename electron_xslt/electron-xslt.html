@@ -51,21 +51,31 @@ var writeToFile = function(filename, data, success) {
   });
 }
 
-var processFilenames = function(list, index, options) {
+var writeArrayOfFiles = function(objects, index, done) {
 
-  let menuFilename = menuDir + path.parse(list[index]).name + '.xml'
-  let attributeFilename = attributeDir + path.parse(list[index]).name + '.xml'
-  let result = XSLTTranslation("../" + options[xmlOpt] + "/" + list[index], options);
-  writeToFile(menuFilename, result['menuEntries'], function() {
-    writeToFile(attributeFilename, result['attributeList'], function() {
-      if (list.length > index+1) {
-        processFilenames(list, index+1, options);
-      }
-      else {
-        window.close();
-      }
-    });
+  writeToFile(objects[index]['filename'], objects[index]['data'], function() {
+    if (objects.length > index+1) {
+      writeArrayOfFiles(objects, index+1, done);
+    }
+    else {
+      done();
+    }
   });
+};
+
+var processFilenames = function(list, options) {
+
+  let arrayOfFiles = [];
+  for (let index in list) {
+    let menuFilename = menuDir + path.parse(list[index]).name + '.xml'
+    let result = XSLTTranslation("../" + options[xmlOpt] + "/" + list[index], options);
+    arrayOfFiles.push({ 'filename': menuFilename, 'data': result['menuEntries'] });
+    for (let attribute in result['attributeList']) {
+      let attributeFilename = attributeDir + attribute + '.xml'
+      arrayOfFiles.push({ 'filename': attributeFilename, 'data': result['attributeList'][attribute] });
+    }
+  }
+  return arrayOfFiles;
 };
 
 var parseOptions = function( done ) {
@@ -81,7 +91,10 @@ var parseOptions = function( done ) {
       process.stderr.write(err.message)
     }
     else {
-      processFilenames(items, 0, options);
+      let arrayOfFiles = processFilenames(items, options);
+      writeArrayOfFiles(arrayOfFiles, 0, function() {
+        window.close();
+      });
     }
   });
 };

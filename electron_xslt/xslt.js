@@ -77,6 +77,7 @@ var performXSLTTranslationFilenames = function(xmlFile, attributeXSLTFile, menuX
   let componentList = listComponentsAndPerformXSLTranslation(xmlFile).split('\n');
 
   returnVariable['menuEntries'] = performXSLTTranslation(xml, menuXSLT, null, debug);
+  returnVariable['attributeList'] = {};
 
   let thisResult = "";
 
@@ -85,7 +86,7 @@ var performXSLTTranslationFilenames = function(xmlFile, attributeXSLTFile, menuX
       log("Creating attribute list for [" + componentList[index] + "]");
       thisResult = performXSLTTranslation(xml, attributeXSLT, componentList[index], debug);
       log("This result: " + thisResult)
-      returnVariable['attributeList'] += thisResult + "\n";
+      returnVariable['attributeList'][componentList[index]] = thisResult + "\n";
     }
   }
 
