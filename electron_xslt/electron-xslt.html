@@ -71,7 +71,7 @@ var processFilenames = function(list, options) {
     let result = XSLTTranslation("../" + options[xmlOpt] + "/" + list[index], options);
     arrayOfFiles.push({ 'filename': menuFilename, 'data': result['menuEntries'] });
     for (let attribute in result['attributeList']) {
-      let attributeFilename = attributeDir + attribute + '.xml'
+      let attributeFilename = attributeDir + attribute + '.handlebars'
       arrayOfFiles.push({ 'filename': attributeFilename, 'data': result['attributeList'][attribute] });
     }
   }
