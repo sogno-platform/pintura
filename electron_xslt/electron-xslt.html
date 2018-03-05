@@ -39,17 +39,37 @@ var XSLTTranslation = function(xmlFile, options) {
                                               createAddComponentMenuFilename, options[dbgOpt]);
 };
 
-var writeToFile = function(filename, data) {
+var writeToFile = function(filename, data, success) {
 
-  path.parse(filename).name;
   fs.writeFile(filename, data, function(err) {
     if(err) {
-        return process.stderr.write(err.message);
+      return process.stderr.write(err.message);
+    }
+    else {
+      return success();
     }
   });
 }
 
-var parseOptions= function() {
+var processFilenames = function(list, index, options) {
+
+  let menuFilename = menuDir + path.parse(list[index]).name + '.xml'
+  let attributeFilename = attributeDir + path.parse(list[index]).name + '.xml'
+  let result = XSLTTranslation("../" + options[xmlOpt] + "/" + list[index], options);
+  writeToFile(menuFilename, result['menuEntries'], function() {
+    writeToFile(attributeFilename, result['attributeList'], function() {
+      if (list.length > index+1) {
+        processFilenames(list, index+1, options);
+      }
+      else {
+        window.close();
+      }
+    });
+  });
+};
+
+var parseOptions = function( done ) {
+
   let arguments = remote.getGlobal('sharedObject').prop1;
   let options = getOptions(arguments);
   if (options[xmlOpt] == null) {
@@ -61,18 +81,9 @@ var parseOptions= function() {
       process.stderr.write(err.message)
     }
     else {
-      for (var i=0; i<items.length; i++) {
-        let result = XSLTTranslation("../" + options[xmlOpt] + "/" + items[i], options);
-        process.stderr.write("menu entries: " + result['menuEntries']);
-        process.stderr.write("attribute list: " + result['attributeList']);
-        writeToFile(menuDir + path.parse(items[i]).name + '.xml', result['menuEntries']);
-        writeToFile(attributeDir + path.parse(items[i]).name + '.xml', result['attributeList']);
-      }
+      processFilenames(items, 0, options);
     }
   });
-
-
-  //window.close();
 };
 
 </script>
