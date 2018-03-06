@@ -1,5 +1,6 @@
 handlebars.runtime.js
 index.html
+html/*
 templates/template.js
 templates/attributes/*.handlebars
 templates/add_components_menu.xml
