@@ -14,6 +14,8 @@ const dbgOpt = '--debug';
 
 const createAddComponentMenuFilename = "../templates/cim_add_components_menu.xslt";
 const createAttributeListFilename = "../templates/cim_xml_scheme.xslt";
+const sortMenuXSLTFilename = "../templates/sort_menu.xslt";
+const sortedMenuFilename = "templates/add_components_menu.xml";
 
 const menuDir = "templates/menu/";
 const attributeDir = "templates/attributes/";
@@ -66,15 +68,24 @@ var writeArrayOfFiles = function(objects, index, done) {
 var processFilenames = function(list, options) {
 
   let arrayOfFiles = [];
+  let menuItems = "<menu><ul class=\"floating-panel-list\">";
+
   for (let index in list) {
-    let menuFilename = menuDir + path.parse(list[index]).name + '.xml'
     let result = XSLTTranslation("../" + options[xmlOpt] + "/" + list[index], options);
-    arrayOfFiles.push({ 'filename': menuFilename, 'data': result['menuEntries'] });
+    menuItems += result['menuEntries'];
     for (let attribute in result['attributeList']) {
       let attributeFilename = attributeDir + attribute + '.handlebars'
       arrayOfFiles.push({ 'filename': attributeFilename, 'data': result['attributeList'][attribute] });
     }
   }
+
+  menuItems += "</ul></menu>";
+
+  let menuSortingXSLT = xslt.loadXMLDoc(sortMenuXSLTFilename);
+  let menuXMLDoc = new DOMParser().parseFromString(menuItems, 'text/xml');
+  let sortedMenuItems = xslt.performXSLTTranslation(menuXMLDoc, menuSortingXSLT);
+  arrayOfFiles.push({ 'filename': sortedMenuFilename, 'data': sortedMenuItems });
+
   return arrayOfFiles;
 };
 

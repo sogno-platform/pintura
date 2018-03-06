@@ -3,7 +3,7 @@
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     version="1.0">
-  <xsl:output omit-xml-declaration="yes" indent="yes"/>
+  <xsl:output method="html" omit-xml-declaration="yes" indent="yes"/>
   <xsl:template match="node()|@*">
     <xsl:copy>
       <xsl:apply-templates select="node()|@*"/>

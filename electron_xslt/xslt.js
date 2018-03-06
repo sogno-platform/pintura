@@ -51,7 +51,7 @@ var performXSLTTranslation = function(xml, xsl, attribute) {
   // code for Chrome, Firefox, Opera, etc.
   else if (document.implementation && document.implementation.createDocument)
   {
-    xsltProcessor = new XSLTProcessor();
+    let xsltProcessor = new XSLTProcessor();
     log("Importing stylesheet..")
     if (attribute != undefined) {
       log("Setting attribute to: " + attribute)
@@ -100,5 +100,7 @@ listComponentsAndPerformXSLTranslation = function(xmlFile) {
 };
 
 module.exports = {
+  loadXMLDoc,
+  performXSLTTranslation,
   performXSLTTranslationFilenames,
 };
