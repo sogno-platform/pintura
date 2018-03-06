@@ -155,13 +155,33 @@ var cimedit = cimedit || (function() {
         return diagramObjectPoint;
     };
 
-    const oneTerminalTypes = [
-        "cim:PowerTransformer",
-    ];
-
-    const twoTerminalTypes = [
-        "cim:ACLineSegment",
-    ];
+    const terminalAndPointLimits = {
+        "cim:ACLineSegment": {
+            "minTerminals" : 2,
+            "maxTerminals" : 2,
+            "points": 2,
+        },
+        "cim:Busbar": {
+            "minTerminals" : 2,
+            "maxTerminals" : 2,
+            "points": 2,
+        },
+        "cim:EnergyConsumer": {
+            "minTerminals" : 1,
+            "maxTerminals" : 4,
+            "points": 1,
+        },
+        "cim:PowerTransformer": {
+            "minTerminals" : 1,
+            "maxTerminals" : 4,
+            "points": 1,
+        },
+        "cim:SynchronousMachine": {
+            "minTerminals" : 1,
+            "maxTerminals" : 4,
+            "points": 1,
+        },
+    };
 
     var currentDiagramId = undefined;
 
@@ -177,10 +197,8 @@ var cimedit = cimedit || (function() {
             return;
         };
 
-        if (oneTerminalTypes.indexOf(type) != -1) {
-            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, point, {}, 1, 1);
-        } else if (twoTerminalTypes.indexOf(type) != -1) {
-            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, point, {}, 2, 2);
+        if (terminalAndPointLimits[type] != undefined) {
+            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, point, {}, terminalAndPointLimits[type]['minTerminals'], terminalAndPointLimits[type]['points']);
         } else {
             console.error("I don't know what type of component a " + type + " is.")
         }
