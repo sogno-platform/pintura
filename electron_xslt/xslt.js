@@ -85,7 +85,6 @@ var performXSLTTranslationFilenames = function(xmlFile, attributeXSLTFile, menuX
     if (componentList[index] != "") {
       log("Creating attribute list for [" + componentList[index] + "]");
       thisResult = performXSLTTranslation(xml, attributeXSLT, componentList[index], debug);
-      log("This result: " + thisResult)
       returnVariable['attributeList'][componentList[index]] = thisResult + "\n";
     }
   }

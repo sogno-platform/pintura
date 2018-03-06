@@ -50,7 +50,7 @@ var cimmenu = cimmenu || (function() {
     var populateAttributes = function(type, id) {
         let list = componentAttributeNode.querySelector('#component-attributes-list-div')
         let baseJson = cimxml.getBaseJson();
-        let template = Handlebars.templates[type.substring(4)];
+        let template = Handlebars.templates["attributes/"+type.substring(4)];
         let data = template(baseJson[type][id]);
         list.innerHTML = data;
         calculatePanelHeight(data, componentAttributeNode, document.body);
