@@ -21,8 +21,8 @@ if (typeof module !== 'undefined' && module.exports) {
     var templates = require('../templates/template.js');
     global.cimxml = require('./cimxml.js');
     global.cimview = require('./cimview.js');
-    global.cimmenu = require('./cimmenu.js');
     global.cimedit = require('./cimedit.js');
+    global.cimmenu = require('./cimmenu.js');
     global.cimjson = require('./cimjson.js');
 };
 

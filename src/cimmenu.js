@@ -30,7 +30,7 @@ var cimmenu = cimmenu || (function() {
     var calculatePanelHeight = function(data, panelNode, containingNode) {
         let links = data.split('<li')
         let listLength = links.length - 1;
-        panelHeight = 40 + 10 + (listLength * 39)
+        panelHeight = 40 + 10 + (listLength * 40)
         containingPanelHeight = containingNode.getBoundingClientRect().height
         height = 0
         if (panelHeight < containingPanelHeight) {
@@ -43,8 +43,18 @@ var cimmenu = cimmenu || (function() {
 
     var populateComponentCreation = function(menuXml) {
         accordion = componentCreationNode.querySelector('#component-creation-list-div')
-        accordion.innerHTML = menuXml.documentElement.innerHTML;
-        calculatePanelHeight(menuXml.documentElement.innerHTML, componentCreationNode, document.body);
+
+        let ul = new DOMParser().parseFromString("<ul class='floating-panel-list'></ul>", 'text/xml');
+        for (let item in cimedit.terminalAndPointLimits) {
+          let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
+          let xpathResult = menuXml.evaluate( xpathQuery, menuXml.documentElement, null, XPathResult.ANY_TYPE, null );
+          let match = xpathResult.iterateNext();
+          if (match) {
+            ul.documentElement.appendChild(match);
+          }
+        }
+        accordion.innerHTML = ul.documentElement.outerHTML;
+        calculatePanelHeight(accordion.innerHTML, componentCreationNode, document.body);
     };
 
     var populateAttributes = function(type, id) {

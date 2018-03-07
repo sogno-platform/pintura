@@ -207,6 +207,7 @@ var cimedit = cimedit || (function() {
     return {
         addComponentToBaseJson,
         setCurrentDiagramId,
+        terminalAndPointLimits,
     };
 }());
 
