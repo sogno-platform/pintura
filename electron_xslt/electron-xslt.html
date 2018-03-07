@@ -16,8 +16,6 @@ const createAddComponentMenuFilename = "../templates/cim_add_components_menu.xsl
 const createAttributeListFilename = "../templates/cim_xml_scheme.xslt";
 const sortMenuXSLTFilename = "../templates/sort_menu.xslt";
 const sortedMenuFilename = "templates/add_components_menu.xml";
-
-const menuDir = "templates/menu/";
 const attributeDir = "templates/attributes/";
 
 var getOptions = function(args) {
@@ -55,6 +53,9 @@ var writeToFile = function(filename, data, success) {
 
 var writeArrayOfFiles = function(objects, index, done) {
 
+  if (!fs.existsSync(attributeDir)) {
+    fs.mkdir(attributeDir);
+  }
   writeToFile(objects[index]['filename'], objects[index]['data'], function() {
     if (objects.length > index+1) {
       writeArrayOfFiles(objects, index+1, done);
