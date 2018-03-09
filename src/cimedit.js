@@ -62,21 +62,32 @@ var cimedit = cimedit || (function() {
         object[category][id] = item;
     };
 
-    var makeAComponentWithTerminals = function(diagramId, graph, type, point, attributes, numberOfPoints, numberOfTerminals) {
+    var makeAComponentWithTerminals = function(diagramId, graph, type, point, attributes, terminalConfig) {
         let id = generateUUID();
-        points = [];
-        points[0] = point;
-        for (let i = 1; i<numberOfPoints; i++) {
+        componentPoints = [];
+        terminalPoints = [];
+        componentPoints[0] = point;
+
+        if (terminalConfig['terminalStyle'] == linePoints) {
             nextPoint = {};
             nextPoint.x = point.x;
-            nextPoint.y = (100 * i) + point.y;
-            points.push(nextPoint);
+            nextPoint.y = point.y;
+            terminalPoints.push(nextPoint);
+            nextPoint.y = 100 + point.y;
+            terminalPoints.push(nextPoint);
+            componentPoints.push(nextPoint);
+        }
+        if (terminalConfig['terminalStyle'] == constellationPoints) {
+            nextPoint = {};
+            nextPoint.x = 10 + point.x;
+            nextPoint.y = point.y;
+            terminalPoints.push(nextPoint);
         }
 
-        let diagramObjectPoints = makeDiagramObjectWithPoints(graph, diagramId, id, points);
+        let diagramObjectPoints = makeDiagramObjectWithPoints(graph, diagramId, id, componentPoints);
         let terminalIds = [];
-        for (let i = 0; i<numberOfTerminals; i++) {
-            terminalIds.push(makeTerminal(diagramId, graph, (i+1).toString(), id, points[i]));
+        for (let i = 0; i<terminalPoints.length; i++) {
+            terminalIds.push(makeTerminal(diagramId, graph, (i+1).toString(), id, terminalPoints[i]));
         }
         let counter = getNameCounter();
         newAttributes = {
@@ -155,31 +166,39 @@ var cimedit = cimedit || (function() {
         return diagramObjectPoint;
     };
 
+    const constellationPoints = 1;
+    const linePoints = 2;
+
     const terminalAndPointLimits = {
         "cim:ACLineSegment": {
             "minTerminals" : 2,
             "maxTerminals" : 2,
             "points": 2,
+            "terminalStyle": linePoints,
         },
         "cim:Busbar": {
             "minTerminals" : 2,
             "maxTerminals" : 2,
             "points": 2,
+            "terminalStyle": linePoints,
         },
         "cim:EnergyConsumer": {
             "minTerminals" : 1,
             "maxTerminals" : 4,
             "points": 1,
+            "terminalStyle": constellationPoints,
         },
         "cim:PowerTransformer": {
             "minTerminals" : 1,
             "maxTerminals" : 4,
             "points": 1,
+            "terminalStyle": constellationPoints,
         },
         "cim:SynchronousMachine": {
             "minTerminals" : 1,
             "maxTerminals" : 4,
             "points": 1,
+            "terminalStyle": constellationPoints,
         },
     };
 
@@ -198,7 +217,7 @@ var cimedit = cimedit || (function() {
         };
 
         if (terminalAndPointLimits[type] != undefined) {
-            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, point, {}, terminalAndPointLimits[type]['minTerminals'], terminalAndPointLimits[type]['points']);
+            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
         } else {
             console.error("I don't know what type of component a " + type + " is.")
         }

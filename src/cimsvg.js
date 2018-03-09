@@ -163,13 +163,12 @@ var cimsvg = cimsvg || (function() {
             includeFile("src/cimview.js", function() {
                 cimview.init(svgNode);
                 if(sidebarNode != undefined) {
-                    console.log(sidebarNode)
+                    includeFile("src/cimedit.js", function() {});
                     includeFile("src/cimmenu.js", function() {
                         loadXml("templates/add_components_menu.xml", function(xml){
                             cimmenu.init(componentAttributes, componentCreation, xml)
                         });
                     });
-                    includeFile("src/cimedit.js", function() {});
                 }
                 includeFile("templates/template.js", function(){
                     includeFile("src/cimxml.js", function(){
