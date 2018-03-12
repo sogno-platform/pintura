@@ -17,6 +17,7 @@
  */
 
 if (typeof module !== 'undefined' && module.exports) {
+    global.cimlog = require('./cimlog.js');
     global.Handlebars = require('handlebars/runtime')
     var templates = require('../templates/template.js');
     global.cimxml = require('./cimxml.js');
@@ -160,19 +161,21 @@ var cimsvg = cimsvg || (function() {
 
     var loadDependencies = function(componentAttributes, componentCreation) {
         includeFile("handlebars.runtime.js", function() {
-            includeFile("src/cimview.js", function() {
-                cimview.init(svgNode);
-                if(sidebarNode != undefined) {
-                    includeFile("src/cimedit.js", function() {});
-                    includeFile("src/cimmenu.js", function() {
-                        loadXml("templates/add_components_menu.xml", function(xml){
-                            cimmenu.init(componentAttributes, componentCreation, xml)
+            includeFile("src/cimlog.js", function() {
+                includeFile("src/cimview.js", function() {
+                    cimview.init(svgNode);
+                    if(sidebarNode != undefined) {
+                        includeFile("src/cimedit.js", function() {});
+                        includeFile("src/cimmenu.js", function() {
+                            loadXml("templates/add_components_menu.xml", function(xml){
+                                cimmenu.init(componentAttributes, componentCreation, xml)
+                            });
                         });
-                    });
-                }
-                includeFile("templates/template.js", function(){
-                    includeFile("src/cimxml.js", function(){
-                        includeFile("src/cimjson.js", function(){});
+                    }
+                    includeFile("templates/template.js", function(){
+                        includeFile("src/cimxml.js", function(){
+                            includeFile("src/cimjson.js", function(){});
+                        });
                     });
                 });
             });
