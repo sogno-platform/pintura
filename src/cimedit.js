@@ -59,6 +59,7 @@ var cimedit = cimedit || (function() {
         if (!object[category]) {
             object[category] = {};
         }
+        item['rdfid'] = id;
         object[category][id] = item;
     };
 
