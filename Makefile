@@ -43,6 +43,9 @@ run_docker:
 		--env LETSENCRYPT_EMAIL=post@steffenvogel.de \
 		pintura:latest
 
+run_docker_local:
+	docker run --rm --detach --publish 8082:80 --name=pintura pintura:latest
+
 build_docker:
 	docker build -t pintura .
 
