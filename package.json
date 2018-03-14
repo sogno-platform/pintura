@@ -1,11 +1,12 @@
 {
   "name": "Pintura",
   "version": "0.1.0",
-  "main": "./main.js",
+  "main": "main.js",
   "scripts": {
-    "build": "node generateIndex.js > index.html && electron-cli electron_xslt --xmlDir=./data_model && handlebars templates > templates/template.js && webpack src/*.js templates/template.js -o html/cimsvg.js"
+    "build": "node generateIndex.js > index.html && electron electron_xslt --xmlDir=./data_model && handlebars templates > templates/template.js && webpack src/*.js templates/template.js -o html/cimsvg.js"
   },
-  "devDependencies": {
+  "dependencies": {
+    "electron": "^2.0.0-beta.3",
     "electron-cli": "^0.2.8",
     "handlebars": "^4.0.11",
     "webpack": "^4.1.0",
