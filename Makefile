@@ -1,15 +1,10 @@
 # Copyright © 2016-2018, RWTH Aachen University
 # Authors:
-#   - Richard Marston
+#  - Richard Marston
 #  - Steffen Vogel
 
 template_dir=templates
 attribute_dir=$(template_dir)/attributes
-
-xsds=$(wildcard data_model/*.xsd)
-attributes=$(shell xsltproc $(template_dir)/attribute_list.xslt $(xsds))
-handlebars_attr=$(patsubst %,$(attribute_dir)/%.handlebars,$(attributes))
-handlebars=$(wildcard $(template_dir)/*.handlebars)
 
 all: build_docker
 
@@ -55,18 +50,9 @@ stop_docker:
 # Create templates
 templates: $(template_dir)/template.js
 
-$(attribute_dir)/%.handlebars: $(template_dir)/cim_xml_scheme.xslt $(xsds) | $(attribute_dir)/
-	xsltproc --stringparam attribute $* $^ > $@
-
 $(template_dir)/template.js: $(handlebars) $(handlebars_attr)
-	handlebars $(template_dir) > $@
-#	handlebars $^ > $@
-
-$(template_dir)/add_components_menu.xml: $(template_dir)/cim_add_components_menu.xslt $(template_dir)/sort_menu.xslt | $(template_dir)/
-	xsltproc $(template_dir)/cim_add_components_menu.xslt $(xsds) > temp.xml
-	echo "<menu><ul class=\"floating-panel-list\">$$(cat temp.xml)</ul></menu>" > unsorted.xml
-	xsltproc $(template_dir)/sort_menu.xslt unsorted.xml > $@
-	rm -rf unsorted.xml temp.xml
+	npm install
+	npm run build
 
 # Create non-existent directories
 .SECONDEXPANSION:
