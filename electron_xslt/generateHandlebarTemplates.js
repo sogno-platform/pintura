@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-<script>
+const fs = require('fs');
+const path = require('path');
 
-var fs = require('fs');
-var path = require('path');
+const libxslt = require('libxslt');
+const libxmljs = libxslt.libxmljs;
 
-const remote = require('electron').remote;
 const xslt = require('./xslt.js');
 
 const xmlOpt = '--xmlDir';
 const dbgOpt = '--debug';
 
-const createAddComponentMenuFilename = "../templates/cim_add_components_menu.xslt";
-const createAttributeListFilename = "../templates/cim_xml_scheme.xslt";
-const sortMenuXSLTFilename = "../templates/sort_menu.xslt";
+const createAddComponentMenuFilename = "templates/cim_add_components_menu.xslt";
+const createAttributeListFilename = "templates/cim_xml_scheme.xslt";
+const sortMenuXSLTFilename = "templates/sort_menu.xslt";
 const sortedMenuFilename = "templates/add_components_menu.xml";
 const attributeDir = "templates/attributes/";
 
@@ -72,7 +69,7 @@ var processFilenames = function(list, options) {
   let menuItems = "<menu><ul class=\"floating-panel-list\">";
 
   for (let index in list) {
-    let result = XSLTTranslation("../" + options[xmlOpt] + "/" + list[index], options);
+    let result = XSLTTranslation(options[xmlOpt] + "/" + list[index], options);
     menuItems += result['menuEntries'];
     for (let attribute in result['attributeList']) {
       let attributeFilename = attributeDir + attribute + '.handlebars'
@@ -83,20 +80,19 @@ var processFilenames = function(list, options) {
   menuItems += "</ul></menu>";
 
   let menuSortingXSLT = xslt.loadXMLDoc(sortMenuXSLTFilename);
-  let menuXMLDoc = new DOMParser().parseFromString(menuItems, 'text/xml');
+  let menuXMLDoc = libxmljs.parseXml(menuItems);
   let sortedMenuItems = xslt.performXSLTTranslation(menuXMLDoc, menuSortingXSLT);
   arrayOfFiles.push({ 'filename': sortedMenuFilename, 'data': sortedMenuItems });
 
   return arrayOfFiles;
 };
 
-var parseOptions = function( done ) {
+var parseOptions = function( args ) {
 
-  let arguments = remote.getGlobal('sharedObject').prop1;
-  let options = getOptions(arguments);
+  let options = getOptions( args );
   if (options[xmlOpt] == null) {
     process.stderr.write('I need at least a directory for xml Files')
-    window.close();
+    process.exit();
   }
   fs.readdir(options[xmlOpt], function(err, items) {
     if (err) {
@@ -104,15 +100,9 @@ var parseOptions = function( done ) {
     }
     else {
       let arrayOfFiles = processFilenames(items, options);
-      writeArrayOfFiles(arrayOfFiles, 0, function() {
-        window.close();
-      });
+      writeArrayOfFiles(arrayOfFiles, 0, function() { });
     }
   });
 };
 
-</script>
-</head>
-<body onload="parseOptions()">
-</body>
-</html> 
+parseOptions( process.argv )
