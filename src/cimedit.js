@@ -31,11 +31,6 @@ var cimedit = cimedit || (function() {
         return id;
     };
 
-    var nameCounter = 0;
-    var getNameCounter = function() {
-        return nameCounter++;
-    };
-
     /*
      * Start of Public Domain/MIT section.
      * Taken from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript

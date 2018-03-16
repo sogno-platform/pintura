@@ -19,6 +19,22 @@
 if (typeof module !== 'undefined' && module.exports) {
     global.cimlog = require('./cimlog.js');
     global.Handlebars = require('handlebars/runtime')
+    Handlebars.registerHelper('getRdfId', function(object) {
+        console.log(object)
+        if (object) {
+            let rdfid = object['rdf:resource'];
+            if (rdfid != undefined) {
+                var idSubString = rdfid.substring(1);
+                return new Handlebars.SafeString(idSubString)
+            }
+            else {
+                return new Handlebars.SafeString("Missing rdf:resource")
+            }
+        }
+        else {
+            return new Handlebars.SafeString("No Object")
+        }
+    });
     var templates = require('../templates/template.js');
     global.cimxml = require('./cimxml.js');
     global.cimview = require('./cimview.js');
@@ -35,6 +51,16 @@ var cimsvg = cimsvg || (function() {
     var sidebarNode = null;
     var addingType = null;
     var addingPoint = null;
+    var componentCreationNode = null;
+    var componentAttributesNode = null;
+
+    const getComponentCreationNode = function() {
+        return componentCreationNode ;
+    };
+
+    const getComponentAttributesNode = function() {
+        return componentAttributesNode ;
+    };
 
     function handler() {
         //console.log(this.getResponseHeader('content-type'));
@@ -168,7 +194,7 @@ var cimsvg = cimsvg || (function() {
                         includeFile("src/cimedit.js", function() {});
                         includeFile("src/cimmenu.js", function() {
                             loadXml("templates/add_components_menu.xml", function(xml){
-                                cimmenu.init(componentAttributes, componentCreation, xml)
+                                cimmenu.init(componentCreation, xml)
                             });
                         });
                     }
@@ -186,11 +212,13 @@ var cimsvg = cimsvg || (function() {
         init : function(svg, sidebar, componentAttributes, componentCreation) {
             svgNode = svg;
             sidebarNode = sidebar;
+            componentAttributesNode = componentAttributes;
+            componentCreationNode = componentCreation;
             if (typeof module !== 'undefined' && module.exports) {
                 cimview.init(svgNode);
                 if(sidebarNode != undefined) {
                     loadXml("templates/add_components_menu.xml", function(xml){
-                        cimmenu.init(componentAttributes, componentCreation, xml)
+                        cimmenu.init(componentCreation, xml)
                     });
                 }
             }
@@ -209,6 +237,8 @@ var cimsvg = cimsvg || (function() {
         addDiagram,
         setCurrentDiagramId : function(id) { cimedit.setCurrentDiagramId(id); },
         toggleDiagramVisible,
+        getComponentAttributesNode,
+        getComponentCreationNode,
     };
 
 }());

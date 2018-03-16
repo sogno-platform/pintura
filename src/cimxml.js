@@ -236,7 +236,12 @@ var cimxml = cimxml || (function() {
     };
 
     var updateComponentInBaseJson = function(type, id, attribute, value) {
-        jsonBaseData[type][id][attribute] = value
+        if (jsonBaseData[type][id] === undefined) {
+            console.error("Cannot find " + id + " in list of " + type);
+        }
+        else {
+            jsonBaseData[type][id][attribute] = value
+        }
     };
 
     return {

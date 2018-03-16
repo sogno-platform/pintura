@@ -12,7 +12,7 @@
                 <div id="{{diagramId}}-{{typeName}}-accordion" style="display:none">
                 {{#each this as |value componentId|}}
                     <button id="{{componentId}}-sidebar-button" style="width:100%" class="button wide-button row light-grey-background"
-                        onclick="javascript:populateAttributes('{{typeName}}', '{{componentId}}');showContainer('component-attributes', null, 'true', 'table');">{{this.pintura:label.text}}</button>
+                        onclick="javascript:populateAttributes(cimsvg.getComponentAttributesNode(), '{{typeName}}', '{{componentId}}');showContainer('component-attributes', null, 'true', 'table');">{{this.pintura:label.text}}</button>
                 {{/each}}
                 </div>
             {{/each}}

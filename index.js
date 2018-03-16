@@ -84,7 +84,7 @@ var onMouseDown = function(){
 var onMouseUp = function(evt){
     let id = evt.currentTarget.id.slice(0,-5);
     let type = evt.currentTarget.parentElement.getAttribute("type");
-    populateAttributes(type, id);
+    populateAttributes(cimsvg.getComponentAttributesNode(), type, id);
     showContainer('component-attributes', null, 'true');
 };
 var onMouseMove = function(){
@@ -162,8 +162,11 @@ function readFile(e) {
 function loadContents(contents) {
     cimsvg.loadFile(contents);
 };
-function populateAttributes(type, id) {
-    cimmenu.populateAttributes(type, id);
+function populateAttributes(node, type, id) {
+    cimmenu.populateAttributes(node, type, id);
+};
+function populateAttributesIdOnly(node, type, id) {
+    cimmenu.populateAttributesIdOnly(node, type, id);
 };
 
 if (typeof module !== 'undefined' && module.exports) {

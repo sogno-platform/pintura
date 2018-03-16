@@ -18,9 +18,6 @@
 
 var cimmenu = cimmenu || (function() {
 
-    var componentAttributeNode = null;
-    var componentCreationNode = null;
-
     var populateSidebar = function(sidebar, templateJson) {
         let template = Handlebars.templates['pintura2html'];
         let data = template(templateJson);
@@ -41,29 +38,48 @@ var cimmenu = cimmenu || (function() {
         panelNode.setAttribute("style", height)
     };
 
-    var populateComponentCreation = function(menuXml) {
+    var populateComponentCreation = function(componentCreationNode, menuXml) {
         accordion = componentCreationNode.querySelector('#component-creation-list-div')
 
         let ul = new DOMParser().parseFromString("<ul class='floating-panel-list'></ul>", 'text/xml');
         for (let item in cimedit.terminalAndPointLimits) {
-          let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
-          let xpathResult = menuXml.evaluate( xpathQuery, menuXml.documentElement, null, XPathResult.ANY_TYPE, null );
-          let match = xpathResult.iterateNext();
-          if (match) {
-            ul.documentElement.appendChild(match);
-          }
+            let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
+            let xpathResult = menuXml.evaluate( xpathQuery, menuXml.documentElement, null, XPathResult.ANY_TYPE, null );
+            let match = xpathResult.iterateNext();
+            if (match) {
+                ul.documentElement.appendChild(match);
+            }
         }
         accordion.innerHTML = ul.documentElement.outerHTML;
         calculatePanelHeight(accordion.innerHTML, componentCreationNode, document.body);
     };
 
-    var populateAttributes = function(type, id) {
-        let list = componentAttributeNode.querySelector('#component-attributes-list-div')
+    const populateAttributesIdOnly = function(node, id) {
         let baseJson = cimxml.getBaseJson();
+        for (let types in baseJson) {
+            for (let rdfid in baseJson[types]) {
+                if (id == rdfid) {
+                    type = types;
+                    continue;
+                }
+            }
+        }
+        populateAttributes(node, type, id);
+    };
+
+    const populateAttributes = function(node, type, id) {
+        if (id == "No Object" || id == "Missing rdf:resource") {
+            return;
+        }
+        let list = node.querySelector('#component-attributes-list-div')
+        let baseJson = cimxml.getBaseJson();
+        if (baseJson[type] == undefined) {
+            console.error("Cannot find " + type + " in data to display id " + id);
+        }
         let template = Handlebars.templates["attributes/"+type.substring(4)];
         let data = template(baseJson[type][id]);
         list.innerHTML = data;
-        calculatePanelHeight(data, componentAttributeNode, document.body);
+        calculatePanelHeight(data, node, document.body);
     };
 
     var searchSidebar=function(searchString) {
@@ -80,14 +96,13 @@ var cimmenu = cimmenu || (function() {
     };
 
     return {
-        init: function(componentAttributes, componentCreation, menuXml){
-            componentAttributeNode = componentAttributes;
-            componentCreationNode = componentCreation;
-            populateComponentCreation(menuXml);
+        init: function(componentCreation, menuXml){
+            populateComponentCreation(componentCreation, menuXml);
         },
         searchSidebar,
         populateSidebar,
         populateAttributes,
+        populateAttributesIdOnly,
     };
 }());
 
