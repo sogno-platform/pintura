@@ -56,6 +56,7 @@ var cimmenu = cimmenu || (function() {
 
     const populateAttributesIdOnly = function(node, id) {
         let baseJson = cimxml.getBaseJson();
+        let type;
         for (let types in baseJson) {
             for (let rdfid in baseJson[types]) {
                 if (id == rdfid) {
@@ -64,7 +65,12 @@ var cimmenu = cimmenu || (function() {
                 }
             }
         }
-        populateAttributes(node, type, id);
+        if (type != undefined) {
+            populateAttributes(node, type, id);
+        }
+        else {
+            console.error("Can't establish type for id: " + id)
+        }
     };
 
     const populateAttributes = function(node, type, id) {
@@ -75,6 +81,9 @@ var cimmenu = cimmenu || (function() {
         let baseJson = cimxml.getBaseJson();
         if (baseJson[type] == undefined) {
             console.error("Cannot find " + type + " in data to display id " + id);
+        }
+        if (baseJson[type][id] == undefined) {
+            console.error("Cannot find " + id + " in data to display id of " + type);
         }
         let template = Handlebars.templates["attributes/"+type.substring(4)];
         let data = template(baseJson[type][id]);

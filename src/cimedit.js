@@ -18,9 +18,18 @@
 
 var cimedit = cimedit || (function() {
 
-    var makeDiagram = function(newStuff, type) {
+    var nameCounter = {};
+
+    var getNameCounter = function(type) {
+        if (nameCounter[type] === undefined){
+            nameCounter[type] = "0";
+        }
+        return (++nameCounter[type]).toString();
+    };
+
+    var makeDiagram = function(newStuff) {
         let id = generateUUID();
-        let counter = getNameCounter();
+        let counter = getNameCounter("cim:Diagram");
         let diagram = {
            "cim:Diagram.orientation" : {
                 "rdf:resource" : "http://iec.ch/TC57/2013/CIM-schema-cim16#OrientationKind.negative",
@@ -85,7 +94,7 @@ var cimedit = cimedit || (function() {
         for (let i = 0; i<terminalPoints.length; i++) {
             terminalIds.push(makeTerminal(diagramId, graph, (i+1).toString(), id, terminalPoints[i]));
         }
-        let counter = getNameCounter();
+        let counter = getNameCounter(type);
         newAttributes = {
             "cim:IdentifiedObject.name": type + counter.toString(),
             "diagramObject": {
@@ -104,7 +113,7 @@ var cimedit = cimedit || (function() {
 
     var makeTerminal = function(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point) {
         let id = generateUUID();
-        let counter = getNameCounter();
+        let counter = getNameCounter("cim:Terminal");
         let diagramObjectPoints = makeDiagramObjectWithPoints(newStuff, diagramId, id, [ point ]);
         let terminal = {
             "cim:ACDCTerminal.sequenceNumber": sequenceNumber,
@@ -133,7 +142,7 @@ var cimedit = cimedit || (function() {
     };
 
     var makeDiagramObject = function(newStuff, diagramId, identifiedObjectId, diagramObjectId) {
-        let counter = getNameCounter();
+        let counter = getNameCounter("cim:DiagramObject");
         let diagramObject = {
             "cim:DiagramObject.Diagram": {
                 "rdf:resource" : "#"+diagramId,

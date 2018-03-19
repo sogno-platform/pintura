@@ -20,7 +20,6 @@ if (typeof module !== 'undefined' && module.exports) {
     global.cimlog = require('./cimlog.js');
     global.Handlebars = require('handlebars/runtime')
     Handlebars.registerHelper('getRdfId', function(object) {
-        console.log(object)
         if (object) {
             let rdfid = object['rdf:resource'];
             if (rdfid != undefined) {
