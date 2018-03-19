@@ -16,32 +16,51 @@
  *  in the top level directory of this source tree.
  */
 
+const fs = require('fs');
+const libxslt = require('libxslt');
+const libxmljs = libxslt.libxmljs;
+
+let files = [ 'Base.xsd',
+              'Core.xsd',
+              'DiagramLayout.xsd',
+              'Domain.xsd',
+              'Equivalents.xsd',
+              'Generation.xsd',
+              'LoadModel.xsd',
+              'OperationalLimits.xsd',
+              'Topology.xsd',
+              'Wires.xsd' ];
+
 var cimheritance = cimheritance || (function() {
 
-    var subClassList = {};
+    var classMap = {};
 
     var addClassRelationship = function(subClass, superClass) {
-        if (subClassList[subClass] === undefined)
-            subClassList[subClass] = [];
+        if (classMap[subClass] === undefined)
+            classMap[subClass] = [];
             
-        subClassList[subClass].push(superClass);
+        classMap[subClass].push(superClass);
     };
 
     let list = [];
 
-    var getSuperClassList = function(searchString) {
-        let superClassList = subClassList[searchString];
+    var getSuperClassList = function(baseClass) {
+        return recursiveSearch(baseClass);
+    };
+
+    var recursiveSearch = function(baseClass) {
+        let superClassList = classMap[baseClass];
         if (superClassList != undefined) {
             for(superClass in superClassList) {
                 list.push(superClassList[superClass]);
-                list.concat(getSuperClassList(superClassList[superClass]));
+                list.concat(recursiveSearch(superClassList[superClass]));
             }
         }
         return list;
     };
 
-    var getSubClassList=function() {
-        return subClassList;
+    var getClassMap=function() {
+        return classMap;
     };
 
     var addClassesToTree=function(xml) {
@@ -54,57 +73,57 @@ var cimheritance = cimheritance || (function() {
         }
     };
 
+    const generateSuperClassTree = function(array, index) {
+        fs.readFile('data_model/' + array[index], 'utf8', function(err, contents) {
+            if (err) {
+                console.error(err)
+            }
+            else {
+                let xml = libxmljs.parseXmlString(contents);
+                addClassesToTree(xml);
+                if (array.length > index+1) {
+                    generateSuperClassTree(array, ++index);
+                }
+                else {
+                    let data = JSON.stringify(cimheritance.getClassMap(), null, 3)
+                    fs.writeFile('templates/superclasses.json', data, function(err) {
+                        if(err) {
+                            console.error(err)
+                            }
+                    });
+                }
+            }
+        });
+    };
+
+
     return {
-        init: function(xml){
-            addClassesToTree(xml)
+        init: function(json){
+            classMap = json;
         },
-        getSubClassList,
+        generateSuperClassTree,
+        getClassMap,
         getSuperClassList
     };
 }());
-
-const fs = require('fs');
-const libxslt = require('libxslt');
-const libxmljs = libxslt.libxmljs;
- 
-let files = [ 'Base.xsd',
-              'Core.xsd',
-              'DiagramLayout.xsd',
-              'Domain.xsd',
-              'Equivalents.xsd',
-              'Generation.xsd',
-              'LoadModel.xsd',
-              'OperationalLimits.xsd',
-              'Topology.xsd',
-              'Wires.xsd' ];
 
 const printSuperClassList = function(searchString) {
     console.log(cimheritance.getSuperClassList(searchString));
 };
 
-const printSubClassList = function() {
-    console.log(JSON.stringify(cimheritance.getSubClassList(process.argv[2]), null, 3));
-};
-
-const readAFile = function(array, index) {
-    fs.readFile('data_model/' + array[index], 'utf8', function(err, contents) {
+if (process.argv[2] != undefined) {
+    fs.readFile('templates/superclasses.json', 'utf8', function(err, contents) {
         if (err) {
-            console.log(err)
         }
         else {
-            let xml = libxmljs.parseXmlString(contents);
-            cimheritance.init(xml); 
-            if (array.length > index+1) {
-                readAFile(array, ++index);
-            }
-            else {
-                printSuperClassList(process.argv[2])
-            }
+            cimheritance.init(JSON.parse(contents))
+            printSuperClassList(process.argv[2])
         }
     });
 }
-
-readAFile(files, 0);
+else {
+    cimheritance.generateSuperClassTree(files, 0);
+}
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = cimheritance
