@@ -39,7 +39,7 @@ var cimheritance = cimheritance || (function() {
         if (classMap[subClass] === undefined)
             classMap[subClass] = [];
             
-        classMap[subClass].push(superClass);
+        classMap[subClass].push({ name: superClass });
     };
 
     let list = [];
@@ -53,7 +53,7 @@ var cimheritance = cimheritance || (function() {
         if (superClassList != undefined) {
             for(superClass in superClassList) {
                 list.push(superClassList[superClass]);
-                list.concat(recursiveSearch(superClassList[superClass]));
+                list.concat(recursiveSearch(superClassList[superClass].name));
             }
         }
         return list;
@@ -89,13 +89,12 @@ var cimheritance = cimheritance || (function() {
                     fs.writeFile('templates/superclasses.json', data, function(err) {
                         if(err) {
                             console.error(err)
-                            }
+                        }
                     });
                 }
             }
         });
     };
-
 
     return {
         init: function(json){
@@ -107,17 +106,18 @@ var cimheritance = cimheritance || (function() {
     };
 }());
 
-const printSuperClassList = function(searchString) {
-    console.log(cimheritance.getSuperClassList(searchString));
-};
-
 if (process.argv[2] != undefined) {
     fs.readFile('templates/superclasses.json', 'utf8', function(err, contents) {
         if (err) {
+            console.error(err)
         }
         else {
             cimheritance.init(JSON.parse(contents))
-            printSuperClassList(process.argv[2])
+            data = { superclass: cimheritance.getSuperClassList(process.argv[2]) };
+            Handlebars = require("handlebars/runtime")
+            require('../templates/template.js');
+            var template = Handlebars.templates['cim_aggregate_component_menu'];
+            console.log(template(data));
         }
     });
 }
