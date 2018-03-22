@@ -19,21 +19,7 @@
 if (typeof module !== 'undefined' && module.exports) {
     global.cimlog = require('./cimlog.js');
     global.Handlebars = require('handlebars/runtime')
-    Handlebars.registerHelper('getRdfId', function(object) {
-        if (object) {
-            let rdfid = object['rdf:resource'];
-            if (rdfid != undefined) {
-                var idSubString = rdfid.substring(1);
-                return new Handlebars.SafeString(idSubString)
-            }
-            else {
-                return new Handlebars.SafeString("Missing rdf:resource")
-            }
-        }
-        else {
-            return new Handlebars.SafeString("No Object")
-        }
-    });
+    require('../templates/handlebarsHelpers.js')
     var templates = require('../templates/template.js');
     global.cimxml = require('./cimxml.js');
     global.cimview = require('./cimview.js');
@@ -184,6 +170,51 @@ var cimsvg = cimsvg || (function() {
         Connect.send(null);
     };
 
+    const getObjectUsingId = function(id) {
+        let baseJson = cimxml.getBaseJson();
+        let type = undefined;
+        for (let types in baseJson) {
+            for (let rdfid in baseJson[types]) {
+                if (id == rdfid) {
+                    type = types;
+                    continue;
+                }
+            }
+        }
+        if (type != undefined) {
+            return baseJson[type][id];
+        }
+        else {
+            return undefined;
+        }
+    };
+
+    const getObjectTypeUsingId = function(id) {
+        let baseJson = cimxml.getBaseJson();
+        let type = undefined;
+        for (let types in baseJson) {
+            for (let rdfid in baseJson[types]) {
+                if (id == rdfid) {
+                    type = types;
+                    continue;
+                }
+            }
+        }
+        return type;
+    };
+
+
+    const getRdfResource = function(object) {
+        if (object) {
+            let rdfid = object['rdf:resource'];
+            if (rdfid != undefined) {
+                var idSubString = rdfid.substring(1);
+                return idSubString;
+            }
+        }
+        return undefined;
+    };
+
     var loadDependencies = function(componentAttributes, componentCreation) {
         includeFile("handlebars.runtime.js", function() {
             includeFile("src/cimlog.js", function() {
@@ -238,6 +269,9 @@ var cimsvg = cimsvg || (function() {
         toggleDiagramVisible,
         getComponentAttributesNode,
         getComponentCreationNode,
+        getObjectUsingId,
+        getObjectTypeUsingId,
+        getRdfResource,
     };
 
 }());

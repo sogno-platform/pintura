@@ -55,16 +55,7 @@ var cimmenu = cimmenu || (function() {
     };
 
     const populateAttributesIdOnly = function(node, id) {
-        let baseJson = cimxml.getBaseJson();
-        let type;
-        for (let types in baseJson) {
-            for (let rdfid in baseJson[types]) {
-                if (id == rdfid) {
-                    type = types;
-                    continue;
-                }
-            }
-        }
+        let type = cimsvg.getObjectTypeUsingId(id);
         if (type != undefined) {
             populateAttributes(node, type, id);
         }
