@@ -19,27 +19,32 @@
 const fs = require('fs');
 const libxslt = require('libxslt');
 const libxmljs = libxslt.libxmljs;
-
-let files = [ 'Base.xsd',
-              'Core.xsd',
-              'DiagramLayout.xsd',
-              'Domain.xsd',
-              'Equivalents.xsd',
-              'Generation.xsd',
-              'LoadModel.xsd',
-              'OperationalLimits.xsd',
-              'Topology.xsd',
-              'Wires.xsd' ];
+const xslt = require("../xslt/xslt.js")
 
 var cimheritance = cimheritance || (function() {
 
-    var classMap = {};
+    var classMap = { 'complexTypes': {}, 'simpleTypes': {} };
 
-    var addClassRelationship = function(subClass, superClass) {
-        if (classMap[subClass] === undefined)
-            classMap[subClass] = [];
-            
-        classMap[subClass].push({ name: superClass });
+    var addComplexType = function(subClass, superClass) {
+
+        if (classMap['complexTypes'][subClass] === undefined)
+        {
+            classMap['complexTypes'][subClass] = [];
+        }
+        classMap['complexTypes'][subClass].push(superClass);
+    };
+
+    var addSimpleType = function(name, restrictions) {
+        let restrictionType = restrictions.get("@base").value()
+        let newSimpleType = { type: restrictionType, values: [] }
+        let validValues = restrictions.childNodes()
+        for (let i = 0; i < validValues.length; i++) {
+            if(validValues[i].type() == 'element')
+            {
+                newSimpleType.values.push(validValues[i].attr('value').value())
+            }
+        }
+        classMap['simpleTypes'][name] = newSimpleType
     };
 
     let list = [];
@@ -49,7 +54,7 @@ var cimheritance = cimheritance || (function() {
     };
 
     var recursiveSearch = function(baseClass) {
-        let superClassList = classMap[baseClass];
+        let superClassList = classMap['complexTypes'][baseClass];
         if (superClassList != undefined) {
             for(superClass in superClassList) {
                 list.push(superClassList[superClass]);
@@ -69,29 +74,23 @@ var cimheritance = cimheritance || (function() {
         for (let match in xpathResult) {
             let superClass = xpathResult[match].parent().parent().attr('name').value();
             let subClass = xpathResult[match].attr('base').value();
-            addClassRelationship(subClass, superClass)
+            addComplexType(subClass, superClass)
+        }
+        xpathQuery = "/xs:schema/xs:simpleType/xs:restriction";
+        xpathResult = xml.find(xpathQuery, {'xs':'http://www.w3.org/2001/XMLSchema'})
+        for (let match in xpathResult) {
+
+            let subClass = xpathResult[match].parent().attr('name').value();
+            addSimpleType(subClass, xpathResult[match], "simpleTypes")
         }
     };
 
-    const generateSuperClassTree = function(array, index) {
-        fs.readFile('data_model/' + array[index], 'utf8', function(err, contents) {
-            if (err) {
+    const generateSuperClassTree = function(xml) {
+        addClassesToTree(xml);
+        let data = JSON.stringify(cimheritance.getClassMap(), null, 3)
+        fs.writeFile('templates/superclasses.json', data, function(err) {
+            if(err) {
                 console.error(err)
-            }
-            else {
-                let xml = libxmljs.parseXmlString(contents);
-                addClassesToTree(xml);
-                if (array.length > index+1) {
-                    generateSuperClassTree(array, ++index);
-                }
-                else {
-                    let data = JSON.stringify(cimheritance.getClassMap(), null, 3)
-                    fs.writeFile('templates/superclasses.json', data, function(err) {
-                        if(err) {
-                            console.error(err)
-                        }
-                    });
-                }
             }
         });
     };
@@ -105,6 +104,10 @@ var cimheritance = cimheritance || (function() {
         getSuperClassList
     };
 }());
+
+let xml = libxmljs.parseXmlString('<?xml version="1.0" encoding="utf-8"?><root/>')
+let xsl = xslt.loadXMLDoc("templates/merge_xml_files.xslt");
+let superClassTree = xslt.performXSLTTranslation(xml, xsl);
 
 if (process.argv[2] != undefined) {
     fs.readFile('templates/superclasses.json', 'utf8', function(err, contents) {
@@ -122,7 +125,7 @@ if (process.argv[2] != undefined) {
     });
 }
 else {
-    cimheritance.generateSuperClassTree(files, 0);
+    cimheritance.generateSuperClassTree(superClassTree);
 }
 
 if (typeof module !== 'undefined' && module.exports) {
