@@ -189,15 +189,13 @@ var cimsvg = cimsvg || (function() {
         }
     };
 
-    const getObjectTypeUsingId = function(id) {
+    const getObjectTypeUsingId = function(rdfid) {
         let baseJson = cimxml.getBaseJson();
         let type = undefined;
         for (let types in baseJson) {
-            for (let rdfid in baseJson[types]) {
-                if (id == rdfid) {
-                    type = types;
-                    continue;
-                }
+            if (rdfid in baseJson[types]) {
+                type = types;
+                continue;
             }
         }
         return type;

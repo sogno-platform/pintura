@@ -16,6 +16,11 @@
  *  in the top level directory of this source tree.
  */
 
+
+let classStructure = require('./classStructure.js');
+let simpleTypes = classStructure.simpleTypes;
+let complexTypes = classStructure.complexTypes;
+
 Handlebars.registerHelper('getRdfId', function(object) {
     return new Handlebars.SafeString(cimsvg.getRdfResource());
 });
@@ -72,9 +77,24 @@ Handlebars.registerHelper('getName', function(rdfIdObject) {
     }
 });
 
-Handlebars.registerHelper('isSimpleType', function(type) {
-    console.log("isSimpleType " + type);
-    return new Handlebars.SafeString("true");
+Handlebars.registerHelper('getAggregateComponentEditMenu', function(rdfIdObject, type) {
+
+    let rdfid = cimsvg.getRdfResource(rdfIdObject);
+    if (rdfid) {
+        if (type !== undefined) {
+            if (simpleTypes[type]) {
+                let template = Handlebars.templates['cim_update_simple_type'];
+                let data = template(simpleTypes[type]);
+                return new Handlebars.SafeString(data);
+            }
+            else if (complexTypes[type]) {
+                let template = Handlebars.templates['cim_update_complex_type'];
+                let data = template(complexTypes[type]);
+                return new Handlebars.SafeString(data);
+            }
+        }
+    }
+    return new Handlebars.SafeString("");
 });
 
 Handlebars.registerHelper('isComplexType', function(type) {

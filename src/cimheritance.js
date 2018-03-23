@@ -47,25 +47,32 @@ var cimheritance = cimheritance || (function() {
         classMap['simpleTypes'][name] = newSimpleType
     };
 
-    let list = [];
-
     var getSuperClassList = function(baseClass) {
         return recursiveSearch(baseClass);
     };
 
-    var recursiveSearch = function(baseClass) {
+    var recursiveSearch = function(baseClass, list) {
         let superClassList = classMap['complexTypes'][baseClass];
         if (superClassList != undefined) {
             for(superClass in superClassList) {
                 list.push(superClassList[superClass]);
-                list.concat(recursiveSearch(superClassList[superClass].name));
+                list.concat(recursiveSearch(superClassList[superClass], list));
             }
         }
         return list;
     };
 
+    var recursiveProcessing = function() {
+        let newClassMap = { complexTypes: {}, simpleTypes: classMap['simpleTypes'] };
+        for(let base in classMap['complexTypes']) {
+            let list = [];
+            newClassMap['complexTypes'][base] = recursiveSearch(base, list);
+        }
+        return newClassMap;
+    };
+
     var getClassMap=function() {
-        return classMap;
+        return recursiveProcessing();
     };
 
     var addClassesToTree=function(xml) {
@@ -87,8 +94,14 @@ var cimheritance = cimheritance || (function() {
 
     const generateSuperClassTree = function(xml) {
         addClassesToTree(xml);
-        let data = JSON.stringify(cimheritance.getClassMap(), null, 3)
-        fs.writeFile('templates/superclasses.json', data, function(err) {
+        let data = "var class_struct = class_struct || (function() {\n return " +
+                   JSON.stringify(cimheritance.getClassMap(), null, 3) +
+                   "\n}());" +
+                   "if (typeof module !== 'undefined' && module.exports) {" +
+                       "module.exports = class_struct" +
+                   "}";
+
+        fs.writeFile('templates/classStructure.js', data, function(err) {
             if(err) {
                 console.error(err)
             }
@@ -117,10 +130,6 @@ if (process.argv[2] != undefined) {
         else {
             cimheritance.init(JSON.parse(contents))
             data = { superclass: cimheritance.getSuperClassList(process.argv[2]) };
-            Handlebars = require("handlebars/runtime")
-            require('../templates/template.js');
-            var template = Handlebars.templates['cim_aggregate_component_menu'];
-            console.log(template(data));
         }
     });
 }
