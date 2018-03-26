@@ -56,7 +56,7 @@
                         <span class="row-left floating-panel-name">
                             <xsl:value-of select="concat($type, '.', @name)"/>
                         </span>
-                        <xsl:value-of select="concat($thr_lbr, 'getAggregateComponentEditMenu ', $rdfid, ' ', $aggregate_component_type, $thr_rbr)"/>
+                        <xsl:value-of select="concat($thr_lbr, 'getAggregateComponentMenu ', $rdfid, ' ', $aggregate_component_type, $thr_rbr)"/>
                         <xsl:text>&#xa;        </xsl:text>
                         <xsl:text>&#xa;    </xsl:text>
                     </li>

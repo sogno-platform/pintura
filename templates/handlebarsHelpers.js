@@ -37,27 +37,6 @@ Handlebars.registerHelper('viewAggregateComponentLink', function(rdfIdObject) {
     }
 });
 
-Handlebars.registerHelper('createAggregateComponentLink', function(rdfIdObject) {
-    let rdfid = cimsvg.getRdfResource(rdfIdObject);
-    if (rdfid) {
-    }
-    else {
-        return undefined;
-    }
-});
-
-Handlebars.registerHelper('editAggregateComponentLink', function(rdfIdObject) {
-    let rdfid = cimsvg.getRdfResource(rdfIdObject);
-    if (rdfid) {
-        let editLink = "populateAttributesIdOnly(cimsvg.getComponentAttributesNode(), '" + 
-                    rdfid +"');showContainer('component-attributes', null, 'true', 'table');"
-        return new Handlebars.SafeString(editLink)
-    }
-    else {
-        return undefined;
-    }
-});
-
 Handlebars.registerHelper('getName', function(rdfIdObject) {
     if (rdfIdObject) {
         let rdfid = rdfIdObject['rdf:resource'];
@@ -77,29 +56,22 @@ Handlebars.registerHelper('getName', function(rdfIdObject) {
     }
 });
 
-Handlebars.registerHelper('getAggregateComponentEditMenu', function(rdfIdObject, type) {
-
-    let rdfid = cimsvg.getRdfResource(rdfIdObject);
-    if (rdfid) {
-        if (type !== undefined) {
-            if (simpleTypes[type]) {
-                let template = Handlebars.templates['cim_update_simple_type'];
-                let data = template(simpleTypes[type]);
-                return new Handlebars.SafeString(data);
+Handlebars.registerHelper('getAggregateComponentMenu', function(rdfIdObject, type) {
+    let updateMenu = "";
+    console.log(type)
+    if (type !== undefined) {
+        if (simpleTypes[type]) {
+            let template = Handlebars.templates['cim_update_simple_type'];
+            updateMenu = template(simpleTypes[type]);
+        }
+        else if (complexTypes[type]) {
+            let rdfid = cimsvg.getRdfResource(rdfIdObject);
+            if (rdfid) {
             }
-            else if (complexTypes[type]) {
-                let template = Handlebars.templates['cim_update_complex_type'];
-                let data = template(complexTypes[type]);
-                return new Handlebars.SafeString(data);
-            }
+            let template = Handlebars.templates['cim_update_complex_type'];
+            updateMenu = template(complexTypes[type]);
+            console.log(updateMenu)
         }
     }
-    return new Handlebars.SafeString("");
-});
-
-Handlebars.registerHelper('isComplexType', function(type) {
-});
-
-Handlebars.registerHelper('getAggregateComponentMenu', function(type) {
-    return new Handlebars.SafeString("<div>" + type + "</div>")
+    return new Handlebars.SafeString(updateMenu);
 });
