@@ -48,18 +48,41 @@ var cimheritance = cimheritance || (function() {
     };
 
     var getSuperClassList = function(baseClass) {
-        return recursiveSearch(baseClass);
+        let list = [ baseClass ];
+        let bigList = recursiveSearch(baseClass, list);
+        let smallList = [];
+        for (let item in bigList) {
+            addToList(bigList[item], smallList);
+        }
+        return smallList;
     };
 
-    var recursiveSearch = function(baseClass, list) {
+    var isInList = function(item, list) {
+        for (let next in list) {
+            if (list[next] == item){
+                return true;
+            }
+        }
+        return false;
+    };
+
+    var addToList = function(superClass, insertList) {
+        if (!isInList(superClass, insertList)) {
+            insertList.push(superClass)
+        }
+    };
+
+    var recursiveSearch = function(baseClass, searchList) {
         let superClassList = classMap['complexTypes'][baseClass];
         if (superClassList != undefined) {
             for(superClass in superClassList) {
-                list.push(superClassList[superClass]);
-                list.concat(recursiveSearch(superClassList[superClass], list));
+                searchList.push(superClassList[superClass]);
+            }
+            for(superClass in superClassList) {
+                searchList.concat(recursiveSearch(superClassList[superClass], searchList));
             }
         }
-        return list;
+        return searchList;
     };
 
     var recursiveProcessing = function() {
