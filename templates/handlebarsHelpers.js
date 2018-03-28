@@ -56,7 +56,7 @@ Handlebars.registerHelper('getName', function(rdfIdObject) {
     }
 });
 
-Handlebars.registerHelper('getAggregateComponentMenu', function(rdfIdObject, type) {
+Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, parentId, rdfid, type, attribute) {
     let updateMenu = "";
     if (type !== undefined) {
         if (simpleTypes[type]) {
@@ -66,13 +66,18 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(rdfIdObject, typ
             updateMenu = template(possibleValues);
         }
         else if (complexTypes[type]) {
-            let rdfid = cimsvg.getRdfResource(rdfIdObject);
-            if (rdfid) {
-            }
             let template = Handlebars.templates['cim_update_complex_type'];
             let possibleClasses = JSON.parse(JSON.stringify(complexTypes[type]));
             possibleClasses.splice(0, 0, type);
             let matchingComponents = cimsvg.getAggregateComponentsList(possibleClasses);
+            for (let index in matchingComponents['aggregates']) {
+                if(matchingComponents['aggregates'][index]['rdfid'] == rdfid) {
+                    matchingComponents['aggregates'][index]['selected'] = 'selected';
+                }
+            }
+            matchingComponents['attribute'] = attribute;
+            matchingComponents['type'] = parentType;
+            matchingComponents['rdfid'] = parentId;
             updateMenu = template(matchingComponents);
         }
     }

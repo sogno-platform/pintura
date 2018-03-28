@@ -249,7 +249,8 @@ var cimsvg = cimsvg || (function() {
             for (let component in baseJson[type]) {
                 aggregateComponents['aggregates'].push({
                     rdfid: baseJson[type][component]['rdfid'],
-                    name: baseJson[type][component]["cim:IdentifiedObject.name"]
+                    name: baseJson[type][component]["cim:IdentifiedObject.name"],
+                    type: type
                 })
             }
         }
