@@ -40,11 +40,14 @@ a:active,a:hover{
 button,input,select,textarea{
     font:inherit;margin:0
 }
-button,input{
-    overflow:visible;
-}
-button,select{
-    text-transform:none;
+input, select, textarea{
+    width:195px;
+    height:28px;
+    border:3px solid #ccc;
+    -ms-box-sizing:content-box;
+    -moz-box-sizing:content-box;
+    box-sizing:content-box;
+    -webkit-box-sizing:content-box;
 }
 button::-moz-focus-inner,
   [type=button]::-moz-focus-inner,
@@ -181,8 +184,7 @@ button {
     overflow:hidden;
 }
 .floating-panel-value input{
-    text-align:right;
-    width: auto;
+    text-align:center;
 }
 .component-type-name {
     width:100%;

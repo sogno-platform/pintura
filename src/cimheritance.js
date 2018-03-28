@@ -31,7 +31,10 @@ var cimheritance = cimheritance || (function() {
         {
             classMap['complexTypes'][subClass] = [];
         }
-        classMap['complexTypes'][subClass].push(superClass);
+        if (superClass)
+        {
+            classMap['complexTypes'][subClass].push(superClass);
+        }
     };
 
     var addSimpleType = function(name, restrictions) {
@@ -113,6 +116,12 @@ var cimheritance = cimheritance || (function() {
             let subClass = xpathResult[match].parent().attr('name').value();
             addSimpleType(subClass, xpathResult[match], "simpleTypes")
         }
+        xpathQuery = "/xs:schema/xs:complexType";
+        xpathResult = xml.find(xpathQuery, {'xs':'http://www.w3.org/2001/XMLSchema'})
+        for (let match in xpathResult) {
+            let subClass = xpathResult[match].attr('name').value();
+            addComplexType(subClass)
+        }
     };
 
     const generateSuperClassTree = function(xml) {
@@ -137,7 +146,7 @@ var cimheritance = cimheritance || (function() {
         },
         generateSuperClassTree,
         getClassMap,
-        getSuperClassList
+        getSuperClassList,
     };
 }());
 

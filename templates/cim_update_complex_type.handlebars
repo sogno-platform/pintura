@@ -1,5 +1,9 @@
-<select class="update-complex-type wide-row floating-panel-item dark-grey-background">
-{{#each this}}
-  <option value="{{this}}">{{this}}</option>
-{{/each}}
-</select>
+<span class="wide-row floating-panel-value">
+    <span>
+        <select class="update-complex-type dark-grey-background">
+        {{#each aggregates}}
+            <option value="{{rdfid}}">{{name}}</option>
+        {{/each}}
+        </select>
+    </span>
+</span>

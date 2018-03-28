@@ -74,11 +74,16 @@ var cimsvg = cimsvg || (function() {
     };
 
     var addComponent = function(type) {
-        addingType = type;
-        image = cimjson.getImageName(type);
-        let backing = document.getElementById("backing");
-        backing.style.cursor = 'url("' + image + '"), crosshair';
-        showContainer('component-creation');
+        if (cimedit.typeIsVisible(type)) {
+            addingType = type;
+            image = cimjson.getImageName(type);
+            let backing = document.getElementById("backing");
+            backing.style.cursor = 'url("' + image + '"), crosshair';
+            showContainer('component-creation');
+        }
+        else {
+            addComponentAndApplyTemplates(type);
+        }
     };
 
     var checkComponentReadyToAdd = function(evt) {
@@ -236,6 +241,21 @@ var cimsvg = cimsvg || (function() {
         });
     };
 
+    const getAggregateComponentsList = function(types) {
+        let baseJson = cimxml.getBaseJson();
+        let aggregateComponents = { aggregates: [{ rdfid: "", name: "--" }]};
+        for (let index in types) {
+            let type = "cim:" + types[index];
+            for (let component in baseJson[type]) {
+                aggregateComponents['aggregates'].push({
+                    rdfid: baseJson[type][component]['rdfid'],
+                    name: baseJson[type][component]["cim:IdentifiedObject.name"]
+                })
+            }
+        }
+        return aggregateComponents;
+    };
+
     return {
         init : function(svg, sidebar, componentAttributes, componentCreation) {
             svgNode = svg;
@@ -265,6 +285,7 @@ var cimsvg = cimsvg || (function() {
         addDiagram,
         setCurrentDiagramId : function(id) { cimedit.setCurrentDiagramId(id); },
         toggleDiagramVisible,
+        getAggregateComponentsList,
         getComponentAttributesNode,
         getComponentCreationNode,
         getObjectUsingId,

@@ -58,19 +58,22 @@ Handlebars.registerHelper('getName', function(rdfIdObject) {
 
 Handlebars.registerHelper('getAggregateComponentMenu', function(rdfIdObject, type) {
     let updateMenu = "";
-    console.log(type)
     if (type !== undefined) {
         if (simpleTypes[type]) {
             let template = Handlebars.templates['cim_update_simple_type'];
-            updateMenu = template(simpleTypes[type]);
+            let possibleValues = JSON.parse(JSON.stringify(simpleTypes[type]));
+            possibleValues.values.splice(0, 0, "--");
+            updateMenu = template(possibleValues);
         }
         else if (complexTypes[type]) {
             let rdfid = cimsvg.getRdfResource(rdfIdObject);
             if (rdfid) {
             }
             let template = Handlebars.templates['cim_update_complex_type'];
-            updateMenu = template(complexTypes[type]);
-            console.log(updateMenu)
+            let possibleClasses = JSON.parse(JSON.stringify(complexTypes[type]));
+            possibleClasses.splice(0, 0, type);
+            let matchingComponents = cimsvg.getAggregateComponentsList(possibleClasses);
+            updateMenu = template(matchingComponents);
         }
     }
     return new Handlebars.SafeString(updateMenu);

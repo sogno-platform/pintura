@@ -97,12 +97,6 @@ var cimedit = cimedit || (function() {
         let counter = getNameCounter(type);
         newAttributes = {
             "cim:IdentifiedObject.name": type + counter.toString(),
-            "diagramObject": {
-                ["#"+diagramId] : {
-                    "cim:DiagramObject.rotation" : "90",
-                    points: diagramObjectPoints
-                },
-            },
             "dirty": "true",
             "terminals": terminalIds,
         };
@@ -187,6 +181,12 @@ var cimedit = cimedit || (function() {
             "points": 2,
             "terminalStyle": linePoints,
         },
+        "cim:TopologicalNode": {
+            "minTerminals" : 2,
+            "maxTerminals" : 2,
+            "points": 2,
+            "terminalStyle": linePoints,
+        },
         "cim:EnergyConsumer": {
             "minTerminals" : 1,
             "maxTerminals" : 4,
@@ -199,11 +199,26 @@ var cimedit = cimedit || (function() {
             "points": 1,
             "terminalStyle": constellationPoints,
         },
+        "cim:PowerTransformerEnd": {
+            "minTerminals" : 0,
+            "maxTerminals" : 0,
+            "points": 0,
+        },
+        "cim:Susceptance": {
+            "minTerminals" : 0,
+            "maxTerminals" : 0,
+            "points": 0,
+        },
         "cim:SynchronousMachine": {
             "minTerminals" : 1,
             "maxTerminals" : 4,
             "points": 1,
             "terminalStyle": constellationPoints,
+        },
+        "cim:VoltageLevel": {
+            "minTerminals" : 0,
+            "maxTerminals" : 0,
+            "points": 0,
         },
     };
 
@@ -211,6 +226,21 @@ var cimedit = cimedit || (function() {
 
     var setCurrentDiagramId = function(diagramId) {
         currentDiagramId = diagramId;
+    };
+
+    var makeAggregateComponent = function(diagramId, jsonBaseData, type) {
+        let counter = getNameCounter(type);
+        let aggregateComponent = {
+            "cim:IdentifiedObject.name": type.toString() + counter,
+            "diagram": diagramId,
+        };
+        let id = generateUUID();
+        addCategorizedItem(jsonBaseData, type, id, aggregateComponent);
+        return aggregateComponent;
+    };
+
+    const typeIsVisible = function(type) {
+        return terminalAndPointLimits[type]['points'] > 0
     };
 
     var addComponentToBaseJson = function(jsonBaseData, type, point, diagramId) {
@@ -222,7 +252,12 @@ var cimedit = cimedit || (function() {
         };
 
         if (terminalAndPointLimits[type] != undefined) {
-            makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
+            if (typeIsVisible(type)) {
+                makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
+            }
+            else {
+                makeAggregateComponent(currentDiagramId, jsonBaseData, type);
+            }
         } else {
             console.error("I don't know what type of component a " + type + " is.")
         }
@@ -232,6 +267,7 @@ var cimedit = cimedit || (function() {
         addComponentToBaseJson,
         setCurrentDiagramId,
         terminalAndPointLimits,
+        typeIsVisible,
     };
 }());
 
