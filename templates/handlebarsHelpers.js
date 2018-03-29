@@ -59,6 +59,7 @@ Handlebars.registerHelper('getName', function(rdfIdObject) {
 Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, parentId, rdfid, type, attribute) {
     let updateMenu = "";
     if (type !== undefined) {
+        let requestedType = "cim:" + type;
         if (simpleTypes[type]) {
             let template = Handlebars.templates['cim_update_simple_type'];
             let possibleValues = JSON.parse(JSON.stringify(simpleTypes[type]));
@@ -67,9 +68,9 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
         }
         else if (complexTypes[type]) {
             let template = Handlebars.templates['cim_update_complex_type'];
-            let possibleClasses = JSON.parse(JSON.stringify(complexTypes[type]));
-            possibleClasses.splice(0, 0, type);
-            let matchingComponents = cimsvg.getAggregateComponentsList(possibleClasses);
+            let possibleClasses = [ type ];
+            possibleClasses.concat(complexTypes[type]);
+            let matchingComponents = cimsvg.getAggregateComponentsList(requestedType, possibleClasses);
             for (let index in matchingComponents['aggregates']) {
                 if(matchingComponents['aggregates'][index]['rdfid'] == rdfid) {
                     matchingComponents['aggregates'][index]['selected'] = 'selected';
@@ -77,6 +78,7 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
             }
             matchingComponents['attribute'] = attribute;
             matchingComponents['type'] = parentType;
+            matchingComponents['requestedType'] = requestedType;
             matchingComponents['rdfid'] = parentId;
             updateMenu = template(matchingComponents);
         }

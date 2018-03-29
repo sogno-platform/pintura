@@ -204,21 +204,11 @@ var cimedit = cimedit || (function() {
             "maxTerminals" : 0,
             "points": 0,
         },
-        "cim:Susceptance": {
-            "minTerminals" : 0,
-            "maxTerminals" : 0,
-            "points": 0,
-        },
         "cim:SynchronousMachine": {
             "minTerminals" : 1,
             "maxTerminals" : 4,
             "points": 1,
             "terminalStyle": constellationPoints,
-        },
-        "cim:VoltageLevel": {
-            "minTerminals" : 0,
-            "maxTerminals" : 0,
-            "points": 0,
         },
     };
 
@@ -240,7 +230,12 @@ var cimedit = cimedit || (function() {
     };
 
     const typeIsVisible = function(type) {
-        return terminalAndPointLimits[type]['points'] > 0
+        if(terminalAndPointLimits[type]) {
+            return (terminalAndPointLimits[type]['points'] > 0)
+        }
+        else {
+            return false
+        }
     };
 
     var addComponentToBaseJson = function(jsonBaseData, type, point, diagramId) {
@@ -258,8 +253,9 @@ var cimedit = cimedit || (function() {
             else {
                 makeAggregateComponent(currentDiagramId, jsonBaseData, type);
             }
-        } else {
-            console.error("I don't know what type of component a " + type + " is.")
+        }
+        else {
+            makeAggregateComponent(currentDiagramId, jsonBaseData, type);
         }
     };
 

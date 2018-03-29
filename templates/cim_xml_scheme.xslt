@@ -36,10 +36,15 @@
                         <span class="row-left floating-panel-name">cim:IdentifiedObject.name</span>
                         <xsl:text>&#xa;        </xsl:text>
                         <span class="row-right floating-panel-value">
+                        <span>
                            <input type="text">
                                <xsl:attribute name="value">{{[cim:IdentifiedObject.name]}}</xsl:attribute>
                                <xsl:attribute name="onchange">javascript:updateComponent('<xsl:value-of select="$type"/>', '{{rdfid}}', 'cim:IdentifiedObject.name', this.value)</xsl:attribute>
                            </input>
+                        </span>
+                        <span>
+                            <button style="visibility:hidden"> + </button>
+                        </span>
                         </span>
                         <xsl:text>&#xa;    </xsl:text>
                     </li>

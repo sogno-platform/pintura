@@ -1,9 +1,12 @@
-<span class="wide-row floating-panel-value">
+<span class="row-right wide-row  floating-panel-value">
     <span>
         <select onchange="updateComponent('{{type}}', '{{rdfid}}', '{{attribute}}', this.value)" class="update-complex-type dark-grey-background">
         {{#each aggregates}}
             <option type="{{type}}" value="{{rdfid}}" {{#if selected}} selected="selected" {{/if}} >{{name}}</option>
         {{/each}}
         </select>
+    </span>
+    <span>
+        <button onclick="cimsvg.addComponent('{{requestedType}}')"> + </button>
     </span>
 </span>

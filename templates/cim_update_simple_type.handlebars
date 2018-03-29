@@ -1,7 +1,12 @@
-<span class="wide-row floating-panel-value">
-    <select class="update-simple-type blue-grey-background">
-    {{#each values}}
-        <option value="{{this}}">{{this}}</option>
-    {{/each}}
-    </select>
+<span class="row-right wide-row floating-panel-value">
+    <span>
+        <select class="update-simple-type blue-grey-background">
+        {{#each values}}
+            <option value="{{this}}">{{this}}</option>
+        {{/each}}
+        </select>
+    </span>
+    <span>
+        <button style="visibility:hidden"> + </button>
+    </span>
 </span>

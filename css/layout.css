@@ -38,12 +38,15 @@ a:active,a:hover{
     outline-width:0;
 }
 button,input,select,textarea{
-    font:inherit;margin:0
+    font:inherit;margin:0;
+    border:3px solid #ccc;
+}
+button {
+    min-height:34px;
 }
 input, select, textarea{
     width:195px;
     height:28px;
-    border:3px solid #ccc;
     -ms-box-sizing:content-box;
     -moz-box-sizing:content-box;
     box-sizing:content-box;
@@ -60,9 +63,6 @@ button::-moz-focus-inner,
     justify-content:space-around;
     width:100%;
     order:0;
-}
-button {
-    min-height: 40px;
 }
 .row {
     display: flex;
@@ -224,8 +224,11 @@ button:hover {
 .row-left {
     order: 0;
 }
-.row-right {
+.row-middle {
     order: 1;
+}
+.row-right {
+    order: 2;
 }
 .panel-button {
     margin:0px;

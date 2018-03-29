@@ -241,9 +241,10 @@ var cimsvg = cimsvg || (function() {
         });
     };
 
-    const getAggregateComponentsList = function(types) {
+    const getAggregateComponentsList = function(requestedClass, types) {
+
         let baseJson = cimxml.getBaseJson();
-        let aggregateComponents = { aggregates: [{ rdfid: "", name: "--" }]};
+        let aggregateComponents = { aggregates: [{ rdfid: "", name: "Select " + requestedClass }]};
         for (let index in types) {
             let type = "cim:" + types[index];
             for (let component in baseJson[type]) {
