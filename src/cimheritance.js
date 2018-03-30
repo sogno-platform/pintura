@@ -44,7 +44,7 @@ var cimheritance = cimheritance || (function() {
         for (let i = 0; i < validValues.length; i++) {
             if(validValues[i].type() == 'element')
             {
-                newSimpleType.values.push(validValues[i].attr('value').value())
+                newSimpleType.values.push({ value: validValues[i].attr('value').value() })
             }
         }
         classMap['simpleTypes'][name] = newSimpleType

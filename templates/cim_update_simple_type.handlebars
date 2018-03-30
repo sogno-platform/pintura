@@ -1,8 +1,8 @@
 <span class="row-right wide-row floating-panel-value">
     <span>
-        <select class="update-simple-type blue-grey-background">
+        <select onchange="updateComponent('{{type}}', '{{rdfid}}', '{{attribute}}', this.value)" class="update-simple-type blue-grey-background">
         {{#each values}}
-            <option value="{{this}}">{{this}}</option>
+            <option value="{{this.value}}" {{#if this.selected}} selected="selected" {{/if}} >{{this.value}}</option>
         {{/each}}
         </select>
     </span>

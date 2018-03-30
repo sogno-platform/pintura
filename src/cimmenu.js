@@ -31,11 +31,10 @@ var cimmenu = cimmenu || (function() {
         containingPanelHeight = containingNode.getBoundingClientRect().height
         height = 0
         if (panelHeight < containingPanelHeight) {
-            height = 'height:' + panelHeight.toString() + 'px'
+            panelNode.style.height = panelHeight.toString() + 'px'
         } else {
-            height = 'height:100%'
+            panelNode.style.height = '100%'
         }
-        panelNode.setAttribute("style", height)
     };
 
     var populateComponentCreation = function(componentCreationNode, menuXml) {

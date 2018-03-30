@@ -60,26 +60,34 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
     let updateMenu = "";
     if (type !== undefined) {
         let requestedType = "cim:" + type;
+        let matchingComponents = {
+                'attribute': attribute,
+                'type': parentType,
+                'requestedType': requestedType,
+                'rdfid': parentId,
+        }
         if (simpleTypes[type]) {
             let template = Handlebars.templates['cim_update_simple_type'];
             let possibleValues = JSON.parse(JSON.stringify(simpleTypes[type]));
-            possibleValues.values.splice(0, 0, "--");
-            updateMenu = template(possibleValues);
+            possibleValues.values.splice(0, 0, { value: "--"});
+            matchingComponents.values = possibleValues.values;
+            for (let index in matchingComponents.values) {
+                if(matchingComponents.values[index].value == rdfid) {
+                    matchingComponents.values[index].selected = 'selected';
+                }
+            }
+            updateMenu = template(matchingComponents);
         }
         else if (complexTypes[type]) {
             let template = Handlebars.templates['cim_update_complex_type'];
             let possibleClasses = [ type ];
             possibleClasses.concat(complexTypes[type]);
-            let matchingComponents = cimsvg.getAggregateComponentsList(requestedType, possibleClasses);
-            for (let index in matchingComponents['aggregates']) {
-                if(matchingComponents['aggregates'][index]['rdfid'] == rdfid) {
-                    matchingComponents['aggregates'][index]['selected'] = 'selected';
+            matchingComponents.aggregates = cimsvg.getAggregateComponentsList(requestedType, possibleClasses).aggregates;
+            for (let index in matchingComponents.aggregates) {
+                if(matchingComponents.aggregates[index].rdfid == rdfid) {
+                    matchingComponents.aggregates[index].selected = 'selected';
                 }
             }
-            matchingComponents['attribute'] = attribute;
-            matchingComponents['type'] = parentType;
-            matchingComponents['requestedType'] = requestedType;
-            matchingComponents['rdfid'] = parentId;
             updateMenu = template(matchingComponents);
         }
     }

@@ -40,7 +40,7 @@ var cimjson = cimjson || (function() {
         return pathBase + imageNames[type];
     }
 
-    var convertDiagramObjectToTemplateFormat = function(diagramObject, graph, categoryGraphName, diagramList) {
+    var convertDiagramObjectToTemplateFormat = function(diagramObject, graph, categoryGraphName) {
 
         let originalPoints = diagramObject[PinturaDiagramObjectPoints];
         let preOffsetPoints = [];
@@ -71,12 +71,12 @@ var cimjson = cimjson || (function() {
                 "x": (parseInt(preOffsetPoints[0].x) + (imageWidth/2)).toString(),
                 "y": (parseInt(preOffsetPoints[0].y) - (imageHeight/2)).toString()
             };
-            object =
-            {
-                "pintura:image"  : getImageName(categoryGraphName),
-                "pintura:rdfId"  : rdfId,
-                "pintura:points" : imagePoints,
-                "pintura:label"  : {
+            object = {
+                "pintura:diagram" : diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1),
+                "pintura:image"   : getImageName(categoryGraphName),
+                "pintura:rdfId"   : rdfId,
+                "pintura:points"  : imagePoints,
+                "pintura:label"   : {
                     "text": categoryGraph[rdfId]["cim:IdentifiedObject.name"],
                     "x"   : labelPoint.x,
                     "y"   : labelPoint.y
@@ -96,12 +96,16 @@ var cimjson = cimjson || (function() {
                 preOffsetPoints.shift()
             }
         }
-        let diagram = diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1);
+        return object;
+    };
+
+    const addObjectToDiagramList = function(object, graph, diagramList) {
+        let diagram = object["pintura:diagram"]
         if (diagramList[diagram] === undefined){
             diagramList[diagram] = { "pintura:name" : graph["cim:Diagram"][diagram]["cim:IdentifiedObject.name"] };
         }
-        if (diagramObject["cim:DiagramObject.IdentifiedObject"]) {
-            let identifiedObject = diagramObject["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
+        if (object["pintura:rdfId"]) {
+            let identifiedObject = object["pintura:rdfId"];
             if (diagramList[diagram]["components"] === undefined){
                 diagramList[diagram]["components"] = {};
             }
@@ -117,21 +121,27 @@ var cimjson = cimjson || (function() {
         let output = { 'Diagram' : {} };
         let diagramList = output['Diagram'];
 
+        /* List the objects to be drawn by diagram */
         for (categoryGraphName in imageNames) {
 
             let categoryGraph = graph[categoryGraphName];
             for (let key in categoryGraph) {
                 let diagramObject = diagramObjects[key];
                 if (diagramObject != undefined) {
-                    convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName, diagramList);
+                    let object = convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName);
+                    addObjectToDiagramList(object, graph, diagramList);
+                    let rdfId = diagramObject["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
                 }
             }
         }
+
+        /* Put the name of the diagram in a more convenient place */
         for (let diagramId in graph["cim:Diagram"]) {
-            if (output["Diagram"][diagramId] === undefined){
-               diagramList[diagramId] = { "pintura:name" : graph["cim:Diagram"][diagramId]["cim:IdentifiedObject.name"] };
+            if (output["Diagram"][diagramId] === undefined) {
+                diagramList[diagramId] = { "pintura:name" : graph["cim:Diagram"][diagramId]["cim:IdentifiedObject.name"] };
             }
         }
+
         return output;
     };
 
