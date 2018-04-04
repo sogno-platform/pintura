@@ -28,31 +28,29 @@
                     <xsl:variable name="pre" select="'cim:'"/>
                     <xsl:value-of select="concat($pre, @name)"/>
                 </xsl:variable>
+
+                <!-- Make the heading -->
+                <xsl:text>&#xa;    </xsl:text>
+                <li class="wide-row floating-panel-item dark-grey-background">
+                    <xsl:text>&#xa;        </xsl:text>
+                    <span class="row-left floating-panel-name">IdentifiedObject.name</span>
+                    <xsl:text>&#xa;        </xsl:text>
+                    <span class="row-right floating-panel-value">
+                       <input type="text">
+                           <xsl:attribute name="value">{{[cim:IdentifiedObject.name]}}</xsl:attribute>
+                           <xsl:attribute name="onchange">javascript:updateComponent('<xsl:value-of select="$type"/>', '{{rdfid}}', 'cim:IdentifiedObject.name', this.value)</xsl:attribute>
+                       </input>
+                        <button style="visibility:hidden"> + </button>
+                        <button style="visibility:hidden"> -> </button>
+                    </span>
+                    <xsl:text>&#xa;    </xsl:text>
+                </li>
+                <xsl:text>&#xa;    </xsl:text>
+                <xsl:variable name="parentId">
+                    <xsl:value-of select="concat($lsq, 'rdfid', $rsq)"/>
+                </xsl:variable>
                 <xsl:for-each select="xs:complexContent/xs:extension">
-                    <!-- Make the heading -->
-                    <xsl:text>&#xa;    </xsl:text>
-                    <li class="wide-row floating-panel-item dark-grey-background">
-                        <xsl:text>&#xa;        </xsl:text>
-                        <span class="row-left floating-panel-name">cim:IdentifiedObject.name</span>
-                        <xsl:text>&#xa;        </xsl:text>
-                        <span class="row-right floating-panel-value">
-                        <span>
-                           <input type="text">
-                               <xsl:attribute name="value">{{[cim:IdentifiedObject.name]}}</xsl:attribute>
-                               <xsl:attribute name="onchange">javascript:updateComponent('<xsl:value-of select="$type"/>', '{{rdfid}}', 'cim:IdentifiedObject.name', this.value)</xsl:attribute>
-                           </input>
-                        </span>
-                        <span>
-                            <button style="visibility:hidden"> + </button>
-                        </span>
-                        </span>
-                        <xsl:text>&#xa;    </xsl:text>
-                    </li>
-                    <xsl:text>&#xa;    </xsl:text>
                     <xsl:for-each select="xs:sequence/xs:element">
-                        <xsl:variable name="parentId">
-                            <xsl:value-of select="concat($lsq, 'rdfid', $rsq)"/>
-                        </xsl:variable>
                         <xsl:variable name="rdfid">
                             <xsl:value-of select="concat($lsq, $type, '.', @name, $rsq)"/>
                         </xsl:variable>
@@ -79,6 +77,32 @@
                     </xsl:for-each>
                     <xsl:text>&#xa;</xsl:text>
                </xsl:for-each>
+               <xsl:for-each select="xs:sequence/xs:element">
+                   <xsl:variable name="rdfid">
+                       <xsl:value-of select="concat($lsq, $type, '.', @name, $rsq)"/>
+                   </xsl:variable>
+                   <xsl:variable name="aggregate_component_type">
+                       <xsl:value-of select="concat($apos, @type, $apos)"/>
+                   </xsl:variable>
+                   <xsl:variable name="attribute_name">
+                       <xsl:value-of select="concat($type, '.', @name)"/>
+                   </xsl:variable>
+                   <li class="wide-row floating-panel-item dark-grey-background">
+                       <xsl:text>&#xa;        </xsl:text>
+                       <span class="row-left floating-panel-name">
+                           <xsl:value-of select="$attribute_name"/>
+                       </span>
+                       <xsl:text>&#xa;        </xsl:text>
+                       <xsl:value-of select="concat($thr_lbr, 'getAggregateComponentMenu ',
+                                                     $apos, $type, $apos, ' ', $parentId, ' ',
+                                                     $rdfid, ' ', $aggregate_component_type, ' ',
+                                                     $apos, $attribute_name, $apos, $thr_rbr)"/>
+                       <xsl:text>&#xa;        </xsl:text>
+                       <xsl:text>&#xa;    </xsl:text>
+                   </li>
+                   <xsl:text>&#xa;    </xsl:text>
+               </xsl:for-each>
+               <xsl:text>&#xa;</xsl:text>
                </ul>
             </xsl:for-each>
     </xsl:template>

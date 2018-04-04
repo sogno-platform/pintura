@@ -49,7 +49,7 @@ var cimedit = cimedit || (function() {
         if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
             d += performance.now(); //use high-precision timer if available
         }
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        return 'idxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = (d + Math.random() * 16) % 16 | 0;
             d = Math.floor(d / 16);
             return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
@@ -264,6 +264,7 @@ var cimedit = cimedit || (function() {
         setCurrentDiagramId,
         terminalAndPointLimits,
         typeIsVisible,
+        generateUUID,
     };
 }());
 

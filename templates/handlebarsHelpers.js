@@ -58,9 +58,21 @@ Handlebars.registerHelper('getName', function(rdfIdObject) {
 
 Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, parentId, rdfid, type, attribute) {
     let updateMenu = "";
+    let dropdownId = cimedit.generateUUID();
     if (type !== undefined) {
+        if (type == "Float" || type == "Integer" || type == "Boolean" ) {
+            updateMenu =`
+            <span class="row-right wide-row floating-panel-value">
+                <input type="text"></input>
+                <button style="visibility:hidden"> + </button>
+                <button style="visibility:hidden"> -> </button>
+            </span>
+        `
+        }
+        else {
         let requestedType = "cim:" + type;
         let matchingComponents = {
+                'dropdownId': dropdownId,
                 'attribute': attribute,
                 'type': parentType,
                 'requestedType': requestedType,
@@ -76,6 +88,8 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
                     matchingComponents.values[index].selected = 'selected';
                 }
             }
+            matchingComponents['simpletype'] = true;
+            matchingComponents['buttonVisibility'] = "visibility:hidden";
             updateMenu = template(matchingComponents);
         }
         else if (complexTypes[type]) {
