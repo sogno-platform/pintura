@@ -70,39 +70,40 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
         `
         }
         else {
-        let requestedType = "cim:" + type;
-        let matchingComponents = {
-                'dropdownId': dropdownId,
-                'attribute': attribute,
-                'type': parentType,
-                'requestedType': requestedType,
-                'rdfid': parentId,
-        }
-        if (simpleTypes[type]) {
-            let template = Handlebars.templates['cim_update_simple_type'];
-            let possibleValues = JSON.parse(JSON.stringify(simpleTypes[type]));
-            possibleValues.values.splice(0, 0, { value: "--"});
-            matchingComponents.values = possibleValues.values;
-            for (let index in matchingComponents.values) {
-                if(matchingComponents.values[index].value == rdfid) {
-                    matchingComponents.values[index].selected = 'selected';
-                }
+            let requestedType = "cim:" + type;
+            let matchingComponents = {
+                    'dropdownId': dropdownId,
+                    'attribute': attribute,
+                    'type': parentType,
+                    'requestedType': requestedType,
+                    'rdfid': parentId,
             }
-            matchingComponents['simpletype'] = true;
-            matchingComponents['buttonVisibility'] = "visibility:hidden";
-            updateMenu = template(matchingComponents);
-        }
-        else if (complexTypes[type]) {
-            let template = Handlebars.templates['cim_update_complex_type'];
-            let possibleClasses = [ type ];
-            possibleClasses.concat(complexTypes[type]);
-            matchingComponents.aggregates = cimsvg.getAggregateComponentsList(requestedType, possibleClasses).aggregates;
-            for (let index in matchingComponents.aggregates) {
-                if(matchingComponents.aggregates[index].rdfid == rdfid) {
-                    matchingComponents.aggregates[index].selected = 'selected';
+            if (simpleTypes[type]) {
+                let template = Handlebars.templates['cim_update_simple_type'];
+                let possibleValues = JSON.parse(JSON.stringify(simpleTypes[type]));
+                possibleValues.values.splice(0, 0, { value: "--"});
+                matchingComponents.values = possibleValues.values;
+                for (let index in matchingComponents.values) {
+                    if(matchingComponents.values[index].value == rdfid) {
+                        matchingComponents.values[index].selected = 'selected';
+                    }
                 }
+                matchingComponents['simpletype'] = true;
+                matchingComponents['buttonVisibility'] = "visibility:hidden";
+                updateMenu = template(matchingComponents);
             }
-            updateMenu = template(matchingComponents);
+            else if (complexTypes[type]) {
+                let template = Handlebars.templates['cim_update_complex_type'];
+                let possibleClasses = [ type ];
+                possibleClasses.concat(complexTypes[type]);
+                matchingComponents.aggregates = cimsvg.getAggregateComponentsList(requestedType, possibleClasses).aggregates;
+                for (let index in matchingComponents.aggregates) {
+                    if(matchingComponents.aggregates[index].rdfid == rdfid) {
+                        matchingComponents.aggregates[index].selected = 'selected';
+                    }
+                }
+                updateMenu = template(matchingComponents);
+            }
         }
     }
     return new Handlebars.SafeString(updateMenu);
