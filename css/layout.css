@@ -52,6 +52,9 @@ input, select, textarea{
     box-sizing:content-box;
     -webkit-box-sizing:content-box;
 }
+input {
+    height:26px;
+}
 button::-moz-focus-inner,
   [type=button]::-moz-focus-inner,
   [type=reset]::-moz-focus-inner,
