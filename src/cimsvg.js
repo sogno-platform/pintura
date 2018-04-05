@@ -122,6 +122,10 @@ var cimsvg = cimsvg || (function() {
         }
     };
 
+    const saveGridXml = function() {
+        saveFile(cimxml.getBaseXML())
+    };
+
     var setFileCount = function(count) {
         cimxml.setRdfFileCount(count);
     };
@@ -293,6 +297,7 @@ var cimsvg = cimsvg || (function() {
         getObjectUsingId,
         getObjectTypeUsingId,
         getRdfResource,
+        saveGridXml,
     };
 
 }());

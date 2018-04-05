@@ -24,8 +24,18 @@ var cimxml = cimxml || (function() {
     var jsonBaseData = null;
     const xmlnsString = "xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:cim='http://iec.ch/TC57/2012/CIM-schema-cim16#' xmlns:md='http://iec.ch/TC57/61970-552/ModelDescription/1#' xmlns:entsoe='http://entsoe.eu/Secretariat/ProfileExtension/2#'";
 
-    var getRawXML = function() {
-        return xmlDoc;
+    var getBaseXML = function() {
+        let baseJson = getBaseJson();
+        //console.log(JSON.stringify(baseJson))
+        baseXml = getDOM("<rdf:RDF "+xmlns()+"/>");
+        for (let component in baseJson) {
+            addChild(baseJson[component], component, baseXml, baseXml.documentElement)
+        }
+        var oSerializer = new XMLSerializer();
+        var sXML = oSerializer.serializeToString(baseXml);
+        //console.log(sXML)
+
+        return sXML;
     };
 
     var getBaseJson = function() {
@@ -249,7 +259,7 @@ var cimxml = cimxml || (function() {
         setRdfFileCount,
         clearXmlData,
         moreXmlData,
-        getRawXML,
+        getBaseXML,
         updateComponentInBaseJson,
     };
 }());

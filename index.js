@@ -24,6 +24,7 @@ cimsvg.init(
 );
 
 document.getElementById("fileopen").addEventListener('change', readFile, false);
+document.getElementById("filesave").addEventListener('change', saveFile, false);
 
 var updateComponent = function(type, id, attribute, value) {
     cimsvg.updateComponent(type, id, attribute, value)
@@ -140,6 +141,13 @@ function doSearch(inputId, textareaId) {
     box.focus();
     box.setSelectionRange(startIndexStr, endIndexStr);//searchStr.length);
     //box.scrollTop=(index/length)*100;
+};
+function saveFile(data) {
+    var blob = new Blob([data], {type: "text/xml"}),
+        url = window.URL.createObjectURL(blob);
+    filesave.href = url;
+    filesave.click();
+    window.URL.revokeObjectURL(url);
 };
 function readFile(e) {
     var files = e.target.files;

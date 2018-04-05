@@ -125,10 +125,12 @@ function tag(name){
   }
 }
 
-var makeFileMenu = function (text, input_name, action) {
-  let input = new tag('input').a('id', '"' + input_name + '"').a('type', '"file"').a('style', '"display:none"').a('multiple', '"true"')
-  let a_tag = new tag('a').t(text).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', action)
-  return new tag('div').c(input).c(a_tag).a('id', '"menu"')
+var makeFileMenu = function (open_text, open_name, open_action, save_text, save_name, save_action) {
+  let open_input = new tag('input').a('id', '"' + open_name + '"').a('type', '"file"').a('style', '"display:none"').a('multiple', '"true"')
+  let open_a_tag = new tag('a').t(open_text).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', open_action)
+  let save_a_tag = new tag('a').a('id', '"' + save_name + '"').a('type', '"file"').a('download', '"pinturaGrid.xml"')
+  let save_span = new tag('span').t(save_text).a('class', '"button"').a('onclick', '"' + save_action + '"')
+  return new tag('div').c(open_input).c(open_a_tag).c(save_a_tag).c(save_span).a('id', '"menu"')
 }
 
 var makeAccordionDiv = function(id, action) {
@@ -155,7 +157,7 @@ body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
                   c(new tag('div').a('id', '"component-sidebar-list"').t(' ')).
-                  c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()')).
+                  c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()', 'Save file', 'filesave', 'cimsvg.saveGridXml()')).
                   c(makePanelOpeningButton('diagram-add', "Add Diagram", "javascript:cimsvg.addDiagram()"))
 
 var svg = new tag('svg').a('id', '"svg"').
