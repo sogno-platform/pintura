@@ -95,7 +95,7 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
             else if (complexTypes[type]) {
                 let template = Handlebars.templates['cim_update_complex_type'];
                 let possibleClasses = [ type ];
-                possibleClasses.concat(complexTypes[type]);
+                possibleClasses = possibleClasses.concat(complexTypes[type]);
                 matchingComponents.aggregates = cimsvg.getAggregateComponentsList(requestedType, possibleClasses).aggregates;
                 for (let index in matchingComponents.aggregates) {
                     if(matchingComponents.aggregates[index].rdfid == rdfid) {

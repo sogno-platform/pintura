@@ -144,10 +144,11 @@ function doSearch(inputId, textareaId) {
 };
 function saveFile(data) {
     var blob = new Blob([data], {type: "text/xml"}),
-        url = window.URL.createObjectURL(blob);
+        url = URL.createObjectURL(blob);
     filesave.href = url;
-    filesave.click();
-    window.URL.revokeObjectURL(url);
+    setTimeout(function() {
+        URL.revokeObjectURL(url);
+    }, 0);
 };
 function readFile(e) {
     var files = e.target.files;

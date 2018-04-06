@@ -97,7 +97,6 @@ var cimedit = cimedit || (function() {
         let counter = getNameCounter(type);
         newAttributes = {
             "cim:IdentifiedObject.name": type + counter.toString(),
-            "dirty": "true",
             "terminals": terminalIds,
         };
         let componentData = Object.assign({}, attributes, newAttributes);
@@ -116,7 +115,6 @@ var cimedit = cimedit || (function() {
             "cim:Terminal.ConnectivityNode": { "rdf:resource":"#none" },
             "cim:Terminal.phases": {},
             "diagramObject": { ["#"+diagramId] : { points: diagramObjectPoints }},
-            "dirty": true,
         }
         addCategorizedItem(newStuff, "cim:Terminal", id, terminal);
         return id;

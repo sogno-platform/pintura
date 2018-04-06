@@ -26,14 +26,20 @@ var cimxml = cimxml || (function() {
 
     var getBaseXML = function() {
         let baseJson = getBaseJson();
-        //console.log(JSON.stringify(baseJson))
         baseXml = getDOM("<rdf:RDF "+xmlns()+"/>");
         for (let component in baseJson) {
-            addChild(baseJson[component], component, baseXml, baseXml.documentElement)
+            for (let rdfid in baseJson[component]) {
+                let object = baseJson[component][rdfid]
+                let child = baseXml.createElement(component);
+                child.setAttribute("rdf:ID", object["rdfid"]);
+                for (let item in object) {
+                    addChild(object[item], item, baseXml, child)
+                }
+                baseXml.documentElement.appendChild(child)
+            }
         }
         var oSerializer = new XMLSerializer();
         var sXML = oSerializer.serializeToString(baseXml);
-        //console.log(sXML)
 
         return sXML;
     };
@@ -51,12 +57,11 @@ var cimxml = cimxml || (function() {
     var addChild = function(object, name, doc, owner) {
 
         let child;
-        if (typeof object == "object") {
-            child = doc.createElement(name);
+        child = doc.createElement(name);
+        if (object["rdf:resource"] !== undefined) {
             child.setAttribute("rdf:resource", object["rdf:resource"]);
         }
         else {
-            child = doc.createElement(name);
             child.innerHTML = object;
         }
         owner.appendChild(child);
