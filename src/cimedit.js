@@ -67,10 +67,11 @@ var cimedit = cimedit || (function() {
         object[category][id] = item;
     };
 
-    var makeAComponentWithTerminals = function(diagramId, graph, type, point, attributes, terminalConfig) {
+    var makeVisibleComponent= function(diagramId, graph, type, point, attributes, terminalConfig) {
         let id = generateUUID();
-        componentPoints = [];
-        terminalPoints = [];
+        let componentPoints = [];
+        let terminalPoints = [];
+        let terminalIds = [];
         componentPoints[0] = point;
 
         if (terminalConfig['terminalStyle'] == linePoints) {
@@ -81,6 +82,9 @@ var cimedit = cimedit || (function() {
             nextPoint.y = 100 + point.y;
             terminalPoints.push(nextPoint);
             componentPoints.push(nextPoint);
+            for (let i = 0; i<terminalPoints.length; i++) {
+                terminalIds.push(makeTerminal(diagramId, graph, (i+1).toString(), id, terminalPoints[i]));
+            }
         }
         if (terminalConfig['terminalStyle'] == constellationPoints) {
             nextPoint = {};
@@ -90,10 +94,6 @@ var cimedit = cimedit || (function() {
         }
 
         let diagramObjectPoints = makeDiagramObjectWithPoints(graph, diagramId, id, componentPoints);
-        let terminalIds = [];
-        for (let i = 0; i<terminalPoints.length; i++) {
-            terminalIds.push(makeTerminal(diagramId, graph, (i+1).toString(), id, terminalPoints[i]));
-        }
         let counter = getNameCounter(type);
         newAttributes = {
             "cim:IdentifiedObject.name": type + counter.toString(),
@@ -197,11 +197,6 @@ var cimedit = cimedit || (function() {
             "points": 1,
             "terminalStyle": constellationPoints,
         },
-        "cim:PowerTransformerEnd": {
-            "minTerminals" : 0,
-            "maxTerminals" : 0,
-            "points": 0,
-        },
         "cim:SynchronousMachine": {
             "minTerminals" : 1,
             "maxTerminals" : 4,
@@ -227,6 +222,15 @@ var cimedit = cimedit || (function() {
         return aggregateComponent;
     };
 
+    const typeHasVariableTerminalCount = function() {
+        if(terminalAndPointLimits[type]) {
+            return (terminalAndPointLimits[type]['minTerminals'] != terminalAndPointLimits[type]['maxTerminals'])
+        }
+        else {
+            return false
+        }
+    };
+
     const typeIsVisible = function(type) {
         if(terminalAndPointLimits[type]) {
             return (terminalAndPointLimits[type]['points'] > 0)
@@ -246,7 +250,7 @@ var cimedit = cimedit || (function() {
 
         if (terminalAndPointLimits[type] != undefined) {
             if (typeIsVisible(type)) {
-                makeAComponentWithTerminals(currentDiagramId, jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
+                makeVisibleComponent(currentDiagramId, jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
             }
             else {
                 makeAggregateComponent(currentDiagramId, jsonBaseData, type);
@@ -261,6 +265,7 @@ var cimedit = cimedit || (function() {
         addComponentToBaseJson,
         setCurrentDiagramId,
         terminalAndPointLimits,
+        typeHasVariableTerminalCount,
         typeIsVisible,
         generateUUID,
     };
