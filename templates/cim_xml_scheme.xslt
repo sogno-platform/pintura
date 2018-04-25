@@ -103,6 +103,20 @@
                    <xsl:text>&#xa;    </xsl:text>
                </xsl:for-each>
                <xsl:text>&#xa;</xsl:text>
+                   <li class="wide-row floating-panel-item dark-grey-background">
+                       <xsl:text>&#xa;        </xsl:text>
+                       <span class="row-left floating-panel-name">
+                           "Show Terminals"
+                       </span>
+                    <span class="row-right floating-panel-value">
+                        <button>
+                            <xsl:attribute name="onclick">
+                                <xsl:value-of select="concat('cimsvg.populateTerminals(', $apos, $type, $apos, ', ', $apos, $thr_lbr, $parentId, $thr_rbr, $apos, ')')"/>
+                            </xsl:attribute>
+                            ->
+                        </button>
+                    </span>
+                   </li>
                </ul>
             </xsl:for-each>
     </xsl:template>

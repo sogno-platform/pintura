@@ -24,10 +24,10 @@ var cimmenu = cimmenu || (function() {
         sidebar.querySelector('#component-sidebar-list').innerHTML = data;
     };
 
-    var calculatePanelHeight = function(data, panelNode, containingNode) {
+    var calculatePanelHeight = function(data, panelNode, containingNode, titleHeight = 50) {
         let links = data.split('<li')
         let listLength = links.length - 1;
-        panelHeight = 40 + 10 + (listLength * 40)
+        panelHeight = titleHeight + (listLength * 40)
         containingPanelHeight = containingNode.getBoundingClientRect().height
         height = 0
         if (panelHeight < containingPanelHeight) {
@@ -42,11 +42,13 @@ var cimmenu = cimmenu || (function() {
 
         let ul = new DOMParser().parseFromString("<ul class='floating-panel-list'></ul>", 'text/xml');
         for (let item in cimedit.terminalAndPointLimits) {
-            let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
-            let xpathResult = menuXml.evaluate( xpathQuery, menuXml.documentElement, null, XPathResult.ANY_TYPE, null );
-            let match = xpathResult.iterateNext();
-            if (match) {
-                ul.documentElement.appendChild(match);
+            if (cimedit.terminalAndPointLimits[item].maxTerminals > 0) {
+                let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
+                let xpathResult = menuXml.evaluate( xpathQuery, menuXml.documentElement, null, XPathResult.ANY_TYPE, null );
+                let match = xpathResult.iterateNext();
+                if (match) {
+                    ul.documentElement.appendChild(match);
+                }
             }
         }
         accordion.innerHTML = ul.documentElement.outerHTML;
@@ -81,6 +83,40 @@ var cimmenu = cimmenu || (function() {
         calculatePanelHeight(data, node, document.body);
     };
 
+    const populateTerminals = function(node, type, rdfid) {
+        let baseJson = cimxml.getBaseJson();
+        if (baseJson[type] && baseJson[type][rdfid]) {
+            var template = Handlebars.templates['cim_list_terminals'];
+            let terminals = baseJson[type][rdfid]['terminals']
+            let begin =`
+                <span class="row-right wide-row floating-panel-value">
+                    <input value="Add New Terminal" type="text"></input>
+                    <button onclick='`
+            let click = 'cimsvg.addTerminal("' + type + '", "' +rdfid + '");cimsvg.applyTemplates();cimsvg.populateTerminals("' + type + '", "' + rdfid +'")'
+            let end = `;'> + </button>
+                </span>
+            `;
+            let menuData = begin + click + end;
+            for (let index in terminals) {
+                let terminalId = terminals[index];
+                let terminal = baseJson["cim:Terminal"][terminalId];
+                let templateData = {
+                    "name": terminal['cim:IdentifiedObject.name'],
+                    "rdfid": rdfid,
+                    "terminalId": terminalId,
+                    "type": type,
+                };
+                menuData += template(templateData);
+            }
+            let list = node.querySelector('#component-terminals-list-div')
+            list.innerHTML = menuData;
+            calculatePanelHeight(list.innerHTML, node, document.body, 100);
+            showContainer('component-terminals', null, 'true');
+        }
+        else {
+            console.error("Couldn't find " + rdfid + " in " + baseJson[type])
+        }
+    };
     var searchSidebar=function(searchString) {
         var elements = document.getElementsByClassName('component-list-item');
         for (var i=0; i<elements.length; i++)
@@ -101,6 +137,7 @@ var cimmenu = cimmenu || (function() {
         searchSidebar,
         populateSidebar,
         populateAttributes,
+        populateTerminals,
         populateAttributesIdOnly,
     };
 }());

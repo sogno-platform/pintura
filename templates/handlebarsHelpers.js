@@ -58,7 +58,6 @@ Handlebars.registerHelper('getName', function(rdfIdObject) {
 
 Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, parentId, rdfid, type, attribute) {
     let updateMenu = "";
-    let dropdownId = cimedit.generateUUID();
     if (type !== undefined) {
         if (type == "Float" || type == "Integer" || type == "Boolean" ) {
             updateMenu =`
@@ -71,12 +70,13 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
         }
         else {
             let requestedType = "cim:" + type;
+            let dropdownId = cimedit.generateUUID();
             let matchingComponents = {
-                    'dropdownId': dropdownId,
                     'attribute': attribute,
-                    'type': parentType,
+                    'dropdownId': dropdownId,
                     'requestedType': requestedType,
                     'rdfid': parentId,
+                    'type': parentType,
             }
             if (simpleTypes[type]) {
                 let template = Handlebars.templates['cim_update_simple_type'];

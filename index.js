@@ -20,7 +20,8 @@ cimsvg.init(
     document.getElementById("svg"),
     document.getElementById("sidebar"),
     document.getElementById("component-attributes"),
-    document.getElementById("component-creation")
+    document.getElementById("component-creation"),
+    document.getElementById("component-terminals")
 );
 
 document.getElementById("fileopen").addEventListener('change', readFile, false);
@@ -111,6 +112,10 @@ var addClass = function(container, newClass, oldClass1, oldClass2) {
         elem.classList.remove(oldClass2)
     }
     elem.classList.add(newClass)
+};
+var hideContainer = function(container) {
+    var x = document.getElementById(container);
+    x.style.display = "none";
 };
 var showContainer = function(container, icon, show="false", newClass="block"){
     var x = document.getElementById(container);

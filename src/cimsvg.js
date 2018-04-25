@@ -38,6 +38,11 @@ var cimsvg = cimsvg || (function() {
     var addingPoint = null;
     var componentCreationNode = null;
     var componentAttributesNode = null;
+    var componentTerminalsNode = null;
+
+    const getComponentTerminalsNode = function() {
+        return componentTerminalsNode;
+    };
 
     const getComponentCreationNode = function() {
         return componentCreationNode ;
@@ -82,8 +87,37 @@ var cimsvg = cimsvg || (function() {
             showContainer('component-creation');
         }
         else {
-            addComponentAndApplyTemplates(type);
+            return addComponentAndApplyTemplates(type);
         }
+    };
+
+    var removeComponent = function(type, rdfid) {
+        let baseJson = cimxml.getBaseJson();
+        cimedit.removeComponentFromBaseJson(baseJson, type, rdfid)
+        applyTemplates();
+    };
+
+    var addTerminal = function(type, rdfid) {
+        let baseJson = cimxml.getBaseJson();
+        cimedit.addTerminal(baseJson, type, rdfid);
+    };
+
+    var removeTerminal = function(type, rdfid, terminalId) {
+        let baseJson = cimxml.getBaseJson();
+        if (baseJson[type] && baseJson[type][rdfid]) {
+            let terminals = baseJson[type][rdfid]['terminals'];
+            if (terminals) {
+                let index = terminals.indexOf(terminalId);
+                if (index != -1) {
+                    terminals.splice(index)
+                 }
+            }
+        }
+    };
+
+    const populateTerminals = function(type, rdfid) {
+        cimmenu.populateTerminals(componentTerminalsNode, type, rdfid)
+        hideContainer('component-attributes')
     };
 
     var checkComponentReadyToAdd = function(evt) {
@@ -101,14 +135,20 @@ var cimsvg = cimsvg || (function() {
         backing.style.cursor = 'initial';
     };
 
-    var addComponentAndApplyTemplates = function(type, point) {
-        baseJson = cimxml.getBaseJson();
-        cimedit.addComponentToBaseJson(baseJson, type, point);
-        templateJson = cimjson.getTemplateJson(baseJson);
+    var applyTemplates = function() {
+        let baseJson = cimxml.getBaseJson();
+        let templateJson = cimjson.getTemplateJson(baseJson);
         svgNode.getElementById('diagrams').innerHTML = applyTemplate(templateJson);
         if(sidebarNode != null) {
             cimmenu.populateSidebar(sidebarNode, templateJson);
         }
+    };
+
+    var addComponentAndApplyTemplates = function(type, point) {
+        let baseJson = cimxml.getBaseJson();
+        let rdfid = cimedit.addComponentToBaseJson(baseJson, type, point);
+        applyTemplates();
+        return rdfid;
     };
 
     var loadFile = function(fileContents) {
@@ -222,7 +262,7 @@ var cimsvg = cimsvg || (function() {
         return undefined;
     };
 
-    var loadDependencies = function(componentAttributes, componentCreation) {
+    var loadDependencies = function(componentCreation) {
         includeFile("handlebars.runtime.js", function() {
             includeFile("src/cimlog.js", function() {
                 includeFile("src/cimview.js", function() {
@@ -263,11 +303,12 @@ var cimsvg = cimsvg || (function() {
     };
 
     return {
-        init : function(svg, sidebar, componentAttributes, componentCreation) {
+        init : function(svg, sidebar, componentAttributes, componentCreation, componentTerminals) {
             svgNode = svg;
             sidebarNode = sidebar;
             componentAttributesNode = componentAttributes;
             componentCreationNode = componentCreation;
+            componentTerminalsNode = componentTerminals;
             if (typeof module !== 'undefined' && module.exports) {
                 cimview.init(svgNode);
                 if(sidebarNode != undefined) {
@@ -277,7 +318,7 @@ var cimsvg = cimsvg || (function() {
                 }
             }
             else {
-                loadDependencies(componentAttributes, componentCreation);
+                loadDependencies(componentCreation);
             }
         },
         setSVG : function(svg) {
@@ -287,6 +328,11 @@ var cimsvg = cimsvg || (function() {
         setFileCount,
         updateComponent,
         addComponent,
+        addTerminal,
+        applyTemplates,
+        removeComponent,
+        removeTerminal,
+        populateTerminals,
         checkComponentReadyToAdd,
         addDiagram,
         setCurrentDiagramId : function(id) { cimedit.setCurrentDiagramId(id); },
@@ -294,6 +340,7 @@ var cimsvg = cimsvg || (function() {
         getAggregateComponentsList,
         getComponentAttributesNode,
         getComponentCreationNode,
+        getComponentTerminalsNode,
         getObjectUsingId,
         getObjectTypeUsingId,
         getRdfResource,

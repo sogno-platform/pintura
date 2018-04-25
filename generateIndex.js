@@ -256,8 +256,9 @@ var make_floating_panel = function(title, id) {
 
 var component_attributes = make_floating_panel("Attributes in Component", 'component-attributes')
 var component_creation = make_floating_panel("Component Type To Add", 'component-creation')
+var component_terminals = make_floating_panel("Component Terminal List", 'component-terminals')
 
-var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes).c(component_creation)
+var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes).c(component_creation).c(component_terminals)
 
 body.c(sidebar).c(main)
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/cimsvg.js"').t(" "))
