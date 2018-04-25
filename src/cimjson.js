@@ -198,7 +198,7 @@ var cimjson = cimjson || (function() {
 
             diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(updatedDiagramObjects);
         }
-        templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
+        let templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
         return templateReadyFormat;
     };
 

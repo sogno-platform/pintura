@@ -104,10 +104,30 @@ var cimedit = cimedit || (function() {
         return id;
     };
 
+    const getConductingEquipmentFromTerminal = function(graph, terminalId) {
+        if (graph['cim:Terminal'][terminalId]['cim:Terminal.ConductingEquipment']) {
+            let conductingEquipmentObject = graph['cim:Terminal'][terminalId]['cim:Terminal.ConductingEquipment'];
+            if (conductingEquipmentObject['rdf:resource']) {
+                return conductingEquipmentObject['rdf:resource'].substr(1);
+            }
+        }
+    };
+
+    const getConductingEquipmentObjectTypeFromId = function(graph, rdfid) {
+        for (type in terminalAndPointLimits) {
+            if (graph[type] && graph[type][rdfid]) {
+                return type;
+            }
+        }
+        return undefined
+    };
+
     const moveTerminalIntoComponentOrbit = function(graph, terminalId, type, conductingEquipmentId) {
         let terminal = graph['cim:Terminal'][terminalId];
-        let diagramObject = graph['cim:DiagramObject'][terminal['diagramObject']]
+        let diagramObject = terminal['diagramObject']
+        console.log(diagramObject)
         let points = graph['cim:Terminal'][terminalId]
+        getConductingEquipmentObjectTypeFromId(graph, conductingEquipmentId)
     };
 
     var addTerminal = function(baseJson, type, rdfid) {

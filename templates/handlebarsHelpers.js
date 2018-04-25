@@ -24,6 +24,13 @@ let complexTypes = classStructure.complexTypes;
 Handlebars.registerHelper('getRdfId', function(object) {
     return new Handlebars.SafeString(cimsvg.getRdfResource());
 });
+Handlebars.registerHelper('neq', function(v1, v2, options) {
+  console.log(v1, v2)
+  if(v1 !== v2) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
 
 Handlebars.registerHelper('viewAggregateComponentLink', function(rdfIdObject) {
     let rdfid = cimsvg.getRdfResource(rdfIdObject);

@@ -10,14 +10,13 @@
             <xsl:sort select="@name"/>
                 <xsl:variable name="thr_lbr">{{{</xsl:variable>
                 <xsl:variable name="thr_rbr">}}}</xsl:variable>
+                <xsl:variable name="two_lbr">{{</xsl:variable>
+                <xsl:variable name="two_rbr">}}</xsl:variable>
                 <xsl:variable name="lsq">[</xsl:variable>
                 <xsl:variable name="rsq">]</xsl:variable>
                 <xsl:variable name="apos">'</xsl:variable>
-                <xsl:variable name="else">
-                    <xsl:text>{{else}}</xsl:text>
-                </xsl:variable>
-                <xsl:variable name="endif">
-                    <xsl:text>{{/if}}</xsl:text>
+                <xsl:variable name="endeq">
+                    <xsl:text>{{/neq}}</xsl:text>
                 </xsl:variable>
 
                 <ul class="floating-panel-list">
@@ -103,20 +102,23 @@
                    <xsl:text>&#xa;    </xsl:text>
                </xsl:for-each>
                <xsl:text>&#xa;</xsl:text>
+                   <xsl:value-of select="concat($two_lbr, '#neq ', $apos, @name, $apos, ' ', $apos, 'Terminal', $apos, $two_rbr)"/>
+               <xsl:text>&#xa;</xsl:text>
                    <li class="wide-row floating-panel-item dark-grey-background">
                        <xsl:text>&#xa;        </xsl:text>
-                       <span class="row-left floating-panel-name">
-                           "Show Terminals"
-                       </span>
-                    <span class="row-right floating-panel-value">
-                        <button>
-                            <xsl:attribute name="onclick">
-                                <xsl:value-of select="concat('cimsvg.populateTerminals(', $apos, $type, $apos, ', ', $apos, $thr_lbr, $parentId, $thr_rbr, $apos, ')')"/>
-                            </xsl:attribute>
-                            ->
-                        </button>
+                       <span class="row-left floating-panel-name">Show Terminals</span>
+                       <span class="row-right floating-panel-value">
+                       <button>
+                           <xsl:attribute name="onclick">
+                               <xsl:value-of select="concat('cimsvg.populateTerminals(', $apos, $type, $apos, ', ', $apos, $thr_lbr, $parentId, $thr_rbr, $apos, ')')"/>
+                           </xsl:attribute>
+                           ->
+                       </button>
                     </span>
                    </li>
+               <xsl:text>&#xa;</xsl:text>
+                   <xsl:value-of select="$endeq"/>
+               <xsl:text>&#xa;</xsl:text>
                </ul>
             </xsl:for-each>
     </xsl:template>
