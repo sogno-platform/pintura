@@ -6,54 +6,7 @@
 	<xs:include schemaLocation="Domain.xsd"/>
 	<xs:include/>
 	<xs:include schemaLocation="Core.xsd"/>
-	<xs:simpleType name="OperationalLimitDirectionKind">
-		<xs:annotation>
-			<xs:documentation>The direction attribute describes the side of  a limit that is a violation.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="high">
-				<xs:annotation>
-					<xs:documentation>High means that a monitored value above the limit value is a violation.   If applied to a terminal flow, the positive direction is into the terminal.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="low">
-				<xs:annotation>
-					<xs:documentation>Low means a monitored value below the limit is a violation.  If applied to a terminal flow, the positive direction is into the terminal.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="absoluteValue">
-				<xs:annotation>
-					<xs:documentation>An absoluteValue limit means that a monitored absolute value above the limit value is a violation.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:complexType name="OperationalLimit">
-		<xs:annotation>
-			<xs:documentation>A value associated with a specific kind of limit. 
-The sub class value attribute shall be positive. 
-The sub class value attribute is inversely proportional to OperationalLimitType.acceptableDuration (acceptableDuration for short). A pair of value_x and acceptableDuration_x are related to each other as follows:
-if value_1 &gt; value_2 &gt; value_3 &gt;... then
-acceptableDuration_1 &lt; acceptableDuration_2 &lt; acceptableDuration_3 &lt; ...
-A value_x with direction="high" shall be greater than a value_y with direction="low".</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="IdentifiedObject">
-				<xs:sequence>
-					<xs:element name="OperationalLimitType" type="OperationalLimitType" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The limit type associated with this limit.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="LimitDependencyModel" type="LimitDependency" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation>The limit dependency models which are used to calculate this limit.   If no limit dependencies are specified then the native limit value is used.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
+	<xs:element name="ActivePowerLimit" type="ActivePowerLimit"/>
 	<xs:complexType name="ActivePowerLimit">
 		<xs:annotation>
 			<xs:documentation>Limit on active power flow.</xs:documentation>
@@ -70,6 +23,7 @@ A value_x with direction="high" shall be greater than a value_y with direction="
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+	<xs:element name="ApparentPowerLimit" type="ApparentPowerLimit"/>
 	<xs:complexType name="ApparentPowerLimit">
 		<xs:annotation>
 			<xs:documentation>Apparent power limit.</xs:documentation>
@@ -86,38 +40,7 @@ A value_x with direction="high" shall be greater than a value_y with direction="
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
-	<xs:complexType name="CurrentLimit">
-		<xs:annotation>
-			<xs:documentation>Operational limit on current. </xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="OperationalLimit">
-				<xs:sequence>
-					<xs:element name="value" type="CurrentFlow" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>Limit on current flow.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	<xs:complexType name="VoltageLimit">
-		<xs:annotation>
-			<xs:documentation>Operational limit applied to voltage.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="OperationalLimit">
-				<xs:sequence>
-					<xs:element name="value" type="Voltage" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>Limit on voltage. High or low limit nature of the limit depends upon the properties of the operational limit type.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
+	<xs:element name="BranchGroup" type="BranchGroup"/>
 	<xs:complexType name="BranchGroup">
 		<xs:annotation>
 			<xs:documentation>A group of branch terminals whose directed flow summation is to be monitored. A branch group need not form a cutset of the network.</xs:documentation>
@@ -164,6 +87,7 @@ A value_x with direction="high" shall be greater than a value_y with direction="
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+	<xs:element name="BranchGroupTerminal" type="BranchGroupTerminal"/>
 	<xs:complexType name="BranchGroupTerminal">
 		<xs:annotation>
 			<xs:documentation>A specific directed terminal flow for a branch group.</xs:documentation>
@@ -181,6 +105,73 @@ A value_x with direction="high" shall be greater than a value_y with direction="
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:element name="CurrentLimit" type="CurrentLimit"/>
+	<xs:complexType name="CurrentLimit">
+		<xs:annotation>
+			<xs:documentation>Operational limit on current. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="OperationalLimit">
+				<xs:sequence>
+					<xs:element name="value" type="CurrentFlow" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Limit on current flow.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="OperationalLimit" type="OperationalLimit"/>
+	<xs:complexType name="OperationalLimit">
+		<xs:annotation>
+			<xs:documentation>A value associated with a specific kind of limit. 
+The sub class value attribute shall be positive. 
+The sub class value attribute is inversely proportional to OperationalLimitType.acceptableDuration (acceptableDuration for short). A pair of value_x and acceptableDuration_x are related to each other as follows:
+if value_1 &gt; value_2 &gt; value_3 &gt;... then
+acceptableDuration_1 &lt; acceptableDuration_2 &lt; acceptableDuration_3 &lt; ...
+A value_x with direction="high" shall be greater than a value_y with direction="low".</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="OperationalLimitType" type="OperationalLimitType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The limit type associated with this limit.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="LimitDependencyModel" type="LimitDependency" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The limit dependency models which are used to calculate this limit.   If no limit dependencies are specified then the native limit value is used.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:simpleType name="OperationalLimitDirectionKind">
+		<xs:annotation>
+			<xs:documentation>The direction attribute describes the side of  a limit that is a violation.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="high">
+				<xs:annotation>
+					<xs:documentation>High means that a monitored value above the limit value is a violation.   If applied to a terminal flow, the positive direction is into the terminal.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="low">
+				<xs:annotation>
+					<xs:documentation>Low means a monitored value below the limit is a violation.  If applied to a terminal flow, the positive direction is into the terminal.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="absoluteValue">
+				<xs:annotation>
+					<xs:documentation>An absoluteValue limit means that a monitored absolute value above the limit value is a violation.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="OperationalLimitSet" type="OperationalLimitSet"/>
 	<xs:complexType name="OperationalLimitSet">
 		<xs:annotation>
 			<xs:documentation>A set of limits associated with equipment.  Sets of limits might apply to a specific temperature, or season for example. A set of limits may contain different severities of limit levels that would apply to the same equipment. The set may contain limits of different types such as apparent power and current limits or high and low voltage limits  that are logically applied together as a set.</xs:documentation>
@@ -203,6 +194,7 @@ A value_x with direction="high" shall be greater than a value_y with direction="
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
+	<xs:element name="OperationalLimitType" type="OperationalLimitType"/>
 	<xs:complexType name="OperationalLimitType">
 		<xs:annotation>
 			<xs:documentation>The operational meaning of a category of limits.</xs:documentation>
@@ -218,6 +210,23 @@ A value_x with direction="high" shall be greater than a value_y with direction="
 					<xs:element name="direction" type="OperationalLimitDirectionKind" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The direction of the limit.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="VoltageLimit" type="VoltageLimit"/>
+	<xs:complexType name="VoltageLimit">
+		<xs:annotation>
+			<xs:documentation>Operational limit applied to voltage.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="OperationalLimit">
+				<xs:sequence>
+					<xs:element name="value" type="Voltage" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Limit on voltage. High or low limit nature of the limit depends upon the properties of the operational limit type.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
