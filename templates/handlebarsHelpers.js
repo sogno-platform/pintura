@@ -25,7 +25,6 @@ Handlebars.registerHelper('getRdfId', function(object) {
     return new Handlebars.SafeString(cimsvg.getRdfResource());
 });
 Handlebars.registerHelper('neq', function(v1, v2, options) {
-  console.log(v1, v2)
   if(v1 !== v2) {
     return options.fn(this);
   }
@@ -104,9 +103,23 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
                 let possibleClasses = [ type ];
                 possibleClasses = possibleClasses.concat(complexTypes[type]);
                 matchingComponents.aggregates = cimsvg.getAggregateComponentsList(requestedType, possibleClasses).aggregates;
+                let targetRdfid;
+                if (rdfid && rdfid["rdf:resource"]) {
+                    targetRdfid = rdfid["rdf:resource"].substr(1)
+                }
+                else {
+                    targetRdfid = rdfid;
+                }
                 for (let index in matchingComponents.aggregates) {
-                    if(matchingComponents.aggregates[index].rdfid == rdfid) {
+                    if(matchingComponents.aggregates[index].rdfid == targetRdfid) {
                         matchingComponents.aggregates[index].selected = 'selected';
+                    }
+                }
+                if (type == "Terminal") {
+                    for (let index in matchingComponents.aggregates) {
+                        if(matchingComponents.aggregates[index].attribute == "cim:Terminal.ConductingEquipment") {
+                            matchingComponents.aggregates[index].disabled = 'disabled';
+                        }
                     }
                 }
                 updateMenu = template(matchingComponents);

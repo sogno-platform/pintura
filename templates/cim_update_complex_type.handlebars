@@ -1,7 +1,7 @@
 <span class="row-right wide-row  floating-panel-value">
     <select id='{{dropdownId}}' onchange="updateComponent('{{type}}', '{{rdfid}}', '{{attribute}}', this.value)" class="update-complex-type dark-grey-background">
         {{#each aggregates}}
-            <option type="{{type}}" value="{{rdfid}}" {{#if selected}} selected="selected" {{/if}} >{{name}}</option>
+            <option type="{{type}}" value="{{rdfid}}" {{#if disabled}} disabled="disabled" {{/if}} {{#if selected}} selected="selected" {{/if}} >{{name}}</option>
         {{/each}}
     </select>
     <button onclick="cimsvg.addComponent('{{requestedType}}');populateAttributes(cimsvg.getComponentAttributesNode(), '{{type}}', '{{rdfid}}')"> + </button>
