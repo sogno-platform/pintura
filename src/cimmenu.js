@@ -42,7 +42,7 @@ var cimmenu = cimmenu || (function() {
 
         let ul = new DOMParser().parseFromString("<ul class='floating-panel-list'></ul>", 'text/xml');
         for (let item in cimedit.terminalAndPointLimits) {
-            if (cimedit.terminalAndPointLimits[item].maxTerminals > 0) {
+            if (cimedit.typeIsVisible(item)) {
                 let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
                 let xpathResult = menuXml.evaluate( xpathQuery, menuXml.documentElement, null, XPathResult.ANY_TYPE, null );
                 let match = xpathResult.iterateNext();

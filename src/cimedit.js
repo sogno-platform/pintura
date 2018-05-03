@@ -78,11 +78,11 @@ var cimedit = cimedit || (function() {
             nextPoint = {};
             nextPoint.x = point.x;
             nextPoint.y = point.y;
-            terminalPoints.push(nextPoint);
+            terminalPoints.push(point);
             nextPoint.y = 100 + point.y;
             terminalPoints.push(nextPoint);
             componentPoints.push(nextPoint);
-            for (let i = 0; i<terminalPoints.length; i++) {
+            for (let i = 0; i<terminalConfig["minTerminals"]; i++) {
                 terminalIds.push(makeTerminal(diagramId, graph, (i+1).toString(), id, terminalPoints[i]));
             }
         }
@@ -102,6 +102,11 @@ var cimedit = cimedit || (function() {
         };
         let componentData = Object.assign({}, attributes, newAttributes);
         addCategorizedItem(graph, type, id, componentData);
+        if (terminalConfig['terminalStyle'] == constellationPoints) {
+            for (let i = 0; i<terminalPoints.length; i++) {
+                addTerminal(graph, type, id)
+            }
+        }
         return id;
     };
 
@@ -252,8 +257,8 @@ var cimedit = cimedit || (function() {
             "points": 1,
         },
         "cim:TopologicalNode": {
-            "minTerminals" : 2,
-            "maxTerminals" : 2,
+            "minTerminals" : 0,
+            "maxTerminals" : 0,
             "points": 2,
             "terminalStyle": linePoints,
         },
@@ -304,12 +309,14 @@ var cimedit = cimedit || (function() {
     };
 
     const typeIsVisible = function(type) {
+        if (type == "cim:Terminal") {
+            return false;
+        }
         if(terminalAndPointLimits[type]) {
-            return (terminalAndPointLimits[type]['points'] > 0 &&
-                    terminalAndPointLimits[type]['maxTerminals'] > 0)
+            return (terminalAndPointLimits[type]['points'] > 0)
         }
         else {
-            return false
+            return false;
         }
     };
 
