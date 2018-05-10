@@ -1,4 +1,4 @@
-FROM node AS builder
+FROM node:8 AS builder
 
 COPY . /pintura
 WORKDIR pintura

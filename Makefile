@@ -31,14 +31,6 @@ index.html: generateIndex.js
 
 # Docker related targets
 run_docker:
-	# The environment variables are required for https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion
-	docker run --rm --detach --publish 8082:443 --name=pintura \
-		--env VIRTUAL_HOST=web.pintura.fein-aachen.org \
-		--env LETSENCRYPT_HOST=web.pintura.fein-aachen.org \
-		--env LETSENCRYPT_EMAIL=post@steffenvogel.de \
-		pintura:latest
-
-run_docker_local:
 	docker run --rm --detach --publish 8082:80 --name=pintura pintura:latest
 
 build_docker:
