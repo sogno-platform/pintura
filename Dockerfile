@@ -1,4 +1,4 @@
-FROM node:8 AS builder
+FROM node:8-stretch AS builder
 
 COPY . /pintura
 WORKDIR pintura

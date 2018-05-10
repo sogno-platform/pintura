@@ -3,6 +3,8 @@
 #  - Richard Marston
 #  - Steffen Vogel
 
+docker_image=rwthacs/pintura
+
 template_dir=templates
 attribute_dir=$(template_dir)/attributes
 
@@ -31,10 +33,10 @@ index.html: generateIndex.js
 
 # Docker related targets
 run_docker:
-	docker run --rm --detach --publish 8082:80 --name=pintura pintura:latest
+	docker run --rm --detach --publish 8082:80 --name=pintura $(docker_image):latest
 
 build_docker:
-	docker build -t pintura .
+	docker build -t $(docker_image) .
 
 stop_docker:
 	docker container stop pintura
