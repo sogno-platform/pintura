@@ -130,7 +130,6 @@ var cimjson = cimjson || (function() {
                 if (diagramObject != undefined) {
                     let object = convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName);
                     addObjectToDiagramList(object, graph, diagramList);
-                    let rdfId = diagramObject["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
                 }
             }
         }

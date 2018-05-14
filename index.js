@@ -31,6 +31,10 @@ var updateComponent = function(type, id, attribute, value) {
     cimsvg.updateComponent(type, id, attribute, value)
 }
 
+var updateComponentRDF = function(type, id, attribute, value) {
+    cimsvg.updateComponentRDF(type, id, attribute, value)
+}
+
 var noInputFocus = function(evt) {
     if (evt.target.nodeName === "BODY") {
         return true

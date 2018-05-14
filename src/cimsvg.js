@@ -26,6 +26,7 @@ if (typeof module !== 'undefined' && module.exports) {
     global.cimedit = require('./cimedit.js');
     global.cimmenu = require('./cimmenu.js');
     global.cimjson = require('./cimjson.js');
+    global.common = require('./common.js');
 };
 
 var cimsvg = cimsvg || (function() {
@@ -177,12 +178,21 @@ var cimsvg = cimsvg || (function() {
 
     var updateComponent = function(type, id, attribute, value) {
         cimxml.updateComponentInBaseJson(type, id, attribute, value)
-        baseJson = cimxml.getBaseJson();
-        templateJson = cimjson.getTemplateJson(baseJson);
         if (attribute === "cim:IdentifiedObject.name") {
             buttonId = '#' + id + "-sidebar-button"
             button = sidebarNode.querySelector(buttonId)
             button.innerHTML = value;
+        }
+    };
+
+    var updateComponentRDF = function(type, id, attribute, rdfid) {
+        let value = { "rdf:resource" : "#" + rdfid }
+        cimxml.updateComponentInBaseJson(type, id, attribute, value)
+        if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
+            baseJson = cimxml.getBaseJson();
+            cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);
+            templateJson = cimjson.getTemplateJson(baseJson);
+            svgNode.getElementById('diagrams').innerHTML = applyTemplate(templateJson);
         }
     };
 
@@ -327,6 +337,7 @@ var cimsvg = cimsvg || (function() {
         loadFile,
         setFileCount,
         updateComponent,
+        updateComponentRDF,
         addComponent,
         addTerminal,
         applyTemplates,

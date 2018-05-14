@@ -62,6 +62,48 @@ Handlebars.registerHelper('getName', function(rdfIdObject) {
     }
 });
 
+const complex_type_template = function(type, rdfid, requestedType, matchingComponents) {
+    let template = Handlebars.templates['cim_update_complex_type'];
+    let possibleClasses = [ type ];
+    possibleClasses = possibleClasses.concat(complexTypes[type]);
+    matchingComponents.aggregates = cimsvg.getAggregateComponentsList(requestedType, possibleClasses).aggregates;
+    let targetRdfId;
+    if (rdfid && rdfid["rdf:resource"]) {
+        targetRdfId = rdfid["rdf:resource"].substr(1)
+    }
+    else {
+        targetRdfId = rdfid;
+    }
+    for (let index in matchingComponents.aggregates) {
+        if(matchingComponents.aggregates[index].rdfid == targetRdfId) {
+            matchingComponents.aggregates[index].selected = 'selected';
+        }
+    }
+    if (type == "Terminal") {
+        for (let index in matchingComponents.aggregates) {
+            if(matchingComponents.aggregates[index].attribute == "cim:Terminal.ConductingEquipment") {
+                matchingComponents.aggregates[index].disabled = 'disabled';
+            }
+        }
+    }
+    return template(matchingComponents);
+};
+
+const simple_type_template = function(type, rdfid, requestedType, matchingComponents) {
+    let template = Handlebars.templates['cim_update_simple_type'];
+    let possibleValues = JSON.parse(JSON.stringify(simpleTypes[type]));
+    possibleValues.values.splice(0, 0, { value: "--"});
+    matchingComponents.values = possibleValues.values;
+    for (let index in matchingComponents.values) {
+        if(matchingComponents.values[index].value == rdfid) {
+            matchingComponents.values[index].selected = 'selected';
+        }
+    }
+    matchingComponents['simpletype'] = true;
+    matchingComponents['buttonVisibility'] = "visibility:hidden";
+    return template(matchingComponents);
+};
+
 Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, parentId, rdfid, type, attribute) {
     let updateMenu = "";
     if (type !== undefined) {
@@ -85,44 +127,10 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
                     'type': parentType,
             }
             if (simpleTypes[type]) {
-                let template = Handlebars.templates['cim_update_simple_type'];
-                let possibleValues = JSON.parse(JSON.stringify(simpleTypes[type]));
-                possibleValues.values.splice(0, 0, { value: "--"});
-                matchingComponents.values = possibleValues.values;
-                for (let index in matchingComponents.values) {
-                    if(matchingComponents.values[index].value == rdfid) {
-                        matchingComponents.values[index].selected = 'selected';
-                    }
-                }
-                matchingComponents['simpletype'] = true;
-                matchingComponents['buttonVisibility'] = "visibility:hidden";
-                updateMenu = template(matchingComponents);
+                updateMenu = simple_type_template(type, rdfid, requestedType, matchingComponents);
             }
             else if (complexTypes[type]) {
-                let template = Handlebars.templates['cim_update_complex_type'];
-                let possibleClasses = [ type ];
-                possibleClasses = possibleClasses.concat(complexTypes[type]);
-                matchingComponents.aggregates = cimsvg.getAggregateComponentsList(requestedType, possibleClasses).aggregates;
-                let targetRdfid;
-                if (rdfid && rdfid["rdf:resource"]) {
-                    targetRdfid = rdfid["rdf:resource"].substr(1)
-                }
-                else {
-                    targetRdfid = rdfid;
-                }
-                for (let index in matchingComponents.aggregates) {
-                    if(matchingComponents.aggregates[index].rdfid == targetRdfid) {
-                        matchingComponents.aggregates[index].selected = 'selected';
-                    }
-                }
-                if (type == "Terminal") {
-                    for (let index in matchingComponents.aggregates) {
-                        if(matchingComponents.aggregates[index].attribute == "cim:Terminal.ConductingEquipment") {
-                            matchingComponents.aggregates[index].disabled = 'disabled';
-                        }
-                    }
-                }
-                updateMenu = template(matchingComponents);
+                updateMenu = complex_type_template(type, rdfid, requestedType, matchingComponents);
             }
         }
     }
