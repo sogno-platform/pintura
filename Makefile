@@ -34,6 +34,7 @@ index.html: generateIndex.js
 # Docker related targets
 run_docker:
 	docker run --rm --detach --publish 8082:80 --name=pintura $(docker_image):latest
+	echo "Access Pintura at http://localhost:8082"
 
 build_docker:
 	docker build -t $(docker_image) .
