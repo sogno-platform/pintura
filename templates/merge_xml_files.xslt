@@ -9,7 +9,6 @@
      <xsl:copy-of select="document('data_model/DiagramLayout.xsd')/xs:schema/xs:complexType"/>
      <xsl:copy-of select="document('data_model/Domain.xsd')/xs:schema/xs:complexType"/>
      <xsl:copy-of select="document('data_model/Equivalents.xsd')/xs:schema/xs:complexType"/>
-     <xsl:copy-of select="document('data_model/Generation.xsd')/xs:schema/xs:complexType"/>
      <xsl:copy-of select="document('data_model/LoadModel.xsd')/xs:schema/xs:complexType"/>
      <xsl:copy-of select="document('data_model/OperationalLimits.xsd')/xs:schema/xs:complexType"/>
      <xsl:copy-of select="document('data_model/Topology.xsd')/xs:schema/xs:complexType"/>
@@ -18,7 +17,6 @@
      <xsl:copy-of select="document('data_model/DiagramLayout.xsd')/xs:schema/xs:simpleType"/>
      <xsl:copy-of select="document('data_model/Domain.xsd')/xs:schema/xs:simpleType"/>
      <xsl:copy-of select="document('data_model/Equivalents.xsd')/xs:schema/xs:simpleType"/>
-     <xsl:copy-of select="document('data_model/Generation.xsd')/xs:schema/xs:simpleType"/>
      <xsl:copy-of select="document('data_model/LoadModel.xsd')/xs:schema/xs:simpleType"/>
      <xsl:copy-of select="document('data_model/OperationalLimits.xsd')/xs:schema/xs:simpleType"/>
      <xsl:copy-of select="document('data_model/Topology.xsd')/xs:schema/xs:simpleType"/>

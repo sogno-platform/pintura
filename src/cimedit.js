@@ -79,7 +79,12 @@ var cimedit = cimedit || (function() {
             nextPoint.x = point.x;
             nextPoint.y = point.y;
             terminalPoints.push(point);
-            nextPoint.y = 100 + point.y;
+            if (type == "cim:ACLineSegment") {
+                nextPoint.x = 100 + point.x;
+            }
+            else {
+                nextPoint.y = 100 + point.y;
+            }
             terminalPoints.push(nextPoint);
             componentPoints.push(nextPoint);
             for (let i = 0; i<terminalConfig["minTerminals"]; i++) {
@@ -135,13 +140,13 @@ var cimedit = cimedit || (function() {
 
         let conductingEquipmentDiagramObjectId = common.safeExtract(graph, type, conductingEquipmentId, "diagramObject");
         let conductingEquipmentPoints          = common.safeExtract(graph, "cim:DiagramObject", conductingEquipmentDiagramObjectId, "points");
-
-        let conductingEquipmentX               = common.safeExtract(conductingEquipmentPoints, 0, "cim:DiagramObjectPoint.xPosition");
-        let conductingEquipmentY               = common.safeExtract(conductingEquipmentPoints, 0, "cim:DiagramObjectPoint.yPosition");
-
-        if (terminalPoints && conductingEquipmentX && conductingEquipmentY) {
-            terminalPoints[0]["cim:DiagramObjectPoint.xPosition"] = (parseInt(conductingEquipmentX) + 10).toString();
-            terminalPoints[0]["cim:DiagramObjectPoint.yPosition"] = conductingEquipmentY;
+        let conductingEquipmentPoint           = common.safeExtract(graph, "cim:DiagramObjectPoint", conductingEquipmentPoints["0"]);
+        if (terminalPoints && conductingEquipmentPoint) {
+            let firstPoint                     = common.safeExtract(graph, "cim:DiagramObjectPoint", terminalPoints[0]);
+            let x                              = common.safeExtract(conductingEquipmentPoint, "cim:DiagramObjectPoint.xPosition");
+            let y                              = common.safeExtract(conductingEquipmentPoint, "cim:DiagramObjectPoint.yPosition");
+            firstPoint["cim:DiagramObjectPoint.xPosition"] = (parseInt(x) + 10).toString();
+            firstPoint["cim:DiagramObjectPoint.yPosition"] = y;
         }
     };
 
@@ -161,21 +166,44 @@ var cimedit = cimedit || (function() {
         }
     };
 
-    const connectTerminalToTopologicalNode = function(graph, terminalId, topologicalNodeId) {
-        let terminal = common.safeExtract(graph, "cim:Terminal", terminalId);
-        let topologicalNode = common.safeExtract(graph, "cim:TopologicalNode", topologicalNodeId);
-        let point = { "x" : "0", "y": "0" }
-        let terminalDiagramObjectId = terminal["diagramObject"]
-        let terminalDiagramObject = common.safeExtract(graph, "cim:DiagramObject", terminalDiagramObjectId);
-        let topologicalNodeDiagramObjectId = topologicalNode["diagramObject"];
-        let topologicalNodeDiagramObject = common.safeExtract(graph, "cim:DiagramObject", topologicalNodeDiagramObjectId);
-        if (topologicalNodeDiagramObject["points"]) {
-            point.x = common.safeExtract(topologicalNodeDiagramObject, "points", 0, "cim:DiagramObjectPoint.xPosition");
-            point.y = common.safeExtract(terminalDiagramObject, "points", 0, "cim:DiagramObjectPoint.yPosition");
+    const removeDiagramObjectPointFromObject = function(graph, diagramObjectId, diagramObjectPointId) {
+        /* Remove the diagram object from the diagram object list and
+           remove the id from the list of points in the diagram object */
+        pointsArray = common.safeExtract(graph["cim:DiagramObject"][diagramObjectId]["points"]);
+        if (pointsArray) {
+            let index = pointsArray.indexOf(diagramObjectPointId);
+            if (index > -1) {
+                pointsArray.splice(index, 1);
+            }
         }
-        if (terminalDiagramObject["points"]) {
-            let index = terminalDiagramObject["points"].length + 1;
-            makeDiagramObjectPoint(baseJson, terminalDiagramObjectId, index, point.x.toString(), point.y.toString());
+        common.safeDelete(graph, "cim:DiagramObjectPoint", diagramObjectPointId)
+    };
+
+    const connectTerminalToTopologicalNode = function(graph, terminalId, topologicalNodeId) {
+        let terminal                       = common.safeExtract(graph, "cim:Terminal", terminalId);
+        let topologicalNode                = common.safeExtract(graph, "cim:TopologicalNode", topologicalNodeId);
+        let terminalDiagramObjectId        = terminal["diagramObject"]
+        let terminalDiagramObject          = common.safeExtract(graph, "cim:DiagramObject", terminalDiagramObjectId);
+        let topologicalNodeDiagramObjectId = topologicalNode["diagramObject"];
+        let topologicalNodeDiagramObject   = common.safeExtract(graph, "cim:DiagramObject", topologicalNodeDiagramObjectId);
+        let firstTopologicalNodePointId    = common.safeExtract(topologicalNodeDiagramObject, "points", "0");
+        let firstTopologicalNodePoint      = common.safeExtract(graph, "cim:DiagramObjectPoint", firstTopologicalNodePointId);
+        let firstTerminalPointId           = common.safeExtract(terminalDiagramObject, "points", "0");
+        let firstTerminalPoint             = common.safeExtract(graph, "cim:DiagramObjectPoint", firstTerminalPointId);
+        let secondTerminalPointId          = common.safeExtract(terminalDiagramObject, "points", "1");
+        if (secondTerminalPointId) {
+            removeDiagramObjectPointFromObject(graph, terminalDiagramObjectId, secondTerminalPointId);
+        };
+        if (firstTopologicalNodePoint && firstTerminalPoint) {
+            x = common.safeExtract(firstTopologicalNodePoint, "cim:DiagramObjectPoint.xPosition");
+            y = common.safeExtract(firstTerminalPoint, "cim:DiagramObjectPoint.yPosition");
+            if (terminalDiagramObject["points"]) {
+                let index                      = terminalDiagramObject["points"].length + 1;
+                let newPoint                   = makeDiagramObjectPoint(baseJson, terminalDiagramObjectId, index, x, y);
+                if (newPoint) {
+                    terminalDiagramObject["points"].push(newPoint);
+                }
+            }
         }
     };
 
@@ -224,7 +252,7 @@ var cimedit = cimedit || (function() {
         return id;
     };
 
-    var makeDiagramObjectPoint = function(newStuff, diagramObjectId, seq, x, y) {
+    const makeDiagramObjectPoint = function(newStuff, diagramObjectId, seq, x, y) {
         let diagramObjectPoint = {
            "cim:DiagramObjectPoint.DiagramObject" : {
                 "rdf:resource" : "#"+diagramObjectId
@@ -235,7 +263,7 @@ var cimedit = cimedit || (function() {
         };
         let id = generateUUID();
         addCategorizedItem(newStuff, "cim:DiagramObjectPoint", id, diagramObjectPoint);
-        return diagramObjectPoint;
+        return id;
     };
 
     const constellationPoints = 1;
@@ -320,7 +348,7 @@ var cimedit = cimedit || (function() {
             return false;
         }
         if(terminalAndPointLimits[type]) {
-            return (terminalAndPointLimits[type]['points'] > 0)
+            return (terminalAndPointLimits[type]["points"] > 0)
         }
         else {
             return false;

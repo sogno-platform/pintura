@@ -153,9 +153,9 @@ var cimheritance = cimheritance || (function() {
 let xml = libxmljs.parseXmlString('<?xml version="1.0" encoding="utf-8"?><root/>')
 let xsl = xslt.loadXMLDoc("templates/merge_xml_files.xslt");
 let superClassTree = xslt.performXSLTTranslation(xml, xsl);
-let classStructure = require('../templates/classStructure.js')
 
 if (process.argv[2] != undefined) {
+    let classStructure = require('../templates/classStructure.js')
     cimheritance.init(classStructure)
     console.log(cimheritance.getSuperClassList(process.argv[2]))
 }
