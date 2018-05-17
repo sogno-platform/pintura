@@ -34,15 +34,13 @@ var cimjson = cimjson || (function() {
         "cim:TransformerWinding":        "images/trans.svg",
     };
 
-    const PinturaDiagramObjectPoints = "Pintura:DiagramObjectPoints";
-
     var getImageName = function(type) {
         return pathBase + imageNames[type];
     }
 
     var convertDiagramObjectToTemplateFormat = function(diagramObject, graph, categoryGraphName) {
 
-        let originalPoints = diagramObject[PinturaDiagramObjectPoints];
+        let originalPoints = diagramObject[common.pinturaDiagramObjectPoints];
         let preOffsetPoints = [];
         let imagePoints = [];
         let labelPoint;
@@ -53,7 +51,7 @@ var cimjson = cimjson || (function() {
         if (diagramObject["cim:DiagramObject.IdentifiedObject"] != undefined) {
             let rdfId = diagramObject["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
             for (let index in originalPoints) {
-                let point = originalPoints[index];
+                let point = common.safeExtract(graph, "cim:DiagramObjectPoint", originalPoints[index]);
                 preOffsetPoints.push(
                 {
                     "x": parseInt(point["cim:DiagramObjectPoint.xPosition"]).toString(),
@@ -128,6 +126,7 @@ var cimjson = cimjson || (function() {
             for (let key in categoryGraph) {
                 let diagramObject = diagramObjects[key];
                 if (diagramObject != undefined) {
+                    categoryGraph[key]["diagramObject"] = diagramObjects[key]["rdfid"]
                     let object = convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName);
                     addObjectToDiagramList(object, graph, diagramList);
                 }
@@ -163,21 +162,23 @@ var cimjson = cimjson || (function() {
 
     var addDiagramObjectPointsToDiagramObjects = function(diagramObjectPointGraph, diagramObjectGraph){
         for (let key in diagramObjectPointGraph) {
-            mergeMatchingDataIntoParentNodeArray(diagramObjectPointGraph[key], "cim:DiagramObjectPoint.DiagramObject", diagramObjectGraph, PinturaDiagramObjectPoints);
+            mergeMatchingDataIntoParentNodeArray(diagramObjectGraph, key, diagramObjectPointGraph[key], "cim:DiagramObjectPoint.DiagramObject", common.pinturaDiagramObjectPoints);
         }
     };
 
     /*
      * Create link to a member of an array of e.g. points
      */
-    var mergeMatchingDataIntoParentNodeArray = function(node, matchingElement, destinationGraph, destinationElement) {
-        if (node[matchingElement]) {
-            let id = node[matchingElement]["rdf:resource"].substr(1);
+    var mergeMatchingDataIntoParentNodeArray = function(destinationGraph, matchingNodeId, matchingNode, matchingElement, destinationElement) {
+        if (matchingNode[matchingElement]) {
+            let id = matchingNode[matchingElement]["rdf:resource"].substr(1);
             if (destinationGraph[id]) {
                 if (destinationGraph[id][destinationElement] === undefined) {
                     destinationGraph[id][destinationElement] = [];
                 }
-                destinationGraph[id][destinationElement].push(node);
+                if (destinationGraph[id][destinationElement].indexOf(matchingNodeId) == -1) {
+                    destinationGraph[id][destinationElement].push(matchingNodeId);
+                }
             }
             else {
                 console.error("Could not find destination "+matchingElement+" to merge into "+destinationElement+".");
@@ -191,11 +192,10 @@ var cimjson = cimjson || (function() {
     var getTemplateJson = function(graph) {
         let diagramObjectsByIdentifiedObjects = {};
         if (!(graph['cim:DiagramObject'] === undefined)) {
-            let updatedDiagramObjects = JSON.parse(JSON.stringify(graph['cim:DiagramObject']));
+            let diagramObjects = graph['cim:DiagramObject'];
             let diagramObjectPoints = graph['cim:DiagramObjectPoint'];
-            addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, updatedDiagramObjects);
-
-            diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(updatedDiagramObjects);
+            addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
+            diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(diagramObjects);
         }
         let templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
         return templateReadyFormat;
