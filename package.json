@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "main.js",
   "scripts": {
-    "build": "node generateIndex.js > index.html && node xslt/generateHandlebarTemplates.js --xmlDir=./data_model && handlebars templates > templates/template.js && webpack --config webpack.config.dev.js",
+    "build": "node generateIndex.js > index.html && node templates/generateClassStructure.js && node xslt/generateHandlebarTemplates.js --xmlDir=./data_model && handlebars templates > templates/template.js && webpack --config webpack.config.dev.js",
     "build-dev": "node generateIndex.js > index.html && node xslt/generateHandlebarTemplates.js --xmlDir=./data_model && handlebars templates > templates/template.js && webpack --config webpack.config.dev.js"
   },
   "devDependencies": {
