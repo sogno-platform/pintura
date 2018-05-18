@@ -6,5 +6,4 @@ templates/attributes/*.handlebars
 templates/add_components_menu.xml
 templates/classStructure.js
 node_modules/*
-data_model/Combined.xsd
 package-lock.json
