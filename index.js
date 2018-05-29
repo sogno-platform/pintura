@@ -87,10 +87,23 @@ document.onkeydown = function(evt) {
 var onMouseDown = function(){
 };
 var onMouseUp = function(evt){
+    let rightclick;
+    if (evt.which) {
+        rightclick = (evt.which == 3);
+    }
+    else if (evt.button) {
+        rightclick = (evt.button == 2);
+    }
     let id = evt.currentTarget.id.slice(0,-5);
     let type = evt.currentTarget.parentElement.getAttribute("type");
-    populateAttributes(cimsvg.getComponentAttributesNode(), type, id);
-    showContainer('component-attributes', null, 'true');
+    if (rightclick) {
+        cimsvg.removeComponent(type, id);
+    }
+    else {
+        let type = evt.currentTarget.parentElement.getAttribute("type");
+        populateAttributes(cimsvg.getComponentAttributesNode(), type, id);
+        showContainer('component-attributes', null, 'true');
+    }
 };
 var onMouseMove = function(){
 };

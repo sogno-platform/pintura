@@ -357,6 +357,32 @@ var cimedit = cimedit || (function() {
     };
 
     var removeComponentFromBaseJson = function(jsonBaseData, type, rdfid) {
+        if (type == "cim:DiagramObject") {
+            let diagramObject = common.safeExtract(jsonBaseData, "cim:DiagramObject", rdfid);
+            let points = common.safeExtract(jsonBaseData, "cim:DiagramObject", rdfid, common.pinturaDiagramObjectPoints());
+            points.forEach( function(point) {
+                removeComponentFromBaseJson(jsonBaseData, "cim:DiagramObjectPoint", point);
+            });
+        }
+        else if (type == "cim:Terminal") {
+            let conductingEquipment = common.safeExtract(jsonBaseData, "cim:Terminal", rdfid, "cim:Terminal.ConductingEquipment");
+            if (conductingEquipment) {
+                let conductingEquipmentId = conductingEquipment["rdf:resource"].substr(1);
+                let ownerType = cimsvg.getObjectTypeUsingId(conductingEquipmentId);
+            }
+        }
+        else {
+            let diagramObjectId = common.safeExtract(jsonBaseData, type, rdfid, "diagramObject");
+            if (diagramObjectId) {
+                removeComponentFromBaseJson(jsonBaseData, "cim:DiagramObject", diagramObjectId);
+            }
+            let terminals = common.safeExtract(jsonBaseData, type, rdfid, "terminals");
+            if (terminals) {
+                terminals.forEach(function(terminal) {
+                    cimsvg.removeTerminal(type, rdfid, terminal)
+                });
+            }
+        }
         if (jsonBaseData[type] && jsonBaseData[type][rdfid]) {
             delete jsonBaseData[type][rdfid];
         }

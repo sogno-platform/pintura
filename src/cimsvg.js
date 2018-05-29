@@ -92,7 +92,7 @@ var cimsvg = cimsvg || (function() {
         }
     };
 
-    var removeComponent = function(type, rdfid) {
+    const removeComponent = function(type, rdfid) {
         let baseJson = cimxml.getBaseJson();
         cimedit.removeComponentFromBaseJson(baseJson, type, rdfid)
         applyTemplates();
@@ -111,8 +111,15 @@ var cimsvg = cimsvg || (function() {
                 let index = terminals.indexOf(terminalId);
                 if (index != -1) {
                     terminals.splice(index)
-                 }
+                }
+                else {
+                    console.error("Cannot remove terminal " + terminalId + " because it does not exist in the list.")
+                }
             }
+            else {
+                console.error("Cannot remove terminal " + terminalId + " because there are none.")
+            }
+            removeComponent("cim:Terminal", terminalId)
         }
     };
 

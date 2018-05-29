@@ -117,6 +117,7 @@ var cimmenu = cimmenu || (function() {
             console.error("Couldn't find " + rdfid + " in " + baseJson[type])
         }
     };
+
     var searchSidebar=function(searchString) {
         var elements = document.getElementsByClassName('component-list-item');
         for (var i=0; i<elements.length; i++)
