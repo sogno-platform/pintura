@@ -335,3 +335,16 @@ form {
 .component-accordion {
     min-height: 10pt;
 }
+.context-menu {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  padding: 12px 0;
+  width: 240px;
+  background-color: #fff;
+  border: solid 1px #dfdfdf;
+  box-shadow: 1px 1px 2px #cfcfcf;
+}
+.context-menu-active {
+  display: block;
+}

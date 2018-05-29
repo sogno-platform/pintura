@@ -23,6 +23,9 @@ cimsvg.init(
     document.getElementById("component-creation"),
     document.getElementById("component-terminals")
 );
+cimcontextmenu.init(document.getElementById("context-menu"), "context-menu", window)
+cimcontextmenu.resizeListener(window);
+cimcontextmenu.keyUpListener(window);
 
 document.getElementById("fileopen").addEventListener('change', readFile, false);
 
@@ -97,7 +100,9 @@ var onMouseUp = function(evt){
     let id = evt.currentTarget.id.slice(0,-5);
     let type = evt.currentTarget.parentElement.getAttribute("type");
     if (rightclick) {
-        cimsvg.removeComponent(type, id);
+        cimcontextmenu.setComponent(type, id);
+        cimcontextmenu.positionMenu(cimview.getMouseCoordFromWindow(evt), "context-menu");
+        cimcontextmenu.toggleMenuOn("context-menu")
     }
     else {
         let type = evt.currentTarget.parentElement.getAttribute("type");
