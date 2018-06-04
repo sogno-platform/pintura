@@ -4,6 +4,7 @@
 #  - Steffen Vogel
 
 docker_image=rwthacs/pintura
+docker_opts?=--rm
 
 template_dir=templates
 attribute_dir=$(template_dir)/attributes
@@ -33,7 +34,7 @@ index.html: generateIndex.js
 
 # Docker related targets
 run_docker:
-	docker run --rm --detach --publish 8082:80 --name=pintura $(docker_image):latest
+	docker run $(docker_opts) --detach --publish 8082:80 --name=pintura $(docker_image):latest
 	echo "Access Pintura at http://localhost:8082"
 
 build_docker:
