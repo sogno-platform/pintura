@@ -21,11 +21,20 @@ cimsvg.init(
     document.getElementById("sidebar"),
     document.getElementById("component-attributes"),
     document.getElementById("component-creation"),
-    document.getElementById("component-terminals")
+    document.getElementById("component-terminals"),
 );
-cimcontextmenu.init(document.getElementById("context-menu"), "context-menu", window)
+cimcontextmenu.init(document.getElementById("context-menu"), "context-menu")
 cimcontextmenu.resizeListener(window);
 cimcontextmenu.keyUpListener(window);
+
+document.oncontextmenu = function(e){
+    if(e.preventDefault != undefined) {
+        e.preventDefault();
+    }
+    if(e.stopPropagation != undefined) {
+        e.stopPropagation();
+    }
+}
 
 document.getElementById("fileopen").addEventListener('change', readFile, false);
 
@@ -89,6 +98,9 @@ document.onkeydown = function(evt) {
 };
 var onMouseDown = function(){
 };
+var onBodyMouseUp = function(evt){
+    cimcontextmenu.toggleMenuOff();
+};
 var onMouseUp = function(evt){
     let rightclick;
     if (evt.which) {
@@ -101,14 +113,17 @@ var onMouseUp = function(evt){
     let type = evt.currentTarget.parentElement.getAttribute("type");
     if (rightclick) {
         cimcontextmenu.setComponent(type, id);
-        cimcontextmenu.positionMenu(cimview.getMouseCoordFromWindow(evt), "context-menu");
+        let pos = {x: evt.clientX, y: evt.clientY};
+        cimcontextmenu.positionMenu(pos, "context-menu");
         cimcontextmenu.toggleMenuOn("context-menu")
     }
     else {
         let type = evt.currentTarget.parentElement.getAttribute("type");
         populateAttributes(cimsvg.getComponentAttributesNode(), type, id);
         showContainer('component-attributes', null, 'true');
+        cimcontextmenu.toggleMenuOff();
     }
+    evt.stopPropagation();
 };
 var onMouseMove = function(){
 };

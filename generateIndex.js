@@ -150,7 +150,7 @@ makePanelOpeningButton = function(id, text, action) {
  */
 var html = new tag('html').c(new tag('head').c(new tag('title').t('Pintura')))
 
-var body = new tag('body')
+var body = new tag('body').a('onmouseup', '"onBodyMouseUp()"')
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
@@ -264,7 +264,7 @@ var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes).c
 
 body.c(sidebar).c(main)
 
-body.c(new tag('nav').a('id', '"context-menu"').a('class', '"context-menu"').c(new tag('ul').a('class', '"context-menu-items"').c(new tag('li').a('class', '"context-menu-item"').c(new tag('a').a('class').a('onclick', '"cimcontextmenu.removeComponent()"').t("Delete Component")))))
+body.c(new tag('nav').a('id', '"context-menu"').a('class', '"context-menu"').a('onmouseup', '"onBodyMouseUp()"').c(new tag('ul').a('class', '"context-menu-items"').c(new tag('li').a('class', '"context-menu-item"').c(new tag('a').a('class').a('onclick', '"cimcontextmenu.removeComponent()"').t("Delete Component")))))
 
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/cimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
