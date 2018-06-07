@@ -336,14 +336,27 @@ form {
     min-height: 10pt;
 }
 .context-menu {
-  display: none;
-  position: absolute;
-  z-index: 10;
-  padding: 12px 0;
-  width: 240px;
-  background-color: #fff;
-  border: solid 1px #dfdfdf;
-  box-shadow: 1px 1px 2px #cfcfcf;
+    display: none;
+    position: absolute;
+    z-index: 10;
+}
+.context-menu-items {
+    box-shadow: 1px 1px 2px #cfcfcf;
+    margin: 0px;
+    border: solid 1px #000000;
+    padding: 0px;
+}
+.context-menu-item {
+    background-color: #fff;
+    margin: 0px;
+    border: 0px;
+    padding: 3px;
+}
+.context-menu-item:active,.context-menu-item:hover{
+    background-color: #ccf;
+}
+ul {
+  list-style-type: none;
 }
 .context-menu-active {
   display: block;
