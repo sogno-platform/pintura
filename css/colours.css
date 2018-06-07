@@ -1,6 +1,6 @@
 #menu {
-    color:#fff!important;
-    background-color:#000!important
+    color:#607d8b;
+    background-color:#fff;
 }
 .dark-grey-background {
     color:black;
@@ -28,7 +28,7 @@
     border-bottom:0px;
 }
 #sidebar {
-    background: #6EA2B0;
+    background: linear-gradient(#6EA2B0, #607d8b);
     border-right:thick solid white;
 }
 .component-type-name {
