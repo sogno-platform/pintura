@@ -25,7 +25,6 @@ cimsvg.init(
 );
 
 document.getElementById("fileopen").addEventListener('change', readFile, false);
-document.getElementById("filesave").addEventListener('change', saveFile, false);
 
 var updateComponent = function(type, id, attribute, value) {
     cimsvg.updateComponent(type, id, attribute, value)
@@ -152,13 +151,15 @@ function doSearch(inputId, textareaId) {
     //box.scrollTop=(index/length)*100;
 };
 function saveFile(data) {
-    var blob = new Blob([data], {type: "text/xml"}),
-        url = URL.createObjectURL(blob);
-    filesave.href = url;
-    setTimeout(function() {
-        URL.revokeObjectURL(url);
-    }, 0);
-};
+    let filesave = document.getElementById("filesave")
+    let element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+    element.setAttribute('download', "pinturaGrid.xml");
+    element.style.display = 'none';
+    filesave.appendChild(element);
+    element.click();
+    filesave.removeChild(element);
+}
 function readFile(e) {
     var files = e.target.files;
     if (files) {
