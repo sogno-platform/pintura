@@ -14,29 +14,28 @@
     color:white;
     background:#607d8b;
 }
-.floating-panel-item {
-    font-size:12px;
+a{
+    background-color:transparent;
+}
+.button {
+    background-color:inherit;
+}
+button:hover {
+    background-color: rgba(255,255,255,0.5);
 }
 #floating-panel-list-div {
     background:#aaa;
 }
 .floating-panel-list {
-    background:grey;
+    background: rgba(0, 0, 0, 0.0);
     border:none;
 }
 .w3-ul li {
     border-bottom:0px;
 }
 #sidebar {
-    background: linear-gradient(#6EA2B0, #607d8b);
+    background: radial-gradient(#6EA2B0 20%, #607d8b);
     border-right:thick solid white;
-}
-.component-type-name {
-    color:black;
-    font-size:12px;
-}
-.floating-panel-name {
-    font-size:12px;
 }
 .dark-font {
     color:black;
@@ -53,9 +52,26 @@
 .dropdown-menu a {
     color: black;
     background:#ddd;
-    font-size:14px;
 }
 .dropdown-menu a:hover {
     background:#bbb;
     color: white;
+}
+.list-title {
+    background: rgba(0, 0, 0, 0.0);
+    color: white;
+}
+.list-entry {
+    background: rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid white;
+    border-radius: 3px;
+    color: white;
+    padding: 0px;
+}
+.list-entry-light {
+    background: rgba(0, 0, 0, 0.1);
+    color: white;
+}
+.floating-panel {
+    background: radial-gradient(#6EA2B0 20%, #607d8b);
 }

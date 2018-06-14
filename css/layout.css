@@ -31,7 +31,6 @@ html{
 }
 *,*:before,*:after{box-sizing:inherit}
 a{
-    background-color:transparent;
     -webkit-text-decoration-skip:objects
 }
 a:active,a:hover{
@@ -207,7 +206,6 @@ button::-moz-focus-inner,
     overflow:hidden;
     text-decoration:none;
     color:inherit;
-    background-color:inherit;
     cursor:pointer;
     white-space:nowrap;
     -webkit-touch-callout:none;
@@ -216,13 +214,11 @@ button::-moz-focus-inner,
     -moz-user-select:none;
     -ms-user-select:none;
     user-select:none;
-    padding:8px 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 .wide-button {
     width:100%;
-}
-button:hover {
-    background-color: rgba(255,255,255,0.5);
 }
 .row-left {
     order: 0;
@@ -248,14 +244,12 @@ button:hover {
 .dropdown-menu {
     position:fixed!important;
     height:auto;
-    background:#fff;
     width:200px;
     z-index:1;
     display: none;
 }
 .dropdown-menu a {
     text-decoration: none;
-    color: black;
     display: block;
     width:100%;
     text-align: left;
