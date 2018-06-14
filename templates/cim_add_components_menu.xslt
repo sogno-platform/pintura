@@ -12,7 +12,7 @@
                 <xsl:value-of select="@name"/>
             </xsl:variable>
             <xsl:text>    </xsl:text>
-            <li class="wide-row floating-panel-item dark-grey-background">
+            <li class="wide-row floating-panel-item">
                 <xsl:attribute name="id">
                     <xsl:value-of select="$type"/>
                 </xsl:attribute>

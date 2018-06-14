@@ -30,7 +30,7 @@
 
                 <!-- Make the heading -->
                 <xsl:text>&#xa;    </xsl:text>
-                <li class="wide-row floating-panel-item dark-grey-background">
+                <li class="wide-row floating-panel-item list-entry">
                     <xsl:text>&#xa;        </xsl:text>
                     <span class="row-left floating-panel-name">IdentifiedObject.name</span>
                     <xsl:text>&#xa;        </xsl:text>
@@ -59,7 +59,7 @@
                         <xsl:variable name="attribute_name">
                             <xsl:value-of select="concat($type, '.', @name)"/>
                         </xsl:variable>
-                        <li class="wide-row floating-panel-item dark-grey-background">
+                        <li class="wide-row floating-panel-item list-entry">
                             <xsl:text>&#xa;        </xsl:text>
                             <span class="row-left floating-panel-name">
                                 <xsl:value-of select="$attribute_name"/>
@@ -86,7 +86,7 @@
                    <xsl:variable name="attribute_name">
                        <xsl:value-of select="concat($type, '.', @name)"/>
                    </xsl:variable>
-                   <li class="wide-row floating-panel-item dark-grey-background">
+                   <li class="wide-row floating-panel-item list-entry">
                        <xsl:text>&#xa;        </xsl:text>
                        <span class="row-left floating-panel-name">
                            <xsl:value-of select="$attribute_name"/>
@@ -104,7 +104,7 @@
                <xsl:text>&#xa;</xsl:text>
                    <xsl:value-of select="concat($two_lbr, '#neq ', $apos, @name, $apos, ' ', $apos, 'Terminal', $apos, $two_rbr)"/>
                <xsl:text>&#xa;</xsl:text>
-                   <li class="wide-row floating-panel-item dark-grey-background">
+                   <li class="wide-row floating-panel-item list-entry">
                        <xsl:text>&#xa;        </xsl:text>
                        <span class="row-left floating-panel-name">Show Terminals</span>
                        <span class="row-right floating-panel-value">

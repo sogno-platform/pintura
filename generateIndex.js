@@ -124,13 +124,17 @@ function tag(name){
     return this
   }
 }
-var makeFileMenu = function (open_text, open_name, open_action, save_text, save_name, save_action) {
+var makeFileMenu = function (open_text, open_name, open_action,
+                             save_text, save_name, save_action,
+                             diag_text, diag_name, diag_action) {
   let open_input = new tag('input').a('id', '"' + open_name + '"').a('type', '"file"').a('style', '"display:none"').a('multiple', '"true"')
   let open_a_tag = new tag('a').t(open_text).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', open_action)
   let save_input = new tag('input').a('id', '"' + save_name + '"').a('type', '"submit"').a('value', '""').a('style', '"display:none"')
   let save_a_tag = new tag('a').t(save_text).a('onclick', '"filesave.click()"')
   let form_tag = new tag('form').a('onsubmit', '"' + save_action + '"').a('accept-charset', '"utf-8"')
-  return new tag('div').c(open_input).c(open_a_tag).c(form_tag).c(save_input).c(save_a_tag).a('id', '"menu"')
+  let diag_tag = new tag('div').a('id', '"'+diag_name+'"').a('class', '"button"')
+  let diag_a_tag = new tag('a').t(diag_text).a('onclick', diag_action)
+  return new tag('div').c(open_input).c(open_a_tag).c(form_tag.c(save_input).c(save_a_tag)).c(diag_tag).c(diag_a_tag).a('id', '"menu"')
 }
 var makeAccordionDiv = function(id, action) {
   return new tag('div').a('id', '"'+id+'"').c(new tag('div').a('id', '"'+id+'-accordion"').t(" "))
@@ -154,8 +158,9 @@ body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
                   c(new tag('div').a('id', '"component-sidebar-list"').t(' ')).
-                  c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()', 'Save file', 'filesave', 'cimsvg.saveGridXml()')).
-                  c(makePanelOpeningButton('diagram-add', "Add Diagram", "javascript:cimsvg.addDiagram()"))
+                  c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()',
+                                 'Save file', 'filesave', 'cimsvg.saveGridXml()',
+                                 'Add Diagram', 'diagram-add', 'cimsvg.addDiagram()'))
 
 var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns', '"http://www.w3.org/2000/svg"').
@@ -215,7 +220,7 @@ var floating_panel_settings = function(floating_panel_settings_id, floating_pane
 
 var floating_panel_header = function(title, floating_panel_id, settings_panel_id) {
     return new tag('div').
-	           a('class', '"wide-row blue-grey-background"').
+	           a('class', '"wide-row list-entry"').
 	           c(new tag('span').
                    a('id', '"' + floating_panel_id + '-component-name"').
                    a('class', '"button row-left"').
@@ -241,7 +246,7 @@ var dropdown_panel = function(){
 var make_floating_panel = function(title, id) {
     return new tag('div').
 	           a('id', '"'+id+'"').
-               a('class', '"floating-panel blue-grey-background row-left dialog-over-diagram"').
+               a('class', '"floating-panel row-left dialog-over-diagram"').
                c(new tag('div').a('class', '"floating-panel-table"').
                c(floating_panel_header(title, id, id + '-settings')).
            c(dropdown_panel().c(floating_panel_settings(id + '-settings', id))).
@@ -257,7 +262,7 @@ var component_terminals = make_floating_panel("Component Terminal List", 'compon
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes).c(component_creation).c(component_terminals)
 
-body.c(sidebar).c(main)
+body.c(main).c(sidebar)
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/cimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
 
