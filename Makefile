@@ -51,12 +51,15 @@ index.html: generateIndex.js
 	node $<  > $@
 
 # Docker related targets
-run_docker:
+run-docker: docker
 	docker run $(DOCKER_OPTS) --detach --publish 8082:80 --name=pintura $(DOCKER_IMAGE):latest
 	echo "Access Pintura at http://localhost:8082"
 
-build_docker:
-	docker build -t $(DOCKER_IMAGE) .
+docker:
+	docker build \
+		--tag $(DOCKER_IMAGE) \
+		--iidfile $@ \
+		.
 
 stop_docker:
 	docker container stop pintura
@@ -74,4 +77,4 @@ $(TEMPLATE_DIR)/template.js: $(handlebars) $(handlebars_attr)
 %/:
 	mkdir -p $@
 
-.PHONY: all clean electron_deps templates run_docker build_docker local
+.PHONY: all clean electron_deps templates run-docker local
