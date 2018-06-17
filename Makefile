@@ -21,18 +21,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ###################################################################################
 
-docker_image=rwthacs/pintura
-docker_opts?=--rm
+DOCKER_IMAGE=rwthacs/pintura
+DOCKER_OPTS?=--rm
 
-template_dir=templates
-attribute_dir=$(template_dir)/attributes
+TEMPLATE_DIR=templates
+ATTRIBUTE_DIR=$(TEMPLATE_DIR)/attributes
 
 all: build_docker
 
 clean:
-	rm -f $(template_dir)/template.js
-	rm -f $(template_dir)/add_components_menu.xml
-	rm -fr $(attribute_dir)
+	rm -f $(TEMPLATE_DIR)/template.js
+	rm -f $(TEMPLATE_DIR)/add_components_menu.xml
+	rm -fr $(ATTRIBUTE_DIR)
 
 electron_deps:
 	rm -f package.json
@@ -40,7 +40,7 @@ electron_deps:
 	npm install --save electron
 	npm install --save-dev electron-mocha jshint mocha webpack
 
-local: index.html $(template_dir)/template.js $(template_dir)/add_components_menu.xml
+local: index.html $(TEMPLATE_DIR)/template.js $(TEMPLATE_DIR)/add_components_menu.xml
 
 develop: local
 	docker run --rm --detach --publish 80:80 --name pintura-dev \
@@ -52,19 +52,19 @@ index.html: generateIndex.js
 
 # Docker related targets
 run_docker:
-	docker run $(docker_opts) --detach --publish 8082:80 --name=pintura $(docker_image):latest
+	docker run $(DOCKER_OPTS) --detach --publish 8082:80 --name=pintura $(DOCKER_IMAGE):latest
 	echo "Access Pintura at http://localhost:8082"
 
 build_docker:
-	docker build -t $(docker_image) .
+	docker build -t $(DOCKER_IMAGE) .
 
 stop_docker:
 	docker container stop pintura
 
 # Create templates
-templates: $(template_dir)/template.js
+templates: $(TEMPLATE_DIR)/template.js
 
-$(template_dir)/template.js: $(handlebars) $(handlebars_attr)
+$(TEMPLATE_DIR)/template.js: $(handlebars) $(handlebars_attr)
 	npm install
 	npm run build
 
