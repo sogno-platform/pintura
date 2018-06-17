@@ -1,0 +1,27 @@
+variables:
+  DOCKER_TAG: ${CI_COMMIT_REF_NAME}
+  DOCKER_IMAGE: rwthacs/pintura
+
+before_script:
+  - git submodule sync --recursive
+  - git submodule update --init --recursive
+
+stages:
+  - build
+  - deploy
+
+build:docker:
+  stage: build
+  script:
+    - docker build -t ${DOCKER_DEV}:${DOCKER_TAG} .
+  tags:
+    - shell
+
+deploy:docker:
+  stage: deploy
+  script:
+    - docker push ${DOCKER_DEV}:${DOCKER_TAG}
+  dependencies:
+    - build:docker
+  tags:
+    - shell
