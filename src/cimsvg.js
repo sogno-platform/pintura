@@ -84,7 +84,8 @@ var cimsvg = cimsvg || (function() {
             image = cimjson.getImageName(type);
             let backing = document.getElementById("backing");
             backing.style.cursor = 'url("' + image + '"), crosshair';
-            showContainer('component-creation');
+            hideContainer('component-creation');
+            hideContainer('component-attributes');
         }
         else {
             return addComponentAndApplyTemplates(type);

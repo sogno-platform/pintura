@@ -90,7 +90,7 @@ var cimmenu = cimmenu || (function() {
             let terminals = baseJson[type][rdfid]['terminals']
             let begin =`
                 <span class="row-right wide-row floating-panel-value">
-                    <input value="Add New Terminal" type="text"></input>
+                    <input class="list-subtitle" value="Add New Terminal" type="text"></input>
                     <button onclick='`
             let click = 'cimsvg.addTerminal("' + type + '", "' +rdfid + '");cimsvg.applyTemplates();cimsvg.populateTerminals("' + type + '", "' + rdfid +'")'
             let end = `;'> + </button>

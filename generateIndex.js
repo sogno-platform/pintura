@@ -220,7 +220,7 @@ var floating_panel_settings = function(floating_panel_settings_id, floating_pane
 
 var floating_panel_header = function(title, floating_panel_id, settings_panel_id) {
     return new tag('div').
-	           a('class', '"wide-row list-entry"').
+	           a('class', '"wide-row list-title"').
 	           c(new tag('span').
                    a('id', '"' + floating_panel_id + '-component-name"').
                    a('class', '"button row-left"').
@@ -257,8 +257,8 @@ var make_floating_panel = function(title, id) {
 }
 
 var component_attributes = make_floating_panel("Attributes in Component", 'component-attributes')
-var component_creation = make_floating_panel("Component Type To Add", 'component-creation')
-var component_terminals = make_floating_panel("Component Terminal List", 'component-terminals')
+var component_creation = make_floating_panel("Add Component", 'component-creation')
+var component_terminals = make_floating_panel("Terminal List", 'component-terminals')
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes).c(component_creation).c(component_terminals)
 

@@ -1,11 +1,11 @@
 <span class="row-right wide-row floating-panel-value">
     {{#if this.simpletype}}
-        <select onchange="updateComponent('{{type}}', '{{rdfid}}', '{{attribute}}', this.value)" class="update-simple-type blue-grey-background">
+        <select onchange="updateComponent('{{type}}', '{{rdfid}}', '{{attribute}}', this.value)" class="update-simple-type">
         {{#each values}}
             <option value="{{this.value}}" {{#if this.selected}} selected="selected" {{/if}} >{{this.value}}</option>
         {{/each}}
         </select>
     {{/if}}
-    <button style="{{this.buttonVisibility}}"> + </button>
-    <button style="{{this.buttonVisibility}}"> -> </button>
+    <button class="smallbutton" style="{{this.buttonVisibility}}"> + </button>
+    <button class="smallbutton" style="{{this.buttonVisibility}}"> -> </button>
 </span>

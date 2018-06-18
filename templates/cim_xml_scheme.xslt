@@ -28,7 +28,7 @@
                     <xsl:value-of select="concat($pre, @name)"/>
                 </xsl:variable>
 
-                <!-- Make the heading -->
+                <!-- Add the IdentifiedObject.name row -->
                 <xsl:text>&#xa;    </xsl:text>
                 <li class="wide-row floating-panel-item list-entry">
                     <xsl:text>&#xa;        </xsl:text>

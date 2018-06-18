@@ -1,9 +1,9 @@
 <span class="row-right wide-row  floating-panel-value">
-    <select id='{{dropdownId}}' onchange="updateComponentRDF('{{type}}', '{{rdfid}}', '{{attribute}}', this.value)" class="update-complex-type dark-grey-background">
+        <select id='{{dropdownId}}' onchange="updateComponentRDF('{{type}}', '{{rdfid}}', '{{attribute}}', this.value)" class="update-complex-type">
         {{#each aggregates}}
             <option type="{{type}}" value="{{rdfid}}" {{#if disabled}} disabled="disabled" {{/if}} {{#if selected}} selected="selected" {{/if}} >{{name}}</option>
         {{/each}}
     </select>
-    <button onclick="cimsvg.addComponent('{{requestedType}}');populateAttributes(cimsvg.getComponentAttributesNode(), '{{type}}', '{{rdfid}}')"> + </button>
-    <button onclick="rdfid=cimsvg.getComponentAttributesNode().querySelector('#{{dropdownId}}').value;populateAttributesIdOnly(cimsvg.getComponentAttributesNode(), rdfid)"> -> </button>
+    <button class="smallbutton" onclick="cimsvg.addComponent('{{requestedType}}');populateAttributes(cimsvg.getComponentAttributesNode(), '{{type}}', '{{rdfid}}')"> + </button>
+    <button class="smallbutton" onclick="rdfid=cimsvg.getComponentAttributesNode().querySelector('#{{dropdownId}}').value;populateAttributesIdOnly(cimsvg.getComponentAttributesNode(), rdfid)"> -> </button>
 </span>

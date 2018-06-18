@@ -40,7 +40,7 @@ var cimjson = cimjson || (function() {
 
     var convertDiagramObjectToTemplateFormat = function(diagramObject, graph, categoryGraphName) {
 
-        let originalPoints = diagramObject[common.pinturaDiagramObjectPoints];
+        let originalPoints = diagramObject[common.pinturaDiagramObjectPoints()];
         let preOffsetPoints = [];
         let imagePoints = [];
         let labelPoint;
@@ -162,7 +162,7 @@ var cimjson = cimjson || (function() {
 
     var addDiagramObjectPointsToDiagramObjects = function(diagramObjectPointGraph, diagramObjectGraph){
         for (let key in diagramObjectPointGraph) {
-            mergeMatchingDataIntoParentNodeArray(diagramObjectGraph, key, diagramObjectPointGraph[key], "cim:DiagramObjectPoint.DiagramObject", common.pinturaDiagramObjectPoints);
+            mergeMatchingDataIntoParentNodeArray(diagramObjectGraph, key, diagramObjectPointGraph[key], "cim:DiagramObjectPoint.DiagramObject", common.pinturaDiagramObjectPoints());
         }
     };
 

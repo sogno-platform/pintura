@@ -9,7 +9,7 @@
         </div>
         <div id="{{diagramId}}-accordion" class="component-accordion" style="display:none">
             {{#each components as |value typeName|}}
-                <button class="component-type-name row button wide-button list-entry" onclick="javascript:showContainer('{{diagramId}}-{{typeName}}-accordion', null);">{{typeName}}</button>
+                <button class="component-type-name row button wide-button list-subtitle" onclick="javascript:showContainer('{{diagramId}}-{{typeName}}-accordion', null);">{{typeName}}</button>
                 <div id="{{diagramId}}-{{typeName}}-accordion" style="display:none">
                 {{#each this as |value componentId|}}
                     <button id="{{componentId}}-sidebar-button" style="width:100%" class="button wide-button row component-list-entry list-entry-light"
