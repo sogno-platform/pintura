@@ -18,8 +18,8 @@
 
 if (typeof module !== 'undefined' && module.exports) {
     global.Handlebars = require('handlebars/runtime')
-    require('../templates/handlebarsHelpers.js')
-    var templates = require('../templates/template.js');
+    require('../hbrs_templates/handlebarsHelpers.js')
+    var templates = require('../hbrs_templates/template.js');
     global.cimxml = require('./cimxml.js');
     global.cimview = require('./cimview.js');
     global.cimedit = require('./cimedit.js');
@@ -287,12 +287,12 @@ var cimsvg = cimsvg || (function() {
                 if(sidebarNode != undefined) {
                     includeFile("src/cimedit.js", function() {});
                     includeFile("src/cimmenu.js", function() {
-                        loadXml("templates/add_components_menu.xml", function(xml){
+                        loadXml("xslt_templates/add_components_menu.xml", function(xml){
                             cimmenu.init(componentCreation, xml)
                         });
                     });
                 }
-                includeFile("templates/template.js", function(){
+                includeFile("xslt_templates/template.js", function(){
                     includeFile("src/cimxml.js", function(){
                         includeFile("src/cimjson.js", function(){});
                     });
@@ -328,7 +328,7 @@ var cimsvg = cimsvg || (function() {
             if (typeof module !== 'undefined' && module.exports) {
                 cimview.init(svgNode);
                 if(sidebarNode != undefined) {
-                    loadXml("templates/add_components_menu.xml", function(xml){
+                    loadXml("xslt_templates/add_components_menu.xml", function(xml){
                         cimmenu.init(componentCreation, xml)
                     });
                 }

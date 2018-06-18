@@ -19,7 +19,9 @@
 const fs = require('fs');
 const libxslt = require('libxslt');
 const libxmljs = libxslt.libxmljs;
-const xslt = require("../xslt/xslt.js")
+const xslt = require("../xslt_templates/xslt.js")
+const merge_file = "xslt_templates/merge_xml_files.xslt"
+const class_structure_js = 'hbrs_templates/classStructure.js'
 
 var cimheritance = cimheritance || (function() {
 
@@ -133,7 +135,7 @@ var cimheritance = cimheritance || (function() {
                        "module.exports = class_struct" +
                    "}";
 
-        fs.writeFile('templates/classStructure.js', data, function(err) {
+        fs.writeFile(class_structure_js, data, function(err) {
             if(err) {
                 console.error(err)
             }
@@ -151,11 +153,11 @@ var cimheritance = cimheritance || (function() {
 }());
 
 let xml = libxmljs.parseXmlString('<?xml version="1.0" encoding="utf-8"?><root/>')
-let xsl = xslt.loadXMLDoc("templates/merge_xml_files.xslt");
+let xsl = xslt.loadXMLDoc(merge_file);
 let superClassTree = xslt.performXSLTTranslation(xml, xsl);
 
 if (process.argv[2] != undefined) {
-    let classStructure = require('../templates/classStructure.js')
+    let classStructure = require('../' + class_structure_js)
     cimheritance.init(classStructure)
     console.log(cimheritance.getSuperClassList(process.argv[2]))
 }

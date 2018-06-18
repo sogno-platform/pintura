@@ -15,8 +15,8 @@ COPY index.js /usr/share/nginx/html
 
 COPY --from=builder /pintura/html /usr/share/nginx/html/html
 COPY --from=builder /pintura/index.html /usr/share/nginx/html/
-COPY --from=builder /pintura/templates/template.js /usr/share/nginx/html/templates/
-COPY --from=builder /pintura/templates/add_components_menu.xml /usr/share/nginx/html/templates/
+COPY --from=builder /pintura/hbrs_templates/template.js /usr/share/nginx/html/templates/
+COPY --from=builder /pintura/xslt_templates/add_components_menu.xml /usr/share/nginx/html/templates/
 
 LABEL \
 	org.label-schema.schema-version = "1.0" \

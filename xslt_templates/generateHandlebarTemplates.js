@@ -9,11 +9,11 @@ const xslt = require('./xslt.js');
 const xmlOpt = '--xmlDir';
 const dbgOpt = '--debug';
 
-const createAddComponentMenuFilename = "templates/cim_add_components_menu.xslt";
-const createAttributeListFilename = "templates/cim_xml_scheme.xslt";
-const sortMenuXSLTFilename = "templates/sort_menu.xslt";
-const sortedMenuFilename = "templates/add_components_menu.xml";
-const attributeDir = "templates/attributes/";
+const createAddComponentMenuFilename = "xslt_templates/cim_add_components_menu.xslt";
+const createAttributeListFilename = "xslt_templates/cim_xml_scheme.xslt";
+const sortMenuXSLTFilename = "xslt_templates/sort_menu.xslt";
+const sortedMenuFilename = "xslt_templates/add_components_menu.xml";
+const attributeDir = "hbrs_templates/attributes/";
 
 var getOptions = function(args) {
   let options = {};
