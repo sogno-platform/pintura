@@ -15,15 +15,9 @@ button:hover {
     background-color: rgba(255,255,255,0.2);
     color: white;
 }
-#floating-panel-list-div {
-    background:#aaa;
-}
 .floating-panel-list {
     background: rgba(0, 0, 0, 0.0);
     border:none;
-}
-.w3-ul li {
-    border-bottom:0px;
 }
 #sidebar {
     background: radial-gradient(#6EA2B0 20%, #607d8b);
