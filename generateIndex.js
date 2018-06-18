@@ -262,7 +262,7 @@ var component_terminals = make_floating_panel("Terminal List", 'component-termin
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes).c(component_creation).c(component_terminals)
 
-body.c(sidebar).c(main)
+body.c(main).c(sidebar)
 
 body.c(new tag('nav').a('id', '"context-menu"').a('class', '"context-menu"').a('onmouseup', '"onBodyMouseUp()"').c(new tag('ul').a('class', '"context-menu-items"').c(new tag('li').a('class', '"context-menu-item"').c(new tag('a').a('class').a('onclick', '"cimcontextmenu.removeComponent()"').t("Delete Component")))))
 
