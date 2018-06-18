@@ -126,7 +126,7 @@ var cimjson = cimjson || (function() {
             for (let key in categoryGraph) {
                 let diagramObject = diagramObjects[key];
                 if (diagramObject != undefined) {
-                    categoryGraph[key]["diagramObject"] = diagramObjects[key]["rdfid"]
+                    categoryGraph[key][common.pinturaDiagramObject()] = diagramObjects[key][common.pinturaRdfid()]
                     let object = convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName);
                     addObjectToDiagramList(object, graph, diagramList);
                 }

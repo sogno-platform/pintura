@@ -87,7 +87,7 @@ var cimmenu = cimmenu || (function() {
         let baseJson = cimxml.getBaseJson();
         if (baseJson[type] && baseJson[type][rdfid]) {
             var template = Handlebars.templates['cim_list_terminals'];
-            let terminals = baseJson[type][rdfid]['terminals']
+            let terminals = baseJson[type][rdfid][common.pinturaTerminals()]
             let begin =`
                 <span class="row-right wide-row floating-panel-value">
                     <input class="list-subtitle" value="Add New Terminal" type="text"></input>

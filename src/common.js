@@ -17,7 +17,10 @@
  */
 
 var common = common || (function() {
-    const PinturaDiagramObjectPoints = "Pintura:DiagramObjectPoints";
+    const PinturaDiagramObjectPoints = "pintura:diagramObjectPoints";
+    const PinturaTerminals = "pintura:terminals";
+    const PinturaRdfid = "pintura:rdfid";
+    const PinturaDiagramObject = "pintura:diagramObject";
     const safeExtract = function(graph) {
         let object = graph;
         var args = Array.prototype.slice.call(arguments, 1);
@@ -67,7 +70,16 @@ var common = common || (function() {
         getObjectTypeFromId,
         pinturaDiagramObjectPoints: function() {
             return PinturaDiagramObjectPoints;
-        }
+        },
+        pinturaDiagramObject: function() {
+            return PinturaDiagramObject;
+        },
+        pinturaRdfid: function() {
+            return PinturaRdfid;
+        },
+        pinturaTerminals: function() {
+            return PinturaTerminals;
+        },
     };
 }());
 

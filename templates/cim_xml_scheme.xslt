@@ -46,7 +46,7 @@
                 </li>
                 <xsl:text>&#xa;    </xsl:text>
                 <xsl:variable name="parentId">
-                    <xsl:value-of select="concat($lsq, 'rdfid', $rsq)"/>
+                    <xsl:value-of select="concat($lsq, 'pintura:rdfid', $rsq)"/>
                 </xsl:variable>
                 <xsl:for-each select="xs:complexContent/xs:extension">
                     <xsl:for-each select="xs:sequence/xs:element">

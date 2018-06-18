@@ -26,14 +26,17 @@ var cimxml = cimxml || (function() {
 
     var getBaseXML = function() {
         let baseJson = getBaseJson();
+        console.log(baseJson)
         baseXml = getDOM("<rdf:RDF "+xmlns()+"/>");
         for (let component in baseJson) {
             for (let rdfid in baseJson[component]) {
                 let object = baseJson[component][rdfid]
                 let child = baseXml.createElement(component);
-                child.setAttribute("rdf:ID", object["rdfid"]);
+                child.setAttribute("rdf:ID", object[common.pinturaRdfid()]);
                 for (let item in object) {
-                    addChild(object[item], item, baseXml, child)
+                    if(item.substring(0, 7) != "pintura") {
+                        addChild(object[item], item, baseXml, child)
+                    }
                 }
                 baseXml.documentElement.appendChild(child)
             }
@@ -87,7 +90,7 @@ var cimxml = cimxml || (function() {
 
         let thisObject = { };
 
-        thisObject['rdfid'] = id
+        thisObject[common.pinturaRdfid()] = id
 
         copyXmlDataIntoObject(thisObject, node);
 

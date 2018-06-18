@@ -63,7 +63,7 @@ var cimedit = cimedit || (function() {
         if (!object[category]) {
             object[category] = {};
         }
-        item['rdfid'] = id;
+        item[common.pinturaRdfid()] = id;
         object[category][id] = item;
     };
 
@@ -102,8 +102,8 @@ var cimedit = cimedit || (function() {
         let counter = getNameCounter(type);
         newAttributes = {
             "cim:IdentifiedObject.name": type + counter.toString(),
-            "terminals": terminalIds,
-            "diagramObject": diagramObject,
+            "pintura:terminals": terminalIds,
+            "pintura:diagramObject": diagramObject,
         };
         let componentData = Object.assign({}, attributes, newAttributes);
         addCategorizedItem(graph, type, id, componentData);
@@ -135,10 +135,10 @@ var cimedit = cimedit || (function() {
 
     const moveTerminalIntoComponentOrbit = function(graph, terminalId, type, conductingEquipmentId) {
 
-        let terminalDiagramObjectId            = common.safeExtract(graph, "cim:Terminal", terminalId, 'diagramObject');
+        let terminalDiagramObjectId            = common.safeExtract(graph, "cim:Terminal", terminalId, common.pinturaDiagramObject());
         let terminalPoints                     = common.safeExtract(graph, "cim:DiagramObject", terminalDiagramObjectId, common.pinturaDiagramObjectPoints());
 
-        let conductingEquipmentDiagramObjectId = common.safeExtract(graph, type, conductingEquipmentId, "diagramObject");
+        let conductingEquipmentDiagramObjectId = common.safeExtract(graph, type, conductingEquipmentId, common.pinturaDiagramObject());
         let conductingEquipmentPoints          = common.safeExtract(graph, "cim:DiagramObject", conductingEquipmentDiagramObjectId,  common.pinturaDiagramObjectPoints());
         let conductingEquipmentPoint           = common.safeExtract(graph, "cim:DiagramObjectPoint", conductingEquipmentPoints["0"]);
         if (terminalPoints && conductingEquipmentPoint) {
@@ -153,16 +153,16 @@ var cimedit = cimedit || (function() {
     var addTerminal = function(baseJson, type, rdfid) {
         if (baseJson[type] && baseJson[type][rdfid]) {
             let sequenceNumber;
-            if (baseJson[type][rdfid]['terminals']) {
-                sequenceNumber = baseJson[type][rdfid]['terminals'].length + 1;
+            if (baseJson[type][rdfid][common.pinturaTerminals()]) {
+                sequenceNumber = baseJson[type][rdfid][common.pinturaTerminals()].length + 1;
             }
             else {
-                baseJson[type][rdfid]['terminals'] = [];
+                baseJson[type][rdfid][common.pinturaTerminals()] = [];
                 sequenceNumber = 1;
             }
             let terminal = makeTerminal(currentDiagramId, baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
             moveTerminalIntoComponentOrbit(baseJson, terminal, type, rdfid);
-            baseJson[type][rdfid]['terminals'].push(terminal)
+            baseJson[type][rdfid][common.pinturaTerminals()].push(terminal)
         }
     };
 
@@ -182,9 +182,9 @@ var cimedit = cimedit || (function() {
     const connectTerminalToTopologicalNode = function(graph, terminalId, topologicalNodeId) {
         let terminal                       = common.safeExtract(graph, "cim:Terminal", terminalId);
         let topologicalNode                = common.safeExtract(graph, "cim:TopologicalNode", topologicalNodeId);
-        let terminalDiagramObjectId        = terminal["diagramObject"]
+        let terminalDiagramObjectId        = terminal[common.pinturaDiagramObject()]
         let terminalDiagramObject          = common.safeExtract(graph, "cim:DiagramObject", terminalDiagramObjectId);
-        let topologicalNodeDiagramObjectId = topologicalNode["diagramObject"];
+        let topologicalNodeDiagramObjectId = topologicalNode[common.pinturaDiagramObject()];
         let topologicalNodeDiagramObject   = common.safeExtract(graph, "cim:DiagramObject", topologicalNodeDiagramObjectId);
         let topologicalNodePoints    = common.safeExtract(topologicalNodeDiagramObject, common.pinturaDiagramObjectPoints());
         let firstTopologicalNodePointId    = common.safeExtract(topologicalNodeDiagramObject, common.pinturaDiagramObjectPoints(), "0");
@@ -217,8 +217,8 @@ var cimedit = cimedit || (function() {
             "cim:IdentifiedObject.name": "terminal" + counter.toString(),
             "cim:Terminal.ConductingEquipment": { "rdf:resource": "#"+conductingEquipmentId },
             "cim:Terminal.ConnectivityNode": { "rdf:resource":"#none" },
-            "cim:Terminal.phases": {},
-            "diagramObject": diagramObjectId,
+            "cim:Terminal.phases": "",
+            "pintura:diagramObject": diagramObjectId,
         }
         addCategorizedItem(newStuff, "cim:Terminal", id, terminal);
         return id;

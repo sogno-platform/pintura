@@ -106,7 +106,7 @@ var cimsvg = cimsvg || (function() {
     var removeTerminal = function(type, rdfid, terminalId) {
         let baseJson = cimxml.getBaseJson();
         if (baseJson[type] && baseJson[type][rdfid]) {
-            let terminals = baseJson[type][rdfid]['terminals'];
+            let terminals = baseJson[type][rdfid][common.pinturaTerminals()];
             if (terminals) {
                 let index = terminals.indexOf(terminalId);
                 if (index != -1) {
@@ -301,7 +301,7 @@ var cimsvg = cimsvg || (function() {
             let type = "cim:" + types[index];
             for (let component in baseJson[type]) {
                 aggregateComponents['aggregates'].push({
-                    rdfid: baseJson[type][component]['rdfid'],
+                    rdfid: baseJson[type][component][common.pinturaRdfid()],
                     name: baseJson[type][component]["cim:IdentifiedObject.name"],
                     type: type
                 })
