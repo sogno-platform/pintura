@@ -129,28 +129,29 @@ var makeFileMenu = function (open_text, open_name, open_action,
                              diag_text, diag_name, diag_action) {
   let open_input = new tag('input').a('id', '"' + open_name + '"').a('type', '"file"').a('style', '"display:none"').a('multiple', '"true"')
   let open_a_tag = new tag('a').t(open_text).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', open_action)
-  let save_input = new tag('input').a('id', '"' + save_name + '"').a('type', '"submit"').a('value', '""').a('style', '"display:none"')
-  let save_a_tag = new tag('a').t(save_text).a('onclick', '"filesave.click()"')
-  let form_tag = new tag('form').a('onsubmit', '"' + save_action + '"').a('accept-charset', '"utf-8"')
+  let save_a_tag = new tag('a').a('id', '"' + save_name + '"').a('type', '"file"').a('download', '"pinturaGrid.xml"')
+  let save_span = new tag('span').t(save_text).a('class', '"button"').a('onclick', '"' + save_action + '"')
   let diag_tag = new tag('div').a('id', '"'+diag_name+'"').a('class', '"button"')
   let diag_a_tag = new tag('a').t(diag_text).a('onclick', diag_action)
-  return new tag('div').c(open_input).c(open_a_tag).c(form_tag.c(save_input).c(save_a_tag)).c(diag_tag).c(diag_a_tag).a('id', '"menu"')
+  return new tag('div').c(open_input).c(open_a_tag).c(save_span).c(save_a_tag).c(diag_tag).c(diag_a_tag).a('id', '"menu"')
 }
 var makeAccordionDiv = function(id, action) {
   return new tag('div').a('id', '"'+id+'"').c(new tag('div').a('id', '"'+id+'-accordion"').t(" "))
 }
+
 makePanelOpeningButton = function(id, text, action) {
   return new tag('div').a('id', '"'+id+'"').
                a('class', '"button blue-grey-background"').
                a('onclick', action).
                c(new tag('a').t(text))
 }
+
 /*
  * global html tag
  */
 var html = new tag('html').c(new tag('head').c(new tag('title').t('Pintura')))
 
-var body = new tag('body').a('onmouseup', '"onBodyMouseUp()"')
+var body = new tag('body')
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
 body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
