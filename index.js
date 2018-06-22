@@ -143,7 +143,7 @@ var onMouseLeave = function(evt){
     txt.classList.remove("svglabel-high");
 };
 var addClass = function(container, newClass, oldClass1, oldClass2) {
-    elem = document.getElementById(container);
+    let elem = document.getElementById(container);
     if (oldClass1 != '')
     {
         elem.classList.remove(oldClass1)

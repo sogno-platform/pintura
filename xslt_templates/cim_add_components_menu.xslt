@@ -12,12 +12,12 @@
                 <xsl:value-of select="@name"/>
             </xsl:variable>
             <xsl:text>    </xsl:text>
-            <li class="wide-row floating-panel-item">
+            <li class="wide-row list-subtitle">
                 <xsl:attribute name="id">
                     <xsl:value-of select="$type"/>
                 </xsl:attribute>
                 <xsl:text>&#xa;        </xsl:text>
-                <button class="component-type-name row button wide-button">
+                <button class="component-type-name button wide-button">
                     <xsl:variable name="pre">currentCimsvg().addComponent('cim:</xsl:variable>
                     <xsl:variable name="post">')</xsl:variable>
                     <xsl:attribute name="onclick">

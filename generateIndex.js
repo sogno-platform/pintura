@@ -138,14 +138,6 @@ var makeFileMenu = function (open_text, open_name, open_action,
 var makeAccordionDiv = function(id, action) {
   return new tag('div').a('id', '"'+id+'"').c(new tag('div').a('id', '"'+id+'-accordion"').t(" "))
 }
-
-makePanelOpeningButton = function(id, text, action) {
-  return new tag('div').a('id', '"'+id+'"').
-               a('class', '"button blue-grey-background"').
-               a('onclick', action).
-               c(new tag('a').t(text))
-}
-
 /*
  * global html tag
  */
@@ -200,36 +192,7 @@ var radio_input = function(onchange, name, id, text, checked=false) {
     return new tag('a').c(input).c(label)
 };
 
-var floating_panel_settings = function(floating_panel_settings_id, floating_panel_div_id) {
-
-    let over_diagram_radio = radio_input('"addClass(\'' + floating_panel_div_id + '\', \'dialog-over-diagram\', \'dialog-over-sidebar\', \'dialog-shrink-diagram\');"',
-                                       '"attribute-list-placement"', '\"attribute-list-placement-diagram\"', 'Over diagram', true)
-    let shrink_diagram_radio = radio_input('"addClass(\'' + floating_panel_div_id + '\', \'dialog-shrink-diagram\', \'dialog-over-diagram\', \'dialog-over-sidebar\');"',
-                                       '"attribute-list-placement"', '"attribute-list-placement-shrink"', 'Shrink diagram')
-    let left_radio = radio_input('"addClass(\'diagram-display\', \'row-right\', \'row-left\');addClass(\'' + floating_panel_div_id + '\', \'dialog-left\', \'dialog-right\', \'row-right\');"',
-                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-left"', 'Left', true)
-    let right_radio = radio_input('"addClass(\'diagram-display\', \'row-left\', \'row-right\');addClass(\'' + floating_panel_div_id + '\', \'dialog-right\', \'dialog-left\', \'row-left\');"',
-                                       '"attribute-list-placement-align"', '"attribute-list-placement-align-right"', 'Right')
-    return new tag('div').
-                 a('id', '"' + floating_panel_settings_id + '"').
-		             a('class', '"dropdown-menu"').
-		             c(new tag('span').
-                         a('class', '"button blue-grey-background"').
-                         a('style', '"height:100%"').
-                         t("Sidebar placement")).
-                     c(new tag('div').
-			             a('id', '"' + floating_panel_div_id + '-options"').
-                         a('class', '"blue-grey-background"').
-			             c(over_diagram_radio).
-                         c(shrink_diagram_radio).
-                         c(new tag('div').
-                             a('class', '"line"').
-			                 t(" ")).
-                         c(left_radio).
-                         c(right_radio))
-}
-
-var floating_panel_header = function(floating_panel_id, settings_panel_id) {
+var floating_panel_header = function(floating_panel_id) {
     return new tag('div').
 	           a('class', '"wide-row list-title"').
 	           c(new tag('span').
@@ -240,27 +203,17 @@ var floating_panel_header = function(floating_panel_id, settings_panel_id) {
                    c(new tag('span').
                        a('class', '"button row-right panel-button"').
                        a('onclick', '"currentCimsvg().hideFloatingMenu();"').
-                       t("<b>&times;</b>")).
-                   c(new tag('span').
-                       a('class', '"button row-right panel-button"').
-                       a('onclick', '"showContainer(\'' + settings_panel_id + '\');"').
-                       t("&#9881;")))
+                       t("<b>&times;</b>")))
 };
 
 var diagram = new tag('div').a('id', '"diagram-display"').a('class', '"row-right"').c(svg).c(svg2)
-
-var dropdown_panel = function(){
-    return new tag('div').
-	    a('class', '"dropdown"')
-}
 
 var make_floating_panel = function(title, id) {
     return new tag('div').
 	           a('id', '"'+id+'"').
                a('class', '"floating-panel row-left dialog-over-diagram"').
                c(new tag('div').a('class', '"floating-panel-table invisible"').
-               c(floating_panel_header(id, id + '-settings')).
-           c(dropdown_panel().c(floating_panel_settings(id + '-settings', id))).
+               c(floating_panel_header(id)).
            c(new tag('div').
                a('class', '"floating-menu-list"').
 			   t(" ")))
@@ -271,8 +224,6 @@ var floating_menu = make_floating_panel('floating-menu', 'floating-menu')
 var main = new tag('div').a('id', '"main"').c(diagram).c(floating_menu)
 
 body.c(main).c(sidebar)
-
-body.c(new tag('nav').a('id', '"context-menu"').a('class', '"context-menu"').a('onmouseup', '"onBodyMouseUp()"').c(new tag('ul').a('class', '"context-menu-items"').c(new tag('li').a('class', '"context-menu-item"').c(new tag('a').a('class').a('onclick', '"cimcontextmenu.removeComponent()"').t("Delete Component")))))
 
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/cimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))

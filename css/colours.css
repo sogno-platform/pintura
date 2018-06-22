@@ -1,3 +1,21 @@
+/*
+ *  Copyright © 2016-2017, RWTH Aachen University
+ *  Authors: Richard Marston
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  A copy of the GNU General Public License is in the LICENSE file
+ *  in the top level directory of this source tree.
+ */
+
 #menu {
     color:#607d8b;
     background-color:#fff;
@@ -11,54 +29,27 @@ a{
 button:hover {
     background-color: rgba(255,255,255,0.5);
 }
-.smallbutton {
-    background-color: rgba(255,255,255,0.2);
-    color: white;
-}
 .floating-panel-list {
     background: rgba(0, 0, 0, 0.0);
     border:none;
 }
 #sidebar {
-    background: radial-gradient(#6EA2B0 20%, #607d8b);
+    background: #6EA2B0;
     border-right:thick solid white;
 }
-.component-type-name {
-    color: white;
-}
-.dropdown-menu {
-    background:#6EA2B0;
-    border:thin solid white;
-    border-width: 1px 1px 1px 1px;
-}
-.dropdown-menu h4 {
-    color:white;
-}
-.dropdown-menu a {
-    color: white;
-    background:#6EA2B0;
-}
-.dropdown-menu a:hover {
-    background:#bbb;
-    color: white;
-}
 .list-title {
-    background: #fff;
-    color: #607d8b;
+    background: #6EA2B0;
+    color: white;
 }
 .list-subtitle {
-    background: rgba(0, 0, 0, 0.0);
-    color: white;
-}
-.list-entry {
-    background: rgba(255, 255, 255, 0.0);
-    color: #fff;
+    color: #527984;
+    background: white;
     padding: 0px;
 }
-.list-entry-light {
-    background: rgba(0, 0, 0, 0.1);
+.list-entry {
     color: white;
+    background:#6EA2B0;
 }
 .floating-panel {
-    background: radial-gradient(#6EA2B0 20%, #607d8b);
+    background: #6EA2B0;
 }

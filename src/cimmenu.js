@@ -20,8 +20,6 @@ var cimmenu = cimmenu || (function() {
 
     class cimmenuClass {
 
-        constructor () {}
-
         static populateSidebar (sidebarNode, templateJson) {
             let template = Handlebars.templates['pintura2html'];
             let data = template(templateJson);

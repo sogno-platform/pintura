@@ -20,9 +20,6 @@
                 </xsl:variable>
 
                 <ul class="floating-panel-list">
-                <xsl:attribute name="id">
-                    <xsl:value-of select="@name"/>
-                </xsl:attribute>
                 <xsl:variable name="type">
                     <xsl:variable name="pre" select="'cim:'"/>
                     <xsl:value-of select="concat($pre, @name)"/>
@@ -30,11 +27,11 @@
 
                 <!-- Add the IdentifiedObject.name row -->
                 <xsl:text>&#xa;    </xsl:text>
-                <li class="wide-row floating-panel-item list-entry">
+                <li class="wide-row floating-panel-item list-subtitle">
                     <xsl:text>&#xa;        </xsl:text>
                     <span class="row-left floating-panel-name">IdentifiedObject.name</span>
                     <xsl:text>&#xa;        </xsl:text>
-                    <span class="row-right floating-panel-value">
+                    <span class="row-right wide-row floating-panel-value">
                        <input type="text">
                            <xsl:attribute name="value">{{[cim:IdentifiedObject.name]}}</xsl:attribute>
                            <xsl:attribute name="onchange">javascript:updateComponent('<xsl:value-of select="$type"/>', '{{rdfid}}', 'cim:IdentifiedObject.name', this.value)</xsl:attribute>
@@ -59,7 +56,7 @@
                         <xsl:variable name="attribute_name">
                             <xsl:value-of select="concat($type, '.', @name)"/>
                         </xsl:variable>
-                        <li class="wide-row floating-panel-item list-entry">
+                        <li class="wide-row floating-panel-item list-subtitle">
                             <xsl:text>&#xa;        </xsl:text>
                             <span class="row-left floating-panel-name">
                                 <xsl:value-of select="$attribute_name"/>
@@ -86,7 +83,7 @@
                    <xsl:variable name="attribute_name">
                        <xsl:value-of select="concat($type, '.', @name)"/>
                    </xsl:variable>
-                   <li class="wide-row floating-panel-item list-entry">
+                   <li class="wide-row floating-panel-item list-subtitle">
                        <xsl:text>&#xa;        </xsl:text>
                        <span class="row-left floating-panel-name">
                            <xsl:value-of select="$attribute_name"/>
