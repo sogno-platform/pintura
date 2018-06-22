@@ -101,7 +101,7 @@
                <xsl:text>&#xa;</xsl:text>
                    <xsl:value-of select="concat($two_lbr, '#neq ', $apos, @name, $apos, ' ', $apos, 'Terminal', $apos, $two_rbr)"/>
                <xsl:text>&#xa;</xsl:text>
-                   <li class="wide-row floating-panel-item list-entry">
+                   <li class="wide-row floating-panel-item list-subtitle">
                        <xsl:text>&#xa;        </xsl:text>
                        <span class="row-left floating-panel-name">Show Terminals</span>
                        <span class="row-right floating-panel-value">
