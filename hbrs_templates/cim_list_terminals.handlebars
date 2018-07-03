@@ -1,7 +1,6 @@
-<li class="wide-row floating-panel-item">
-    <span class="row-left floating-panel-name">cim:Terminal</span>
-    <span class="row-right wide-row  floating-panel-value">
-        <input value="{{name}}" type="text"/>
+<li class="wide-row list-subtitle">
+    <span class="row-left floating-panel-name" type="text">{{name}}</span>
+    <span class="row-right floating-panel-item">
         <button onclick="currentCimsvg().removeTerminal('{{type}}', '{{rdfid}}', '{{terminalId}}');currentCimsvg().populateTerminals('{{type}}', '{{rdfid}}')">  -  </button>
         <button onclick="currentCimsvg().populateAttributesIdOnly('{{terminalId}}')"> -> </button>
     </span>
