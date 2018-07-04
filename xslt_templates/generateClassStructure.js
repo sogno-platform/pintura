@@ -21,7 +21,7 @@ const libxslt = require('libxslt');
 const libxmljs = libxslt.libxmljs;
 const xslt = require("../xslt_templates/xslt.js")
 const merge_file = "xslt_templates/merge_xml_files.xslt"
-const class_structure_js = 'hbrs_templates/classStructure.js'
+const class_structure_js = 'generated/classStructure.js'
 
 var cimheritance = cimheritance || (function() {
 

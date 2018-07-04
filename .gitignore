@@ -1,9 +1,9 @@
 handlebars.runtime.js
 index.html
 html/*
-hbrs_templates/template.js
-hbrs_templates/attributes/*.handlebars
-hbrs_templates/classStructure.js
+generated/template.js
+generated/attributes/*.handlebars
+generated/classStructure.js
 node_modules/*
 package-lock.json
-xslt_templates/add_components_menu.xml
+generated/add_components_menu.xml

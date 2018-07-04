@@ -24,10 +24,10 @@
 DOCKER_IMAGE=rwthacs/pintura
 DOCKER_OPTS?=--rm
 
-TEMPLATE_DIR=templates
+TEMPLATE_DIR=generated
 ATTRIBUTE_DIR=$(TEMPLATE_DIR)/attributes
 
-all: build_docker
+all: docker
 
 clean:
 	rm -f $(TEMPLATE_DIR)/template.js

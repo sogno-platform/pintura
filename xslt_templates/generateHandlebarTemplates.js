@@ -12,8 +12,8 @@ const dbgOpt = '--debug';
 const createAddComponentMenuFilename = "xslt_templates/cim_add_components_menu.xslt";
 const createAttributeListFilename = "xslt_templates/cim_xml_scheme.xslt";
 const sortMenuXSLTFilename = "xslt_templates/sort_menu.xslt";
-const sortedMenuFilename = "xslt_templates/add_components_menu.xml";
-const attributeDir = "hbrs_templates/attributes/";
+const sortedMenuFilename = "generated/add_components_menu.xml";
+const attributeDir = "generated/attributes/";
 
 var getOptions = function(args) {
   let options = {};

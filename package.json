@@ -4,14 +4,16 @@
   "main": "main.js",
   "scripts": {
     "generateIndex": "node generateIndex.js > index.html",
-    "generateClassStructure": "node xslt_templates/generateClassStructure.js",
+    "generateClassStructure": "mkdir -p generated && node xslt_templates/generateClassStructure.js",
     "generateHandlebars": "node xslt_templates/generateHandlebarTemplates.js --xmlDir=./data_model",
-    "handlebarTemplates": "handlebars hbrs_templates > hbrs_templates/template.js",
+    "handlebarAttributes": "handlebars generated > generated/template.js",
+    "handlebarStatic": "handlebars hbrs_templates >> generated/template.js",
+    "handlebarTemplates": "npm run handlebarAttributes && npm run handlebarStatic",
     "doWebpack": "webpack --config webpack.config.js",
     "doWebpackDev": "webpack --config webpack.config.dev.js",
     "templates": "npm run generateClassStructure && npm run generateHandlebars && npm run handlebarTemplates",
     "build": "npm run generateIndex && npm run templates && npm run doWebpack",
-    "build-dev": "npm run generateIndex && npm run templates && npm run templates && npm run doWebpackDev"
+    "build-dev": "npm run generateIndex && npm run templates && npm run doWebpackDev"
   },
   "devDependencies": {
     "handlebars": "^4.0.11",

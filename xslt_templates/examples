@@ -1,3 +1,3 @@
-electron electron_xslt --xmlFile=../data_model/Domain.xsd --xsltFile=../templates/cim_add_components_menu.xslt --attribute=Time --debug=true &&
-electron electron_xslt --xmlFile=../data_model/DiagramLayout.xsd --xsltFile=../templates/cim_xml_scheme.xslt --attribute=DiagramObject --debug=true &&
-electron electron_xslt --xmlFile=../data_model/DiagramLayout.xsd --xsltFile=../templates/attribute_list.xslt
+electron electron_xslt --xmlFile=../data_model/Domain.xsd --xsltFile=../generated/cim_add_components_menu.xslt --attribute=Time --debug=true &&
+electron electron_xslt --xmlFile=../data_model/DiagramLayout.xsd --xsltFile=../generated/cim_xml_scheme.xslt --attribute=DiagramObject --debug=true &&
+electron electron_xslt --xmlFile=../data_model/DiagramLayout.xsd --xsltFile=../generated/attribute_list.xslt

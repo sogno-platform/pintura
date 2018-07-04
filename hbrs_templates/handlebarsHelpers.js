@@ -17,12 +17,12 @@
  */
 
 
-let classStructure = require('./classStructure.js');
+let classStructure = require('../generated/classStructure.js');
 let simpleTypes = classStructure.simpleTypes;
 let complexTypes = classStructure.complexTypes;
 
 Handlebars.registerHelper('getRdfId', function(object) {
-    return new Handlebars.SafeString(cimsvg.getRdfResource());
+    return new Handlebars.SafeString(cimsvgClass.getRdfResource());
 });
 Handlebars.registerHelper('neq', function(v1, v2, options) {
   if(v1 !== v2) {
