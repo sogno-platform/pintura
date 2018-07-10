@@ -56,7 +56,7 @@ var cimmenu = cimmenu || (function() {
     };
 
     const populateAttributesIdOnly = function(node, id) {
-        let type = cimsvg.getObjectTypeUsingId(id);
+        let type = cimsvgClass.getObjectTypeUsingId(id);
         if (type != undefined) {
             populateAttributes(node, type, id);
         }
@@ -92,7 +92,7 @@ var cimmenu = cimmenu || (function() {
                 <span class="row-right wide-row floating-panel-value">
                     <input class="list-subtitle" value="Add New Terminal" type="text"></input>
                     <button onclick='`
-            let click = 'cimsvg.addTerminal("' + type + '", "' +rdfid + '");cimsvg.applyTemplates();cimsvg.populateTerminals("' + type + '", "' + rdfid +'")'
+            let click = 'cimsvgClass.addTerminal("' + type + '", "' +rdfid + '");cimsvgClass.applyTemplates();cimsvgClass.populateTerminals("' + type + '", "' + rdfid +'")'
             let end = `;'> + </button>
                 </span>
             `;

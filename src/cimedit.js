@@ -160,7 +160,7 @@ var cimedit = cimedit || (function() {
                 baseJson[type][rdfid][common.pinturaTerminals()] = [];
                 sequenceNumber = 1;
             }
-            let terminal = makeTerminal(currentDiagramId, baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
+            let terminal = makeTerminal(cimsvg.cimSVGclass.getCimsvg().getCurrentDiagramId(), baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
             moveTerminalIntoComponentOrbit(baseJson, terminal, type, rdfid);
             baseJson[type][rdfid][common.pinturaTerminals()].push(terminal)
         }
@@ -180,6 +180,7 @@ var cimedit = cimedit || (function() {
     };
 
     const connectTerminalToTopologicalNode = function(graph, terminalId, topologicalNodeId) {
+        let baseJson                       = cimxml.getBaseJson();
         let terminal                       = common.safeExtract(graph, "cim:Terminal", terminalId);
         let topologicalNode                = common.safeExtract(graph, "cim:TopologicalNode", topologicalNodeId);
         let terminalDiagramObjectId        = terminal[common.pinturaDiagramObject()]
@@ -314,14 +315,8 @@ var cimedit = cimedit || (function() {
         },
     };
 
-    var currentDiagramId = undefined;
-
-    var setCurrentDiagramId = function(diagramId) {
-        currentDiagramId = diagramId;
-    };
-
     var getCurrentDiagramId = function() {
-        return currentDiagramId;
+        return cimsvg.getCurrentDiagramId();
     };
 
     var makeAggregateComponent = function(diagramId, jsonBaseData, type) {
@@ -368,7 +363,7 @@ var cimedit = cimedit || (function() {
             let conductingEquipment = common.safeExtract(jsonBaseData, "cim:Terminal", rdfid, "cim:Terminal.ConductingEquipment");
             if (conductingEquipment) {
                 let conductingEquipmentId = conductingEquipment["rdf:resource"].substr(1);
-                let ownerType = cimsvg.getObjectTypeUsingId(conductingEquipmentId);
+                let ownerType = cimsvgClass.getObjectTypeUsingId(conductingEquipmentId);
             }
         }
         else {
@@ -379,7 +374,7 @@ var cimedit = cimedit || (function() {
             let terminals = common.safeExtract(jsonBaseData, type, rdfid, "terminals");
             if (terminals) {
                 terminals.forEach(function(terminal) {
-                    cimsvg.removeTerminal(type, rdfid, terminal)
+                    cimsvgClass.removeTerminal(type, rdfid, terminal)
                 });
             }
         }
@@ -397,10 +392,14 @@ var cimedit = cimedit || (function() {
 
         if (terminalAndPointLimits[type] != undefined) {
             if (typeIsVisible(type)) {
-                return makeVisibleComponent(currentDiagramId, jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
+                console.log(cimsvg);
+                console.log(cimsvg.cimSVGclass);
+                console.log(cimsvg.cimSVGclass.getCimsvg());
+                return makeVisibleComponent(cimsvg.cimSVGclass.getCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
             }
             else {
-                return makeAggregateComponent(currentDiagramId, jsonBaseData, type);
+                console.log(cimsvg.cimSVGClass);
+                return makeAggregateComponent(cimsvg.cimSVGclass.getCimsvg().getCurrentDiagramId(), jsonBaseData, type);
             }
         }
         else {
@@ -413,7 +412,6 @@ var cimedit = cimedit || (function() {
         addComponentToBaseJson,
         connectTerminalToTopologicalNode,
         removeComponentFromBaseJson,
-        setCurrentDiagramId,
         getCurrentDiagramId,
         terminalAndPointLimits,
         typeHasVariableTerminalCount,

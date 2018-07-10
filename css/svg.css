@@ -38,7 +38,7 @@ line {
     stroke: #000;
     stroke-width: 2px;
 }
-#backing {
+.backing {
     fill: whitesmoke;
 }
 

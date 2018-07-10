@@ -70,18 +70,17 @@ var cimview = cimview || (function() {
     };
 
     var clearGrid = function() {
-        let oldLines = Array.from(svgNode.getElementsByClassName("gridLine"));
+        let oldLines = svgNode.querySelectorAll('.gridLine');
         oldLines.forEach(function(key) {
             key.remove();
         });
-        let oldLabels = Array.from(svgNode.getElementsByClassName("gridLabel"));
+        let oldLabels = svgNode.querySelectorAll('.gridLabel');
         oldLabels.forEach(function(key) {
             key.remove();
         });
     };
 
     var createLocationMarker = function(id, loc, x, y) {
-        let grid = svgNode.getElementById("grid");
         let textAttributes = {
             "x": x,
             "y": y,
@@ -90,11 +89,13 @@ var cimview = cimview || (function() {
         };
         let text = createSvgTag("text", textAttributes);
         text.innerHTML = loc;
-        grid.appendChild(text);
+        let grids = svgNode.querySelectorAll('.grid');
+        grids.forEach(function(grid) {
+            grid.appendChild(text);
+        });
     };
 
     var createGridLine = function(x1, y1, x2, y2) {
-        let grid = svgNode.getElementById("grid");
         let lineAttributes = {
             "x1": x1,
             "x2": x2,
@@ -103,7 +104,10 @@ var cimview = cimview || (function() {
             "class": "gridLine",
         };
         let line = createSvgTag("line", lineAttributes);
-        grid.appendChild(line);
+        let grids = svgNode.querySelectorAll('.grid');
+        grids.forEach(function(grid) {
+            grid.appendChild(line);
+        });
     };
 
     /*
@@ -178,11 +182,13 @@ var cimview = cimview || (function() {
     var setViewBox = function(rect) {
         let viewBoxString = rect.x+" "+rect.y+" "+rect.width+" "+rect.height;
         svgNode.setAttribute("viewBox", viewBoxString);
-        let bg = svgNode.getElementById("backing");
-        bg.setAttribute("x", rect.x);
-        bg.setAttribute("y", rect.y);
-        bg.setAttribute("width", "100%");
-        bg.setAttribute("height", "100%");
+        let bg = svgNode.querySelectorAll('.backing');
+        bg.forEach(function(backing) {
+            backing.setAttribute("x", rect.x);
+            backing.setAttribute("y", rect.y);
+            backing.setAttribute("width", "100%");
+            backing.setAttribute("height", "100%");
+        });
         createGrid();
     };
 
@@ -193,7 +199,8 @@ var cimview = cimview || (function() {
     };
 
     var hideAllLabels = function() {
-        Array.from(svgNode.getElementsByClassName("svglabel")).forEach(function (label) {
+        let svglabels = svgNode.querySelector('.svglabel');
+        svglabels.forEach(function (label) {
             label.setAttributeNS(null, "visibility", "hidden");
         });
     };

@@ -84,7 +84,7 @@ var cimcontextmenu = cimcontextmenu || (function() {
     }
 
     const removeComponent = function() {
-        cimsvg.removeComponent(type, id);
+        cimsvgClass.removeComponent(type, id);
     }
 
     return {

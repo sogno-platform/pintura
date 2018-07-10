@@ -110,7 +110,7 @@
                        <span class="row-right floating-panel-value">
                        <button>
                            <xsl:attribute name="onclick">
-                               <xsl:value-of select="concat('cimsvg.populateTerminals(', $apos, $type, $apos, ', ', $apos, $thr_lbr, $parentId, $thr_rbr, $apos, ')')"/>
+                               <xsl:value-of select="concat('cimsvgClass.populateTerminals(', $apos, $type, $apos, ', ', $apos, $thr_lbr, $parentId, $thr_rbr, $apos, ')')"/>
                            </xsl:attribute>
                            ->
                        </button>

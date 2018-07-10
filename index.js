@@ -16,13 +16,23 @@
  *  in the top level directory of this source tree.
  */
 
-cimsvg.init(
+let cimsvgClass = new cimsvg.cimSVGclass();
+cimsvgClass.init(
     document.getElementById("svg"),
     document.getElementById("sidebar"),
     document.getElementById("component-attributes"),
     document.getElementById("component-creation"),
     document.getElementById("component-terminals"),
 );
+let cimsvgClass2 = new cimsvg.cimSVGclass();
+cimsvgClass2.init(
+    document.getElementById("svg2"),
+    document.getElementById("sidebar"),
+    document.getElementById("component-attributes"),
+    document.getElementById("component-creation"),
+    document.getElementById("component-terminals"),
+);
+cimsvg.cimSVGclass.setCimsvg(cimsvgClass2);
 cimcontextmenu.init(document.getElementById("context-menu"), "context-menu")
 cimcontextmenu.resizeListener(window);
 cimcontextmenu.keyUpListener(window);
@@ -39,11 +49,11 @@ document.oncontextmenu = function(e){
 document.getElementById("fileopen").addEventListener('change', readFile, false);
 
 var updateComponent = function(type, id, attribute, value) {
-    cimsvg.updateComponent(type, id, attribute, value)
+    cimsvgClass.updateComponent(type, id, attribute, value)
 }
 
 var updateComponentRDF = function(type, id, attribute, value) {
-    cimsvg.updateComponentRDF(type, id, attribute, value)
+    cimsvgClass.updateComponentRDF(type, id, attribute, value)
 }
 
 var noInputFocus = function(evt) {
@@ -119,7 +129,7 @@ var onMouseUp = function(evt){
     }
     else {
         let type = evt.currentTarget.parentElement.getAttribute("type");
-        populateAttributes(cimsvg.getComponentAttributesNode(), type, id);
+        populateAttributes(cimsvgClass.getComponentAttributesNode(), type, id);
         showContainer('component-attributes', null, 'true');
         cimcontextmenu.toggleMenuOff();
     }
@@ -197,7 +207,7 @@ function readFile(e) {
     var files = e.target.files;
     if (files) {
         cimxml.clearXmlData()
-        cimsvg.setFileCount(files.length);
+        cimsvgClass.setFileCount(files.length);
         for (var i=0, f; f=files[i]; i++) {
             if (!f) {
                 return;
@@ -212,7 +222,7 @@ function readFile(e) {
     }
 };
 function loadContents(contents) {
-    cimsvg.loadFile(contents);
+    cimsvgClass.loadFile(contents);
 };
 function populateAttributes(node, type, id) {
     cimmenu.populateAttributes(node, type, id);
