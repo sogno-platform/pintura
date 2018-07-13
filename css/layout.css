@@ -117,8 +117,7 @@ button::-moz-focus-inner,
     justify-content:space-around;
     width:100%;
     order:0;
-    border-bottom: 1px solid grey;
-    border-right: 1px solid grey;
+    min-height: 40px;
 }
 .row {
     display: flex;
@@ -171,9 +170,6 @@ button::-moz-focus-inner,
     width: auto;
     height: 100%;
 }
-#attribute-list-header {
-    border-right:thick solid white;
-}
 .floating-panel {
     height: 100%;
     overflow-y: auto;
@@ -182,8 +178,8 @@ button::-moz-focus-inner,
     left: 400px;
 }
 .floating-panel-table {
-    display: table;
     padding: 0px;
+    border: 2px solid #6EA2B0;
 }
 .invisible {
     display: none;
@@ -269,7 +265,6 @@ button::-moz-focus-inner,
 .list-title {
     min-height: 40px;
     max-height: 40px;
-    border-top: solid medium white;
     width: 100%;
     margin: 0px;
     padding-left: 8px;

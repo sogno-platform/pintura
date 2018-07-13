@@ -35,7 +35,8 @@ button:hover {
 }
 #sidebar {
     background: #6EA2B0;
-    border-right:thick solid white;
+    border-right: 2px solid #6EA2B0;
+    border-bottom: 2px solid #6EA2B0;
 }
 .list-title {
     background: #6EA2B0;
@@ -49,7 +50,4 @@ button:hover {
 .list-entry {
     color: white;
     background:#6EA2B0;
-}
-.floating-panel {
-    background: #6EA2B0;
 }
