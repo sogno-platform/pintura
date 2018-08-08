@@ -156,7 +156,6 @@ button::-moz-focus-inner,
     border-right:thick solid white;
 }
 .floating-panel {
-    display: none;
     height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
@@ -165,7 +164,10 @@ button::-moz-focus-inner,
     display: table;
     padding: 0px;
 }
-.floating-panel-list-div {
+.floating-panel-table.invisible {
+    display: none;
+}
+.floating-menu-list {
     margin:0px;
     padding:0px;
 }

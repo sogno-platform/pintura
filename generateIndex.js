@@ -229,17 +229,17 @@ var floating_panel_settings = function(floating_panel_settings_id, floating_pane
                          c(right_radio))
 }
 
-var floating_panel_header = function(title, floating_panel_id, settings_panel_id) {
+var floating_panel_header = function(floating_panel_id, settings_panel_id) {
     return new tag('div').
 	           a('class', '"wide-row list-title"').
 	           c(new tag('span').
                    a('id', '"' + floating_panel_id + '-component-name"').
-                   a('class', '"button row-left"').
-                   t(title)).
+                   a('class', '"floating-panel-title button row-left"').
+                   t("title goes here")).
                c(new tag('span').
                    c(new tag('span').
                        a('class', '"button row-right panel-button"').
-                       a('onclick', '"showContainer(\'' + floating_panel_id + '\', null);"').
+                       a('onclick', '"cimsvg.cimSVGclass.getCimsvg().hideFloatingMenu();"').
                        t("<b>&times;</b>")).
                    c(new tag('span').
                        a('class', '"button row-right panel-button"').
@@ -258,20 +258,17 @@ var make_floating_panel = function(title, id) {
     return new tag('div').
 	           a('id', '"'+id+'"').
                a('class', '"floating-panel row-left dialog-over-diagram"').
-               c(new tag('div').a('class', '"floating-panel-table"').
-               c(floating_panel_header(title, id, id + '-settings')).
+               c(new tag('div').a('class', '"floating-panel-table invisible"').
+               c(floating_panel_header(id, id + '-settings')).
            c(dropdown_panel().c(floating_panel_settings(id + '-settings', id))).
            c(new tag('div').
-               a('id', '"' + id + '-list-div"').
-               a('class', '"floating-panel-list-div"').
+               a('class', '"floating-menu-list"').
 			   t(" ")))
 }
 
-var component_attributes = make_floating_panel("Attributes in Component", 'component-attributes')
-var component_creation = make_floating_panel("Add Component", 'component-creation')
-var component_terminals = make_floating_panel("Terminal List", 'component-terminals')
+var floating_menu = make_floating_panel('floating-menu', 'floating-menu')
 
-var main = new tag('div').a('id', '"main"').c(diagram).c(component_attributes).c(component_creation).c(component_terminals)
+var main = new tag('div').a('id', '"main"').c(diagram).c(floating_menu)
 
 body.c(main).c(sidebar)
 

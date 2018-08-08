@@ -20,17 +20,13 @@ let cimsvgClass = new cimsvg.cimSVGclass();
 cimsvgClass.init(
     document.getElementById("svg"),
     document.getElementById("sidebar"),
-    document.getElementById("component-attributes"),
-    document.getElementById("component-creation"),
-    document.getElementById("component-terminals"),
+    document.getElementById("floating-menu"),
 );
 let cimsvgClass2 = new cimsvg.cimSVGclass();
 cimsvgClass2.init(
     document.getElementById("svg2"),
     document.getElementById("sidebar"),
-    document.getElementById("component-attributes"),
-    document.getElementById("component-creation"),
-    document.getElementById("component-terminals"),
+    document.getElementById("floating-menu"),
 );
 cimsvg.cimSVGclass.setCimsvg(cimsvgClass2);
 cimcontextmenu.init(document.getElementById("context-menu"), "context-menu")
@@ -129,8 +125,8 @@ var onMouseUp = function(evt){
     }
     else {
         let type = evt.currentTarget.parentElement.getAttribute("type");
-        populateAttributes(cimsvgClass.getComponentAttributesNode(), type, id);
-        showContainer('component-attributes', null, 'true');
+        cimsvg.cimSVGclass.getCimsvg().populateAttributes(type, id);
+        cimsvg.cimSVGclass.getCimsvg().showFloatingMenu();
         cimcontextmenu.toggleMenuOff();
     }
     evt.stopPropagation();
@@ -225,10 +221,10 @@ function loadContents(contents) {
     cimsvgClass.loadFile(contents);
 };
 function populateAttributes(node, type, id) {
-    cimmenu.populateAttributes(node, type, id);
+    cimmenu.cimmenuClass.populateAttributes(node, type, id);
 };
-function populateAttributesIdOnly(node, type, id) {
-    cimmenu.populateAttributesIdOnly(node, type, id);
+function populateAttributesIdOnly(node, id) {
+    cimmenu.cimmenuClass.populateAttributesIdOnly(node, id);
 };
 
 if (typeof module !== 'undefined' && module.exports) {

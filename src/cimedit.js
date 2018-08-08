@@ -392,13 +392,9 @@ var cimedit = cimedit || (function() {
 
         if (terminalAndPointLimits[type] != undefined) {
             if (typeIsVisible(type)) {
-                console.log(cimsvg);
-                console.log(cimsvg.cimSVGclass);
-                console.log(cimsvg.cimSVGclass.getCimsvg());
                 return makeVisibleComponent(cimsvg.cimSVGclass.getCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
             }
             else {
-                console.log(cimsvg.cimSVGClass);
                 return makeAggregateComponent(cimsvg.cimSVGclass.getCimsvg().getCurrentDiagramId(), jsonBaseData, type);
             }
         }

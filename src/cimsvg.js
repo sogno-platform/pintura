@@ -42,14 +42,16 @@ var cimsvg = cimsvg || (function() {
             this.sidebarNode = null;
             this.addingType = null;
             this.addingPoint = null;
-            this.componentCreationNode = null;
-            this.componentAttributesNode = null;
-            this.componentTerminalsNode = null;
+            this.floatingMenuNode = null;
             this.currentDiagramId = undefined;
+            this.componentCreationHtml = null;
         }
 
+        getComp() {
+            return this.componentCreationHtml;
+        };
+
         setCurrentDiagramId(diagramId) {
-            console.log("Setting current diagram id " + diagramId)
             this.currentDiagramId = diagramId;
         };
 
@@ -62,21 +64,11 @@ var cimsvg = cimsvg || (function() {
         };
 
         static setCimsvg(cimsvgClass) {
-            console.log("Setting current cimsvg")
-            console.log(cimsvgClass)
             currentCimsvgClass = cimsvgClass;
         };
 
-        getComponentTerminalsNode () {
-            return this.componentTerminalsNode;
-        };
-
-        getComponentCreationNode () {
+        getFloatingMenuNode () {
             return this.componentCreationNode ;
-        };
-
-        getComponentAttributesNode () {
-            return this.componentAttributesNode ;
         };
 
         includeFile (fileName, callback) {
@@ -103,15 +95,13 @@ var cimsvg = cimsvg || (function() {
 
         addComponent (type) {
             if (cimedit.typeIsVisible(type)) {
-                console.log(this.svgNode)
                 this.addingType = type;
                 let image = cimjson.getImageName(type);
                 let backingList = this.svgNode.querySelectorAll('.backing');
                 backingList.forEach(function(backing){
                     backing.style.cursor = 'url("' + image + '"), crosshair';
                 });
-                hideContainer('component-creation');
-                hideContainer('component-attributes');
+                this.hideFloatingMenu();
             }
             else {
                 return addComponentAndApplyTemplates(type);
@@ -149,9 +139,20 @@ var cimsvg = cimsvg || (function() {
             }
         };
 
+        populateAttributes(type, id) {
+            cimmenu.cimmenuClass.populateAttributes(this.floatingMenu, type, id);
+        };
+
+        populateAttributesIdOnly(id) {
+            cimmenu.cimmenuClass.populateAttributesIdOnly(this.floatingMenu, id);
+        };
+
+        populateComponentCreationMenu() {
+            cimmenu.cimmenuClass.populateFloatingMenu(this.floatingMenu, this.componentCreationHtml, "Add Component");
+        };
+
         populateTerminals(type, rdfid) {
-            cimmenu.populateTerminals(this.componentTerminalsNode, type, rdfid)
-            hideContainer('component-attributes')
+            cimmenu.cimmenuClass.populateTerminals(this.floatingMenu, type, rdfid)
         };
 
         checkComponentReadyToAdd(evt) {
@@ -182,7 +183,7 @@ var cimsvg = cimsvg || (function() {
             let templateJson = cimjson.getTemplateJson(baseJson);
             this.applyDiagramTemplate(templateJson)
             if(this.sidebarNode != null) {
-                cimmenu.populateSidebar(this.sidebarNode, templateJson);
+                cimmenu.cimmenuClass.populateSidebar(this.sidebarNode, templateJson);
             }
         };
 
@@ -199,7 +200,7 @@ var cimsvg = cimsvg || (function() {
                 let templateJson = cimjson.getTemplateJson(baseJson);
                 this.applyDiagramTemplate(templateJson)
                 if(this.sidebarNode != null) {
-                    cimmenu.populateSidebar(this.sidebarNode, templateJson);
+                    cimmenu.cimmenuClass.populateSidebar(this.sidebarNode, templateJson);
                 }
             }
         };
@@ -244,7 +245,7 @@ var cimsvg = cimsvg || (function() {
             }
         };
 
-        loadXml(fileName, callback) {
+        loadXml(fileName, SVGclass, callback) {
             // Create a connection to the file.
             var Connect = new XMLHttpRequest();
             // Define which file to open and
@@ -253,7 +254,7 @@ var cimsvg = cimsvg || (function() {
             Connect.onload = function (e) {
                 if(Connect.readyState === 4) {
                     if(Connect.status === 200) {
-                        callback(Connect.responseXML);
+                        SVGclass.componentCreationHtml = callback(Connect.responseXML);
                     }
                     else {
                         console.error(Connect.statusText);
@@ -314,7 +315,7 @@ var cimsvg = cimsvg || (function() {
                     if(this.sidebarNode != undefined) {
                         includeFile("src/cimedit.js", function() {});
                         includeFile("src/cimmenu.js", function() {
-                            loadXml(addComponentsXml, function(xml){
+                            loadXml(addComponentsXml, this, function(xml){
                                 cimmenu.init(componentCreation, xml)
                             });
                         });
@@ -345,25 +346,34 @@ var cimsvg = cimsvg || (function() {
             return aggregateComponents;
         };
 
-        init(svg, sidebar, componentAttributes, componentCreation, componentTerminals) {
-            console.log(svg)
+        getFloatingMenuNode() {
+            return this.floatingMenu;
+        };
+
+        showFloatingMenu() {
+            let tables = this.floatingMenu.querySelectorAll(".floating-panel-table");
+            tables.forEach(function(table){
+                table.classList.remove('invisible');
+            });
+        };
+
+        hideFloatingMenu() {
+            let tables = this.floatingMenu.querySelectorAll(".floating-panel-table");
+            tables.forEach(function(table){
+                table.classList.add('invisible');
+            });
+        };
+
+        init(svg, sidebar, floatingMenuNode) {
             this.svgNode = svg;
             this.sidebarNode = sidebar;
-            this.componentAttributesNode = componentAttributes;
-            this.componentCreationNode = componentCreation;
-            this.componentTerminalsNode = componentTerminals;
-            if (typeof module !== 'undefined' && module.exports) {
-                cimview.init(this.svgNode);
-                if(this.sidebarNode != undefined) {
-                    this.loadXml(addComponentsXml, function(xml){
-                        cimmenu.init(componentCreation, xml)
-                    });
-                }
+            cimview.init(svg);
+            if(floatingMenuNode != undefined) {
+                this.floatingMenu = floatingMenuNode;
+                this.loadXml("generated/add_components_menu.xml", this, function(xml) {
+                    return xml.documentElement.outerHTML;
+                });
             }
-            else {
-                this.loadDependencies(componentCreation);
-            }
-
         };
     };
 
@@ -373,7 +383,6 @@ var cimsvg = cimsvg || (function() {
     return {
         cimSVGclass
     };
-
 }());
 
 if (typeof module !== 'undefined' && module.exports) {

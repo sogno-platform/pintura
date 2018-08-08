@@ -14,6 +14,7 @@ const createAttributeListFilename = "xslt_templates/cim_xml_scheme.xslt";
 const sortMenuXSLTFilename = "xslt_templates/sort_menu.xslt";
 const sortedMenuFilename = "generated/add_components_menu.xml";
 const attributeDir = "generated/attributes/";
+const cimedit = require('../src/cimedit.js');
 
 var getOptions = function(args) {
   let options = {};
@@ -63,6 +64,21 @@ var writeArrayOfFiles = function(objects, index, done) {
   });
 };
 
+const createComponentCreationHtml = function(menuXml) {
+    let ul = "<ul class='floating-panel-list'>";
+    for (let item in cimedit.terminalAndPointLimits) {
+        if (cimedit.typeIsVisible(item)) {
+            let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
+            let result = menuXml.get(xpathQuery);
+            if (result) {
+                ul += result.toString();
+            }
+        }
+    }
+    ul += "</ul>";
+    return ul;
+};
+
 var processFilenames = function(list, options) {
 
   let arrayOfFiles = [];
@@ -82,7 +98,8 @@ var processFilenames = function(list, options) {
   let menuSortingXSLT = xslt.loadXMLDoc(sortMenuXSLTFilename);
   let menuXMLDoc = libxmljs.parseXml(menuItems);
   let sortedMenuItems = xslt.performXSLTTranslation(menuXMLDoc, menuSortingXSLT);
-  arrayOfFiles.push({ 'filename': sortedMenuFilename, 'data': sortedMenuItems });
+  let htmlMenuItems = createComponentCreationHtml(sortedMenuItems);
+  arrayOfFiles.push({ 'filename': sortedMenuFilename, 'data': htmlMenuItems });
 
   return arrayOfFiles;
 };

@@ -18,128 +18,107 @@
 
 var cimmenu = cimmenu || (function() {
 
-    var populateSidebar = function(sidebar, templateJson) {
-        let template = Handlebars.templates['pintura2html'];
-        let data = template(templateJson);
-        sidebar.querySelector('#component-sidebar-list').innerHTML = data;
-    };
+    class cimmenuClass {
 
-    var calculatePanelHeight = function(data, panelNode, containingNode, titleHeight = 50) {
-        let links = data.split('<li')
-        let listLength = links.length - 1;
-        panelHeight = titleHeight + (listLength * 40)
-        containingPanelHeight = containingNode.getBoundingClientRect().height
-        height = 0
-        if (panelHeight < containingPanelHeight) {
-            panelNode.style.height = panelHeight.toString() + 'px'
-        } else {
-            panelNode.style.height = '100%'
-        }
-    };
+        constructor () {}
 
-    var populateComponentCreation = function(componentCreationNode, menuXml) {
-        accordion = componentCreationNode.querySelector('#component-creation-list-div')
+        static populateSidebar (sidebar, templateJson) {
+            let template = Handlebars.templates['pintura2html'];
+            let data = template(templateJson);
+            sidebar.querySelector('#component-sidebar-list').innerHTML = data;
+        };
 
-        let ul = new DOMParser().parseFromString("<ul class='floating-panel-list'></ul>", 'text/xml');
-        for (let item in cimedit.terminalAndPointLimits) {
-            if (cimedit.typeIsVisible(item)) {
-                let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
-                let xpathResult = menuXml.evaluate( xpathQuery, menuXml.documentElement, null, XPathResult.ANY_TYPE, null );
-                let match = xpathResult.iterateNext();
-                if (match) {
-                    ul.documentElement.appendChild(match);
-                }
+        static calculatePanelHeight (data, panelNode, containingNode) {
+            let panelHeight = 0;
+            let tableList = panelNode.querySelectorAll('.floating-panel-table')
+            tableList.forEach(function(table) {
+                table.classList.remove('invisible');
+                panelHeight += table.scrollHeight;
+            });
+            let containingPanelHeight = containingNode.getBoundingClientRect().height
+            if (panelHeight < containingPanelHeight) {
+                panelNode.style.height = panelHeight.toString() + 'px'
+            } else {
+                panelNode.style.height = '100%'
             }
-        }
-        accordion.innerHTML = ul.documentElement.outerHTML;
-        calculatePanelHeight(accordion.innerHTML, componentCreationNode, document.body);
-    };
+        };
 
-    const populateAttributesIdOnly = function(node, id) {
-        let type = cimsvgClass.getObjectTypeUsingId(id);
-        if (type != undefined) {
-            populateAttributes(node, type, id);
-        }
-        else {
-            console.error("Can't establish type for id: " + id)
-        }
-    };
+        static populateFloatingMenu (floatingMenuNode, menuItems, titleText) {
+            let accordionList = floatingMenuNode.querySelectorAll('.floating-menu-list')
+            accordionList.forEach(function(accordion) {
+                accordion.innerHTML = menuItems;
+                cimmenu.cimmenuClass.calculatePanelHeight(accordion.innerHTML, floatingMenuNode, floatingMenuNode.ownerDocument.body);
+            });
+            let titleList = floatingMenuNode.querySelectorAll('.floating-panel-title')
+            titleList.forEach(function(title) {
+                title.innerHTML = titleText;
+            });
+        };
 
-    const populateAttributes = function(node, type, id) {
-        if (id == "No Object" || id == "Missing rdf:resource") {
-            return;
-        }
-        let list = node.querySelector('#component-attributes-list-div')
-        let baseJson = cimxml.getBaseJson();
-        if (baseJson[type] == undefined) {
-            console.error("Cannot find " + type + " in data to display id " + id);
-        }
-        if (baseJson[type][id] == undefined) {
-            console.error("Cannot find " + id + " in data to display id of " + type);
-        }
-        let template = Handlebars.templates["attributes/"+type.substring(4)];
-        let data = template(baseJson[type][id]);
-        list.innerHTML = data;
-        calculatePanelHeight(data, node, document.body);
-    };
-
-    const populateTerminals = function(node, type, rdfid) {
-        let baseJson = cimxml.getBaseJson();
-        if (baseJson[type] && baseJson[type][rdfid]) {
-            var template = Handlebars.templates['cim_list_terminals'];
-            let terminals = baseJson[type][rdfid][common.pinturaTerminals()]
-            let begin =`
-                <span class="row-right wide-row floating-panel-value">
-                    <input class="list-subtitle" value="Add New Terminal" type="text"></input>
-                    <button onclick='`
-            let click = 'cimsvgClass.addTerminal("' + type + '", "' +rdfid + '");cimsvgClass.applyTemplates();cimsvgClass.populateTerminals("' + type + '", "' + rdfid +'")'
-            let end = `;'> + </button>
-                </span>
-            `;
-            let menuData = begin + click + end;
-            for (let index in terminals) {
-                let terminalId = terminals[index];
-                let terminal = baseJson["cim:Terminal"][terminalId];
-                let templateData = {
-                    "name": terminal['cim:IdentifiedObject.name'],
-                    "rdfid": rdfid,
-                    "terminalId": terminalId,
-                    "type": type,
-                };
-                menuData += template(templateData);
-            }
-            let list = node.querySelector('#component-terminals-list-div')
-            list.innerHTML = menuData;
-            calculatePanelHeight(list.innerHTML, node, document.body, 100);
-            showContainer('component-terminals', null, 'true');
-        }
-        else {
-            console.error("Couldn't find " + rdfid + " in " + baseJson[type])
-        }
-    };
-
-    var searchSidebar=function(searchString) {
-        var elements = document.getElementsByClassName('component-list-item');
-        for (var i=0; i<elements.length; i++)
-        {
-            if (elements[i].text.toUpperCase().startsWith(searchString.toUpperCase())) {
-                elements[i].style='display:inline';
+        static populateAttributesIdOnly (node, id) {
+            let type = cimsvg.cimSVGclass.getCimsvg().getObjectTypeUsingId(id);
+            if (type != undefined) {
+                populateAttributes(node, type, id);
             }
             else {
-                elements[i].style='display:none';
+                console.error("Can't establish type for id: " + id)
             }
-        }
-    };
+        };
+
+        static populateAttributes (node, type, id) {
+            if (id == "No Object" || id == "Missing rdf:resource") {
+                return;
+            }
+            let baseJson = cimxml.getBaseJson();
+            if (baseJson[type] == undefined) {
+                console.error("Cannot find " + type + " in data to display id " + id);
+            }
+            if (baseJson[type][id] == undefined) {
+                console.error("Cannot find " + id + " in data to display id of " + type);
+            }
+            let template = Handlebars.templates["attributes/"+type.substring(4)];
+            let data = template(baseJson[type][id]);
+            cimmenu.cimmenuClass.populateFloatingMenu(node, data, "Attributes");
+        };
+
+        static populateTerminals (node, type, rdfid) {
+            let title = "Terminal List";
+            let titleNode = node.querySelectorAll('.floating-panel-title')
+            let baseJson = cimxml.getBaseJson();
+            if (baseJson[type] && baseJson[type][rdfid]) {
+                var template = Handlebars.templates['cim_list_terminals'];
+                let terminals = baseJson[type][rdfid][common.pinturaTerminals()]
+                let begin =`
+                    <span class="row-right wide-row floating-panel-value">
+                        <input class="list-subtitle" value="Add New Terminal" type="text"></input>
+                        <button onclick='`
+                let click = 'cimsvgClass.addTerminal("' + type + '", "' +rdfid + '");cimsvgClass.applyTemplates();cimsvgClass.populateTerminals("' + type + '", "' + rdfid +'")'
+                let end = `;'> + </button>
+                    </span>
+                `;
+                let menuData = begin + click + end;
+                for (let index in terminals) {
+                    let terminalId = terminals[index];
+                    let terminal = baseJson["cim:Terminal"][terminalId];
+                    let templateData = {
+                        "name": terminal['cim:IdentifiedObject.name'],
+                        "rdfid": rdfid,
+                        "terminalId": terminalId,
+                        "type": type,
+                    };
+                    menuData += template(templateData);
+                }
+                cimmenu.cimmenuClass.populateFloatingMenu(node, menuData, "Terminals");
+            }
+            else {
+                console.error("Couldn't find " + rdfid + " in " + baseJson[type])
+            }
+        };
+
+    }
 
     return {
-        init: function(componentCreation, menuXml){
-            populateComponentCreation(componentCreation, menuXml);
-        },
-        searchSidebar,
-        populateSidebar,
-        populateAttributes,
-        populateTerminals,
-        populateAttributesIdOnly,
+        cimmenuClass
     };
 }());
 

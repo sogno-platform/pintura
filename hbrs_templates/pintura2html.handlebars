@@ -4,7 +4,7 @@
             <span class="button row-left" onclick="javascript:showContainer('{{diagramId}}-accordion', null);">Components in: {{pintura:name}}</span>
             <span class="row-right">
                 <span id='{{diagramId}}-visibility-icon' class="button panel-button row-right" onclick="let cimsvgClass=cimsvg.cimSVGClass.getCimsvg();cimsvgClass.toggleDiagramVisible('{{diagramId}}', '{{diagramId}}-visibility-icon');">&#9728;</span>
-                <span class="button panel-button row-right" onclick="javascript:cimsvg.cimSVGclass.getCimsvg().setCurrentDiagramId('{{diagramId}}');showContainer('component-creation')">&#43;</span>
+                <span class="button panel-button row-right" onclick="javascript:cimsvg.cimSVGclass.getCimsvg().setCurrentDiagramId('{{diagramId}}');cimsvgClass.populateComponentCreationMenu();cimsvgClass.showFloatingMenu()">&#43;</span>
             </span>
         </div>
         <div id="{{diagramId}}-accordion" class="component-accordion" style="display:none">
@@ -13,7 +13,7 @@
                 <div id="{{diagramId}}-{{typeName}}-accordion" style="display:none">
                 {{#each this as |value componentId|}}
                     <button id="{{componentId}}-sidebar-button" style="width:100%" class="button wide-button row component-list-entry list-entry-light"
-                        onclick="javascript:populateAttributes(cimsvgClass.getComponentAttributesNode(), '{{typeName}}', '{{componentId}}');showContainer('component-attributes', null, 'true', 'table');">{{this.pintura:label.text}}</button>
+                        onclick="cimsvg.cimSVGclass.getCimsvg().populateAttributes('{{typeName}}', '{{componentId}}');">{{this.pintura:label.text}}</button>
                 {{/each}}
                 </div>
             {{/each}}

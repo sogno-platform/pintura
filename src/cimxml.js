@@ -26,7 +26,6 @@ var cimxml = cimxml || (function() {
 
     var getBaseXML = function() {
         let baseJson = getBaseJson();
-        console.log(baseJson)
         baseXml = getDOM("<rdf:RDF "+xmlns()+"/>");
         for (let component in baseJson) {
             for (let rdfid in baseJson[component]) {
