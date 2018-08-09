@@ -22,7 +22,7 @@ let simpleTypes = classStructure.simpleTypes;
 let complexTypes = classStructure.complexTypes;
 
 Handlebars.registerHelper('getRdfId', function(object) {
-    return new Handlebars.SafeString(cimsvgClass.getRdfResource());
+    return new Handlebars.SafeString(currentCimsvg().getRdfResource());
 });
 Handlebars.registerHelper('neq', function(v1, v2, options) {
   if(v1 !== v2) {
@@ -32,9 +32,9 @@ Handlebars.registerHelper('neq', function(v1, v2, options) {
 });
 
 Handlebars.registerHelper('viewAggregateComponentLink', function(rdfIdObject) {
-    let rdfid = cimsvgClass.getRdfResource(rdfIdObject);
+    let rdfid = currentCimsvg().getRdfResource(rdfIdObject);
     if (rdfid) {
-        let viewLink = "populateAttributesIdOnly(cimsvgClass.getComponentAttributesNode(), '" +
+        let viewLink = "populateAttributesIdOnly(currentCimsvg().getComponentAttributesNode(), '" +
                     rdfid +"');showContainer('component-attributes', null, 'true', 'table');"
         return new Handlebars.SafeString(viewLink)
     }
@@ -48,7 +48,7 @@ Handlebars.registerHelper('getName', function(rdfIdObject) {
         let rdfid = rdfIdObject['rdf:resource'];
         if (rdfid != undefined) {
             var idSubString = rdfid.substring(1);
-            var object = cimsvgClass.getObjectUsingId(idSubString)
+            var object = currentCimsvg().getObjectUsingId(idSubString)
             if (object != undefined) {
                 return new Handlebars.SafeString(object['cim:IdentifiedObject.name'])
             }
@@ -66,7 +66,7 @@ const complex_type_template = function(type, rdfid, requestedType, matchingCompo
     let template = Handlebars.templates['cim_update_complex_type'];
     let possibleClasses = [ type ];
     possibleClasses = possibleClasses.concat(complexTypes[type]);
-    matchingComponents.aggregates = cimsvgClass.getAggregateComponentsList(requestedType, possibleClasses).aggregates;
+    matchingComponents.aggregates = currentCimsvg().getAggregateComponentsList(requestedType, possibleClasses).aggregates;
     let targetRdfId;
     if (rdfid && rdfid["rdf:resource"]) {
         targetRdfId = rdfid["rdf:resource"].substr(1)

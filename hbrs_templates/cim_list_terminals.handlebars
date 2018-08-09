@@ -2,7 +2,7 @@
     <span class="row-left floating-panel-name">cim:Terminal</span>
     <span class="row-right wide-row  floating-panel-value">
         <input value="{{name}}" type="text"/>
-        <button onclick="cimsvgClass.removeTerminal('{{type}}', '{{rdfid}}', '{{terminalId}}');cimsvgClass.populateTerminals('{{type}}', '{{rdfid}}')">  -  </button>
-        <button onclick="cimsvg.cimSVGclass.getCimsvg().populateAttributesIdOnly('{{terminalId}}')"> -> </button>
+        <button onclick="currentCimsvg().removeTerminal('{{type}}', '{{rdfid}}', '{{terminalId}}');currentCimsvg().populateTerminals('{{type}}', '{{rdfid}}')">  -  </button>
+        <button onclick="currentCimsvg().populateAttributesIdOnly('{{terminalId}}')"> -> </button>
     </span>
 </li>

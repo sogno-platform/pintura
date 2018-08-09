@@ -216,8 +216,8 @@ var cimsvg = cimsvg || (function() {
         updateComponent(type, id, attribute, value) {
             cimxml.updateComponentInBaseJson(type, id, attribute, value)
             if (attribute === "cim:IdentifiedObject.name") {
-                buttonId = '#' + id + "-sidebar-button"
-                button = this.sidebarNode.querySelector(buttonId)
+                let buttonId = '#' + id + "-sidebar-button"
+                let button = this.sidebarNode.querySelector(buttonId)
                 button.innerHTML = value;
             }
         };
@@ -234,13 +234,13 @@ var cimsvg = cimsvg || (function() {
         };
 
         toggleDiagramVisible(id, icon) {
-            let diagram = this.svgNode.getElementById(id);
+            let diagram = this.svgNode.querySelector('#' + id);
             let iconNode = this.sidebarNode.querySelector('#' + icon);
-            if (diagram.style.display == "none") {
-                diagram.style.display = "";
+            if (diagram.classList.contains('invisible')) {
+                diagram.classList.remove('invisible');
                 iconNode.innerHTML = "&#9728;";
             } else {
-                diagram.style.display = "none";
+                diagram.classList.add('invisible');
                 iconNode.innerHTML = "&#9788;";
             }
         };
@@ -385,7 +385,13 @@ var cimsvg = cimsvg || (function() {
     };
 }());
 
+var currentCimsvg = function() {
+    return cimsvg.cimSVGclass.getCimsvg();
+};
+
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = cimsvg
-    global.cimsvg = cimsvg
+    module.exports = { cimsvg, currentCimsvg }
 }
+
+global.cimsvg = cimsvg
+global.currentCimsvg = currentCimsvg

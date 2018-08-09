@@ -22,10 +22,13 @@ var cimmenu = cimmenu || (function() {
 
         constructor () {}
 
-        static populateSidebar (sidebar, templateJson) {
+        static populateSidebar (sidebarNode, templateJson) {
             let template = Handlebars.templates['pintura2html'];
             let data = template(templateJson);
-            sidebar.querySelector('#component-sidebar-list').innerHTML = data;
+            let sidebarList = sidebarNode.querySelectorAll('.component-sidebar-list');
+            sidebarList.forEach(function(sidebar) {
+                sidebar.innerHTML = data;
+            });
         };
 
         static calculatePanelHeight (data, panelNode, containingNode) {
@@ -56,7 +59,7 @@ var cimmenu = cimmenu || (function() {
         };
 
         static populateAttributesIdOnly (node, id) {
-            let type = cimsvg.cimSVGclass.getCimsvg().getObjectTypeUsingId(id);
+            let type = currentCimsvg().getObjectTypeUsingId(id);
             if (type != undefined) {
                 populateAttributes(node, type, id);
             }
@@ -92,7 +95,7 @@ var cimmenu = cimmenu || (function() {
                     <span class="row-right wide-row floating-panel-value">
                         <input class="list-subtitle" value="Add New Terminal" type="text"></input>
                         <button onclick='`
-                let click = 'cimsvgClass.addTerminal("' + type + '", "' +rdfid + '");cimsvgClass.applyTemplates();cimsvgClass.populateTerminals("' + type + '", "' + rdfid +'")'
+                let click = 'currenttCimsvg().addTerminal("' + type + '", "' +rdfid + '");currentCimsvg().applyTemplates();currentCimsvg().populateTerminals("' + type + '", "' + rdfid +'")'
                 let end = `;'> + </button>
                     </span>
                 `;

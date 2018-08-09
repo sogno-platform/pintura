@@ -125,7 +125,7 @@ button::-moz-focus-inner,
     max-width: 400px;
     overflow-y: auto;
 }
-#component-sidebar-list {
+.component-sidebar-list {
     overflow-x:hidden;
     overflow-y:auto;
     order: 2;
@@ -164,7 +164,7 @@ button::-moz-focus-inner,
     display: table;
     padding: 0px;
 }
-.floating-panel-table.invisible {
+.invisible {
     display: none;
 }
 .floating-menu-list {

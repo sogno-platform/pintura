@@ -160,7 +160,7 @@ var cimedit = cimedit || (function() {
                 baseJson[type][rdfid][common.pinturaTerminals()] = [];
                 sequenceNumber = 1;
             }
-            let terminal = makeTerminal(cimsvg.cimSVGclass.getCimsvg().getCurrentDiagramId(), baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
+            let terminal = makeTerminal(currentCimsvg().getCurrentDiagramId(), baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
             moveTerminalIntoComponentOrbit(baseJson, terminal, type, rdfid);
             baseJson[type][rdfid][common.pinturaTerminals()].push(terminal)
         }
@@ -316,7 +316,7 @@ var cimedit = cimedit || (function() {
     };
 
     var getCurrentDiagramId = function() {
-        return cimsvg.getCurrentDiagramId();
+        return currentCimsvg().getCurrentDiagramId();
     };
 
     var makeAggregateComponent = function(diagramId, jsonBaseData, type) {
@@ -363,7 +363,7 @@ var cimedit = cimedit || (function() {
             let conductingEquipment = common.safeExtract(jsonBaseData, "cim:Terminal", rdfid, "cim:Terminal.ConductingEquipment");
             if (conductingEquipment) {
                 let conductingEquipmentId = conductingEquipment["rdf:resource"].substr(1);
-                let ownerType = cimsvgClass.getObjectTypeUsingId(conductingEquipmentId);
+                let ownerType = currentCimsvg().getObjectTypeUsingId(conductingEquipmentId);
             }
         }
         else {
@@ -374,7 +374,7 @@ var cimedit = cimedit || (function() {
             let terminals = common.safeExtract(jsonBaseData, type, rdfid, "terminals");
             if (terminals) {
                 terminals.forEach(function(terminal) {
-                    cimsvgClass.removeTerminal(type, rdfid, terminal)
+                    currentCimsvg().removeTerminal(type, rdfid, terminal)
                 });
             }
         }
@@ -392,10 +392,10 @@ var cimedit = cimedit || (function() {
 
         if (terminalAndPointLimits[type] != undefined) {
             if (typeIsVisible(type)) {
-                return makeVisibleComponent(cimsvg.cimSVGclass.getCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
+                return makeVisibleComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
             }
             else {
-                return makeAggregateComponent(cimsvg.cimSVGclass.getCimsvg().getCurrentDiagramId(), jsonBaseData, type);
+                return makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
             }
         }
         else {

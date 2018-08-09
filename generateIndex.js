@@ -158,17 +158,17 @@ body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
-                  c(new tag('div').a('id', '"component-sidebar-list"').t(' ')).
+                  c(new tag('div').a('class', '"component-sidebar-list"').t(' ')).
                   c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()',
-                                 'Save file', 'filesave', 'cimsvgClass.saveGridXml()',
-                                 'Add Diagram', 'diagram-add', 'cimsvgClass.addDiagram()'))
+                                 'Save file', 'filesave', 'currentCimsvg().saveGridXml()',
+                                 'Add Diagram', 'diagram-add', 'currentCimsvg().addDiagram()'))
 
 var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns', '"http://www.w3.org/2000/svg"').
 	          a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
 	          c(new tag('rect').
                       a('class', '"backing"').
-                      a('onclick', '"cimsvgClass.checkComponentReadyToAdd(evt)"')).
+                      a('onclick', '"currentCimsvg().checkComponentReadyToAdd(evt)"')).
 	          c(new tag('g').a('class', '"grid"')).
 	          c(new tag('g').a('class', '"diagrams"'))
 
@@ -177,7 +177,7 @@ var svg2 = new tag('svg').a('id', '"svg2"').
 	          a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
 	          c(new tag('rect').
                       a('class', '"backing"').
-                      a('onclick', '"cimsvgClass.checkComponentReadyToAdd(evt)"')).
+                      a('onclick', '"currentCimsvg().checkComponentReadyToAdd(evt)"')).
 	          c(new tag('g').a('class', '"grid"')).
 	          c(new tag('g').a('class', '"diagrams"'))
 
@@ -239,7 +239,7 @@ var floating_panel_header = function(floating_panel_id, settings_panel_id) {
                c(new tag('span').
                    c(new tag('span').
                        a('class', '"button row-right panel-button"').
-                       a('onclick', '"cimsvg.cimSVGclass.getCimsvg().hideFloatingMenu();"').
+                       a('onclick', '"currentCimsvg().hideFloatingMenu();"').
                        t("<b>&times;</b>")).
                    c(new tag('span').
                        a('class', '"button row-right panel-button"').

@@ -199,7 +199,7 @@ var cimview = cimview || (function() {
     };
 
     var hideAllLabels = function() {
-        let svglabels = svgNode.querySelector('.svglabel');
+        let svglabels = svgNode.querySelectorAll('.svglabel');
         svglabels.forEach(function (label) {
             label.setAttributeNS(null, "visibility", "hidden");
         });
