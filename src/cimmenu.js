@@ -34,7 +34,7 @@ var cimmenu = cimmenu || (function() {
             let tableList = panelNode.querySelectorAll('.floating-panel-table')
             tableList.forEach(function(table) {
                 table.classList.remove('invisible');
-                panelHeight += table.scrollHeight;
+                panelHeight += table.getBoundingClientRect.height;
             });
             let containingPanelHeight = containingNode.getBoundingClientRect().height
             if (panelHeight < containingPanelHeight) {

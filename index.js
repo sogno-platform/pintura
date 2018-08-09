@@ -16,14 +16,9 @@
  *  in the top level directory of this source tree.
  */
 
-new cimsvg.cimSVGclass().init(
-    document.getElementById("svg"),
-    document.getElementById("sidebar"),
-    document.getElementById("floating-menu"),
-);
 let cimsvgInstance = new cimsvg.cimSVGclass();
 cimsvgInstance.init(
-    document.getElementById("svg2"),
+    document.getElementById("svg"),
     document.getElementById("sidebar"),
     document.getElementById("floating-menu"),
 );

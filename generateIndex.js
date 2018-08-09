@@ -221,13 +221,22 @@ var make_floating_panel = function(title, id) {
 
 var floating_menu = make_floating_panel('floating-menu', 'floating-menu')
 
-var main = new tag('div').a('id', '"main"').c(diagram).c(floating_menu)
+var contextmenu = new tag('nav').
+                      a('id', '"context-menu"').
+                      a('class', '"context-menu"').
+                      a('onmouseup', '"onBodyMouseUp()"').
+                      c(new tag('ul').
+                          a('class', '"context-menu-items"').
+                          c(new tag('li').
+                              a('class', '"context-menu-item"').
+                              c(new tag('a').
+                                  a('class').a('onclick', '"cimcontextmenu.removeComponent()"').
+                                  t("Delete Component"))))
 
+var main = new tag('div').a('id', '"main"').c(diagram).c(floating_menu).c(contextmenu)
 body.c(main).c(sidebar)
-
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/cimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
-
 html.c(body)
 
 console.log(`<!--
