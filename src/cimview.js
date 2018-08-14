@@ -16,86 +16,88 @@
  *  in the top level directory of this source tree.
  */
 
-var cimview = cimview || (function() {
+class cimview {
 
-    var svgNode = null;
+    constructor(svg) {
+        this.svgNode = svg;
+        let rect = { x: "-100", y: "-100", width: "1024", height: "768" };
+        this.setViewBox(rect);
+        this.zoomSizes = [
+            { width: 1024, height: 768 },
+            { width: 920, height: 690 },
+            { width: 816, height: 612 },
+            { width: 712, height: 532 },
+            { width: 608, height: 456 },
+            { width: 504, height: 378 },
+            { width: 400, height: 300 },
+        ];
+        this.zoomLevel = 0;
+    }
 
-    var zoomSizes = [
-        { width: 1024, height: 768 },
-        { width: 920, height: 690 },
-        { width: 816, height: 612 },
-        { width: 712, height: 532 },
-        { width: 608, height: 456 },
-        { width: 504, height: 378 },
-        { width: 400, height: 300 },
-    ];
-
-    var zoomLevel = 0;
-
-    var zoomToLevel = function(level) {
-        zoomLevel = level;
-        let rect = getViewBox();
-        centreOfGrid = { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
-        rect.width = zoomSizes[level].width;
-        rect.height = zoomSizes[level].height;
+    zoomToLevel(level) {
+        this.zoomLevel = level;
+        let rect = this.getViewBox();
+        let centreOfGrid = { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+        rect.width = this.zoomSizes[level].width;
+        rect.height = this.zoomSizes[level].height;
         rect.x = centreOfGrid.x - (rect.width / 2);
         rect.y = centreOfGrid.y - (rect.height / 2);
-        setViewBox(rect);
+        this.setViewBox(rect);
     };
 
-    var zoomOut = function() {
-        let level = zoomLevel-1;
+    zoomOut() {
+        let level = this.zoomLevel-1;
         if (level < 0) {
             level = 0;
         }
-        zoomToLevel(level);
+        this.zoomToLevel(level);
         //document.getElementById("zoomer").value=level;
     };
 
-    var zoomIn = function() {
-        let level = zoomLevel+1;
-        let lastIndex = zoomSizes.length-1;
+    zoomIn() {
+        let level = this.zoomLevel+1;
+        let lastIndex = this.zoomSizes.length-1;
         if (level > lastIndex) {
             level = lastIndex;
         }
-        zoomToLevel(level);
+        this.zoomToLevel(level);
         //document.getElementById("zoomer").value=level;
     };
 
-    var pan = function(point) {
-        let rect = getViewBox();
+    pan(point) {
+        let rect = this.getViewBox();
         rect.x += point.x;
         rect.y += point.y;
-        setViewBox(rect);
+        this.setViewBox(rect);
     };
 
-    var clearGrid = function() {
-        let oldLines = svgNode.querySelectorAll('.gridLine');
+    clearGrid() {
+        let oldLines = this.svgNode.querySelectorAll('.gridLine');
         oldLines.forEach(function(key) {
             key.remove();
         });
-        let oldLabels = svgNode.querySelectorAll('.gridLabel');
+        let oldLabels = this.svgNode.querySelectorAll('.gridLabel');
         oldLabels.forEach(function(key) {
             key.remove();
         });
     };
 
-    var createLocationMarker = function(id, loc, x, y) {
+    createLocationMarker(id, loc, x, y) {
         let textAttributes = {
             "x": x,
             "y": y,
             "class": "gridLabel",
             "id": id,
         };
-        let text = createSvgTag("text", textAttributes);
+        let text = this.createSvgTag("text", textAttributes);
         text.innerHTML = loc;
-        let grids = svgNode.querySelectorAll('.grid');
+        let grids = this.svgNode.querySelectorAll('.grid');
         grids.forEach(function(grid) {
             grid.appendChild(text);
         });
     };
 
-    var createGridLine = function(x1, y1, x2, y2) {
+    createGridLine(x1, y1, x2, y2) {
         let lineAttributes = {
             "x1": x1,
             "x2": x2,
@@ -103,8 +105,8 @@ var cimview = cimview || (function() {
             "y2": y2,
             "class": "gridLine",
         };
-        let line = createSvgTag("line", lineAttributes);
-        let grids = svgNode.querySelectorAll('.grid');
+        let line = this.createSvgTag("line", lineAttributes);
+        let grids = this.svgNode.querySelectorAll('.grid');
         grids.forEach(function(grid) {
             grid.appendChild(line);
         });
@@ -113,16 +115,16 @@ var cimview = cimview || (function() {
     /*
      * Create a tag in the svg namespace
      */
-    const createSvgTag = function(tagname, attributes) {
+    createSvgTag(tagname, attributes) {
         let xmlns="http://www.w3.org/2000/svg";
-        let newTag = svgNode.ownerDocument.createElementNS(xmlns, tagname);
+        let newTag = this.svgNode.ownerDocument.createElementNS(xmlns, tagname);
         for (let key in attributes) {
             newTag.setAttribute(key, attributes[key]);
         }
         return newTag;
     };
 
-    var calculateStartOffset = function(distanceFromOrigin, gridSize) {
+    calculateStartOffset(distanceFromOrigin, gridSize) {
         let offset;
         if (distanceFromOrigin < 0) {
             offset = distanceFromOrigin - ( distanceFromOrigin % gridSize );
@@ -133,97 +135,78 @@ var cimview = cimview || (function() {
         return offset;
     };
 
-    var createGrid = function() {
-        clearGrid();
+    createGrid() {
+        this.clearGrid();
         let gridSize = 100;
-        let viewBoxRect = getViewBox();
+        let viewBoxRect = this.getViewBox();
         /* horizontal lines */
-        let startOffsetY = calculateStartOffset(viewBoxRect.y, gridSize);
-        let startOffsetX = calculateStartOffset(viewBoxRect.x, gridSize);
+        let startOffsetY = this.calculateStartOffset(viewBoxRect.y, gridSize);
+        let startOffsetX = this.calculateStartOffset(viewBoxRect.x, gridSize);
         for (let i=0; i<(viewBoxRect.height/gridSize); i++) {
             let yval = i*gridSize+startOffsetY;
-            createGridLine(viewBoxRect.x, yval, viewBoxRect.width+viewBoxRect.x, yval);
-            createLocationMarker(yval+"y", yval.toString(), viewBoxRect.x+10, yval+20);
+            this.createGridLine(viewBoxRect.x, yval, viewBoxRect.width+viewBoxRect.x, yval);
+            this.createLocationMarker(yval+"y", yval.toString(), viewBoxRect.x+10, yval+20);
         }
         /* vertical lines */
         for (let i=0; i<(viewBoxRect.width/gridSize); i++) {
             let xval = i*gridSize+startOffsetX;
-            createGridLine(xval, viewBoxRect.y, xval, viewBoxRect.height+viewBoxRect.y);
-            createLocationMarker(xval+"x", xval.toString(), xval+10, viewBoxRect.y+20);
+            this.createGridLine(xval, viewBoxRect.y, xval, viewBoxRect.height+viewBoxRect.y);
+            this.createLocationMarker(xval+"x", xval.toString(), xval+10, viewBoxRect.y+20);
         }
     };
 
     /*
      * Convert a point in the window into a point in the svg component.
      */
-    var getMouseCoordFromWindow = function(evt) {
+    getMouseCoordFromWindow(evt) {
         let m = evt.target.getScreenCTM();
-        let position = svgNode.createSVGPoint();
+        let position = this.svgNode.createSVGPoint();
         position.x = (Number(evt.clientX));
         position.y = (Number(evt.clientY));
         return position.matrixTransform(m.inverse());
     };
 
-    var fit = function() {
-        setViewBox(svgNode.getElementById('diagrams').getBBox());
+    fit() {
+        this.setViewBox(this.svgNode.getElementById('diagrams').getBBox());
     };
 
-    var getViewBox = function() {
+    getViewBox() {
         let rect = {};
-        viewBoxString = svgNode.getAttribute("viewBox");
-        viewBoxElements = viewBoxString.split(" ");
-        rect.x = parseInt(viewBoxElements[0]);
-        rect.y = parseInt(viewBoxElements[1]);
-        rect.width = parseInt(viewBoxElements[2]);
-        rect.height = parseInt(viewBoxElements[3]);
+        this.viewBoxString = this.svgNode.getAttribute("viewBox");
+        this.viewBoxElements = this.viewBoxString.split(" ");
+        rect.x = parseInt(this.viewBoxElements[0]);
+        rect.y = parseInt(this.viewBoxElements[1]);
+        rect.width = parseInt(this.viewBoxElements[2]);
+        rect.height = parseInt(this.viewBoxElements[3]);
         return rect;
     };
 
-    var setViewBox = function(rect) {
+    setViewBox(rect) {
         let viewBoxString = rect.x+" "+rect.y+" "+rect.width+" "+rect.height;
-        svgNode.setAttribute("viewBox", viewBoxString);
-        let bg = svgNode.querySelectorAll('.backing');
+        this.svgNode.setAttribute("viewBox", viewBoxString);
+        let bg = this.svgNode.querySelectorAll('.backing');
         bg.forEach(function(backing) {
             backing.setAttribute("x", rect.x);
             backing.setAttribute("y", rect.y);
             backing.setAttribute("width", "100%");
             backing.setAttribute("height", "100%");
         });
-        createGrid();
+        this.createGrid();
     };
 
-    var clearDisplay = function() {
-        while (svgNode.firstChild) {
-            svgNode.removeChild(svgNode.firstChild);
+    clearDisplay() {
+        while (this.svgNode.firstChild) {
+            this.svgNode.removeChild(this.svgNode.firstChild);
         }
     };
 
-    var hideAllLabels = function() {
-        let svglabels = svgNode.querySelectorAll('.svglabel');
+    hideAllLabels() {
+        let svglabels = this.svgNode.querySelectorAll('.svglabel');
         svglabels.forEach(function (label) {
             label.setAttributeNS(null, "visibility", "hidden");
         });
     };
-
-    var init = function(svg) {
-        svgNode = svg;
-        let rect = { x: "-100", y: "-100", width: "1024", height: "768" };
-        setViewBox(rect);
-    };
-
-    /*
-     * Specify the functions that this module exports
-     */
-    return {
-        init,
-        pan,
-        fit,
-        zoomIn,
-        zoomOut,
-        getMouseCoordFromWindow,
-    };
-
-}());
+};
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = cimview

@@ -156,7 +156,7 @@ var cimsvg = cimsvg || (function() {
         };
 
         checkComponentReadyToAdd(evt) {
-            this.addingPoint = cimview.getMouseCoordFromWindow(evt);
+            this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
             if (this.addingType != null) {
                 let type = this.addingType;
                 let point = this.addingPoint;
@@ -308,27 +308,6 @@ var cimsvg = cimsvg || (function() {
             return undefined;
         };
 
-        loadDependencies(componentCreation) {
-            includeFile("handlebars.runtime.js", function() {
-                includeFile("src/cimview.js", function() {
-                    cimview.init(this.svgNode);
-                    if(this.sidebarNode != undefined) {
-                        includeFile("src/cimedit.js", function() {});
-                        includeFile("src/cimmenu.js", function() {
-                            loadXml(addComponentsXml, this, function(xml){
-                                cimmenu.init(componentCreation, xml)
-                            });
-                        });
-                    }
-                    includeFile("generated/template.js", function(){
-                        includeFile("src/cimxml.js", function(){
-                            includeFile("src/cimjson.js", function(){});
-                        });
-                    });
-                });
-            });
-        };
-
         getAggregateComponentsList(requestedClass, types) {
 
             let baseJson = cimxml.getBaseJson();
@@ -367,7 +346,7 @@ var cimsvg = cimsvg || (function() {
         init(svg, sidebar, floatingMenuNode) {
             this.svgNode = svg;
             this.sidebarNode = sidebar;
-            cimview.init(svg);
+            this.cimview = new cimview(svg);
             if(floatingMenuNode != undefined) {
                 this.floatingMenu = floatingMenuNode;
                 this.loadXml("generated/add_components_menu.xml", this, function(xml) {

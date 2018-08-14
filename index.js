@@ -59,40 +59,40 @@ document.onkeydown = function(evt) {
 
     /* ctrl + up key */
     if (evt.ctrlKey && (evt.keyCode == 38)) {
-        cimview.zoomIn();
+        currentCimsvg().cimview.zoomIn();
     }
     /* ctrl + down key */
     else if (evt.ctrlKey && (evt.keyCode == 40)) {
-        cimview.zoomOut();
+        currentCimsvg().cimview.zoomOut();
     }
     /* left key */
     else if (evt.keyCode == 37) {
         if (noInputFocus(evt)) {
-            cimview.pan({ x: -10, y: 0 });
+            currentCimsvg().cimview.pan({ x: -10, y: 0 });
         }
     }
     /* up key */
     else if (evt.keyCode == 38) {
         if (noInputFocus(evt)) {
-            cimview.pan({ x: 0, y: -10 });
+            currentCimsvg().cimview.pan({ x: 0, y: -10 });
         }
     }
     /* right key */
     else if (evt.keyCode == 39) {
         if (noInputFocus(evt)) {
-            cimview.pan({ x: 10, y: 0 });
+            currentCimsvg().cimview.pan({ x: 10, y: 0 });
         }
     }
     /* down key */
     else if (evt.keyCode == 40) {
         if (noInputFocus(evt)) {
-            cimview.pan({ x: 0, y: 10 });
+            currentCimsvg().cimview.pan({ x: 0, y: 10 });
         }
     }
     /* spacebar */
     else if (evt.keyCode == 32) {
         if (noInputFocus(evt)) {
-            cimview.fit();
+            currentCimsvg().cimview.fit();
         }
     }
 };
