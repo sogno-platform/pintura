@@ -17,8 +17,7 @@
  */
 
 let cimsvg = libcimsvg.cimsvg;
-let cimsvgInstance = new cimsvg();
-cimsvgInstance.init(
+let cimsvgInstance = new cimsvg.cimSVGclass(
     document.getElementById("svg"),
     document.getElementById("sidebar"),
     document.getElementById("floating-menu"),

@@ -73,9 +73,8 @@ describe("cimsvg", function() {
             let svg = dom.window.document.querySelector("#svg")
             let floatingMenu = dom.window.document.querySelector("#floating-menu")
             let sidebar = dom.window.document.querySelector("#sidebar")
-            cimsvgInstance = new cimsvg()
-            spyOn(cimsvgInstance, "loadXml").and.callFake(loadXml);
-            cimsvgInstance.init(svg, sidebar, floatingMenu);
+            spyOn(cimsvg.prototype, "loadXml").and.callFake(loadXml);
+            cimsvgInstance = new cimsvg(svg, sidebar, floatingMenu)
             cimsvg.setCimsvg(cimsvgInstance);
             spyOn(cimsvgInstance.cimview, "getMouseCoordFromWindow").and.callFake(getMouseCoordFromWindow);
             domReady = dom;

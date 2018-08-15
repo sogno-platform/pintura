@@ -31,16 +31,21 @@ if (typeof module !== 'undefined' && module.exports) {
 
 class cimsvg {
 
-    constructor() {
-        this.svgNode = null;
-        this.xmlNode = null;
-        this.pinturaNode = null;
-        this.sidebarNode = null;
+    constructor(svg, sidebar, floatingMenuNode) {
+        this.svgNode = svg;
+        this.sidebarNode = sidebar;
+        this.cimview = new cimview(svg);
+        this.floatingMenu = floatingMenuNode;
+        if(floatingMenuNode != undefined) {
+            this.loadXml("generated/add_components_menu.xml", this, function(xml) {
+                return xml.documentElement.outerHTML;
+            });
+        }
         this.addingType = null;
         this.addingPoint = null;
-        this.floatingMenuNode = null;
         this.currentDiagramId = undefined;
-        this.componentCreationHtml = null;
+        this.xmlNode = null;
+        this.pinturaNode = null;
         this.nameCounter = {};
         this.xmlDoc;
         this.rdfFileCount = 0;
@@ -81,8 +86,12 @@ class cimsvg {
                 return true;
             }
         }
+
     };
 
+    fit() {
+        this.cimview.fit();
+    };
 
     getXmlDoc() {
         return this.xmlDoc;
@@ -377,7 +386,6 @@ class cimsvg {
         return type;
     };
 
-
     getRdfResource(object) {
         if (object) {
             let rdfid = object['rdf:resource'];
@@ -422,18 +430,6 @@ class cimsvg {
             table.classList.add('invisible');
         });
     };
-
-    init(svg, sidebar, floatingMenuNode) {
-        this.svgNode = svg;
-        this.sidebarNode = sidebar;
-        this.cimview = new cimview(svg);
-        if(floatingMenuNode != undefined) {
-            this.floatingMenu = floatingMenuNode;
-            this.loadXml("generated/add_components_menu.xml", this, function(xml) {
-                return xml.documentElement.outerHTML;
-            });
-        }
-    };
 };
 
 cimsvg.currentCimsvgClass = null;
@@ -444,7 +440,7 @@ const currentCimsvg = function() {
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { cimsvg, currentCimsvg }
+    global.cimsvg = cimsvg
+    global.currentCimsvg = currentCimsvg
 }
 
-global.cimsvg = cimsvg
-global.currentCimsvg = currentCimsvg

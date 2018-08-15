@@ -167,7 +167,14 @@ class cimview {
     };
 
     fit() {
-        this.setViewBox(this.svgNode.getElementById('diagrams').getBBox());
+        // TODO : this just uses the last diagram, instead of the
+        // set of all boundaries. Fine for one diagram.
+        let diagramBoundary = null;
+        let diagramList = this.svgNode.querySelectorAll('.diagrams')
+        diagramList.forEach(function(diagram) {
+            diagramBoundary = diagram.getBBox();
+        });
+        this.setViewBox(diagramBoundary);
     };
 
     getViewBox() {

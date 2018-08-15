@@ -16,6 +16,17 @@
  *  in the top level directory of this source tree.
  */
 
+const term = require("../images/term.svg");
+const brea = require("../images/brea.svg");
+const conn = require("../images/conn.svg");
+const cons = require("../images/cons.svg");
+const net  = require("../images/net.svg");
+const tran = require("../images/trans.svg");
+const sola = require("../images/sol.svg");
+const sync = require("../images/sync.svg");
+const topo = require("../images/topo.svg");
+
+
 class cimjson {
 
     static getImageName(type) {
@@ -185,19 +196,19 @@ class cimjson {
 };
 
 cimjson.imageNames = {
-        "cim:ACLineSegment":             "images/term.svg",
-        "cim:Terminal":                  "images/term.svg",
-        "cim:Breaker":                   "images/brea.svg",
-        "cim:ConnectivityNode":          "images/conn.svg",
-        "cim:EnergyConsumer":            "images/cons.svg",
-        "cim:EquivalentInjection":       "images/cons.svg",
-        "cim:ExternalNetworkInjection":  "images/net.svg",
-        "cim:PowerTransformer":          "images/trans.svg",
-        "cim:SolarGeneratingUnit":       "images/solar.svg",
-        "cim:SynchronousMachine":        "images/sync.svg",
-        "cim:TopologicalNode":           "images/topo.svg",
-        "cim:TransformerWinding":        "images/trans.svg",
-    };
+    "cim:ACLineSegment":             "images/term.svg",
+    "cim:Terminal":                  "images/term.svg",
+    "cim:Breaker":                   "images/brea.svg",
+    "cim:ConnectivityNode":          "images/conn.svg",
+    "cim:EnergyConsumer":            "images/cons.svg",
+    "cim:EquivalentInjection":       "images/cons.svg",
+    "cim:ExternalNetworkInjection":  "images/net.svg",
+    "cim:PowerTransformer":          "images/trans.svg",
+    "cim:SolarGeneratingUnit":       "images/solar.svg",
+    "cim:SynchronousMachine":        "images/sync.svg",
+    "cim:TopologicalNode":           "images/topo.svg",
+    "cim:TransformerWinding":        "images/trans.svg",
+};
 
 
 if (typeof module !== 'undefined' && module.exports) {

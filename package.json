@@ -19,6 +19,7 @@
     "test": "node test/runTests.js"
   },
   "devDependencies": {
+    "file-loader": "^1.1.11",
     "handlebars": "^4.0.11",
     "jasmine": "^3.2.0",
     "jasmine-console-reporter": "^3.1.0",
@@ -27,6 +28,7 @@
     "libxslt": "^0.7.0",
     "webpack": "^4.17.1",
     "webpack-cli": "^2.0.10",
-    "xmldom": "^0.1.27"
+    "xmldom": "^0.1.27",
+    "url-loader": "^1.1.0"
   }
 }

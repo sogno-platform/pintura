@@ -12,41 +12,33 @@
 				fill: transparent;
 			}
 		</style>
-		<script type="text/javascript" src="../handlebars.runtime.js"></script>
-		<script type="text/javascript" src="../templates/template.js"></script>
-		<script type="text/javascript" src="../src/cimsvg.js"></script>
-		<script type="text/javascript" src="../src/cimview.js"></script>
-		<script type="text/javascript" src="../src/cimxml.js"></script>
-		<script type="text/javascript" src="../src/cimjson.js"></script>
-
 	</head>
 	<body>
 		<svg id="cim" width="800" >
-			<rect id="backing" />
-			<g id="grid" />
-			<g id="diagrams" />
+			<rect class="backing" />
+			<g class="grid" />
+			<g class="diagrams" />
 		</svg>
+		<script type="text/javascript" src="../html/cimsvg.js"></script>
 		<script language="javascript" type="text/javascript">
 			(function() {
 				var client = new XMLHttpRequest();
 				client.open('GET', 'IEEE-09_ME.xml');
 				client.onreadystatechange = function() {
-					svgelm = document.getElementById("cim");
+					if (client.readyState == 4 && client.status == 200) {
+						let svgelm = document.getElementById("cim");
+						let cimsvgInstance = new cimsvg.cimSVGclass(svgelm);
+						cimsvgInstance.setFileCount(1);
+						cimsvgInstance.loadFile(client.responseText);
+						cimsvgInstance.fit();
 
-					window.cimjson.setImagePathBase('../');
-					window.cimsvg.setSVG(svgelm); // function not available in upstream source
-					window.cimview.init(svgelm);
-					window.cimxml.clearXmlData();
-					window.cimsvg.setFileCount(1);
-					window.cimsvg.loadFile(client.responseText);
-					window.cimview.fit();
-
-					window.onMouseLeave =
-					window.onMouseOver =
-					window.onMouseLeave =
-					window.onMouseUp =
-					window.onMouseDown =
-					window.onMouseMove = function() {};
+						window.onMouseLeave = function() {};
+						window.onMouseOver = function() {};
+						window.onMouseLeave = function() {};
+						window.onMouseUp = function() {};
+						window.onMouseDown = function() {};
+						window.onMouseMove = function() {};
+					}
 				}
 				client.send();
 			})();
