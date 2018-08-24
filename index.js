@@ -215,10 +215,10 @@ function loadContents(contents) {
     currentCimsvg().loadFile(contents);
 };
 function populateAttributes(node, type, id) {
-    cimmenu.cimmenuClass.populateAttributes(node, type, id);
+    cimmenu.populateAttributes(node, type, id);
 };
 function populateAttributesIdOnly(node, id) {
-    cimmenu.cimmenuClass.populateAttributesIdOnly(node, id);
+    cimmenu.populateAttributesIdOnly(node, id);
 };
 
 if (typeof module !== 'undefined' && module.exports) {

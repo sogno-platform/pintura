@@ -136,19 +136,19 @@ class cimsvg {
     };
 
     populateAttributes(type, id) {
-        cimmenu.cimmenuClass.populateAttributes(this.floatingMenu, type, id);
+        cimmenu.populateAttributes(this.floatingMenu, type, id);
     };
 
     populateAttributesIdOnly(id) {
-        cimmenu.cimmenuClass.populateAttributesIdOnly(this.floatingMenu, id);
+        cimmenu.populateAttributesIdOnly(this.floatingMenu, id);
     };
 
     populateComponentCreationMenu() {
-        cimmenu.cimmenuClass.populateFloatingMenu(this.floatingMenu, this.componentCreationHtml, "Add Component");
+        cimmenu.populateFloatingMenu(this.floatingMenu, this.componentCreationHtml, "Add Component");
     };
 
     populateTerminals(type, rdfid) {
-        cimmenu.cimmenuClass.populateTerminals(this.floatingMenu, type, rdfid)
+        cimmenu.populateTerminals(this.floatingMenu, type, rdfid)
     };
 
     checkComponentReadyToAdd(evt) {
@@ -179,7 +179,7 @@ class cimsvg {
         let templateJson = cimjson.getTemplateJson(baseJson);
         this.applyDiagramTemplate(templateJson)
         if(this.sidebarNode != null) {
-            cimmenu.cimmenuClass.populateSidebar(this.sidebarNode, templateJson);
+            cimmenu.populateSidebar(this.sidebarNode, templateJson);
         }
     };
 
@@ -196,7 +196,7 @@ class cimsvg {
             let templateJson = cimjson.getTemplateJson(baseJson);
             this.applyDiagramTemplate(templateJson)
             if(this.sidebarNode != null) {
-                cimmenu.cimmenuClass.populateSidebar(this.sidebarNode, templateJson);
+                cimmenu.populateSidebar(this.sidebarNode, templateJson);
             }
         }
     };
