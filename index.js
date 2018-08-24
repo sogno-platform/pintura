@@ -16,13 +16,13 @@
  *  in the top level directory of this source tree.
  */
 
-let cimsvgInstance = new cimsvg.cimSVGclass();
+let cimsvgInstance = new cimsvg();
 cimsvgInstance.init(
     document.getElementById("svg"),
     document.getElementById("sidebar"),
     document.getElementById("floating-menu"),
 );
-cimsvg.cimSVGclass.setCimsvg(cimsvgInstance);
+cimsvg.setCimsvg(cimsvgInstance);
 cimcontextmenu.init(document.getElementById("context-menu"), "context-menu")
 cimcontextmenu.resizeListener(window);
 cimcontextmenu.keyUpListener(window);

@@ -29,343 +29,333 @@ if (typeof module !== 'undefined' && module.exports) {
     global.common = require('./common.js');
 };
 
-var cimsvg = cimsvg || (function() {
+class cimsvg {
 
-    const addComponentsXml = "generated/add_components_menu.xml";
+    constructor() {
+        this.svgNode = null;
+        this.xmlNode = null;
+        this.pinturaNode = null;
+        this.sidebarNode = null;
+        this.addingType = null;
+        this.addingPoint = null;
+        this.floatingMenuNode = null;
+        this.currentDiagramId = undefined;
+        this.componentCreationHtml = null;
+    }
 
-    class cimSVGclass {
+    getComp() {
+        return this.componentCreationHtml;
+    };
 
-        constructor() {
-            this.svgNode = null;
-            this.xmlNode = null;
-            this.pinturaNode = null;
-            this.sidebarNode = null;
-            this.addingType = null;
-            this.addingPoint = null;
-            this.floatingMenuNode = null;
-            this.currentDiagramId = undefined;
-            this.componentCreationHtml = null;
+    setCurrentDiagramId(diagramId) {
+        this.currentDiagramId = diagramId;
+    };
+
+    getCurrentDiagramId() {
+        return this.currentDiagramId;
+    };
+
+    static getCimsvg() {
+        return cimsvg.currentCimsvgClass;
+    };
+
+    static setCimsvg(cimsvgClass) {
+        cimsvg.currentCimsvgClass = cimsvgClass;
+    };
+
+    getFloatingMenuNode () {
+        return this.componentCreationNode ;
+    };
+
+    includeFile (fileName, callback) {
+        let dom = this.svgNode.ownerDocument;
+        let newTag = dom.createElement("script");
+        newTag.type = "text/javascript";
+        newTag.src=fileName;
+        if ( callback != undefined ) {
+            newTag.onload=function() {
+                callback();
+            };
         }
+        this.svgNode.parentElement.appendChild(newTag);
+    };
 
-        getComp() {
-            return this.componentCreationHtml;
-        };
+    applyTemplate(data) {
+        var template = Handlebars.templates['cim2svg'];
+        return template(data);
+    };
 
-        setCurrentDiagramId(diagramId) {
-            this.currentDiagramId = diagramId;
-        };
+    addDiagram() {
+        this.addComponentAndApplyTemplates("cim:Diagram")
+    };
 
-        getCurrentDiagramId() {
-            return this.currentDiagramId;
-        };
+    addComponent (type) {
+        if (cimedit.typeIsVisible(type)) {
+            this.addingType = type;
+            let image = cimjson.getImageName(type);
+            let backingList = this.svgNode.querySelectorAll('.backing');
+            backingList.forEach(function(backing){
+                backing.style.cursor = 'url("' + image + '"), crosshair';
+            });
+            this.hideFloatingMenu();
+        }
+        else {
+            return addComponentAndApplyTemplates(type);
+        }
+    };
 
-        static getCimsvg() {
-            return currentCimsvgClass;
-        };
+    removeComponent(type, rdfid) {
+        let baseJson = cimxml.getBaseJson();
+        cimedit.removeComponentFromBaseJson(baseJson, type, rdfid)
+        this.applyTemplates();
+    };
 
-        static setCimsvg(cimsvgClass) {
-            currentCimsvgClass = cimsvgClass;
-        };
+    addTerminal(type, rdfid) {
+        let baseJson = cimxml.getBaseJson();
+        cimedit.addTerminal(baseJson, type, rdfid);
+    };
 
-        getFloatingMenuNode () {
-            return this.componentCreationNode ;
-        };
-
-        includeFile (fileName, callback) {
-            let dom = this.svgNode.ownerDocument;
-            let newTag = dom.createElement("script");
-            newTag.type = "text/javascript";
-            newTag.src=fileName;
-            if ( callback != undefined ) {
-                newTag.onload=function() {
-                    callback();
-                };
-            }
-            this.svgNode.parentElement.appendChild(newTag);
-        };
-
-        applyTemplate(data) {
-            var template = Handlebars.templates['cim2svg'];
-            return template(data);
-        };
-
-        addDiagram() {
-            this.addComponentAndApplyTemplates("cim:Diagram")
-        };
-
-        addComponent (type) {
-            if (cimedit.typeIsVisible(type)) {
-                this.addingType = type;
-                let image = cimjson.getImageName(type);
-                let backingList = this.svgNode.querySelectorAll('.backing');
-                backingList.forEach(function(backing){
-                    backing.style.cursor = 'url("' + image + '"), crosshair';
-                });
-                this.hideFloatingMenu();
-            }
-            else {
-                return addComponentAndApplyTemplates(type);
-            }
-        };
-
-        removeComponent(type, rdfid) {
-            let baseJson = cimxml.getBaseJson();
-            cimedit.removeComponentFromBaseJson(baseJson, type, rdfid)
-            this.applyTemplates();
-        };
-
-        addTerminal(type, rdfid) {
-            let baseJson = cimxml.getBaseJson();
-            cimedit.addTerminal(baseJson, type, rdfid);
-        };
-
-        removeTerminal(type, rdfid, terminalId) {
-            let baseJson = cimxml.getBaseJson();
-            if (baseJson[type] && baseJson[type][rdfid]) {
-                let terminals = baseJson[type][rdfid][common.pinturaTerminals()];
-                if (terminals) {
-                    let index = terminals.indexOf(terminalId);
-                    if (index != -1) {
-                        terminals.splice(index)
-                    }
-                    else {
-                        console.error("Cannot remove terminal " + terminalId + " because it does not exist in the list.")
-                    }
+    removeTerminal(type, rdfid, terminalId) {
+        let baseJson = cimxml.getBaseJson();
+        if (baseJson[type] && baseJson[type][rdfid]) {
+            let terminals = baseJson[type][rdfid][common.pinturaTerminals()];
+            if (terminals) {
+                let index = terminals.indexOf(terminalId);
+                if (index != -1) {
+                    terminals.splice(index)
                 }
                 else {
-                    console.error("Cannot remove terminal " + terminalId + " because there are none.")
+                    console.error("Cannot remove terminal " + terminalId + " because it does not exist in the list.")
                 }
-                this.removeComponent("cim:Terminal", terminalId)
             }
-        };
+            else {
+                console.error("Cannot remove terminal " + terminalId + " because there are none.")
+            }
+            this.removeComponent("cim:Terminal", terminalId)
+        }
+    };
 
-        populateAttributes(type, id) {
-            cimmenu.cimmenuClass.populateAttributes(this.floatingMenu, type, id);
-        };
+    populateAttributes(type, id) {
+        cimmenu.cimmenuClass.populateAttributes(this.floatingMenu, type, id);
+    };
 
-        populateAttributesIdOnly(id) {
-            cimmenu.cimmenuClass.populateAttributesIdOnly(this.floatingMenu, id);
-        };
+    populateAttributesIdOnly(id) {
+        cimmenu.cimmenuClass.populateAttributesIdOnly(this.floatingMenu, id);
+    };
 
-        populateComponentCreationMenu() {
-            cimmenu.cimmenuClass.populateFloatingMenu(this.floatingMenu, this.componentCreationHtml, "Add Component");
-        };
+    populateComponentCreationMenu() {
+        cimmenu.cimmenuClass.populateFloatingMenu(this.floatingMenu, this.componentCreationHtml, "Add Component");
+    };
 
-        populateTerminals(type, rdfid) {
-            cimmenu.cimmenuClass.populateTerminals(this.floatingMenu, type, rdfid)
-        };
+    populateTerminals(type, rdfid) {
+        cimmenu.cimmenuClass.populateTerminals(this.floatingMenu, type, rdfid)
+    };
 
-        checkComponentReadyToAdd(evt) {
-            this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
-            if (this.addingType != null) {
-                let type = this.addingType;
-                let point = this.addingPoint;
-                this.addComponentAndApplyTemplates(type, point);
-                this.addingType = null;
-                this.addingPoint = null;
-            };
-            let backingList = this.svgNode.querySelectorAll('.backing')
-            backingList.forEach(function(backing) {
-                backing.style.cursor = 'initial';
-            });
+    checkComponentReadyToAdd(evt) {
+        this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
+        if (this.addingType != null) {
+            let type = this.addingType;
+            let point = this.addingPoint;
+            this.addComponentAndApplyTemplates(type, point);
+            this.addingType = null;
+            this.addingPoint = null;
         };
+        let backingList = this.svgNode.querySelectorAll('.backing')
+        backingList.forEach(function(backing) {
+            backing.style.cursor = 'initial';
+        });
+    };
 
-        applyDiagramTemplate(templateJson) {
-            let templateHtml = this.applyTemplate(templateJson);
-            let diagramList = this.svgNode.querySelectorAll('.diagrams')
-            diagramList.forEach(function(diagram) {
-                diagram.innerHTML = templateHtml;
-            });
-        };
+    applyDiagramTemplate(templateJson) {
+        let templateHtml = this.applyTemplate(templateJson);
+        let diagramList = this.svgNode.querySelectorAll('.diagrams')
+        diagramList.forEach(function(diagram) {
+            diagram.innerHTML = templateHtml;
+        });
+    };
 
-        applyTemplates() {
+    applyTemplates() {
+        let baseJson = cimxml.getBaseJson();
+        let templateJson = cimjson.getTemplateJson(baseJson);
+        this.applyDiagramTemplate(templateJson)
+        if(this.sidebarNode != null) {
+            cimmenu.cimmenuClass.populateSidebar(this.sidebarNode, templateJson);
+        }
+    };
+
+    addComponentAndApplyTemplates(type, point) {
+        let baseJson = cimxml.getBaseJson();
+        let rdfid = cimedit.addComponentToBaseJson(baseJson, type, point);
+        this.applyTemplates();
+        return rdfid;
+    };
+
+    loadFile(fileContents) {
+        if (cimxml.moreXmlData(fileContents)) {
             let baseJson = cimxml.getBaseJson();
             let templateJson = cimjson.getTemplateJson(baseJson);
             this.applyDiagramTemplate(templateJson)
             if(this.sidebarNode != null) {
                 cimmenu.cimmenuClass.populateSidebar(this.sidebarNode, templateJson);
             }
-        };
+        }
+    };
 
-        addComponentAndApplyTemplates(type, point) {
+    saveGridXml() {
+        saveFile(cimxml.getBaseXML())
+    };
+
+    setFileCount(count) {
+        cimxml.setRdfFileCount(count);
+    };
+
+    updateComponent(type, id, attribute, value) {
+        cimxml.updateComponentInBaseJson(type, id, attribute, value)
+        if (attribute === "cim:IdentifiedObject.name") {
+            let buttonId = '#' + id + "-sidebar-button"
+            let button = this.sidebarNode.querySelector(buttonId)
+            button.innerHTML = value;
+        }
+    };
+
+    updateComponentRDF(type, id, attribute, rdfid) {
+        let value = { "rdf:resource" : "#" + rdfid }
+        cimxml.updateComponentInBaseJson(type, id, attribute, value)
+        if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
             let baseJson = cimxml.getBaseJson();
-            let rdfid = cimedit.addComponentToBaseJson(baseJson, type, point);
-            this.applyTemplates();
-            return rdfid;
-        };
+            cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);
+            let templateJson = cimjson.getTemplateJson(baseJson);
+            this.applyDiagramTemplate(templateJson)
+        }
+    };
 
-        loadFile(fileContents) {
-            if (cimxml.moreXmlData(fileContents)) {
-                let baseJson = cimxml.getBaseJson();
-                let templateJson = cimjson.getTemplateJson(baseJson);
-                this.applyDiagramTemplate(templateJson)
-                if(this.sidebarNode != null) {
-                    cimmenu.cimmenuClass.populateSidebar(this.sidebarNode, templateJson);
+    toggleDiagramVisible(id, icon) {
+        let diagram = this.svgNode.querySelector('#' + id);
+        let iconNode = this.sidebarNode.querySelector('#' + icon);
+        if (diagram.classList.contains('invisible')) {
+            diagram.classList.remove('invisible');
+            iconNode.innerHTML = "&#9728;";
+        } else {
+            diagram.classList.add('invisible');
+            iconNode.innerHTML = "&#9788;";
+        }
+    };
+
+    loadXml(fileName, SVGclass, callback) {
+        // Create a connection to the file.
+        var Connect = new XMLHttpRequest();
+        // Define which file to open and
+        Connect.open("GET", fileName, true);
+        Connect.setRequestHeader("Content-Type", "text/xml");
+        Connect.onload = function (e) {
+            if(Connect.readyState === 4) {
+                if(Connect.status === 200) {
+                    SVGclass.componentCreationHtml = callback(Connect.responseXML);
+                }
+                else {
+                    console.error(Connect.statusText);
                 }
             }
         };
+        // send the request.
+        Connect.send(null);
+    };
 
-        saveGridXml() {
-            saveFile(cimxml.getBaseXML())
-        };
-
-        setFileCount(count) {
-            cimxml.setRdfFileCount(count);
-        };
-
-        updateComponent(type, id, attribute, value) {
-            cimxml.updateComponentInBaseJson(type, id, attribute, value)
-            if (attribute === "cim:IdentifiedObject.name") {
-                let buttonId = '#' + id + "-sidebar-button"
-                let button = this.sidebarNode.querySelector(buttonId)
-                button.innerHTML = value;
-            }
-        };
-
-        updateComponentRDF(type, id, attribute, rdfid) {
-            let value = { "rdf:resource" : "#" + rdfid }
-            cimxml.updateComponentInBaseJson(type, id, attribute, value)
-            if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
-                let baseJson = cimxml.getBaseJson();
-                cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);
-                let templateJson = cimjson.getTemplateJson(baseJson);
-                this.applyDiagramTemplate(templateJson)
-            }
-        };
-
-        toggleDiagramVisible(id, icon) {
-            let diagram = this.svgNode.querySelector('#' + id);
-            let iconNode = this.sidebarNode.querySelector('#' + icon);
-            if (diagram.classList.contains('invisible')) {
-                diagram.classList.remove('invisible');
-                iconNode.innerHTML = "&#9728;";
-            } else {
-                diagram.classList.add('invisible');
-                iconNode.innerHTML = "&#9788;";
-            }
-        };
-
-        loadXml(fileName, SVGclass, callback) {
-            // Create a connection to the file.
-            var Connect = new XMLHttpRequest();
-            // Define which file to open and
-            Connect.open("GET", fileName, true);
-            Connect.setRequestHeader("Content-Type", "text/xml");
-            Connect.onload = function (e) {
-                if(Connect.readyState === 4) {
-                    if(Connect.status === 200) {
-                        SVGclass.componentCreationHtml = callback(Connect.responseXML);
-                    }
-                    else {
-                        console.error(Connect.statusText);
-                    }
-                }
-            };
-            // send the request.
-            Connect.send(null);
-        };
-
-        getObjectUsingId(id) {
-            let baseJson = cimxml.getBaseJson();
-            let type = undefined;
-            for (let types in baseJson) {
-                for (let rdfid in baseJson[types]) {
-                    if (id == rdfid) {
-                        type = types;
-                        continue;
-                    }
-                }
-            }
-            if (type != undefined) {
-                return baseJson[type][id];
-            }
-            else {
-                return undefined;
-            }
-        };
-
-        getObjectTypeUsingId(rdfid) {
-            let baseJson = cimxml.getBaseJson();
-            let type = undefined;
-            for (let types in baseJson) {
-                if (rdfid in baseJson[types]) {
+    getObjectUsingId(id) {
+        let baseJson = cimxml.getBaseJson();
+        let type = undefined;
+        for (let types in baseJson) {
+            for (let rdfid in baseJson[types]) {
+                if (id == rdfid) {
                     type = types;
                     continue;
                 }
             }
-            return type;
-        };
-
-
-        getRdfResource(object) {
-            if (object) {
-                let rdfid = object['rdf:resource'];
-                if (rdfid != undefined) {
-                    var idSubString = rdfid.substring(1);
-                    return idSubString;
-                }
-            }
+        }
+        if (type != undefined) {
+            return baseJson[type][id];
+        }
+        else {
             return undefined;
-        };
-
-        getAggregateComponentsList(requestedClass, types) {
-
-            let baseJson = cimxml.getBaseJson();
-            let aggregateComponents = { aggregates: [{ rdfid: "", name: "Select " + requestedClass }]};
-            for (let index in types) {
-                let type = "cim:" + types[index];
-                for (let component in baseJson[type]) {
-                    aggregateComponents['aggregates'].push({
-                        rdfid: baseJson[type][component][common.pinturaRdfid()],
-                        name: baseJson[type][component]["cim:IdentifiedObject.name"],
-                        type: type
-                    })
-                }
-            }
-            return aggregateComponents;
-        };
-
-        getFloatingMenuNode() {
-            return this.floatingMenu;
-        };
-
-        showFloatingMenu() {
-            let tables = this.floatingMenu.querySelectorAll(".floating-panel-table");
-            tables.forEach(function(table){
-                table.classList.remove('invisible');
-            });
-        };
-
-        hideFloatingMenu() {
-            let tables = this.floatingMenu.querySelectorAll(".floating-panel-table");
-            tables.forEach(function(table){
-                table.classList.add('invisible');
-            });
-        };
-
-        init(svg, sidebar, floatingMenuNode) {
-            this.svgNode = svg;
-            this.sidebarNode = sidebar;
-            this.cimview = new cimview(svg);
-            if(floatingMenuNode != undefined) {
-                this.floatingMenu = floatingMenuNode;
-                this.loadXml("generated/add_components_menu.xml", this, function(xml) {
-                    return xml.documentElement.outerHTML;
-                });
-            }
-        };
+        }
     };
 
-    let diagramId = -1;
-    let currentCimsvgClass = "1234";
-
-    return {
-        cimSVGclass
+    getObjectTypeUsingId(rdfid) {
+        let baseJson = cimxml.getBaseJson();
+        let type = undefined;
+        for (let types in baseJson) {
+            if (rdfid in baseJson[types]) {
+                type = types;
+                continue;
+            }
+        }
+        return type;
     };
-}());
+
+
+    getRdfResource(object) {
+        if (object) {
+            let rdfid = object['rdf:resource'];
+            if (rdfid != undefined) {
+                var idSubString = rdfid.substring(1);
+                return idSubString;
+            }
+        }
+        return undefined;
+    };
+
+    getAggregateComponentsList(requestedClass, types) {
+
+        let baseJson = cimxml.getBaseJson();
+        let aggregateComponents = { aggregates: [{ rdfid: "", name: "Select " + requestedClass }]};
+        for (let index in types) {
+            let type = "cim:" + types[index];
+            for (let component in baseJson[type]) {
+                aggregateComponents['aggregates'].push({
+                    rdfid: baseJson[type][component][common.pinturaRdfid()],
+                    name: baseJson[type][component]["cim:IdentifiedObject.name"],
+                    type: type
+                })
+            }
+        }
+        return aggregateComponents;
+    };
+
+    getFloatingMenuNode() {
+        return this.floatingMenu;
+    };
+
+    showFloatingMenu() {
+        let tables = this.floatingMenu.querySelectorAll(".floating-panel-table");
+        tables.forEach(function(table){
+            table.classList.remove('invisible');
+        });
+    };
+
+    hideFloatingMenu() {
+        let tables = this.floatingMenu.querySelectorAll(".floating-panel-table");
+        tables.forEach(function(table){
+            table.classList.add('invisible');
+        });
+    };
+
+    init(svg, sidebar, floatingMenuNode) {
+        this.svgNode = svg;
+        this.sidebarNode = sidebar;
+        this.cimview = new cimview(svg);
+        if(floatingMenuNode != undefined) {
+            this.floatingMenu = floatingMenuNode;
+            this.loadXml("generated/add_components_menu.xml", this, function(xml) {
+                return xml.documentElement.outerHTML;
+            });
+        }
+    };
+};
+
+cimsvg.currentCimsvgClass = null;
 
 var currentCimsvg = function() {
-    return cimsvg.cimSVGclass.getCimsvg();
+    return cimsvg.getCimsvg();
 };
 
 if (typeof module !== 'undefined' && module.exports) {
