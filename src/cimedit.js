@@ -16,27 +16,18 @@
  *  in the top level directory of this source tree.
  */
 
-var cimedit = cimedit || (function() {
+class cimedit {
 
-    var nameCounter = {};
-
-    var getNameCounter = function(type) {
-        if (nameCounter[type] === undefined){
-            nameCounter[type] = "0";
-        }
-        return (++nameCounter[type]).toString();
-    };
-
-    var makeDiagram = function(newStuff) {
-        let id = generateUUID();
-        let counter = getNameCounter("cim:Diagram");
+    static makeDiagram(newStuff) {
+        let id = cimedit.generateUUID();
+        let counter = currentCimsvg().getNameCounter("cim:Diagram");
         let diagram = {
            "cim:Diagram.orientation" : {
                 "rdf:resource" : "http://iec.ch/TC57/2013/CIM-schema-cim16#OrientationKind.negative",
             },
             "cim:IdentifiedObject.name": "Diagram " + counter.toString(),
         };
-        addCategorizedItem(newStuff, "cim:Diagram", id, diagram);
+        cimedit.addCategorizedItem(newStuff, "cim:Diagram", id, diagram);
         return id;
     };
 
@@ -44,13 +35,13 @@ var cimedit = cimedit || (function() {
      * Start of Public Domain/MIT section.
      * Taken from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
      */
-    var generateUUID = function() {
-        var d = new Date().getTime();
+    static generateUUID() {
+        let d = new Date().getTime();
         if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
             d += performance.now(); //use high-precision timer if available
         }
         return 'idxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = (d + Math.random() * 16) % 16 | 0;
+            let r = (d + Math.random() * 16) % 16 | 0;
             d = Math.floor(d / 16);
             return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
@@ -59,7 +50,7 @@ var cimedit = cimedit || (function() {
      * End of Public Domain/MIT function
      */
 
-    var addCategorizedItem = function(object, category, id, item) {
+    static addCategorizedItem(object, category, id, item) {
         if (!object[category]) {
             object[category] = {};
         }
@@ -67,15 +58,15 @@ var cimedit = cimedit || (function() {
         object[category][id] = item;
     };
 
-    var makeVisibleComponent= function(diagramId, graph, type, point, attributes, terminalConfig) {
-        let id = generateUUID();
+    static makeVisibleComponent(diagramId, graph, type, point, attributes, terminalConfig) {
+        let id = cimedit.generateUUID();
         let componentPoints = [];
         let terminalPoints = [];
         let terminalIds = [];
         componentPoints[0] = point;
 
-        if (terminalConfig['terminalStyle'] == linePoints) {
-            nextPoint = {};
+        if (terminalConfig['terminalStyle'] == cimedit.linePoints) {
+            let nextPoint = {};
             nextPoint.x = point.x;
             nextPoint.y = point.y;
             terminalPoints.push(point);
@@ -88,34 +79,34 @@ var cimedit = cimedit || (function() {
             terminalPoints.push(nextPoint);
             componentPoints.push(nextPoint);
             for (let i = 0; i<terminalConfig["minTerminals"]; i++) {
-                terminalIds.push(makeTerminal(diagramId, graph, (i+1).toString(), id, terminalPoints[i]));
+                terminalIds.push(cimedit.makeTerminal(diagramId, graph, (i+1).toString(), id, terminalPoints[i]));
             }
         }
-        if (terminalConfig['terminalStyle'] == constellationPoints) {
-            nextPoint = {};
+        if (terminalConfig['terminalStyle'] == cimedit.constellationPoints) {
+            let nextPoint = {};
             nextPoint.x = 10 + point.x;
             nextPoint.y = point.y;
             terminalPoints.push(nextPoint);
         }
 
-        let diagramObject = makeDiagramObjectWithPoints(graph, diagramId, id, componentPoints);
-        let counter = getNameCounter(type);
-        newAttributes = {
+        let diagramObject = cimedit.makeDiagramObjectWithPoints(graph, diagramId, id, componentPoints);
+        let counter = currentCimsvg().getNameCounter(type);
+        let newAttributes = {
             "cim:IdentifiedObject.name": type + counter.toString(),
             "pintura:terminals": terminalIds,
             "pintura:diagramObject": diagramObject,
         };
         let componentData = Object.assign({}, attributes, newAttributes);
-        addCategorizedItem(graph, type, id, componentData);
-        if (terminalConfig['terminalStyle'] == constellationPoints) {
+        cimedit.addCategorizedItem(graph, type, id, componentData);
+        if (terminalConfig['terminalStyle'] == cimedit.constellationPoints) {
             for (let i = 0; i<terminalPoints.length; i++) {
-                addTerminal(graph, type, id)
+                cimedit.addTerminal(graph, type, id)
             }
         }
         return id;
     };
 
-    const getConductingEquipmentFromTerminal = function(graph, terminalId) {
+    static getConductingEquipmentFromTerminal(graph, terminalId) {
         if (graph['cim:Terminal'][terminalId]['cim:Terminal.ConductingEquipment']) {
             let conductingEquipmentObject = graph['cim:Terminal'][terminalId]['cim:Terminal.ConductingEquipment'];
             if (conductingEquipmentObject['rdf:resource']) {
@@ -124,8 +115,8 @@ var cimedit = cimedit || (function() {
         }
     };
 
-    const getConductingEquipmentObjectTypeFromId = function(graph, rdfid) {
-        for (type in terminalAndPointLimits) {
+    static getConductingEquipmentObjectTypeFromId(graph, rdfid) {
+        for (type in cimedit.terminalAndPointLimits) {
             if (graph[type] && graph[type][rdfid]) {
                 return type;
             }
@@ -133,8 +124,7 @@ var cimedit = cimedit || (function() {
         return undefined
     };
 
-    const moveTerminalIntoComponentOrbit = function(graph, terminalId, type, conductingEquipmentId) {
-
+    static moveTerminalIntoComponentOrbit(graph, terminalId, type, conductingEquipmentId) {
         let terminalDiagramObjectId            = common.safeExtract(graph, "cim:Terminal", terminalId, common.pinturaDiagramObject());
         let terminalPoints                     = common.safeExtract(graph, "cim:DiagramObject", terminalDiagramObjectId, common.pinturaDiagramObjectPoints());
 
@@ -150,7 +140,7 @@ var cimedit = cimedit || (function() {
         }
     };
 
-    var addTerminal = function(baseJson, type, rdfid) {
+    static addTerminal(baseJson, type, rdfid) {
         if (baseJson[type] && baseJson[type][rdfid]) {
             let sequenceNumber;
             if (baseJson[type][rdfid][common.pinturaTerminals()]) {
@@ -160,13 +150,13 @@ var cimedit = cimedit || (function() {
                 baseJson[type][rdfid][common.pinturaTerminals()] = [];
                 sequenceNumber = 1;
             }
-            let terminal = makeTerminal(currentCimsvg().getCurrentDiagramId(), baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
-            moveTerminalIntoComponentOrbit(baseJson, terminal, type, rdfid);
+            let terminal = cimedit.makeTerminal(currentCimsvg().getCurrentDiagramId(), baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
+            cimedit.moveTerminalIntoComponentOrbit(baseJson, terminal, type, rdfid);
             baseJson[type][rdfid][common.pinturaTerminals()].push(terminal)
         }
     };
 
-    const removeDiagramObjectPointFromObject = function(graph, diagramObjectId, diagramObjectPointId) {
+    static removeDiagramObjectPointFromObject(graph, diagramObjectId, diagramObjectPointId) {
         /* Remove the diagram object from the diagram object list and
            remove the id from the list of points in the diagram object */
         pointsArray = common.safeExtract(graph["cim:DiagramObject"][diagramObjectId][common.pinturaDiagramObjectPoints()]);
@@ -179,7 +169,7 @@ var cimedit = cimedit || (function() {
         common.safeDelete(graph, "cim:DiagramObjectPoint", diagramObjectPointId)
     };
 
-    const connectTerminalToTopologicalNode = function(graph, terminalId, topologicalNodeId) {
+    static connectTerminalToTopologicalNode(graph, terminalId, topologicalNodeId) {
         let baseJson                       = cimxml.getBaseJson();
         let terminal                       = common.safeExtract(graph, "cim:Terminal", terminalId);
         let topologicalNode                = common.safeExtract(graph, "cim:TopologicalNode", topologicalNodeId);
@@ -201,7 +191,7 @@ var cimedit = cimedit || (function() {
             y = common.safeExtract(firstTerminalPoint, "cim:DiagramObjectPoint.yPosition");
             if (terminalDiagramObject[common.pinturaDiagramObjectPoints()]) {
                 let index                      = terminalDiagramObject[common.pinturaDiagramObjectPoints()].length + 1;
-                let newPoint                   = makeDiagramObjectPoint(baseJson, terminalDiagramObjectId, index, x, y);
+                let newPoint                   = cimedit.makeDiagramObjectPoint(baseJson, terminalDiagramObjectId, index, x, y);
                 if (newPoint) {
                     terminalDiagramObject[common.pinturaDiagramObjectPoints()].push(newPoint);
                 }
@@ -209,10 +199,10 @@ var cimedit = cimedit || (function() {
         }
     };
 
-    var makeTerminal = function(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point) {
-        let id = generateUUID();
-        let counter = getNameCounter("cim:Terminal");
-        let diagramObjectId = makeDiagramObjectWithPoints(newStuff, diagramId, id, [ point ]);
+    static makeTerminal(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point) {
+        let id = cimedit.generateUUID();
+        let counter = currentCimsvg().getNameCounter("cim:Terminal");
+        let diagramObjectId = cimedit.makeDiagramObjectWithPoints(newStuff, diagramId, id, [ point ]);
         let terminal = {
             "cim:ACDCTerminal.sequenceNumber": sequenceNumber.toString(),
             "cim:IdentifiedObject.name": "terminal" + counter.toString(),
@@ -221,25 +211,25 @@ var cimedit = cimedit || (function() {
             "cim:Terminal.phases": "",
             "pintura:diagramObject": diagramObjectId,
         }
-        addCategorizedItem(newStuff, "cim:Terminal", id, terminal);
+        cimedit.addCategorizedItem(newStuff, "cim:Terminal", id, terminal);
         return id;
     };
 
-    var makeDiagramObjectWithPoints = function(graph, diagramId, identifiedObjectId, points) {
-        let diagramObjectId = makeDiagramObject(graph, diagramId, identifiedObjectId);
+    static makeDiagramObjectWithPoints(graph, diagramId, identifiedObjectId, points) {
+        let diagramObjectId = cimedit.makeDiagramObject(graph, diagramId, identifiedObjectId);
         let diagramObjectPoints = [];
         for (let i = 0; i < points.length; i++) {
-            index = (1+i);
-            let diagramObjectPoint = makeDiagramObjectPoint(graph, diagramObjectId, index, points[i].x.toString(), points[i].y.toString());
+            let index = (1+i);
+            let diagramObjectPoint = cimedit.makeDiagramObjectPoint(graph, diagramObjectId, index, points[i].x.toString(), points[i].y.toString());
             diagramObjectPoints.push(diagramObjectPoint);
         }
         graph["cim:DiagramObject"][diagramObjectId][common.pinturaDiagramObjectPoints()] = diagramObjectPoints;
         return diagramObjectId;
     };
 
-    var makeDiagramObject = function(newStuff, diagramId, identifiedObjectId) {
-        let id = generateUUID();
-        let counter = getNameCounter("cim:DiagramObject");
+    static makeDiagramObject(newStuff, diagramId, identifiedObjectId) {
+        let id = cimedit.generateUUID();
+        let counter = currentCimsvg().getNameCounter("cim:DiagramObject");
         let diagramObject = {
             "cim:DiagramObject.Diagram": {
                 "rdf:resource" : "#"+diagramId,
@@ -250,11 +240,11 @@ var cimedit = cimedit || (function() {
             "cim:DiagramObject.rotation" : "90",
             "cim:IdentifiedObject.name" : "diagram object " + counter.toString(),
         };
-        addCategorizedItem(newStuff, "cim:DiagramObject", id, diagramObject);
+        cimedit.addCategorizedItem(newStuff, "cim:DiagramObject", id, diagramObject);
         return id;
     };
 
-    const makeDiagramObjectPoint = function(newStuff, diagramObjectId, seq, x, y) {
+    static makeDiagramObjectPoint(newStuff, diagramObjectId, seq, x, y) {
         let diagramObjectPoint = {
            "cim:DiagramObjectPoint.DiagramObject" : {
                 "rdf:resource" : "#"+diagramObjectId
@@ -263,95 +253,46 @@ var cimedit = cimedit || (function() {
             "cim:DiagramObjectPoint.xPosition" : x,
             "cim:DiagramObjectPoint.yPosition" : y
         };
-        let id = generateUUID();
-        addCategorizedItem(newStuff, "cim:DiagramObjectPoint", id, diagramObjectPoint);
+        let id = cimedit.generateUUID();
+        cimedit.addCategorizedItem(newStuff, "cim:DiagramObjectPoint", id, diagramObjectPoint);
         return id;
     };
 
-    const constellationPoints = 1;
-    const linePoints = 2;
 
-    const terminalAndPointLimits = {
-        "cim:ACLineSegment": {
-            "minTerminals" : 2,
-            "maxTerminals" : 2,
-            "points": 2,
-            "terminalStyle": linePoints,
-        },
-        "cim:Busbar": {
-            "minTerminals" : 2,
-            "maxTerminals" : 2,
-            "points": 2,
-            "terminalStyle": linePoints,
-        },
-        "cim:Terminal": {
-            "minTerminals" : 0,
-            "maxTerminals" : 0,
-            "points": 1,
-        },
-        "cim:TopologicalNode": {
-            "minTerminals" : 0,
-            "maxTerminals" : 0,
-            "points": 2,
-            "terminalStyle": linePoints,
-        },
-        "cim:EnergyConsumer": {
-            "minTerminals" : 1,
-            "maxTerminals" : 4,
-            "points": 1,
-            "terminalStyle": constellationPoints,
-        },
-        "cim:PowerTransformer": {
-            "minTerminals" : 1,
-            "maxTerminals" : 4,
-            "points": 1,
-            "terminalStyle": constellationPoints,
-        },
-        "cim:SynchronousMachine": {
-            "minTerminals" : 1,
-            "maxTerminals" : 4,
-            "points": 1,
-            "terminalStyle": constellationPoints,
-        },
-    };
 
-    var getCurrentDiagramId = function() {
-        return currentCimsvg().getCurrentDiagramId();
-    };
-
-    var makeAggregateComponent = function(diagramId, jsonBaseData, type) {
-        let counter = getNameCounter(type);
+    static makeAggregateComponent(diagramId, jsonBaseData, type) {
+        let counter = currentCimsvg().getNameCounter(type);
         let aggregateComponent = {
             "cim:IdentifiedObject.name": type.toString() + counter,
             "diagram": diagramId,
         };
-        let id = generateUUID();
-        addCategorizedItem(jsonBaseData, type, id, aggregateComponent);
+        let id = cimedit.generateUUID();
+        cimedit.addCategorizedItem(jsonBaseData, type, id, aggregateComponent);
         return id;
     };
 
-    const typeHasVariableTerminalCount = function(type) {
-        if(terminalAndPointLimits[type]) {
-            return (terminalAndPointLimits[type]['minTerminals'] != terminalAndPointLimits[type]['maxTerminals'])
+    static typeHasVariableTerminalCount(type) {
+        if(cimedit.terminalAndPointLimits[type]) {
+            return (cimedit.terminalAndPointLimits[type]['minTerminals'] != cimedit.terminalAndPointLimits[type]['maxTerminals'])
         }
         else {
             return false
         }
     };
 
-    const typeIsVisible = function(type) {
+    static typeIsVisible(type) {
         if (type == "cim:Terminal") {
             return false;
         }
-        if(terminalAndPointLimits[type]) {
-            return (terminalAndPointLimits[type]["points"] > 0)
+        if(cimedit.terminalAndPointLimits[type]) {
+            return (cimedit.terminalAndPointLimits[type]["points"] > 0)
         }
         else {
             return false;
         }
     };
 
-    var removeComponentFromBaseJson = function(jsonBaseData, type, rdfid) {
+    static removeComponentFromBaseJson(jsonBaseData, type, rdfid) {
         if (type == "cim:DiagramObject") {
             let diagramObject = common.safeExtract(jsonBaseData, "cim:DiagramObject", rdfid);
             let points = common.safeExtract(jsonBaseData, "cim:DiagramObject", rdfid, common.pinturaDiagramObjectPoints());
@@ -383,38 +324,73 @@ var cimedit = cimedit || (function() {
         }
     };
 
-    var addComponentToBaseJson = function(jsonBaseData, type, point, diagramId) {
+    static addComponentToBaseJson(jsonBaseData, type, point, diagramId) {
         // TODO: diagramId is ignored.
 
         if (type == "cim:Diagram") {
-            return makeDiagram(jsonBaseData);
+            return cimedit.makeDiagram(jsonBaseData);
         };
 
-        if (terminalAndPointLimits[type] != undefined) {
-            if (typeIsVisible(type)) {
-                return makeVisibleComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, terminalAndPointLimits[type]);
+        if (cimedit.terminalAndPointLimits[type] != undefined) {
+            if (cimedit.typeIsVisible(type)) {
+                return cimedit.makeVisibleComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, cimedit.terminalAndPointLimits[type]);
             }
             else {
-                return makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
+                return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
             }
         }
         else {
-            return makeAggregateComponent(currentDiagramId, jsonBaseData, type);
+            return cimedit.makeAggregateComponent(currentDiagramId, jsonBaseData, type);
         }
     };
+};
 
-    return {
-        addTerminal,
-        addComponentToBaseJson,
-        connectTerminalToTopologicalNode,
-        removeComponentFromBaseJson,
-        getCurrentDiagramId,
-        terminalAndPointLimits,
-        typeHasVariableTerminalCount,
-        typeIsVisible,
-        generateUUID,
-    };
-}());
+cimedit.constellationPoints = 1;
+cimedit.linePoints = 2;
+
+cimedit.terminalAndPointLimits = {
+    "cim:ACLineSegment": {
+        "minTerminals" : 2,
+        "maxTerminals" : 2,
+        "points": 2,
+        "terminalStyle": cimedit.linePoints,
+    },
+    "cim:Busbar": {
+        "minTerminals" : 2,
+        "maxTerminals" : 2,
+        "points": 2,
+        "terminalStyle": cimedit.linePoints,
+    },
+    "cim:Terminal": {
+        "minTerminals" : 0,
+        "maxTerminals" : 0,
+        "points": 1,
+    },
+    "cim:TopologicalNode": {
+        "minTerminals" : 0,
+        "maxTerminals" : 0,
+        "points": 2,
+        "terminalStyle": cimedit.linePoints,
+    },
+    "cim:EnergyConsumer": {
+        "minTerminals" : 1,
+        "maxTerminals" : 4,
+        "points": 1,
+        "terminalStyle": cimedit.constellationPoints,
+    },
+    "cim:PowerTransformer": {
+        "minTerminals" : 1,
+        "maxTerminals" : 4,
+        "points": 1,
+        "terminalStyle": cimedit.constellationPoints,
+    },
+    "cim:SynchronousMachine": {
+        "minTerminals" : 1,
+        "maxTerminals" : 4,
+        "points": 1,
+        "terminalStyle": cimedit.constellationPoints,
+    },
+};
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = cimedit;

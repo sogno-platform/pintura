@@ -41,7 +41,15 @@ class cimsvg {
         this.floatingMenuNode = null;
         this.currentDiagramId = undefined;
         this.componentCreationHtml = null;
+        this.nameCounter = {};
     }
+
+    getNameCounter(type) {
+        if (this.nameCounter[type] === undefined){
+            this.nameCounter[type] = "0";
+        }
+        return (++this.nameCounter[type]).toString();
+    };
 
     getComp() {
         return this.componentCreationHtml;

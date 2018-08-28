@@ -49,10 +49,10 @@ describe("cimsvg", function() {
             cimsvgInstance = new cimsvg()
             spyOn(cimsvgInstance, "loadXml").and.callFake(loadXml);
             cimsvgInstance.init(svg, sidebar, floatingMenu);
-            let diagramId = cimsvgInstance.addDiagram();
-            cimsvgInstance.setCurrentDiagramId(diagramId); 
             cimsvg.setCimsvg(cimsvgInstance);
             spyOn(cimsvgInstance.cimview, "getMouseCoordFromWindow").and.callFake(getMouseCoordFromWindow);
+            let diagramId = cimsvgInstance.addDiagram();
+            cimsvgInstance.setCurrentDiagramId(diagramId);
             domReady = dom;
             done();
         });
