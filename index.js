@@ -16,6 +16,7 @@
  *  in the top level directory of this source tree.
  */
 
+let cimsvg = libcimsvg.cimsvg;
 let cimsvgInstance = new cimsvg();
 cimsvgInstance.init(
     document.getElementById("svg"),

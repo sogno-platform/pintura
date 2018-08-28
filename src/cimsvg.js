@@ -81,12 +81,12 @@ class cimsvg {
     };
 
     applyTemplate(data) {
-        var template = Handlebars.templates['cim2svg'];
+        let template = Handlebars.templates['cim2svg'];
         return template(data);
     };
 
     addDiagram() {
-        this.addComponentAndApplyTemplates("cim:Diagram")
+        return this.addComponentAndApplyTemplates("cim:Diagram")
     };
 
     addComponent (type) {
@@ -152,11 +152,12 @@ class cimsvg {
     };
 
     checkComponentReadyToAdd(evt) {
+        let rdfid = null;
         this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
         if (this.addingType != null) {
             let type = this.addingType;
             let point = this.addingPoint;
-            this.addComponentAndApplyTemplates(type, point);
+            rdfid = this.addComponentAndApplyTemplates(type, point);
             this.addingType = null;
             this.addingPoint = null;
         };
@@ -164,6 +165,7 @@ class cimsvg {
         backingList.forEach(function(backing) {
             backing.style.cursor = 'initial';
         });
+        return rdfid;
     };
 
     applyDiagramTemplate(templateJson) {

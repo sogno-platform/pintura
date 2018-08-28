@@ -235,7 +235,7 @@ var contextmenu = new tag('nav').
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(floating_menu).c(contextmenu)
 body.c(main).c(sidebar)
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/cimsvg.js"').t(" "))
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/libcimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
 html.c(body)
 
@@ -258,4 +258,9 @@ console.log(`<!--
 -->
 <!DOCTYPE HTML>`)
 //printTagJson(html)
-printTag(html) //, true)
+if (process.argv[2] == 'debug') {
+    printTag(html, true)
+}
+else {
+    printTag(html)
+}

@@ -17,8 +17,9 @@
  */
 
 var webpack = require('webpack');
+var libraryName = "libcimsvg";
 
-module.exports = {
+const browserConfig = {
   context: __dirname,
   devtool: "inline-sourcemap",
   entry: "./src/cimsvg.js",
@@ -26,7 +27,8 @@ module.exports = {
   mode: "development",
   output: {
     path: __dirname + "/html",
-        filename: "cimsvg.js"
+    library: libraryName,
+    filename: libraryName + ".js",
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -36,3 +38,26 @@ module.exports = {
     })
   ],
 };
+
+const nodeConfig = {
+  context: __dirname,
+  devtool: "inline-sourcemap",
+  entry: "./src/cimsvg.js",
+  optimization: { "minimize": false },
+  mode: "development",
+  target: "node",
+  output: {
+    path: __dirname + "/html",
+    filename: libraryName + ".node.js",
+    libraryTarget: "commonjs2",
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development')
+      }
+    })
+  ],
+};
+
+module.exports = [ browserConfig, nodeConfig ];

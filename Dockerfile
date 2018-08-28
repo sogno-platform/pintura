@@ -3,6 +3,7 @@ FROM node:8-stretch AS builder
 COPY . /pintura
 WORKDIR pintura
 RUN npm install
+RUN npm run test
 RUN npm run build
 
 FROM nginx

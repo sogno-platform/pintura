@@ -65,7 +65,6 @@ class cimmenu {
     };
 
     static populateAttributes (node, type, id) {
-        console.log("populateAttributes (", node, type, id);
         if (id == "No Object" || id == "Missing rdf:resource") {
             return;
         }
@@ -86,7 +85,7 @@ class cimmenu {
         let titleNode = node.querySelectorAll('.floating-panel-title')
         let baseJson = cimxml.getBaseJson();
         if (baseJson[type] && baseJson[type][rdfid]) {
-            var template = Handlebars.templates['cim_list_terminals'];
+            let template = Handlebars.templates['cim_list_terminals'];
             let terminals = baseJson[type][rdfid][common.pinturaTerminals()]
             let begin =`
                 <span class="row-right wide-row floating-panel-value">
