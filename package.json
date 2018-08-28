@@ -14,7 +14,7 @@
     "doWebpackDev": "webpack --config webpack.config.dev.js",
     "templates": "npm run generateClassStructure && npm run generateHandlebars && npm run handlebarTemplates",
     "build": "npm run generateIndex && npm run templates && npm run doWebpack",
-    "build-dev": "npm run generateIndexDebug && npm run templates && npm run doWebpackDev",
+    "build-dev": "npm run generateIndexDebug && npm run templates && npm run doWebpackDev && npm run test",
     "initializeTests": "node node_modules/jasmine/bin/jasmine init",
     "test": "node test/runTests.js"
   },
