@@ -24,9 +24,9 @@ cimsvgInstance.init(
     document.getElementById("floating-menu"),
 );
 cimsvg.setCimsvg(cimsvgInstance);
-cimcontextmenu.init(document.getElementById("context-menu"), "context-menu")
-cimcontextmenu.resizeListener(window);
-cimcontextmenu.keyUpListener(window);
+let contextMenu = new contextmenu(document.getElementById("context-menu"), "context-menu")
+contextMenu.resizeListener(window);
+contextMenu.keyUpListener(window);
 
 document.oncontextmenu = function(e){
     if(e.preventDefault != undefined) {
@@ -100,7 +100,7 @@ document.onkeydown = function(evt) {
 var onMouseDown = function(){
 };
 var onBodyMouseUp = function(evt){
-    cimcontextmenu.toggleMenuOff();
+    contextMenu.toggleMenuOff();
 };
 var onMouseUp = function(evt){
     let rightclick;
@@ -113,16 +113,16 @@ var onMouseUp = function(evt){
     let id = evt.currentTarget.id.slice(0,-5);
     let type = evt.currentTarget.parentElement.getAttribute("type");
     if (rightclick) {
-        cimcontextmenu.setComponent(type, id);
+        contextMenu.setComponent(type, id);
         let pos = {x: evt.clientX, y: evt.clientY};
-        cimcontextmenu.positionMenu(pos, "context-menu");
-        cimcontextmenu.toggleMenuOn("context-menu")
+        contextMenu.positionMenu(pos, "context-menu");
+        contextMenu.toggleMenuOn("context-menu")
     }
     else {
         let type = evt.currentTarget.parentElement.getAttribute("type");
         currentCimsvg().populateAttributes(type, id);
         currentCimsvg().showFloatingMenu();
-        cimcontextmenu.toggleMenuOff();
+        contextMenu.toggleMenuOff();
     }
     evt.stopPropagation();
 };

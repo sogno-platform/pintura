@@ -25,7 +25,7 @@ if (typeof module !== 'undefined' && module.exports) {
     global.cimedit = require('./cimedit.js');
     global.cimmenu = require('./cimmenu.js');
     global.cimjson = require('./cimjson.js');
-    global.cimcontextmenu = require('./cimcontextmenu.js');
+    global.contextmenu = require('./contextmenu.js');
     global.common = require('./common.js');
 };
 
