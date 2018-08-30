@@ -25,15 +25,38 @@ class SVGPoint {
 
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const xmldom = require("xmldom");
+const fs = require("fs");
 
 var libcimsvg = require("../html/libcimsvg.node.js")
 
-getMouseCoordFromWindow = function(evt) {
-    return new SVGPoint(10, 10);
-}
-
 /* TODO: stub-only implementation */
 const loadXml = function(fileName, SVGclass, callback) {};
+
+const isElementNode = function(nodeType) {
+    if (nodeType == 1) {
+        return true;
+    }
+    else {
+        return false;
+    }
+};
+
+const getDOM = function(text) {
+    let DOMParser = xmldom.DOMParser;
+    return new DOMParser().parseFromString(text);
+};
+
+getMouseCoordFromWindow = function(evt) {
+    return new SVGPoint(evt.clientX, evt.clientY);
+}
+
+createCustomEvent = function(x, y) {
+    let evt = {};
+    evt.clientX = x;
+    evt.clientY = y;
+    return evt;
+};
 
 describe("cimsvg", function() {
 
@@ -60,18 +83,53 @@ describe("cimsvg", function() {
 
     it("should be able to add a component", function() {
         cimsvgInstance.addComponent("cim:EnergyConsumer");
-        let point = cimsvgInstance.cimview.getMouseCoordFromWindow();
-        let rdfid = cimsvgInstance.checkComponentReadyToAdd(point);
+        let evt = createCustomEvent(10, 10);
+        let rdfid = cimsvgInstance.checkComponentReadyToAdd(evt);
         cimsvgInstance.applyTemplates();
         expect(cimsvgInstance.getObjectUsingId(rdfid)).not.toBe(null);
     });
 
     it("should add the component requested", function() {
         cimsvgInstance.addComponent("cim:EnergyConsumer");
-        let point = cimsvgInstance.cimview.getMouseCoordFromWindow();
-        let rdfid = cimsvgInstance.checkComponentReadyToAdd(point);
+        let evt = createCustomEvent(10, 10);
+        let rdfid = cimsvgInstance.checkComponentReadyToAdd(evt);
         cimsvgInstance.applyTemplates();
         expect(cimsvgInstance.getObjectTypeUsingId(rdfid)).toBe("cim:EnergyConsumer");
+    });
+
+    it("should be able to join a terminal to a topological node", function() {
+        cimsvgInstance.addComponent("cim:EnergyConsumer");
+        let evt = createCustomEvent(10, 10);
+        let energyConsumerId = cimsvgInstance.checkComponentReadyToAdd(evt);
+        cimsvgInstance.applyTemplates();
+        let energyConsumer = cimsvgInstance.getObjectUsingId(energyConsumerId);
+        let terminalId = energyConsumer['pintura:terminals'][0];
+        cimsvgInstance.addComponent("cim:TopologicalNode");
+        evt = createCustomEvent(20, 20);
+        let topologicalNodeId = cimsvgInstance.checkComponentReadyToAdd(evt);
+        cimsvgInstance.updateComponentRDF('cim:Terminal', terminalId, 'cim:Terminal.TopologicalNode', topologicalNodeId);
+        cimsvgInstance.applyTemplates();
+        let terminal = cimsvgInstance.getObjectUsingId(terminalId);
+        expect(terminal['cim:Terminal.TopologicalNode']['rdf:resource']).toEqual('#'+topologicalNodeId)
+    });
+
+    it("should be possible to clear the data", function() {
+        cimsvgInstance.clearAllData();
+        expect(cimsvgInstance.getObjectsOfType("cim:EnergyConsumer")).toBe(undefined);
+        expect(cimsvgInstance.getCurrentDiagramId()).toBe(undefined);
+    });
+
+    it("should be possible to read a cim file", function(done) {
+        spyOn(cimxml, "getDOM").and.callFake(getDOM);
+        spyOn(cimxml, "isElementNode").and.callFake(isElementNode);
+        cimsvgInstance.clearAllData()
+        cimsvgInstance.setFileCount(1);
+        fs.readFile("test/grid-data/CIM/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
+            if (err) throw err;
+            cimsvgInstance.loadFile(data);
+            done();
+        });
+        expect(cimsvgInstance.getObjectsOfType("cim:EnergyConsumer")).not.toBe(null);
     });
 });
 

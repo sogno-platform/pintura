@@ -195,9 +195,9 @@ function saveFile(data) {
     filesave.removeChild(element);
 }
 function readFile(e) {
-    var files = e.target.files;
+    let files = e.target.files;
     if (files) {
-        cimxml.clearXmlData()
+        currentCimsvg().clearAllData()
         currentCimsvg().setFileCount(files.length);
         for (var i=0, f; f=files[i]; i++) {
             if (!f) {
@@ -206,14 +206,11 @@ function readFile(e) {
             var reader = new FileReader();
                 reader.onload = function(e) {
                 var contents = e.target.result;
-                loadContents(contents);
+                currentCimsvg().loadFile(contents);
             };
             reader.readAsText(f);
         }
     }
-};
-function loadContents(contents) {
-    currentCimsvg().loadFile(contents);
 };
 function populateAttributes(node, type, id) {
     cimmenu.populateAttributes(node, type, id);

@@ -68,7 +68,7 @@ class cimmenu {
         if (id == "No Object" || id == "Missing rdf:resource") {
             return;
         }
-        let baseJson = cimxml.getBaseJson();
+        let baseJson = currentCimsvg().getBaseJson();
         if (baseJson[type] == undefined) {
             console.error("Cannot find " + type + " in data to display id " + id);
         }
@@ -83,7 +83,7 @@ class cimmenu {
     static populateTerminals (node, type, rdfid) {
         let title = "Terminal List";
         let titleNode = node.querySelectorAll('.floating-panel-title')
-        let baseJson = cimxml.getBaseJson();
+        let baseJson = currentCimsvg().getBaseJson();
         if (baseJson[type] && baseJson[type][rdfid]) {
             let template = Handlebars.templates['cim_list_terminals'];
             let terminals = baseJson[type][rdfid][common.pinturaTerminals()]

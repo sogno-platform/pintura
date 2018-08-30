@@ -170,7 +170,7 @@ class cimedit {
     };
 
     static connectTerminalToTopologicalNode(graph, terminalId, topologicalNodeId) {
-        let baseJson                       = cimxml.getBaseJson();
+        let baseJson                       = currentCimsvg().getBaseJson();
         let terminal                       = common.safeExtract(graph, "cim:Terminal", terminalId);
         let topologicalNode                = common.safeExtract(graph, "cim:TopologicalNode", topologicalNodeId);
         let terminalDiagramObjectId        = terminal[common.pinturaDiagramObject()]
@@ -187,8 +187,8 @@ class cimedit {
             removeDiagramObjectPointFromObject(graph, terminalDiagramObjectId, secondTerminalPointId);
         };
         if (firstTopologicalNodePoint && firstTerminalPoint) {
-            x = common.safeExtract(firstTopologicalNodePoint, "cim:DiagramObjectPoint.xPosition");
-            y = common.safeExtract(firstTerminalPoint, "cim:DiagramObjectPoint.yPosition");
+            let x = common.safeExtract(firstTopologicalNodePoint, "cim:DiagramObjectPoint.xPosition");
+            let y = common.safeExtract(firstTerminalPoint, "cim:DiagramObjectPoint.yPosition");
             if (terminalDiagramObject[common.pinturaDiagramObjectPoints()]) {
                 let index                      = terminalDiagramObject[common.pinturaDiagramObjectPoints()].length + 1;
                 let newPoint                   = cimedit.makeDiagramObjectPoint(baseJson, terminalDiagramObjectId, index, x, y);

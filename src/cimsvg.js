@@ -19,7 +19,7 @@
 if (typeof module !== 'undefined' && module.exports) {
     global.Handlebars = require('handlebars/runtime')
     require('../hbrs_templates/handlebarsHelpers.js')
-    var templates = require('../generated/template.js');
+    const templates = require('../generated/template.js');
     global.cimxml = require('./cimxml.js');
     global.cimview = require('./cimview.js');
     global.cimedit = require('./cimedit.js');
@@ -42,7 +42,57 @@ class cimsvg {
         this.currentDiagramId = undefined;
         this.componentCreationHtml = null;
         this.nameCounter = {};
+        this.xmlDoc;
+        this.rdfFileCount = 0;
+        this.rdfFileReceived = 0;
+        this.jsonBaseData = null;
     }
+
+    /*
+     * How many pieces the data will be arriving in
+     */
+    setFileCount(count) {
+        this.rdfFileCount = count;
+    };
+
+    resetFileReceivedCount() {
+        this.rdfFileReceived = 0;
+    };
+
+    incFileReceivedCount() {
+        this.rdfFileReceived++;
+    };
+
+    /*
+     * Have we received all the data files yet?
+     */
+    checkIfParseReady() {
+        if (this.rdfFileReceived > 0) {
+            if (this.rdfFileCount == this.rdfFileReceived) {
+                return true;
+            }
+        }
+    };
+
+
+    getXmlDoc() {
+        return this.xmlDoc;
+    };
+
+    setXmlDoc(doc) {
+        this.xmlDoc = doc;
+    };
+
+    getBaseJson() {
+        if (this.jsonBaseData === null) {
+            this.jsonBaseData = {}
+        }
+        return this.jsonBaseData;
+    };
+
+    setBaseJson(data) {
+        this.jsonBaseData = data;
+    };
 
     getNameCounter(type) {
         if (this.nameCounter[type] === undefined){
@@ -57,6 +107,10 @@ class cimsvg {
 
     setCurrentDiagramId(diagramId) {
         this.currentDiagramId = diagramId;
+    };
+
+    getObjectsOfType(type) {
+        return this.getBaseJson()[type];
     };
 
     getCurrentDiagramId() {
@@ -113,18 +167,18 @@ class cimsvg {
     };
 
     removeComponent(type, rdfid) {
-        let baseJson = cimxml.getBaseJson();
+        let baseJson = this.getBaseJson();
         cimedit.removeComponentFromBaseJson(baseJson, type, rdfid)
         this.applyTemplates();
     };
 
     addTerminal(type, rdfid) {
-        let baseJson = cimxml.getBaseJson();
+        let baseJson = this.getBaseJson();
         cimedit.addTerminal(baseJson, type, rdfid);
     };
 
     removeTerminal(type, rdfid, terminalId) {
-        let baseJson = cimxml.getBaseJson();
+        let baseJson = this.getBaseJson();
         if (baseJson[type] && baseJson[type][rdfid]) {
             let terminals = baseJson[type][rdfid][common.pinturaTerminals()];
             if (terminals) {
@@ -185,7 +239,7 @@ class cimsvg {
     };
 
     applyTemplates() {
-        let baseJson = cimxml.getBaseJson();
+        let baseJson = this.getBaseJson();
         let templateJson = cimjson.getTemplateJson(baseJson);
         this.applyDiagramTemplate(templateJson)
         if(this.sidebarNode != null) {
@@ -194,15 +248,27 @@ class cimsvg {
     };
 
     addComponentAndApplyTemplates(type, point) {
-        let baseJson = cimxml.getBaseJson();
+        let baseJson = this.getBaseJson();
         let rdfid = cimedit.addComponentToBaseJson(baseJson, type, point);
         this.applyTemplates();
         return rdfid;
     };
 
+    clearAllData() {
+        this.xmlNode = null;
+        this.addingType = null;
+        this.addingPoint = null;
+        this.currentDiagramId = undefined;
+        this.nameCounter = {};
+        this.xmlDoc = null;
+        this.rdfFileCount = 0;
+        this.rdfFileReceived = 0;
+        this.jsonBaseData = null;
+    };
+
     loadFile(fileContents) {
         if (cimxml.moreXmlData(fileContents)) {
-            let baseJson = cimxml.getBaseJson();
+            let baseJson = this.getBaseJson();
             let templateJson = cimjson.getTemplateJson(baseJson);
             this.applyDiagramTemplate(templateJson)
             if(this.sidebarNode != null) {
@@ -213,10 +279,6 @@ class cimsvg {
 
     saveGridXml() {
         saveFile(cimxml.getBaseXML())
-    };
-
-    setFileCount(count) {
-        cimxml.setRdfFileCount(count);
     };
 
     updateComponent(type, id, attribute, value) {
@@ -232,7 +294,7 @@ class cimsvg {
         let value = { "rdf:resource" : "#" + rdfid }
         cimxml.updateComponentInBaseJson(type, id, attribute, value)
         if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
-            let baseJson = cimxml.getBaseJson();
+            let baseJson = this.getBaseJson();
             cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);
             let templateJson = cimjson.getTemplateJson(baseJson);
             this.applyDiagramTemplate(templateJson)
@@ -253,7 +315,7 @@ class cimsvg {
 
     loadXml(fileName, SVGclass, callback) {
         // Create a connection to the file.
-        var Connect = new XMLHttpRequest();
+        let Connect = new XMLHttpRequest();
         // Define which file to open and
         Connect.open("GET", fileName, true);
         Connect.setRequestHeader("Content-Type", "text/xml");
@@ -272,7 +334,7 @@ class cimsvg {
     };
 
     getObjectUsingId(id) {
-        let baseJson = cimxml.getBaseJson();
+        let baseJson = this.getBaseJson();
         let type = undefined;
         for (let types in baseJson) {
             for (let rdfid in baseJson[types]) {
@@ -291,7 +353,7 @@ class cimsvg {
     };
 
     getObjectTypeUsingId(rdfid) {
-        let baseJson = cimxml.getBaseJson();
+        let baseJson = this.getBaseJson();
         let type = undefined;
         for (let types in baseJson) {
             if (rdfid in baseJson[types]) {
@@ -307,8 +369,7 @@ class cimsvg {
         if (object) {
             let rdfid = object['rdf:resource'];
             if (rdfid != undefined) {
-                var idSubString = rdfid.substring(1);
-                return idSubString;
+                return rdfid.substring(1);
             }
         }
         return undefined;
@@ -316,7 +377,7 @@ class cimsvg {
 
     getAggregateComponentsList(requestedClass, types) {
 
-        let baseJson = cimxml.getBaseJson();
+        let baseJson = this.getBaseJson();
         let aggregateComponents = { aggregates: [{ rdfid: "", name: "Select " + requestedClass }]};
         for (let index in types) {
             let type = "cim:" + types[index];
@@ -364,7 +425,7 @@ class cimsvg {
 
 cimsvg.currentCimsvgClass = null;
 
-var currentCimsvg = function() {
+const currentCimsvg = function() {
     return cimsvg.getCimsvg();
 };
 

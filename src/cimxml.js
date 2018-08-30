@@ -16,17 +16,11 @@
  *  in the top level directory of this source tree.
  */
 
-var cimxml = cimxml || (function() {
+class cimxml {
 
-    var xmlDoc;
-    var rdfFileCount = 0;
-    var rdfFileReceived = 0;
-    var jsonBaseData = null;
-    const xmlnsString = "xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:cim='http://iec.ch/TC57/2012/CIM-schema-cim16#' xmlns:md='http://iec.ch/TC57/61970-552/ModelDescription/1#' xmlns:entsoe='http://entsoe.eu/Secretariat/ProfileExtension/2#'";
-
-    var getBaseXML = function() {
-        let baseJson = getBaseJson();
-        baseXml = getDOM("<rdf:RDF "+xmlns()+"/>");
+    static getBaseXML() {
+        let baseJson = currentCimsvg().getBaseJson();
+        let baseXml = cimxml.getDOM("<rdf:RDF "+cimxml.xmlns()+"/>");
         for (let component in baseJson) {
             for (let rdfid in baseJson[component]) {
                 let object = baseJson[component][rdfid]
@@ -40,26 +34,17 @@ var cimxml = cimxml || (function() {
                 baseXml.documentElement.appendChild(child)
             }
         }
-        var oSerializer = new XMLSerializer();
-        var sXML = oSerializer.serializeToString(baseXml);
+        let oSerializer = new XMLSerializer();
+        let sXML = oSerializer.serializeToString(baseXml);
 
         return sXML;
-    };
-
-    var getBaseJson = function() {
-        if (jsonBaseData === null) {
-            jsonBaseData = {}
-        }
-        return jsonBaseData;
     };
 
     /*
      * Convert a small data item into XML and add it to a node
      */
-    var addChild = function(object, name, doc, owner) {
-
-        let child;
-        child = doc.createElement(name);
+    static addChild(object, name, doc, owner) {
+        let child = doc.createElement(name);
         if (object["rdf:resource"] !== undefined) {
             child.setAttribute("rdf:resource", object["rdf:resource"]);
         }
@@ -69,29 +54,29 @@ var cimxml = cimxml || (function() {
         owner.appendChild(child);
     };
 
-    var copyXmlDataIntoObject = function(object, node) {
+    static copyXmlDataIntoObject(object, node) {
 
-        let childNodes = node.children;
-        for (let childIndex = 0; childIndex < childNodes.length; childIndex++) {
-            let thisChild = childNodes[childIndex];
-            if (thisChild.nodeType == Node.ELEMENT_NODE) {
-                if (thisChild.attributes.length > 0) {
-                    object[thisChild.nodeName] = { "rdf:resource": thisChild.getAttribute("rdf:resource")};
+        let nextNode = node.firstChild;
+        while (nextNode != undefined) {
+            if (cimxml.isElementNode(nextNode.nodeType)) {
+                if (nextNode.attributes.length > 0) {
+                    object[nextNode.nodeName] = { "rdf:resource": nextNode.getAttribute("rdf:resource")};
                 }
                 else {
-                    object[thisChild.nodeName] = thisChild.innerHTML;
+                    object[nextNode.nodeName] = nextNode.innerHTML;
                 }
             }
+            nextNode = nextNode.nextSibling;
         }
     };
 
-    var importXmlNodeIntoGraph = function(graph, nodeCategory, node, id) {
+    static importXmlNodeIntoGraph(graph, nodeCategory, node, id) {
 
         let thisObject = { };
 
         thisObject[common.pinturaRdfid()] = id
 
-        copyXmlDataIntoObject(thisObject, node);
+        cimxml.copyXmlDataIntoObject(thisObject, node);
 
         if (!graph[nodeCategory]) {
             graph[nodeCategory] = {};
@@ -102,18 +87,18 @@ var cimxml = cimxml || (function() {
         categoryGraph[id] = thisObject;
     };
 
-    var importAboutDataIntoGraph = function(graph, nodeCategory, thisNode, id) {
+    static importAboutDataIntoGraph(graph, nodeCategory, thisNode, id) {
 
         if (graph[nodeCategory] && graph[nodeCategory][id]) {
             let thisObject = graph[nodeCategory][id].about = [];
-            copyXmlDataIntoObject(thisObject, thisNode);
+            cimxml.copyXmlDataIntoObject(thisObject, thisNode);
         }
     };
 
     /*
      * What is the rdf:ID attribute for this node
      */
-    var getRdfId = function(node) {
+    static getRdfId(node) {
 
         let rdfId = node.getAttribute("rdf:ID");
         return rdfId;
@@ -122,23 +107,15 @@ var cimxml = cimxml || (function() {
     /*
      * What is the rdf:about attribute for this node
      */
-    var getRdfAbout = function(node) {
+    static getRdfAbout(node) {
 
         let rdfAbout = node.getAttribute("rdf:about");
         return rdfAbout;
     };
 
-    /*
-     * Clear the buffer of XML data that we use to handle multiple file imports
-     */
-    var clearXmlData = function() {
+    static xmlns(){
 
-        xmlDoc = null;
-    };
-
-    var xmlns = function(){
-
-        return xmlnsString;
+        return "xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:cim='http://iec.ch/TC57/2012/CIM-schema-cim16#' xmlns:md='http://iec.ch/TC57/61970-552/ModelDescription/1#' xmlns:entsoe='http://entsoe.eu/Secretariat/ProfileExtension/2#'";
     };
 
     /*
@@ -146,85 +123,71 @@ var cimxml = cimxml || (function() {
      * RDF is a shallow xml format so we don"t have to dig too
      * deep, a node will only ever have children or attributes.
      */
-    var createObjectGraphFromXml = function( xmlData ) {
-
+    static createObjectGraphFromXml( xmlData ) {
         let graph = {};
-        let topLevelNodes = xmlData.documentElement.childNodes;
 
         /* loop through all of the top level nodes */
-        for (let topLevelIndex=0; topLevelIndex<topLevelNodes.length; topLevelIndex++) {
-            let thisNode = topLevelNodes[topLevelIndex];
-            if (thisNode.nodeType == Node.ELEMENT_NODE)
-            {
+        let nextNode = xmlData.documentElement.firstChild;
+        while (nextNode != undefined) {
+            if (cimxml.isElementNode(nextNode.nodeType)) {
                 /* find out what type of node we are reading */
-                let nodeCategory = thisNode.nodeName;
-                let id = getRdfId(thisNode);
+                let nodeCategory = nextNode.nodeName;
+                let id = cimxml.getRdfId(nextNode);
                 if (id) {
-                    importXmlNodeIntoGraph(graph, nodeCategory, thisNode, id);
+                    cimxml.importXmlNodeIntoGraph(graph, nodeCategory, nextNode, id);
                 }
             }
-        }
+            nextNode = nextNode.nextSibling;
+        };
 
         /* we need all of the rdf:id nodes before importing the rdf:about nodes */
-        for (let topLevelIndex=0; topLevelIndex<topLevelNodes.length; topLevelIndex++) {
-            let thisNode = topLevelNodes[topLevelIndex];
-            if (thisNode.nodeType == Node.ELEMENT_NODE)
-            {
+        nextNode = xmlData.documentElement.firstChild;
+        while (nextNode != undefined) {
+            if (cimxml.isElementNode(nextNode.nodeType)) {
                 /* find out what type of node we are reading */
-                let nodeCategory = thisNode.nodeName;
-                let id = getRdfAbout(thisNode);
+                let nodeCategory = nextNode.nodeName;
+                let id = cimxml.getRdfAbout(nextNode);
                 if (id) {
-                    importAboutDataIntoGraph(graph, nodeCategory, thisNode, id.substr(1));
+                    cimxml.importAboutDataIntoGraph(graph, nodeCategory, nextNode, id.substr(1));
                 }
             }
-        }
+            nextNode = nextNode.nextSibling;
+        };
         return graph;
     };
 
-    /*
-     * Tell this module how many pieces the data will be arriving in
-     */
-    var setRdfFileCount = function(count) {
-
-        rdfFileCount = count;
-    };
-
-    /*
-     * Have we received all the data files yet?
-     */
-    var checkIfParseReady = function() {
-
-        if (rdfFileReceived > 0) {
-            if (rdfFileCount == rdfFileReceived) {
-                return true;
-            }
+    static isElementNode(nodeType) {
+        if (nodeType == Node.ELEMENT_NODE) {
+            return true;
+        }
+        else {
+            return false;
         }
     };
 
     /*
      * Here comes some more data
      */
-    var moreXmlData = function(text, draw=true) {
-
-        if (!xmlDoc) {
-            xmlDoc = getDOM("<rdf:RDF "+xmlns()+"/>");
+    static moreXmlData(text, draw=true) {
+        if (!currentCimsvg().getXmlDoc()) {
+            currentCimsvg().setXmlDoc(cimxml.getDOM("<rdf:RDF "+cimxml.xmlns()+"/>"));
         }
 
-        let newDoc = getDOM(text);
+        let newDoc = cimxml.getDOM(text);
         let nodes = newDoc.documentElement.childNodes;
         for (let i = 0; i < nodes.length; i++) {
-		    if (nodes[i].nodeType == Node.ELEMENT_NODE) {
+		    if (cimxml.isElementNode(nodes[i].nodeType)) {
                 if (nodes[i].nodeName != "md:FullModel") {
-                    xmlDoc.documentElement.appendChild(nodes[i].cloneNode(true));
+                    currentCimsvg().getXmlDoc().documentElement.appendChild(nodes[i].cloneNode(true));
                 }
             }
         }
 
-        rdfFileReceived++;
-        if (checkIfParseReady()) {
-            jsonBaseData = createObjectGraphFromXml(xmlDoc);
-            rdfFileReceived = 0;
-            rdfFileCount = 0;
+        currentCimsvg().incFileReceivedCount();
+        if (currentCimsvg().checkIfParseReady()) {
+            currentCimsvg().setBaseJson(cimxml.createObjectGraphFromXml(currentCimsvg().getXmlDoc()));
+            currentCimsvg().resetFileReceivedCount(0);
+            currentCimsvg().setFileCount(0);
             return true;
         }
         return false;
@@ -233,7 +196,7 @@ var cimxml = cimxml || (function() {
     /*
      * Different method of getting DOM required for some platforms
      */
-    var getDOM = function(text) {
+    static getDOM(text) {
 
         let newDoc;
         if ( window.DOMParser ) {
@@ -252,24 +215,16 @@ var cimxml = cimxml || (function() {
         return newDoc;
     };
 
-    var updateComponentInBaseJson = function(type, id, attribute, value) {
-        if (jsonBaseData[type][id] === undefined) {
+    static updateComponentInBaseJson(type, id, attribute, value) {
+        if (currentCimsvg().getBaseJson()[type][id] === undefined) {
             console.error("Cannot find " + id + " in list of " + type);
         }
         else {
-            jsonBaseData[type][id][attribute] = value
+            currentCimsvg().getBaseJson()[type][id][attribute] = value
         }
     };
+};
 
-    return {
-        getBaseJson,
-        setRdfFileCount,
-        clearXmlData,
-        moreXmlData,
-        getBaseXML,
-        updateComponentInBaseJson,
-    };
-}());
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = cimxml;
