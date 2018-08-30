@@ -16,30 +16,13 @@
  *  in the top level directory of this source tree.
  */
 
-var cimjson = cimjson || (function() {
+class cimjson {
 
-    var pathBase = '';
-    const imageNames = {
-        "cim:ACLineSegment":             "images/term.svg",
-        "cim:Terminal":                  "images/term.svg",
-        "cim:Breaker":                   "images/brea.svg",
-        "cim:ConnectivityNode":          "images/conn.svg",
-        "cim:EnergyConsumer":            "images/cons.svg",
-        "cim:EquivalentInjection":       "images/cons.svg",
-        "cim:ExternalNetworkInjection":  "images/net.svg",
-        "cim:PowerTransformer":          "images/trans.svg",
-        "cim:SolarGeneratingUnit":       "images/solar.svg",
-        "cim:SynchronousMachine":        "images/sync.svg",
-        "cim:TopologicalNode":           "images/topo.svg",
-        "cim:TransformerWinding":        "images/trans.svg",
-    };
-
-    var getImageName = function(type) {
-        return pathBase + imageNames[type];
+    static getImageName(type) {
+        return cimjson.imageNames[type];
     }
 
-    var convertDiagramObjectToTemplateFormat = function(diagramObject, graph, categoryGraphName) {
-
+    static convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName) {
         let originalPoints = diagramObject[common.pinturaDiagramObjectPoints()];
         let preOffsetPoints = [];
         let imagePoints = [];
@@ -71,7 +54,7 @@ var cimjson = cimjson || (function() {
             };
             object = {
                 "pintura:diagram" : diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1),
-                "pintura:image"   : getImageName(categoryGraphName),
+                "pintura:image"   : cimjson.getImageName(categoryGraphName),
                 "pintura:rdfId"   : rdfId,
                 "pintura:points"  : imagePoints,
                 "pintura:label"   : {
@@ -97,7 +80,7 @@ var cimjson = cimjson || (function() {
         return object;
     };
 
-    const addObjectToDiagramList = function(object, graph, diagramList) {
+    static addObjectToDiagramList(object, graph, categoryGraphName, diagramList) {
         let diagram = object["pintura:diagram"]
         if (diagramList[diagram] === undefined){
             diagramList[diagram] = { "pintura:name" : graph["cim:Diagram"][diagram]["cim:IdentifiedObject.name"] };
@@ -114,21 +97,20 @@ var cimjson = cimjson || (function() {
         }
     };
 
-    var convertToTemplatableFormat = function(diagramObjects, graph) {
-
+    static convertToTemplatableFormat(diagramObjects, graph) {
         let output = { 'Diagram' : {} };
         let diagramList = output['Diagram'];
 
         /* List the objects to be drawn by diagram */
-        for (categoryGraphName in imageNames) {
+        for (let categoryGraphName in cimjson.imageNames) {
 
             let categoryGraph = graph[categoryGraphName];
             for (let key in categoryGraph) {
                 let diagramObject = diagramObjects[key];
                 if (diagramObject != undefined) {
                     categoryGraph[key][common.pinturaDiagramObject()] = diagramObjects[key][common.pinturaRdfid()]
-                    let object = convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName);
-                    addObjectToDiagramList(object, graph, diagramList);
+                    let object = cimjson.convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName);
+                    cimjson.addObjectToDiagramList(object, graph, categoryGraphName, diagramList);
                 }
             }
         }
@@ -143,7 +125,7 @@ var cimjson = cimjson || (function() {
         return output;
     };
 
-    var indexDiagramGraphByComponentType = function(input) {
+    static indexDiagramGraphByComponentType(input) {
         /*
          * Index the diagram object graph by the identified object's id so we don't
          * have to go hunting for the referenced object inside the diagram objects.
@@ -160,16 +142,16 @@ var cimjson = cimjson || (function() {
         return graph;
     };
 
-    var addDiagramObjectPointsToDiagramObjects = function(diagramObjectPointGraph, diagramObjectGraph){
+    static addDiagramObjectPointsToDiagramObjects(diagramObjectPointGraph, diagramObjectGraph){
         for (let key in diagramObjectPointGraph) {
-            mergeMatchingDataIntoParentNodeArray(diagramObjectGraph, key, diagramObjectPointGraph[key], "cim:DiagramObjectPoint.DiagramObject", common.pinturaDiagramObjectPoints());
+            cimjson.mergeMatchingDataIntoParentNodeArray(diagramObjectGraph, key, diagramObjectPointGraph[key], "cim:DiagramObjectPoint.DiagramObject", common.pinturaDiagramObjectPoints());
         }
     };
 
     /*
      * Create link to a member of an array of e.g. points
      */
-    var mergeMatchingDataIntoParentNodeArray = function(destinationGraph, matchingNodeId, matchingNode, matchingElement, destinationElement) {
+    static mergeMatchingDataIntoParentNodeArray(destinationGraph, matchingNodeId, matchingNode, matchingElement, destinationElement) {
         if (matchingNode[matchingElement]) {
             let id = matchingNode[matchingElement]["rdf:resource"].substr(1);
             if (destinationGraph[id]) {
@@ -189,26 +171,34 @@ var cimjson = cimjson || (function() {
         }
     };
 
-    var getTemplateJson = function(graph) {
+    static getTemplateJson(graph) {
         let diagramObjectsByIdentifiedObjects = {};
         if (!(graph['cim:DiagramObject'] === undefined)) {
             let diagramObjects = graph['cim:DiagramObject'];
             let diagramObjectPoints = graph['cim:DiagramObjectPoint'];
-            addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
-            diagramObjectsByIdentifiedObjects = indexDiagramGraphByComponentType(diagramObjects);
+            cimjson.addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
+            diagramObjectsByIdentifiedObjects = cimjson.indexDiagramGraphByComponentType(diagramObjects);
         }
-        let templateReadyFormat = convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
+        let templateReadyFormat = cimjson.convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
         return templateReadyFormat;
     };
+};
 
-    return {
-        setImagePathBase : function(path) {
-            pathBase = path;
-        },
-        getTemplateJson,
-        getImageName,
+cimjson.imageNames = {
+        "cim:ACLineSegment":             "images/term.svg",
+        "cim:Terminal":                  "images/term.svg",
+        "cim:Breaker":                   "images/brea.svg",
+        "cim:ConnectivityNode":          "images/conn.svg",
+        "cim:EnergyConsumer":            "images/cons.svg",
+        "cim:EquivalentInjection":       "images/cons.svg",
+        "cim:ExternalNetworkInjection":  "images/net.svg",
+        "cim:PowerTransformer":          "images/trans.svg",
+        "cim:SolarGeneratingUnit":       "images/solar.svg",
+        "cim:SynchronousMachine":        "images/sync.svg",
+        "cim:TopologicalNode":           "images/topo.svg",
+        "cim:TransformerWinding":        "images/trans.svg",
     };
-}());
+
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = cimjson;
