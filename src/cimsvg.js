@@ -46,7 +46,16 @@ class cimsvg {
         this.rdfFileCount = 0;
         this.rdfFileReceived = 0;
         this.jsonBaseData = null;
+        this.contextMenu = null;
     }
+
+    setContextMenu(menu) {
+        this.contextMenu = menu;
+    };
+
+    getContextMenu() {
+        return this.contextMenu;
+    };
 
     /*
      * How many pieces the data will be arriving in

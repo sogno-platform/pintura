@@ -19,12 +19,10 @@
 class contextmenu {
 
     constructor(menu, label) {
-        console.log(menu, label);
         this.menuList = { [label]: menu };
         this.menuState = {};
         this.id;
         this.type;
-        console.log(this.menuList);
     }
 
     keyUpListener(_window) {
@@ -70,7 +68,6 @@ class contextmenu {
      * Positions the menu.
      */
     positionMenu(pos, menuName) {
-        console.log(menuName)
         this.menuList[menuName].style.left = pos.x + "px";
         this.menuList[menuName].style.top = pos.y + "px";
     }

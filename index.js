@@ -27,6 +27,7 @@ cimsvg.setCimsvg(cimsvgInstance);
 let contextMenu = new contextmenu(document.getElementById("context-menu"), "context-menu")
 contextMenu.resizeListener(window);
 contextMenu.keyUpListener(window);
+cimsvgInstance.setContextMenu(contextMenu);
 
 document.oncontextmenu = function(e){
     if(e.preventDefault != undefined) {

@@ -230,7 +230,7 @@ var contextmenu = new tag('nav').
                           c(new tag('li').
                               a('class', '"context-menu-item"').
                               c(new tag('a').
-                                  a('class').a('onclick', '"cimcontextmenu.removeComponent()"').
+                                  a('class').a('onclick', '"currentCimsvg().getContextMenu().removeComponent()"').
                                   t("Delete Component"))))
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(floating_menu).c(contextmenu)
