@@ -18,8 +18,7 @@
 
 class cimxml {
 
-    static getBaseXML() {
-        let baseJson = currentCimsvg().getBaseJson();
+    static getBaseXML(baseJson) {
         let baseXml = cimxml.getDOM("<rdf:RDF "+cimxml.xmlns()+"/>");
         for (let component in baseJson) {
             for (let rdfid in baseJson[component]) {
@@ -28,17 +27,21 @@ class cimxml {
                 child.setAttribute("rdf:ID", object[common.pinturaRdfid()]);
                 for (let item in object) {
                     if(item.substring(0, 7) != "pintura") {
-                        addChild(object[item], item, baseXml, child)
+                        cimxml.addChild(object[item], item, baseXml, child)
                     }
                 }
                 baseXml.documentElement.appendChild(child)
             }
         }
-        let oSerializer = new XMLSerializer();
+        let oSerializer = cimxml.getXMLSerializer();
         let sXML = oSerializer.serializeToString(baseXml);
 
         return sXML;
     };
+
+    static getXMLSerializer() {
+        return new XMLSerializer();
+    }
 
     /*
      * Convert a small data item into XML and add it to a node
@@ -99,22 +102,17 @@ class cimxml {
      * What is the rdf:ID attribute for this node
      */
     static getRdfId(node) {
-
-        let rdfId = node.getAttribute("rdf:ID");
-        return rdfId;
+        return node.getAttribute("rdf:ID");
     };
 
     /*
      * What is the rdf:about attribute for this node
      */
     static getRdfAbout(node) {
-
-        let rdfAbout = node.getAttribute("rdf:about");
-        return rdfAbout;
+        return node.getAttribute("rdf:about");
     };
 
     static xmlns(){
-
         return "xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:cim='http://iec.ch/TC57/2012/CIM-schema-cim16#' xmlns:md='http://iec.ch/TC57/61970-552/ModelDescription/1#' xmlns:entsoe='http://entsoe.eu/Secretariat/ProfileExtension/2#'";
     };
 

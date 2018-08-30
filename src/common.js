@@ -16,14 +16,11 @@
  *  in the top level directory of this source tree.
  */
 
-var common = common || (function() {
-    const PinturaDiagramObjectPoints = "pintura:diagramObjectPoints";
-    const PinturaTerminals = "pintura:terminals";
-    const PinturaRdfid = "pintura:rdfid";
-    const PinturaDiagramObject = "pintura:diagramObject";
-    const safeExtract = function(graph) {
+class common {
+
+    static safeExtract(graph) {
         let object = graph;
-        var args = Array.prototype.slice.call(arguments, 1);
+        let args = Array.prototype.slice.call(arguments, 1);
 
         for (let arg in args) {
             let argument = args[arg];
@@ -36,11 +33,12 @@ var common = common || (function() {
         }
         return object;
     };
-    const safeDelete = function(graph) {
+
+    static safeDelete(graph) {
         let object = graph;
         let owner = undefined;
         let key = undefined;
-        var args = Array.prototype.slice.call(arguments, 1);
+        let args = Array.prototype.slice.call(arguments, 1);
         for (let arg in args) {
             let argument = args[arg];
             if (object !== undefined) {
@@ -54,7 +52,8 @@ var common = common || (function() {
         }
         delete owner[key]; 
     };
-    const getObjectTypeFromId = function(graph, id) {
+
+    static getObjectTypeFromId(graph, id) {
         for (let type in graph) {
             for (let _id in graph[type]) {
                 if (_id == id) {
@@ -64,24 +63,23 @@ var common = common || (function() {
         }
         return undefined;
     };
-    return {
-        safeExtract,
-        safeDelete,
-        getObjectTypeFromId,
-        pinturaDiagramObjectPoints: function() {
-            return PinturaDiagramObjectPoints;
-        },
-        pinturaDiagramObject: function() {
-            return PinturaDiagramObject;
-        },
-        pinturaRdfid: function() {
-            return PinturaRdfid;
-        },
-        pinturaTerminals: function() {
-            return PinturaTerminals;
-        },
+
+    static pinturaDiagramObjectPoints() {
+        return "pintura:diagramObjectPoints";
     };
-}());
+
+    static pinturaDiagramObject() {
+        return "pintura:diagramObject";
+    };
+
+    static pinturaRdfid() {
+        return "pintura:rdfid";
+    };
+
+    static pinturaTerminals() {
+        return "pintura:terminals";
+    };
+};
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = common

@@ -47,6 +47,10 @@ const getDOM = function(text) {
     return new DOMParser().parseFromString(text);
 };
 
+const getXMLSerializer = function(text) {
+    return new xmldom.XMLSerializer();
+};
+
 getMouseCoordFromWindow = function(evt) {
     return new SVGPoint(evt.clientX, evt.clientY);
 }
@@ -74,11 +78,16 @@ describe("cimsvg", function() {
             cimsvgInstance.init(svg, sidebar, floatingMenu);
             cimsvg.setCimsvg(cimsvgInstance);
             spyOn(cimsvgInstance.cimview, "getMouseCoordFromWindow").and.callFake(getMouseCoordFromWindow);
-            let diagramId = cimsvgInstance.addDiagram();
-            cimsvgInstance.setCurrentDiagramId(diagramId);
             domReady = dom;
             done();
         });
+    });
+
+    beforeEach(function(done) {
+        cimsvgInstance.clearAllData()
+        let diagramId = cimsvgInstance.addDiagram();
+        cimsvgInstance.setCurrentDiagramId(diagramId);
+        done();
     });
 
     it("should be able to add a component", function() {
@@ -122,7 +131,6 @@ describe("cimsvg", function() {
     it("should be possible to read a cim file", function(done) {
         spyOn(cimxml, "getDOM").and.callFake(getDOM);
         spyOn(cimxml, "isElementNode").and.callFake(isElementNode);
-        cimsvgInstance.clearAllData()
         cimsvgInstance.setFileCount(1);
         fs.readFile("test/grid-data/CIM/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
             if (err) throw err;
@@ -130,6 +138,14 @@ describe("cimsvg", function() {
             done();
         });
         expect(cimsvgInstance.getObjectsOfType("cim:EnergyConsumer")).not.toBe(null);
+    });
+
+    it("should be possible to save a file", function(done) {
+        spyOn(cimxml, "getDOM").and.callFake(getDOM);
+        spyOn(cimxml, "getXMLSerializer").and.callFake(getXMLSerializer);
+        cimsvgInstance.addComponent("cim:EnergyConsumer");
+        expect(cimsvgInstance.exportXmlData()).not.toBe(null);
+        done();
     });
 });
 

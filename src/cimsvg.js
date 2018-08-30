@@ -277,8 +277,12 @@ class cimsvg {
         }
     };
 
+    exportXmlData() {
+        return cimxml.getBaseXML(this.getBaseJson())
+    };
+
     saveGridXml() {
-        saveFile(cimxml.getBaseXML())
+        saveFile(this.exportXmlData())
     };
 
     updateComponent(type, id, attribute, value) {
