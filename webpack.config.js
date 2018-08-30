@@ -16,17 +16,19 @@
  *  in the top level directory of this source tree.
  */
 
-var webpack = require('webpack');
+const webpack = require('webpack');
+const libraryName = "libcimsvg";
 
-module.exports = {
+const browserConfig = {
   context: __dirname,
   devtool: false,
   entry: "./src/cimsvg.js",
   optimization: { "minimize": true },
-  mode: "production",
+  mode: "development",
   output: {
     path: __dirname + "/html",
-        filename: "cimsvg.js"
+    library: libraryName,
+    filename: libraryName + ".js",
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -36,3 +38,27 @@ module.exports = {
     })
   ],
 };
+
+const nodeConfig = {
+  context: __dirname,
+  devtool: false,
+  entry: "./src/cimsvg.js",
+  optimization: { "minimize": true },
+  mode: "development",
+  target: "node",
+  output: {
+    path: __dirname + "/html",
+    filename: libraryName + ".node.js",
+    libraryTarget: "commonjs2",
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('test')
+      }
+    })
+  ],
+};
+
+
+module.exports = [ browserConfig, nodeConfig ];

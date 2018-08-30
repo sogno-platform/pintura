@@ -16,8 +16,8 @@
  *  in the top level directory of this source tree.
  */
 
-var webpack = require('webpack');
-var libraryName = "libcimsvg";
+const webpack = require('webpack');
+const libraryName = "libcimsvg";
 
 const browserConfig = {
   context: __dirname,
