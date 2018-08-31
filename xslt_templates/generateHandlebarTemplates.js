@@ -16,7 +16,7 @@ const sortedMenuFilename = "generated/add_components_menu.xml";
 const attributeDir = "generated/attributes/";
 const cimedit = require('../src/cimedit.js');
 
-var getOptions = function(args) {
+const getOptions = function(args) {
   let options = {};
   for (let index = 1; index < args.length; index++) {
     keyPair = args[index].split('='); 
@@ -32,12 +32,12 @@ var getOptions = function(args) {
   return options;
 };
 
-var XSLTTranslation = function(xmlFile, options) {
+const XSLTTranslation = function(xmlFile, options) {
   return xslt.performXSLTTranslationFilenames(xmlFile, createAttributeListFilename,
                                               createAddComponentMenuFilename, options[dbgOpt]);
 };
 
-var writeToFile = function(filename, data, success) {
+const writeToFile = function(filename, data, success) {
 
   fs.writeFile(filename, data, function(err) {
     if(err) {
@@ -49,10 +49,10 @@ var writeToFile = function(filename, data, success) {
   });
 }
 
-var writeArrayOfFiles = function(objects, index, done) {
+const writeArrayOfFiles = function(objects, index, done) {
 
   if (!fs.existsSync(attributeDir)) {
-    fs.mkdir(attributeDir);
+    fs.mkdirSync(attributeDir);
   }
   writeToFile(objects[index]['filename'], objects[index]['data'], function() {
     if (objects.length > index+1) {
@@ -79,7 +79,7 @@ const createComponentCreationHtml = function(menuXml) {
     return ul;
 };
 
-var processFilenames = function(list, options) {
+const processFilenames = function(list, options) {
 
   let arrayOfFiles = [];
   let menuItems = "<menu><ul class=\"floating-panel-list\">";
@@ -104,7 +104,7 @@ var processFilenames = function(list, options) {
   return arrayOfFiles;
 };
 
-var parseOptions = function( args ) {
+const parseOptions = function( args ) {
 
   let options = getOptions( args );
   if (options[xmlOpt] == null) {
