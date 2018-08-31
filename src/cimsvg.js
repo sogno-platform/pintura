@@ -341,10 +341,18 @@ class cimsvg {
         // Define which file to open and
         Connect.open("GET", fileName, true);
         Connect.setRequestHeader("Content-Type", "text/xml");
+        Connect.onerror = function (e) {
+            alert("Failed to download " + fileName)
+        }
         Connect.onload = function (e) {
             if(Connect.readyState === 4) {
                 if(Connect.status === 200) {
-                    SVGclass.componentCreationHtml = callback(Connect.responseXML);
+                    if (SVGclass == null) {
+                        callback(Connect.responseText);
+                    }
+                    else {
+                        SVGclass.componentCreationHtml = callback(Connect.responseXML);
+                    }
                 }
                 else {
                     console.error(Connect.statusText);

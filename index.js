@@ -28,6 +28,28 @@ contextMenu.resizeListener(window);
 contextMenu.keyUpListener(window);
 cimsvgInstance.setContextMenu(contextMenu);
 
+let urlTokens = window.location.href.split('?')
+let pairs = urlTokens.slice(1)
+let params = {}
+for (let index in pairs) {
+    let pair = pairs[index]
+    let param = pair.split('=');
+    if (param.length == 2){
+        params[param[0]] = param[1];
+    }
+}
+if ("load" in params){
+    let url=params['load'];
+    cimsvgInstance.loadXml(url, null, (data)=>{
+        cimsvgInstance.setFileCount(1);
+        cimsvgInstance.loadFile(data)
+    });
+}
+/*  Clear GET parameters */
+if(typeof window.history.pushState == 'function') {
+    window.history.pushState({}, "Hide", urlTokens[0]);
+}
+
 document.oncontextmenu = function(e){
     if(e.preventDefault != undefined) {
         e.preventDefault();
