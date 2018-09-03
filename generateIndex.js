@@ -256,7 +256,8 @@ console.log(`<!--
     A copy of the GNU General Public License is in the LICENSE file
     in the top level directory of this source tree.
 -->
-<!DOCTYPE HTML>`)
+<!DOCTYPE HTML>
+<meta charset="utf-8"/>`)
 //printTagJson(html)
 if (process.argv[2] == 'debug') {
     printTag(html, true)
