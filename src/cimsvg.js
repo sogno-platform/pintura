@@ -27,6 +27,7 @@ if (typeof module !== 'undefined' && module.exports) {
     global.cimjson = require('./cimjson.js');
     global.contextmenu = require('./contextmenu.js');
     global.common = require('./common.js');
+    global.JSZip = require('jszip');
 };
 
 class cimsvg {
@@ -37,8 +38,8 @@ class cimsvg {
         this.cimview = new cimview(svg);
         this.floatingMenu = floatingMenuNode;
         if(floatingMenuNode != undefined) {
-            this.loadXml("generated/add_components_menu.xml", this, function(xml) {
-                return xml.documentElement.outerHTML;
+            this.loadXml("generated/add_components_menu.xml", (xml)=>{
+                this.componentCreationHtml = xml.documentElement.outerHTML;
             });
         }
         this.addingType = null;
@@ -335,7 +336,47 @@ class cimsvg {
         }
     };
 
-    loadXml(fileName, SVGclass, callback) {
+    importZip(uri, blob) {
+        let archive = new JSZip();
+        archive.loadAsync(blob, {checkCRC32: true})
+            .then((zip)=>{
+                let files = Object.keys(zip.files);
+                this.setFileCount(files.length);
+                files.forEach((filename)=>{
+                    let file = zip.files[filename];
+                    file.async("string").then((output)=>{
+                        this.loadFile(output);
+                    });
+                });
+            }, (error)=>{
+                console.error("failure", error);
+            }
+        );
+    };
+
+    importFile(uri, blob) {
+        let length=uri.length;
+        if(length > 4) {
+            let uriSuffix = uri.substring(length-4)
+            if (uriSuffix == '.xml') {
+                this.setFileCount(1);
+                this.loadFile(blob)
+            }
+            else if (uriSuffix == '.zip') {
+                this.importZip(uri, blob);
+            }
+        }
+    };
+
+    downloadUri(uri, callback) {
+        fetch(uri).then((response)=>{
+            response.blob().then((blob)=>{
+                callback(uri, blob);
+            });
+        });
+    };
+
+    loadXml(fileName, callback) {
         // Create a connection to the file.
         let Connect = new XMLHttpRequest();
         // Define which file to open and
@@ -347,12 +388,7 @@ class cimsvg {
         Connect.onload = function (e) {
             if(Connect.readyState === 4) {
                 if(Connect.status === 200) {
-                    if (SVGclass == null) {
-                        callback(Connect.responseText);
-                    }
-                    else {
-                        SVGclass.componentCreationHtml = callback(Connect.responseXML);
-                    }
+                    callback(Connect.responseXML);
                 }
                 else {
                     console.error(Connect.statusText);

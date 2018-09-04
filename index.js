@@ -38,18 +38,10 @@ for (let index in pairs) {
         params[param[0]] = param[1];
     }
 }
-if ("load" in params){
-    let url=params['load'];
-    cimsvgInstance.loadXml(url, null, (data)=>{
-        cimsvgInstance.setFileCount(1);
-        cimsvgInstance.loadFile(data)
-    });
+if ("uri" in params){
+    let uri=params['uri'];
+    cimsvgInstance.downloadUri(uri, (uri, blob)=>{ cimsvgInstance.importFile(uri, blob) });
 }
-/*  Clear GET parameters */
-if(typeof window.history.pushState == 'function') {
-    window.history.pushState({}, "Hide", urlTokens[0]);
-}
-
 document.oncontextmenu = function(e){
     if(e.preventDefault != undefined) {
         e.preventDefault();
@@ -58,7 +50,24 @@ document.oncontextmenu = function(e){
         e.stopPropagation();
     }
 }
-
+const readFile=function(e) {
+    let files = e.target.files;
+    if (files) {
+        currentCimsvg().clearAllData()
+        currentCimsvg().setFileCount(files.length);
+        Array.from(files).forEach((file)=>{
+            if (!file) {
+                return;
+            }
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let contents = e.target.result;
+                currentCimsvg().loadFile(contents);
+            };
+            reader.readAsText(file);
+        });
+    }
+};
 document.getElementById("fileopen").addEventListener('change', readFile, false);
 
 var updateComponent = function(type, id, attribute, value) {
@@ -172,13 +181,13 @@ var addClass = function(container, newClass, oldClass1, oldClass2) {
     }
     elem.classList.add(newClass)
 };
-var hideContainer = function(container) {
-    var x = document.getElementById(container);
+let hideContainer = function(container) {
+    let x = document.getElementById(container);
     x.style.display = "none";
 };
-var showContainer = function(container, icon, show="false", newClass="block"){
-    var x = document.getElementById(container);
-    var y = document.getElementById(icon);
+let showContainer = function(container, icon, show="false", newClass="block"){
+    let x = document.getElementById(container);
+    let y = document.getElementById(icon);
     if ((show == "true") || (x.style.display == "") || (x.style.display == "none")) {
         x.style.display = newClass;
         if (y != undefined) {
@@ -191,22 +200,7 @@ var showContainer = function(container, icon, show="false", newClass="block"){
         }
     }
 };
-function doSearch(inputId, textareaId) {
-    var searchStr=document.getElementById(inputId).value;
-    var box=document.getElementById(textareaId);
-    var index=box.value.indexOf(searchStr);
-    var length=box.value.length*1.0;
-    var startIndexStr=index;
-    var endIndexStr=index+searchStr.length;
-
-    box.setSelectionRange(index, index);
-    //box.setSelectionRange(startIndexStr, endIndexStr);//searchStr.length);
-    box.blur();
-    box.focus();
-    box.setSelectionRange(startIndexStr, endIndexStr);//searchStr.length);
-    //box.scrollTop=(index/length)*100;
-};
-function saveFile(data) {
+const saveFile=function(data) {
     let filesave = document.getElementById("filesave")
     let element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
@@ -216,31 +210,13 @@ function saveFile(data) {
     element.click();
     filesave.removeChild(element);
 }
-function readFile(e) {
-    let files = e.target.files;
-    if (files) {
-        currentCimsvg().clearAllData()
-        currentCimsvg().setFileCount(files.length);
-        for (var i=0, f; f=files[i]; i++) {
-            if (!f) {
-                return;
-            }
-            var reader = new FileReader();
-                reader.onload = function(e) {
-                var contents = e.target.result;
-                currentCimsvg().loadFile(contents);
-            };
-            reader.readAsText(f);
-        }
-    }
-};
+
 function populateAttributes(node, type, id) {
     cimmenu.populateAttributes(node, type, id);
 };
 function populateAttributesIdOnly(node, id) {
     cimmenu.populateAttributesIdOnly(node, id);
 };
-
 if (typeof module !== 'undefined' && module.exports) {
     global.showContainer = showContainer;
     global.onMouseLeave = onMouseLeave;
