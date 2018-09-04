@@ -354,28 +354,33 @@ class cimsvg {
         );
     };
 
-    importFile(uri, blob) {
+    /*
+     * This function is used to download models using
+     * the uri= parameter in the url
+     */
+    downloadUri(uri, callback) {
         let length=uri.length;
         if(length > 4) {
             let uriSuffix = uri.substring(length-4)
-            if (uriSuffix == '.xml') {
-                this.setFileCount(1);
-                this.loadFile(blob)
-            }
-            else if (uriSuffix == '.zip') {
-                this.importZip(uri, blob);
-            }
+            fetch(uri).then((response)=>{
+                if (uriSuffix == '.xml') {
+                    response.text().then((text)=>{
+                        this.setFileCount(1);
+                        this.loadFile(text)
+                    })
+                }
+                else if (uriSuffix == '.zip') {
+                    response.blob().then((blob)=>{
+                        this.importZip(uri, blob);
+                    });
+                }
+            });
         }
     };
 
-    downloadUri(uri, callback) {
-        fetch(uri).then((response)=>{
-            response.blob().then((blob)=>{
-                callback(uri, blob);
-            });
-        });
-    };
-
+    /*
+     * This function is used to import the menu xml
+     */
     loadXml(fileName, callback) {
         // Create a connection to the file.
         let Connect = new XMLHttpRequest();
