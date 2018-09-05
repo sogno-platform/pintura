@@ -19,7 +19,7 @@
 			<g class="grid" />
 			<g class="diagrams" />
 		</svg>
-		<script type="text/javascript" src="../html/cimsvg.js"></script>
+		<script type="text/javascript" src="../html/libcimsvg.js"></script>
 		<script language="javascript" type="text/javascript">
 			(function() {
 				var client = new XMLHttpRequest();
@@ -27,7 +27,8 @@
 				client.onreadystatechange = function() {
 					if (client.readyState == 4 && client.status == 200) {
 						let svgelm = document.getElementById("cim");
-						let cimsvgInstance = new cimsvg.cimSVGclass(svgelm);
+						let cimsvgInstance = new cimsvg(svgelm);
+						cimsvg.setCimsvg(cimsvgInstance);
 						cimsvgInstance.setFileCount(1);
 						cimsvgInstance.loadFile(client.responseText);
 						cimsvgInstance.fit();

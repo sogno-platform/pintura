@@ -196,18 +196,18 @@ class cimjson {
 };
 
 cimjson.imageNames = {
-    "cim:ACLineSegment":             "images/term.svg",
-    "cim:Terminal":                  "images/term.svg",
-    "cim:Breaker":                   "images/brea.svg",
-    "cim:ConnectivityNode":          "images/conn.svg",
-    "cim:EnergyConsumer":            "images/cons.svg",
-    "cim:EquivalentInjection":       "images/cons.svg",
-    "cim:ExternalNetworkInjection":  "images/net.svg",
-    "cim:PowerTransformer":          "images/trans.svg",
-    "cim:SolarGeneratingUnit":       "images/solar.svg",
-    "cim:SynchronousMachine":        "images/sync.svg",
-    "cim:TopologicalNode":           "images/topo.svg",
-    "cim:TransformerWinding":        "images/trans.svg",
+    "cim:ACLineSegment":             term,
+    "cim:Terminal":                  term,
+    "cim:Breaker":                   brea,
+    "cim:ConnectivityNode":          conn,
+    "cim:EnergyConsumer":            cons,
+    "cim:EquivalentInjection":       cons,
+    "cim:ExternalNetworkInjection":  net,
+    "cim:PowerTransformer":          tran,
+    "cim:SolarGeneratingUnit":       sola,
+    "cim:SynchronousMachine":        sync,
+    "cim:TopologicalNode":           topo,
+    "cim:TransformerWinding":        tran,
 };
 
 
