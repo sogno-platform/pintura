@@ -25,6 +25,7 @@ const tran = require("../images/trans.svg");
 const sola = require("../images/sol.svg");
 const sync = require("../images/sync.svg");
 const topo = require("../images/topo.svg");
+const node = require("../images/node.svg");
 
 
 class cimjson {
@@ -42,8 +43,8 @@ class cimjson {
         let rotationCenter;
         let object;
         let categoryGraph = graph[categoryGraphName];
-        const imageHeight = 12;
-        const imageWidth = 12;
+        const imageHeight = 18;
+        const imageWidth = 18;
         if (diagramObject["cim:DiagramObject.IdentifiedObject"] != undefined) {
             let rdfId = diagramObject["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
             for (let index in originalPoints) {
@@ -207,14 +208,14 @@ cimjson.imageNames = {
     "cim:ACLineSegment":             term,
     "cim:Terminal":                  term,
     "cim:Breaker":                   brea,
-    "cim:ConnectivityNode":          conn,
+    "cim:ConnectivityNode":          node,
     "cim:EnergyConsumer":            cons,
     "cim:EquivalentInjection":       cons,
     "cim:ExternalNetworkInjection":  net,
     "cim:PowerTransformer":          tran,
     "cim:SolarGeneratingUnit":       sola,
     "cim:SynchronousMachine":        sync,
-    "cim:TopologicalNode":           topo,
+    "cim:TopologicalNode":           node,
     "cim:TransformerWinding":        tran,
 };
 
