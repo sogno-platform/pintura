@@ -141,12 +141,25 @@ var makeAccordionDiv = function(id, action) {
 /*
  * global html tag
  */
-var html = new tag('html').c(new tag('head').c(new tag('title').t('Pintura')))
+var html = new tag('html')
+var head = new tag('head')
+
+head.c(new tag('title').t('Pintura'))
+head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
+head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
+head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
+
+head.c(new tag('link').a('rel', '"apple-touch-icon"').a('sizes', '"180x180"').a('href', '"/images/apple-touch-icon.png"'))
+head.c(new tag('link').a('rel', '"icon"').a('type', '"image/png"').a('sizes', '"32x32"').a('href', '"/images/favicon-32x32.png"'))
+head.c(new tag('link').a('rel', '"icon"').a('type', '"image/png"').a('sizes', '"16x16"').a('href', '"/images/favicon-16x16.png"'))
+head.c(new tag('link').a('rel', '"manifest"').a('href', '"/images/site.webmanifest"'))
+head.c(new tag('link').a('rel', '"mask-icon"').a('href', '"/images/safari-pinned-tab.svg"').a('color', '"#5bbad5"'))
+head.c(new tag('link').a('rel', '"shortcut icon"').a('href', '"/images/favicon.ico"'))
+head.c(new tag('meta').a('nam', '"msapplication-TileColor"').a('content', '"#da532c"'))
+head.c(new tag('meta').a('nam', '"msapplication-config"').a('content', '"/images/browserconfig.xml"'))
+head.c(new tag('meta').a('nam', '"theme-color"').a('content', '"#ffffff"'))
 
 var body = new tag('body')
-body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
-body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
-body.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
@@ -237,6 +250,7 @@ var main = new tag('div').a('id', '"main"').c(diagram).c(floating_menu).c(contex
 body.c(main).c(sidebar)
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/libcimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
+html.c(head)
 html.c(body)
 
 console.log(`<!--
