@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:annotation>
+		<xs:documentation>This package is responsible for modeling the energy consumers and the system load as curves and associated curve data. Special circumstances that may affect the load, such as seasons and daytypes, are also included here.
+
+This information is used by Load Forecasting and Load Management.</xs:documentation>
+	</xs:annotation>
+	<xs:include schemaLocation="Domain.xsd"/>
+	<xs:include schemaLocation="Wires.xsd"/>
+	<xs:include schemaLocation="Core.xsd"/>
+	<xs:element name="ConformLoad" type="ConformLoad"/>
+	<xs:complexType name="ConformLoad">
+		<xs:annotation>
+			<xs:documentation>ConformLoad represent loads that follow a daily load change pattern where the pattern can be used to scale the load with a system load.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EnergyConsumer">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ConformLoadGroup" type="ConformLoadGroup"/>
+	<xs:complexType name="ConformLoadGroup">
+		<xs:annotation>
+			<xs:documentation>A group of loads conforming to an allocation pattern. </xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="LoadGroup">
+				<xs:sequence>
+					<xs:element name="EnergyConsumers" type="ConformLoad" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Conform loads assigned to this ConformLoadGroup.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ConformLoadSchedules" type="ConformLoadSchedule" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The ConformLoadSchedules in the ConformLoadGroup.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ConformLoadSchedule" type="ConformLoadSchedule"/>
+	<xs:complexType name="ConformLoadSchedule">
+		<xs:annotation>
+			<xs:documentation>A curve of load  versus time (X-axis) showing the active power values (Y1-axis) and reactive power (Y2-axis) for each unit of the period covered. This curve represents a typical pattern of load over the time period for a given day type and season.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="SeasonDayTypeSchedule">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="DayType" type="DayType"/>
+	<xs:complexType name="DayType">
+		<xs:annotation>
+			<xs:documentation>Group of similar days.   For example it could be used to represent weekdays, weekend, or holidays.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="SeasonDayTypeSchedules" type="SeasonDayTypeSchedule" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Schedules that use this DayType.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="EnergyArea" type="EnergyArea"/>
+	<xs:complexType name="EnergyArea">
+		<xs:annotation>
+			<xs:documentation>Describes an area having energy production or consumption.  Specializations are intended to support the load allocation function as typically required in energy management systems or planning studies to allocate hypothesized load levels to individual load points for power flow analysis.  Often the energy area can be linked to both measured and forecast load levels.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="LoadArea" type="LoadArea"/>
+	<xs:complexType name="LoadArea">
+		<xs:annotation>
+			<xs:documentation>The class is the root or first level in a hierarchical structure for grouping of loads for the purpose of load flow load scaling.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EnergyArea">
+				<xs:sequence>
+					<xs:element name="SubLoadAreas" type="SubLoadArea" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The SubLoadAreas in the LoadArea.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="LoadGroup" type="LoadGroup"/>
+	<xs:complexType name="LoadGroup">
+		<xs:annotation>
+			<xs:documentation>The class is the third level in a hierarchical structure for grouping of loads for the purpose of load flow load scaling.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="LoadResponseCharacteristic" type="LoadResponseCharacteristic"/>
+	<xs:complexType name="LoadResponseCharacteristic">
+		<xs:annotation>
+			<xs:documentation>Models the characteristic response of the load demand due to changes in system conditions such as voltage and frequency. This is not related to demand response.
+
+If LoadResponseCharacteristic.exponentModel is True, the voltage exponents are specified and used as to calculate:
+
+Active power component = Pnominal * (Voltage/cim:BaseVoltage.nominalVoltage) ** cim:LoadResponseCharacteristic.pVoltageExponent
+
+Reactive power component = Qnominal * (Voltage/cim:BaseVoltage.nominalVoltage)** cim:LoadResponseCharacteristic.qVoltageExponent
+
+Where  * means "multiply" and ** is "raised to power of".</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="exponentModel" type="Boolean" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Indicates the exponential voltage dependency model is to be used.   If false, the coefficient model is to be used.
+The exponential voltage dependency model consist of the attributes
+- pVoltageExponent
+- qVoltageExponent.
+The coefficient model consist of the attributes
+- pConstantImpedance
+- pConstantCurrent
+- pConstantPower
+- qConstantImpedance
+- qConstantCurrent
+- qConstantPower.
+The sum of pConstantImpedance, pConstantCurrent and pConstantPower shall equal 1.
+The sum of qConstantImpedance, qConstantCurrent and qConstantPower shall equal 1.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="pConstantCurrent" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Portion of active power load modeled as constant current.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="pConstantImpedance" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Portion of active power load modeled as constant impedance.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="pConstantPower" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Portion of active power load modeled as constant power.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="pFrequencyExponent" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Exponent of per unit frequency effecting active power.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="pVoltageExponent" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Exponent of per unit voltage effecting real power.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="qConstantCurrent" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Portion of reactive power load modeled as constant current.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="qConstantImpedance" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Portion of reactive power load modeled as constant impedance.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="qConstantPower" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Portion of reactive power load modeled as constant power.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="qFrequencyExponent" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Exponent of per unit frequency effecting reactive power.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="qVoltageExponent" type="Float" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Exponent of per unit voltage effecting reactive power.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="NonConformLoad" type="NonConformLoad"/>
+	<xs:complexType name="NonConformLoad">
+		<xs:annotation>
+			<xs:documentation>NonConformLoad represent loads that do not follow a daily load change pattern and changes are not correlated with the daily load change pattern.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EnergyConsumer">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="NonConformLoadGroup" type="NonConformLoadGroup"/>
+	<xs:complexType name="NonConformLoadGroup">
+		<xs:annotation>
+			<xs:documentation>Loads that do not follow a daily and seasonal load variation pattern.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="LoadGroup">
+				<xs:sequence>
+					<xs:element name="EnergyConsumers" type="NonConformLoad" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Conform loads assigned to this ConformLoadGroup.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="NonConformLoadSchedules" type="NonConformLoadSchedule" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The NonConformLoadSchedules in the NonConformLoadGroup.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="NonConformLoadSchedule" type="NonConformLoadSchedule"/>
+	<xs:complexType name="NonConformLoadSchedule">
+		<xs:annotation>
+			<xs:documentation>An active power (Y1-axis) and reactive power (Y2-axis) schedule (curves) versus time (X-axis) for non-conforming loads, e.g., large industrial load or power station service (where modeled).</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="SeasonDayTypeSchedule">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="PowerCutZone" type="PowerCutZone"/>
+	<xs:complexType name="PowerCutZone">
+		<xs:annotation>
+			<xs:documentation>An area or zone of the power system which is used for load shedding purposes.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="PowerSystemResource">
+				<xs:sequence>
+					<xs:element name="cutLevel1" type="PerCent" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>First level (amount) of load to cut as a percentage of total zone load.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="cutLevel2" type="PerCent" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Second level (amount) of load to cut as a percentage of total zone load.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="EnergyConsumers" type="EnergyConsumer" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Energy consumer is assigned to the power cut zone.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="Season" type="Season"/>
+	<xs:complexType name="Season">
+		<xs:annotation>
+			<xs:documentation>A specified time period of the year.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="IdentifiedObject">
+				<xs:sequence>
+					<xs:element name="endDate" type="MonthDay" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Date season ends.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="startDate" type="MonthDay" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Date season starts.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SeasonDayTypeSchedules" type="SeasonDayTypeSchedule" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Schedules that use this Season.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SeasonDayTypeSchedule" type="SeasonDayTypeSchedule"/>
+	<xs:complexType name="SeasonDayTypeSchedule">
+		<xs:annotation>
+			<xs:documentation>A time schedule covering a 24 hour period, with curve data for a specific type of season and day.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="RegularIntervalSchedule">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="StationSupply" type="StationSupply"/>
+	<xs:complexType name="StationSupply">
+		<xs:annotation>
+			<xs:documentation>Station supply with load derived from the station output.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EnergyConsumer">
+				<xs:sequence/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SubLoadArea" type="SubLoadArea"/>
+	<xs:complexType name="SubLoadArea">
+		<xs:annotation>
+			<xs:documentation>The class is the second level in a hierarchical structure for grouping of loads for the purpose of load flow load scaling.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="EnergyArea">
+				<xs:sequence>
+					<xs:element name="LoadGroups" type="LoadGroup" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The Loadgroups in the SubLoadArea.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
