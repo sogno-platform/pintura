@@ -27,6 +27,9 @@
 
                 <!-- Add the IdentifiedObject.name row -->
                 <xsl:text>&#xa;    </xsl:text>
+                <xsl:variable name="parentId">
+                    <xsl:value-of select="concat($lsq, 'pintura:rdfid', $rsq)"/>
+                </xsl:variable>
                 <li class="wide-row floating-panel-item list-subtitle">
                     <xsl:text>&#xa;        </xsl:text>
                     <span class="row-left floating-panel-name">IdentifiedObject.name</span>
@@ -34,17 +37,16 @@
                     <span class="row-right wide-row floating-panel-value">
                        <input type="text">
                            <xsl:attribute name="value">{{[cim:IdentifiedObject.name]}}</xsl:attribute>
-                           <xsl:attribute name="onchange">javascript:updateComponent('<xsl:value-of select="$type"/>', '{{rdfid}}', 'cim:IdentifiedObject.name', this.value)</xsl:attribute>
+                           <xsl:attribute name="onchange">javascript:updateComponent('<xsl:value-of select="$type"/>', <xsl:value-of select="concat($apos, $thr_lbr, $parentId, $thr_rbr, $apos)"/>, 'cim:IdentifiedObject.name', this.value)</xsl:attribute>
                        </input>
+<!--
                         <button style="visibility:hidden"> + </button>
                         <button style="visibility:hidden"> -> </button>
+-->
                     </span>
                     <xsl:text>&#xa;    </xsl:text>
                 </li>
                 <xsl:text>&#xa;    </xsl:text>
-                <xsl:variable name="parentId">
-                    <xsl:value-of select="concat($lsq, 'pintura:rdfid', $rsq)"/>
-                </xsl:variable>
                 <xsl:for-each select="xs:complexContent/xs:extension">
                     <xsl:for-each select="xs:sequence/xs:element">
                         <xsl:variable name="rdfid">

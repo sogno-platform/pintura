@@ -63,6 +63,20 @@ class cimsvg {
         return this.contextMenu;
     };
 
+
+    getValueOf(type, id, attribute) {
+        let object = common.safeExtract(this.getBaseJson(), type, id);
+        if (object == undefined) {
+            console.error("No object with id: ", id, " in category: ", type);
+        }
+        if (attribute in object) {
+            return object[attribute];
+        }
+        else {
+            return 0;
+        };
+    };
+
     /*
      * How many pieces the data will be arriving in
      */

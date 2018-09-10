@@ -108,13 +108,14 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
     let updateMenu = "";
     if (type !== undefined) {
         if (type == "Float" || type == "Integer" || type == "Boolean" ) {
-            updateMenu =`
-            <span class="row-right wide-row floating-panel-value">
-                <input type="text"></input>
-                <button style="visibility:hidden"> + </button>
-                <button style="visibility:hidden"> -> </button>
-            </span>
-        `
+            let primitive_template = {
+                type: parentType,
+                rdfid: parentId,
+                attribute: attribute,
+                value: currentCimsvg().getValueOf(parentType, parentId, attribute)
+            }
+            let template = Handlebars.templates['cim_update_primitive_type'];
+            updateMenu = template(primitive_template);
         }
         else {
             let requestedType = "cim:" + type;
