@@ -26,16 +26,6 @@
           onmouseleave="onMouseLeave(evt)"
         />
       {{/each}}
-      {{#pintura:label}}
-        <text
-          x="{{x}}"
-          y="{{y}}"
-          class="svglabel"
-          type="{{typeName}}"
-          id="{{componentId}}-txt0"
-          onmouseup="onMouseUp(evt)"
-        >{{text}}</text>
-      {{/pintura:label}}
       {{#each pintura:line}}
         <line
           x1="{{x1}}"
@@ -52,6 +42,23 @@
       </g>
     {{/each}}
     </g>
+  {{/each}}
+  {{/with}}
+  {{#with components}}
+  {{#each this as |value typeName|}}
+    {{#each this as |value componentId|}}
+      {{#pintura:label}}
+	<rect class="svglabel-bg" id="{{componentId}}-bg0" rx="3" ry="3" />
+        <text
+          x="{{x}}"
+          y="{{y}}"
+          class="svglabel"
+          type="{{typeName}}"
+          id="{{componentId}}-txt0"
+          onmouseup="onMouseUp(evt)"
+        >{{text}}</text>
+      {{/pintura:label}}
+    {{/each}}
   {{/each}}
   {{/with}}
   </g>

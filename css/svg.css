@@ -48,21 +48,24 @@ line {
 .svglabel {
     visibility: hidden;
     pointer-events: none;
-    -webkit-user-select: none;  /* Chrome all / Safari all */
-    -moz-user-select: none;     /* Firefox all */
-    -ms-user-select: none;      /* IE 10+ */
-}
-.svglabel-high {
-    visibility: visible;
     font-size: 12px;
     font-family: "sans-serif";
     text-anchor: right;
     fill: black;
     stroke-width: 1px;
-    pointer-events: none;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
+}
+.svglabel-bg {
+	visibility: hidden;
+	fill: white;
+	stroke: grey;
+	stroke-width: 1px;
+	fill-opacity: 0.85;
+}
+.svglabel-high {
+	visibility: visible;
 }
 .gridLine {
     stroke: #aaa;

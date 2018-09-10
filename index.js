@@ -162,12 +162,23 @@ var onMouseMove = function(){
 var onMouseOver = function(evt){
     let id = evt.currentTarget.id.slice(0,-5);
     let txt = document.getElementById(id+"-txt0");
+    let bbox = txt.getBBox();
+    let bg = document.getElementById(id+"-bg0");
+
+    bg.setAttribute("x", bbox.x - 3);
+    bg.setAttribute("y", bbox.y - 3);
+    bg.setAttribute("width", bbox.width + 6);
+    bg.setAttribute("height", bbox.height + 6);
+
     txt.classList.add("svglabel-high");
+    bg.classList.add("svglabel-high");
 };
 var onMouseLeave = function(evt){
     let id = evt.currentTarget.id.slice(0,-5);
     let txt = document.getElementById(id+"-txt0");
+    let bg = document.getElementById(id+"-bg0");
     txt.classList.remove("svglabel-high");
+    bg.classList.remove("svglabel-high");
 };
 var addClass = function(container, newClass, oldClass1, oldClass2) {
     let elem = document.getElementById(container);
