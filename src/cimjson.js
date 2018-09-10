@@ -38,6 +38,8 @@ class cimjson {
         let preOffsetPoints = [];
         let imagePoints = [];
         let labelPoint;
+        let rotation;
+        let rotationCenter;
         let object;
         let categoryGraph = graph[categoryGraphName];
         const imageHeight = 12;
@@ -62,10 +64,16 @@ class cimjson {
             labelPoint = {
                 "x": (parseInt(preOffsetPoints[0].x) + (imageWidth/2)).toString(),
                 "y": (parseInt(preOffsetPoints[0].y) - (imageHeight/2)).toString()
-            };
+	    };
+	    rotation = parseInt(diagramObject["cim:DiagramObject.rotation"])
+            rotationCenter = {
+                "x": (parseInt(imagePoints[0].x) + parseInt(imagePoints[0].imageWidth/2)).toString(),
+                "y": (parseInt(imagePoints[0].y) + parseInt(imagePoints[0].imageHeight/2)).toString()
+	    }
             object = {
                 "pintura:diagram" : diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1),
                 "pintura:image"   : cimjson.getImageName(categoryGraphName),
+                "pintura:transform": "rotate(" + rotation + "," + rotationCenter.x + "," + rotationCenter.y + ")",
                 "pintura:rdfId"   : rdfId,
                 "pintura:points"  : imagePoints,
                 "pintura:label"   : {
