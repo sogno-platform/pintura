@@ -2,6 +2,7 @@ FROM node:8-stretch AS builder
 
 COPY . /pintura
 WORKDIR pintura
+RUN rm -rf node_modules
 RUN npm install
 RUN npm run build
 
