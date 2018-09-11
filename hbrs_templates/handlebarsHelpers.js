@@ -16,7 +16,6 @@
  *  in the top level directory of this source tree.
  */
 
-
 let classStructure = require('../generated/classStructure.js');
 let simpleTypes = classStructure.simpleTypes;
 let complexTypes = classStructure.complexTypes;

@@ -152,18 +152,19 @@ var cimheritance = cimheritance || (function() {
     };
 }());
 
-let xml = libxmljs.parseXmlString('<?xml version="1.0" encoding="utf-8"?><root/>')
-let xsl = xslt.loadXMLDoc(merge_file);
-let superClassTree = xslt.performXSLTTranslation(xml, xsl);
+[ 'cim16', 'cim16_entsoe' ].forEach((dir)=>{
+    let xml = libxmljs.parseXmlString('<?xml version="1.0" encoding="utf-8"?><xs:schema/>')
+    let xsl = xslt.loadXMLDoc(merge_file);
+    let superClassTree = xslt.performXSLTTranslation(xml, xsl, dir, true);
 
-if (process.argv[2] != undefined) {
-    let classStructure = require('../' + class_structure_js)
-    cimheritance.init(classStructure)
-    console.log(cimheritance.getSuperClassList(process.argv[2]))
-}
-else {
-    cimheritance.generateSuperClassTree(superClassTree);
-}
+    if (process.argv[2] != undefined) {
+        let classStructure = require('../' + class_structure_js)
+        cimheritance.init(classStructure)
+    }
+    else {
+        cimheritance.generateSuperClassTree(superClassTree);
+    }
+});
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = cimheritance

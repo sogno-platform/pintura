@@ -42,17 +42,9 @@ class cimsvg {
                 this.componentCreationHtml = xml.documentElement.outerHTML;
             });
         }
-        this.addingType = null;
-        this.addingPoint = null;
-        this.currentDiagramId = undefined;
-        this.xmlNode = null;
-        this.pinturaNode = null;
-        this.nameCounter = {};
-        this.xmlDoc;
-        this.rdfFileCount = 0;
-        this.rdfFileReceived = 0;
-        this.jsonBaseData = null;
         this.contextMenu = null;
+        this.pinturaNode = null;
+        this.clearAllData();
     }
 
     setContextMenu(menu) {
@@ -231,11 +223,11 @@ class cimsvg {
     };
 
     populateAttributes(type, id) {
-        cimmenu.populateAttributes(this.floatingMenu, type, id);
+        cimmenu.populateAttributes(this.floatingMenu, type, this.cimVersion + this.entsoe, id);
     };
 
     populateAttributesIdOnly(id) {
-        cimmenu.populateAttributesIdOnly(this.floatingMenu, id);
+        cimmenu.populateAttributesIdOnly(this.floatingMenu, this.cimVersion + this.entsoe, id);
     };
 
     populateComponentCreationMenu() {
@@ -243,7 +235,7 @@ class cimsvg {
     };
 
     populateTerminals(type, rdfid) {
-        cimmenu.populateTerminals(this.floatingMenu, type, rdfid)
+        cimmenu.populateTerminals(this.floatingMenu, type, this.cimVersion + this.entsoe, rdfid)
     };
 
     checkComponentReadyToAdd(evt) {
@@ -297,6 +289,27 @@ class cimsvg {
         this.rdfFileCount = 0;
         this.rdfFileReceived = 0;
         this.jsonBaseData = null;
+        this.cimVersion = undefined;
+        this.entsoe = "";
+    };
+
+    setCimVersion(cim, entsoe) {
+        let regex = /.*CIM-schema-(.*)#/.exec(cim)
+        if (regex.length > 1) {
+            let newCimVersion = regex[1];
+            if (this.cimVersion != undefined) {
+                if (this.cimVersion != newCimVersion) {
+                    console.error("Files loaded with non-matching cim versions!");
+                    return false;
+                }
+            }
+            this.cimVersion = newCimVersion;
+        }
+        else {
+            console.error("Failed to parse cim version.");
+        }
+        this.entsoe = entsoe ? "_entsoe" : "";
+        return true;
     };
 
     loadFile(fileContents) {

@@ -54,7 +54,7 @@ class cimmenu {
         });
     };
 
-    static populateAttributesIdOnly (node, id) {
+    static populateAttributesIdOnly (node, cimVersion, id) {
         let type = currentCimsvg().getObjectTypeUsingId(id);
         if (type != undefined) {
             populateAttributes(node, type, id);
@@ -64,7 +64,7 @@ class cimmenu {
         }
     };
 
-    static populateAttributes (node, type, id) {
+    static populateAttributes (node, type, cimVersion, id) {
         if (id == "No Object" || id == "Missing rdf:resource") {
             return;
         }
@@ -75,12 +75,12 @@ class cimmenu {
         if (baseJson[type][id] == undefined) {
             console.error("Cannot find " + id + " in data to display id of " + type);
         }
-        let template = Handlebars.templates["attributes/"+type.substring(4)];
+        let template = Handlebars.templates[cimVersion + "/" +type.substring(4)];
         let data = template(baseJson[type][id]);
         cimmenu.populateFloatingMenu(node, data, "Attributes");
     };
 
-    static populateTerminals (node, type, rdfid) {
+    static populateTerminals (node, type, cimVersion, rdfid) {
         let title = "Terminal List";
         let titleNode = node.querySelectorAll('.floating-panel-title')
         let baseJson = currentCimsvg().getBaseJson();

@@ -12,7 +12,7 @@
     "generateIndexDebug": "node generateIndex.js debug > index.html",
     "generateClassStructure": "mkdir -p generated && node xslt_templates/generateClassStructure.js",
     "generateHandlebars": "node xslt_templates/generateHandlebarTemplates.js --xmlDir=./data_model",
-    "handlebarAttributes": "handlebars generated > generated/template.js",
+    "handlebarAttributes": "handlebars generated/attributes > generated/template.js",
     "handlebarStatic": "handlebars hbrs_templates >> generated/template.js",
     "handlebarTemplates": "npm run handlebarAttributes && npm run handlebarStatic",
     "doWebpack": "webpack --config webpack.config.js",

@@ -30,13 +30,20 @@ var loadXMLDoc = function(filename) {
 
 var logOutput = false;
 
-var log = function(str) {
+var log = function(...args) {
   if (logOutput) {
-    process.stderr.write(str + "\n")
+    for (let arg of args) {
+      process.stderr.write(arg);
+    }
+    process.stderr.write("\n");
   }
 };
 
-var performXSLTTranslation = function(xml, xsl, attribute) {
+var performXSLTTranslation = function(xml, xsl, attribute, debug) {
+
+  if (debug) {
+    logOutput = true;
+  }
 
   log("Importing stylesheet..")
   var stylesheetObj = libxmljs.parseXml(xsl, { nocdata: true });
@@ -50,26 +57,30 @@ var performXSLTTranslation = function(xml, xsl, attribute) {
 
   log("Attempting transform..")
   result = stylesheet.apply(xml, params)
+  log(result.toString())
   return result
 };
 
 var performXSLTTranslationFilenames = function(xmlFile, attributeXSLTFile, menuXSLTFile, debug) {
 
-  log("performXSLTTranslationFilenames.xmlFile ", xmlFile)
-  log("performXSLTTranslationFilenames.menuXSLTFile ", menuXSLTFile)
-  let returnVariable = { 'menuEntries': '', 'attributeList': ''}
   if (debug) {
     logOutput = true;
   }
 
+  log("performXSLTTranslationFilenames.xmlFile ", xmlFile)
+  log("performXSLTTranslationFilenames.menuXSLTFile ", menuXSLTFile)
+  let returnVariable = { 'menuEntries': '', 'attributeList': ''}
+  log("xmlFile: ", xmlFile)
   let xml = loadXMLDoc(xmlFile)
+  log("attributeXSLTFile: ", attributeXSLTFile)
   let attributeXSLT = loadXMLDoc(attributeXSLTFile);
+  log("menuXSLTFile: ", menuXSLTFile)
   let menuXSLT = loadXMLDoc(menuXSLTFile);
   let components = listComponentsAndPerformXSLTranslation(xmlFile)
 
   if (components.root()) {
 
-    returnVariable['menuEntries'] = performXSLTTranslation(xml, menuXSLT, null, debug);
+    returnVariable['menuEntries'] = performXSLTTranslation(xml, menuXSLT, null);
     returnVariable['attributeList'] = {};
 
     let thisResult = "";
@@ -77,7 +88,7 @@ var performXSLTTranslationFilenames = function(xmlFile, attributeXSLTFile, menuX
       if (components.childNodes()[index].type() == 'element') {
         let thisComponent = components.childNodes()[index].text()
         log("Creating attribute list for [" + thisComponent + "]");
-        thisResult = performXSLTTranslation(xml, attributeXSLT, thisComponent, debug);
+        thisResult = performXSLTTranslation(xml, attributeXSLT, thisComponent);
         returnVariable['attributeList'][thisComponent] = thisResult + "\n";
       }
     }

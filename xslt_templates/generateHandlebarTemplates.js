@@ -50,9 +50,9 @@ const writeToFile = function(filename, data, success) {
 }
 
 const writeArrayOfFiles = function(objects, index, done) {
-
-  if (!fs.existsSync(attributeDir)) {
-    fs.mkdirSync(attributeDir);
+  let dir = path.dirname(objects[index]['filename'])
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
   }
   writeToFile(objects[index]['filename'], objects[index]['data'], function() {
     if (objects.length > index+1) {
@@ -79,19 +79,20 @@ const createComponentCreationHtml = function(menuXml) {
     return ul;
 };
 
-const processFilenames = function(list, options) {
+const processFilenames = function(filenames, directory, options) {
 
   let arrayOfFiles = [];
   let menuItems = "<menu><ul class=\"floating-panel-list\">";
 
-  for (let index in list) {
-    let result = XSLTTranslation(options[xmlOpt] + "/" + list[index], options);
+  filenames.forEach((file)=>{
+    let inputFile = options[xmlOpt] + "/" + directory + "/" + file
+    let result = XSLTTranslation(inputFile, options);
     menuItems += result['menuEntries'];
     for (let attribute in result['attributeList']) {
-      let attributeFilename = attributeDir + attribute + '.handlebars'
+      let attributeFilename = attributeDir + "/" + directory + "/" + attribute + '.handlebars'
       arrayOfFiles.push({ 'filename': attributeFilename, 'data': result['attributeList'][attribute] });
     }
-  }
+  });
 
   menuItems += "</ul></menu>";
 
@@ -111,13 +112,18 @@ const parseOptions = function( args ) {
     process.stderr.write('I need at least a directory for xml Files')
     process.exit();
   }
-  fs.readdir(options[xmlOpt], function(err, items) {
+  fs.readdir(options[xmlOpt], function(err, model_versions) {
     if (err) {
       process.stderr.write(err.message)
     }
     else {
-      let arrayOfFiles = processFilenames(items, options);
-      writeArrayOfFiles(arrayOfFiles, 0, function() { });
+      model_versions.forEach(function(dir) {
+        let directory = options[xmlOpt] + '/' + dir;
+        fs.readdir(directory, function(err, files) {
+          let arrayOfFiles = processFilenames(files, dir, options);
+          writeArrayOfFiles(arrayOfFiles, 0, function() { });
+        });
+      });
     }
   });
 };

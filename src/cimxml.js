@@ -172,6 +172,9 @@ class cimxml {
         }
 
         let newDoc = cimxml.getDOM(text);
+        let cimVersion = newDoc.documentElement.getAttribute("xmlns:cim");
+        let entsoe = newDoc.documentElement.getAttribute("xmlns:entsoe");
+        currentCimsvg().setCimVersion(cimVersion, entsoe);
         let nodes = newDoc.documentElement.childNodes;
         for (let i = 0; i < nodes.length; i++) {
 		    if (cimxml.isElementNode(nodes[i].nodeType)) {
