@@ -71,13 +71,13 @@ For a planning model, switch statuses are not used to form topological nodes. In
 		<xs:complexContent>
 			<xs:extension base="IdentifiedObject">
 				<xs:sequence>
-					<xs:element name="pInjection" type="ActivePower" minOccurs="0" maxOccurs="1">
+					<xs:element name="pInjection" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The active power injected into the bus at this location in addition to injections from equipment.  Positive sign means injection into the TopologicalNode (bus).
 Starting value for a steady state solution. </xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="qInjection" type="ReactivePower" minOccurs="0" maxOccurs="1">
+					<xs:element name="qInjection" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The reactive power injected into the bus at this location in addition to injections from equipment. Positive sign means injection into the TopologicalNode (bus).
 Starting value for a steady state solution.</xs:documentation>

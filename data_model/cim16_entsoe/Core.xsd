@@ -76,7 +76,7 @@ In a bus-branch model, the connected status is used to tell if equipment is disc
 		<xs:complexContent>
 			<xs:extension base="IdentifiedObject">
 				<xs:sequence>
-					<xs:element name="nominalVoltage" type="Voltage" minOccurs="0" maxOccurs="1">
+					<xs:element name="nominalVoltage" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The power system resource's base voltage.</xs:documentation>
 						</xs:annotation>

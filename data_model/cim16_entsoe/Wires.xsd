@@ -426,19 +426,19 @@ The cut terminals also act as connection points for jumpers and other equipment,
 							<xs:documentation>Used for Yn and Zn connections. True if the neutral is solidly grounded.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="p" type="ActivePower" minOccurs="0" maxOccurs="1">
+					<xs:element name="p" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Active power of the load. Load sign convention is used, i.e. positive sign means flow out from a node.
 For voltage dependent loads the value is at rated voltage.
 Starting value for a steady state solution.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="pfixed" type="ActivePower" minOccurs="0" maxOccurs="1">
+					<xs:element name="pfixed" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Active power of the load that is a fixed quantity. Load sign convention is used, i.e. positive sign means flow out from a node.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="pfixedPct" type="PerCent" minOccurs="0" maxOccurs="1">
+					<xs:element name="pfixedPct" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Fixed active power as per cent of load group fixed active power. Load sign convention is used, i.e. positive sign means flow out from a node.</xs:documentation>
 						</xs:annotation>
@@ -448,7 +448,7 @@ Starting value for a steady state solution.</xs:documentation>
 							<xs:documentation>The type of phase connection, such as wye or delta.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="q" type="ReactivePower" minOccurs="0" maxOccurs="1">
+					<xs:element name="q" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Reactive power of the load. Load sign convention is used, i.e. positive sign means flow out from a node.
 For voltage dependent loads the value is at rated voltage.
@@ -1422,22 +1422,22 @@ The inherited association ConductingEquipment.BaseVoltage should not be used.  T
 		<xs:complexContent>
 			<xs:extension base="ConductingEquipment">
 				<xs:sequence>
-					<xs:element name="beforeShCircuitHighestOperatingCurrent" type="CurrentFlow" minOccurs="0" maxOccurs="1">
+					<xs:element name="beforeShCircuitHighestOperatingCurrent" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The highest operating current (Ib in the IEC 60909-0) before short circuit (depends on network configuration and relevant reliability philosophy). It is used for calculation of the impedance correction factor KT defined in IEC 60909-0.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="beforeShCircuitHighestOperatingVoltage" type="Voltage" minOccurs="0" maxOccurs="1">
+					<xs:element name="beforeShCircuitHighestOperatingVoltage" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The highest operating voltage (Ub in the IEC 60909-0) before short circuit. It is used for calculation of the impedance correction factor KT defined in IEC 60909-0. This is worst case voltage on the low side winding (Section 3.7.1 in the standard). Used to define operating conditions.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="beforeShortCircuitAnglePf" type="AngleDegrees" minOccurs="0" maxOccurs="1">
+					<xs:element name="beforeShortCircuitAnglePf" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The angle of power factor before short circuit (phib in the IEC 60909-0). It is used for calculation of the impedance correction factor KT defined in IEC 60909-0. This is the worst case power factor. Used to define operating conditions.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="highSideMinOperatingU" type="Voltage" minOccurs="0" maxOccurs="1">
+					<xs:element name="highSideMinOperatingU" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The minimum operating voltage (uQmin in the IEC 60909-0) at the high voltage side (Q side) of the unit transformer of the power station unit. A value well established from long-term operating experience of the system. It is used for calculation of the impedance correction factor KG defined in IEC 60909-0</xs:documentation>
 						</xs:annotation>
@@ -2231,22 +2231,22 @@ Starting value for a steady state solution.</xs:documentation>
 		<xs:complexContent>
 			<xs:extension base="RotatingMachine">
 				<xs:sequence>
-					<xs:element name="aVRToManualLag" type="Seconds" minOccurs="0" maxOccurs="1">
+					<xs:element name="aVRToManualLag" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Time delay required when switching from Automatic Voltage Regulation (AVR) to Manual for a lagging MVAr violation.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="aVRToManualLead" type="Seconds" minOccurs="0" maxOccurs="1">
+					<xs:element name="aVRToManualLead" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Time delay required when switching from Automatic Voltage Regulation (AVR) to Manual for a leading MVAr violation.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="baseQ" type="ReactivePower" minOccurs="0" maxOccurs="1">
+					<xs:element name="baseQ" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Default base reactive power value. This value represents the initial reactive power that can be used by any application function.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="condenserP" type="ActivePower" minOccurs="0" maxOccurs="1">
+					<xs:element name="condenserP" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Active power consumed when in condenser mode operation.</xs:documentation>
 						</xs:annotation>
@@ -2266,17 +2266,17 @@ Starting value for a steady state solution.</xs:documentation>
 							<xs:documentation>Indicates whether or not the generator is earthed. Used for short circuit data exchange according to IEC 60909</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="earthingStarPointR" type="Resistance" minOccurs="0" maxOccurs="1">
+					<xs:element name="earthingStarPointR" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Generator star point earthing resistance (Re). Used for short circuit data exchange according to IEC 60909</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="earthingStarPointX" type="Reactance" minOccurs="0" maxOccurs="1">
+					<xs:element name="earthingStarPointX" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Generator star point earthing reactance (Xe). Used for short circuit data exchange according to IEC 60909</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="ikk" type="CurrentFlow" minOccurs="0" maxOccurs="1">
+					<xs:element name="ikk" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Steady-state short-circuit current (in A for the profile) of generator with compound excitation during 3-phase short circuit.
 - Ikk=0: Generator with no compound excitation.
