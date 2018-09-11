@@ -2,6 +2,11 @@
   "name": "Pintura",
   "version": "0.1.0",
   "main": "main.js",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+     "type" : "git",
+     "url" : "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
+  },
   "scripts": {
     "generateIndex": "node generateIndex.js > index.html",
     "generateIndexDebug": "node generateIndex.js debug > index.html",
