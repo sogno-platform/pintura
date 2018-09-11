@@ -120,11 +120,11 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
             let requestedType = "cim:" + type;
             let dropdownId = cimedit.generateUUID();
             let matchingComponents = {
-                    'attribute': attribute,
-                    'dropdownId': dropdownId,
-                    'requestedType': requestedType,
-                    'rdfid': parentId,
-                    'type': parentType,
+                'attribute': attribute,
+                'dropdownId': dropdownId,
+                'requestedType': requestedType,
+                'rdfid': parentId,
+                'type': parentType,
             }
             if (simpleTypes[type]) {
                 updateMenu = simple_type_template(type, rdfid, requestedType, matchingComponents);

@@ -2286,27 +2286,27 @@ Ikk is used to calculate the minimum steady-state short-circuit current for gene
 Used only for single fed short circuit on a generator. (Section 4.3.4.2. in the IEC 60909-0)</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="manualToAVR" type="Seconds" minOccurs="0" maxOccurs="1">
+					<xs:element name="manualToAVR" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Time delay required when switching from Manual to Automatic Voltage Regulation. This value is used in the accelerating power reference frame for powerflow solutions</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="maxQ" type="ReactivePower" minOccurs="0" maxOccurs="1">
+					<xs:element name="maxQ" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Maximum reactive power limit. This is the maximum (nameplate) limit for the unit.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="maxU" type="Voltage" minOccurs="0" maxOccurs="1">
+					<xs:element name="maxU" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Maximum voltage limit for the unit.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="minQ" type="ReactivePower" minOccurs="0" maxOccurs="1">
+					<xs:element name="minQ" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Minimum reactive power limit for the unit.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="minU" type="Voltage" minOccurs="0" maxOccurs="1">
+					<xs:element name="minU" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Minimum voltage  limit for the unit.</xs:documentation>
 						</xs:annotation>
@@ -2322,22 +2322,22 @@ Used only for single fed short circuit on a generator (Section 4.3.4.2. in the I
 							<xs:documentation>Current mode of operation.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="qPercent" type="PerCent" minOccurs="0" maxOccurs="1">
+					<xs:element name="qPercent" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Percent of the coordinated reactive control that comes from this machine.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r" type="Resistance" minOccurs="0" maxOccurs="1">
+					<xs:element name="r" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Equivalent resistance (RG) of generator. RG is considered for the calculation of all currents, except for the calculation of the peak current ip. Used for short circuit data exchange according to IEC 60909</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r0" type="Resistance" minOccurs="0" maxOccurs="1">
+					<xs:element name="r0" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Zero sequence resistance of the synchronous machine.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="r2" type="Resistance" minOccurs="0" maxOccurs="1">
+					<xs:element name="r2" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Negative sequence resistance.</xs:documentation>
 						</xs:annotation>
@@ -2347,17 +2347,17 @@ Used only for single fed short circuit on a generator (Section 4.3.4.2. in the I
 							<xs:documentation>Priority of unit for use as powerflow voltage phase angle reference bus selection. 0 = don t care (default) 1 = highest priority. 2 is less than 1 and so on.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="satDirectSubtransX" type="PU" minOccurs="0" maxOccurs="1">
+					<xs:element name="satDirectSubtransX" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Direct-axis subtransient reactance saturated, also known as Xd"sat.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="satDirectSyncX" type="PU" minOccurs="0" maxOccurs="1">
+					<xs:element name="satDirectSyncX" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Direct-axes saturated synchronous reactance (xdsat); reciprocal of short-circuit ration. Used for short circuit data exchange, only for single fed short circuit on a generator. (Section 4.3.4.2. in the IEC 60909-0).</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="satDirectTransX" type="PU" minOccurs="0" maxOccurs="1">
+					<xs:element name="satDirectTransX" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Saturated Direct-axis transient reactance. The attribute is primarily used for short circuit calculations according to ANSI.</xs:documentation>
 						</xs:annotation>
@@ -2372,18 +2372,18 @@ Used only for single fed short circuit on a generator (Section 4.3.4.2. in the I
 							<xs:documentation>Modes that this synchronous machine can operate in.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="voltageRegulationRange" type="PerCent" minOccurs="0" maxOccurs="1">
+					<xs:element name="voltageRegulationRange" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Range of generator voltage regulation (PG in the IEC 60909-0) used for calculation of the impedance correction factor KG defined in IEC 60909-0
 This attribute is used to describe the operating voltage of the generating unit.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="x0" type="Reactance" minOccurs="0" maxOccurs="1">
+					<xs:element name="x0" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Zero sequence reactance of the synchronous machine.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="x2" type="Reactance" minOccurs="0" maxOccurs="1">
+					<xs:element name="x2" type="Float" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>Negative sequence reactance.</xs:documentation>
 						</xs:annotation>

@@ -55,6 +55,9 @@ class cimsvg {
         return this.contextMenu;
     };
 
+    getSelectFromFloatingMenuNode(id) {
+        return this.floatingMenu.querySelector('#'+id);
+    };
 
     getValueOf(type, id, attribute) {
         let object = common.safeExtract(this.getBaseJson(), type, id);
@@ -187,7 +190,7 @@ class cimsvg {
             this.hideFloatingMenu();
         }
         else {
-            return addComponentAndApplyTemplates(type);
+            return this.addComponentAndApplyTemplates(type);
         }
     };
 
@@ -223,11 +226,11 @@ class cimsvg {
     };
 
     populateAttributes(type, id) {
-        cimmenu.populateAttributes(this.floatingMenu, type, this.cimVersion + this.entsoe, id);
+        cimmenu.populateAttributes(this.floatingMenu, type, this.getCimVersionFolder(), id);
     };
 
     populateAttributesIdOnly(id) {
-        cimmenu.populateAttributesIdOnly(this.floatingMenu, this.cimVersion + this.entsoe, id);
+        cimmenu.populateAttributesIdOnly(this.floatingMenu, this.getCimVersionFolder(), id);
     };
 
     populateComponentCreationMenu() {
@@ -235,7 +238,7 @@ class cimsvg {
     };
 
     populateTerminals(type, rdfid) {
-        cimmenu.populateTerminals(this.floatingMenu, type, this.cimVersion + this.entsoe, rdfid)
+        cimmenu.populateTerminals(this.floatingMenu, type, this.getCimVersionFolder(), rdfid)
     };
 
     checkComponentReadyToAdd(evt) {
@@ -291,6 +294,10 @@ class cimsvg {
         this.jsonBaseData = null;
         this.cimVersion = undefined;
         this.entsoe = "";
+    };
+
+    getCimVersionFolder() {
+        return this.cimVersion + this.entsoe;
     };
 
     setCimVersion(cim, entsoe) {

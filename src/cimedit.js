@@ -340,7 +340,7 @@ class cimedit {
             }
         }
         else {
-            return cimedit.makeAggregateComponent(currentDiagramId, jsonBaseData, type);
+            return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
         }
     };
 };

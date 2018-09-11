@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet
-    version="1.0"
-    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:exsl="http://exslt.org/common"
-    >
+    xmlns:array="http://array.com" exclude-result-prefixes="array">
+  <array:files>
+    <xsd>Core</xsd>
+    <xsd>DiagramLayout</xsd>
+    <xsd>Domain</xsd>
+    <xsd>Equivalents</xsd>
+    <xsd>LoadModel</xsd>
+    <xsd>OperationalLimits</xsd>
+    <xsd>Topology</xsd>
+    <xsd>Wires</xsd>
+  </array:files>
   <xsl:template match="/">
     <xs:schema>
-      <xsl:variable name="fileList" as="element()*">
-        <Item>Core</Item>
-        <Item>DiagramLayout</Item>
-        <Item>Domain.xsd</Item>
-        <Item>Equivalents.xsd</Item>
-        <Item>LoadModel.xsd</Item>
-        <Item>OperationalLimits.xsd</Item>
-        <Item>Topology.xsd</Item>
-        <Item>Wires.xsd</Item>
-      </xsl:variable>
-      <xsl:for-each select="exsl:node-set($fileList)">
+      <xsl:for-each select="document('')/xsl:stylesheet/array:files/xsd" >
         <xsl:variable name="file">
-          <xsl:value-of select="concat('data_model/', $attribute, '/', Item, '.xsd')"/>
+          <xsl:value-of select="concat('data_model/', $attribute, '/', ., '.xsd')"/>
         </xsl:variable>
         <xsl:copy-of select="document($file)/xs:schema/xs:complexType"/>
+      </xsl:for-each>
+      <xsl:for-each select="document('')/xsl:stylesheet/array:files/xsd" >
+        <xsl:variable name="file">
+          <xsl:value-of select="concat('data_model/', $attribute, '/', ., '.xsd')"/>
+        </xsl:variable>
         <xsl:copy-of select="document($file)/xs:schema/xs:simpleType"/>
       </xsl:for-each>
     </xs:schema>

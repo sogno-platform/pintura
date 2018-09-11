@@ -57,7 +57,7 @@ class cimmenu {
     static populateAttributesIdOnly (node, cimVersion, id) {
         let type = currentCimsvg().getObjectTypeUsingId(id);
         if (type != undefined) {
-            populateAttributes(node, type, id);
+            cimmenu.populateAttributes(node, type, cimVersion, id);
         }
         else {
             console.error("Can't establish type for id: " + id)

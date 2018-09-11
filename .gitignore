@@ -2,7 +2,7 @@ handlebars.runtime.js
 index.html
 html/*
 generated/template.js
-generated/attributes/*.handlebars
+generated/attributes/*/*.handlebars
 generated/classStructure.js
 node_modules/*
 package-lock.json

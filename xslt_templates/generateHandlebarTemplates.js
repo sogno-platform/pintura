@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const glob = require('glob');
 
 const libxslt = require('libxslt');
 const libxmljs = libxslt.libxmljs;
@@ -49,11 +50,20 @@ const writeToFile = function(filename, data, success) {
   });
 }
 
+const makePathRecursive = function(dir) {
+  let dirList = [];
+  while (dir && !fs.existsSync(dir) && dir != '.') {
+    dirList.unshift(dir);
+    dir = path.dirname(dir);
+  }
+  dirList.forEach((newDir)=>{
+    fs.mkdirSync(newDir);
+  });
+};
+
 const writeArrayOfFiles = function(objects, index, done) {
   let dir = path.dirname(objects[index]['filename'])
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir);
-  }
+  makePathRecursive(dir)
   writeToFile(objects[index]['filename'], objects[index]['data'], function() {
     if (objects.length > index+1) {
       writeArrayOfFiles(objects, index+1, done);
@@ -85,11 +95,10 @@ const processFilenames = function(filenames, directory, options) {
   let menuItems = "<menu><ul class=\"floating-panel-list\">";
 
   filenames.forEach((file)=>{
-    let inputFile = options[xmlOpt] + "/" + directory + "/" + file
-    let result = XSLTTranslation(inputFile, options);
+    let result = XSLTTranslation(file, options);
     menuItems += result['menuEntries'];
     for (let attribute in result['attributeList']) {
-      let attributeFilename = attributeDir + "/" + directory + "/" + attribute + '.handlebars'
+      let attributeFilename = attributeDir + directory + '/' + attribute + '.handlebars'
       arrayOfFiles.push({ 'filename': attributeFilename, 'data': result['attributeList'][attribute] });
     }
   });
@@ -118,8 +127,8 @@ const parseOptions = function( args ) {
     }
     else {
       model_versions.forEach(function(dir) {
-        let directory = options[xmlOpt] + '/' + dir;
-        fs.readdir(directory, function(err, files) {
+        let directory = options[xmlOpt] + '/' + dir + '/*.xsd';
+        glob(directory, function(err, files) {
           let arrayOfFiles = processFilenames(files, dir, options);
           writeArrayOfFiles(arrayOfFiles, 0, function() { });
         });
