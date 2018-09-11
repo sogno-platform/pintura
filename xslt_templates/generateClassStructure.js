@@ -155,7 +155,7 @@ var cimheritance = cimheritance || (function() {
 [ 'cim16', 'cim16_entsoe' ].forEach((dir)=>{
     let xml = libxmljs.parseXmlString('<?xml version="1.0" encoding="utf-8"?><xs:schema/>')
     let xsl = xslt.loadXMLDoc(merge_file);
-    let superClassTree = xslt.performXSLTTranslation(xml, xsl, dir, true);
+    let superClassTree = xslt.performXSLTTranslation(xml, xsl, dir);
 
     if (process.argv[2] != undefined) {
         let classStructure = require('../' + class_structure_js)

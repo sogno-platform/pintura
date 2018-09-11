@@ -56,9 +56,7 @@ var performXSLTTranslation = function(xml, xsl, attribute, debug) {
   }
 
   log("Attempting transform..")
-  result = stylesheet.apply(xml, params)
-  log(result.toString())
-  return result
+  return stylesheet.apply(xml, params)
 };
 
 var performXSLTTranslationFilenames = function(xmlFile, attributeXSLTFile, menuXSLTFile, debug) {
