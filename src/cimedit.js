@@ -237,7 +237,7 @@ class cimedit {
             "cim:DiagramObject.IdentifiedObject" : {
                 "rdf:resource" : "#"+identifiedObjectId,
             },
-            "cim:DiagramObject.rotation" : "90",
+            "cim:DiagramObject.rotation" : "0",
             "cim:IdentifiedObject.name" : "diagram object " + counter.toString(),
         };
         cimedit.addCategorizedItem(newStuff, "cim:DiagramObject", id, diagramObject);
