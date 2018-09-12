@@ -39,14 +39,6 @@
           onmouseleave="onMouseLeave(evt)"
         />
       {{/each}}
-      </g>
-    {{/each}}
-    </g>
-  {{/each}}
-  {{/with}}
-  {{#with components}}
-  {{#each this as |value typeName|}}
-    {{#each this as |value componentId|}}
       {{#pintura:label}}
 	<rect class="svglabel-bg" id="{{componentId}}-bg0" rx="3" ry="3" />
         <text
@@ -58,7 +50,9 @@
           onmouseup="onMouseUp(evt)"
         >{{text}}</text>
       {{/pintura:label}}
+      </g>
     {{/each}}
+    </g>
   {{/each}}
   {{/with}}
   </g>
