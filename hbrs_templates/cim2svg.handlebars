@@ -46,7 +46,12 @@
   {{/with}}
   {{#with components}}
   {{#each this as |value typeName|}}
+    <g class={{typeName}}-label >
     {{#each this as |value componentId|}}
+      <g
+        id="{{pintura:rdfId}}-label"
+        name="{{pintura:label.text}}"
+        >
       {{#pintura:label}}
 	<rect class="svglabel-bg" id="{{componentId}}-bg0" rx="3" ry="3" />
         <text
@@ -58,7 +63,9 @@
           onmouseup="onMouseUp(evt)"
         >{{text}}</text>
       {{/pintura:label}}
+      </g>
     {{/each}}
+    </g>
   {{/each}}
   {{/with}}
   </g>
