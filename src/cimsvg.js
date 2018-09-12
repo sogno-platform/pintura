@@ -292,7 +292,8 @@ class cimsvg {
         this.rdfFileCount = 0;
         this.rdfFileReceived = 0;
         this.jsonBaseData = null;
-        this.cimVersion = undefined;
+        this.cimVersion = 'cim16';
+        this.cimVersionFromFile = false;
         this.entsoe = "";
     };
 
@@ -304,13 +305,14 @@ class cimsvg {
         let regex = /.*CIM-schema-(.*)#/.exec(cim)
         if (regex.length > 1) {
             let newCimVersion = regex[1];
-            if (this.cimVersion != undefined) {
+            if (this.cimVersionFromFile) {
                 if (this.cimVersion != newCimVersion) {
                     console.error("Files loaded with non-matching cim versions!");
                     return false;
                 }
             }
             this.cimVersion = newCimVersion;
+            this.cimVersionFromFile = true;
         }
         else {
             console.error("Failed to parse cim version.");
@@ -322,6 +324,7 @@ class cimsvg {
     loadFile(fileContents) {
         if (cimxml.moreXmlData(fileContents)) {
             let baseJson = this.getBaseJson();
+            /* getTemplateJson will associate the diagram objects with components */
             let templateJson = cimjson.getTemplateJson(baseJson);
             this.applyDiagramTemplate(templateJson)
             if(this.sidebarNode != null) {
@@ -353,6 +356,7 @@ class cimsvg {
         if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
             let baseJson = this.getBaseJson();
             cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);
+            /* TODO: are we doing too much work here? */
             let templateJson = cimjson.getTemplateJson(baseJson);
             this.applyDiagramTemplate(templateJson)
         }
@@ -467,6 +471,10 @@ class cimsvg {
             }
         }
         return type;
+    };
+
+    getObjectNameUsingTypeAndId(type, rdfid) {
+        return common.safeExtract(this.getBaseJson(), type, rdfid, common.identifiedObjectName())
     };
 
     getRdfResource(object) {

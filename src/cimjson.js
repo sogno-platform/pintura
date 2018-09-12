@@ -191,13 +191,40 @@ class cimjson {
         }
     };
 
+    static refineTerminals(graph) {
+        if ('cim:Terminal' in graph) {
+            Object.keys(graph['cim:Terminal']).forEach((terminalId)=>{
+                let conductingEqId = cimedit.getConductingEquipmentFromTerminal(graph, terminalId);
+                if (conductingEqId !== undefined) {
+                    let conductingEqType = cimedit.getConductingEquipmentObjectTypeFromId(graph, conductingEqId);
+                    if (conductingEqType !== undefined) {
+                        let terminals = common.safeExtract(graph, conductingEqType, conductingEqId, common.pinturaTerminals());
+                        if (terminals === undefined) {
+                            graph[conductingEqType][conductingEqId][common.pinturaTerminals()] = [ terminalId ];
+                        }
+                        else {
+                            if (!graph[conductingEqType][conductingEqId][common.pinturaTerminals()].includes(terminalId)) {
+                                graph[conductingEqType][conductingEqId][common.pinturaTerminals()].push(terminalId)
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        return graph;
+    };
+
     static getTemplateJson(graph) {
         let diagramObjectsByIdentifiedObjects = {};
-        if (!(graph['cim:DiagramObject'] === undefined)) {
+        let refinedGraph = {};
+        if (graph['cim:DiagramObject'] !== undefined) {
             let diagramObjects = graph['cim:DiagramObject'];
             let diagramObjectPoints = graph['cim:DiagramObjectPoint'];
             cimjson.addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
             diagramObjectsByIdentifiedObjects = cimjson.indexDiagramGraphByComponentType(diagramObjects);
+        }
+        if (graph['cim:Terminal'] !== undefined) {
+            refinedGraph = cimjson.refineTerminals(graph)
         }
         let templateReadyFormat = cimjson.convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
         return templateReadyFormat;

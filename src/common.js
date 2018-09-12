@@ -79,6 +79,10 @@ class common {
     static pinturaTerminals() {
         return "pintura:terminals";
     };
+
+    static identifiedObjectName() {
+        return "cim:IdentifiedObject.name";
+    };
 };
 
 if (typeof module !== 'undefined' && module.exports) {

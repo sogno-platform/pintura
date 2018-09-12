@@ -116,27 +116,29 @@ class cimedit {
     };
 
     static getConductingEquipmentObjectTypeFromId(graph, rdfid) {
-        for (type in cimedit.terminalAndPointLimits) {
-            if (graph[type] && graph[type][rdfid]) {
-                return type;
+        let type = undefined;
+        Object.keys(cimedit.terminalAndPointLimits).forEach((category)=>{
+            if (graph[category] && graph[category][rdfid]) {
+                type = category;
             }
-        }
-        return undefined
+        });
+        return type;
     };
 
     static moveTerminalIntoComponentOrbit(graph, terminalId, type, conductingEquipmentId) {
         let terminalDiagramObjectId            = common.safeExtract(graph, "cim:Terminal", terminalId, common.pinturaDiagramObject());
         let terminalPoints                     = common.safeExtract(graph, "cim:DiagramObject", terminalDiagramObjectId, common.pinturaDiagramObjectPoints());
-
         let conductingEquipmentDiagramObjectId = common.safeExtract(graph, type, conductingEquipmentId, common.pinturaDiagramObject());
         let conductingEquipmentPoints          = common.safeExtract(graph, "cim:DiagramObject", conductingEquipmentDiagramObjectId,  common.pinturaDiagramObjectPoints());
-        let conductingEquipmentPoint           = common.safeExtract(graph, "cim:DiagramObjectPoint", conductingEquipmentPoints["0"]);
-        if (terminalPoints && conductingEquipmentPoint) {
-            let firstPoint                     = common.safeExtract(graph, "cim:DiagramObjectPoint", terminalPoints[0]);
-            let x                              = common.safeExtract(conductingEquipmentPoint, "cim:DiagramObjectPoint.xPosition");
-            let y                              = common.safeExtract(conductingEquipmentPoint, "cim:DiagramObjectPoint.yPosition");
-            firstPoint["cim:DiagramObjectPoint.xPosition"] = (parseInt(x) + 10).toString();
-            firstPoint["cim:DiagramObjectPoint.yPosition"] = y;
+        if (conductingEquipmentPoints && conductingEquipmentPoints.length > 0) {
+            let conductingEquipmentPoint           = common.safeExtract(graph, "cim:DiagramObjectPoint", conductingEquipmentPoints["0"]);
+            if (terminalPoints && conductingEquipmentPoint) {
+                let firstPoint                     = common.safeExtract(graph, "cim:DiagramObjectPoint", terminalPoints[0]);
+                let x                              = common.safeExtract(conductingEquipmentPoint, "cim:DiagramObjectPoint.xPosition");
+                let y                              = common.safeExtract(conductingEquipmentPoint, "cim:DiagramObjectPoint.yPosition");
+                firstPoint["cim:DiagramObjectPoint.xPosition"] = (parseInt(x) + 10).toString();
+                firstPoint["cim:DiagramObjectPoint.yPosition"] = y;
+            }
         }
     };
 
@@ -159,7 +161,7 @@ class cimedit {
     static removeDiagramObjectPointFromObject(graph, diagramObjectId, diagramObjectPointId) {
         /* Remove the diagram object from the diagram object list and
            remove the id from the list of points in the diagram object */
-        pointsArray = common.safeExtract(graph["cim:DiagramObject"][diagramObjectId][common.pinturaDiagramObjectPoints()]);
+        let pointsArray = common.safeExtract(graph["cim:DiagramObject"][diagramObjectId][common.pinturaDiagramObjectPoints()]);
         if (pointsArray) {
             let index = pointsArray.indexOf(diagramObjectPointId);
             if (index > -1) {
@@ -184,7 +186,7 @@ class cimedit {
         let firstTerminalPoint             = common.safeExtract(graph, "cim:DiagramObjectPoint", firstTerminalPointId);
         let secondTerminalPointId          = common.safeExtract(terminalDiagramObject, common.pinturaDiagramObjectPoints(), "1");
         if (secondTerminalPointId) {
-            removeDiagramObjectPointFromObject(graph, terminalDiagramObjectId, secondTerminalPointId);
+            cimedit.removeDiagramObjectPointFromObject(graph, terminalDiagramObjectId, secondTerminalPointId);
         };
         if (firstTopologicalNodePoint && firstTerminalPoint) {
             let x = common.safeExtract(firstTopologicalNodePoint, "cim:DiagramObjectPoint.xPosition");
