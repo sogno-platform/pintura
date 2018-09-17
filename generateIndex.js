@@ -177,16 +177,6 @@ var svg = new tag('svg').a('id', '"svg"').
 	          c(new tag('g').a('class', '"grid"')).
 	          c(new tag('g').a('class', '"diagrams"'))
 
-var svg2 = new tag('svg').a('id', '"svg2"').
-	          a('xmlns', '"http://www.w3.org/2000/svg"').
-	          a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
-	          c(new tag('rect').
-                      a('class', '"backing"').
-                      a('onclick', '"currentCimsvg().checkComponentReadyToAdd(evt)"')).
-	          c(new tag('g').a('class', '"grid"')).
-	          c(new tag('g').a('class', '"diagrams"'))
-
-
 var radio_input = function(onchange, name, id, text, checked=false) {
     var input = new tag('input').
 	              a('type', '"radio"').
@@ -219,7 +209,7 @@ var floating_panel_header = function(floating_panel_id) {
                        t("<b>&times;</b>")))
 };
 
-var diagram = new tag('div').a('id', '"diagram-display"').a('class', '"row-right"').c(svg).c(svg2)
+var diagram = new tag('div').a('id', '"diagram-display"').a('class', '"row-right"').c(svg)
 
 var make_floating_panel = function(title, id) {
     return new tag('div').
