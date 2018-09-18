@@ -225,6 +225,53 @@ class cimsvg {
         }
     };
 
+    populateFileLinks() {
+        let items = `
+          <ul class="floating-panel-list">
+            <li class="wide-row list-subtitle">
+              <input id="fileopen" type="file" style="display:none" multiple="true"/>
+              <a href="#" class="button" type="file" onclick="fileopen.click();currentCimsvg().hideFloatingMenu()">Open file &#x1F5BF;</a>
+            </li>
+            <li class="wide-row list-subtitle">
+              <a href="#" class="button" type="file" onclick="currentCimsvg().loadUri();currentCimsvg().hideFloatingMenu()">Open link &#x1F517;</a>
+            </li>
+            <li class="wide-row list-subtitle">
+              <input id="filesave" type="hidden" style="display:none"/>
+              <a href="#" class="button" type="file" onclick="currentCimsvg().saveGridXml();currentCimsvg().hideFloatingMenu()">Save to file &#x1F5BF;</a>
+            </li>
+            <li class="wide-row list-subtitle">
+              <a href="#" class="button" type="file" onclick="currentCimsvg().saveToUri();currentCimsvg().hideFloatingMenu()">Save to link &#x1F517;</a>
+            </li>
+          </ul>
+        `
+        cimmenu.populateFloatingMenu(this.floatingMenu, items, "File menu");
+        this.floatingMenu.querySelectorAll('#fileopen').forEach((elem)=>{ elem.addEventListener('change', readFile, false); });
+    };
+
+    loadUri() {
+        let uri = this.uriChooser()
+        if (uri !== undefined) {
+            this.downloadUri(uri);
+        }
+    };
+
+    saveToUri() {
+        let uri = this.uriChooser()
+        if (uri !== undefined) {
+            this.uploadToUri(uri);
+        }
+    };
+
+    uriChooser(prev) {
+        let response = prompt("Enter URI", prev || this.uri);
+
+        if (response == null || response == "") {
+            return undefined;
+        } else {
+            return response;
+        }
+    };
+
     populateAttributes(type, id) {
         cimmenu.populateAttributes(this.floatingMenu, type, this.getCimVersionFolder(), id);
     };
@@ -392,24 +439,48 @@ class cimsvg {
         );
     };
 
+    setTitle(title) {
+        this.svgNode.ownerDocument.documentElement.querySelectorAll('title').forEach((elem)=> {
+            elem.innerHTML = title;
+        });
+    };
+
+    uploadToUri(uri) {
+        let s = new XMLSerializer();
+        let xmlString = this.exportXmlData();
+        fetch(uri, {
+          method: 'post',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'text/plain'
+          },
+          body: xmlString
+        }).then(res=>res.text())
+          .then(res => { let json = JSON.parse(res); alert(json['msg']) });
+    };
+
     /*
      * This function is used to download models using
      * the uri= parameter in the url
      */
-    downloadUri(uri, callback) {
+    downloadUri(uri) {
         let length=uri.length;
         if(length > 4) {
             let uriSuffix = uri.substring(length-4)
-            fetch(uri).then((response)=>{
+            fetch(uri,{ headers: { "Accept": "application/xml, application/json, text/plain" }}).then((response)=>{
                 if (uriSuffix == '.xml') {
                     response.text().then((text)=>{
                         this.setFileCount(1);
-                        this.loadFile(text)
+                        this.loadFile(text);
+                        this.setTitle(uri);
+                        this.uri = uri;
                     })
                 }
                 else if (uriSuffix == '.zip') {
                     response.blob().then((blob)=>{
                         this.importZip(uri, blob);
+                        this.setTitle(uri);
+                        this.uri = uri;
                     });
                 }
             });

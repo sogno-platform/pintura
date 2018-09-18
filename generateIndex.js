@@ -124,16 +124,21 @@ function tag(name){
     return this
   }
 }
-var makeFileMenu = function (open_text, open_name, open_action,
-                             save_text, save_name, save_action,
-                             diag_text, diag_name, diag_action) {
-  let open_input = new tag('input').a('id', '"' + open_name + '"').a('type', '"file"').a('style', '"display:none"').a('multiple', '"true"')
-  let open_a_tag = new tag('a').t(open_text).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', open_action)
-  let save_a_tag = new tag('a').a('id', '"' + save_name + '"').a('type', '"file"').a('download', '"pinturaGrid.xml"')
-  let save_span = new tag('span').t(save_text).a('class', '"button"').a('onclick', '"' + save_action + '"')
+var makeFileMenu = function (diag_text, diag_name, diag_action, filelinks) {
+  let drop_down = new tag('div').a('class', '"dropdown-menu"')
   let diag_tag = new tag('div').a('id', '"'+diag_name+'"').a('class', '"button"')
   let diag_a_tag = new tag('a').t(diag_text).a('onclick', diag_action)
-  return new tag('div').c(open_input).c(open_a_tag).c(save_span).c(save_a_tag).c(diag_tag).c(diag_a_tag).a('id', '"menu"')
+  let menu = new tag('div')
+  menu.c(diag_tag.c(diag_a_tag))
+  menu.a('id', '"menu"')
+  filelinks.forEach((link)=>{
+    let div = new tag('div').a('id', '"yes"')
+    let input = new tag('input').a('id', '"' + link['name'] + '"').a('type', link['type']).a('style', '"display:none"').a('multiple', '"true"')
+    let a = new tag('a').t(link['text']).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', link['action'])
+    div.c(input).c(a)
+    menu.c(div)
+  });
+  return menu;
 }
 var makeAccordionDiv = function(id, action) {
   return new tag('div').a('id', '"'+id+'"').c(new tag('div').a('id', '"'+id+'-accordion"').t(" "))
@@ -161,12 +166,19 @@ head.c(new tag('meta').a('nam', '"theme-color"').a('content', '"#ffffff"'))
 
 var body = new tag('body')
 
+const MenuLinks = [
+    {
+        'text':   'File',
+        'name':   'filemenu',
+        'action': 'currentCimsvg().populateFileLinks()',
+        'type':   '"hidden"'
+    }
+];
+
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
                   c(new tag('div').a('class', '"component-sidebar-list"').t(' ')).
-                  c(makeFileMenu('Open file', 'fileopen', 'fileopen.click()',
-                                 'Save file', 'filesave', 'currentCimsvg().saveGridXml()',
-                                 'Add Diagram', 'diagram-add', 'currentCimsvg().addDiagram()'))
+                  c(makeFileMenu('Add Diagram', 'diagram-add', 'currentCimsvg().addDiagram()', MenuLinks))
 
 var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns', '"http://www.w3.org/2000/svg"').

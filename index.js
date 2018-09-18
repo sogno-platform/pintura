@@ -40,7 +40,7 @@ for (let index in pairs) {
 }
 if ("uri" in params){
     let uri=params['uri'];
-    cimsvgInstance.downloadUri(uri, (uri, blob)=>{ cimsvgInstance.importFile(uri, blob) });
+    cimsvgInstance.downloadUri(uri);
 }
 document.oncontextmenu = function(e){
     if(e.preventDefault != undefined) {
@@ -68,7 +68,6 @@ const readFile=function(e) {
         });
     }
 };
-document.getElementById("fileopen").addEventListener('change', readFile, false);
 
 var updateComponent = function(type, id, attribute, value) {
     currentCimsvg().updateComponent(type, id, attribute, value)
