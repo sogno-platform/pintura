@@ -153,8 +153,10 @@ head.c(new tag('title').t('Pintura'))
 head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
 head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
 head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
-head.c(new tag('link').a('type', '"stylesheet"').a('href', '"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"').t(" "))
-
+head.c(new tag('link').a('rel', '"stylesheet"').
+                       a('href', '"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"').
+                       a('crossorigin', '"anonymous"').
+                       a('type', '"text/css"').t(" "))
 head.c(new tag('link').a('rel', '"apple-touch-icon"').a('sizes', '"180x180"').a('href', '"/images/apple-touch-icon.png"'))
 head.c(new tag('link').a('rel', '"icon"').a('type', '"image/png"').a('sizes', '"32x32"').a('href', '"/images/favicon-32x32.png"'))
 head.c(new tag('link').a('rel', '"icon"').a('type', '"image/png"').a('sizes', '"16x16"').a('href', '"/images/favicon-16x16.png"'))
