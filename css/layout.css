@@ -143,6 +143,21 @@ button::-moz-focus-inner,
     overflow-y: auto;
     position: fixed!important;
 }
+#all-components {
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-wrap: nowrap;
+    order: -1;
+    bottom: 0;
+    min-width: 20px;
+    overflow-y: auto;
+    position: fixed!important;
+}
 .component-sidebar-list {
     overflow-x:hidden;
     overflow-y:auto;

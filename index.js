@@ -21,6 +21,7 @@ let cimsvgInstance = new cimsvg(
     document.getElementById("svg"),
     document.getElementById("sidebar"),
     document.getElementById("floating-menu"),
+    document.getElementById("all-components"),
 );
 cimsvg.setCimsvg(cimsvgInstance);
 let contextMenu = new contextmenu(document.getElementById("context-menu"), "context-menu")

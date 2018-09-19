@@ -30,15 +30,19 @@ class cimmenu {
     static calculatePanelHeight (data, panelNode, containingNode) {
         let panelHeight = 0;
         let tableList = panelNode.querySelectorAll('.floating-panel-table')
+        let containingPanelHeight = containingNode.getBoundingClientRect().height
         tableList.forEach(function(table) {
             table.classList.remove('invisible');
-            panelHeight += table.getBoundingClientRect.height;
+            if (table.getBoundingClientRect.height !== undefined) {
+                panelHeight += table.getBoundingClientRect.height;
+            }
         });
-        let containingPanelHeight = containingNode.getBoundingClientRect().height
-        if (panelHeight < containingPanelHeight) {
-            panelNode.style.height = panelHeight.toString() + 'px'
-        } else {
-            panelNode.style.height = '100%'
+        if (panelHeight > 0) {
+            if (panelHeight < containingPanelHeight) {
+                panelNode.style.height = panelHeight.toString() + 'px'
+            } else {
+                panelNode.style.height = '100%'
+            }
         }
     };
 

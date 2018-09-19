@@ -153,6 +153,7 @@ head.c(new tag('title').t('Pintura'))
 head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
 head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
 head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
+head.c(new tag('link').a('type', '"stylesheet"').a('href', '"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"').t(" "))
 
 head.c(new tag('link').a('rel', '"apple-touch-icon"').a('sizes', '"180x180"').a('href', '"/images/apple-touch-icon.png"'))
 head.c(new tag('link').a('rel', '"icon"').a('type', '"image/png"').a('sizes', '"32x32"').a('href', '"/images/favicon-32x32.png"'))
@@ -207,7 +208,7 @@ var radio_input = function(onchange, name, id, text, checked=false) {
     return new tag('a').c(input).c(label)
 };
 
-var floating_panel_header = function(floating_panel_id) {
+var floating_panel_header = function(floating_panel_id, close_button_action) {
     return new tag('div').
 	           a('class', '"wide-row list-title"').
 	           c(new tag('span').
@@ -217,24 +218,25 @@ var floating_panel_header = function(floating_panel_id) {
                c(new tag('span').
                    c(new tag('span').
                        a('class', '"button row-right panel-button"').
-                       a('onclick', '"currentCimsvg().hideFloatingMenu();"').
+                       a('onclick', close_button_action).
                        t("<b>&times;</b>")))
 };
 
 var diagram = new tag('div').a('id', '"diagram-display"').a('class', '"row-right"').c(svg)
 
-var make_floating_panel = function(title, id) {
+var make_floating_panel = function(id, classSuffix, close_button_action) {
     return new tag('div').
 	           a('id', '"'+id+'"').
-               a('class', '"floating-panel row-left dialog-over-diagram"').
+               a('class', '"floating-panel' + classSuffix + ' row-left dialog-over-diagram"').
                c(new tag('div').a('class', '"floating-panel-table invisible"').
-               c(floating_panel_header(id)).
+               c(floating_panel_header(id, close_button_action)).
            c(new tag('div').
                a('class', '"floating-menu-list"').
 			   t(" ")))
 }
 
-var floating_menu = make_floating_panel('floating-menu', 'floating-menu')
+var floating_menu = make_floating_panel('floating-menu', '', '"currentCimsvg().hideFloatingMenu();"')
+var all_components = make_floating_panel('all-components', 'bottom', '"currentCimsvg().hideAllComponentsList();"')
 
 var contextmenu = new tag('nav').
                       a('id', '"context-menu"').
@@ -249,7 +251,7 @@ var contextmenu = new tag('nav').
                                   t("Delete Component"))))
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(floating_menu).c(contextmenu)
-body.c(main).c(sidebar)
+body.c(main).c(sidebar).c(all_components)
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/libcimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
 html.c(head)

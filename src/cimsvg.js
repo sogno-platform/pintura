@@ -32,11 +32,12 @@ if (typeof module !== 'undefined' && module.exports) {
 
 class cimsvg {
 
-    constructor(svg, sidebar, floatingMenuNode) {
+    constructor(svg, sidebar, floatingMenuNode, allComponents) {
         this.svgNode = svg;
         this.sidebarNode = sidebar;
         this.cimview = new cimview(svg);
         this.floatingMenu = floatingMenuNode;
+        this.allComponents = allComponents;
         if(floatingMenuNode != undefined) {
             this.loadXml("generated/add_components_menu.xml", (xml)=>{
                 this.componentCreationHtml = xml.documentElement.outerHTML;
@@ -170,8 +171,8 @@ class cimsvg {
         this.svgNode.parentElement.appendChild(newTag);
     };
 
-    applyTemplate(data) {
-        let template = Handlebars.templates['cim2svg'];
+    applyTemplate(data, templateName) {
+        let template = Handlebars.templates[templateName];
         return template(data);
     };
 
@@ -288,6 +289,12 @@ class cimsvg {
         cimmenu.populateTerminals(this.floatingMenu, type, this.getCimVersionFolder(), rdfid)
     };
 
+    populateAllComponents() {
+        let baseJson = this.getBaseJson();
+        let items = this.applyTemplate(baseJson, 'pinturaJson2AllComponentsList');
+        cimmenu.populateFloatingMenu(this.allComponents, items, 'All Components');
+    };
+
     checkComponentReadyToAdd(evt) {
         let rdfid = null;
         this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
@@ -306,7 +313,7 @@ class cimsvg {
     };
 
     applyDiagramTemplate(templateJson) {
-        let templateHtml = this.applyTemplate(templateJson);
+        let templateHtml = this.applyTemplate(templateJson, 'cim2svg');
         let diagramList = this.svgNode.querySelectorAll('.diagrams')
         diagramList.forEach(function(diagram) {
             diagram.innerHTML = templateHtml;
@@ -588,6 +595,13 @@ class cimsvg {
 
     hideFloatingMenu() {
         let tables = this.floatingMenu.querySelectorAll(".floating-panel-table");
+        tables.forEach(function(table){
+            table.classList.add('invisible');
+        });
+    };
+
+    hideAllComponentsList() {
+        let tables = this.allComponents.querySelectorAll(".floating-panel-table");
         tables.forEach(function(table){
             table.classList.add('invisible');
         });
