@@ -18,7 +18,7 @@
                 </xsl:attribute>
                 <xsl:text>&#xa;        </xsl:text>
                 <button class="component-type-name button wide-button">
-                    <xsl:variable name="pre" select="$attribute"></xsl:variable>
+                    <xsl:variable name="pre">currentCimsvg().addComponent('cim:</xsl:variable>
                     <xsl:variable name="post">')</xsl:variable>
                     <xsl:attribute name="onclick">
                         <xsl:value-of select="concat($pre, $type, $post)"/>

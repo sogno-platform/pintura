@@ -247,26 +247,25 @@ class cimedit {
     };
 
     static makeDiagramObjectPoint(newStuff, diagramObjectId, seq, x, y) {
+        let counter = currentCimsvg().getNameCounter("cim:DiagramObjectPoint");
         let diagramObjectPoint = {
            "cim:DiagramObjectPoint.DiagramObject" : {
                 "rdf:resource" : "#"+diagramObjectId
             },
             "cim:DiagramObjectPoint.sequenceNumber": seq,
             "cim:DiagramObjectPoint.xPosition" : x,
-            "cim:DiagramObjectPoint.yPosition" : y
+            "cim:DiagramObjectPoint.yPosition" : y,
+            "cim:IdentifiedObject.name" : "diagram object point " + counter.toString(),
         };
         let id = cimedit.generateUUID();
         cimedit.addCategorizedItem(newStuff, "cim:DiagramObjectPoint", id, diagramObjectPoint);
         return id;
     };
 
-
-
-    static makeAggregateComponent(diagramId, jsonBaseData, type) {
+    static makeRawAggregateComponent(jsonBaseData, type) {
         let counter = currentCimsvg().getNameCounter(type);
         let aggregateComponent = {
             "cim:IdentifiedObject.name": type.toString() + counter,
-            "diagram": diagramId,
         };
         let id = cimedit.generateUUID();
         cimedit.addCategorizedItem(jsonBaseData, type, id, aggregateComponent);
@@ -324,6 +323,10 @@ class cimedit {
         if (jsonBaseData[type] && jsonBaseData[type][rdfid]) {
             delete jsonBaseData[type][rdfid];
         }
+    };
+
+    static addRawComponentToBaseJson(jsonBaseData, type, point, diagramId) {
+        return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
     };
 
     static addComponentToBaseJson(jsonBaseData, type, point, diagramId) {

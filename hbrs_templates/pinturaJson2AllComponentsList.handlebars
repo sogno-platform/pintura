@@ -2,14 +2,11 @@
     {{#each this as |componentList typeName|}}
         <div class="wide-row list-title">
             <span class="button row-left" onclick="javascript:showContainer('all-components-{{typeName}}-accordion', null);">{{typeName}}</span>
-            <span class="row-right">
-                <span id='{{diagramId}}-visibility-icon' class="button panel-button row-right" onclick="currentCimsvg().toggleDiagramVisible('{{diagramId}}', '{{diagramId}}-visibility-icon');">&#9728;</span>
-                <span class="button panel-button row-right" onclick="javascript:currentCimsvg().setCurrentDiagramId('{{diagramId}}');currentCimsvg().populateComponentCreationMenu();currentCimsvg().showFloatingMenu()">&#43;</span>
-            </span>
         </div>
         <div id="all-components-{{typeName}}-accordion" class="component-accordion" style="display:none">
             {{#each this as |componentObject componentId|}}
-                <button class="row button wide-button list-subtitle" onclick="javascript:currentCimsvg().populateAttributes('{{typeName}}', '{{componentId}}');">{{componentObject.[cim:IdentifiedObject.name]}}</button>
+                <button class="row button wide-button list-subtitle" onclick="javascript:currentCimsvg().populateAttributes('{{typeName}}',
+                    '{{componentId}}');">{{componentObject.[cim:IdentifiedObject.name]}}</button>
             {{/each}}
         </div>
     {{/each}}

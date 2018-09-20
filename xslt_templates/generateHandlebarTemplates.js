@@ -11,9 +11,11 @@ const xmlOpt = '--xmlDir';
 const dbgOpt = '--debug';
 
 const createAddComponentMenuFilename = "xslt_templates/cim_add_components_menu.xslt";
+const createRawComponentMenuFilename = "xslt_templates/cim_add_raw_components_menu.xslt";
 const createAttributeListFilename = "xslt_templates/cim_xml_scheme.xslt";
 const sortMenuXSLTFilename = "xslt_templates/sort_menu.xslt";
 const sortedMenuFilename = "generated/add_components_menu.xml";
+const sortedAllComponentsFilename = "generated/add_all_components_menu.xml";
 const attributeDir = "generated/attributes/";
 const cimedit = require('../src/cimedit.js');
 
@@ -35,7 +37,7 @@ const getOptions = function(args) {
 
 const XSLTTranslation = function(xmlFile, options) {
   return xslt.performXSLTTranslationFilenames(xmlFile, createAttributeListFilename,
-                                              createAddComponentMenuFilename, options[dbgOpt]);
+                                              createAddComponentMenuFilename, true);
 };
 
 const writeToFile = function(filename, data, success) {
@@ -89,14 +91,22 @@ const createComponentCreationHtml = function(menuXml) {
     return ul;
 };
 
+const createAllComponentsCreationHtml = function(menuXml) {
+    let xpathQuery = "/menu/ul";
+    let result = menuXml.get(xpathQuery);
+    return result;
+};
+
 const processFilenames = function(filenames, directory, options) {
 
   let arrayOfFiles = [];
   let menuItems = "<menu><ul class=\"floating-panel-list\">";
+  let rawMenuItems = "<menu><ul class=\"floating-panel-list\">";
 
   filenames.forEach((file)=>{
     let result = XSLTTranslation(file, options);
     menuItems += result['menuEntries'];
+    rawMenuItems += result['rawMenuEntries'];
     for (let attribute in result['attributeList']) {
       let attributeFilename = attributeDir + directory + '/' + attribute + '.handlebars'
       arrayOfFiles.push({ 'filename': attributeFilename, 'data': result['attributeList'][attribute] });
@@ -104,12 +114,19 @@ const processFilenames = function(filenames, directory, options) {
   });
 
   menuItems += "</ul></menu>";
+  rawMenuItems += "</ul></menu>";
 
   let menuSortingXSLT = xslt.loadXMLDoc(sortMenuXSLTFilename);
   let menuXMLDoc = libxmljs.parseXml(menuItems);
   let sortedMenuItems = xslt.performXSLTTranslation(menuXMLDoc, menuSortingXSLT);
   let htmlMenuItems = createComponentCreationHtml(sortedMenuItems);
+
+  let rawMenuXMLDoc = libxmljs.parseXml(rawMenuItems);
+  console.log(rawMenuItems);
+  let sortedAllComponentsMenuItems = xslt.performXSLTTranslation(rawMenuXMLDoc, menuSortingXSLT);
+  //let htmlAllComponentsMenuItems = createAllComponentsCreationHtml(sortedAllComponentsMenuItems);
   arrayOfFiles.push({ 'filename': sortedMenuFilename, 'data': htmlMenuItems });
+  arrayOfFiles.push({ 'filename': sortedAllComponentsFilename, 'data': sortedAllComponentsMenuItems });
 
   return arrayOfFiles;
 };

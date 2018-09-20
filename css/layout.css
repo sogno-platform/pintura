@@ -154,6 +154,7 @@ button::-moz-focus-inner,
     flex-wrap: nowrap;
     order: -1;
     bottom: 0;
+    right: 0;
     min-width: 20px;
     overflow-y: auto;
     position: fixed!important;
@@ -195,9 +196,6 @@ button::-moz-focus-inner,
 .floating-panel-table {
     padding: 0px;
     border: 2px solid #6EA2B0;
-}
-.invisible {
-    display: none;
 }
 .floating-menu-list {
     margin:0px;
@@ -355,4 +353,7 @@ ul {
 }
 .context-menu-active {
   display: block;
+}
+.invisible {
+    display: none;
 }

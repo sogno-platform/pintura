@@ -54,6 +54,8 @@ var performXSLTTranslation = function(xml, xsl, attribute, debug) {
       log("Setting attribute");
       params['attribute'] = attribute;
   }
+  log("PARAMS: ");
+  log(JSON.stringify(params));
 
   log("Attempting transform..")
   return stylesheet.apply(xml, params)
@@ -78,7 +80,8 @@ var performXSLTTranslationFilenames = function(xmlFile, attributeXSLTFile, menuX
 
   if (components.root()) {
 
-    returnVariable['menuEntries'] = performXSLTTranslation(xml, menuXSLT, null);
+    returnVariable['menuEntries'] = performXSLTTranslation(xml, menuXSLT, "currentCimsvg().addComponent('cim:");
+    returnVariable['rawMenuEntries'] = performXSLTTranslation(xml, menuXSLT, "currentCimsvg().addRawComponent('cim:");
     returnVariable['attributeList'] = {};
 
     let thisResult = "";

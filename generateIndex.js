@@ -210,8 +210,8 @@ var radio_input = function(onchange, name, id, text, checked=false) {
     return new tag('a').c(input).c(label)
 };
 
-var floating_panel_header = function(floating_panel_id, close_button_action) {
-    return new tag('div').
+var floating_panel_header = function(floating_panel_id, close_button_action, component_add_action) {
+    let header = new tag('div').
 	           a('class', '"wide-row list-title"').
 	           c(new tag('span').
                    a('id', '"' + floating_panel_id + '-component-name"').
@@ -222,23 +222,36 @@ var floating_panel_header = function(floating_panel_id, close_button_action) {
                        a('class', '"button row-right panel-button"').
                        a('onclick', close_button_action).
                        t("<b>&times;</b>")))
+    if (component_add_action !== undefined) {
+        header.c(new tag('span').
+                       a('class', '"button row-right panel-button"').
+                       a('onclick', component_add_action).
+                       t("<b>&plus;</b>"))
+    }
+    return header;
 };
 
 var diagram = new tag('div').a('id', '"diagram-display"').a('class', '"row-right"').c(svg)
 
-var make_floating_panel = function(id, classSuffix, close_button_action) {
-    return new tag('div').
+var make_floating_panel = function(id, classSuffix, close_button_action, add_component_action) {
+    let header = floating_panel_header(id, close_button_action, add_component_action);
+    let listTag = new tag('div').a('class', '"floating-menu-list"').t(" ")
+    let panelTag = new tag('div').
 	           a('id', '"'+id+'"').
                a('class', '"floating-panel' + classSuffix + ' row-left dialog-over-diagram"').
-               c(new tag('div').a('class', '"floating-panel-table invisible"').
-               c(floating_panel_header(id, close_button_action)).
-           c(new tag('div').
-               a('class', '"floating-menu-list"').
-			   t(" ")))
+               c(new tag('div').a('class', '"floating-panel-table invisible"'))
+
+    panelTag.c(header).c(listTag)
+
+    return panelTag;
 }
 
 var floating_menu = make_floating_panel('floating-menu', '', '"currentCimsvg().hideFloatingMenu();"')
-var all_components = make_floating_panel('all-components', 'bottom', '"currentCimsvg().hideAllComponentsList();"')
+var all_components = make_floating_panel('all-components', 'bottom', '"currentCimsvg().hideAllComponentsList();"', '"currentCimsvg().populateAllComponentsCreationMenu()"');
+var all_components_switch = new tag('span').a('id', 'all-components-switch').
+                         a('class', '"switch button panel-button row-right"').
+                         a('onclick', '"currentCimsvg().populateAllComponents();"').
+                         c(new tag('span').a('class', '"fa fa-gears"'))
 
 var contextmenu = new tag('nav').
                       a('id', '"context-menu"').
@@ -253,7 +266,7 @@ var contextmenu = new tag('nav').
                                   t("Delete Component"))))
 
 var main = new tag('div').a('id', '"main"').c(diagram).c(floating_menu).c(contextmenu)
-body.c(main).c(sidebar).c(all_components)
+body.c(main).c(sidebar).c(all_components).c(all_components_switch)
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/libcimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
 html.c(head)

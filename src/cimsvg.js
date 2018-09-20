@@ -42,6 +42,9 @@ class cimsvg {
             this.loadXml("generated/add_components_menu.xml", (xml)=>{
                 this.componentCreationHtml = xml.documentElement.outerHTML;
             });
+            this.loadXml("generated/add_all_components_menu.xml", (xml)=>{
+                this.allComponentsCreationHtml = xml.documentElement.outerHTML;
+            });
         }
         this.contextMenu = null;
         this.pinturaNode = null;
@@ -130,10 +133,6 @@ class cimsvg {
         return (++this.nameCounter[type]).toString();
     };
 
-    getComp() {
-        return this.componentCreationHtml;
-    };
-
     setCurrentDiagramId(diagramId) {
         this.currentDiagramId = diagramId;
     };
@@ -180,7 +179,11 @@ class cimsvg {
         return this.addComponentAndApplyTemplates("cim:Diagram")
     };
 
-    addComponent (type) {
+    rawComponent(type) {
+        return this.addRawComponentAndApplyTemplates(type);
+    };
+
+    addComponent(type) {
         if (cimedit.typeIsVisible(type)) {
             this.addingType = type;
             let image = cimjson.getImageName(type);
@@ -285,6 +288,10 @@ class cimsvg {
         cimmenu.populateFloatingMenu(this.floatingMenu, this.componentCreationHtml, "Add Component");
     };
 
+    populateAllComponentsCreationMenu() {
+        cimmenu.populateFloatingMenu(this.floatingMenu, this.allComponentsCreationHtml, "Add Component");
+    };
+
     populateTerminals(type, rdfid) {
         cimmenu.populateTerminals(this.floatingMenu, type, this.getCimVersionFolder(), rdfid)
     };
@@ -293,6 +300,11 @@ class cimsvg {
         let baseJson = this.getBaseJson();
         let items = this.applyTemplate(baseJson, 'pinturaJson2AllComponentsList');
         cimmenu.populateFloatingMenu(this.allComponents, items, 'All Components');
+        let switchList = this.allComponents.querySelectorAll('.switch');
+        switchList.forEach((sw)=>{
+          sw.classList.add('invisible');
+        });
+        this.allComponents.classList.add('invisible');
     };
 
     checkComponentReadyToAdd(evt) {
@@ -327,6 +339,13 @@ class cimsvg {
         if(this.sidebarNode != null) {
             cimmenu.populateSidebar(this.sidebarNode, templateJson);
         }
+    };
+
+    addRawComponentAndApplyTemplates(type, point) {
+        let baseJson = this.getBaseJson();
+        let rdfid = cimedit.addRawComponentToBaseJson(baseJson, type, point);
+        this.applyTemplates();
+        return rdfid;
     };
 
     addComponentAndApplyTemplates(type, point) {
@@ -604,6 +623,10 @@ class cimsvg {
         let tables = this.allComponents.querySelectorAll(".floating-panel-table");
         tables.forEach(function(table){
             table.classList.add('invisible');
+        });
+        let switchList = this.allComponents.querySelectorAll('.switch');
+        switchList.forEach(function(sw){
+            sw.classList.remove('invisible');
         });
     };
 };
