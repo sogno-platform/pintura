@@ -247,7 +247,7 @@ var make_floating_panel = function(id, classSuffix, close_button_action, add_com
 }
 
 var floating_menu = make_floating_panel('floating-menu', '', '"currentCimsvg().hideFloatingMenu();"')
-var all_components = make_floating_panel('all-components', 'bottom', '"currentCimsvg().hideAllComponentsList();"', '"currentCimsvg().populateAllComponentsCreationMenu()"');
+var all_components = make_floating_panel('all-components', '-bottom', '"currentCimsvg().hideAllComponentsList();"', '"currentCimsvg().populateAllComponentsCreationMenu()"');
 var all_components_switch = new tag('span').a('id', 'all-components-switch').
                          a('class', '"switch button panel-button row-right"').
                          a('onclick', '"currentCimsvg().populateAllComponents();"').

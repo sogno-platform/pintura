@@ -179,8 +179,26 @@ class cimsvg {
         return this.addComponentAndApplyTemplates("cim:Diagram")
     };
 
-    rawComponent(type) {
-        return this.addRawComponentAndApplyTemplates(type);
+    isAllComponentsListVisible() {
+        let visible = true;
+        let tableList = this.allComponents.querySelectorAll('.floating-panel-table');
+        tableList.forEach((table)=>{
+            if (table.classList.contains('invisible')) {
+                visible = false;
+            }
+        });
+        return visible;
+    };
+
+    addRawComponent(type) {
+        this.addRawComponentAndApplyTemplates(type);
+        if (this.isAllComponentsListVisible()) {
+            console.log("populating all components")
+            this.populateAllComponents();
+        }
+        else {
+            console.log("not populating ", this.allComponents.classList)
+        }
     };
 
     addComponent(type) {
@@ -304,7 +322,6 @@ class cimsvg {
         switchList.forEach((sw)=>{
           sw.classList.add('invisible');
         });
-        this.allComponents.classList.add('invisible');
     };
 
     checkComponentReadyToAdd(evt) {

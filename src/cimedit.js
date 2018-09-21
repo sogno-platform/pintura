@@ -262,6 +262,17 @@ class cimedit {
         return id;
     };
 
+    static makeAggregateComponent(diagramId, jsonBaseData, type) {
+        let counter = currentCimsvg().getNameCounter(type);
+        let aggregateComponent = {
+            "cim:IdentifiedObject.name": type.toString() + counter,
+            "diagram": diagramId,
+        };
+        let id = cimedit.generateUUID();
+        cimedit.addCategorizedItem(jsonBaseData, type, id, aggregateComponent);
+        return id;
+    };
+
     static makeRawAggregateComponent(jsonBaseData, type) {
         let counter = currentCimsvg().getNameCounter(type);
         let aggregateComponent = {
@@ -325,7 +336,7 @@ class cimedit {
         }
     };
 
-    static addRawComponentToBaseJson(jsonBaseData, type, point, diagramId) {
+    static addRawComponentToBaseJson(jsonBaseData, type) {
         return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
     };
 

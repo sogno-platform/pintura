@@ -1,13 +1,17 @@
-<ul class="floating-panel-list">
+<div class="floating-panel-list">
     {{#each this as |componentList typeName|}}
-        <div class="wide-row list-title">
+        <div class="wide-row list-subtitle">
             <span class="button row-left" onclick="javascript:showContainer('all-components-{{typeName}}-accordion', null);">{{typeName}}</span>
         </div>
         <div id="all-components-{{typeName}}-accordion" class="component-accordion" style="display:none">
+            <ul>
             {{#each this as |componentObject componentId|}}
-                <button class="row button wide-button list-subtitle" onclick="javascript:currentCimsvg().populateAttributes('{{typeName}}',
+                <li class="list-entry">
+                <button class="row button wide-button" onclick="javascript:currentCimsvg().populateAttributes('{{typeName}}',
                     '{{componentId}}');">{{componentObject.[cim:IdentifiedObject.name]}}</button>
+                </li>
             {{/each}}
+            </ul>
         </div>
     {{/each}}
-</ul>
+</div>

@@ -37,7 +37,7 @@ const getOptions = function(args) {
 
 const XSLTTranslation = function(xmlFile, options) {
   return xslt.performXSLTTranslationFilenames(xmlFile, createAttributeListFilename,
-                                              createAddComponentMenuFilename, true);
+                                              createAddComponentMenuFilename, options[dbgOpt]);
 };
 
 const writeToFile = function(filename, data, success) {
@@ -93,8 +93,7 @@ const createComponentCreationHtml = function(menuXml) {
 
 const createAllComponentsCreationHtml = function(menuXml) {
     let xpathQuery = "/menu/ul";
-    let result = menuXml.get(xpathQuery);
-    return result;
+    return menuXml.get(xpathQuery);
 };
 
 const processFilenames = function(filenames, directory, options) {
@@ -122,11 +121,10 @@ const processFilenames = function(filenames, directory, options) {
   let htmlMenuItems = createComponentCreationHtml(sortedMenuItems);
 
   let rawMenuXMLDoc = libxmljs.parseXml(rawMenuItems);
-  console.log(rawMenuItems);
   let sortedAllComponentsMenuItems = xslt.performXSLTTranslation(rawMenuXMLDoc, menuSortingXSLT);
-  //let htmlAllComponentsMenuItems = createAllComponentsCreationHtml(sortedAllComponentsMenuItems);
+  let htmlAllComponentsMenuItems = createAllComponentsCreationHtml(sortedAllComponentsMenuItems);
   arrayOfFiles.push({ 'filename': sortedMenuFilename, 'data': htmlMenuItems });
-  arrayOfFiles.push({ 'filename': sortedAllComponentsFilename, 'data': sortedAllComponentsMenuItems });
+  arrayOfFiles.push({ 'filename': sortedAllComponentsFilename, 'data': htmlAllComponentsMenuItems });
 
   return arrayOfFiles;
 };
