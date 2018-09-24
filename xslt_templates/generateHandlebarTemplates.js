@@ -11,7 +11,6 @@ const xmlOpt = '--xmlDir';
 const dbgOpt = '--debug';
 
 const createAddComponentMenuFilename = "xslt_templates/cim_add_components_menu.xslt";
-const createRawComponentMenuFilename = "xslt_templates/cim_add_raw_components_menu.xslt";
 const createAttributeListFilename = "xslt_templates/cim_xml_scheme.xslt";
 const sortMenuXSLTFilename = "xslt_templates/sort_menu.xslt";
 const sortedMenuFilename = "generated/add_components_menu.xml";
@@ -64,9 +63,10 @@ const makePathRecursive = function(dir) {
 };
 
 const writeArrayOfFiles = function(objects, index, done) {
-  let dir = path.dirname(objects[index]['filename'])
+  let currentFile = objects[index]['filename'];
+  let dir = path.dirname(currentFile)
   makePathRecursive(dir)
-  writeToFile(objects[index]['filename'], objects[index]['data'], function() {
+  writeToFile(currentFile, objects[index]['data'], function() {
     if (objects.length > index+1) {
       writeArrayOfFiles(objects, index+1, done);
     }
@@ -77,26 +77,43 @@ const writeArrayOfFiles = function(objects, index, done) {
 };
 
 const createComponentCreationHtml = function(menuXml) {
-    let ul = "<ul class='floating-panel-list'>";
-    for (let item in cimedit.terminalAndPointLimits) {
-        if (cimedit.typeIsVisible(item)) {
-            let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
-            let result = menuXml.get(xpathQuery);
-            if (result) {
-                ul += result.toString();
-            }
-        }
+  let ul = "<ul class='floating-panel-list'>";
+  for (let item in cimedit.terminalAndPointLimits) {
+    if (cimedit.typeIsVisible(item)) {
+      let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
+      let result = menuXml.get(xpathQuery);
+      if (result) {
+        ul += result.toString();
+      }
     }
-    ul += "</ul>";
-    return ul;
+  }
+  ul += "</ul>";
+  return ul;
 };
 
 const createAllComponentsCreationHtml = function(menuXml) {
-    let xpathQuery = "/menu/ul";
-    return menuXml.get(xpathQuery);
+  let header = `<div class="all-components-list">
+                  <input type="text" onkeyup="javascript:currentCimsvg().updateRawComponentSearch(this.value);"/>`;
+  let xpathQuery = "/menu/ul";
+  return header + menuXml.get(xpathQuery) + '</div>';
 };
 
-const processFilenames = function(filenames, directory, options) {
+const processFilenamesForAttributes = function(filenames, directory, options) {
+
+  let arrayOfFiles = [];
+
+  filenames.forEach((file)=>{
+    let result = XSLTTranslation(file, options);
+    for (let attribute in result['attributeList']) {
+      let attributeFilename = attributeDir + directory + '/' + attribute + '.handlebars'
+      arrayOfFiles.push({ 'filename': attributeFilename, 'data': result['attributeList'][attribute] });
+    }
+  });
+
+  return arrayOfFiles;
+};
+
+const processFilenamesForMenus = function(filenames, directory, options) {
 
   let arrayOfFiles = [];
   let menuItems = "<menu><ul class=\"floating-panel-list\">";
@@ -106,10 +123,6 @@ const processFilenames = function(filenames, directory, options) {
     let result = XSLTTranslation(file, options);
     menuItems += result['menuEntries'];
     rawMenuItems += result['rawMenuEntries'];
-    for (let attribute in result['attributeList']) {
-      let attributeFilename = attributeDir + directory + '/' + attribute + '.handlebars'
-      arrayOfFiles.push({ 'filename': attributeFilename, 'data': result['attributeList'][attribute] });
-    }
   });
 
   menuItems += "</ul></menu>";
@@ -142,9 +155,17 @@ const parseOptions = function( args ) {
     }
     else {
       model_versions.forEach(function(dir) {
+        let do_once = true;
         let directory = options[xmlOpt] + '/' + dir + '/*.xsd';
+        if (do_once) {
+          do_once = false;
+          glob(directory, function(err, files) {
+            let arrayOfFiles = processFilenamesForMenus(files, dir, options);
+            writeArrayOfFiles(arrayOfFiles, 0, function() { });
+          });
+        }
         glob(directory, function(err, files) {
-          let arrayOfFiles = processFilenames(files, dir, options);
+          let arrayOfFiles = processFilenamesForAttributes(files, dir, options);
           writeArrayOfFiles(arrayOfFiles, 0, function() { });
         });
       });

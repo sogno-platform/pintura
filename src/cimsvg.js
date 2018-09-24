@@ -83,6 +83,22 @@ class cimsvg {
         this.rdfFileCount = count;
     };
 
+    updateRawComponentSearch(regexInput) {
+        let regex = regexInput.toUpperCase();
+        let floatingPanelList = this.floatingMenu.querySelectorAll('.floating-panel-list')
+        floatingPanelList.forEach((elem)=>{
+            elem.childNodes.forEach((component)=>{
+                let name = component.id.toUpperCase().substr(0, regex.length);
+                if (regex.match(name)) {
+                    component.classList.remove('invisible')
+                }
+                else {
+                    component.classList.add('invisible')
+                }
+            });
+        });
+    }
+
     resetFileReceivedCount() {
         this.rdfFileReceived = 0;
     };
@@ -193,11 +209,7 @@ class cimsvg {
     addRawComponent(type) {
         this.addRawComponentAndApplyTemplates(type);
         if (this.isAllComponentsListVisible()) {
-            console.log("populating all components")
             this.populateAllComponents();
-        }
-        else {
-            console.log("not populating ", this.allComponents.classList)
         }
     };
 

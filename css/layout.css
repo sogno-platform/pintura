@@ -228,6 +228,9 @@ button::-moz-focus-inner,
 .floating-panel-value input{
     text-align:center;
 }
+.all-components-list input{
+    width:100%;
+}
 .list-entry {
     font-size:12px;
 }
