@@ -159,11 +159,6 @@ button::-moz-focus-inner,
     overflow-y: auto;
     position: fixed!important;
 }
-.component-sidebar-list {
-    overflow-x:hidden;
-    overflow-y:auto;
-    order: 2;
-}
 /* main contains the svg and optionally
    the raw xml or pintura data object
    it is to the right of middle*/
@@ -200,6 +195,9 @@ button::-moz-focus-inner,
 .floating-menu-list {
     margin:0px;
     padding:0px;
+    order: 2;
+    overflow-x:hidden;
+    overflow-y:auto;
 }
 .floating-panel-list {
     margin: 0px;

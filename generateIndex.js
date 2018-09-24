@@ -124,15 +124,11 @@ function tag(name){
     return this
   }
 }
-var makeFileMenu = function (diag_text, diag_name, diag_action, filelinks) {
-  let drop_down = new tag('div').a('class', '"dropdown-menu"')
-  let diag_tag = new tag('div').a('id', '"'+diag_name+'"').a('class', '"button"')
-  let diag_a_tag = new tag('a').t(diag_text).a('onclick', diag_action)
+var makeFileMenu = function (diag_text, diag_name, diag_action, links) {
   let menu = new tag('div')
-  menu.c(diag_tag.c(diag_a_tag))
   menu.a('id', '"menu"')
-  filelinks.forEach((link)=>{
-    let div = new tag('div').a('id', '"yes"')
+  links.forEach((link)=>{
+    let div = new tag('div').a('id', link['name'])
     let input = new tag('input').a('id', '"' + link['name'] + '"').a('type', link['type']).a('style', '"display:none"').a('multiple', '"true"')
     let a = new tag('a').t(link['text']).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', link['action'])
     div.c(input).c(a)
@@ -175,12 +171,18 @@ const MenuLinks = [
         'name':   'filemenu',
         'action': 'currentCimsvg().populateFileLinks()',
         'type':   '"hidden"'
+    },
+    {
+        'text':   'Diagram',
+        'name':   'diagrammenu',
+        'action': 'currentCimsvg().populateDiagramLinks()',
+        'type':   '"hidden"'
     }
 ];
 
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
-                  c(new tag('div').a('class', '"component-sidebar-list"').t(' ')).
+                  c(new tag('div').a('class', '"floating-menu-list"').t(' ')).
                   c(makeFileMenu('Add Diagram', 'diagram-add', 'currentCimsvg().addDiagram()', MenuLinks))
 
 var svg = new tag('svg').a('id', '"svg"').

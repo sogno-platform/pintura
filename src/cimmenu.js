@@ -18,15 +18,6 @@
 
 class cimmenu {
 
-    static populateSidebar (sidebarNode, templateJson) {
-        let template = Handlebars.templates['pintura2html'];
-        let data = template(templateJson);
-        let sidebarList = sidebarNode.querySelectorAll('.component-sidebar-list');
-        sidebarList.forEach(function(sidebar) {
-            sidebar.innerHTML = data;
-        });
-    };
-
     static calculatePanelHeight (data, panelNode, containingNode) {
         let panelHeight = 0;
         let tableList = panelNode.querySelectorAll('.floating-panel-table')
@@ -46,13 +37,22 @@ class cimmenu {
         }
     };
 
-    static populateFloatingMenu (floatingMenuNode, menuItems, titleText) {
-        let accordionList = floatingMenuNode.querySelectorAll('.floating-menu-list')
+    static populatePanelWithTemplate(panelNode, templateJson, templateName) {
+        let template = Handlebars.templates[templateName];
+        let data = template(templateJson);
+        let list = panelNode.querySelectorAll('.floating-menu-list');
+        list.forEach(function(subpanel) {
+            subpanel.innerHTML = data;
+        });
+    };
+
+    static populatePanelWithData(panelNode, menuItems, titleText) {
+        let accordionList = panelNode.querySelectorAll('.floating-menu-list')
         accordionList.forEach(function(accordion) {
             accordion.innerHTML = menuItems;
-            cimmenu.calculatePanelHeight(accordion.innerHTML, floatingMenuNode, floatingMenuNode.ownerDocument.body);
+            cimmenu.calculatePanelHeight(accordion.innerHTML, panelNode, panelNode.ownerDocument.body);
         });
-        let titleList = floatingMenuNode.querySelectorAll('.floating-panel-title')
+        let titleList = panelNode.querySelectorAll('.floating-panel-title')
         titleList.forEach(function(title) {
             title.innerHTML = titleText;
         });
@@ -81,7 +81,7 @@ class cimmenu {
         }
         let template = Handlebars.templates[cimVersion + "/" +type.substring(4)];
         let data = template(baseJson[type][id]);
-        cimmenu.populateFloatingMenu(node, data, "Attributes");
+        cimmenu.populatePanelWithData(node, data, "Attributes");
     };
 
     static populateTerminals (node, type, cimVersion, rdfid) {
@@ -111,7 +111,7 @@ class cimmenu {
                 };
                 menuData += template(templateData);
             }
-            cimmenu.populateFloatingMenu(node, menuData, "Terminals");
+            cimmenu.populatePanelWithData(node, menuData, "Terminals");
         }
         else {
             console.error("Couldn't find " + rdfid + " in " + baseJson[type])
