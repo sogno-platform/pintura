@@ -18,7 +18,7 @@
 
 class cimmenu {
 
-    static calculatePanelHeight (data, panelNode, containingNode) {
+    static calculatePanelHeight (panelNode, containingNode) {
         let panelHeight = 0;
         let tableList = panelNode.querySelectorAll('.floating-panel-table')
         let containingPanelHeight = containingNode.getBoundingClientRect().height
@@ -43,6 +43,7 @@ class cimmenu {
         let list = panelNode.querySelectorAll('.floating-menu-list');
         list.forEach(function(subpanel) {
             subpanel.innerHTML = data;
+            cimmenu.calculatePanelHeight(panelNode, panelNode.ownerDocument.body);
         });
     };
 
@@ -50,7 +51,7 @@ class cimmenu {
         let accordionList = panelNode.querySelectorAll('.floating-menu-list')
         accordionList.forEach(function(accordion) {
             accordion.innerHTML = menuItems;
-            cimmenu.calculatePanelHeight(accordion.innerHTML, panelNode, panelNode.ownerDocument.body);
+            cimmenu.calculatePanelHeight(panelNode, panelNode.ownerDocument.body);
         });
         let titleList = panelNode.querySelectorAll('.floating-panel-title')
         titleList.forEach(function(title) {
@@ -117,7 +118,6 @@ class cimmenu {
             console.error("Couldn't find " + rdfid + " in " + baseJson[type])
         }
     };
-
 }
 
 if (typeof module !== 'undefined' && module.exports) {

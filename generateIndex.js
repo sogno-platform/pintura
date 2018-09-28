@@ -124,14 +124,13 @@ function tag(name){
     return this
   }
 }
-var makeFileMenu = function (diag_text, diag_name, diag_action, links) {
+var makeFileMenu = function (links) {
   let menu = new tag('div')
   menu.a('id', '"menu"')
   links.forEach((link)=>{
     let div = new tag('div').a('id', link['name'])
-    let input = new tag('input').a('id', '"' + link['name'] + '"').a('type', link['type']).a('style', '"display:none"').a('multiple', '"true"')
     let a = new tag('a').t(link['text']).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', link['action'])
-    div.c(input).c(a)
+    div.c(a)
     menu.c(div)
   });
   return menu;
@@ -168,13 +167,13 @@ var body = new tag('body')
 const MenuLinks = [
     {
         'text':   'File',
-        'name':   'filemenu',
+        'name':   '"filemenu"',
         'action': 'currentCimsvg().populateFileLinks()',
         'type':   '"hidden"'
     },
     {
-        'text':   'Diagram',
-        'name':   'diagrammenu',
+        'text':   'Diagrams',
+        'name':   '"diagrammenu"',
         'action': 'currentCimsvg().populateDiagramLinks()',
         'type':   '"hidden"'
     }
@@ -183,7 +182,7 @@ const MenuLinks = [
 var sidebar = new tag('div').
                   a('id', '"sidebar"').
                   c(new tag('div').a('class', '"floating-menu-list"').t(' ')).
-                  c(makeFileMenu('Add Diagram', 'diagram-add', 'currentCimsvg().addDiagram()', MenuLinks))
+                  c(makeFileMenu(MenuLinks))
 
 var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns', '"http://www.w3.org/2000/svg"').
@@ -249,8 +248,10 @@ var make_floating_panel = function(id, classSuffix, close_button_action, add_com
 }
 
 var floating_menu = make_floating_panel('floating-menu', '', '"currentCimsvg().hideFloatingMenu();"')
-var all_components = make_floating_panel('all-components', '-bottom', '"currentCimsvg().hideAllComponentsList();"', '"currentCimsvg().populateAllComponentsCreationMenu()"');
-var all_components_switch = new tag('span').a('id', 'all-components-switch').
+var all_components = make_floating_panel('all-components', 'floating-panel-bottom',
+                                         '"currentCimsvg().hideAllComponentsList();"',
+                                         '"currentCimsvg().populateAllComponentsCreationMenu()"');
+var all_components_switch = new tag('span').a('id', '"all-components-switch"').
                          a('class', '"switch button panel-button row-right"').
                          a('onclick', '"currentCimsvg().populateAllComponents();"').
                          c(new tag('span').a('class', '"fa fa-gears"'))

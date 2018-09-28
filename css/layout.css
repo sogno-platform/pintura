@@ -153,11 +153,19 @@ button::-moz-focus-inner,
     flex-grow: 1;
     flex-wrap: nowrap;
     order: -1;
-    bottom: 0;
-    right: 0;
+    height:100%;
+    right: 0px;
     min-width: 20px;
     overflow-y: auto;
     position: fixed!important;
+}
+#all-components-switch {
+    position: fixed !important;
+    bottom: 0px;
+    right: 0px;
+}
+.all-components-panel input{
+    width:100%;
 }
 /* main contains the svg and optionally
    the raw xml or pintura data object
@@ -192,6 +200,12 @@ button::-moz-focus-inner,
     padding: 0px;
     border: 2px solid #6EA2B0;
 }
+.floating-panel-bottom .floating-panel-table {
+    position: fixed !important;
+    bottom: 0px;
+    right: 0px;
+    overflow-y: auto;
+}
 .floating-menu-list {
     margin:0px;
     padding:0px;
@@ -225,9 +239,6 @@ button::-moz-focus-inner,
 }
 .floating-panel-value input{
     text-align:center;
-}
-.all-components-list input{
-    width:100%;
 }
 .list-entry {
     font-size:12px;
@@ -317,17 +328,6 @@ input:focus {
 form {
     display: flex;
     align-items: center;
-}
-.dialog-over-diagram {
-    position: fixed!important;
-    z-index: 1;
-}
-.dialog-right {
-    right: 0;
-    order: 1;
-}
-.dialog-left {
-    order: 0;
 }
 .context-menu {
     display: none;

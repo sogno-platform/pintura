@@ -4,8 +4,8 @@
   "main": "main.js",
   "license": "GPL-3.0-or-later",
   "repository": {
-     "type" : "git",
-     "url" : "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
+    "type": "git",
+    "url": "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
   },
   "scripts": {
     "generateIndex": "node generateIndex.js > index.html",
@@ -36,6 +36,8 @@
     "formidable": "^1.2.1",
     "jszip": "^3.1.5",
     "webpack": "^4.22.0",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "xmldom": "^0.1.27",
+    "jszip": "^3.1.5"
   }
 }
