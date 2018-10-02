@@ -37,13 +37,17 @@ class cimmenu {
         }
     };
 
-    static populatePanelWithTemplate(panelNode, templateJson, templateName) {
+    static populatePanelWithTemplate(panelNode, templateJson, templateName, titleText) {
         let template = Handlebars.templates[templateName];
         let data = template(templateJson);
         let list = panelNode.querySelectorAll('.floating-menu-list');
         list.forEach(function(subpanel) {
             subpanel.innerHTML = data;
             cimmenu.calculatePanelHeight(panelNode, panelNode.ownerDocument.body);
+        });
+        let titleList = panelNode.querySelectorAll('.floating-panel-title')
+        titleList.forEach(function(title) {
+            title.innerHTML = titleText;
         });
     };
 

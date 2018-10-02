@@ -72,9 +72,10 @@ describe("cimsvg", function() {
             let cimsvg = libcimsvg.cimsvg;
             let svg = dom.window.document.querySelector("#svg")
             let floatingMenu = dom.window.document.querySelector("#floating-menu")
-            let sidebar = dom.window.document.querySelector("#sidebar")
+            let diagramComponents = dom.window.document.querySelector("#diagram-components")
+            let allComponents = dom.window.document.querySelector("#all-components")
             spyOn(cimsvg.prototype, "loadXml").and.callFake(loadXml);
-            cimsvgInstance = new cimsvg(svg, sidebar, floatingMenu)
+            cimsvgInstance = new cimsvg(svg, floatingMenu, diagramComponents, allComponents)
             cimsvg.setCimsvg(cimsvgInstance);
             spyOn(cimsvgInstance.cimview, "getMouseCoordFromWindow").and.callFake(getMouseCoordFromWindow);
             domReady = dom;

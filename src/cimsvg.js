@@ -32,12 +32,11 @@ if (typeof module !== 'undefined' && module.exports) {
 
 class cimsvg {
 
-    constructor(svg, sidebar, floatingMenuNode, allComponents) {
+    constructor(svg, floatingMenuNode, cornerPanels) {
         this.svgNode = svg;
-        this.sidebarNode = sidebar;
         this.cimview = new cimview(svg);
         this.floatingMenu = floatingMenuNode;
-        this.allComponents = allComponents;
+        this.cornerPanels = cornerPanels;
         if(floatingMenuNode != undefined) {
             this.loadXml("generated/add_components_menu.xml", (xml)=>{
                 this.componentCreationHtml = xml.documentElement.outerHTML;
@@ -195,9 +194,21 @@ class cimsvg {
         return this.addComponentAndApplyTemplates("cim:Diagram")
     };
 
+    getAllComponentsMenu() {
+        return this.cornerPanels.querySelectorAll('#all-components')[0];
+    };
+
+    getDiagramComponentsMenu() {
+        return this.cornerPanels.querySelectorAll('#diagram-components')[0];
+    };
+
+    getCornerPanel(name) {
+        return this.cornerPanels.querySelectorAll(name)[0];
+    };
+
     isAllComponentsListVisible() {
         let visible = true;
-        let tableList = this.allComponents.querySelectorAll('.floating-panel-table');
+        let tableList = this.getAllComponentsMenu().querySelectorAll('.floating-panel-table');
         tableList.forEach((table)=>{
             if (table.classList.contains('invisible')) {
                 visible = false;
@@ -261,10 +272,13 @@ class cimsvg {
 
     populateDiagramLinks() {
         let baseJson = this.getBaseJson();
+        /* getTemplateJson will associate the diagram objects with components */
         let templateJson = cimjson.getTemplateJson(baseJson);
-        if(this.sidebarNode != null) {
-            cimmenu.populatePanelWithTemplate(this.sidebarNode, templateJson, 'pintura2html');
+        let diagramComponents = this.getCornerPanel('#diagram-components');
+        if(diagramComponents != null) {
+            cimmenu.populatePanelWithTemplate(diagramComponents, templateJson, 'pintura2html', "Diagram Components");
         }
+        return templateJson;
     };
 
     populateFileLinks() {
@@ -286,8 +300,8 @@ class cimsvg {
             </li>
           </ul>
         `
-        cimmenu.populatePanelWithData(this.sidebarNode, items, "File menu");
-        this.sidebarNode.querySelectorAll('#fileopen').forEach((elem)=>{ elem.addEventListener('change', readFile, false); });
+        cimmenu.populatePanelWithData(this.floatingMenu, items, "File menu");
+        this.floatingMenu.querySelectorAll('#fileopen').forEach((elem)=>{ elem.addEventListener('change', readFile, false); });
     };
 
     loadUri() {
@@ -337,11 +351,7 @@ class cimsvg {
     populateAllComponents() {
         let baseJson = this.getBaseJson();
         let items = this.applyTemplate(baseJson, 'pinturaJson2AllComponentsList');
-        cimmenu.populatePanelWithData(this.allComponents, items, 'All Components');
-        let switchList = this.allComponents.querySelectorAll('.switch');
-        switchList.forEach((sw)=>{
-          sw.classList.add('invisible');
-        });
+        cimmenu.populatePanelWithData(this.getAllComponentsMenu(), items, 'All Components');
     };
 
     checkComponentReadyToAdd(evt) {
@@ -370,12 +380,8 @@ class cimsvg {
     };
 
     applyTemplates() {
-        let baseJson = this.getBaseJson();
-        let templateJson = cimjson.getTemplateJson(baseJson);
+        let templateJson = this.populateDiagramLinks();
         this.applyDiagramTemplate(templateJson)
-        if(this.sidebarNode != null) {
-            cimmenu.populatePanelWithTemplate(this.sidebarNode, templateJson, 'pintura2html');
-        }
     };
 
     addRawComponentAndApplyTemplates(type, point) {
@@ -433,13 +439,8 @@ class cimsvg {
 
     loadFile(fileContents) {
         if (cimxml.moreXmlData(fileContents)) {
-            let baseJson = this.getBaseJson();
-            /* getTemplateJson will associate the diagram objects with components */
-            let templateJson = cimjson.getTemplateJson(baseJson);
+            let templateJson = this.populateDiagramLinks();
             this.applyDiagramTemplate(templateJson)
-            if(this.sidebarNode != null) {
-                cimmenu.populatePanelWithTemplate(this.sidebarNode, templateJson, 'pintura2html');
-            }
         }
     };
 
@@ -455,8 +456,11 @@ class cimsvg {
         cimxml.updateComponentInBaseJson(type, id, attribute, value)
         if (attribute === "cim:IdentifiedObject.name") {
             let buttonId = '#' + id + "-sidebar-button"
-            let button = this.sidebarNode.querySelector(buttonId)
-            button.innerHTML = value;
+            let diagramComponents = this.getCornerPanel('#diagram-components');
+            if(diagramComponents != null) {
+                let button = diagramComponents.querySelector(buttonId)
+                button.innerHTML = value;
+            }
         }
     };
 
@@ -474,13 +478,16 @@ class cimsvg {
 
     toggleDiagramVisible(id, icon) {
         let diagram = this.svgNode.querySelector('#' + id);
-        let iconNode = this.sidebarNode.querySelector('#' + icon);
-        if (diagram.classList.contains('invisible')) {
-            diagram.classList.remove('invisible');
-            iconNode.innerHTML = "&#9728;";
-        } else {
-            diagram.classList.add('invisible');
-            iconNode.innerHTML = "&#9788;";
+        let diagramComponents = this.getCornerPanel('#diagram-components');
+        if(diagramComponents != null) {
+            let iconNode = diagramComponents.querySelector('#' + icon);
+            if (diagram.classList.contains('invisible')) {
+                diagram.classList.remove('invisible');
+                iconNode.innerHTML = "&#9728;";
+            } else {
+                diagram.classList.add('invisible');
+                iconNode.innerHTML = "&#9788;";
+            }
         }
     };
 
@@ -674,6 +681,20 @@ class cimsvg {
         return this.floatingMenu;
     };
 
+    showCornerPanel(name) {
+        let tables = this.getCornerPanel(name).querySelectorAll(".floating-panel-table");
+        tables.forEach(function(table){
+            table.classList.remove('invisible');
+        });
+    };
+
+    hideCornerPanel(name) {
+        let tables = this.getCornerPanel(name).querySelectorAll(".floating-panel-table");
+        tables.forEach(function(table){
+            table.classList.add('invisible');
+        });
+    };
+
     showFloatingMenu() {
         let tables = this.floatingMenu.querySelectorAll(".floating-panel-table");
         tables.forEach(function(table){
@@ -689,11 +710,11 @@ class cimsvg {
     };
 
     hideAllComponentsList() {
-        let tables = this.allComponents.querySelectorAll(".floating-panel-table");
+        let tables = this.getAllComponentsMenu().querySelectorAll(".floating-panel-table");
         tables.forEach(function(table){
             table.classList.add('invisible');
         });
-        let switchList = this.allComponents.querySelectorAll('.switch');
+        let switchList = this.getAllComponentsMenu().querySelectorAll('.switch');
         switchList.forEach(function(sw){
             sw.classList.remove('invisible');
         });

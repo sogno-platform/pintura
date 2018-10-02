@@ -58,7 +58,7 @@ var printTag = function(tag, readable=false) {
   var numberOfChildren = invalidOrZeroLength(tag.children) ? 0 : tag.children.length
   var emptyInside = tag.text === undefined || tag.text.length === 0
   print_func(indent, startTag(tag.name, tag.attributes))
-  if (numberOfChildren === 0 && emptyInside) {
+  if (tag.name != 'div' && numberOfChildren === 0 && emptyInside) {
     print_func('', '/>', '\n')
     depth--
   } else {
@@ -126,7 +126,7 @@ function tag(name){
 }
 var makeFileMenu = function (links) {
   let menu = new tag('div')
-  menu.a('id', '"menu"')
+  menu.a('id', '"menu"').a('class', '"invisible"')
   links.forEach((link)=>{
     let div = new tag('div').a('id', link['name'])
     let a = new tag('a').t(link['text']).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', link['action'])
@@ -176,13 +176,14 @@ const MenuLinks = [
         'name':   '"diagrammenu"',
         'action': 'currentCimsvg().populateDiagramLinks()',
         'type':   '"hidden"'
+    },
+    {
+        'text':   'x',
+        'name':   '"closemenu"',
+        'action': 'currentCimsvg().hideCornerPanel(\'#main-menu\')',
+        'type':   '"hidden"'
     }
 ];
-
-var sidebar = new tag('div').
-                  a('id', '"sidebar"').
-                  c(new tag('div').a('class', '"floating-menu-list"').t(' ')).
-                  c(makeFileMenu(MenuLinks))
 
 var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns', '"http://www.w3.org/2000/svg"').
@@ -213,16 +214,16 @@ var radio_input = function(onchange, name, id, text, checked=false) {
 
 var floating_panel_header = function(floating_panel_id, close_button_action, component_add_action) {
     let header = new tag('div').
-	           a('class', '"wide-row list-title"').
-	           c(new tag('span').
-                   a('id', '"' + floating_panel_id + '-component-name"').
-                   a('class', '"floating-panel-title button row-left"').
-                   t("title goes here")).
-               c(new tag('span').
-                   c(new tag('span').
-                       a('class', '"button row-right panel-button"').
-                       a('onclick', close_button_action).
-                       t("<b>&times;</b>")))
+	                   a('class', '"wide-row list-title"').
+	                   c(new tag('span').
+                               a('id', '"' + floating_panel_id + '-component-name"').
+                               a('class', '"floating-panel-title button row-left"').
+                               t("title goes here")).
+                       c(new tag('div').a('class', '"spacer"')).
+                       c(new tag('span').
+                               a('class', '"button row-right panel-button"').
+                               a('onclick', close_button_action).
+                               t("<b>&times;</b>"))
     if (component_add_action !== undefined) {
         header.c(new tag('span').
                        a('class', '"button row-right panel-button"').
@@ -233,28 +234,6 @@ var floating_panel_header = function(floating_panel_id, close_button_action, com
 };
 
 var diagram = new tag('div').a('id', '"diagram-display"').a('class', '"row-right"').c(svg)
-
-var make_floating_panel = function(id, classSuffix, close_button_action, add_component_action) {
-    let header = floating_panel_header(id, close_button_action, add_component_action);
-    let listTag = new tag('div').a('class', '"floating-menu-list"').t(" ")
-    let panelTag = new tag('div').
-	           a('id', '"'+id+'"').
-               a('class', '"floating-panel' + classSuffix + ' row-left dialog-over-diagram"').
-               c(new tag('div').a('class', '"floating-panel-table invisible"'))
-
-    panelTag.c(header).c(listTag)
-
-    return panelTag;
-}
-
-var floating_menu = make_floating_panel('floating-menu', '', '"currentCimsvg().hideFloatingMenu();"')
-var all_components = make_floating_panel('all-components', 'floating-panel-bottom',
-                                         '"currentCimsvg().hideAllComponentsList();"',
-                                         '"currentCimsvg().populateAllComponentsCreationMenu()"');
-var all_components_switch = new tag('span').a('id', '"all-components-switch"').
-                         a('class', '"switch button panel-button row-right"').
-                         a('onclick', '"currentCimsvg().populateAllComponents();"').
-                         c(new tag('span').a('class', '"fa fa-gears"'))
 
 var contextmenu = new tag('nav').
                       a('id', '"context-menu"').
@@ -268,12 +247,104 @@ var contextmenu = new tag('nav').
                                   a('class').a('onclick', '"currentCimsvg().getContextMenu().removeComponent()"').
                                   t("Delete Component"))))
 
-var main = new tag('div').a('id', '"main"').c(diagram).c(floating_menu).c(contextmenu)
-body.c(main).c(sidebar).c(all_components).c(all_components_switch)
+var main = new tag('div').a('id', '"main"')
+var cornerSwitches = new tag('div').a('id', '"corner-switches"')
+var cornerPanels = new tag('div').a('id', '"corner-panels"')
+
+const CornerButtons = [
+    {
+        'name':     '"barmenu-switch"',
+        'position': 'topleft',
+        'action':   '"currentCimsvg().showCornerPanel(\'#main-menu\');"',
+        'icon':     '"fa fa-bars"',
+    },
+    {
+        'name':     '"all-components-switch"',
+        'position': 'bottomright',
+        'action':   '"currentCimsvg().populateAllComponents();"',
+        'icon':     '"fa fa-gears"',
+    },
+    {
+        'name':     '"diagram-components-switch"',
+        'position': 'bottomleft',
+        'action':   '"currentCimsvg().populateDiagramLinks();"',
+        'icon':     '"fa fa-cubes"',
+    }
+];
+
+var make_corner_menu = function(cb) {
+    return new tag('span').a('id', cb.name).
+                         a('class', '"switch button row-right ' + cb.position + '"').
+                         a('onclick', cb.action).
+                         c(new tag('span').a('class', cb.icon).t(" "))
+}
+
+const CornerPanels = [
+    {
+        'name':     'all-components',
+        'position': 'bottomright',
+        'margin':   'rightmargin',
+        'action':    '"currentCimsvg().populateAllComponentsCreationMenu()"',
+    },
+    {
+        'name':     'diagram-components',
+        'position': 'bottomleft',
+        'margin':   'leftmargin',
+        'action':   '"currentCimsvg().addDiagram()"',
+    },
+    {
+        'action':   '"currentCimsvg().addDiagram()"',
+        'name':     'main-menu',
+        'margin':   'leftmargin',
+        'panel':    makeFileMenu(MenuLinks),
+        'position': 'topleft',
+    },
+    {
+        'name':     'floating-menu',
+        'position': 'bottomleft',
+        'margin':   'leftmargin',
+        'action':   '"currentCimsvg().hideFloatingMenu(\'#floating-menu\')"',
+    }
+];
+
+var make_corner_panel = function(cp) {
+    let header;
+    if (cp.panel) {
+        header = cp.panel;
+    }
+    else {
+        header = floating_panel_header(cp.name, '"currentCimsvg().hideCornerPanel(\'#' + cp.name + '\')"', cp.action);
+    }
+    let listTag = new tag('div').a('class', '"floating-menu-list"').t(" ")
+    let panelTag = new tag('div').
+	           a('id', '"' + cp.name + '"').
+               a('class', '"row-left dialog-over-diagram"').
+               c(new tag('div').a('class', '"floating-panel-table invisible"').
+                       c(new tag('div').a('class', '"fullcolumn ' + cp.position + ' ' + cp.margin + '"').
+                               c(new tag('div').a('class', '"spacer"')).
+                               c(header).c(listTag)
+                        )
+                )
+    return panelTag;
+}
+
+main.c(contextmenu).c(diagram).c(cornerSwitches).c(cornerPanels);
+
+body.c(main)
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/libcimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
 html.c(head)
 html.c(body)
+
+CornerPanels.forEach((cp)=>{
+    let cornerPanel = make_corner_panel(cp)
+    cornerPanels.c(cornerPanel);
+});
+
+CornerButtons.forEach((cb)=>{
+    let cornerButton = make_corner_menu(cb);
+    cornerSwitches.c(cornerButton);
+});
 
 console.log(`<!--
     Copyright © 2016-2017, RWTH Aachen University

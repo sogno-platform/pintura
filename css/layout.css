@@ -113,11 +113,18 @@ button::-moz-focus-inner,
     border-style:none;padding:0;
 }
 #menu {
-    display:flex;
     justify-content:space-around;
-    width:100%;
+    display: flex;
+    width:auto;
+    box-sizing:border-box;
     order:0;
     min-height: 40px;
+    position: fixed!important;
+    background: #6EA2B0;
+    border: 2px solid #6EA2B0;
+    left: 30px;
+    right: 30px;
+    top: 10px;
 }
 .row {
     display: flex;
@@ -155,14 +162,8 @@ button::-moz-focus-inner,
     order: -1;
     height:100%;
     right: 0px;
-    min-width: 20px;
     overflow-y: auto;
     position: fixed!important;
-}
-#all-components-switch {
-    position: fixed !important;
-    bottom: 0px;
-    right: 0px;
 }
 .all-components-panel input{
     width:100%;
@@ -194,14 +195,12 @@ button::-moz-focus-inner,
     overflow-y: auto;
     overflow-x: hidden;
     position: fixed!important;
-    left: 400px;
 }
 .floating-panel-table {
+    height: 100%;
     padding: 0px;
-    border: 2px solid #6EA2B0;
-}
-.floating-panel-bottom .floating-panel-table {
-    position: fixed !important;
+    margin-bottom: 15px;
+    margin-top: 15px;
     bottom: 0px;
     right: 0px;
     overflow-y: auto;
@@ -284,15 +283,16 @@ button::-moz-focus-inner,
 }
 .panel-button {
     margin:0px;
-    padding-left:8px;
     padding-right:8px;
+    padding-left:8px;
 }
 .list-title {
     min-height: 40px;
-    max-height: 40px;
     width: 100%;
     margin: 0px;
     padding-left: 8px;
+    border: black thin solid;
+    border-radius: 8px;
 }
 .dropdown {
     float: right!important;
@@ -350,12 +350,57 @@ form {
     background-color: #ccf;
 }
 ul {
-  list-style-type: none;
-  padding: 0px;
-  margin: 0px;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
 }
 .context-menu-active {
-  display: block;
+    display: block;
+}
+.buttonright {
+    padding-right:8px;
+}
+.buttonleft {
+    padding-left:8px;
+}
+.topleft {
+    position: fixed!important;
+    left: 0;
+    top: 0;
+}
+.bottomleft {
+    position: fixed!important;
+    left: 0;
+    bottom: 0;
+}
+.topright {
+    position: fixed!important;
+    right: 0;
+    top: 0;
+}
+.bottomright {
+    position: fixed!important;
+    right: 0;
+    bottom: 0;
+}
+.leftmargin {
+    margin-left: 30px;
+}
+.rightmargin {
+    margin-right: 30px;
+}
+.fullcolumn {
+    height: calc(100% - 40px);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.spacer {
+    flex-grow: 1;
+}
+.indent {
+    margin-left: 20px;
 }
 .invisible {
     display: none;
