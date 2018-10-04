@@ -48,7 +48,7 @@ a:active,a:hover{
 }
 button,span input,select,textarea{
     border: thin solid #6EA2B0;
-    border-radius: 2px;
+    border-radius: 7px;
     font:inherit;
     background: rgba(0, 0, 0, 0.0);
     color: #6EA2B0;
@@ -119,12 +119,9 @@ button::-moz-focus-inner,
     box-sizing:border-box;
     order:0;
     min-height: 40px;
-    position: fixed!important;
     background: #6EA2B0;
     border: 2px solid #6EA2B0;
-    left: 30px;
-    right: 30px;
-    top: 10px;
+    border-radius: 7px;
 }
 .row {
     display: flex;
@@ -177,7 +174,7 @@ button::-moz-focus-inner,
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: nowrap;
     order: 2;
     overflow:hidden;
@@ -196,6 +193,15 @@ button::-moz-focus-inner,
     overflow-x: hidden;
     position: fixed!important;
 }
+.header-panel {
+    height: 100%;
+    padding: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
 .floating-panel-table {
     height: 100%;
     padding: 0px;
@@ -204,13 +210,18 @@ button::-moz-focus-inner,
     bottom: 0px;
     right: 0px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
 }
 .floating-menu-list {
     margin:0px;
+    margin-left: 1px;
     padding:0px;
     order: 2;
     overflow-x:hidden;
     overflow-y:auto;
+    border: grey solid 2px;
+    border-radius: 8px;
 }
 .floating-panel-list {
     margin: 0px;
@@ -291,7 +302,6 @@ button::-moz-focus-inner,
     width: 100%;
     margin: 0px;
     padding-left: 8px;
-    border: black thin solid;
     border-radius: 8px;
 }
 .dropdown {
@@ -362,6 +372,7 @@ ul {
     flex-direction: row;
     width: 100%;
     height: auto;
+    order: 2;
 }
 #diagram-display {
     position: fixed!important;
@@ -373,17 +384,27 @@ ul {
 }
 .diagrams-panel {
     order: 1;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
-.component-types-panel {
-    order: 2;
-}
 .components-panel {
-    order: 3;
+    order: 2;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 .attributes-panel {
+    order: 3;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.raw-components-panel {
     order: 4;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 .buttonright {
     padding-right:8px;
@@ -431,5 +452,6 @@ ul {
     margin-left: 20px;
 }
 .invisible {
-    display: none;
+    /* display:none; */
+    visibility: hidden;
 }

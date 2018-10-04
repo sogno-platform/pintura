@@ -26,6 +26,7 @@ const sola = require("../images/sol.svg");
 const sync = require("../images/sync.svg");
 const topo = require("../images/topo.svg");
 const node = require("../images/node.svg");
+const dialog_join = require("../images/dialog_join.svg");
 
 
 class cimjson {

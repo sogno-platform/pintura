@@ -219,7 +219,7 @@ var floating_panel_header = function(floating_panel_id, close_button_action, com
                                a('id', '"' + floating_panel_id + '-component-name"').
                                a('class', '"floating-panel-title button row-left"').
                                t("title goes here")).
-                       c(new tag('div').a('class', '"spacer"')).
+                       c(spacer()).
                        c(new tag('span').
                                a('class', '"button row-right panel-button"').
                                a('onclick', close_button_action).
@@ -255,7 +255,7 @@ const CornerButtons = [
     {
         'name':     '"barmenu-switch"',
         'position': 'topleft',
-        'action':   '"currentCimsvg().showMainMenu();"',
+        'action':   '"currentCimsvg().toggleMainMenuVisible();"',
         'icon':     '"fa fa-bars"',
     },
     {
@@ -284,14 +284,14 @@ const ColumnPanels = [
         'name':     'diagrams-panel',
     },
     {
-        'name':     'component-types-panel',
-    },
-    {
         'name':     'components-panel',
     },
     {
         'name':     'attributes-panel',
-    }
+    },
+    {
+        'name':     'raw-components-panel',
+    },
 ];
 
 var make_column_panel = function(cp) {
@@ -299,26 +299,27 @@ var make_column_panel = function(cp) {
     let panelTag = new tag('div').
 	                     a('class', '"' + cp.name + '"').
                          c(new tag('div').a('class', '"floating-panel-table invisible"').
+                         c(spacer()).
                          c(listTag))
     return panelTag;
 }
 
+var spacer  = function() {
+    return new tag('div').a('class', '"spacer"');
+}
 var makeMainMenu = function() {
     let header = makeFileMenu(MenuLinks);
     let listTag = new tag('div').a('class', '"floating-menu-list"').t(" ")
     let panelTag = new tag('div').
 	           a('id', '"main-menu"').
                a('class', '"row-left dialog-over-diagram"').
-               c(new tag('div').a('class', '"floating-panel-table invisible"').
-                       c(new tag('div').a('class', '"fullcolumn topleft leftmargin"').
-                               c(new tag('div').a('class', '"spacer"')).
-                               c(header).c(listTag)
-                        )
+               c(new tag('div').a('class', '"header-panel invisible"').
+                       c(header).c(listTag)
                 )
     return panelTag;
 }
 
-main.c(contextmenu).c(diagram).c(cornerSwitches).c(columnPanels).c(makeMainMenu());
+main.c(contextmenu).c(diagram).c(cornerSwitches).c(makeMainMenu()).c(spacer().a('order', '"1"')).c(columnPanels);
 
 body.c(main)
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/libcimsvg.js"').t(" "))

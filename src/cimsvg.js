@@ -196,7 +196,7 @@ class cimsvg {
     };
 
     getAllComponentsMenu() {
-        return this.columnPanels.querySelectorAll('#all-components')[0];
+        return this.columnPanels.querySelectorAll('.raw-components-panel')[0];
     };
 
     getDiagramComponentsMenu() {
@@ -730,17 +730,15 @@ class cimsvg {
             this.hideCornerPanel('.diagrams-panel');
     };
 
-    showMainMenu() {
-        let tables = this.mainMenu.querySelectorAll(".floating-panel-table");
+    toggleMainMenuVisible() {
+        let tables = this.mainMenu.querySelectorAll(".header-panel");
         tables.forEach(function(table){
-            table.classList.remove('invisible');
-        });
-    };
-
-    hideMainMenu() {
-        let tables = this.mainMenu.querySelectorAll(".floating-panel-table");
-        tables.forEach(function(table){
-            table.classList.add('invisible');
+            if (table.classList.contains('invisible')) {
+                table.classList.remove('invisible');
+            }
+            else {
+                table.classList.add('invisible');
+            }
         });
     };
 

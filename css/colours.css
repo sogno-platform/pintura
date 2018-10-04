@@ -23,9 +23,6 @@
 a{
     background-color:transparent;
 }
-.button {
-    background-color:inherit;
-}
 button:hover {
     background-color: rgba(255,255,255,0.5);
 }
