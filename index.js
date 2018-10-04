@@ -20,7 +20,8 @@ let cimsvg = libcimsvg.cimsvg;
 let cimsvgInstance = new cimsvg(
     document.getElementById("svg"),
     document.getElementById("floating-menu"),
-    document.getElementById("corner-panels"),
+    document.getElementById("column-panels"),
+    document.getElementById("main-menu"),
 );
 cimsvg.setCimsvg(cimsvgInstance);
 let contextMenu = new contextmenu(document.getElementById("context-menu"), "context-menu")

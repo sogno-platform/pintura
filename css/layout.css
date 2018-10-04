@@ -357,6 +357,34 @@ ul {
 .context-menu-active {
     display: block;
 }
+#column-panels {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+}
+#diagram-display {
+    position: fixed!important;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+.diagrams-panel {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+}
+.component-types-panel {
+    order: 2;
+}
+.components-panel {
+    order: 3;
+}
+.attributes-panel {
+    order: 4;
+}
 .buttonright {
     padding-right:8px;
 }

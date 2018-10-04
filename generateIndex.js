@@ -180,7 +180,7 @@ const MenuLinks = [
     {
         'text':   'x',
         'name':   '"closemenu"',
-        'action': 'currentCimsvg().hideCornerPanel(\'#main-menu\')',
+        'action': 'currentCimsvg().hideMainMenu()',
         'type':   '"hidden"'
     }
 ];
@@ -249,13 +249,13 @@ var contextmenu = new tag('nav').
 
 var main = new tag('div').a('id', '"main"')
 var cornerSwitches = new tag('div').a('id', '"corner-switches"')
-var cornerPanels = new tag('div').a('id', '"corner-panels"')
+var columnPanels = new tag('div').a('id', '"column-panels"')
 
 const CornerButtons = [
     {
         'name':     '"barmenu-switch"',
         'position': 'topleft',
-        'action':   '"currentCimsvg().showCornerPanel(\'#main-menu\');"',
+        'action':   '"currentCimsvg().showMainMenu();"',
         'icon':     '"fa fa-bars"',
     },
     {
@@ -279,48 +279,38 @@ var make_corner_menu = function(cb) {
                          c(new tag('span').a('class', cb.icon).t(" "))
 }
 
-const CornerPanels = [
+const ColumnPanels = [
     {
-        'name':     'all-components',
-        'position': 'bottomright',
-        'margin':   'rightmargin',
-        'action':    '"currentCimsvg().populateAllComponentsCreationMenu()"',
+        'name':     'diagrams-panel',
     },
     {
-        'name':     'diagram-components',
-        'position': 'bottomleft',
-        'margin':   'leftmargin',
-        'action':   '"currentCimsvg().addDiagram()"',
+        'name':     'component-types-panel',
     },
     {
-        'action':   '"currentCimsvg().addDiagram()"',
-        'name':     'main-menu',
-        'margin':   'leftmargin',
-        'panel':    makeFileMenu(MenuLinks),
-        'position': 'topleft',
+        'name':     'components-panel',
     },
     {
-        'name':     'floating-menu',
-        'position': 'bottomleft',
-        'margin':   'leftmargin',
-        'action':   '"currentCimsvg().hideFloatingMenu(\'#floating-menu\')"',
+        'name':     'attributes-panel',
     }
 ];
 
-var make_corner_panel = function(cp) {
-    let header;
-    if (cp.panel) {
-        header = cp.panel;
-    }
-    else {
-        header = floating_panel_header(cp.name, '"currentCimsvg().hideCornerPanel(\'#' + cp.name + '\')"', cp.action);
-    }
+var make_column_panel = function(cp) {
     let listTag = new tag('div').a('class', '"floating-menu-list"').t(" ")
     let panelTag = new tag('div').
-	           a('id', '"' + cp.name + '"').
+	                     a('class', '"' + cp.name + '"').
+                         c(new tag('div').a('class', '"floating-panel-table invisible"').
+                         c(listTag))
+    return panelTag;
+}
+
+var makeMainMenu = function() {
+    let header = makeFileMenu(MenuLinks);
+    let listTag = new tag('div').a('class', '"floating-menu-list"').t(" ")
+    let panelTag = new tag('div').
+	           a('id', '"main-menu"').
                a('class', '"row-left dialog-over-diagram"').
                c(new tag('div').a('class', '"floating-panel-table invisible"').
-                       c(new tag('div').a('class', '"fullcolumn ' + cp.position + ' ' + cp.margin + '"').
+                       c(new tag('div').a('class', '"fullcolumn topleft leftmargin"').
                                c(new tag('div').a('class', '"spacer"')).
                                c(header).c(listTag)
                         )
@@ -328,7 +318,7 @@ var make_corner_panel = function(cp) {
     return panelTag;
 }
 
-main.c(contextmenu).c(diagram).c(cornerSwitches).c(cornerPanels);
+main.c(contextmenu).c(diagram).c(cornerSwitches).c(columnPanels).c(makeMainMenu());
 
 body.c(main)
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/libcimsvg.js"').t(" "))
@@ -336,9 +326,9 @@ body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t
 html.c(head)
 html.c(body)
 
-CornerPanels.forEach((cp)=>{
-    let cornerPanel = make_corner_panel(cp)
-    cornerPanels.c(cornerPanel);
+ColumnPanels.forEach((cp)=>{
+    let columnPanel = make_column_panel(cp)
+    columnPanels.c(columnPanel);
 });
 
 CornerButtons.forEach((cb)=>{
