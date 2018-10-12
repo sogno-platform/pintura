@@ -10,13 +10,13 @@ const xslt = require('./xslt.js');
 const xmlOpt = '--xmlDir';
 const dbgOpt = '--debug';
 
-const createAddComponentMenuFilename = "xslt_templates/cim_add_components_menu.xslt";
-const createAttributeListFilename = "xslt_templates/cim_xml_scheme.xslt";
-const sortMenuXSLTFilename = "xslt_templates/sort_menu.xslt";
+const createAddComponentMenuFilename = "templates/xslt/cim_add_components_menu.xslt";
+const createAttributeListFilename = "templates/xslt/cim_xml_scheme.xslt";
+const sortMenuXSLTFilename = "templates/xslt/sort_menu.xslt";
 const sortedMenuFilename = "generated/add_components_menu.xml";
 const sortedAllComponentsFilename = "generated/add_all_components_menu.xml";
 const attributeDir = "generated/attributes/";
-const cimedit = require('../src/cimedit.js');
+const cimedit = require('../../src/cimedit.js');
 
 const getOptions = function(args) {
   let options = {};
@@ -154,8 +154,8 @@ const parseOptions = function( args ) {
       process.stderr.write(err.message)
     }
     else {
+      let do_once = true;
       model_versions.forEach(function(dir) {
-        let do_once = true;
         let directory = options[xmlOpt] + '/' + dir + '/*.xsd';
         if (do_once) {
           do_once = false;

@@ -1,9 +1,10 @@
 handlebars.runtime.js
 index.html
-html/*
 generated/template.js
 generated/attributes/*/*.handlebars
 generated/classStructure.js
 node_modules/*
 package-lock.json
 generated/add_components_menu.xml
+cimmenu/node_modules/*
+lib/*

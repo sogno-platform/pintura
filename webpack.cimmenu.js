@@ -17,12 +17,12 @@
  */
 
 const webpack = require('webpack');
-const libraryName = "libcimsvg";
+const libraryName = "libcimmenu";
 
 const browserConfig = {
   context: __dirname,
   devtool: false,
-  entry: "./src/cimsvg.js",
+  entry: "./cimmenu/src/cimmenu.js",
   optimization: { "minimize": true },
   mode: "development",
   output: {
@@ -54,7 +54,7 @@ const browserConfig = {
 const nodeConfig = {
   context: __dirname,
   devtool: false,
-  entry: "./src/cimsvg.js",
+  entry: "./cimmenu/src/cimmenu.js",
   optimization: { "minimize": true },
   mode: "development",
   target: "node",

@@ -1,0 +1,23 @@
+{{#each main as |value title|}}
+    <div id={{button.id}} style="{{{createGridArea @index 0 1 }}}" class="menu-title">
+        <a href="#" class="button wide-button center-button" type="file">{{title}}</a>
+    </div>
+    <div id={{panel.id}} style="{{{createGridArea @index 1 links.length}}}" class="main-menu-panel floating-panel invisible">
+        <div class="floating-panel-table">
+            <div class="floating-menu-list">
+                <ul class="floating-panel-list">
+                    {{#each links}}
+                    <li class="wide-row list-subtitle">
+                        {{#if this.input}}
+                            <input id={{input.id}} type="file" style="display:none" multiple="true"/>
+                        {{/if}}
+                        <a href="#" class="button wide-button" onclick={{a.onclick}}>{{a.text}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+{{/each}}
+
+

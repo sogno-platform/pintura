@@ -28,7 +28,8 @@ const { JSDOM } = jsdom;
 const xmldom = require("xmldom");
 const fs = require("fs");
 
-var libcimsvg = require("../html/libcimsvg.node.js")
+var libcimsvg = require("../lib/libcimsvg.node.js")
+var libcimmenu = require("../lib/libcimmenu.node.js")
 
 /* TODO: stub-only implementation */
 const loadXml = function(fileName, SVGclass, callback) {};
@@ -51,7 +52,7 @@ const getXMLSerializer = function(text) {
     return new xmldom.XMLSerializer();
 };
 
-getMouseCoordFromWindow = function(evt) {
+const getMouseCoordFromWindow = function(evt) {
     return new SVGPoint(evt.clientX, evt.clientY);
 }
 
@@ -71,13 +72,13 @@ describe("cimsvg", function() {
         JSDOM.fromFile("index.html", {}).then(dom => {
             let cimsvg = libcimsvg.cimsvg;
             let svg = dom.window.document.querySelector("#svg")
-            let floatingMenu = dom.window.document.querySelector("#floating-menu")
-            let diagramComponents = dom.window.document.querySelector("#diagram-components")
-            let allComponents = dom.window.document.querySelector("#all-components")
+            let dialog = dom.window.document.querySelector("#dialog")
             spyOn(cimsvg.prototype, "loadXml").and.callFake(loadXml);
-            cimsvgInstance = new cimsvg(svg, floatingMenu, diagramComponents, allComponents)
+            cimsvgInstance = new cimsvg(svg, dialog)
             cimsvg.setCimsvg(cimsvgInstance);
-            spyOn(cimsvgInstance.cimview, "getMouseCoordFromWindow").and.callFake(getMouseCoordFromWindow);
+            let menu = dom.window.document.querySelector("#menu")
+            let cimmenu = new libcimmenu(menu)
+            cimsvgInstance.setCimmenu(cimmenu);
             domReady = dom;
             done();
         });
@@ -87,6 +88,7 @@ describe("cimsvg", function() {
         cimsvgInstance.clearAllData()
         let diagramId = cimsvgInstance.addDiagram();
         cimsvgInstance.setCurrentDiagramId(diagramId);
+        spyOn(cimsvgInstance.cimview, "getMouseCoordFromWindow").and.callFake(getMouseCoordFromWindow);
         done();
     });
 

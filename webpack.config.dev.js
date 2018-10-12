@@ -26,7 +26,7 @@ const browserConfig = {
   optimization: { "minimize": false },
   mode: "development",
   output: {
-    path: __dirname + "/html",
+    path: __dirname + "/lib",
     library: libraryName,
     filename: libraryName + ".js",
   },
@@ -59,7 +59,7 @@ const nodeConfig = {
   mode: "development",
   target: "node",
   output: {
-    path: __dirname + "/html",
+    path: __dirname + "/lib",
     filename: libraryName + ".node.js",
     libraryTarget: "commonjs2",
   },

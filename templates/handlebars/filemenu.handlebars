@@ -1,0 +1,19 @@
+<ul class="floating-panel-list">
+    <li class="wide-row list-subtitle">
+        <input id="fileopen" type="file" style="display:none" multiple="true"/>
+        <a href="#" class="button wide-button" onclick="fileopen.click();cimmenu.hidePanel('fileMenu')">Open file &#x1F5BF;</a>
+    </li>
+    <li class="wide-row list-subtitle">
+        <a href="#" class="button wide-button" type="file" onclick="currentCimsvg().loadUri();cimmenu.hidePanel('fileMenu')">Open link &#x1F517;</a>
+    </li>
+    <li class="wide-row list-subtitle">
+        <input id="filesave" type="hidden" style="display:none"/>
+        <a href="#" class="button wide-button" type="file" onclick="currentCimsvg().saveGridXml();cimmenu.hidePanel('fileMenu')">Save to file &#x1F5BF;</a>
+    </li>
+    <li class="wide-row list-subtitle">
+        <a href="#" class="button wide-button" type="file" onclick="currentCimsvg().saveTemplateJson();cimmenu.hidePanel('fileMenu')">Save JSON &#x1F5BF;</a>
+    </li>
+    <li class="wide-row list-subtitle">
+        <a href="#" class="button wide-button" type="file" onclick="currentCimsvg().saveToUri();cimmenu.hidePanel('fileMenu')">Save to link &#x1F517;</a>
+    </li>
+</ul>

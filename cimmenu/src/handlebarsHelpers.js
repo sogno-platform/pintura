@@ -16,9 +16,22 @@
  *  in the top level directory of this source tree.
  */
 
-let classStructure = require('../generated/classStructure.js');
-let simpleTypes = classStructure.simpleTypes;
-let complexTypes = classStructure.complexTypes;
+import { cs } from './classStructure.js';
+let simpleTypes = cs.simpleTypes;
+let complexTypes = cs.complexTypes;
+import common from './common.js';
+
+Handlebars.registerHelper('createGridArea', function(column, row, height) {
+    let rowStart     = (row + 1).toString();
+    let rowEnd       = (row + 1 + height).toString();
+    let columnStart  = (column + 1).toString();
+    let columnEnd    = (column + 2).toString();
+    
+    return new Handlebars.SafeString("grid-area: " + rowStart +
+                                             " / " + columnStart +
+                                             " / " + rowEnd +
+                                             " / " + columnEnd);
+});
 
 Handlebars.registerHelper('getRdfId', function(object) {
     return new Handlebars.SafeString(currentCimsvg().getRdfResource());
@@ -65,7 +78,7 @@ const complex_type_template = function(type, rdfid, requestedType, matchingCompo
     let template = Handlebars.templates['cim_update_complex_type'];
     let possibleClasses = [ type ];
     possibleClasses = possibleClasses.concat(complexTypes[type]);
-    matchingComponents.aggregates = currentCimsvg().getAggregateComponentsList(requestedType, possibleClasses).aggregates;
+    matchingComponents.aggregates = cimmenu.getAggregateComponentsList(requestedType, possibleClasses).aggregates;
     let targetRdfId;
     if (rdfid && rdfid["rdf:resource"]) {
         targetRdfId = rdfid["rdf:resource"].substr(1)
@@ -118,7 +131,7 @@ Handlebars.registerHelper('getAggregateComponentMenu', function(parentType, pare
         }
         else {
             let requestedType = "cim:" + type;
-            let dropdownId = cimedit.generateUUID();
+            let dropdownId = common.generateUUID();
             let matchingComponents = {
                 'attribute': attribute,
                 'dropdownId': dropdownId,

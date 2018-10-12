@@ -126,14 +126,7 @@ function tag(name){
 }
 var makeFileMenu = function (links) {
   let menu = new tag('div')
-  menu.a('id', '"menu"').a('class', '"invisible"')
-  links.forEach((link)=>{
-    let div = new tag('div').a('id', link['name'])
-    let a = new tag('a').t(link['text']).a('href', '"#"').a('class', '"button"').a('type', '"file"').a('onclick', link['action'])
-    div.c(a)
-    menu.c(div)
-  });
-  return menu;
+  menu.a('id', '"menu"')
 }
 var makeAccordionDiv = function(id, action) {
   return new tag('div').a('id', '"'+id+'"').c(new tag('div').a('id', '"'+id+'-accordion"').t(" "))
@@ -164,27 +157,6 @@ head.c(new tag('meta').a('nam', '"theme-color"').a('content', '"#ffffff"'))
 
 var body = new tag('body')
 
-const MenuLinks = [
-    {
-        'text':   'File',
-        'name':   '"filemenu"',
-        'action': 'currentCimsvg().populateFileLinks()',
-        'type':   '"hidden"'
-    },
-    {
-        'text':   'Diagrams',
-        'name':   '"diagrammenu"',
-        'action': 'currentCimsvg().populateDiagramLinks()',
-        'type':   '"hidden"'
-    },
-    {
-        'text':   'x',
-        'name':   '"closemenu"',
-        'action': 'currentCimsvg().hideMainMenu()',
-        'type':   '"hidden"'
-    }
-];
-
 var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns', '"http://www.w3.org/2000/svg"').
 	          a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
@@ -212,29 +184,6 @@ var radio_input = function(onchange, name, id, text, checked=false) {
     return new tag('a').c(input).c(label)
 };
 
-var floating_panel_header = function(floating_panel_id, close_button_action, component_add_action) {
-    let header = new tag('div').
-	                   a('class', '"wide-row list-title"').
-	                   c(new tag('span').
-                               a('id', '"' + floating_panel_id + '-component-name"').
-                               a('class', '"floating-panel-title button row-left"').
-                               t("title goes here")).
-                       c(spacer()).
-                       c(new tag('span').
-                               a('class', '"button row-right panel-button"').
-                               a('onclick', close_button_action).
-                               t("<b>&times;</b>"))
-    if (component_add_action !== undefined) {
-        header.c(new tag('span').
-                       a('class', '"button row-right panel-button"').
-                       a('onclick', component_add_action).
-                       t("<b>&plus;</b>"))
-    }
-    return header;
-};
-
-var diagram = new tag('div').a('id', '"diagram-display"').a('class', '"row-right"').c(svg)
-
 var contextmenu = new tag('nav').
                       a('id', '"context-menu"').
                       a('class', '"context-menu"').
@@ -247,95 +196,27 @@ var contextmenu = new tag('nav').
                                   a('class').a('onclick', '"currentCimsvg().getContextMenu().removeComponent()"').
                                   t("Delete Component"))))
 
-var main = new tag('div').a('id', '"main"')
-var cornerSwitches = new tag('div').a('id', '"corner-switches"')
-var columnPanels = new tag('div').a('id', '"column-panels"')
-
-const CornerButtons = [
-    {
-        'name':     '"barmenu-switch"',
-        'position': 'topleft',
-        'action':   '"currentCimsvg().toggleMainMenuVisible();"',
-        'icon':     '"fa fa-bars"',
-    },
-    {
-        'name':     '"all-components-switch"',
-        'position': 'bottomright',
-        'action':   '"currentCimsvg().populateAllComponents();"',
-        'icon':     '"fa fa-gears"',
-    },
-    {
-        'name':     '"diagram-components-switch"',
-        'position': 'bottomleft',
-        'action':   '"currentCimsvg().populateDiagramLinks();"',
-        'icon':     '"fa fa-cubes"',
-    }
-];
-
-var make_corner_menu = function(cb) {
-    return new tag('span').a('id', cb.name).
-                         a('class', '"switch button row-right ' + cb.position + '"').
-                         a('onclick', cb.action).
-                         c(new tag('span').a('class', cb.icon).t(" "))
-}
-
-const ColumnPanels = [
-    {
-        'name':     'diagrams-panel',
-    },
-    {
-        'name':     'components-panel',
-    },
-    {
-        'name':     'attributes-panel',
-    },
-    {
-        'name':     'raw-components-panel',
-    },
-];
-
-var make_column_panel = function(cp) {
-    let listTag = new tag('div').a('class', '"floating-menu-list"').t(" ")
-    let panelTag = new tag('div').
-	                     a('class', '"' + cp.name + '"').
-                         c(new tag('div').a('class', '"floating-panel-table invisible"').
-                         c(spacer()).
-                         c(listTag))
-    return panelTag;
-}
+var menu = new tag('div').a('id', '"menu"')
 
 var spacer  = function() {
     return new tag('div').a('class', '"spacer"');
 }
-var makeMainMenu = function() {
-    let header = makeFileMenu(MenuLinks);
-    let listTag = new tag('div').a('class', '"floating-menu-list"').t(" ")
-    let panelTag = new tag('div').
-	           a('id', '"main-menu"').
-               a('class', '"row-left dialog-over-diagram"').
-               c(new tag('div').a('class', '"header-panel invisible"').
-                       c(header).c(listTag)
-                )
-    return panelTag;
-}
 
-main.c(contextmenu).c(diagram).c(cornerSwitches).c(makeMainMenu()).c(spacer().a('order', '"1"')).c(columnPanels);
-
-body.c(main)
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"html/libcimsvg.js"').t(" "))
+body.c(menu).c(svg)
+body.c(new tag('div').
+             a('id', '"new-component-dialog"').a('class', '"invisible"').
+             c(new tag('div').
+                     a('class', '"dialog-title"')).
+             c(new tag('div').
+                     a('class', '"dialog-list"')));
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"lib/libcimsvg.js"').t(" "))
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"lib/libcimmenu.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
+let initScript = "var cimmenu = new cimmenu(document.getElementById('menu'));currentCimsvg().setCimmenu(cimmenu);"
+body.c(new tag('script').a('type', '"text/javascript"').t(initScript))
+body.a('onmouseover', '"cimmenu.hideAllMenuPanels();"')
 html.c(head)
 html.c(body)
-
-ColumnPanels.forEach((cp)=>{
-    let columnPanel = make_column_panel(cp)
-    columnPanels.c(columnPanel);
-});
-
-CornerButtons.forEach((cb)=>{
-    let cornerButton = make_corner_menu(cb);
-    cornerSwitches.c(cornerButton);
-});
 
 console.log(`<!--
     Copyright © 2016-2017, RWTH Aachen University

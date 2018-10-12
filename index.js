@@ -19,9 +19,7 @@
 let cimsvg = libcimsvg.cimsvg;
 let cimsvgInstance = new cimsvg(
     document.getElementById("svg"),
-    document.getElementById("floating-menu"),
-    document.getElementById("column-panels"),
-    document.getElementById("main-menu"),
+    document.getElementById("new-component-dialog"),
 );
 cimsvg.setCimsvg(cimsvgInstance);
 let contextMenu = new contextmenu(document.getElementById("context-menu"), "context-menu")
@@ -51,24 +49,6 @@ document.oncontextmenu = function(e){
         e.stopPropagation();
     }
 }
-const readFile=function(e) {
-    let files = e.target.files;
-    if (files) {
-        currentCimsvg().clearAllData()
-        currentCimsvg().setFileCount(files.length);
-        Array.from(files).forEach((file)=>{
-            if (!file) {
-                return;
-            }
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                let contents = e.target.result;
-                currentCimsvg().loadFile(contents);
-            };
-            reader.readAsText(file);
-        });
-    }
-};
 
 var updateComponent = function(type, id, attribute, value) {
     currentCimsvg().updateComponent(type, id, attribute, value)

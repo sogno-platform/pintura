@@ -15,32 +15,3 @@
  *  A copy of the GNU General Public License is in the LICENSE file
  *  in the top level directory of this source tree.
  */
-
-a{
-    background-color:transparent;
-}
-button:hover {
-    background-color: rgba(255,255,255,0.5);
-}
-.floating-panel-list {
-    background: rgba(0, 0, 0, 0.0);
-    border:none;
-}
-#sidebar {
-    background: #6EA2B0;
-    border-right: 2px solid #6EA2B0;
-    border-bottom: 2px solid #6EA2B0;
-}
-.list-title {
-    background: white;
-    color: black;
-}
-.list-subtitle {
-    background: white;
-    color: grey;
-    padding: 0px;
-}
-.list-entry {
-    color: blue;
-    background: white;
-}

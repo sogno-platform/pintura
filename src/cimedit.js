@@ -19,7 +19,7 @@
 class cimedit {
 
     static makeDiagram(newStuff) {
-        let id = cimedit.generateUUID();
+        let id = common.generateUUID();
         let counter = currentCimsvg().getNameCounter("cim:Diagram");
         let diagram = {
            "cim:Diagram.orientation" : {
@@ -31,25 +31,6 @@ class cimedit {
         return id;
     };
 
-    /*
-     * Start of Public Domain/MIT section.
-     * Taken from https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
-     */
-    static generateUUID() {
-        let d = new Date().getTime();
-        if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
-            d += performance.now(); //use high-precision timer if available
-        }
-        return 'idxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            let r = (d + Math.random() * 16) % 16 | 0;
-            d = Math.floor(d / 16);
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-        });
-    }
-    /*
-     * End of Public Domain/MIT function
-     */
-
     static addCategorizedItem(object, category, id, item) {
         if (!object[category]) {
             object[category] = {};
@@ -59,7 +40,7 @@ class cimedit {
     };
 
     static makeVisibleComponent(diagramId, graph, type, point, attributes, terminalConfig) {
-        let id = cimedit.generateUUID();
+        let id = common.generateUUID();
         let componentPoints = [];
         let terminalPoints = [];
         let terminalIds = [];
@@ -202,7 +183,7 @@ class cimedit {
     };
 
     static makeTerminal(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point) {
-        let id = cimedit.generateUUID();
+        let id = common.generateUUID();
         let counter = currentCimsvg().getNameCounter("cim:Terminal");
         let diagramObjectId = cimedit.makeDiagramObjectWithPoints(newStuff, diagramId, id, [ point ]);
         let terminal = {
@@ -230,7 +211,7 @@ class cimedit {
     };
 
     static makeDiagramObject(newStuff, diagramId, identifiedObjectId) {
-        let id = cimedit.generateUUID();
+        let id = common.generateUUID();
         let counter = currentCimsvg().getNameCounter("cim:DiagramObject");
         let diagramObject = {
             "cim:DiagramObject.Diagram": {
@@ -257,7 +238,7 @@ class cimedit {
             "cim:DiagramObjectPoint.yPosition" : y,
             "cim:IdentifiedObject.name" : "diagram object point " + counter.toString(),
         };
-        let id = cimedit.generateUUID();
+        let id = common.generateUUID();
         cimedit.addCategorizedItem(newStuff, "cim:DiagramObjectPoint", id, diagramObjectPoint);
         return id;
     };
@@ -268,7 +249,7 @@ class cimedit {
             "cim:IdentifiedObject.name": type.toString() + counter,
             "diagram": diagramId,
         };
-        let id = cimedit.generateUUID();
+        let id = common.generateUUID();
         cimedit.addCategorizedItem(jsonBaseData, type, id, aggregateComponent);
         return id;
     };
@@ -278,7 +259,7 @@ class cimedit {
         let aggregateComponent = {
             "cim:IdentifiedObject.name": type.toString() + counter,
         };
-        let id = cimedit.generateUUID();
+        let id = common.generateUUID();
         cimedit.addCategorizedItem(jsonBaseData, type, id, aggregateComponent);
         return id;
     };
