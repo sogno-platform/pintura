@@ -26,31 +26,28 @@ if (typeof module !== 'undefined' && module.exports) {
 class cimmenu {
 
     constructor(node) {
-        this.menuNode        = node;
-        this.template        = Handlebars.templates['menu'];
-        node.innerHTML       = this.template('');
-        this.diagramsPanel   = this.menuNode.querySelectorAll('.diagrams-panel')[0];
-        this.componentsPanel = this.menuNode.querySelectorAll('.components-panel')[0];
-        this.attributesPanel = this.menuNode.querySelectorAll('.attributes-panel')[0];
-        this.fileMenu        = this.menuNode.querySelectorAll('#file-menu-panel')[0];
-        this.mainMenu        = this.menuNode.querySelector('#main-menu');
+        this.menuNode                = node;
+        this.template                = Handlebars.templates['menu'];
+        node.innerHTML               = this.template('');
         this.panels = {
-            'diagramsPanel'   : this.menuNode.querySelectorAll('.diagrams-panel')[0],
-            'componentsPanel' : this.menuNode.querySelectorAll('.components-panel')[0],
-            'attributesPanel' : this.menuNode.querySelectorAll('.attributes-panel')[0],
-            'mainMenu'        : this.menuNode.querySelector('#main-menu'),
+            'diagramsPanel'          : this.menuNode.querySelectorAll('.diagrams-panel')[0],
+            'componentsPanel'        : this.menuNode.querySelectorAll('.components-panel')[0],
+            'attributesPanel'        : this.menuNode.querySelectorAll('.attributes-panel')[0],
+            'allComponentsPanel'     : this.menuNode.querySelectorAll('.all-components-panel')[0],
+            'mainMenu'               : this.menuNode.querySelector('#main-menu'),
             'file-menu-panel'        : null,
             'diagram-menu-panel'     : null,
         }
-        this.diagramId       = null;
-        this.templateJson    = null;
+        this.diagramId               = null;
+        this.templateJson            = null;
         this.populateFileLinks();
         this.addEventListeners(this.menuNode);
     };
 
     addEventListeners(node) {
-        let menuArray = Object.values(cimmenu.menuStructure.main);
-        menuArray.forEach((menu)=>{
+        let keys = Object.keys(cimmenu.menuStructure.main);
+        keys.forEach((key)=>{
+            let menu = cimmenu.menuStructure.main[key];
             node.querySelector('#' + menu.button.id).addEventListener("mouseover", (evt)=>{
                 this.hideAllMenuPanels();
                 this.showPanel(menu.panel.id);
@@ -61,9 +58,9 @@ class cimmenu {
             });
             this.panels[menu.panel.id] = this.menuNode.querySelector('#' + menu.panel.id);
         })
-    };
-
-    hideIcon(iconId) {
+        if(typeof window !== undefined) {
+            this.resizeListener(window);
+        }
     };
 
     update(templateJson) {
@@ -72,11 +69,11 @@ class cimmenu {
     };
 
     toggleMainMenuVisible() {
-        if (this.mainMenu.classList.contains('invisible')) {
-            this.mainMenu.classList.remove('invisible');
+        if (this.panels.mainMenu.classList.contains('invisible')) {
+            this.panels.mainMenu.classList.remove('invisible');
         }
         else {
-            this.mainMenu.classList.add('invisible');
+            this.panels.mainMenu.classList.add('invisible');
         }
     };
 
@@ -110,6 +107,21 @@ class cimmenu {
         }
     };
 
+    updateComponent(type, id, attribute, value) {
+        if (attribute === "cim:IdentifiedObject.name") {
+            let buttonId = '#' + id + "-sidebar-button"
+            if(this.panels.componentsPanel) {
+                let button = this.panels.componentsPanel.querySelector(buttonId)
+                console.log(buttonId, button)
+                button.innerHTML = value;
+            }
+        }
+    };
+
+    populateAllComponentsCreationMenu() {
+        this.populatePanelWithData(this.panels.allComponentsPanel, this.allComponentsCreationHtml, "Add Component");
+    };
+
     populateFileLinks() {
         let template = Handlebars.templates['menu-json'];
         let items = template(cimmenu.menuStructure);
@@ -137,9 +149,15 @@ class cimmenu {
     }
 
     hideAllMenuPanels() {
-        let menuPanels = this.mainMenu.querySelectorAll('.main-menu-panel');
+        let menuPanels = this.panels.mainMenu.querySelectorAll('.main-menu-panel');
         menuPanels.forEach((panel)=>{
             panel.classList.add('invisible');
+        });
+    }
+
+    hidePanels(panels) {
+        panels.forEach((panelClass)=>{
+            this.panels[panelClass].classList.add('invisible');
         });
     }
 
@@ -153,31 +171,31 @@ class cimmenu {
     };
 
     toggleDiagramComponentsVisibility() {
-        if (this.diagramsPanel.classList.contains('invisible')) {
-            this.diagramsPanel.classList.remove('invisible');
+        if (this.panels.diagramsPanel.classList.contains('invisible')) {
+            this.panels.diagramsPanel.classList.remove('invisible');
         }
         else {
-            this.diagramsPanel.classList.add('invisible');
+            this.panels.diagramsPanel.classList.add('invisible');
         }
     };
 
     toggleDiagramComponentListVisibility(diagramId) {
         let accordionId = '#' + diagramId + '-accordion';
-        let accordionNode = this.diagramsPanel.querySelector(accordionId);
+        let accordionNode = this.panels.diagramsPanel.querySelector(accordionId);
         if (accordionNode.classList.contains('invisible')) {
             accordionNode.classList.remove('invisible');
         }
         else {
             accordionNode.classList.add('invisible');
         }
-        let rows = cimmenu.calculatePanelHeight(this.diagramsPanel)
-        cimmenu.updateGridLocation(this.diagramsPanel, 1, 1, rows);
+        let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel)
+        cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
     };
 
     populateDiagramComponents() {
-        cimmenu.populatePanelWithTemplate(this.diagramsPanel, this.templateJson, 'pinturaJson2DiagramList', "Diagram Components");
-        let rows = cimmenu.calculatePanelHeight(this.diagramsPanel)
-        cimmenu.updateGridLocation(this.diagramsPanel, 1, 1, rows);
+        cimmenu.populatePanelWithTemplate(this.panels.diagramsPanel, this.templateJson, 'pinturaJson2DiagramList', "Diagram Components");
+        let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel)
+        cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
     };
 
     populateComponentsListForDiagramAndComponentType(diagramId, componentType) {
@@ -185,10 +203,10 @@ class cimmenu {
         if (components) {
             this.diagramId = diagramId;
             let justTheseComponents = { "Diagram": { [diagramId]: { 'components': { [componentType]: components } } } };
-            if(this.componentsPanel != null) {
-                cimmenu.populatePanelWithTemplate(this.componentsPanel, justTheseComponents, 'pinturaJson2ComponentOfTypeList', "Component Types");
+            if(this.panels.componentsPanel != null) {
+                cimmenu.populatePanelWithTemplate(this.panels.componentsPanel, justTheseComponents, 'pinturaJson2ComponentOfTypeList', "Component Types");
             }
-            cimmenu.updateGridLocation(this.componentsPanel, 2, 1, Object.keys(components).length);
+            cimmenu.updateGridLocation(this.panels.componentsPanel, 2, 1, Object.keys(components).length);
         }
         this.showPanel('componentsPanel');
     };
@@ -243,8 +261,47 @@ class cimmenu {
         }
     };
 
+    unselectAllInPanel(panelName) {
+        let buttons = this.panels[panelName].querySelectorAll('.selected');
+        buttons.forEach((button)=> {
+            button.classList.remove('selected');
+        });
+    };
+
+    resizeListener(_window) {
+        _window.onresize = function(e) {
+            console.log(e.clientHeight);
+            //this.
+        }
+    };
+
+    componentTypeSelected(htmlNode, diagramId, type) {
+        if (htmlNode.classList.contains('selected')) {
+            htmlNode.classList.remove('selected');
+            this.hidePanels(['componentsPanel', 'attributesPanel']);
+        }
+        else {
+            this.unselectAllInPanel('diagramsPanel');
+            this.hidePanel('attributesPanel');
+            htmlNode.classList.add('selected');
+            this.populateComponentsListForDiagramAndComponentType(diagramId, type)
+        }
+    };
+
+    componentInstanceSelected(htmlNode, typeName, componentId) {
+        if(htmlNode.selected) {
+            this.panels.attributesPanel.classList.add('invisible');
+            htmlNode.classList.remove('selected');
+        }
+        else {
+            this.unselectAllInPanel('componentsPanel');
+            this.populateAttributes(typeName, componentId);
+            htmlNode.classList.add('selected');
+        }
+    };
+
     populateAttributes (type, id) {
-        this.populate(this.attributesPanel, type, "cim16", id);
+        this.populate(this.panels.attributesPanel, type, currentCimsvg().getCimVersionFolder(), id);
     };
 
     populate(node, type, cimVersion, id) {
@@ -265,7 +322,7 @@ class cimmenu {
         let template = Handlebars.templates[templatePath];
         let data = template(attributes);
         cimmenu.populatePanelWithData(node, data, "Attributes");
-        cimmenu.updateGridLocation(this.attributesPanel, 3, 1, 9);
+        cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
         this.showPanel('attributesPanel');
     };
 

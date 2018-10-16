@@ -27,6 +27,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const xmldom = require("xmldom");
 const fs = require("fs");
+global.window = { clientWidth: 300, clientHeight: 300 };
 
 var libcimsvg = require("../lib/libcimsvg.node.js")
 var libcimmenu = require("../lib/libcimmenu.node.js")

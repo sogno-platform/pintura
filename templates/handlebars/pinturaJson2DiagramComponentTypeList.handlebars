@@ -1,9 +1,0 @@
-<ul class="floating-panel-list">
-    {{#each Diagram as |value diagramId|}}
-        {{#each components as |value typeName|}}
-            <li class="wide-row list-subtitle" onclick="currentCimsvg().populateComponentsOfTypeListForDiagramAndComponentType('{{diagramId}}', '{{typeName}}');">
-                <span class="button indent row-left"><span class="fa fa-cubes"></span>  {{typeName}}</span>
-            </li>
-        {{/each}}
-    {{/each}}
-</ul>

@@ -198,7 +198,7 @@ class cimsvg {
     };
 
     getAllComponentsMenu() {
-        return this.columnPanels.querySelectorAll('.raw-components-panel')[0];
+        return this.columnPanels.querySelectorAll('.all-components-panel')[0];
     };
 
     getDiagramComponentsMenu() {
@@ -358,10 +358,6 @@ class cimsvg {
         this.showDialog();
     };
 
-    populateAllComponentsCreationMenu() {
-        cimmenu.populatePanelWithData(this.floatingMenu, this.allComponentsCreationHtml, "Add Component");
-    };
-
     populateTerminals(type, rdfid) {
         cimmenu.populateTerminals(this.floatingMenu, type, this.getCimVersionFolder(), rdfid)
     };
@@ -478,20 +474,14 @@ class cimsvg {
     };
 
     updateComponent(type, id, attribute, value) {
-        cimxml.updateComponentInBaseJson(type, id, attribute, value)
-        if (attribute === "cim:IdentifiedObject.name") {
-            let buttonId = '#' + id + "-sidebar-button"
-            let diagramComponents = this.getColumnPanel('.diagrams-panel');
-            if(diagramComponents != null) {
-                let button = diagramComponents.querySelector(buttonId)
-                button.innerHTML = value;
-            }
-        }
+        cimxml.updateComponentInBaseJson(type, id, attribute, value);
+        cimmenu.updateComponent(type, id, attribute, value);
     };
 
     updateComponentRDF(type, id, attribute, rdfid) {
         let value = { "rdf:resource" : "#" + rdfid }
         cimxml.updateComponentInBaseJson(type, id, attribute, value)
+        this.cimmenu.updateComponent(type, id, attribute, value);
         if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
             let baseJson = this.getBaseJson();
             cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);
@@ -503,7 +493,7 @@ class cimsvg {
 
     toggleDiagramVisible(id, icon) {
         let diagram = this.svgNode.querySelector('#' + id);
-        let diagramComponents = cimmenu.panels['diagramsPanel'];
+        let diagramComponents = this.cimmenu.panels['diagramsPanel'];
         if(diagramComponents != null) {
             let iconNode = diagramComponents.querySelector('#' + icon);
             if (diagram.classList.contains('invisible')) {

@@ -20,16 +20,31 @@ a{
     background-color:transparent;
 }
 button:hover {
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgb(125,125,125);
+}
+button,input,select,textarea{
+    border: thin solid black;
+    background: white;
+    color: black;
+}
+.menu-title {
+    background: white;
+}
+.dialog-list {
+    background: white;
+}
+.middle-dialog {
+    background: white;
+}
+.context-menu-item {
+    background-color: #fff;
+}
+.context-menu-item:active,.context-menu-item:hover{
+    background-color: #ccf;
 }
 .floating-panel-list {
     background: rgba(0, 0, 0, 0.0);
     border:none;
-}
-#sidebar {
-    background: #6EA2B0;
-    border-right: 2px solid #6EA2B0;
-    border-bottom: 2px solid #6EA2B0;
 }
 .list-title {
     background: white;
@@ -37,10 +52,14 @@ button:hover {
 }
 .list-subtitle {
     background: white;
-    color: grey;
-    padding: 0px;
+    color: black;
 }
 .list-entry {
-    color: blue;
+    color: black;
     background: white;
+    border-left: 12px solid lightgrey;
 }
+.selected {
+    background: lightgrey;
+}
+

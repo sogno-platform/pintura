@@ -203,12 +203,24 @@ var spacer  = function() {
 }
 
 body.c(menu).c(svg)
+
+var vert_centre = new tag('div').a('class', '"middle-dialog"').
+                          c(new tag('div').a('class', '"spacer"')).
+                          c(new tag('div').c(new tag('h4').a('class', '"dialog-title"'))).
+                          c(new tag('div').a('class', '"spacer"')).
+                          c(new tag('div').a('class', '"dialog-list"')).
+                          c(new tag('div').a('class', '"spacer"'));
+
+var page_centre = new tag('div').a('class', '"middle-panel"').
+                          c(new tag('div').a('class', '"spacer"')).
+                          c(vert_centre).
+                          c(new tag('div').a('class', '"spacer"'));
+
 body.c(new tag('div').
-             a('id', '"new-component-dialog"').a('class', '"invisible"').
-             c(new tag('div').
-                     a('class', '"dialog-title"')).
-             c(new tag('div').
-                     a('class', '"dialog-list"')));
+             a('id', '"new-component-dialog"').a('class', '"new-component-dialog invisible"').
+             c(new tag('div').a('class', '"spacer"')).
+                      c(page_centre).
+             c(new tag('div').a('class', '"spacer"')));
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"lib/libcimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"lib/libcimmenu.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
