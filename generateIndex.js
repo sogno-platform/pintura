@@ -184,17 +184,6 @@ var radio_input = function(onchange, name, id, text, checked=false) {
     return new tag('a').c(input).c(label)
 };
 
-var contextmenu = new tag('nav').
-                      a('id', '"context-menu"').
-                      a('class', '"context-menu"').
-                      a('onmouseup', '"onBodyMouseUp()"').
-                      c(new tag('ul').
-                          a('class', '"context-menu-items"').
-                          c(new tag('li').
-                              a('class', '"context-menu-item"').
-                              c(new tag('a').
-                                  a('class').a('onclick', '"currentCimsvg().getContextMenu().removeComponent()"').
-                                  t("Delete Component"))))
 
 var menu = new tag('div').a('id', '"menu"')
 
@@ -224,9 +213,9 @@ body.c(new tag('div').
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"lib/libcimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"lib/libcimmenu.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
-let initScript = "var cimmenu = new cimmenu(document.getElementById('menu'));currentCimsvg().setCimmenu(cimmenu);"
+let initScript = "var cimmenuInstance = new cimmenu(document.getElementById('menu'));"
 body.c(new tag('script').a('type', '"text/javascript"').t(initScript))
-body.a('onmouseover', '"cimmenu.hideAllMenuPanels();"')
+body.a('onmouseover', '"currentCimmenu().hideAllMenuPanels();"')
 html.c(head)
 html.c(body)
 

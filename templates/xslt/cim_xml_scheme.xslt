@@ -30,7 +30,7 @@
                 <xsl:variable name="parentId">
                     <xsl:value-of select="concat($lsq, 'pintura:rdfid', $rsq)"/>
                 </xsl:variable>
-                <li class="wide-row floating-panel-item list-subtitle">
+                <li class="wide-row floating-panel-item list-entry">
                     <xsl:text>&#xa;        </xsl:text>
                     <span class="row-left floating-panel-name">IdentifiedObject.name</span>
                     <xsl:text>&#xa;        </xsl:text>
@@ -58,7 +58,7 @@
                         <xsl:variable name="attribute_name">
                             <xsl:value-of select="concat($type, '.', @name)"/>
                         </xsl:variable>
-                        <li class="wide-row floating-panel-item list-subtitle">
+                        <li class="wide-row floating-panel-item list-entry">
                             <xsl:text>&#xa;        </xsl:text>
                             <span class="row-left floating-panel-name">
                                 <xsl:value-of select="$attribute_name"/>

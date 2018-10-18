@@ -21,11 +21,6 @@ let cimsvgInstance = new cimsvg(
     document.getElementById("svg"),
     document.getElementById("new-component-dialog"),
 );
-cimsvg.setCimsvg(cimsvgInstance);
-let contextMenu = new contextmenu(document.getElementById("context-menu"), "context-menu")
-contextMenu.resizeListener(window);
-contextMenu.keyUpListener(window);
-cimsvgInstance.setContextMenu(contextMenu);
 
 let urlTokens = window.location.href.split('?')
 let pairs = urlTokens.slice(1)
@@ -114,28 +109,9 @@ var onBodyMouseUp = function(evt){
     contextMenu.toggleMenuOff();
 };
 var onMouseUp = function(evt){
-    let rightclick;
-    if (evt.which) {
-        rightclick = (evt.which == 3);
+    if (currentCimmenu()) {
+        currentCimmenu().onMouseUp(evt);
     }
-    else if (evt.button) {
-        rightclick = (evt.button == 2);
-    }
-    let id = evt.currentTarget.id.slice(0,-5);
-    let type = evt.currentTarget.parentElement.getAttribute("type");
-    if (rightclick) {
-        contextMenu.setComponent(type, id);
-        let pos = {x: evt.clientX, y: evt.clientY};
-        contextMenu.positionMenu(pos, "context-menu");
-        contextMenu.toggleMenuOn("context-menu")
-    }
-    else {
-        let type = evt.currentTarget.parentElement.getAttribute("type");
-        currentCimsvg().populateAttributes(type, id);
-        currentCimsvg().showFloatingMenu();
-        contextMenu.toggleMenuOff();
-    }
-    evt.stopPropagation();
 };
 var onMouseMove = function(){
 };

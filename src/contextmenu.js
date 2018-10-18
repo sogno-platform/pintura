@@ -19,6 +19,9 @@
 class contextmenu {
 
     constructor(menu, label) {
+        if (menu === undefined || menu === null) {
+            console.error("Menu constructed with invalid node");
+        }
         this.menuList = { [label]: menu };
         this.menuState = {};
         this.id;
@@ -26,20 +29,11 @@ class contextmenu {
     }
 
     keyUpListener(_window) {
-        _window.onkeyup = function(e) {
+        _window.onkeyup = (e)=> {
             if ( e.keyCode === 27 ) {
                 this.toggleMenuOff();
             }
         }
-    }
-
-    /*
-     * Window resize event listener
-     */
-    resizeListener(_window) {
-        _window.onresize = function(e) {
-            this.toggleMenuOff();
-        };
     }
 
     /*

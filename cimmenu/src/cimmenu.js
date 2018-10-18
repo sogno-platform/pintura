@@ -42,6 +42,64 @@ class cimmenu {
         this.templateJson            = null;
         this.populateFileLinks();
         this.addEventListeners(this.menuNode);
+        this.calculateScreenHeight();
+        currentCimsvg().setCimmenu(this);
+        cimmenu.setCimmenu(this);
+        this.contextMenu = new contextmenu(this.menuNode.querySelector('#context-menu'), "context-menu")
+        this.contextMenu.keyUpListener(window);
+    };
+
+    calculateScreenHeight() {
+        let bottomHalfHeight = this.menuNode.clientHeight / 2;
+        let numberOfRowsFloat = bottomHalfHeight / 40;
+        this.componentPanelGridHeight = Math.round(numberOfRowsFloat);
+    };
+
+    static updateGridLocation (node, column, row, length) {
+        let area = row.toString() + " / " + column.toString() + " / " + (row + length).toString() + " / " + (column + 1).toString();
+        node.style.gridArea = area;
+    };
+
+    onMouseUp(evt) {
+        let rightclick;
+        if (evt.which) {
+            rightclick = (evt.which == 3);
+        }
+        else if (evt.button) {
+            rightclick = (evt.button == 2);
+        }
+        let id = evt.currentTarget.id.slice(0,-5);
+        let type = evt.currentTarget.parentElement.getAttribute("type");
+        if (rightclick) {
+            this.contextMenu.setComponent(type, id);
+            let pos = {x: evt.clientX, y: evt.clientY};
+            this.contextMenu.positionMenu(pos, "context-menu");
+            this.contextMenu.toggleMenuOn("context-menu")
+        }
+        else {
+            let type = evt.currentTarget.parentElement.getAttribute("type");
+            let diagramId = evt.currentTarget.parentElement.getAttribute('diagram-id');
+            if (diagramId && type && id) {
+                this.redrawMenu(diagramId, type, id);
+            }
+            this.contextMenu.toggleMenuOff();
+        }
+        evt.stopPropagation();
+    }
+
+    redrawMenu(diagramId, type, id) {
+        this.diagramId = diagramId;
+        this.showPanel('diagramsPanel');
+        this.showDiagramComponentListVisibility(diagramId);
+        this.populateAttributes(type, id);
+        this.populateComponentsListForDiagramAndComponentType(diagramId, type);
+    }
+
+    resizeListener(_window) {
+        _window.onresize = (e)=> {
+            this.componentPanelGridHeight = this.calculateScreenHeight();
+            this.contextMenu.toggleMenuOff();
+        }
     };
 
     addEventListeners(node) {
@@ -112,7 +170,6 @@ class cimmenu {
             let buttonId = '#' + id + "-sidebar-button"
             if(this.panels.componentsPanel) {
                 let button = this.panels.componentsPanel.querySelector(buttonId)
-                console.log(buttonId, button)
                 button.innerHTML = value;
             }
         }
@@ -127,11 +184,6 @@ class cimmenu {
         let items = template(cimmenu.menuStructure);
         this.panels['mainMenu'].innerHTML = items;
         this.panels['mainMenu'].querySelectorAll('#fileopen').forEach((elem)=>{ elem.addEventListener('change', cimmenu.readFile, false); });
-    };
-
-    static updateGridLocation (node, column, row, length) {
-        let area = row.toString() + " / " + column.toString() + " / " + (row + length).toString() + " / " + (column + 1).toString();
-        node.style.gridArea = area;
     };
 
     showFileMenu(evt) {
@@ -192,10 +244,45 @@ class cimmenu {
         cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
     };
 
+    showDiagramComponentListVisibility(diagramId) {
+        let accordionId = '#' + diagramId + '-accordion';
+        let accordionNode = this.panels.diagramsPanel.querySelector(accordionId);
+        accordionNode.classList.remove('invisible');
+        let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel)
+        cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
+    };
+
     populateDiagramComponents() {
         cimmenu.populatePanelWithTemplate(this.panels.diagramsPanel, this.templateJson, 'pinturaJson2DiagramList', "Diagram Components");
         let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel)
         cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
+    };
+
+    decideWhichRow(prevColumnSelected, numberOfRows) {
+        let rowIndex = 1;
+        let halfOfRows = parseInt(numberOfRows / 2);
+        let rowsBetweenSelectedAndBottom = prevColumnSelected + numberOfRows;
+
+        if (numberOfRows >= this.componentPanelGridHeight) {
+        }
+        else {
+            if (rowsBetweenSelectedAndBottom >= this.componentPanelGridHeight) {
+                rowIndex = this.componentPanelGridHeight - numberOfRows;
+            }
+            if (halfOfRows < prevColumnSelected) {
+                rowIndex = prevColumnSelected - halfOfRows;
+            }
+        }
+
+        /* Safety checks */
+        if (rowIndex < 0) {
+            rowIndex = 1;
+        }
+        if (rowIndex > this.componentPanelGridHeight) {
+            console.error("Correcting excessive row index");
+            rowIndex = 1;
+        }
+        return rowIndex;
     };
 
     populateComponentsListForDiagramAndComponentType(diagramId, componentType) {
@@ -206,7 +293,17 @@ class cimmenu {
             if(this.panels.componentsPanel != null) {
                 cimmenu.populatePanelWithTemplate(this.panels.componentsPanel, justTheseComponents, 'pinturaJson2ComponentOfTypeList', "Component Types");
             }
-            cimmenu.updateGridLocation(this.panels.componentsPanel, 2, 1, Object.keys(components).length);
+            let prevRowIndex = 2;
+            let buttons = this.panels['diagramsPanel'].querySelectorAll('.list-subtitle');
+            buttons.forEach((button, index)=>{
+                if (button.classList.contains('selected')) {
+                    prevRowIndex += index;
+                }
+            });
+            let numberOfRows = Object.keys(components).length;
+            let gridRowIndex = this.decideWhichRow(prevRowIndex, numberOfRows);
+            let maxRow = (numberOfRows > this.componentPanelGridHeight) ? this.componentPanelGridHeight : numberOfRows;
+            cimmenu.updateGridLocation(this.panels.componentsPanel, 2, gridRowIndex, maxRow);
         }
         this.showPanel('componentsPanel');
     };
@@ -266,13 +363,6 @@ class cimmenu {
         buttons.forEach((button)=> {
             button.classList.remove('selected');
         });
-    };
-
-    resizeListener(_window) {
-        _window.onresize = function(e) {
-            console.log(e.clientHeight);
-            //this.
-        }
     };
 
     componentTypeSelected(htmlNode, diagramId, type) {
@@ -342,6 +432,14 @@ class cimmenu {
         return aggregateComponents;
     };
 
+    static getCimmenu() {
+        return cimmenu.currentCimmenuClass;
+    };
+
+    static setCimmenu(cimmenuClass) {
+        cimmenu.currentCimmenuClass = cimmenuClass;
+    };
+
     static populateTerminals (node, type, cimVersion, rdfid) {
         let title = "Terminal List";
         let titleNode = node.querySelectorAll('.floating-panel-title')
@@ -392,13 +490,13 @@ cimmenu.menuStructure = {
                         'id': 'fileopen',
                     },
                     'a': {
-                        'onclick' : "fileopen.click();cimmenu.hidePanel('file-menu-panel')",
+                        'onclick' : "fileopen.click();currentCimmenu().hidePanel('file-menu-panel')",
                         'text' : 'Open file 🖿',
                     }
                 },
                 {
                     'a': {
-                        'onclick' : "currentCimsvg().loadUri();cimmenu.hidePanel('file-menu-panel')",
+                        'onclick' : "currentCimsvg().loadUri();currentCimmenu().hidePanel('file-menu-panel')",
                         'text' : "Open link 🔗",
                     }
                 },
@@ -407,19 +505,19 @@ cimmenu.menuStructure = {
                         'id': 'filesave',
                     },
                     'a': {
-                        'onclick' : "currentCimsvg().saveGridXml();cimmenu.hidePanel('file-menu-panel')",
+                        'onclick' : "currentCimsvg().saveGridXml();currentCimmenu().hidePanel('file-menu-panel')",
                         'text' : "Save to file 🖿",
                     }
                 },
                 {
                     'a': {
-                        'onclick' : "currentCimsvg().saveTemplateJson();cimmenu.hidePanel('file-menu-panel')",
+                        'onclick' : "currentCimsvg().saveTemplateJson();currentCimmenu().hidePanel('file-menu-panel')",
                         'text' : "Save JSON  🖿",
                     }
                 },
                 {
                     'a': {
-                        'onclick' : "currentCimsvg().saveToUri();cimmenu.hidePanel('file-menu-panel')",
+                        'onclick' : "currentCimsvg().saveToUri();currentCimmenu().hidePanel('file-menu-panel')",
                         'text' : "Save to link 🔗",
                     }
                 },
@@ -435,7 +533,7 @@ cimmenu.menuStructure = {
             links: [
                 {
                     'a': {
-                        'onclick' : "currentCimsvg().addDiagram();cimmenu.hidePanel('diagram-menu-panel')",
+                        'onclick' : "currentCimsvg().addDiagram();currentCimmenu().hidePanel('diagram-menu-panel')",
                         'text' : "Add Diagram",
                     }
                 },
@@ -452,8 +550,16 @@ cimmenu.menuStructure = {
     }
 };
 
+cimmenu.currentCimmenuClass = null;
+
+const currentCimmenu = function() {
+    return cimmenu.getCimmenu();
+};
+
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = cimmenu
+    module.exports = { cimmenu, currentCimmenu }
 }
 
 global.cimmenu = cimmenu
+global.currentCimmenu = currentCimmenu
+

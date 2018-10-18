@@ -1,11 +1,11 @@
             <div id="corner-switches">
-                <span id="barmenu-switch" class="switch button row-right topleft" onclick="cimmenu.toggleMainMenuVisible();">
+                <span id="barmenu-switch" class="switch button row-right topleft" onclick="currentCimmenu().toggleMainMenuVisible();">
                     <span class="fa fa-bars"></span>
                 </span>
-                <span id="all-components-switch" class="switch button row-right bottomright" onclick="cimmenu.populateAllComponents();">
+                <span id="all-components-switch" class="switch button row-right bottomright" onclick="currentCimmenu().populateAllComponents();">
                     <span class="fa fa-gears"></span>
                 </span>
-                    <span id="diagram-components-switch" class="switch button row-right bottomleft" onclick="cimmenu.toggleDiagramComponentsVisibility();">
+                    <span id="diagram-components-switch" class="switch button row-right bottomleft" onclick="currentCimmenu().toggleDiagramComponentsVisibility();">
                     <span class="fa fa-cubes"></span>
                 </span>
             </div>
@@ -41,4 +41,12 @@
                         <div class="floating-menu-list"> </div>
                     </div>
                 </div>
+            </div>
+            <nav id="context-menu" class="context-menu" onmouseup="onBodyMouseUp()" style="left: 451px; top: 285px;">
+                <ul class="context-menu-items">
+                    <li class="context-menu-item">
+                        <a class="undefined" onclick="currentCimsvg().getContextMenu().removeComponent()">Delete Component</a>
+                    </li>
+                </ul>
+            </nav>
 

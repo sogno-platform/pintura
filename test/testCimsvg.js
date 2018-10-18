@@ -78,8 +78,9 @@ describe("cimsvg", function() {
             cimsvgInstance = new cimsvg(svg, dialog)
             cimsvg.setCimsvg(cimsvgInstance);
             let menu = dom.window.document.querySelector("#menu")
-            let cimmenu = new libcimmenu(menu)
+            let cimmenuInstance = new cimmenu(menu)
             cimsvgInstance.setCimmenu(cimmenu);
+            cimmenu.setCimmenu(cimmenuInstance);
             domReady = dom;
             done();
         });

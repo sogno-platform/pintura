@@ -1,5 +1,5 @@
-{{#each Diagram}}
-  <g id="{{@key}}" name="{{pintura:name}}">
+{{#each Diagram as |value diagramId|}}
+  <g id="{{@diagramId}}" name="{{pintura:name}}">
   {{#with components}}
   {{#each this as |value typeName|}}
     <g class={{typeName}} >
@@ -8,7 +8,8 @@
         id="{{pintura:rdfId}}"
         name="{{pintura:label.text}}"
         type="{{typeName}}"
-        class="image">
+        class="image"
+        diagram-id="{{@diagramId}}">
       {{#each pintura:points}}
         <image
           x="{{x}}"

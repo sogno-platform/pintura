@@ -1,7 +1,7 @@
 <ul class="floating-panel-list">
     {{#each Diagram as |value diagramId|}}
         <div class="wide-row list-title">
-            <span class="button row-left" onclick="javascript:cimmenu.toggleDiagramComponentListVisibility('{{diagramId}}');">
+            <span class="button row-left" onclick="javascript:currentCimmenu().toggleDiagramComponentListVisibility('{{diagramId}}');">
                 <span class="fa fa-sitemap"></span> Diagram: {{pintura:name}}</span>
             <div class="spacer"></div>
             <span id='{{diagramId}}-visibility-icon' class="button panel-button row-right" onclick="currentCimsvg().toggleDiagramVisible('{{diagramId}}', '{{diagramId}}-visibility-icon');">&#9728;</span>
@@ -9,7 +9,7 @@
         </div>
         <div id="{{diagramId}}-accordion" class="component-accordion invisible">
             {{#each components as |value typeName|}}
-            <li class="wide-row list-subtitle" onclick="cimmenu.componentTypeSelected(this, '{{diagramId}}', '{{typeName}}');" >
+            <li class="wide-row list-subtitle" onclick="currentCimmenu().componentTypeSelected(this, '{{diagramId}}', '{{typeName}}');" >
                 <span class="button indent row-left"><span class="fa fa-cubes"></span>  {{typeName}}</span>
             </li>
             {{/each}}

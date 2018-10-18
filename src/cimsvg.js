@@ -42,9 +42,9 @@ class cimsvg {
                 this.allComponentsCreationHtml = xml.documentElement.outerHTML;
             });
         }
-        this.contextMenu = null;
         this.clearAllData();
         this.cimmenu = null;
+        cimsvg.setCimsvg(this);
     }
 
     setCimmenu(menu) {
@@ -56,14 +56,6 @@ class cimsvg {
             func(this.cimmenu);
         }
     }
-
-    setContextMenu(menu) {
-        this.contextMenu = menu;
-    };
-
-    getContextMenu() {
-        return this.contextMenu;
-    };
 
     getSelectFromFloatingMenuNode(id) {
         return this.floatingMenu.querySelector('#'+id);
@@ -287,7 +279,7 @@ class cimsvg {
         let baseJson = this.getBaseJson();
         /* getTemplateJson will associate the diagram objects with components */
         this.templateJson = cimjson.getTemplateJson(baseJson);
-        this.if_cimmenu((cimmenu)=>{ cimmenu.update(this.templateJson) });
+        this.if_cimmenu((cimmenu)=>{ currentCimmenu().update(this.templateJson) });
     };
 
     populateComponentTypeListForDiagram(diagramId) {
@@ -397,7 +389,7 @@ class cimsvg {
         let baseJson = this.getBaseJson();
         this.templateJson = cimjson.getTemplateJson(baseJson);
         this.applyDiagramTemplate(this.templateJson)
-        this.if_cimmenu((cimmenu)=>{ cimmenu.update(this.templateJson) });
+        this.if_cimmenu((cimmenu)=>{ currentCimmenu().update(this.templateJson) });
     };
 
     addRawComponentAndApplyTemplates(type, point) {
@@ -475,13 +467,13 @@ class cimsvg {
 
     updateComponent(type, id, attribute, value) {
         cimxml.updateComponentInBaseJson(type, id, attribute, value);
-        cimmenu.updateComponent(type, id, attribute, value);
+        currentCimmenu().updateComponent(type, id, attribute, value);
     };
 
     updateComponentRDF(type, id, attribute, rdfid) {
         let value = { "rdf:resource" : "#" + rdfid }
         cimxml.updateComponentInBaseJson(type, id, attribute, value)
-        this.cimmenu.updateComponent(type, id, attribute, value);
+        currentCimmenu().updateComponent(type, id, attribute, value);
         if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
             let baseJson = this.getBaseJson();
             cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);

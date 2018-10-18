@@ -78,7 +78,7 @@ const complex_type_template = function(type, rdfid, requestedType, matchingCompo
     let template = Handlebars.templates['cim_update_complex_type'];
     let possibleClasses = [ type ];
     possibleClasses = possibleClasses.concat(complexTypes[type]);
-    matchingComponents.aggregates = cimmenu.getAggregateComponentsList(requestedType, possibleClasses).aggregates;
+    matchingComponents.aggregates = currentCimmenu().getAggregateComponentsList(requestedType, possibleClasses).aggregates;
     let targetRdfId;
     if (rdfid && rdfid["rdf:resource"]) {
         targetRdfId = rdfid["rdf:resource"].substr(1)

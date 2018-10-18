@@ -4,7 +4,7 @@
             {{#each this as |value componentId|}}
                 <li id="{{componentId}}-sidebar-button" class="list-entry">
                     <button class="row button wide-button"
-                        onclick="cimmenu.componentInstanceSelected(this, '{{typeName}}', '{{componentId}}');"><span class="fa fa-cube"></span>  {{this.pintura:label.text}}</button>
+                        onclick="currentCimmenu().componentInstanceSelected(this, '{{typeName}}', '{{componentId}}');"><span class="fa fa-cube"></span>  {{this.pintura:label.text}}</button>
                 </li>
             {{/each}}
         {{/each}}
