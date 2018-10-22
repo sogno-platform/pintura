@@ -21,6 +21,10 @@ let simpleTypes = cs.simpleTypes;
 let complexTypes = cs.complexTypes;
 import common from './common.js';
 
+Handlebars.registerHelper('removeColon', function(str) {
+    return new Handlebars.SafeString(common.removeColon(str));
+});
+
 Handlebars.registerHelper('createGridArea', function(column, row, height) {
     let rowStart     = (row + 1).toString();
     let rowEnd       = (row + 1 + height).toString();

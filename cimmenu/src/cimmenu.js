@@ -49,6 +49,11 @@ class cimmenu {
         this.contextMenu.keyUpListener(window);
     };
 
+    applyTemplate(data, templateName) {
+        let template = Handlebars.templates[templateName];
+        return template(data);
+    };
+
     calculateScreenHeight() {
         let bottomHalfHeight = this.menuNode.clientHeight / 2;
         let numberOfRowsFloat = bottomHalfHeight / 40;
@@ -90,9 +95,9 @@ class cimmenu {
     redrawMenu(diagramId, type, id) {
         this.diagramId = diagramId;
         this.showPanel('diagramsPanel');
-        this.showDiagramComponentListVisibility(diagramId);
+        this.showDiagramComponentList(diagramId, type);
+        this.populateComponentsListForDiagramAndComponentType(diagramId, type, id);
         this.populateAttributes(type, id);
-        this.populateComponentsListForDiagramAndComponentType(diagramId, type);
     }
 
     resizeListener(_window) {
@@ -175,6 +180,12 @@ class cimmenu {
         }
     };
 
+    populateAllComponents() {
+        let baseJson = this.getBaseJson();
+        let items = this.applyTemplate(baseJson, 'pinturaJson2AllComponentsList');
+        this.populatePanelWithData(this.panels.allComponents, items, 'All Components');
+    };
+
     populateAllComponentsCreationMenu() {
         this.populatePanelWithData(this.panels.allComponentsPanel, this.allComponentsCreationHtml, "Add Component");
     };
@@ -244,16 +255,26 @@ class cimmenu {
         cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
     };
 
-    showDiagramComponentListVisibility(diagramId) {
+    static markSelected(node, addSelector, removeSelector, markClass) {
+        common.removeClassFromNode(node, removeSelector, markClass);
+        common.addClassToNode(node, addSelector, markClass);
+    };
+
+    showDiagramComponentList(diagramId, type) {
         let accordionId = '#' + diagramId + '-accordion';
         let accordionNode = this.panels.diagramsPanel.querySelector(accordionId);
         accordionNode.classList.remove('invisible');
+        let classSelector = '.' + common.removeColon(type) + '-li';
+        if (type) {
+            cimmenu.markSelected(accordionNode, classSelector, '.selected', 'selected');
+        }
         let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel)
         cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
     };
 
     populateDiagramComponents() {
-        cimmenu.populatePanelWithTemplate(this.panels.diagramsPanel, this.templateJson, 'pinturaJson2DiagramList', "Diagram Components");
+        cimmenu.populatePanelWithTemplate(this.panels.diagramsPanel,
+            this.templateJson, 'pinturaJson2DiagramList', "Diagram Components");
         let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel)
         cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
     };
@@ -285,14 +306,18 @@ class cimmenu {
         return rowIndex;
     };
 
-    populateComponentsListForDiagramAndComponentType(diagramId, componentType) {
+    populateComponentsListForDiagramAndComponentType(diagramId, componentType, id) {
         let components = common.safeExtract(this.templateJson, 'Diagram', diagramId, 'components', componentType)
         if (components) {
             this.diagramId = diagramId;
             let justTheseComponents = { "Diagram": { [diagramId]: { 'components': { [componentType]: components } } } };
+            if (id) {
+                justTheseComponents["Diagram"][diagramId]['components'][componentType][id].selected = 'selected';
+            }
             if(this.panels.componentsPanel != null) {
                 cimmenu.populatePanelWithTemplate(this.panels.componentsPanel, justTheseComponents, 'pinturaJson2ComponentOfTypeList', "Component Types");
             }
+            delete justTheseComponents["Diagram"][diagramId]['components'][componentType][id].selected;
             let prevRowIndex = 2;
             let buttons = this.panels['diagramsPanel'].querySelectorAll('.list-subtitle');
             buttons.forEach((button, index)=>{

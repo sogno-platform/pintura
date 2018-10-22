@@ -354,12 +354,6 @@ class cimsvg {
         cimmenu.populateTerminals(this.floatingMenu, type, this.getCimVersionFolder(), rdfid)
     };
 
-    populateAllComponents() {
-        let baseJson = this.getBaseJson();
-        let items = this.applyTemplate(baseJson, 'pinturaJson2AllComponentsList');
-        cimmenu.populatePanelWithData(this.getAllComponentsMenu(), items, 'All Components');
-    };
-
     checkComponentReadyToAdd(evt) {
         let rdfid = null;
         this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);

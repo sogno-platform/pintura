@@ -9,7 +9,7 @@
         </div>
         <div id="{{diagramId}}-accordion" class="component-accordion invisible">
             {{#each components as |value typeName|}}
-            <li class="wide-row list-subtitle" onclick="currentCimmenu().componentTypeSelected(this, '{{diagramId}}', '{{typeName}}');" >
+            <li class="wide-row list-subtitle {{removeColon typeName}}-li" onclick="currentCimmenu().componentTypeSelected(this, '{{diagramId}}', '{{typeName}}');" >
                 <span class="button indent row-left"><span class="fa fa-cubes"></span>  {{typeName}}</span>
             </li>
             {{/each}}

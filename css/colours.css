@@ -57,7 +57,7 @@ button,input,select,textarea{
 .list-entry {
     color: black;
     background: white;
-    border-left: 12px solid lightgrey;
+    border-left: 8px solid lightgrey;
 }
 .selected {
     background: lightgrey;

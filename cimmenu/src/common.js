@@ -37,6 +37,24 @@ class common {
      * End of Public Domain/MIT function
      */
 
+    static removeColon(str) {
+        return str.replace(':', '');
+    };
+
+    static addClassToNode(node, selector, newClass) {
+        let list = node.querySelectorAll(selector);
+        list.forEach((item)=> {
+            item.classList.add(newClass);
+        });
+    };
+
+    static removeClassFromNode(node, selector, removeClass) {
+        let list = node.querySelectorAll(selector);
+        list.forEach((item)=> {
+            item.classList.remove(removeClass);
+        });
+    };
+
     static safeExtract(graph) {
         let object = graph;
         let args = Array.prototype.slice.call(arguments, 1);
