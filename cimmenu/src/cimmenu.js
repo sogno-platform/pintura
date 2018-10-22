@@ -140,17 +140,6 @@ class cimmenu {
         }
     };
 
-    togglePanelVisible(panelName) {
-        if (this.panels[panelName] != undefined) {
-            if (this.panels[panelName].classList.contains('invisible')) {
-                this.panels[panelName].classList.remove('invisible');
-            }
-            else {
-                this.panels[panelName].classList.add('invisible');
-            }
-        }
-    };
-
     static readFile(e) {
         let files = e.target.files;
         if (files) {
@@ -234,6 +223,8 @@ class cimmenu {
     };
 
     toggleDiagramComponentsVisibility() {
+        this.panels.componentsPanel.classList.add('invisible');
+        this.panels.attributesPanel.classList.add('invisible');
         if (this.panels.diagramsPanel.classList.contains('invisible')) {
             this.panels.diagramsPanel.classList.remove('invisible');
         }
@@ -243,6 +234,8 @@ class cimmenu {
     };
 
     toggleDiagramComponentListVisibility(diagramId) {
+        this.panels.componentsPanel.classList.add('invisible');
+        this.panels.attributesPanel.classList.add('invisible');
         let accordionId = '#' + diagramId + '-accordion';
         let accordionNode = this.panels.diagramsPanel.querySelector(accordionId);
         if (accordionNode.classList.contains('invisible')) {
@@ -317,7 +310,9 @@ class cimmenu {
             if(this.panels.componentsPanel != null) {
                 cimmenu.populatePanelWithTemplate(this.panels.componentsPanel, justTheseComponents, 'pinturaJson2ComponentOfTypeList', "Component Types");
             }
-            delete justTheseComponents["Diagram"][diagramId]['components'][componentType][id].selected;
+            if(id) {
+                delete justTheseComponents["Diagram"][diagramId]['components'][componentType][id].selected;
+            }
             let prevRowIndex = 2;
             let buttons = this.panels['diagramsPanel'].querySelectorAll('.list-subtitle');
             buttons.forEach((button, index)=>{

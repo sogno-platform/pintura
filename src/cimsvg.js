@@ -264,13 +264,6 @@ class cimsvg {
         }
     };
 
-    togglePanelVisible(panelId) {
-        let diagramComponents = this.getColumnPanel('.diagrams-panel');
-        if(diagramComponents != null) {
-            cimmenu(populatePanelWithTemplate(diagramComponents, this.templateJson, 'pinturaJson2DiagramList', "Diagram Components"));
-        }
-    };
-
     updateGridLocation (node, length) {
         node.style.gridArea = "1 / 1 / 8 / 2";
     }
