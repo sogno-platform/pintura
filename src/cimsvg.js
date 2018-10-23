@@ -511,7 +511,7 @@ class cimsvg {
             oReq.onreadystatechange = function (oEvent) {
                 if (oReq.readyState === 4) {
                     if (oReq.status != 200) {
-                        console.error"Error", oReq.statusText);
+                        console.error("Error", oReq.statusText);
                     }
                 }
             };
