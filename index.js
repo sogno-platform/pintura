@@ -211,6 +211,16 @@ let showContainer = function(container, icon, show="false", newClass="block"){
         }
     }
 };
+const saveBinaryFile=function(data) {
+    let filesave = document.getElementById("filesave")
+    let element = document.createElement('a');
+    element.setAttribute('href', window.URL.createObjectURL(data));
+    element.setAttribute('download', "pinturaGrid.zip");
+    element.style.display = 'none';
+    filesave.appendChild(element);
+    element.click();
+    filesave.removeChild(element);
+}
 const saveFile=function(data) {
     let filesave = document.getElementById("filesave")
     let element = document.createElement('a');

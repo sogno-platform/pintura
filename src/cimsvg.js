@@ -500,18 +500,51 @@ class cimsvg {
         });
     };
 
-    uploadToUri(uri) {
-        let s = new XMLSerializer();
-        let xmlString = this.exportXmlData();
+    uploadAsZip(xml, uri) {
+        let zip = new JSZip();
+        zip.file("pinturaGrid.xml", xml);
+        zip.generateAsync({type:"blob"})
+        .then(function (blob) {
+            var oReq = new XMLHttpRequest();
+            oReq.open("POST", uri, true);
+            oReq.setRequestHeader('Accept', 'text/plain')
+            oReq.onreadystatechange = function (oEvent) {
+                if (oReq.readyState === 4) {
+                    if (oReq.status != 200) {
+                        console.error"Error", oReq.statusText);
+                    }
+                }
+            };
+            var formData = new FormData();
+            formData.append("pinturaGrid.zip", blob);
+            oReq.send(formData);
+        });
+    };
+
+    uploadAsText(xml, uri) {
         fetch(uri, {
           method: 'post',
           headers: {
             'Accept': 'application/json, text/plain, */*',
             'Content-Type': 'text/plain'
           },
-          body: xmlString
+          body: xml
         }).then(res=>res.text())
           .then(res => { let json = JSON.parse(res); alert(json['msg']) });
+    };
+
+    uploadToUri(uri) {
+        let s = new XMLSerializer();
+        let fileString = "";
+        let uriSuffix = uri.substring(uri.length-4)
+        if (uriSuffix == '.xml') {
+            let data = this.exportXmlData();
+            this.uploadAsText(data, uri);
+        }
+        else if (uriSuffix == '.zip') {
+            let data = this.exportXmlData();
+            this.uploadAsZip(data, uri);
+        }
     };
 
     /*
