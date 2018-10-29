@@ -16,7 +16,6 @@ COPY index.js /usr/share/nginx/html
 
 COPY --from=builder /pintura/lib /usr/share/nginx/html/lib/
 COPY --from=builder /pintura/index.html /usr/share/nginx/html/
-COPY --from=builder /pintura/generated/template.js /usr/share/nginx/html/generated/
 COPY --from=builder /pintura/generated/add_components_menu.xml /usr/share/nginx/html/generated/
 COPY --from=builder /pintura/generated/add_all_components_menu.xml /usr/share/nginx/html/generated/
 

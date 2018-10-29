@@ -8,9 +8,10 @@
     "url": "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
   },
   "scripts": {
+    "makeDirs": "mkdir -p lib && mkdir -p generated",
     "generateIndex": "node generateIndex.js > index.html",
     "generateIndexDebug": "node generateIndex.js debug > index.html",
-    "generateClassStructure": "mkdir -p generated && node templates/xslt/generateClassStructure.js",
+    "generateClassStructure": "npm run makeDirs && node templates/xslt/generateClassStructure.js",
     "generateHandlebars": "node templates/xslt/generateHandlebarTemplates.js --xmlDir=./data_model",
     "handlebarAttributes": "handlebars generated/attributes > lib/template.js",
     "handlebarStatic": "handlebars templates/handlebars >> lib/template.js",
