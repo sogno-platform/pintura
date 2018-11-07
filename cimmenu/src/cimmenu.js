@@ -49,6 +49,17 @@ class cimmenu {
         this.contextMenu.keyUpListener(window);
     };
 
+    static cimsvgFunction(func) {
+        try {
+            if(currentCimsvg()) {
+                func();
+            }
+        }
+        catch (e) {
+            console.error(e)
+        }
+    };
+
     applyTemplate(data, templateName) {
         let template = Handlebars.templates[templateName];
         return template(data);
@@ -143,8 +154,8 @@ class cimmenu {
     static readFile(e) {
         let files = e.target.files;
         if (files) {
-            currentCimsvg().clearAllData()
-            currentCimsvg().setFileCount(files.length);
+            cimmenu.cimsvgFunction(()=>{ currentCimsvg().clearAllData() });
+            cimmenu.cimsvgFunction(()=>{ currentCimsvg().setFileCount(files.length) });
             Array.from(files).forEach((file)=>{
                 if (!file) {
                     return;
@@ -152,7 +163,7 @@ class cimmenu {
                 let reader = new FileReader();
                 reader.onload = function(e) {
                     let contents = e.target.result;
-                    currentCimsvg().loadFile(contents);
+                    cimmenu.cimsvgFunction(()=>{ currentCimsvg().loadFile(contents) });
                 };
                 reader.readAsText(file);
             });
@@ -170,13 +181,15 @@ class cimmenu {
     };
 
     populateAllComponents() {
-        let baseJson = this.getBaseJson();
+        let baseJson = currentCimsvg().getBaseJson();
         let items = this.applyTemplate(baseJson, 'pinturaJson2AllComponentsList');
-        this.populatePanelWithData(this.panels.allComponents, items, 'All Components');
+        cimmenu.populatePanelWithData(this.panels.allComponentsPanel, items, 'All Components');
+        cimmenu.updateGridLocation(this.panels.allComponentsPanel, 4, 1, 10);
+        this.showPanel('allComponentsPanel');
     };
 
     populateAllComponentsCreationMenu() {
-        this.populatePanelWithData(this.panels.allComponentsPanel, this.allComponentsCreationHtml, "Add Component");
+        cimmenu.populatePanelWithData(this.panels.allComponentsPanel, this.allComponentsCreationHtml, "Add Component");
     };
 
     populateFileLinks() {
@@ -368,16 +381,6 @@ class cimmenu {
         });
     };
 
-    static populateAttributesIdOnly (node, cimVersion, id) {
-        let type = currentCimsvg().getObjectTypeUsingId(id);
-        if (type != undefined) {
-            cimmenu.populateAttributes(node, type, cimVersion, id);
-        }
-        else {
-            console.error("Can't establish type for id: " + id)
-        }
-    };
-
     unselectAllInPanel(panelName) {
         let buttons = this.panels[panelName].querySelectorAll('.selected');
         buttons.forEach((button)=> {
@@ -410,6 +413,16 @@ class cimmenu {
         }
     };
 
+    static populateAttributesIdOnly (node, cimVersion, id) {
+        let type = currentCimsvg().getObjectTypeUsingId(id);
+        if (type != undefined) {
+            cimmenu.populateAttributes(node, type, cimVersion, id);
+        }
+        else {
+            console.error("Can't establish type for id: " + id)
+        }
+    };
+
     populateAttributes (type, id) {
         this.populate(this.panels.attributesPanel, type, currentCimsvg().getCimVersionFolder(), id);
     };
@@ -428,12 +441,14 @@ class cimmenu {
         if (attributes == undefined) {
             console.error("Cannot find " + id + " in data to display id of " + type);
         }
-        let templatePath = cimVersion + "/" +type.substring(4);
-        let template = Handlebars.templates[templatePath];
-        let data = template(attributes);
-        cimmenu.populatePanelWithData(node, data, "Attributes");
-        cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
-        this.showPanel('attributesPanel');
+        else {
+            let templatePath = cimVersion + "/" +type.substring(4);
+            let template = Handlebars.templates[templatePath];
+            let data = template(attributes);
+            cimmenu.populatePanelWithData(node, data, "Attributes");
+            cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
+            this.showPanel('attributesPanel');
+        }
     };
 
     getAggregateComponentsList(requestedClass, types) {

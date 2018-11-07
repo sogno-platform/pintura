@@ -38,13 +38,12 @@
                 </svg>
             </div>
         </div>
-        <script type="text/javascript" src="../html/cimsvg.js"> </script>
+        <script type="text/javascript" src="../lib/cimsvg.js"> </script>
         <!-- This script tells cimsvg which html component to draw the svg items to -->
         <!-- The onMouse... functions are here to avoid errors appearing in the console -->
         <script>
-            cimsvg.init(
-                document.getElementById("svg"),
-            );
+            let cimsvgInstance = new cimsvg(document.getElementById("svg"));
+            cimsvgInstance.setCimsvg(cimsvgInstance);
             var onMouseLeave = function(evt){};
             var onMouseMove = function(evt){};
             var onMouseOver = function(evt){};

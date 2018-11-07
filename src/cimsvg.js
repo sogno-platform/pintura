@@ -51,9 +51,9 @@ class cimsvg {
         this.cimmenu = menu;
     }
 
-    if_cimmenu(func) {
+    updateCimmenu(func) {
         if(this.cimmenu != null) {
-            func(this.cimmenu);
+            func();
         }
     }
 
@@ -272,7 +272,7 @@ class cimsvg {
         let baseJson = this.getBaseJson();
         /* getTemplateJson will associate the diagram objects with components */
         this.templateJson = cimjson.getTemplateJson(baseJson);
-        this.if_cimmenu((cimmenu)=>{ currentCimmenu().update(this.templateJson) });
+        this.updateCimmenu(()=>{ currentCimmenu().update(this.templateJson) });
     };
 
     populateComponentTypeListForDiagram(diagramId) {
@@ -324,11 +324,15 @@ class cimsvg {
     };
 
     populateAttributes(type, id) {
-        cimmenu.populateAttributes(this.getColumnPanel('.attributes-panel'), type, this.getCimVersionFolder(), id);
+        if (currentCimmenu()) {
+            currentCimmenu().populateAttributes(type, id);
+        }
     };
 
     populateAttributesIdOnly(id) {
-        cimmenu.populateAttributesIdOnly(this.getColumnPanel('.attributes-panel'), this.getCimVersionFolder(), id);
+        if (currentCimmenu()) {
+            currentCimmenu().populateAttributesIdOnly(id);
+        }
     };
 
     populateComponentCreationMenu() {
@@ -376,7 +380,7 @@ class cimsvg {
         let baseJson = this.getBaseJson();
         this.templateJson = cimjson.getTemplateJson(baseJson);
         this.applyDiagramTemplate(this.templateJson)
-        this.if_cimmenu((cimmenu)=>{ currentCimmenu().update(this.templateJson) });
+        this.updateCimmenu(()=>{ currentCimmenu().update(this.templateJson, baseJson) });
     };
 
     addRawComponentAndApplyTemplates(type, point) {
