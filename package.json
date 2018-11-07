@@ -8,6 +8,7 @@
     "url": "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
   },
   "scripts": {
+    "cimsvg": "cd cimsvg && npm install && npm run build",
     "makeDirs": "mkdir -p lib && mkdir -p generated",
     "generateIndex": "node generateIndex.js > index.html",
     "generateIndexDebug": "node generateIndex.js debug > index.html",
@@ -16,13 +17,13 @@
     "handlebarAttributes": "handlebars generated/attributes > lib/template.js",
     "handlebarStatic": "handlebars templates/handlebars >> lib/template.js",
     "handlebarTemplates": "npm run handlebarAttributes && npm run handlebarStatic",
-    "doWebpack": "webpack --config webpack.cimsvg.js",
-    "doWebpackDev": "webpack --config webpack.cimsvg.dev.js",
+    "doWebpack": "webpack --config cimsvg/webpack.cimsvg.js",
+    "doWebpackDev": "webpack --config cimsvg/webpack.cimsvg.dev.js",
     "templates": "npm run generateClassStructure && npm run generateHandlebars && npm run handlebarTemplates",
-    "build-cimmenu": "webpack --config webpack.cimmenu.js",
-    "build-cimmenu-dev": "webpack --config webpack.cimmenu.dev.js",
+    "build-cimmenu": "webpack --config cimmenu/webpack.cimmenu.js",
+    "build-cimmenu-dev": "webpack --config cimmenu/webpack.cimmenu.dev.js",
     "build": "npm run generateIndex && npm run templates && npm run build-cimmenu && npm run doWebpack && npm run test",
-    "build-dev": "npm run generateIndexDebug && npm run templates && npm run build-cimmenu-dev && npm run doWebpackDev && npm run test",
+    "build-dev": "npm run cimsvg && npm run generateIndexDebug && npm run templates && npm run build-cimmenu-dev && npm run doWebpackDev && npm run test",
     "initializeTests": "node node_modules/jasmine/bin/jasmine init",
     "test": "node test/runTests.js"
   },

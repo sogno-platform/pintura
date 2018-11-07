@@ -17,8 +17,8 @@
  */
 
 if (typeof module !== 'undefined' && module.exports) {
-    global.Handlebars = require('handlebars/runtime');
-    global.templates = require('../lib/template.js');
+    global.Handlebars = (global.Handlebars || require('handlebars/runtime'));
+    global.cim2svg = require('../lib/template.js');
     global.cimxml = require('./cimxml.js');
     global.cimview = require('./cimview.js');
     global.cimedit = require('./cimedit.js');

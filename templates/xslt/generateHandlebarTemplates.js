@@ -16,7 +16,7 @@ const sortMenuXSLTFilename = "templates/xslt/sort_menu.xslt";
 const sortedMenuFilename = "generated/add_components_menu.xml";
 const sortedAllComponentsFilename = "generated/add_all_components_menu.xml";
 const attributeDir = "generated/attributes/";
-const cimedit = require('../../src/cimedit.js');
+const cimedit = require('../../cimsvg/src/cimedit.js');
 
 const getOptions = function(args) {
   let options = {};

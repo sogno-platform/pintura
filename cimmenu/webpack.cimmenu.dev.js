@@ -22,7 +22,7 @@ const libraryName = "libcimmenu";
 const browserConfig = {
   context: __dirname,
   devtool: "inline-sourcemap",
-  entry: "./cimmenu/src/cimmenu.js",
+  entry: "./src/cimmenu.js",
   optimization: { "minimize": false },
   mode: "development",
   output: {
@@ -54,7 +54,7 @@ const browserConfig = {
 const nodeConfig = {
   context: __dirname,
   devtool: "inline-sourcemap",
-  entry: "./cimmenu/src/cimmenu.js",
+  entry: "./src/cimmenu.js",
   optimization: { "minimize": false },
   mode: "development",
   target: "node",

@@ -8,3 +8,6 @@ package-lock.json
 generated/add_components_menu.xml
 cimmenu/node_modules/*
 lib/*
+cimmenu/lib/*
+cimsvg/lib/*
+**/.*.swp

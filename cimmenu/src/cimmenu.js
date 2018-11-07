@@ -17,7 +17,7 @@
  */
 
 if (typeof module !== 'undefined' && module.exports) {
-    global.Handlebars = require('handlebars/runtime')
+    global.Handlebars = (global.Handlebars || require('handlebars/runtime'));
     require('../../lib/template.js');
     require('./handlebarsHelpers.js');
     global.common = require('./common.js')

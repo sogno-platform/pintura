@@ -29,8 +29,8 @@ const xmldom = require("xmldom");
 const fs = require("fs");
 global.window = { clientWidth: 300, clientHeight: 300 };
 
-var libcimsvg = require("../lib/libcimsvg.node.js")
-var libcimmenu = require("../lib/libcimmenu.node.js")
+var libcimsvg = require("../cimsvg/lib/libcimsvg.node.js")
+var libcimmenu = require("../cimmenu/lib/libcimmenu.node.js")
 
 /* TODO: stub-only implementation */
 const loadXml = function(fileName, SVGclass, callback) {};

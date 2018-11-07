@@ -21,9 +21,9 @@ const libraryName = "libcimmenu";
 
 const browserConfig = {
   context: __dirname,
-  devtool: "inline-sourcemap",
-  entry: "./cimmenu/src/cimmenu.js",
-  optimization: { "minimize": false },
+  devtool: false,
+  entry: "./src/cimmenu.js",
+  optimization: { "minimize": true },
   mode: "development",
   output: {
     path: __dirname + "/lib",
@@ -33,7 +33,7 @@ const browserConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify('production')
       }
     })
   ],
@@ -53,9 +53,9 @@ const browserConfig = {
 
 const nodeConfig = {
   context: __dirname,
-  devtool: "inline-sourcemap",
-  entry: "./cimmenu/src/cimmenu.js",
-  optimization: { "minimize": false },
+  devtool: false,
+  entry: "./src/cimmenu.js",
+  optimization: { "minimize": true },
   mode: "development",
   target: "node",
   output: {
@@ -66,7 +66,7 @@ const nodeConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('development')
+        NODE_ENV: JSON.stringify('test')
       }
     })
   ],
