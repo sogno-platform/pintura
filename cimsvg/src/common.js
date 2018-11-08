@@ -62,14 +62,14 @@ class common {
             let argument = args[arg];
             if (object !== undefined) {
                 owner = object;
-                key = argument; 
+                key = argument;
                 object = object[argument]
             }
             else {
                 return undefined;
             }
         }
-        delete owner[key]; 
+        delete owner[key];
     };
 
     static getObjectTypeFromId(graph, id) {

@@ -1,13 +1,12 @@
 handlebars.runtime.js
 index.html
-generated/template.js
-generated/attributes/*/*.handlebars
-generated/classStructure.js
+cimmenu/generated
 node_modules/*
 package-lock.json
 generated/add_components_menu.xml
 cimmenu/node_modules/*
-lib/*
+cimsvg/node_modules/*
+dist/*
 cimmenu/lib/*
 cimsvg/lib/*
 **/.*.swp

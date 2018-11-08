@@ -18,7 +18,7 @@
 
 if (typeof module !== 'undefined' && module.exports) {
     global.Handlebars = (global.Handlebars || require('handlebars/runtime'));
-    global.cim2svg = require('../lib/template.js');
+    global.cim2svg = require('../lib/template.hbrs');
     global.cimxml = require('./cimxml.js');
     global.cimview = require('./cimview.js');
     global.cimedit = require('./cimedit.js');
@@ -35,10 +35,10 @@ class cimsvg {
         this.dialog = dialog;
         this.cimview = new cimview(svg);
         if(dialog != undefined) {
-            this.loadXml("generated/add_components_menu.xml", (xml)=>{
+            this.loadXml("dist/add_components_menu.xml", (xml)=>{
                 this.componentCreationHtml = xml.documentElement.outerHTML;
             });
-            this.loadXml("generated/add_all_components_menu.xml", (xml)=>{
+            this.loadXml("dist/add_all_components_menu.xml", (xml)=>{
                 this.allComponentsCreationHtml = xml.documentElement.outerHTML;
             });
         }

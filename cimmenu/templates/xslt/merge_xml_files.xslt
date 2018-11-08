@@ -18,13 +18,13 @@
     <xs:schema>
       <xsl:for-each select="document('')/xsl:stylesheet/array:files/xsd" >
         <xsl:variable name="file">
-          <xsl:value-of select="concat('data_model/', $attribute, '/', ., '.xsd')"/>
+          <xsl:value-of select="concat('../data_model/', $attribute, '/', ., '.xsd')"/>
         </xsl:variable>
         <xsl:copy-of select="document($file)/xs:schema/xs:complexType"/>
       </xsl:for-each>
       <xsl:for-each select="document('')/xsl:stylesheet/array:files/xsd" >
         <xsl:variable name="file">
-          <xsl:value-of select="concat('data_model/', $attribute, '/', ., '.xsd')"/>
+          <xsl:value-of select="concat('../data_model/', $attribute, '/', ., '.xsd')"/>
         </xsl:variable>
         <xsl:copy-of select="document($file)/xs:schema/xs:simpleType"/>
       </xsl:for-each>

@@ -1,0 +1,21 @@
+{
+  "name": "cimsvg",
+  "version": "0.1.0",
+  "main": "src/cimsvg.js",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
+  },
+  "scripts": {
+    "handlebars": "handlebars handlebars > lib/template.hbrs",
+    "build": "npm run handlebars && webpack --config webpack.cimsvg.js",
+    "build-dev": "npm run handlebars && webpack --config webpack.cimsvg.dev.js",
+    "test": ""
+  },
+  "devDependencies": {
+    "handlebars": "^4.0.11",
+    "webpack": "^4.17.1",
+    "webpack-cli": "^3.1.1"
+  }
+}

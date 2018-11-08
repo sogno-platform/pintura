@@ -14,10 +14,8 @@ COPY images /usr/share/nginx/html/images
 COPY css /usr/share/nginx/html/css
 COPY index.js /usr/share/nginx/html
 
-COPY --from=builder /pintura/lib /usr/share/nginx/html/lib/
+COPY --from=builder /pintura/dist /usr/share/nginx/html/lib/
 COPY --from=builder /pintura/index.html /usr/share/nginx/html/
-COPY --from=builder /pintura/generated/add_components_menu.xml /usr/share/nginx/html/generated/
-COPY --from=builder /pintura/generated/add_all_components_menu.xml /usr/share/nginx/html/generated/
 
 LABEL \
 	org.label-schema.schema-version = "1.0" \

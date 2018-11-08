@@ -210,8 +210,8 @@ body.c(new tag('div').
              c(new tag('div').a('class', '"spacer"')).
                       c(page_centre).
              c(new tag('div').a('class', '"spacer"')));
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"lib/libcimsvg.js"').t(" "))
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"lib/libcimmenu.js"').t(" "))
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimsvg.js"').t(" "))
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimmenu.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
 let initScript = "var cimmenuInstance = new cimmenu(document.getElementById('menu'));"
 body.c(new tag('script').a('type', '"text/javascript"').t(initScript))
