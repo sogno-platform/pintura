@@ -523,6 +523,7 @@ cimmenu.menuStructure = {
                 {
                     'input': {
                         'id': 'fileopen',
+                        'type': 'file',
                     },
                     'a': {
                         'onclick' : "fileopen.click();currentCimmenu().hidePanel('file-menu-panel')",

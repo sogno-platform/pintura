@@ -9,7 +9,7 @@
                     {{#each links}}
                     <li class="wide-row list-subtitle">
                         {{#if this.input}}
-                            <input id={{input.id}} type="file" style="display:none" multiple="true"/>
+                            <input id={{input.id}} {{#if input.type}} type="{{input.type}}" {{/if}} style="display:none" multiple="true"/>
                         {{/if}}
                         <a href="#" class="button wide-button" onclick={{a.onclick}}>{{a.text}}</a>
                     </li>
