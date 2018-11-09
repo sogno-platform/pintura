@@ -16,9 +16,7 @@
  *  in the top level directory of this source tree.
  */
 
-import { cs } from './classStructure.js';
-let simpleTypes = cs.simpleTypes;
-let complexTypes = cs.complexTypes;
+import { simpleTypes, complexTypes } from '../generated/classStructure.js';
 import common from './common.js';
 
 Handlebars.registerHelper('removeColon', function(str) {
