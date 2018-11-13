@@ -43,7 +43,7 @@ class cimmenu {
         this.populateFileLinks();
         this.addEventListeners(this.menuNode);
         this.calculateScreenHeight();
-        currentCimsvg().setCimmenu(this);
+        cimmenu.cimsvgFunction(()=> { currentCimsvg().setCimmenu(this) });
         cimmenu.setCimmenu(this);
         this.contextMenu = new contextmenu(this.menuNode.querySelector('#context-menu'), "context-menu")
         this.contextMenu.keyUpListener(window);
@@ -181,11 +181,13 @@ class cimmenu {
     };
 
     populateAllComponents() {
-        let baseJson = currentCimsvg().getBaseJson();
-        let items = this.applyTemplate(baseJson, 'pinturaJson2AllComponentsList');
-        cimmenu.populatePanelWithData(this.panels.allComponentsPanel, items, 'All Components');
-        cimmenu.updateGridLocation(this.panels.allComponentsPanel, 4, 1, 10);
-        this.showPanel('allComponentsPanel');
+        cimmenu.cimsvgFunction(()=> {
+            let baseJson = currentCimsvg().getBaseJson();
+            let items = this.applyTemplate(baseJson, 'pinturaJson2AllComponentsList');
+            cimmenu.populatePanelWithData(this.panels.allComponentsPanel, items, 'All Components');
+            cimmenu.updateGridLocation(this.panels.allComponentsPanel, 4, 1, 10);
+            this.showPanel('allComponentsPanel');
+        });
     };
 
     populateAllComponentsCreationMenu() {
@@ -414,41 +416,42 @@ class cimmenu {
     };
 
     static populateAttributesIdOnly (node, cimVersion, id) {
-        let type = currentCimsvg().getObjectTypeUsingId(id);
-        if (type != undefined) {
-            cimmenu.populateAttributes(node, type, cimVersion, id);
-        }
-        else {
-            console.error("Can't establish type for id: " + id)
-        }
+        cimmenu.cimsvgFunction(()=> {
+            let type = currentCimsvg().getObjectTypeUsingId(id);
+            if (type != undefined) {
+                cimmenu.populateAttributes(node, type, cimVersion, id);
+            }
+            else {
+                console.error("Can't establish type for id: " + id)
+            }
+        });
     };
 
     populateAttributes (type, id) {
-        this.populate(this.panels.attributesPanel, type, currentCimsvg().getCimVersionFolder(), id);
+        cimmenu.cimsvgFunction(()=> {
+            this.populate(this.panels.attributesPanel, type, currentCimsvg().getCimVersionFolder(), id);
+        });
     };
 
     populate(node, type, cimVersion, id) {
-        if (id == "No Object" || id == "Missing rdf:resource") {
-            return;
-        }
-        let attributes = common.safeExtract(this.templateJson,
-                                            'Diagram',
-                                             this.diagramId,
-                                            'components',
-                                             type,
-                                             id,
-                                            'pintura:attributes');
-        if (attributes == undefined) {
-            console.error("Cannot find " + id + " in data to display id of " + type);
-        }
-        else {
-            let templatePath = cimVersion + "/" +type.substring(4);
-            let template = Handlebars.templates[templatePath];
-            let data = template(attributes);
-            cimmenu.populatePanelWithData(node, data, "Attributes");
-            cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
-            this.showPanel('attributesPanel');
-        }
+        cimmenu.cimsvgFunction(()=> {
+            let baseJson = currentCimsvg().getBaseJson();
+            if (id == "No Object" || id == "Missing rdf:resource") {
+                return;
+            }
+            let attributes = common.safeExtract(baseJson, type, id);
+            if (attributes == undefined) {
+                console.error("Cannot find " + id + " in data to display id of " + type);
+            }
+            else {
+                let templatePath = cimVersion + "/" +type.substring(4);
+                let template = Handlebars.templates[templatePath];
+                let data = template(attributes);
+                cimmenu.populatePanelWithData(node, data, "Attributes");
+                cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
+                this.showPanel('attributesPanel');
+            }
+        });
     };
 
     getAggregateComponentsList(requestedClass, types) {
@@ -478,35 +481,37 @@ class cimmenu {
     static populateTerminals (node, type, cimVersion, rdfid) {
         let title = "Terminal List";
         let titleNode = node.querySelectorAll('.floating-panel-title')
-        let baseJson = currentCimsvg().getBaseJson();
-        if (baseJson[type] && baseJson[type][rdfid]) {
-            let template = Handlebars.templates['cim_list_terminals'];
-            let terminals = baseJson[type][rdfid][common.pinturaTerminals()]
-            let begin =`
-                <span class="row-right wide-row floating-panel-value">
-                    <input class="list-subtitle" value="Add New Terminal" type="text"></input>
-                    <button onclick='`
-            let click = 'currenttCimsvg().addTerminal("' + type + '", "' +rdfid + '");currentCimsvg().applyTemplates();currentCimsvg().populateTerminals("' + type + '", "' + rdfid +'")'
-            let end = `;'> + </button>
-                </span>
-            `;
-            let menuData = begin + click + end;
-            for (let index in terminals) {
-                let terminalId = terminals[index];
-                let terminal = baseJson["cim:Terminal"][terminalId];
-                let templateData = {
-                    "name": terminal['cim:IdentifiedObject.name'],
-                    "rdfid": rdfid,
-                    "terminalId": terminalId,
-                    "type": type,
-                };
-                menuData += template(templateData);
+        cimmenu.cimsvgFunction(()=> {
+            let baseJson = currentCimsvg().getBaseJson();
+            if (baseJson[type] && baseJson[type][rdfid]) {
+                let template = Handlebars.templates['cim_list_terminals'];
+                let terminals = baseJson[type][rdfid][common.pinturaTerminals()]
+                let begin =`
+                    <span class="row-right wide-row floating-panel-value">
+                        <input class="list-subtitle" value="Add New Terminal" type="text"></input>
+                        <button onclick='`
+                let click = 'currenttCimsvg().addTerminal("' + type + '", "' +rdfid + '");currentCimsvg().applyTemplates();currentCimsvg().populateTerminals("' + type + '", "' + rdfid +'")'
+                let end = `;'> + </button>
+                    </span>
+                `;
+                let menuData = begin + click + end;
+                for (let index in terminals) {
+                    let terminalId = terminals[index];
+                    let terminal = baseJson["cim:Terminal"][terminalId];
+                    let templateData = {
+                        "name": terminal['cim:IdentifiedObject.name'],
+                        "rdfid": rdfid,
+                        "terminalId": terminalId,
+                        "type": type,
+                    };
+                    menuData += template(templateData);
+                }
+                cimmenu.populatePanelWithData(node, menuData, "Terminals");
             }
-            cimmenu.populatePanelWithData(node, menuData, "Terminals");
-        }
-        else {
-            console.error("Couldn't find " + rdfid + " in " + baseJson[type])
-        }
+            else {
+                console.error("Couldn't find " + rdfid + " in " + baseJson[type])
+            }
+        });
     };
 }
 

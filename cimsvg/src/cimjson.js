@@ -82,8 +82,7 @@ class cimjson {
                     "text": categoryGraph[rdfId]["cim:IdentifiedObject.name"],
                     "x"   : labelPoint.x,
                     "y"   : labelPoint.y
-                },
-                "pintura:attributes" : categoryGraph[rdfId],
+                }
             }
             while (preOffsetPoints.length > 1) {
                 if (object["pintura:line"] == null) {
