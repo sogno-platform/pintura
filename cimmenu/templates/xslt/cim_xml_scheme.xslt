@@ -47,6 +47,8 @@
                     <xsl:text>&#xa;    </xsl:text>
                 </li>
                 <xsl:text>&#xa;    </xsl:text>
+
+                <!-- Add the complex types -->
                 <xsl:for-each select="xs:complexContent/xs:extension">
                     <xsl:for-each select="xs:sequence/xs:element">
                         <xsl:variable name="rdfid">
@@ -56,7 +58,7 @@
                             <xsl:value-of select="concat($apos, @type, $apos)"/>
                         </xsl:variable>
                         <xsl:variable name="attribute_name">
-                            <xsl:value-of select="concat($type, '.', @name)"/>
+                            <xsl:value-of select="@name"/>
                         </xsl:variable>
                         <li class="wide-row floating-panel-item list-entry">
                             <xsl:text>&#xa;        </xsl:text>
@@ -75,6 +77,8 @@
                     </xsl:for-each>
                     <xsl:text>&#xa;</xsl:text>
                </xsl:for-each>
+
+               <!-- Add the simple types -->
                <xsl:for-each select="xs:sequence/xs:element">
                    <xsl:variable name="rdfid">
                        <xsl:value-of select="concat($lsq, $type, '.', @name, $rsq)"/>
@@ -100,6 +104,8 @@
                    </li>
                    <xsl:text>&#xa;    </xsl:text>
                </xsl:for-each>
+
+               <!-- Add the terminal link -->
                <xsl:text>&#xa;</xsl:text>
                    <xsl:value-of select="concat($two_lbr, '#neq ', $apos, @name, $apos, ' ', $apos, 'Terminal', $apos, $two_rbr)"/>
                <xsl:text>&#xa;</xsl:text>
