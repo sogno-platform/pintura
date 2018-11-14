@@ -1,12 +1,12 @@
 <ul class="floating-panel-list">
     {{#each Diagram as |value diagramId|}}
         {{#each components as |value typeName|}}
-            {{#each this as |value componentId|}}
+            {{#sort_each_by_name this as |value componentId|}}
                 <li id="{{componentId}}-sidebar-button" class="list-entry">
                     <button class="row button wide-button {{this.selected}}"
                         onclick="currentCimmenu().componentInstanceSelected(this, '{{typeName}}', '{{componentId}}');"><span class="fa fa-cube"></span>  {{this.pintura:label.text}}</button>
                 </li>
-            {{/each}}
+            {{/sort_each_by_name}}
         {{/each}}
     {{/each}}
 </ul>

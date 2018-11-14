@@ -1,5 +1,5 @@
 <div class="floating-panel-list">
-    {{#each this as |componentList typeName|}}
+    {{#sort_each this as |componentList typeName|}}
         <div class="wide-row list-subtitle">
             <span class="button row-left" onclick="javascript:showContainer('all-components-{{typeName}}-accordion', null);">{{typeName}}</span>
         </div>
@@ -13,5 +13,5 @@
             {{/each}}
             </ul>
         </div>
-    {{/each}}
+    {{/sort_each}}
 </div>
