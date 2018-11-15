@@ -5,12 +5,12 @@
         </div>
         <div id="all-components-{{typeName}}-accordion" class="component-accordion" style="display:none">
             <ul>
-            {{#each this as |componentObject componentId|}}
+            {{#sort_each_by_identified_object_name this as |componentObject componentId|}}
                 <li class="list-entry">
                 <button class="row button wide-button" onclick="javascript:currentCimsvg().populateAttributes('{{typeName}}',
                     '{{componentId}}');">{{componentObject.[cim:IdentifiedObject.name]}}</button>
                 </li>
-            {{/each}}
+            {{/sort_each_by_identified_object_name}}
             </ul>
         </div>
     {{/sort_each}}

@@ -61,8 +61,13 @@ class cimmenu {
     };
 
     applyTemplate(data, templateName) {
-        let template = Handlebars.templates[templateName];
-        return template(data);
+        if (templateName in Handlebars.templates) {
+            let template = Handlebars.templates[templateName];
+            return template(data);
+        }
+        else {
+            return "";
+        }
     };
 
     calculateScreenHeight() {
@@ -359,17 +364,18 @@ class cimmenu {
     };
 
     static populatePanelWithTemplate(panelNode, templateJson, templateName, titleText) {
-        let template = Handlebars.templates[templateName];
-        let data = template(templateJson);
-        let list = panelNode.querySelectorAll('.floating-menu-list');
-        list.forEach(function(subpanel) {
-            subpanel.innerHTML = data;
-        });
-        let titleList = panelNode.querySelectorAll('.floating-panel-title')
-        titleList.forEach(function(title) {
-            title.innerHTML = titleText;
-        });
-
+        if (templateName in Handlebars.templates) {
+            let template = Handlebars.templates[templateName];
+            let data = template(templateJson);
+            let list = panelNode.querySelectorAll('.floating-menu-list');
+            list.forEach(function(subpanel) {
+                subpanel.innerHTML = data;
+            });
+            let titleList = panelNode.querySelectorAll('.floating-panel-title')
+            titleList.forEach(function(title) {
+                title.innerHTML = titleText;
+            });
+        }
     };
 
     static populatePanelWithData(panelNode, menuItems, titleText) {
@@ -445,11 +451,14 @@ class cimmenu {
             }
             else {
                 let templatePath = cimVersion + "/" +type.substring(4);
-                let template = Handlebars.templates[templatePath];
-                let data = template(attributes);
-                cimmenu.populatePanelWithData(node, data, "Attributes");
-                cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
-                this.showPanel('attributesPanel');
+
+                if (templatePath in Handlebars.templates) {
+                    let template = Handlebars.templates[templatePath];
+                    let data = template(attributes);
+                    cimmenu.populatePanelWithData(node, data, "Attributes");
+                    cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
+                    this.showPanel('attributesPanel');
+                }
             }
         });
     };
