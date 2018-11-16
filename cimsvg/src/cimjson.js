@@ -154,10 +154,14 @@ class cimjson {
         let graph = {};
         for (let key in input) {
             let diagramObject = input[key];
-            let diagram = diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1);
-            if (diagramObject["cim:DiagramObject.IdentifiedObject"]) {
-                let identifiedObject = input[key]["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
-                graph[identifiedObject] = input[key];
+            let diagramPlusHash = common.safeExtract(diagramObject, "cim:DiagramObject.Diagram", "rdf:resource");
+            if (diagramPlusHash) {
+                let diagram = diagramPlusHash.substring(1);
+                let identifiedObject = common.safeExtract(diagramObject, "cim:DiagramObject.IdentifiedObject")
+                if (identifiedObject) {
+                    let identifiedObjectRdfResource = identifiedObject["rdf:resource"].substring(1);
+                    graph[identifiedObjectRdfResource] = diagramObject;
+                }
             }
         }
         return graph;

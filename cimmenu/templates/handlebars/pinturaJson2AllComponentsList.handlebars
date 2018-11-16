@@ -1,6 +1,7 @@
 <div class="floating-panel-list">
     {{#sort_each this as |componentList typeName|}}
         <div class="wide-row list-subtitle">
+            <button class="smallbutton" onclick="currentCimsvg().addComponent('{{typeName}}');"> + </button>
             <span class="button row-left" onclick="javascript:showContainer('all-components-{{typeName}}-accordion', null);">{{typeName}}</span>
         </div>
         <div id="all-components-{{typeName}}-accordion" class="component-accordion" style="display:none">

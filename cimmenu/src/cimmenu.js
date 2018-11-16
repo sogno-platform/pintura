@@ -185,6 +185,19 @@ class cimmenu {
         }
     };
 
+    toggleAllComponentsVisibility() {
+        this.panels.diagramsPanel.classList.add('invisible');
+        this.panels.componentsPanel.classList.add('invisible');
+        this.panels.attributesPanel.classList.add('invisible');
+        if (this.panels.allComponentsPanel.classList.contains('invisible')) {
+            this.populateAllComponents();
+            this.panels.allComponentsPanel.classList.remove('invisible');
+        }
+        else {
+            this.panels.allComponentsPanel.classList.add('invisible');
+        }
+    };
+
     populateAllComponents() {
         cimmenu.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
@@ -244,6 +257,7 @@ class cimmenu {
 
     toggleDiagramComponentsVisibility() {
         this.panels.componentsPanel.classList.add('invisible');
+        this.panels.allComponentsPanel.classList.add('invisible');
         this.panels.attributesPanel.classList.add('invisible');
         if (this.panels.diagramsPanel.classList.contains('invisible')) {
             this.panels.diagramsPanel.classList.remove('invisible');
