@@ -7,9 +7,7 @@
     "type": "git",
     "url": "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
   },
-  "config": {
-    "mode": "production"
-  },
+  "mode": "production",
   "scripts": {
     "makeDirs": "mkdir -p cimmenu/lib && mkdir -p cimsvg/lib && mkdir -p cimmenu/generated && mkdir -p dist",
     "cimsvg": "cd cimsvg && npm install && npm run build",
@@ -20,7 +18,7 @@
     "makeDist": "cp -a cimmenu/lib/*.js cimsvg/lib/*.js dist",
     "build-tasks": "npm run makeDirs && npm run libs && npm run generateIndex",
     "build": "npm run build-tasks && npm run makeDist",
-    "build-dev": "npm config set config:mode debug && npm run build",
+    "build-dev": "npm config set mode debug && npm run build",
     "initializeTests": "node node_modules/jasmine/bin/jasmine init",
     "test": "node test/runTests.js"
   },

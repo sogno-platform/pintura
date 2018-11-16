@@ -14,8 +14,7 @@
     "handlebarStatic": "handlebars templates/handlebars >> lib/template.hbrs",
     "handlebarTemplates": "npm run handlebarAttributes && npm run handlebarStatic",
     "templates": "npm run generateClassStructure && npm run generateHandlebars && npm run handlebarTemplates",
-    "build": "npm run templates && webpack --config webpack.cimmenu.js",
-    "build-dev": "npm run templates && webpack --config webpack.cimmenu.dev.js"
+    "build": "npm run templates && webpack --config webpack.cimmenu.js"
   },
   "devDependencies": {
     "handlebars": "^4.0.11",

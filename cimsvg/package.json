@@ -10,7 +10,6 @@
   "scripts": {
     "handlebars": "handlebars handlebars > lib/template.hbrs",
     "build": "npm run handlebars && webpack --config webpack.cimsvg.js",
-    "build-dev": "npm run handlebars && webpack --config webpack.cimsvg.dev.js",
     "test": ""
   },
   "devDependencies": {

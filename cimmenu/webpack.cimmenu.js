@@ -18,13 +18,16 @@
 
 const webpack = require('webpack');
 const libraryName = "libcimmenu";
+let _devtool = process.env.npm_config_mode == "debug" ? "inline-sourcemap" : false;
+let _minimize = process.env.npm_config_mode == "debug" ? false : true;
+let _mode = process.env.npm_config_mode == "debug" ? "development" : "production";
 
 const browserConfig = {
   context: __dirname,
-  devtool: false,
+  devtool: _devtool,
   entry: "./src/cimmenu.js",
-  optimization: { "minimize": true },
-  mode: "development",
+  optimization: { "minimize": _minimize },
+  mode: _mode,
   output: {
     path: __dirname + "/lib",
     library: libraryName,
@@ -33,7 +36,7 @@ const browserConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify(_mode)
       }
     })
   ],
@@ -53,10 +56,10 @@ const browserConfig = {
 
 const nodeConfig = {
   context: __dirname,
-  devtool: false,
+  devtool: _devtool,
   entry: "./src/cimmenu.js",
-  optimization: { "minimize": true },
-  mode: "development",
+  optimization: { "minimize": _minimize },
+  mode: _mode,
   target: "node",
   output: {
     path: __dirname + "/lib",
@@ -66,7 +69,7 @@ const nodeConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('test')
+        NODE_ENV: JSON.stringify(_mode)
       }
     })
   ],
