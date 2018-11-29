@@ -17,7 +17,7 @@
     "copyGenerated": "cp cimmenu/generated/*.[xml|js] dist",
     "makeDist": "cp -a cimmenu/lib/*.js cimsvg/lib/*.js dist",
     "build-tasks": "npm run makeDirs && npm run libs && npm run generateIndex",
-    "build": "npm run build-tasks && npm run makeDist",
+    "build": "npm run build-tasks && npm run makeDist && npm run test",
     "build-dev": "npm config set mode debug && npm run build",
     "initializeTests": "node node_modules/jasmine/bin/jasmine init",
     "test": "node test/runTests.js"
