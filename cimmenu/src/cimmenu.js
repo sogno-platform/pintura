@@ -116,6 +116,18 @@ class cimmenu {
         this.populateAttributes(type, id);
     }
 
+    redrawMenus(visibleMenus) {
+        this.hidePanels(Object.keys(this.panels));
+        this.showPanels(visibleMenus)
+        if (visibleMenus.includes('componentsAccordion')) {
+            let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel)
+            cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
+        }
+        if (visibleMenus.includes('componentsPanel')) {
+            this.doPopulateComponentsList(this.diagramId, this.componentType, this.id);
+        }
+    }
+
     resizeListener(_window) {
         _window.onresize = (e)=> {
             this.componentPanelGridHeight = this.calculateScreenHeight();
@@ -142,9 +154,20 @@ class cimmenu {
         }
     };
 
+    getVisibleMenus() {
+        this.visibleMenus = [];
+        Object.keys(this.panels).forEach((panelName, visibleMenus)=>{
+            if (!this.panels[panelName].classList.contains('invisible')) {
+                this.visibleMenus.push(panelName);
+            }
+        });
+        return this.visibleMenus;
+    };
+
     update(templateJson) {
         this.templateJson = templateJson;
         this.populateDiagramComponents();
+        this.panels.componentsAccordion = this.menuNode.querySelectorAll('.component-accordion')[0];
     };
 
     toggleMainMenuVisible() {
@@ -175,13 +198,25 @@ class cimmenu {
         }
     };
 
+    updateButtonInPanel(panelName, buttonId, value) {
+        let panel = this.panels[panelName]
+        if(panel && !panel.classList.contains('invisible')) {
+           let button = panel.querySelector(buttonId)
+           if (button) {
+               button.innerHTML = value;
+           }
+           else {
+               console.error("Cannot update unfound button");
+           }
+       }
+    }
+
     updateComponent(type, id, attribute, value) {
         if (attribute === "cim:IdentifiedObject.name") {
-            let buttonId = '#' + id + "-sidebar-button"
-            if(this.panels.componentsPanel) {
-                let button = this.panels.componentsPanel.querySelector(buttonId)
-                button.innerHTML = value;
-            }
+            let componentsPanelButtonId = '#' + id + "-components-panel-button";
+            this.updateButtonInPanel('componentsPanel', componentsPanelButtonId, value);
+            let allComponentsPanelButtonId = '#' + id + "-all-components-button";
+            this.updateButtonInPanel('allComponentsPanel', allComponentsPanelButtonId, value);
         }
     };
 
@@ -231,6 +266,12 @@ class cimmenu {
                 panel.classList.remove('invisible');
             }
         }
+    }
+
+    showPanels(panels) {
+        panels.forEach((panelName)=>{
+            this.showPanel(panelName);
+        });
     }
 
     hideAllMenuPanels() {
@@ -334,9 +375,16 @@ class cimmenu {
     };
 
     populateComponentsListForDiagramAndComponentType(diagramId, componentType, id) {
+        if (this.doPopulateComponentsList(diagramId, componentType, id)) {
+            this.diagramId = diagramId;
+            this.componentType = componentType;
+            this.componentId = id;
+        }
+    };
+
+    doPopulateComponentsList(diagramId, componentType, id) {
         let components = common.safeExtract(this.templateJson, 'Diagram', diagramId, 'components', componentType)
         if (components) {
-            this.diagramId = diagramId;
             let justTheseComponents = { "Diagram": { [diagramId]: { 'components': { [componentType]: components } } } };
             if (id) {
                 justTheseComponents["Diagram"][diagramId]['components'][componentType][id].selected = 'selected';
@@ -358,8 +406,10 @@ class cimmenu {
             let gridRowIndex = this.decideWhichRow(prevRowIndex, numberOfRows);
             let maxRow = (numberOfRows > this.componentPanelGridHeight) ? this.componentPanelGridHeight : numberOfRows;
             cimmenu.updateGridLocation(this.panels.componentsPanel, 2, gridRowIndex, maxRow);
+            this.showPanel('componentsPanel');
+            return true;
         }
-        this.showPanel('componentsPanel');
+        return false;
     };
 
     /* calculates the number of rows that would be taken up

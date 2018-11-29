@@ -215,15 +215,6 @@ class cimxml {
         }
         return newDoc;
     };
-
-    static updateComponentInBaseJson(type, id, attribute, value) {
-        if (currentCimsvg().getBaseJson()[type][id] === undefined) {
-            console.error("Cannot find " + id + " in list of " + type);
-        }
-        else {
-            currentCimsvg().getBaseJson()[type][id][attribute] = value
-        }
-    };
 };
 
 

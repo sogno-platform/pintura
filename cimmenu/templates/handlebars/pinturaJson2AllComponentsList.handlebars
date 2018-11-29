@@ -1,14 +1,16 @@
 <div class="floating-panel-list">
     {{#sort_each this as |componentList typeName|}}
         <div class="wide-row list-subtitle">
-            <button class="smallbutton" onclick="currentCimsvg().addComponent('{{typeName}}');"> + </button>
+            <button class="smallbutton" onclick="currentCimsvg().addRawComponent('{{typeName}}');"> + </button>
             <span class="button row-left" onclick="javascript:showContainer('all-components-{{typeName}}-accordion', null);">{{typeName}}</span>
         </div>
         <div id="all-components-{{typeName}}-accordion" class="component-accordion" style="display:none">
             <ul>
             {{#sort_each_by_identified_object_name this as |componentObject componentId|}}
                 <li class="list-entry">
-                <button class="row button wide-button" onclick="javascript:currentCimsvg().populateAttributes('{{typeName}}',
+                <button id="{{componentId}}-all-components-button"
+                        class="row button wide-button"
+                        onclick="javascript:currentCimsvg().populateAttributes('{{typeName}}',
                     '{{componentId}}');">{{componentObject.[cim:IdentifiedObject.name]}}</button>
                 </li>
             {{/sort_each_by_identified_object_name}}

@@ -53,8 +53,9 @@ class cimsvg {
 
     updateCimmenu(func) {
         if(this.cimmenu != null) {
-            func();
+            return func();
         }
+        return null;
     }
 
     getSelectFromFloatingMenuNode(id) {
@@ -189,18 +190,6 @@ class cimsvg {
         return this.addComponentAndApplyTemplates("cim:Diagram")
     };
 
-    getAllComponentsMenu() {
-        return this.columnPanels.querySelectorAll('.all-components-panel')[0];
-    };
-
-    getDiagramComponentsMenu() {
-        return this.columnPanels.querySelectorAll('.diagrams-panel')[0];
-    };
-
-    getColumnPanel(name) {
-        return this.columnPanels.querySelectorAll(name)[0];
-    };
-
     isAllComponentsListVisible() {
         let visible = true;
         let tableList = this.getAllComponentsMenu().querySelectorAll('.floating-panel-table');
@@ -214,9 +203,7 @@ class cimsvg {
 
     addRawComponent(type) {
         this.addRawComponentAndApplyTemplates(type);
-        if (this.isAllComponentsListVisible()) {
-            this.populateAllComponents();
-        }
+        this.updateCimmenu(()=>{ this.cimmenu.populateAllComponents(); });
     };
 
     addComponent(type) {
@@ -352,6 +339,7 @@ class cimsvg {
     };
 
     checkComponentReadyToAdd(evt) {
+        let visibleMenus = this.updateCimmenu(()=>{ return currentCimmenu().getVisibleMenus() });
         let rdfid = null;
         this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
         if (this.addingType != null) {
@@ -365,6 +353,7 @@ class cimsvg {
         backingList.forEach(function(backing) {
             backing.style.cursor = 'initial';
         });
+        this.updateCimmenu(()=>{ currentCimmenu().redrawMenus(visibleMenus); });
         return rdfid;
     };
 
@@ -456,14 +445,26 @@ class cimsvg {
         saveFile(JSON.stringify(this.templateJson))
     };
 
+    updateComponentInBaseJson(type, id, attribute, value) {
+        if (this.getBaseJson()[type][id] === undefined) {
+            console.error("Cannot find " + id + " in list of " + type);
+        }
+        else {
+            this.getBaseJson()[type][id][attribute] = value
+            let baseJson = this.getBaseJson();
+            this.templateJson = cimjson.getTemplateJson(baseJson);
+            currentCimmenu().updateComponent(type, id, attribute, value);
+            currentCimmenu().update(this.templateJson);
+        }
+    };
+
     updateComponent(type, id, attribute, value) {
-        cimxml.updateComponentInBaseJson(type, id, attribute, value);
-        currentCimmenu().updateComponent(type, id, attribute, value);
+        this.updateComponentInBaseJson(type, id, attribute, value);
     };
 
     updateComponentRDF(type, id, attribute, rdfid) {
         let value = { "rdf:resource" : "#" + rdfid }
-        cimxml.updateComponentInBaseJson(type, id, attribute, value)
+        this.updateComponentInBaseJson(type, id, attribute, value)
         currentCimmenu().updateComponent(type, id, attribute, value);
         if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
             let baseJson = this.getBaseJson();
