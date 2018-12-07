@@ -14,7 +14,7 @@ COPY images /usr/share/nginx/html/images
 COPY css /usr/share/nginx/html/css
 COPY index.js /usr/share/nginx/html
 
-COPY --from=builder /pintura/dist /usr/share/nginx/html/lib/
+COPY --from=builder /pintura/dist /usr/share/nginx/html/dist/
 COPY --from=builder /pintura/index.html /usr/share/nginx/html/
 
 LABEL \
