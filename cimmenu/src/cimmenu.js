@@ -635,6 +635,12 @@ cimmenu.menuStructure = {
                         'text' : "Save to link 🔗",
                     }
                 },
+                {
+                    'a': {
+                        'onclick' : "currentCimsvg().saveToSVG();currentCimmenu().hidePanel('file-menu-panel')",
+                        'text' : "Export to SVG 🖿",
+                    }
+                },
             ]
         },
         'Diagram': {

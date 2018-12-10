@@ -434,15 +434,35 @@ class cimsvg {
     };
 
     exportXmlData() {
-        return cimxml.getBaseXML(this.getBaseJson())
+        return cimxml.getBaseXML(this.getBaseJson());
+    };
+
+    exportSVGData() {
+        let SVGDiagrams = this.svgNode.querySelectorAll('.diagrams');
+        let SVGData = "";
+        SVGDiagrams.forEach((data)=>{
+            SVGData += data.outerHTML;
+        });
+        let css = this.applyTemplate('', 'svg.css');
+        let templateData = {
+            style: css,
+            diagrams: SVGData,
+            viewBox: this.svgNode.getAttribute('viewBox'),
+        }
+        let returnData = this.applyTemplate(templateData, 'cim_create_svg');
+        return (returnData);
     };
 
     saveGridXml() {
-        saveFile(this.exportXmlData())
+        saveFile(this.exportXmlData());
+    };
+
+    saveToSVG() {
+        saveFile(this.exportSVGData());
     };
 
     saveTemplateJson() {
-        saveFile(JSON.stringify(this.templateJson))
+        saveFile(JSON.stringify(this.templateJson));
     };
 
     updateComponentInBaseJson(type, id, attribute, value) {
