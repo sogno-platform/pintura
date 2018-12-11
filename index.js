@@ -177,11 +177,11 @@ const saveBinaryFile=function(data) {
     element.click();
     filesave.removeChild(element);
 }
-const saveFile=function(data) {
+const saveFile=function(data, filename="pinturaGrid.xml") {
     let filesave = document.getElementById("filesave")
     let element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
-    element.setAttribute('download', "pinturaGrid.xml");
+    element.setAttribute('download', filename);
     element.style.display = 'none';
     filesave.appendChild(element);
     element.click();

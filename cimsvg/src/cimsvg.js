@@ -458,7 +458,7 @@ class cimsvg {
     };
 
     saveToSVG() {
-        saveFile(this.exportSVGData());
+        saveFile(this.exportSVGData(), "pintura.svg");
     };
 
     saveTemplateJson() {
