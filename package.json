@@ -39,6 +39,7 @@
   "dependencies": {
     "html": "^1.0.0",
     "html-format": "^1.0.1",
-    "js-beautify": "^1.8.9"
+    "js-beautify": "^1.8.9",
+    "xml2js": "^0.4.19"
   }
 }
