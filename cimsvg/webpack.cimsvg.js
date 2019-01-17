@@ -48,9 +48,14 @@ const browserConfig = {
           options: {
             limit: 8000, // Convert images < 8kb to base64 strings
             name: 'images/[hash]-[name].[ext]'
-          }
-      }]
-    }]
+          },
+      }]},
+      {
+        test: /\.css$/,
+        include: [ __dirname ],
+        use: [ 'style-loader', 'css-loader' ],
+      }
+    ]
   },
 };
 
@@ -82,8 +87,13 @@ const nodeConfig = {
             limit: 8000, // Convert images < 8kb to base64 strings
             name: 'images/[hash]-[name].[ext]'
           }
-      }]
-    }]
+      }]},
+      {
+        test: /\.css$/,
+        include: [ __dirname ],
+        use: [ 'style-loader', 'css-loader' ],
+      }
+    ]
   },
 };
 

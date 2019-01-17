@@ -28,6 +28,8 @@ if (typeof module !== 'undefined' && module.exports) {
     global.JSZip = require('jszip');
 };
 
+require('./svg.css');
+
 class cimsvg {
 
     constructor(svg, dialog) {
