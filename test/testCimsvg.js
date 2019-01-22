@@ -27,10 +27,6 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const xmldom = require("xmldom");
 const fs = require("fs");
-global.window = { clientWidth: 300, clientHeight: 300 };
-
-var libcimsvg = require("../cimsvg/lib/libcimsvg.node.js")
-var libcimmenu = require("../cimmenu/lib/libcimmenu.node.js")
 
 /* TODO: stub-only implementation */
 const loadXml = function(fileName, SVGclass, callback) {};
@@ -66,11 +62,14 @@ createCustomEvent = function(x, y) {
 
 describe("cimsvg", function() {
 
-    let domReady = null;
     let cimsvgInstance = null;
 
     beforeAll(function(done) {
         JSDOM.fromFile("index.html", {}).then(dom => {
+            global.window = { clientWidth: 300, clientHeight: 300 };
+            global.document = dom.window.document;
+            var libcimsvg = require("../cimsvg/lib/libcimsvg.node.js")
+            var libcimmenu = require("../cimmenu/lib/libcimmenu.node.js")
             let cimsvg = libcimsvg.cimsvg;
             let svg = dom.window.document.querySelector("#svg")
             let dialog = dom.window.document.querySelector("#dialog")
@@ -81,7 +80,6 @@ describe("cimsvg", function() {
             let cimmenuInstance = new cimmenu(menu)
             cimsvgInstance.setCimmenu(cimmenu);
             cimmenu.setCimmenu(cimmenuInstance);
-            domReady = dom;
             done();
         });
     });
