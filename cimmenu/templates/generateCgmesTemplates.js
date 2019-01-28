@@ -15,8 +15,9 @@ let handlebarsTemplate = `<ul class="floating-panel-list">
 {{#each attributes}}
     <li class="wide-row floating-panel-item list-entry">
         <span class="row-left floating-panel-name">{{label}}</span>
-        \\{{{getAggregateComponentMenu 'cim:{{@root.name}}' [pintura:rdfid] [
-           {{~@key}}] '{{getType this}}' '{{label}}' \}}}
+        \\{{{getAggregateComponentMenu 'cim:{{@root.name}}' [pintura:rdfid] [cim:
+           {{~getRidOfHash @key}}] '{{getType this}}' '{{label}}' \}}}
+
     </li>
 {{/each}}
 \\{{#neq '{{name}}' 'Terminal'\}}
@@ -29,9 +30,13 @@ let handlebarsTemplate = `<ul class="floating-panel-list">
 </ul>
 `;
 
+handlebars.registerHelper('getRidOfHash', function(input) {
+    return new handlebars.SafeString(getRidOfHash(input));
+});
+
 handlebars.registerHelper('getType', function(object) {
     if (object.datatype !== undefined) {
-        return object.datatype;
+        return getRidOfHash(object.datatype);
     }
     else if (object.range !== undefined) {
         return object.range.substr(1);
