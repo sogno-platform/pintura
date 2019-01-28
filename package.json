@@ -34,12 +34,13 @@
     "jsdom": "^12.0.0",
     "jszip": "^3.2.0",
     "rollup": "^1.7.0",
+    "mktemp": "^0.4.0",
+    "xml2js": "^0.4.19",
     "xmldom": "^0.1.27"
   },
   "dependencies": {
     "html": "^1.0.0",
     "html-format": "^1.0.1",
-    "js-beautify": "^1.8.9",
-    "xml2js": "^0.4.19"
+    "js-beautify": "^1.8.9"
   }
 }

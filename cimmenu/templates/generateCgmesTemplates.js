@@ -3,9 +3,46 @@ const fs = require('fs'),
     xml2js = require('xml2js'),
     path = require('path'),
     mktemp = require('mktemp'),
-    async = require('async');
+    async = require('async'),
+    handlebars = require('handlebars');
 
 let parser = new xml2js.Parser();
+let handlebarsTemplate = `<ul class="floating-panel-list">
+    <li class="wide-row floating-panel-item list-entry">
+        <span class="row-left floating-panel-name">IdentifiedObject.name</span>
+        <span class="row-right wide-row floating-panel-value"><input type="text" value="\\{{[cim:IdentifiedObject.name]}}" onchange="javascript:updateComponent('cim:{{name}}', '\\{{{[pintura:rdfid]}}}', 'cim:IdentifiedObject.name', this.value)"></span>
+    </li>
+{{#each attributes}}
+    <li class="wide-row floating-panel-item list-entry">
+        <span class="row-left floating-panel-name">{{label}}</span>
+        \\{{{getAggregateComponentMenu 'cim:{{@root.name}}' [pintura:rdfid] [
+           {{~@key}}] '{{getType this}}' '{{label}}' \}}}
+    </li>
+{{/each}}
+\\{{#neq '{{name}}' 'Terminal'\}}
+<li class="wide-row floating-panel-item list-subtitle">
+        <span class="row-left floating-panel-name">Show Terminals</span><span class="row-right floating-panel-value"><button onclick="currentCimsvg().populateTerminals('cim:{{name}}', '\\{{{[pintura:rdfid]}}}')">
+                           -&gt;
+                       </button></span>
+</li>
+\\{{/neq\}}
+</ul>
+`;
+
+handlebars.registerHelper('getType', function(object) {
+    if (object.datatype !== undefined) {
+        return object.datatype;
+    }
+    else if (object.range !== undefined) {
+        return object.range.substr(1);
+    }
+    else {
+        console.log("Failed to determine datatype for: " + JSON.stringify(object, true, 3));
+        return object.range;
+    }
+});
+
+let template = handlebars.compile(handlebarsTemplate);
 
 const inputPath = path.join(__dirname, '/../../data_model/cgmes/');
 const outputPath = path.join(__dirname, '/.');
@@ -43,7 +80,7 @@ const processArrayOfCategoryMaps = function(mapArray) {
     });
     Object.keys(finalMap).forEach((category) => {
         let categoryWithoutHash = getRidOfHash(category);
-        let outFile = path.join(outputPath, "_" + categoryWithoutHash + "_XXXX.txt");
+        let outFile = path.join(outputPath, categoryWithoutHash);
         writePackage(outFile, finalMap[category]);
     });
 }
@@ -56,6 +93,10 @@ const getAboutOrResource = function(object) {
         return object['rdf:about'];
     }
     return object;
+}
+
+const extractText = function(object) {
+    return object[0]['_'];
 }
 
 const extractString = function(object) {
@@ -93,12 +134,20 @@ const writeToFile = function(component, outputPath) {
 }
 
 const writePackage = function(packagePath, data) {
-    mktemp.createFile(packagePath)
-        .then(function(path) {
-            writeToFile(JSON.stringify(data, true, 4), path);
-        })
-    .catch(function(err) {
-        console.error("booo ", err);
+    Object.keys(data).forEach((key) => {
+        let keyPath = packagePath + '/' + getRidOfHash(key) + ".txt";
+        let keyWithoutHash = getRidOfHash(key);
+        fs.mkdir(packagePath, { recursive: true }, err => {
+            if (err) {
+                if (err.code == 'EEXIST') {
+                }
+                else {
+                    console.error("Failed to write directory: ", packagePath, " because: ", err);
+                }
+            }
+            let outputData = template({ name: keyWithoutHash, attributes: data[key] });
+            writeToFile(outputData, keyPath);
+        });
     });
 }
 
@@ -140,16 +189,22 @@ const parseRDF = function(input) {
         }
         let about = extractString(descriptions[objectKey]);
         let datatype = extractString(descriptions[objectKey]['cims:dataType']);
-        let stereotype = extractString(descriptions[objectKey]['cims:stereotype']);
+        let label = extractText(descriptions[objectKey]['rdfs:label']);
         let range = extractString(descriptions[objectKey]['rdfs:range']);
+        let stereotype = extractString(descriptions[objectKey]['cims:stereotype']);
+        let subclassof = extractString(descriptions[objectKey]['rdfs:subClassOf']);
         newDomain(map, domain);
         newDomain(map[domain], about);
         if (range !== undefined)
             map[domain][about]['range'] = range;
+        if (label !== undefined)
+            map[domain][about]['label'] = label;
         if (datatype !== undefined)
             map[domain][about]['datatype'] = datatype;
         if (stereotype !== undefined)
             map[domain][about]['stereotype'] = stereotype;
+        if (subclassof !== undefined)
+            map[domain][about]['subclassof'] = subclassof;
     });
     Object.keys(descriptions).forEach((objectKey) => {
         let about = extractString(descriptions[objectKey]);
