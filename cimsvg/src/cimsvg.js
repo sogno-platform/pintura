@@ -28,7 +28,7 @@ if (typeof module !== 'undefined' && module.exports) {
     global.JSZip = require('jszip');
 };
 
-require('./svg.css');
+require('../css/svg.css');
 
 class cimsvg {
 

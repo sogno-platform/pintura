@@ -52,7 +52,7 @@ const browserConfig = {
       }]},
       {
         test: /\.css$/,
-        include: [ __dirname ],
+        include: [ __dirname + '/css' ],
         use: [ 'style-loader', 'css-loader' ],
       }
     ]
