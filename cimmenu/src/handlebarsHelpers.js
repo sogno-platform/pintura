@@ -17,7 +17,7 @@
  */
 
 import Handlebars from 'handlebars/runtime';
-import { simpleTypes, complexTypes } from '../generated/classStructure.js';
+import { simpleTypes, complexTypes } from '../templates/generated/classStructure.js';
 import common from './common.js';
 
 // Sourced from lodash

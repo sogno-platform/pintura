@@ -55,9 +55,7 @@ const browserConfig = {
     {
       test: /\.handlebars$/, loader: "handlebars-loader",
       options: {
-        compat: true,
-        helperDirs: [ "cimmenu/templates/handlebars" ],
-        knownHelpersOnly: false,
+        helperDirs: [ path.join(__dirname, "templates/handlebars/helpers/") ],
       }
     },
     {
@@ -103,7 +101,10 @@ const nodeConfig = {
       }]
     },
     {
-      test: /\.handlebars$/, loader: "handlebars-loader"
+      test: /\.handlebars$/, loader: "handlebars-loader",
+      options: {
+        helperDirs: [ path.join(__dirname, "templates/handlebars/helpers/") ],
+      }
     },
     {
       test: /\.js$/,

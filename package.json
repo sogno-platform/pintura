@@ -9,7 +9,7 @@
   },
   "mode": "production",
   "scripts": {
-    "makeDirs": "mkdir -p cimmenu/lib && mkdir -p cimsvg/lib && mkdir -p cimmenu/generated && mkdir -p dist",
+    "makeDirs": "mkdir -p cimmenu/lib && mkdir -p cimsvg/lib && mkdir -p dist",
     "cimsvg": "cd cimsvg && npm install && npm run build",
     "cimmenu": "cd cimmenu && npm install && npm run build",
     "libs": "npm run cimsvg && npm run cimmenu",
