@@ -41,7 +41,8 @@ const browserConfig = {
     })
   ],
   module: {
-    rules: [{
+    rules: [
+    {
       test: /\.svg$/,
       use: [{
         loader: 'svg-inline-loader',
@@ -52,16 +53,28 @@ const browserConfig = {
             removeSVGTagAttrs: true,
             removingTagAttrs: ['xmlns'],
           },
-      }]},
-      {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ],
-      },
-      {
-        test: /\.style$/,
-        use: [ 'to-string-loader', 'css-loader' ],
-      }
-    ]
+      }]
+    },
+    {
+      test: /\.css$/,
+      use: [ 'style-loader', 'css-loader' ],
+    },
+    {
+      test: /\.style$/,
+      use: [ 'to-string-loader', 'css-loader' ],
+    },
+    {
+      test: /\.handlebars$/, loader: "handlebars-loader"
+    },
+    {
+      test: /\.(js|hbrs)$/,
+      use: [{
+        loader: 'babel-loader',
+        query: {
+          presets: ['@babel/preset-env']
+        }
+      }]
+    }]
   },
 };
 
@@ -85,7 +98,8 @@ const nodeConfig = {
     })
   ],
   module: {
-    rules: [{
+    rules: [
+    {
       test: /\.svg$/,
       use: [{
         loader: 'svg-inline-loader',
@@ -96,16 +110,28 @@ const nodeConfig = {
             removeTags: true,
             removingTags: ['!--'],
           }
-      }]},
-      {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ],
-      },
-      {
-        test: /\.style$/,
-        use: [ 'to-string-loader', 'css-loader' ],
-      }
-    ]
+      }]
+    },
+    {
+      test: /\.css$/,
+      use: [ 'style-loader', 'css-loader' ],
+    },
+    {
+      test: /\.style$/,
+      use: [ 'to-string-loader', 'css-loader' ],
+    },
+    {
+      test: /\.handlebars$/, loader: "handlebars-loader"
+    },
+    {
+      test: /\.(js|hbrs)$/,
+      use: [{
+        loader: 'babel-loader',
+        query: {
+          presets: ['@babel/preset-env']
+        }
+      }]
+    }]
   },
 };
 

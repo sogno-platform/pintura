@@ -17,6 +17,7 @@
  */
 
 const webpack = require('webpack');
+const path = require('path');
 const libraryName = "libcimmenu";
 let _devtool = process.env.npm_config_mode == "debug" ? "inline-sourcemap" : false;
 let _minimize = process.env.npm_config_mode == "debug" ? false : true;
@@ -50,6 +51,23 @@ const browserConfig = {
             name: 'images/[hash]-[name].[ext]'
           }
       }]
+    },
+    {
+      test: /\.handlebars$/, loader: "handlebars-loader",
+      options: {
+        compat: true,
+        helperDirs: [ "cimmenu/templates/handlebars" ],
+        knownHelpersOnly: false,
+      }
+    },
+    {
+      test: /\.js$/,
+      use: [{
+        loader: 'babel-loader',
+        query: {
+          presets: ['@babel/preset-env']
+        }
+      }]
     }]
   },
 };
@@ -82,6 +100,18 @@ const nodeConfig = {
             limit: 8000, // Convert images < 8kb to base64 strings
             name: 'images/[hash]-[name].[ext]'
           }
+      }]
+    },
+    {
+      test: /\.handlebars$/, loader: "handlebars-loader"
+    },
+    {
+      test: /\.js$/,
+      use: [{
+        loader: 'babel-loader',
+        query: {
+          presets: ['@babel/preset-env']
+        }
       }]
     }]
   },

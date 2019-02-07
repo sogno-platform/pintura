@@ -16,6 +16,7 @@
  *  in the top level directory of this source tree.
  */
 
+import Handlebars from 'handlebars/runtime';
 import { simpleTypes, complexTypes } from '../generated/classStructure.js';
 import common from './common.js';
 

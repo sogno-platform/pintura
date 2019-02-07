@@ -213,7 +213,11 @@ body.c(new tag('div').
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimmenu.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
-let initScript = "var cimmenuInstance = new cimmenu(document.getElementById('menu'));"
+let initScript = `
+var currentCimmenu = libcimmenu.currentCimmenu;
+var currentCimsvg = libcimsvg.currentCimsvg;
+var cimmenuInstance = new libcimmenu.cimmenu(document.getElementById('menu'));
+`;
 body.c(new tag('script').a('type', '"text/javascript"').t(initScript))
 body.a('onmouseover', '"currentCimmenu().hideAllMenuPanels();"')
 html.c(head)

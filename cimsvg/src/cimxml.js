@@ -16,6 +16,9 @@
  *  in the top level directory of this source tree.
  */
 
+import common from './common.js';
+import { cimsvg, currentCimsvg } from './cimsvg.js';
+
 class cimxml {
 
     static getBaseXML(baseJson) {
@@ -218,6 +221,4 @@ class cimxml {
 };
 
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = cimxml;
-}
+export default cimxml;

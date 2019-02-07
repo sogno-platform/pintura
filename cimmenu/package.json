@@ -10,10 +10,8 @@
   "scripts": {
     "generateClassStructure": "node templates/xslt/generateClassStructure.js",
     "generateHandlebars": "node templates/xslt/generateHandlebarTemplates.js --xmlDir=../data_model",
-    "handlebarAttributes": "handlebars generated/attributes > lib/template.hbrs",
-    "handlebarStatic": "handlebars templates/handlebars >> lib/template.hbrs",
-    "handlebarTemplates": "npm run handlebarAttributes && npm run handlebarStatic",
-    "templates": "npm run generateClassStructure && npm run generateHandlebars && npm run handlebarTemplates",
+    "createIndex": "cd templates && node createIndex.js > index.js",
+    "templates": "npm run generateClassStructure && npm run generateHandlebars && npm run createIndex",
     "build": "npm run templates && webpack --config webpack.cimmenu.js"
   },
   "devDependencies": {

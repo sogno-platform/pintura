@@ -16,18 +16,18 @@
  *  in the top level directory of this source tree.
  */
 
-if (typeof module !== 'undefined' && module.exports) {
-    global.Handlebars = (global.Handlebars || require('handlebars/runtime'));
-    require('../lib/template.hbrs');
-    require('./handlebarsHelpers.js');
-    global.common = require('./common.js')
-}
+import Handlebars from 'handlebars/runtime';
+import * as templates from '../templates';
+import common from './common.js';
+import contextmenu from './contextmenu.js';
+//import createGridArea from '../templates/handlebars/createGridArea.js';
+console.log(common)
 
 class cimmenu {
 
     constructor(node) {
         this.menuNode                = node;
-        this.template                = Handlebars.templates['menu'];
+        this.template                = templates.handlebars_menu;
         node.innerHTML               = this.template('');
         this.panels = {
             'diagramsPanel'          : this.menuNode.querySelectorAll('.diagrams-panel')[0],
@@ -45,7 +45,7 @@ class cimmenu {
         this.calculateScreenHeight();
         cimmenu.cimsvgFunction(()=> { currentCimsvg().setCimmenu(this) });
         cimmenu.setCimmenu(this);
-        this.contextMenu = new contextmenu(this.menuNode.querySelector('#context-menu'), "context-menu")
+        this.contextMenu = new contextmenu(this.menuNode.querySelector('#context-menu'), "context-menu");
         this.contextMenu.keyUpListener(window);
     };
 
@@ -157,8 +157,10 @@ class cimmenu {
     getVisibleMenus() {
         this.visibleMenus = [];
         Object.keys(this.panels).forEach((panelName, visibleMenus)=>{
-            if (!this.panels[panelName].classList.contains('invisible')) {
-                this.visibleMenus.push(panelName);
+            if (this.panels[panelName] !== undefined) {
+                if (!this.panels[panelName].classList.contains('invisible')) {
+                    this.visibleMenus.push(panelName);
+                }
             }
         });
         return this.visibleMenus;
@@ -248,7 +250,7 @@ class cimmenu {
     };
 
     populateFileLinks() {
-        let template = Handlebars.templates['menu-json'];
+        let template = templates.handlebars_menu_json;
         let items = template(cimmenu.menuStructure);
         this.panels['mainMenu'].innerHTML = items;
         this.panels['mainMenu'].querySelectorAll('#fileopen').forEach((elem)=>{ elem.addEventListener('change', cimmenu.readFile, false); });
@@ -277,13 +279,17 @@ class cimmenu {
     hideAllMenuPanels() {
         let menuPanels = this.panels.mainMenu.querySelectorAll('.main-menu-panel');
         menuPanels.forEach((panel)=>{
-            panel.classList.add('invisible');
+            if (menuPanels[panel] !== undefined) {
+                menuPanels[panel].classList.add('invisible');
+            }
         });
     }
 
     hidePanels(panels) {
         panels.forEach((panelClass)=>{
-            this.panels[panelClass].classList.add('invisible');
+            if (this.panels[panelClass] != undefined) {
+                this.panels[panelClass].classList.add('invisible');
+            }
         });
     }
 
@@ -331,10 +337,12 @@ class cimmenu {
     showDiagramComponentList(diagramId, type) {
         let accordionId = '#' + diagramId + '-accordion';
         let accordionNode = this.panels.diagramsPanel.querySelector(accordionId);
-        accordionNode.classList.remove('invisible');
-        let classSelector = '.' + common.removeColon(type) + '-li';
-        if (type) {
-            cimmenu.markSelected(accordionNode, classSelector, '.selected', 'selected');
+        if (accordionNode) {
+            accordionNode.classList.remove('invisible');
+            let classSelector = '.' + common.removeColon(type) + '-li';
+            if (type) {
+                cimmenu.markSelected(accordionNode, classSelector, '.selected', 'selected');
+            }
         }
         let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel)
         cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
@@ -428,8 +436,8 @@ class cimmenu {
     };
 
     static populatePanelWithTemplate(panelNode, templateJson, templateName, titleText) {
-        if (templateName in Handlebars.templates) {
-            let template = Handlebars.templates[templateName];
+        if (templateName in templates) {
+            let template = templates[templateName];
             let data = template(templateJson);
             let list = panelNode.querySelectorAll('.floating-menu-list');
             list.forEach(function(subpanel) {
@@ -514,10 +522,9 @@ class cimmenu {
                 console.error("Cannot find " + id + " in data to display id of " + type);
             }
             else {
-                let templatePath = cimVersion + "/" +type.substring(4);
-
-                if (templatePath in Handlebars.templates) {
-                    let template = Handlebars.templates[templatePath];
+                let templatePath = "generated_attributes_" + cimVersion + "_" +type.substring(4);
+                if (templatePath in templates) {
+                    let template = templates[templatePath];
                     let data = template(attributes);
                     cimmenu.populatePanelWithData(node, data, "Attributes");
                     cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
@@ -676,10 +683,5 @@ const currentCimmenu = function() {
     return cimmenu.getCimmenu();
 };
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { cimmenu, currentCimmenu }
-}
-
-global.cimmenu = cimmenu
-global.currentCimmenu = currentCimmenu
+export { cimmenu, currentCimmenu };
 

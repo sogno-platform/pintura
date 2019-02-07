@@ -8,8 +8,7 @@
     "url": "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
   },
   "scripts": {
-    "handlebars": "handlebars handlebars > lib/template.hbrs",
-    "build": "npm run handlebars && webpack --config webpack.cimsvg.js",
+    "build": "webpack --config webpack.cimsvg.js",
     "test": ""
   },
   "devDependencies": {

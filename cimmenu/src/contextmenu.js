@@ -78,6 +78,4 @@ class contextmenu {
 
 contextmenu.contextMenuActive = "context-menu-active";
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = contextmenu;
-}
+export default contextmenu;

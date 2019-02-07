@@ -215,6 +215,4 @@ class cimview {
     };
 };
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = cimview
-}
+export default cimview ;

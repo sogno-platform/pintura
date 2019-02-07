@@ -68,8 +68,10 @@ describe("cimsvg", function() {
         JSDOM.fromFile("index.html", {}).then(dom => {
             global.window = { clientWidth: 300, clientHeight: 300 };
             global.document = dom.window.document;
-            var libcimsvg = require("../cimsvg/lib/libcimsvg.node.js")
-            var libcimmenu = require("../cimmenu/lib/libcimmenu.node.js")
+            global.libcimsvg = require("../cimsvg/lib/libcimsvg.node.js")
+            global.libcimmenu = require("../cimmenu/lib/libcimmenu.node.js")
+            global.currentCimmenu = libcimmenu.currentCimmenu;
+            global.currentCimsvg = libcimsvg.currentCimsvg;
             let cimsvg = libcimsvg.cimsvg;
             let svg = dom.window.document.querySelector("#svg")
             let dialog = dom.window.document.querySelector("#dialog")
@@ -77,9 +79,9 @@ describe("cimsvg", function() {
             cimsvgInstance = new cimsvg(svg, dialog)
             cimsvg.setCimsvg(cimsvgInstance);
             let menu = dom.window.document.querySelector("#menu")
-            let cimmenuInstance = new cimmenu(menu)
-            cimsvgInstance.setCimmenu(cimmenu);
-            cimmenu.setCimmenu(cimmenuInstance);
+            let cimmenuInstance = new libcimmenu.cimmenu(menu)
+            cimsvgInstance.setCimmenu(cimmenuInstance);
+            libcimmenu.cimmenu.setCimmenu(cimmenuInstance);
             done();
         });
     });
@@ -131,8 +133,8 @@ describe("cimsvg", function() {
     });
 
     it("should be possible to read a cim file", function(done) {
-        spyOn(cimxml, "getDOM").and.callFake(getDOM);
-        spyOn(cimxml, "isElementNode").and.callFake(isElementNode);
+        spyOn(libcimsvg.cimxml, "getDOM").and.callFake(getDOM);
+        spyOn(libcimsvg.cimxml, "isElementNode").and.callFake(isElementNode);
         cimsvgInstance.setFileCount(1);
         fs.readFile("test/grid-data/CIM/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
             if (err) throw err;
@@ -143,8 +145,8 @@ describe("cimsvg", function() {
     });
 
     it("should be possible to save a file", function(done) {
-        spyOn(cimxml, "getDOM").and.callFake(getDOM);
-        spyOn(cimxml, "getXMLSerializer").and.callFake(getXMLSerializer);
+        spyOn(libcimsvg.cimxml, "getDOM").and.callFake(getDOM);
+        spyOn(libcimsvg.cimxml, "getXMLSerializer").and.callFake(getXMLSerializer);
         cimsvgInstance.addComponent("cim:EnergyConsumer");
         expect(cimsvgInstance.exportXmlData()).not.toBe(null);
         done();

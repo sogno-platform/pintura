@@ -16,20 +16,15 @@
  *  in the top level directory of this source tree.
  */
 
-if (typeof module !== 'undefined' && module.exports) {
-    global.Handlebars = (global.Handlebars || require('handlebars/runtime'));
-    global.cim2svg = require('../lib/template.hbrs');
-    global.cimxml = require('./cimxml.js');
-    global.cimview = require('./cimview.js');
-    global.cimedit = require('./cimedit.js');
-    global.cimjson = require('./cimjson.js');
-    global.contextmenu = require('./contextmenu.js');
-    global.common = require('./common.js');
-    global.JSZip = require('jszip');
-};
-
-require('../css/svg.css');
-global.style = require('../css/svg.style');
+import cim2svg from '../handlebars/cim2svg.handlebars';
+import cimxml from './cimxml.js';
+import cimview from './cimview.js';
+import cimedit from './cimedit.js';
+import cimjson from './cimjson.js';
+import common from './common.js';
+import JSZip from 'jszip';
+import '../css/svg.css';
+import style from '../css/svg.style';
 
 class cimsvg {
 
@@ -262,7 +257,7 @@ class cimsvg {
         let baseJson = this.getBaseJson();
         /* getTemplateJson will associate the diagram objects with components */
         this.templateJson = cimjson.getTemplateJson(baseJson);
-        this.updateCimmenu(()=>{ currentCimmenu().update(this.templateJson) });
+        this.updateCimmenu(()=>{ this.cimmenu.update(this.templateJson) });
     };
 
     populateComponentTypeListForDiagram(diagramId) {
@@ -314,15 +309,11 @@ class cimsvg {
     };
 
     populateAttributes(type, id) {
-        if (currentCimmenu()) {
-            currentCimmenu().populateAttributes(type, id);
-        }
+        this.updateCimmenu(()=>{ return this.cimmenu.populateAttributes(type, id); });
     };
 
     populateAttributesIdOnly(id) {
-        if (currentCimmenu()) {
-            currentCimmenu().populateAttributesIdOnly(id);
-        }
+        this.updateCimmenu(()=>{ return this.cimmenu.populateAttributesIdOnly(id); });
     };
 
     populateComponentCreationMenu() {
@@ -342,7 +333,7 @@ class cimsvg {
     };
 
     checkComponentReadyToAdd(evt) {
-        let visibleMenus = this.updateCimmenu(()=>{ return currentCimmenu().getVisibleMenus() });
+        let visibleMenus = this.updateCimmenu(()=>{ return this.cimmenu.getVisibleMenus() });
         let rdfid = null;
         this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
         if (this.addingType != null) {
@@ -356,12 +347,12 @@ class cimsvg {
         backingList.forEach(function(backing) {
             backing.style.cursor = 'initial';
         });
-        this.updateCimmenu(()=>{ currentCimmenu().redrawMenus(visibleMenus); });
+        this.updateCimmenu(()=>{ this.cimmenu.redrawMenus(visibleMenus); });
         return rdfid;
     };
 
     applyDiagramTemplate(templateJson) {
-        let templateHtml = this.applyTemplate(templateJson, 'cim2svg');
+        let templateHtml = cim2svg(templateJson);
         let diagramList = this.svgNode.querySelectorAll('.diagrams')
         diagramList.forEach(function(diagram) {
             diagram.innerHTML = templateHtml;
@@ -372,7 +363,7 @@ class cimsvg {
         let baseJson = this.getBaseJson();
         this.templateJson = cimjson.getTemplateJson(baseJson);
         this.applyDiagramTemplate(this.templateJson)
-        this.updateCimmenu(()=>{ currentCimmenu().update(this.templateJson, baseJson) });
+        this.updateCimmenu(()=>{ this.cimmenu.update(this.templateJson, baseJson) });
     };
 
     addRawComponentAndApplyTemplates(type, point) {
@@ -447,7 +438,7 @@ class cimsvg {
             SVGData += data.outerHTML;
         });
         let templateData = {
-            style: global.style,
+            style: style,
             diagrams: SVGData,
             viewBox: this.svgNode.getAttribute('viewBox'),
         }
@@ -475,8 +466,8 @@ class cimsvg {
             this.getBaseJson()[type][id][attribute] = value
             let baseJson = this.getBaseJson();
             this.templateJson = cimjson.getTemplateJson(baseJson);
-            currentCimmenu().updateComponent(type, id, attribute, value);
-            currentCimmenu().update(this.templateJson);
+            this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value) });
+            this.updateCimmenu(()=>{ this.cimmenu.update(this.templateJson) });
         }
     };
 
@@ -487,7 +478,7 @@ class cimsvg {
     updateComponentRDF(type, id, attribute, rdfid) {
         let value = { "rdf:resource" : "#" + rdfid }
         this.updateComponentInBaseJson(type, id, attribute, value)
-        currentCimmenu().updateComponent(type, id, attribute, value);
+        this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value) });
         if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
             let baseJson = this.getBaseJson();
             cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);
@@ -746,6 +737,13 @@ class cimsvg {
         });
     };
 
+    terminalAndPointLimits() {
+        return cimedit.terminalAndPointLimits;
+    };
+
+    typeIsVisible(type) {
+        return cimedit.typeIsVisible(type);
+    };
 };
 
 cimsvg.currentCimsvgClass = null;
@@ -754,9 +752,5 @@ const currentCimsvg = function() {
     return cimsvg.getCimsvg();
 };
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { cimsvg, currentCimsvg }
-    global.cimsvg = cimsvg
-    global.currentCimsvg = currentCimsvg
-}
+export { cimsvg, currentCimsvg, cimxml }
 

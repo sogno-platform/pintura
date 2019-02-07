@@ -1,6 +1,7 @@
 handlebars.runtime.js
 index.html
-cimmenu/generated
+cimmenu/templates/generated
+cimmenu/templates/index.js
 node_modules/*
 package-lock.json
 generated/add_components_menu.xml

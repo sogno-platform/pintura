@@ -16,6 +16,9 @@
  *  in the top level directory of this source tree.
  */
 
+import common from './common.js';
+import { cimsvg, currentCimsvg } from './cimsvg.js';
+
 class cimedit {
 
     static makeDiagram(newStuff) {
@@ -389,6 +392,4 @@ cimedit.terminalAndPointLimits = {
     },
 };
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = cimedit;
-}
+export default cimedit;

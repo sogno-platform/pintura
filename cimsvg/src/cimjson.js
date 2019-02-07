@@ -16,18 +16,19 @@
  *  in the top level directory of this source tree.
  */
 
-const term = require("../images/term.svg");
-const brea = require("../images/brea.svg");
-const conn = require("../images/conn.svg");
-const cons = require("../images/cons.svg");
-const net  = require("../images/net.svg");
-const tran = require("../images/trans.svg");
-const sola = require("../images/sol.svg");
-const sync = require("../images/sync.svg");
-const topo = require("../images/topo.svg");
-const node = require("../images/node.svg");
-const dialog_join = require("../images/dialog_join.svg");
-
+import term        from '../images/term.svg';
+import brea        from '../images/brea.svg';
+import conn        from '../images/conn.svg';
+import cons        from '../images/cons.svg';
+import net         from '../images/net.svg';
+import tran        from '../images/trans.svg';
+import sola        from '../images/sol.svg';
+import sync        from '../images/sync.svg';
+import topo        from '../images/topo.svg';
+import node        from '../images/node.svg';
+import dialog_join from '../images/dialog_join.svg';
+import common      from './common.js';
+import cimedit     from './cimedit.js';
 
 class cimjson {
 
@@ -252,6 +253,4 @@ cimjson.imageNames = {
 };
 
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = cimjson;
-}
+export default cimjson;

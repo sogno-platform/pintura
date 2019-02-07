@@ -13,10 +13,30 @@ const dbgOpt = '--debug';
 const createAddComponentMenuFilename = "templates/xslt/cim_add_components_menu.xslt";
 const createAttributeListFilename = "templates/xslt/cim_xml_scheme.xslt";
 const sortMenuXSLTFilename = "templates/xslt/sort_menu.xslt";
-const sortedMenuFilename = "generated/add_components_menu.xml";
-const sortedAllComponentsFilename = "generated/add_all_components_menu.xml";
-const attributeDir = "generated/attributes/";
-const cimedit = require('../../../cimsvg/src/cimedit.js');
+const sortedMenuFilename = "templates/generated/add_components_menu.xml";
+const sortedAllComponentsFilename = "templates/generated/add_all_components_menu.xml";
+const attributeDir = "templates/generated/attributes/";
+global.window = { clientWidth: 300, clientHeight: 300 };
+var body = {
+    head: { appendChild: function() {} }
+}
+global.document = {
+    createElement: function() {
+        return {
+            appendChild: function() {},
+            setAttribute: function() {}
+        }
+    },
+    createTextNode: function() {},
+    querySelector: function(query) {
+        return body[query];
+    },
+    insertInto: function(place, thing) {
+        stuff[place] = thing;
+    }
+};
+const Handlebars = require('handlebars/runtime');
+const libcimsvg = require('../../../cimsvg/lib/libcimsvg.node.js').cimsvg;
 
 const getOptions = function(args) {
   let options = {};
@@ -78,8 +98,8 @@ const writeArrayOfFiles = function(objects, index, done) {
 
 const createComponentCreationHtml = function(menuXml) {
   let ul = "<ul class='floating-panel-list'>";
-  for (let item in cimedit.terminalAndPointLimits) {
-    if (cimedit.typeIsVisible(item)) {
+  for (let item in libcimsvg.terminalAndPointLimits) {
+    if (libcimsvg.typeIsVisible(item)) {
       let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
       let result = menuXml.get(xpathQuery);
       if (result) {
