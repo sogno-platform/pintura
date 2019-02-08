@@ -36,7 +36,7 @@ global.document = {
     }
 };
 const Handlebars = require('handlebars/runtime');
-const libcimsvg = require('../../../cimsvg/lib/libcimsvg.node.js').cimsvg;
+const libcimsvg = require('../../../cimsvg/lib/libcimsvg.js').cimsvg;
 
 const getOptions = function(args) {
   let options = {};
