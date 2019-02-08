@@ -23,7 +23,7 @@ let _devtool = process.env.npm_config_mode == "debug" ? "inline-sourcemap" : fal
 let _minimize = process.env.npm_config_mode == "debug" ? false : true;
 let _mode = process.env.npm_config_mode == "debug" ? "development" : "production";
 
-const browserConfig = {
+module.exports = {
   context: __dirname,
   devtool: _devtool,
   entry: "./src/cimmenu.js",
@@ -33,6 +33,7 @@ const browserConfig = {
     path: __dirname + "/lib",
     library: libraryName,
     filename: libraryName + ".js",
+    libraryTarget: "umd",
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -70,52 +71,3 @@ const browserConfig = {
   },
 };
 
-const nodeConfig = {
-  context: __dirname,
-  devtool: _devtool,
-  entry: "./src/cimmenu.js",
-  optimization: { "minimize": _minimize },
-  mode: _mode,
-  target: "node",
-  output: {
-    path: __dirname + "/lib",
-    filename: libraryName + ".node.js",
-    libraryTarget: "commonjs2",
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(_mode)
-      }
-    })
-  ],
-  module: {
-    rules: [{
-      test: /\.(png|jp(e*)g|svg)$/,
-      use: [{
-        loader: 'url-loader',
-          options: {
-            limit: 8000, // Convert images < 8kb to base64 strings
-            name: 'images/[hash]-[name].[ext]'
-          }
-      }]
-    },
-    {
-      test: /\.handlebars$/, loader: "handlebars-loader",
-      options: {
-        helperDirs: [ path.join(__dirname, "templates/handlebars/helpers/") ],
-      }
-    },
-    {
-      test: /\.js$/,
-      use: [{
-        loader: 'babel-loader',
-        query: {
-          presets: ['@babel/preset-env']
-        }
-      }]
-    }]
-  },
-};
-
-module.exports = [ browserConfig, nodeConfig ];

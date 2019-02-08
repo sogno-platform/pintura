@@ -22,7 +22,7 @@ let _devtool = process.env.npm_config_mode == "debug" ? "inline-sourcemap" : fal
 let _minimize = process.env.npm_config_mode == "debug" ? false : true;
 let _mode = process.env.npm_config_mode == "debug" ? "development" : "production";
 
-const browserConfig = {
+module.exports = {
   context: __dirname,
   devtool: _devtool,
   entry: "./src/cimsvg.js",
@@ -32,6 +32,7 @@ const browserConfig = {
     path: __dirname + "/lib",
     library: libraryName,
     filename: libraryName + ".js",
+    libraryTarget: "umd",
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -78,61 +79,3 @@ const browserConfig = {
   },
 };
 
-const nodeConfig = {
-  context: __dirname,
-  devtool: _devtool,
-  entry: "./src/cimsvg.js",
-  optimization: { "minimize": _minimize },
-  mode: _mode,
-  target: "node",
-  output: {
-    path: __dirname + "/lib",
-    filename: libraryName + ".node.js",
-    libraryTarget: "commonjs2",
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(_mode)
-      }
-    })
-  ],
-  module: {
-    rules: [
-    {
-      test: /\.svg$/,
-      use: [{
-        loader: 'svg-inline-loader',
-          options: {
-            name: 'images/[hash]-[name].[ext]',
-            removeSVGTagAttrs: true,
-            removingTagAttrs: ['xmlns'],
-            removeTags: true,
-            removingTags: ['!--'],
-          }
-      }]
-    },
-    {
-      test: /\.css$/,
-      use: [ 'style-loader', 'css-loader' ],
-    },
-    {
-      test: /\.style$/,
-      use: [ 'to-string-loader', 'css-loader' ],
-    },
-    {
-      test: /\.handlebars$/, loader: "handlebars-loader"
-    },
-    {
-      test: /\.(js|hbrs)$/,
-      use: [{
-        loader: 'babel-loader',
-        query: {
-          presets: ['@babel/preset-env']
-        }
-      }]
-    }]
-  },
-};
-
-module.exports = [ browserConfig, nodeConfig ];

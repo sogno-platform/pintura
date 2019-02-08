@@ -1,7 +1,7 @@
 <ul class="floating-panel-list">
     {{#each Diagram as |value diagramId|}}
         {{#each components as |value typeName|}}
-            {{#sort_each_by_pintura_label this as |value componentId|}}
+            {{#sortEachByPinturaLabel this as |value componentId|}}
                 <li class="list-entry">
                     <button id="{{componentId}}-components-panel-button"
                         class="row button wide-button {{this.selected}}"
@@ -9,7 +9,7 @@
                             <span class="fa fa-cube">
                     </span>{{this.pintura:label.text}}</button>
                 </li>
-            {{/sort_each_by_pintura_label}}
+            {{/sortEachByPinturaLabel}}
         {{/each}}
     {{/each}}
 </ul>

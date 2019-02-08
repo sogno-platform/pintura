@@ -8,11 +8,11 @@
             <span class="button panel-button row-right" onclick="javascript:currentCimsvg().setCurrentDiagramId('{{diagramId}}');currentCimsvg().populateComponentCreationMenu();currentCimsvg().showDialog()">&#43;</span>
         </div>
         <div id="{{diagramId}}-accordion" class="component-accordion invisible">
-            {{#sort_each components as |value typeName|}}
+            {{#sortEach components as |value typeName|}}
             <li class="wide-row list-subtitle {{removeColon typeName}}-li" onclick="currentCimmenu().componentTypeSelected(this, '{{diagramId}}', '{{typeName}}');" >
                 <span class="button indent row-left"><span class="fa fa-cubes"></span>  {{typeName}}</span>
             </li>
-            {{/sort_each}}
+            {{/sortEach}}
         </div>
     {{/each}}
 </ul>

@@ -238,7 +238,7 @@ class cimmenu {
     populateAllComponents() {
         cimmenu.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
-            let items = this.applyTemplate(baseJson, 'pinturaJson2AllComponentsList');
+            let items = this.applyTemplate(baseJson, 'handlebars_pinturaJson2AllComponentsList');
             cimmenu.populatePanelWithData(this.panels.allComponentsPanel, items, 'All Components');
             cimmenu.updateGridLocation(this.panels.allComponentsPanel, 4, 1, 10);
             this.showPanel('allComponentsPanel');
@@ -350,7 +350,7 @@ class cimmenu {
 
     populateDiagramComponents() {
         cimmenu.populatePanelWithTemplate(this.panels.diagramsPanel,
-            this.templateJson, 'pinturaJson2DiagramList', "Diagram Components");
+            this.templateJson, 'handlebars_pinturaJson2DiagramList', "Diagram Components");
         let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel)
         cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
     };
@@ -398,7 +398,7 @@ class cimmenu {
                 justTheseComponents["Diagram"][diagramId]['components'][componentType][id].selected = 'selected';
             }
             if(this.panels.componentsPanel != null) {
-                cimmenu.populatePanelWithTemplate(this.panels.componentsPanel, justTheseComponents, 'pinturaJson2ComponentOfTypeList', "Component Types");
+                cimmenu.populatePanelWithTemplate(this.panels.componentsPanel, justTheseComponents, 'handlebars_pinturaJson2ComponentOfTypeList', "Component Types");
             }
             if(id) {
                 delete justTheseComponents["Diagram"][diagramId]['components'][componentType][id].selected;
@@ -447,6 +447,9 @@ class cimmenu {
             titleList.forEach(function(title) {
                 title.innerHTML = titleText;
             });
+        }
+        else {
+            console.error("Requested template does not exist!", templateName);
         }
     };
 
