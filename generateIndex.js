@@ -137,6 +137,7 @@ var makeAccordionDiv = function(id, action) {
 var html = new tag('html')
 var head = new tag('head')
 
+head.c(new tag('meta').a('charset', '"utf-8"'))
 head.c(new tag('title').t('Pintura'))
 head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
 head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
@@ -144,7 +145,7 @@ head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 head.c(new tag('link').a('rel', '"stylesheet"').
                        a('href', '"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"').
                        a('crossorigin', '"anonymous"').
-                       a('type', '"text/css"').t(" "))
+                       a('type', '"text/css"'))
 head.c(new tag('link').a('rel', '"apple-touch-icon"').a('sizes', '"180x180"').a('href', '"/images/apple-touch-icon.png"'))
 head.c(new tag('link').a('rel', '"icon"').a('type', '"image/png"').a('sizes', '"32x32"').a('href', '"/images/favicon-32x32.png"'))
 head.c(new tag('link').a('rel', '"icon"').a('type', '"image/png"').a('sizes', '"16x16"').a('href', '"/images/favicon-16x16.png"'))
@@ -195,7 +196,7 @@ body.c(menu).c(svg)
 
 var vert_centre = new tag('div').a('class', '"middle-dialog"').
                           c(new tag('div').a('class', '"spacer"')).
-                          c(new tag('div').c(new tag('h4').a('class', '"dialog-title"'))).
+                          c(new tag('div').c(new tag('h4').a('class', '"dialog-title"').t(" "))).
                           c(new tag('div').a('class', '"spacer"')).
                           c(new tag('div').a('class', '"dialog-list"')).
                           c(new tag('div').a('class', '"spacer"'));
@@ -213,6 +214,8 @@ body.c(new tag('div').
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimmenu.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
+// TODO move event handlers into code so we don't need this stub
+head.c(new tag('script').a('type', '"text/javascript"').t("var currentCimmenu=function() { return { hideAllMenuPanels: function () {console.log('ok');} }; }"))
 let initScript = `
 var currentCimmenu = libcimmenu.currentCimmenu;
 var currentCimsvg = libcimsvg.currentCimsvg;
@@ -240,8 +243,7 @@ console.log(`<!--
     A copy of the GNU General Public License is in the LICENSE file
     in the top level directory of this source tree.
 -->
-<!DOCTYPE HTML>
-<meta charset="utf-8"/>`)
+<!DOCTYPE HTML>`)
 //printTagJson(html)
 if (process.argv[2] == 'debug') {
     printTag(html, true)

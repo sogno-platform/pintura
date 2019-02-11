@@ -20,8 +20,6 @@ import Handlebars from 'handlebars/runtime';
 import * as templates from '../templates';
 import common from './common.js';
 import contextmenu from './contextmenu.js';
-//import createGridArea from '../templates/handlebars/createGridArea.js';
-console.log(common)
 
 class cimmenu {
 
@@ -61,8 +59,8 @@ class cimmenu {
     };
 
     applyTemplate(data, templateName) {
-        if (templateName in Handlebars.templates) {
-            let template = Handlebars.templates[templateName];
+        if (templateName in templates) {
+            let template = templates[templateName];
             return template(data);
         }
         else {
@@ -539,17 +537,20 @@ class cimmenu {
 
     getAggregateComponentsList(requestedClass, types) {
         let aggregateComponents = { aggregates: [{ rdfid: "", name: "Select " + requestedClass }]};
-        for (let index in types) {
-            let type = "cim:" + types[index];
-            let components = common.safeExtract(this.templateJson, 'Diagram', this.diagramId, 'components', type)
-            for (let component in components) {
-                aggregateComponents['aggregates'].push({
-                    rdfid: component[common.pinturaRdfid()],
-                    name:  component[common.identifiedObjectName()],
-                    type:  type
-                })
+        cimmenu.cimsvgFunction(()=> {
+            let baseJson = currentCimsvg().getBaseJson();
+            for (let index in types) {
+                let type = "cim:" + types[index];
+                let components = common.safeExtract(baseJson, type)
+                for (let component in components) {
+                    aggregateComponents['aggregates'].push({
+                        rdfid: components[component][common.pinturaRdfid()],
+                        name:  components[component][common.identifiedObjectName()],
+                        type:  type
+                    })
+                }
             }
-        }
+        });
         return aggregateComponents;
     };
 
@@ -561,13 +562,11 @@ class cimmenu {
         cimmenu.currentCimmenuClass = cimmenuClass;
     };
 
-    static populateTerminals (node, type, cimVersion, rdfid) {
-        let title = "Terminal List";
-        let titleNode = node.querySelectorAll('.floating-panel-title')
+    populateTerminals (type, cimVersion, rdfid) {
         cimmenu.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
             if (baseJson[type] && baseJson[type][rdfid]) {
-                let template = Handlebars.templates['cim_list_terminals'];
+                let template = templates.handlebars_cim_list_terminals;
                 let terminals = baseJson[type][rdfid][common.pinturaTerminals()]
                 let begin =`
                     <span class="row-right wide-row floating-panel-value">
@@ -589,12 +588,19 @@ class cimmenu {
                     };
                     menuData += template(templateData);
                 }
-                cimmenu.populatePanelWithData(node, menuData, "Terminals");
             }
             else {
                 console.error("Couldn't find " + rdfid + " in " + baseJson[type])
             }
         });
+
+        cimmenu.populatePanelWithData(this.panels.allComponentsPanel, menuData, "Terminals");
+        cimmenu.updateGridLocation(this.panels.allComponentsPanel, 4, 1, 10);
+        this.showPanel('allComponentsPanel');
+    };
+
+    getSelectFromDropdown(column, id) {
+        return this.panels[column].querySelector('#'+id);
     };
 }
 

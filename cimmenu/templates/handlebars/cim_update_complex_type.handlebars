@@ -5,5 +5,5 @@
         {{/each}}
     </select>
     <button class="smallbutton" onclick="currentCimsvg().addComponent('{{requestedType}}');currentCimsvg().populateAttributes('{{type}}', '{{rdfid}}')"> + </button>
-    <button class="smallbutton" onclick="currentCimsvg().populateAttributes('{{requestedType}}', currentCimsvg().getSelectFromFloatingMenuNode('{{dropdownId}}').value)"> -> </button>
+    <button class="smallbutton" onclick="currentCimsvg().populateAttributes('{{requestedType}}', currentCimmenu().getSelectFromDropdown('attributesPanel', '{{dropdownId}}').value)"> -> </button>
 </span>

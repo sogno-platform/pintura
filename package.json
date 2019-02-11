@@ -13,7 +13,7 @@
     "cimsvg": "cd cimsvg && npm install && npm run build",
     "cimmenu": "cd cimmenu && npm install && npm run build",
     "libs": "npm run cimsvg && npm run cimmenu",
-    "generateIndex": "node generateIndex.js $config.mode > index.html",
+    "generateIndex": "node generateIndex.js $(npm config get mode) > index.html",
     "makeDist": "cp -a cimmenu/templates/generated/*.xml cimmenu/lib/*.js cimsvg/lib/*.js dist",
     "build-tasks": "npm run makeDirs && npm run libs && npm run generateIndex",
     "build": "npm run build-tasks && npm run makeDist && npm run test",

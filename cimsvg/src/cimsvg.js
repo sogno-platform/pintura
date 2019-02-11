@@ -56,10 +56,6 @@ class cimsvg {
         return null;
     }
 
-    getSelectFromFloatingMenuNode(id) {
-        return this.floatingMenu.querySelector('#'+id);
-    };
-
     getValueOf(type, id, attribute) {
         let object = common.safeExtract(this.getBaseJson(), type, id);
         if (object == undefined) {
@@ -329,7 +325,7 @@ class cimsvg {
     };
 
     populateTerminals(type, rdfid) {
-        cimmenu.populateTerminals(this.floatingMenu, type, this.getCimVersionFolder(), rdfid)
+        this.updateCimmenu(()=>{ this.cimmenu.populateTerminals(type, this.getCimVersionFolder(), rdfid) });
     };
 
     checkComponentReadyToAdd(evt) {
@@ -708,13 +704,6 @@ class cimsvg {
         let tables = this.getColumnPanel(name).querySelectorAll(".floating-panel-table");
         tables.forEach(function(table){
             table.classList.add('invisible');
-        });
-    };
-
-    showFloatingMenu() {
-        let tables = this.floatingMenu.querySelectorAll(".floating-panel-table");
-        tables.forEach(function(table){
-            table.classList.remove('invisible');
         });
     };
 
