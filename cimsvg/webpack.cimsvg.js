@@ -42,18 +42,24 @@ const browserConfig = {
   ],
   module: {
     rules: [{
-      test: /\.(png|jp(e*)g|svg)$/,
+      test: /\.svg$/,
       use: [{
-        loader: 'url-loader',
+        loader: 'svg-inline-loader',
           options: {
-            limit: 8000, // Convert images < 8kb to base64 strings
-            name: 'images/[hash]-[name].[ext]'
+            name: 'images/[hash]-[name].[ext]',
+            removeTags: true,
+            removingTags: ['!--'],
+            removeSVGTagAttrs: true,
+            removingTagAttrs: ['xmlns'],
           },
       }]},
       {
         test: /\.css$/,
-        include: [ __dirname + '/css' ],
         use: [ 'style-loader', 'css-loader' ],
+      },
+      {
+        test: /\.style$/,
+        use: [ 'to-string-loader', 'css-loader' ],
       }
     ]
   },
@@ -80,18 +86,24 @@ const nodeConfig = {
   ],
   module: {
     rules: [{
-      test: /\.(png|jp(e*)g|svg)$/,
+      test: /\.svg$/,
       use: [{
-        loader: 'url-loader',
+        loader: 'svg-inline-loader',
           options: {
-            limit: 8000, // Convert images < 8kb to base64 strings
-            name: 'images/[hash]-[name].[ext]'
+            name: 'images/[hash]-[name].[ext]',
+            removeSVGTagAttrs: true,
+            removingTagAttrs: ['xmlns'],
+            removeTags: true,
+            removingTags: ['!--'],
           }
       }]},
       {
         test: /\.css$/,
-        include: [ __dirname ],
         use: [ 'style-loader', 'css-loader' ],
+      },
+      {
+        test: /\.style$/,
+        use: [ 'to-string-loader', 'css-loader' ],
       }
     ]
   },

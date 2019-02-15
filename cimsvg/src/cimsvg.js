@@ -29,6 +29,7 @@ if (typeof module !== 'undefined' && module.exports) {
 };
 
 require('../css/svg.css');
+global.style = require('../css/svg.style');
 
 class cimsvg {
 
@@ -445,9 +446,8 @@ class cimsvg {
         SVGDiagrams.forEach((data)=>{
             SVGData += data.outerHTML;
         });
-        let css = this.applyTemplate('', 'svg.css');
         let templateData = {
-            style: css,
+            style: global.style,
             diagrams: SVGData,
             viewBox: this.svgNode.getAttribute('viewBox'),
         }

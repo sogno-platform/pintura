@@ -240,14 +240,14 @@ cimjson.imageNames = {
     "cim:ACLineSegment":             term,
     "cim:Terminal":                  term,
     "cim:Breaker":                   brea,
-    "cim:ConnectivityNode":          node,
+    "cim:ConnectivityNode":          conn,
     "cim:EnergyConsumer":            cons,
     "cim:EquivalentInjection":       cons,
     "cim:ExternalNetworkInjection":  net,
     "cim:PowerTransformer":          tran,
     "cim:SolarGeneratingUnit":       sola,
     "cim:SynchronousMachine":        sync,
-    "cim:TopologicalNode":           node,
+    "cim:TopologicalNode":           conn,
     "cim:TransformerWinding":        tran,
 };
 

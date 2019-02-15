@@ -16,6 +16,6 @@
     A copy of the GNU General Public License is in the LICENSE file
     in the top level directory of this source tree.
 -->
-<svg height="27" width="27" xmlns="http://www.w3.org/2000/svg">
-    <circle id="circle" cx="13" cy="14" r="6" fill-opacity="1" stroke="black" stroke-width="1" />
+<svg xmlns="http://www.w3.org/2000/svg">
+    <circle id="circle" cx="12" cy="12" r="3" fill-opacity="1" stroke="black" stroke-width="1" />
 </svg>

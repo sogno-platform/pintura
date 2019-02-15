@@ -11,21 +11,23 @@
         class="image"
         diagram-id="{{@diagramId}}">
       {{#each pintura:points}}
-        <image
+        <svg
           x="{{x}}"
           y="{{y}}"
-          xlink:href="{{../pintura:image}}"
           id="{{componentId}}-img{{@key}}"
           height="{{imageHeight}}"
           width="{{imageWidth}}"
           transform="{{../pintura:transform}}"
+          viewBox="0 0 24 24"
           imageIndex="1"
           onmousedown="onMouseDown(evt)"
           onmouseup="onMouseUp(evt)"
           onmousemove="onMouseMove(evt)"
           onmouseover="onMouseOver(evt)"
           onmouseleave="onMouseLeave(evt)"
-        />
+        >
+          {{{../pintura:image}}}
+        </svg>
       {{/each}}
       {{#each pintura:line}}
         <line

@@ -16,7 +16,7 @@
     A copy of the GNU General Public License is in the LICENSE file
     in the top level directory of this source tree.
 -->
-<svg height="36" width="36" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg">
     <defs>
         <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
             <path d="M0,2 L0,4 L2,3 z" fill="#000" />
