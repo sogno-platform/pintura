@@ -293,7 +293,7 @@ class cimedit {
             let diagramObject = common.safeExtract(jsonBaseData, "cim:DiagramObject", rdfid);
             let points = common.safeExtract(jsonBaseData, "cim:DiagramObject", rdfid, common.pinturaDiagramObjectPoints());
             points.forEach( function(point) {
-                removeComponentFromBaseJson(jsonBaseData, "cim:DiagramObjectPoint", point);
+                cimedit.removeComponentFromBaseJson(jsonBaseData, "cim:DiagramObjectPoint", point);
             });
         }
         else if (type == "cim:Terminal") {
@@ -306,7 +306,7 @@ class cimedit {
         else {
             let diagramObjectId = common.safeExtract(jsonBaseData, type, rdfid, "diagramObject");
             if (diagramObjectId) {
-                removeComponentFromBaseJson(jsonBaseData, "cim:DiagramObject", diagramObjectId);
+                cimedit.removeComponentFromBaseJson(jsonBaseData, "cim:DiagramObject", diagramObjectId);
             }
             let terminals = common.safeExtract(jsonBaseData, type, rdfid, "terminals");
             if (terminals) {

@@ -167,21 +167,12 @@ let showContainer = function(container, icon, show="false", newClass="block"){
         }
     }
 };
+
 const saveBinaryFile=function(data) {
     let filesave = document.getElementById("filesave")
     let element = document.createElement('a');
     element.setAttribute('href', window.URL.createObjectURL(data));
     element.setAttribute('download', "pinturaGrid.zip");
-    element.style.display = 'none';
-    filesave.appendChild(element);
-    element.click();
-    filesave.removeChild(element);
-}
-const saveFile=function(data, filename="pinturaGrid.xml") {
-    let filesave = document.getElementById("filesave")
-    let element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
-    element.setAttribute('download', filename);
     element.style.display = 'none';
     filesave.appendChild(element);
     element.click();

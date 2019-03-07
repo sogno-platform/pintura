@@ -23,7 +23,7 @@ import cimedit from './cimedit.js';
 import cimjson from './cimjson.js';
 import common from './common.js';
 import JSZip from 'jszip';
-import '../css/svg.css';
+import css from '../css/svg.css';
 import style from '../css/svg.style';
 
 class cimsvg {
@@ -177,11 +177,6 @@ class cimsvg {
         this.svgNode.parentElement.appendChild(newTag);
     };
 
-    applyTemplate(data, templateName) {
-        let template = Handlebars.templates[templateName];
-        return template(data);
-    };
-
     addDiagram() {
         return this.addComponentAndApplyTemplates("cim:Diagram")
     };
@@ -264,7 +259,7 @@ class cimsvg {
             let justThisDiagram = { "Diagram": { [diagramId]: diagram } }
             let componentTypesPanel = this.getColumnPanel('.component-types-panel');
             if(componentTypesPanel != null) {
-                cimmenu.populatePanelWithTemplate(componentTypesPanel, justThisDiagram, 'pinturaJson2DiagramComponentTypeList', "Component Types");
+                this.updateCimmenu(()=>{ this.cimmenu.populatePanelWithTemplate(componentTypesPanel, justThisDiagram, 'pinturaJson2DiagramComponentTypeList', "Component Types"); });
             }
         }
     };
@@ -277,7 +272,7 @@ class cimsvg {
             let justTheseComponents = { "Diagram": { [diagramId]: { 'components': { [componentType]: components } } } };
             let componentsPanel = this.getColumnPanel('.components-panel');
             if(componentsPanel != null) {
-                cimmenu.populatePanelWithTemplate(componentsPanel, justTheseComponents, 'pinturaJson2ComponentOfTypeList', "Component Types");
+                this.updateCimmenu(()=>{ this.cimmenu.populatePanelWithTemplate(componentsPanel, justTheseComponents, 'pinturaJson2ComponentOfTypeList', "Component Types"); });
             }
         }
     };
@@ -455,20 +450,31 @@ class cimsvg {
             diagrams: SVGData,
             viewBox: this.svgNode.getAttribute('viewBox'),
         }
-        let returnData = this.applyTemplate(templateData, 'cim_create_svg');
+        let returnData = cim2svg(templateData);
         return (returnData);
     };
 
+    static saveFile(data, filename="pinturaGrid.xml") {
+        let filesave = document.getElementById("filesave")
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        filesave.appendChild(element);
+        element.click();
+        filesave.removeChild(element);
+    }
+
     saveGridXml() {
-        saveFile(this.exportXmlData());
+        cimsvg.saveFile(this.exportXmlData());
     };
 
     saveToSVG() {
-        saveFile(this.exportSVGData(), "pintura.svg");
+        cimsvg.saveFile(this.exportSVGData(), "pintura.svg");
     };
 
     saveTemplateJson() {
-        saveFile(JSON.stringify(this.templateJson));
+        cimsvg.saveFile(JSON.stringify(this.templateJson));
     };
 
     updateComponentInBaseJson(type, id, attribute, value) {
