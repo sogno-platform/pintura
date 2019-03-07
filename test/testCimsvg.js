@@ -79,6 +79,8 @@ describe("cimsvg", function() {
             cimsvgInstance = new cimsvg(svg, dialog)
             cimsvg.setCimsvg(cimsvgInstance);
             let menu = dom.window.document.querySelector("#menu")
+            Object.defineProperty(menu, 'clientHeight', {value: 400});
+            Object.defineProperty(menu, 'clientWidth', {value: 300});
             let cimmenuInstance = new libcimmenu.cimmenu(menu)
             cimsvgInstance.setCimmenu(cimmenuInstance);
             libcimmenu.cimmenu.setCimmenu(cimmenuInstance);
@@ -137,11 +139,13 @@ describe("cimsvg", function() {
         spyOn(libcimsvg.cimxml, "isElementNode").and.callFake(isElementNode);
         cimsvgInstance.setFileCount(1);
         fs.readFile("test/grid-data/CIM/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
-            if (err) throw err;
+            expect(err).toBe(null);
             cimsvgInstance.loadFile(data);
+            let energyConsumerObjects=cimsvgInstance.getObjectsOfType("cim:EnergyConsumer");
+            expect(energyConsumerObjects).not.toBe(null);
+            expect(energyConsumerObjects).not.toBe(undefined);
             done();
         });
-        expect(cimsvgInstance.getObjectsOfType("cim:EnergyConsumer")).not.toBe(null);
     });
 
     it("should be possible to save a file", function(done) {

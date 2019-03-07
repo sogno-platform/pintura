@@ -128,7 +128,7 @@ class cimmenu {
 
     resizeListener(_window) {
         _window.onresize = (e)=> {
-            this.componentPanelGridHeight = this.calculateScreenHeight();
+            this.calculateScreenHeight();
             this.contextMenu.toggleMenuOff();
         }
     };
@@ -152,7 +152,7 @@ class cimmenu {
         }
     };
 
-    getVisibleMenus() {
+    getListOfVisibleMenus() {
         this.visibleMenus = [];
         Object.keys(this.panels).forEach((panelName, visibleMenus)=>{
             if (this.panels[panelName] !== undefined) {
@@ -277,9 +277,7 @@ class cimmenu {
     hideAllMenuPanels() {
         let menuPanels = this.panels.mainMenu.querySelectorAll('.main-menu-panel');
         menuPanels.forEach((panel)=>{
-            if (menuPanels[panel] !== undefined) {
-                menuPanels[panel].classList.add('invisible');
-            }
+            panel.classList.add('invisible');
         });
     }
 
@@ -359,6 +357,7 @@ class cimmenu {
         let rowsBetweenSelectedAndBottom = prevColumnSelected + numberOfRows;
 
         if (numberOfRows >= this.componentPanelGridHeight) {
+            console.error("Number of rows is bigger than componentPanelGridHeight. numberOfRows: ", numberOfRows, " componentPanelGridHeight: ", this.componentPanelGridHeight);
         }
         else {
             if (rowsBetweenSelectedAndBottom >= this.componentPanelGridHeight) {
@@ -374,7 +373,7 @@ class cimmenu {
             rowIndex = 1;
         }
         if (rowIndex > this.componentPanelGridHeight) {
-            console.error("Correcting excessive row index");
+            console.error("Correcting excessive row index. rowIndex: ", rowIndex, " componentPanelGridHeight: ", this.componentPanelGridHeight);
             rowIndex = 1;
         }
         return rowIndex;

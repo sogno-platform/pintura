@@ -36,7 +36,7 @@ global.document = {
     }
 };
 const Handlebars = require('handlebars/runtime');
-const libcimsvg = require('../../../cimsvg/lib/libcimsvg.js').cimsvg;
+const cimsvg = require('../../../cimsvg/lib/libcimsvg.js').cimsvg;
 
 const getOptions = function(args) {
   let options = {};
@@ -98,8 +98,8 @@ const writeArrayOfFiles = function(objects, index, done) {
 
 const createComponentCreationHtml = function(menuXml) {
   let ul = "<ul class='floating-panel-list'>";
-  for (let item in libcimsvg.terminalAndPointLimits) {
-    if (libcimsvg.typeIsVisible(item)) {
+  for (let item in cimsvg.terminalAndPointLimits()) {
+    if (cimsvg.typeIsVisible(item)) {
       let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
       let result = menuXml.get(xpathQuery);
       if (result) {

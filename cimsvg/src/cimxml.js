@@ -17,7 +17,6 @@
  */
 
 import common from './common.js';
-import { cimsvg, currentCimsvg } from './cimsvg.js';
 
 class cimxml {
 
@@ -69,7 +68,7 @@ class cimxml {
                     object[nextNode.nodeName] = { "rdf:resource": nextNode.getAttribute("rdf:resource")};
                 }
                 else {
-                    object[nextNode.nodeName] = nextNode.innerHTML;
+                    object[nextNode.nodeName] = nextNode.textContent;
                 }
             }
             nextNode = nextNode.nextSibling;
@@ -167,34 +166,57 @@ class cimxml {
     };
 
     /*
+     * Do we have a valid tag?
+     */
+    static elementContainsAttribute(element, attribute) {
+        return element.getAttribute(attribute);
+    }
+
+    /*
      * Here comes some more data
      */
-    static moreXmlData(text, draw=true) {
-        if (!currentCimsvg().getXmlDoc()) {
-            currentCimsvg().setXmlDoc(cimxml.getDOM("<rdf:RDF "+cimxml.xmlns()+"/>"));
-        }
+    static moreXmlData(text, xmlDoc, draw=true) {
 
         let newDoc = cimxml.getDOM(text);
-        let cimVersion = newDoc.documentElement.getAttribute("xmlns:cim");
-        let entsoe = newDoc.documentElement.getAttribute("xmlns:entsoe");
-        currentCimsvg().setCimVersion(cimVersion, entsoe);
+        let cimVersion, entsoe;
         let nodes = newDoc.documentElement.childNodes;
         for (let i = 0; i < nodes.length; i++) {
 		    if (cimxml.isElementNode(nodes[i].nodeType)) {
                 if (nodes[i].nodeName != "md:FullModel") {
-                    currentCimsvg().getXmlDoc().documentElement.appendChild(nodes[i].cloneNode(true));
+                    xmlDoc.documentElement.appendChild(nodes[i].cloneNode(true));
                 }
             }
         }
 
-        currentCimsvg().incFileReceivedCount();
-        if (currentCimsvg().checkIfParseReady()) {
-            currentCimsvg().setBaseJson(cimxml.createObjectGraphFromXml(currentCimsvg().getXmlDoc()));
-            currentCimsvg().resetFileReceivedCount(0);
-            currentCimsvg().setFileCount(0);
-            return true;
+        if (xmlDoc.documentElement === undefined) {
+            return false;
         }
-        return false;
+
+        cimVersion = xmlDoc.documentElement.getAttribute("xmlns:cim");
+
+        if (cimVersion === undefined) {
+            if (newDoc.documentElement.getAttribute("xmlns:cim") === undefined) {
+                return false;
+            }
+            else {
+                cimVersion = newDoc.documentElement.getAttribute("xmlns:cim");
+            }
+        }
+        else {
+        }
+
+        entsoe = xmlDoc.documentElement.getAttribute("xmlns:entsoe");
+
+        if (entsoe === undefined) {
+            if (newDoc.documentElement.getAttribute("xmlns:entsoe") === undefined) {
+                return false;
+            }
+            else {
+                entsoe = newDoc.documentElement.getAttribute("xmlns:entsoe");
+            }
+        }
+
+        return { cimVersion: cimVersion, entsoe: entsoe };
     };
 
     /*

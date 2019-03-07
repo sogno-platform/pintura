@@ -147,7 +147,9 @@ class cimsvg {
     };
 
     getObjectsOfType(type) {
-        return this.getBaseJson()[type];
+        let baseJson=this.getBaseJson();
+        let objects=common.safeExtract(baseJson, type);
+        return objects;
     };
 
     getCurrentDiagramId() {
@@ -329,7 +331,7 @@ class cimsvg {
     };
 
     checkComponentReadyToAdd(evt) {
-        let visibleMenus = this.updateCimmenu(()=>{ return this.cimmenu.getVisibleMenus() });
+        let visibleMenus = this.updateCimmenu(()=>{ return this.cimmenu.getListOfVisibleMenus() });
         let rdfid = null;
         this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
         if (this.addingType != null) {
@@ -417,10 +419,25 @@ class cimsvg {
     };
 
     loadFile(fileContents) {
-        if (cimxml.moreXmlData(fileContents)) {
-            this.populateDiagramLinks();
-            this.applyDiagramTemplate(this.templateJson)
+        if (!this.getXmlDoc()) {
+            this.setXmlDoc(cimxml.getDOM("<rdf:RDF "+cimxml.xmlns()+"/>"));
         }
+
+        let cimParse = cimxml.moreXmlData(fileContents, this.getXmlDoc());
+        if (cimParse) {
+            let oSerializer = cimxml.getXMLSerializer();
+            var sXML = oSerializer.serializeToString(this.getXmlDoc());
+            this.setCimVersion(cimParse.cimVersion, cimParse.entsoe);
+            this.incFileReceivedCount();
+            if (this.checkIfParseReady()) {
+                this.setBaseJson(cimxml.createObjectGraphFromXml(this.getXmlDoc()));
+                this.resetFileReceivedCount(0);
+                this.setFileCount(0);
+                this.populateDiagramLinks();
+                this.applyDiagramTemplate(this.templateJson)
+            }
+        }
+
     };
 
     exportXmlData() {
@@ -557,7 +574,6 @@ class cimsvg {
     };
 
     uploadToUri(uri) {
-        let s = new XMLSerializer();
         let fileString = "";
         let uriSuffix = uri.substring(uri.length-4)
         if (uriSuffix == '.xml') {
@@ -726,11 +742,11 @@ class cimsvg {
         });
     };
 
-    terminalAndPointLimits() {
+    static terminalAndPointLimits() {
         return cimedit.terminalAndPointLimits;
     };
 
-    typeIsVisible(type) {
+    static typeIsVisible(type) {
         return cimedit.typeIsVisible(type);
     };
 };
