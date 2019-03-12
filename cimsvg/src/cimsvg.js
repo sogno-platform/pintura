@@ -24,7 +24,6 @@ import cimjson from './cimjson.js';
 import common from './common.js';
 import JSZip from 'jszip';
 import css from '../css/svg.css';
-import style from '../css/svg.style';
 
 class cimsvg {
 
@@ -446,7 +445,7 @@ class cimsvg {
             SVGData += data.outerHTML;
         });
         let templateData = {
-            style: style,
+            style: css,
             diagrams: SVGData,
             viewBox: this.svgNode.getAttribute('viewBox'),
         }

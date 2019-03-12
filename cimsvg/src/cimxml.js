@@ -229,7 +229,7 @@ class cimxml {
             newDoc = ( new DOMParser() ).parseFromString( text, "application/xml" );
         }
         else if( window.ActiveXObject ) {
-            let xmlObject = new ActiveXObject( "Microsoft.XMLDOM" );
+            let xmlObject = new window.ActiveXObject( "Microsoft.XMLDOM" );
             xmlObject.async = false;
             xmlObject.loadXML( text );
             newDoc = xmlObject;

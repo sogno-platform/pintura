@@ -104,7 +104,4 @@ class common {
     };
 };
 
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = common
-}
-
+export default common;

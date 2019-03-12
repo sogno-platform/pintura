@@ -26,7 +26,6 @@ import sola        from '../images/sol.svg';
 import sync        from '../images/sync.svg';
 import topo        from '../images/topo.svg';
 import node        from '../images/node.svg';
-import dialog_join from '../images/dialog_join.svg';
 import common      from './common.js';
 import cimedit     from './cimedit.js';
 

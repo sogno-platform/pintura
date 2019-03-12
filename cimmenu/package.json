@@ -12,7 +12,7 @@
     "generateHandlebars": "node templates/xslt/generateHandlebarTemplates.js --xmlDir=../data_model",
     "createIndex": "cd templates && node createIndex.js > index.js",
     "templates": "npm run generateClassStructure && npm run generateHandlebars && npm run createIndex",
-    "build": "npm run templates && webpack --config webpack.cimmenu.js"
+    "build": "npm run templates && rollup -c -o lib/libcimmenu.js",
   },
   "devDependencies": {
     "handlebars": "^4.0.11",
