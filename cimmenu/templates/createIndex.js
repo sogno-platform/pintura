@@ -17,7 +17,7 @@ stream.once('end', () => {
    entries.forEach((entry) => {
       console.log("import " + entry.name + " from '" + entry.file + "';");
    });
-   console.log("export {");
+   console.log("export default {");
    entries.forEach((entry) => {
       console.log("   ", entry.name, ",");
    });

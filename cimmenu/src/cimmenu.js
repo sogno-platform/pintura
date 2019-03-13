@@ -17,7 +17,7 @@
  */
 
 import Handlebars from 'handlebars/runtime';
-import * as templates from '../templates';
+import templates from '../templates/index.js';
 import common from './common.js';
 import contextmenu from './contextmenu.js';
 

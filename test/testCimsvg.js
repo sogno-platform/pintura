@@ -69,8 +69,6 @@ describe("cimsvg", function() {
             global.window = { clientWidth: 300, clientHeight: 300 };
             global.document = dom.window.document;
             global.libcimsvg = require("../cimsvg/lib/libcimsvg.js")
-            global.libcimmenu = require("../cimmenu/lib/libcimmenu.js")
-            global.currentCimmenu = libcimmenu.currentCimmenu;
             global.currentCimsvg = libcimsvg.currentCimsvg;
             let cimsvg = libcimsvg.cimsvg;
             let svg = dom.window.document.querySelector("#svg")
@@ -81,9 +79,6 @@ describe("cimsvg", function() {
             let menu = dom.window.document.querySelector("#menu")
             Object.defineProperty(menu, 'clientHeight', {value: 400});
             Object.defineProperty(menu, 'clientWidth', {value: 300});
-            let cimmenuInstance = new libcimmenu.cimmenu(menu)
-            cimsvgInstance.setCimmenu(cimmenuInstance);
-            libcimmenu.cimmenu.setCimmenu(cimmenuInstance);
             done();
         });
     });

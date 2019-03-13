@@ -42,6 +42,28 @@ class cimsvg {
         this.clearAllData();
         this.cimmenu = null;
         cimsvg.setCimsvg(this);
+        cimsvg.addPinturaStyle(svg, css);
+    }
+
+    static addPinturaStyle(svg, css) {
+        let docu = svg.ownerDocument;
+        let pinturaStyleTags = docu.querySelectorAll('style.pintura');
+        let style = docu.createElement('style');
+        style.type = 'text/css';
+        style.classList.add('pintura');
+
+        if (pinturaStyleTags.length < 1) {
+            let head = docu.head;
+            if(head === undefined) {
+                console.error("Failed to get head from document.");
+            }
+            docu.head.appendChild(style);
+            if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+            } else {
+                style.appendChild(docu.createTextNode(css));
+            }
+        }
     }
 
     setCimmenu(menu) {

@@ -7,10 +7,9 @@ const config = {
     input: 'src/cimsvg.js',
     external: [],
     output: {
-        format: 'cjs',
+        format: 'umd',
         name: 'libcimsvg',
-        globals: {
-        }
+        globals: {}
     },
     plugins: [
         svgo({
@@ -21,11 +20,11 @@ const config = {
             include: [ 'css/*.css' ], 
         }),
         handlebars({
-            templateExtension: [ '.handlebars' ], 
             id: 'handlebars/runtime',
             options: {
                 jquery: false,
-            }
+            },
+            templateExtension: [ '.handlebars' ]
         }),
         babel({
             exclude: "node_modules/**"

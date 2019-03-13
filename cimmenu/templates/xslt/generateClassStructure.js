@@ -131,9 +131,7 @@ var cimheritance = cimheritance || (function() {
         let data = "var class_struct = class_struct || (function() {\n return " +
                    JSON.stringify(cimheritance.getClassMap(), null, 3) +
                    "\n}());" +
-                   "if (typeof module !== 'undefined' && module.exports) {" +
-                       "module.exports = class_struct" +
-                   "}";
+                   "\nexport default class_struct";
 
         fs.writeFile(class_structure_js, data, function(err) {
             if(err) {
