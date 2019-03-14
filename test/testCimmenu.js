@@ -182,8 +182,8 @@ describe("cimmenu", function() {
             global.window = dom.window;
             Object.defineProperty(dom.window.HTMLHtmlElement.prototype, 'clientHeight', {value: 123});
             global.document = dom.window.document;
-            global.libcimsvg = require("../cimsvg/lib/libcimsvg.js")
-            global.libcimmenu = require("../cimmenu/lib/libcimmenu.js")
+            global.libcimsvg = require("../cimsvg/lib/libcimsvg.umd.js")
+            global.libcimmenu = require("../cimmenu/lib/libcimmenu.umd.js")
             global.currentCimmenu = libcimmenu.currentCimmenu;
             global.currentCimsvg = libcimsvg.currentCimsvg;
             let cimsvg = libcimsvg.cimsvg;

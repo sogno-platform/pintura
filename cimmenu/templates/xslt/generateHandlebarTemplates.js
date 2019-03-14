@@ -35,8 +35,9 @@ global.document = {
         stuff[place] = thing;
     }
 };
-const Handlebars = require('handlebars/runtime');
-const cimsvg = require('../../../cimsvg/lib/libcimsvg.js').cimsvg;
+global.JSZip = require('jszip');
+global.Handlebars = require('handlebars/runtime');
+global.cimsvg = require('../../../cimsvg/lib/libcimsvg.umd.js').cimsvg;
 
 const getOptions = function(args) {
   let options = {};
@@ -162,6 +163,10 @@ const processFilenamesForMenus = function(filenames, directory, options) {
   return arrayOfFiles;
 };
 
+const helpers = {
+  js: "import templates from '../../../handlebars/helpers/index.js';\nexport default templates\n"
+};
+
 const parseOptions = function( args ) {
 
   let options = getOptions( args );
@@ -186,6 +191,7 @@ const parseOptions = function( args ) {
         }
         glob(directory, function(err, files) {
           let arrayOfFiles = processFilenamesForAttributes(files, dir, options);
+          arrayOfFiles.push({ 'filename': attributeDir + dir + '/helpers.js', 'data': helpers.js });
           writeArrayOfFiles(arrayOfFiles, 0, function() { });
         });
       });

@@ -16,7 +16,6 @@
  *  in the top level directory of this source tree.
  */
 
-import Handlebars from 'handlebars/runtime';
 import templates from '../templates/index.js';
 import common from './common.js';
 import contextmenu from './contextmenu.js';

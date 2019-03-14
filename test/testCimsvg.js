@@ -68,7 +68,7 @@ describe("cimsvg", function() {
         JSDOM.fromFile("index.html", {}).then(dom => {
             global.window = { clientWidth: 300, clientHeight: 300 };
             global.document = dom.window.document;
-            global.libcimsvg = require("../cimsvg/lib/libcimsvg.js")
+            global.libcimsvg = require("../cimsvg/lib/libcimsvg.umd.js")
             global.currentCimsvg = libcimsvg.currentCimsvg;
             let cimsvg = libcimsvg.cimsvg;
             let svg = dom.window.document.querySelector("#svg")

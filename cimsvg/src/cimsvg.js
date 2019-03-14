@@ -16,7 +16,7 @@
  *  in the top level directory of this source tree.
  */
 
-import cim2svg from '../handlebars/cim2svg.handlebars';
+import templates from '../handlebars/index.js';
 import cimxml from './cimxml.js';
 import cimview from './cimview.js';
 import cimedit from './cimedit.js';
@@ -366,7 +366,7 @@ class cimsvg {
     };
 
     applyDiagramTemplate(templateJson) {
-        let templateHtml = cim2svg(templateJson);
+        let templateHtml = templates.cim2svg(templateJson);
         let diagramList = this.svgNode.querySelectorAll('.diagrams')
         diagramList.forEach(function(diagram) {
             diagram.innerHTML = templateHtml;
@@ -471,7 +471,7 @@ class cimsvg {
             diagrams: SVGData,
             viewBox: this.svgNode.getAttribute('viewBox'),
         }
-        let returnData = cim2svg(templateData);
+        let returnData = templates.cim2svg(templateData);
         return (returnData);
     };
 

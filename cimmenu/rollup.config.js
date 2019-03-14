@@ -1,15 +1,31 @@
 import babel from 'rollup-plugin-babel';
 import handlebars from 'rollup-plugin-handlebars-plus';
+const global = {
+    'handlebars/runtime': 'Handlebars'
+}
 
-const config = {
+export default {
     input: 'src/cimmenu.js',
-    external: [],
-    output: {
-        format: 'umd',
-        name: 'libcimmenu',
-        globals: {
+    external: ['handlebars/runtime'],
+
+    output: [
+        {
+            file: 'lib/libcimmenu.umd.js',
+            format: 'umd',
+            name: 'libcimmenu.umd'
+        },
+        {
+            file: 'lib/libcimmenu.cjs.js',
+            format: 'cjs',
+            name: 'libcimmenu.cjs'
+        },
+        {
+            file: 'lib/libcimmenu.js',
+            format: 'iife',
+            name: 'libcimmenu',
+            globals: global,
         }
-    },
+    ],
     plugins: [
         handlebars({
             id: 'handlebars/runtime',
@@ -23,5 +39,4 @@ const config = {
             exclude: "node_modules/**"
         })
     ]
-}
-export default config
+};

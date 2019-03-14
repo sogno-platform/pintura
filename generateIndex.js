@@ -212,6 +212,7 @@ body.c(new tag('div').
                       c(page_centre).
              c(new tag('div').a('class', '"spacer"')));
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.runtime.min.js"').t(" "));
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js"').t(" "));
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimsvg.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimmenu.js"').t(" "))
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))

@@ -8,12 +8,11 @@
     "url": "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
   },
   "scripts": {
-    "build": "rollup -c -o lib/libcimsvg.js",
+    "build": "rollup -c",
     "test": ""
   },
   "devDependencies": {
     "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-handlebars": "^1.0.0",
     "rollup-plugin-handlebars-plus": "^0.2.3",
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-string": "^3.0.0",
