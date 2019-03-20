@@ -19,7 +19,8 @@
     "build": "npm run build-tasks && npm run makeDist && npm run test",
     "build-dev": "npm config set mode debug && npm run build",
     "initializeTests": "node node_modules/jasmine/bin/jasmine init",
-    "test": "node test/runTests.js"
+    "test": "node test/runTests.js",
+    "mockNpmInstall": "./npm/mockInstall.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -35,7 +36,6 @@
     "jasmine": "^3.2.0",
     "jasmine-console-reporter": "^3.1.0",
     "jsdom": "^12.0.0",
-    "jszip": "^3.1.5",
     "libxmljs": "^0.18.7",
     "libxslt": "^0.7.0",
     "style-loader": "^0.23.1",
