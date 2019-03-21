@@ -1,10 +1,8 @@
 const fg = require('fast-glob');
 const path = require('path');
- 
 const stream = fg.stream(['**/*.handlebars']);
- 
 const entries = [];
- 
+
 stream.on('data', (entry) => {
 
    let name = path.join(path.parse(entry).dir, path.parse(entry).name).replace(/\//gi, '_').replace(/-/gi, '_');

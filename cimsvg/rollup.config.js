@@ -35,7 +35,7 @@ export default {
             removeAttrs: 'xmlns',
         }),
         string({
-            include: [ 'css/*.css' ], 
+            include: [ 'css/*.css' ],
         }),
         handlebars({
             handlebars: {},

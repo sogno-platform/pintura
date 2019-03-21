@@ -101,7 +101,7 @@ checkAttributeDropdownExistsWithValue = function(attributesPanel, attributeName,
                     }
                 });
             }
-        } 
+        }
     });
     expect(entryFound).toEqual(true);
 };
@@ -119,7 +119,7 @@ checkSelectedAttributeDropdownHasValue = function(attributesPanel, attributeName
                     entryFound = true;
                 });
             }
-        } 
+        }
     });
     expect(entryFound).toEqual(true);
 };
@@ -138,7 +138,7 @@ getOnclickFromAttributeButtonWithText = function(attributesPanel, attributeName,
                     }
                 });
             }
-        } 
+        }
     });
     return onclick;
 };
@@ -161,7 +161,7 @@ getOnchangeFromOptionWithText = function(attributesPanel, attributeName, value) 
                     });
                 });
             }
-        } 
+        }
     });
     expect(onchange).not.toBe(null);
     return onchange;
@@ -224,7 +224,7 @@ describe("cimmenu", function() {
             expect(diagramMenuList.length).not.toBe(0);
             diagramMenuList.forEach((diagramMenu) => {
                 let query = '#' + firstDiagram['pintura:rdfid'] + '-visibility-icon';
-                let visibilitySpan = diagramMenu.querySelector(query); 
+                let visibilitySpan = diagramMenu.querySelector(query);
                 expect(visibilitySpan).not.toBe(null);
             });
             done();

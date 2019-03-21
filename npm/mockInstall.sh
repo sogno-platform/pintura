@@ -9,7 +9,7 @@ while getopts "d:" arg; do
   case $arg in
     d)
       accept=true
-      echo "ARGUMENT: -$arg $OPTARG" 
+      echo "ARGUMENT: -$arg $OPTARG"
       LIBCIMSVG='cimsvg/lib/libcimsvg.cjs.js'
       if [ -f "$LIBCIMSVG" ]; then
         if [ -d "$OPTARG" ]; then
