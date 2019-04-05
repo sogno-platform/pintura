@@ -10,8 +10,9 @@
   "scripts": {
     "generateClassStructure": "node templates/xslt/generateClassStructure.js",
     "generateHandlebars": "node templates/xslt/generateHandlebarTemplates.js --xmlDir=../data_model",
+    "generateCgmesHandlebars": "node templates/generateCgmesTemplates.js",
     "createIndex": "cd templates && node createIndex.js > index.js",
-    "templates": "npm run generateHandlebars && npm run generateClassStructure && npm run createIndex",
+    "templates": "npm run generateCgmesHandlebars && npm run generateHandlebars && npm run generateClassStructure && npm run createIndex",
     "build": "npm install && npm run templates && rollup -c"
   },
   "devDependencies": {
@@ -19,6 +20,7 @@
     "libxmljs": "^0.18.7",
     "libxslt": "^0.7.0",
     "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-handlebars-plus": "^0.2.3"
+    "rollup-plugin-handlebars-plus": "^0.2.3",
+    "xml2js": "^0.4.19"
   }
 }

@@ -164,7 +164,7 @@ const processFilenamesForMenus = function(filenames, directory, options) {
 };
 
 const helpers = {
-  js: "import templates from '../../../handlebars/helpers/index.js';\nexport default templates\n"
+  js: "import helpers from '../../../handlebars/helpers/index.js';\nexport default helpers\n"
 };
 
 const parseOptions = function( args ) {

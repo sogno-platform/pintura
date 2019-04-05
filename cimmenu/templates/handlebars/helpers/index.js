@@ -123,8 +123,8 @@ export default function(Handlebars) {
                 attribute: attribute,
                 value: currentCimsvg().getValueOf(parentType, parentId, attribute)
             }
-            //let template = templates.handlebars_cim_update_primitive_type;
-            //updateMenu = template(primitive_template);
+            let template = templates.handlebars_cim_update_primitive_type;
+            updateMenu = template(primitive_template);
         }
         else {
             let requestedType = "cim:" + type;

@@ -9,7 +9,7 @@
   },
   "mode": "production",
   "scripts": {
-    "makeDirs": "mkdir -p cimmenu/lib && mkdir -p cimsvg/lib && mkdir -p dist",
+    "makeDirs": "mkdir -p cimmenu/templates/generated/attributes/cgmes && mkdir -p cimmenu/lib && mkdir -p cimsvg/lib && mkdir -p dist",
     "cimsvg": "cd cimsvg && npm install && npm run build",
     "cimmenu": "cd cimmenu && npm install && npm run build",
     "libs": "npm run cimsvg && npm run cimmenu",
@@ -23,7 +23,7 @@
     "mockNpmInstall": "./npm/mockInstall.sh"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
+    "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/register": "^7.0.0",
     "formidable": "^1.2.1",
@@ -34,8 +34,6 @@
     "jsdom": "^12.0.0",
     "jszip": "^3.2.0",
     "rollup": "^1.7.0",
-    "mktemp": "^0.4.0",
-    "xml2js": "^0.4.19",
     "xmldom": "^0.1.27"
   },
   "dependencies": {

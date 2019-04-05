@@ -4,7 +4,6 @@ const stream = fg.stream(['**/*.handlebars']);
 const entries = [];
 
 stream.on('data', (entry) => {
-
    let name = path.join(path.parse(entry).dir, path.parse(entry).name).replace(/\//gi, '_').replace(/-/gi, '_');
    entries.push({ name: name, file: './' + entry });
 });

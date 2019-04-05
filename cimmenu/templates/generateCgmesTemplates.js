@@ -2,7 +2,6 @@
 const fs = require('fs'),
     xml2js = require('xml2js'),
     path = require('path'),
-    mktemp = require('mktemp'),
     async = require('async'),
     handlebars = require('handlebars');
 
@@ -50,7 +49,8 @@ handlebars.registerHelper('getType', function(object) {
 let template = handlebars.compile(handlebarsTemplate);
 
 const inputPath = path.join(__dirname, '/../../data_model/cgmes/');
-const outputPath = path.join(__dirname, '/.');
+const outputPath = path.join(__dirname, '/generated/attributes/cgmes');
+const indexPath = path.join(__dirname, '/packageIndex.js');
 
 fs.readdir(inputPath, (err, files) => {
     if (err)
@@ -78,6 +78,7 @@ fs.readdir(inputPath, (err, files) => {
 
 const processArrayOfCategoryMaps = function(mapArray) {
     let finalMap = {};
+    let indexData = {};
     mapArray.forEach((map) => {
         Object.keys(map).forEach((objectName) => {
             addToCategoryIfLarger(finalMap, objectName, map[objectName]);
@@ -85,9 +86,9 @@ const processArrayOfCategoryMaps = function(mapArray) {
     });
     Object.keys(finalMap).forEach((category) => {
         let categoryWithoutHash = getRidOfHash(category);
-        let outFile = path.join(outputPath, categoryWithoutHash);
-        writePackage(outFile, finalMap[category]);
+        writePackage(categoryWithoutHash, finalMap[category], indexData);
     });
+    writeToFile(indexPath, "export default " + JSON.stringify(indexData, true, 2));
 }
 
 const getAboutOrResource = function(object) {
@@ -132,27 +133,20 @@ const newDomain = function (map, domain) {
     return map;
 }
 
-const writeToFile = function(component, outputPath) {
+const writeToFile = function(outputPath, component) {
     fs.writeFile(outputPath, component, function (err) {
         if (err) throw err;
     });
 }
 
-const writePackage = function(packagePath, data) {
+const writePackage = function(packageName, data, lookupMap) {
     Object.keys(data).forEach((key) => {
-        let keyPath = packagePath + '/' + getRidOfHash(key) + ".txt";
+        let objectName = getRidOfHash(key);
+        let keyPath = outputPath + "/" + objectName + ".handlebars";
+        lookupMap[objectName] = packageName;
         let keyWithoutHash = getRidOfHash(key);
-        fs.mkdir(packagePath, { recursive: true }, err => {
-            if (err) {
-                if (err.code == 'EEXIST') {
-                }
-                else {
-                    console.error("Failed to write directory: ", packagePath, " because: ", err);
-                }
-            }
-            let outputData = template({ name: keyWithoutHash, attributes: data[key] });
-            writeToFile(outputData, keyPath);
-        });
+        let outputData = template({ name: keyWithoutHash, attributes: data[key] });
+        writeToFile(keyPath, outputData);
     });
 }
 
