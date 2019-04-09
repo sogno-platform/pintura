@@ -17,6 +17,7 @@
  */
 
 import templates from '../handlebars/index.js';
+import cimfile from './cimfile.js';
 import cimxml from './cimxml.js';
 import cimview from './cimview.js';
 import cimedit from './cimedit.js';
@@ -475,27 +476,20 @@ class cimsvg {
         return (returnData);
     };
 
-    static saveFile(data, filename="pinturaGrid.xml") {
-        let filesave = document.getElementById("filesave")
-        let element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
-        element.setAttribute('download', filename);
-        element.style.display = 'none';
-        filesave.appendChild(element);
-        element.click();
-        filesave.removeChild(element);
-    }
-
     saveGridXml() {
-        cimsvg.saveFile(this.exportXmlData());
+        cimfile.saveFile(this.exportXmlData());
     };
 
     saveToSVG() {
-        cimsvg.saveFile(this.exportSVGData(), "pintura.svg");
+        cimfile.saveFile(this.exportSVGData(), "pintura.svg");
     };
 
     saveTemplateJson() {
-        cimsvg.saveFile(JSON.stringify(this.templateJson));
+        cimfile.saveFile(JSON.stringify(this.templateJson));
+    };
+
+    saveToMultipartZip() {
+        cimfile.convertToMultipartZip(this.exportXmlData());
     };
 
     updateComponentInBaseJson(type, id, attribute, value) {
@@ -567,49 +561,16 @@ class cimsvg {
         });
     };
 
-    uploadAsZip(xml, uri) {
-        let zip = new JSZip();
-        zip.file("pinturaGrid.xml", xml);
-        zip.generateAsync({type:"blob"})
-        .then(function (blob) {
-            var oReq = new XMLHttpRequest();
-            oReq.open("POST", uri, true);
-            oReq.setRequestHeader('Accept', 'text/plain')
-            oReq.onreadystatechange = function (oEvent) {
-                if (oReq.readyState === 4) {
-                    if (oReq.status != 200) {
-                        console.error("Error [", oReq.statusText, "](", oReq.status, ")");
-                    }
-                }
-            };
-            var formData = new FormData();
-            formData.append("pinturaGrid.zip", blob);
-            oReq.send(formData);
-        });
-    };
-
-    uploadAsText(xml, uri) {
-        fetch(uri, {
-          method: 'post',
-          headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'text/plain'
-          },
-          body: xml
-        }).then(res=>res.text())
-          .then(res => { let json = JSON.parse(res); });
-    };
-
     uploadToUri(uri) {
         let fileString = "";
         let uriSuffix = uri.substring(uri.length-4)
         if (uriSuffix == '.xml') {
             let data = this.exportXmlData();
-            this.uploadAsText(data, uri);
+            cimfile.uploadAsText(data, uri);
         }
         else if (uriSuffix == '.zip') {
             let data = this.exportXmlData();
-            this.uploadAsZip(data, uri);
+            cimfile.uploadAsZip(data, uri);
         }
     };
 
