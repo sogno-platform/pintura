@@ -54,28 +54,16 @@ const createCustomEvent = function(x, y) {
     return evt;
 };
 
-const saveFile = function(data, filename) {
-    console.log("SAVE FILE: ");
-    //console.log(data);
-    console.log(filename);
+const saveZip = function(zip, filename) {
+    console.log("saveZip spyon: ");
+    console.log(zip.files);
+    expect(filename).toBe("pintura.zip");
+    //TODO: perform content checking
+};
 
-    if (filename.endsWith(".zip")) {
-        let archive = new JSZip();
-        archive.loadAsync(data, {checkCRC32: true})
-            .then((zip)=>{
-                let files = Object.keys(zip.files);
-                this.setFileCount(files.length);
-                files.forEach((filename)=>{
-                    let file = zip.files[filename];
-                    file.async("string").then((output)=>{
-                        this.loadFile(output);
-                    });
-                });
-            }, (error)=>{
-                console.error("failure", error);
-            }
-        );
-    }
+const saveFileFunction = function(data, filename="BLAG.xml") {
+    console.log("saveFileFunction spyon")
+    //TODO: perform content checking
 };
 
 describe("cimfile", function() {
@@ -104,7 +92,7 @@ describe("cimfile", function() {
     it("should be able to write a xml file", function(done) {
         spyOn(libcimsvg.cimxml, "getDOM").and.callFake(getDOM);
         spyOn(libcimsvg.cimxml, "isElementNode").and.callFake(isElementNode);
-        spyOn(libcimsvg.cimfile, "saveFile").and.callFake(saveFile);
+        spyOn(global.libcimsvg.cimfile, "saveFile").and.callFake(saveFileFunction);
         cimsvgInstance.setFileCount(1);
         fs.readFile("test/grid-data/CIM/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
             expect(err).toBe(null);
@@ -117,7 +105,7 @@ describe("cimfile", function() {
     it("should be able to write a multipart zip file", function(done) {
         spyOn(libcimsvg.cimxml, "getDOM").and.callFake(getDOM);
         spyOn(libcimsvg.cimxml, "isElementNode").and.callFake(isElementNode);
-        spyOn(libcimsvg.cimfile, "saveFile").and.callFake(saveFile);
+        spyOn(libcimsvg.cimfile, "saveZip").and.callFake(saveZip);
         cimsvgInstance.setFileCount(1);
         fs.readFile("test/grid-data/CIM/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
             expect(err).toBe(null);

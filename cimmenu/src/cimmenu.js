@@ -639,6 +639,12 @@ cimmenu.menuStructure = {
                 },
                 {
                     'a': {
+                        'onclick' : "currentCimsvg().saveToMultipartZip();currentCimmenu().hidePanel('file-menu-panel')",
+                        'text' : "Save to multipart zip 🖿",
+                    }
+                },
+                {
+                    'a': {
                         'onclick' : "currentCimsvg().saveTemplateJson();currentCimmenu().hidePanel('file-menu-panel')",
                         'text' : "Save JSON  🖿",
                     }

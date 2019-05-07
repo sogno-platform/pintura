@@ -182,9 +182,7 @@ class cimxml {
         let nodes = newDoc.documentElement.childNodes;
         for (let i = 0; i < nodes.length; i++) {
 		    if (cimxml.isElementNode(nodes[i].nodeType)) {
-                if (nodes[i].nodeName != "md:FullModel") {
-                    xmlDoc.documentElement.appendChild(nodes[i].cloneNode(true));
-                }
+                xmlDoc.documentElement.appendChild(nodes[i].cloneNode(true));
             }
         }
 
@@ -223,7 +221,6 @@ class cimxml {
      * Different method of getting DOM required for some platforms
      */
     static getDOM(text) {
-
         let newDoc;
         if ( window.DOMParser ) {
             newDoc = ( new DOMParser() ).parseFromString( text, "application/xml" );

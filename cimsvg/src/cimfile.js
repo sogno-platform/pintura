@@ -17,23 +17,42 @@
  */
 
 import cimxml from './cimxml.js';
+import JSZip from 'jszip';
 import packageIndex from './packageIndex.js';
 class cimfile {
 
-    static addToPackage(data, pack, packageData) {
-        let packExists = pack in packageData;
-        if (!packExists) {
-            packageData[pack] = [];
+    static addToFileMap(fileData, fileName, fileMap){
+        let fileExists = fileName in fileMap;
+        if (fileExists) {
+            let tmp = Object.assign(fileMap[fileName], fileData);
+            fileMap[fileName] = tmp
         }
         else {
+            fileMap[fileName] = fileData;
         }
-        packageData[pack].push(data);
+    }
+
+    static addToPackage(data, key, pack, packageData) {
+        let packExists = pack in packageData;
+        if (!packExists) {
+            packageData[pack] = {};
+        }
+        packageData[pack][key] = data;
     };
 
-    static saveFile(data, filename="pinturaGrid.xml") {
+    static saveFile(data, filename) {
+        // TODO : get rid of the document references
         let filesave = document.getElementById("filesave")
         let element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+        if (typeof data == "string") {
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+        }
+        else if (typeof data == "object") {
+            element.setAttribute('href', URL.createObjectURL(data));
+        }
+        else {
+            console.error("I don't know how to save data of type ", typeof data)
+        }
         element.setAttribute('download', filename);
         element.style.display = 'none';
         filesave.appendChild(element);
@@ -74,26 +93,76 @@ class cimfile {
           .then(res => { let json = JSON.parse(res); });
     };
 
-    static convertToMultipartZip(data, filename="pinturaGrid.zip") {
-        let packageData = {};
-        let dom = cimxml.getDOM(data);
-        let node = dom.documentElement.firstChild;
-        let serializer = cimxml.getXMLSerializer();
-        while (node.nextSibling) {
-            if (cimxml.isElementNode(node.nodeType)) {
-                let data = serializer.serializeToString(node);
-                let pack = packageIndex[node.nodeName.substring(4)]
-                if (pack) {
-                    cimfile.addToPackage(data, pack, packageData);
-                }
-                else {
-                    console.log("Could not find " + node.nodeName + " in packageIndex.");
-                    console.log(data)
-                }
-            }
-            node = node.nextSibling;
+    static getPackageFilename(packageName, baseName="") {
+        if (baseName !== "" && !baseName.endsWith("_")) {
+            baseName += "_";
         }
-        console.log(packageData)
+        let name = {
+            Package_Core: baseName + "EQ.xml",
+            Package_ControlArea: baseName + "EQ.xml",
+            Package_DiagramLayout: baseName + "DL.xml",
+            Package_Equivalents: baseName + "EQ.xml",
+            Package_OperationalLimits: baseName + "EQ.xml",
+            Package_StateVariables: baseName + "SV.xml",
+            Package_Topology: baseName + "TP.xml",
+            Package_Wires: baseName + "EQ.xml",
+        }[packageName];
+        if (name) {
+            return name;
+        }
+        else {
+            console.error("Package file name not known for package: ", packageName);
+            return undefined;
+        }
+    }
+
+    static sortJsonKeys(unordered) {
+        const ordered = {};
+        Object.keys(unordered).sort().forEach(function(key) {
+            ordered[key] = unordered[key];
+        });
+        return ordered;
+    }
+
+    static saveZip(zip, filename) {
+        zip.generateAsync({type:"blob"})
+        .then((blob) => {
+            cimfile.saveFile(blob, filename);
+        });
+    }
+
+    static createMultipartZip(jsonData, filename) {
+        let fileMap = {};
+        let zip = new JSZip();
+        for(let component in jsonData) {
+            let packageFilename = cimfile.getPackageFilename(component)
+            if (packageFilename) {
+                cimfile.addToFileMap(jsonData[component], packageFilename, fileMap);
+            }
+        };
+        for (let file in fileMap) {
+            let fileData = cimxml.getBaseXML(fileMap[file]);
+            zip.file(file, fileData);
+        }
+        cimfile.saveZip(zip, filename);
+    };
+
+    static doSave(data, filename) {
+        cimfile.saveFile(data, filename);
+    };
+
+    static convertToMultipartZip(jsonData, filename) {
+        let packageData = {};
+        for (let key in jsonData) {
+            let pack = packageIndex[key.substring(4)]
+            if (pack) {
+                cimfile.addToPackage(jsonData[key], key, pack, packageData);
+            }
+            else {
+                console.error("Could not find " + key + " in packageIndex.");
+            }
+        }
+        cimfile.createMultipartZip(packageData, filename)
     }
 };
 

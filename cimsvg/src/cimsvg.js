@@ -476,8 +476,8 @@ class cimsvg {
         return (returnData);
     };
 
-    saveGridXml() {
-        cimfile.saveFile(this.exportXmlData());
+    saveGridXml(filename) {
+        cimfile.saveFile(this.exportXmlData(), filename);
     };
 
     saveToSVG() {
@@ -485,11 +485,11 @@ class cimsvg {
     };
 
     saveTemplateJson() {
-        cimfile.saveFile(JSON.stringify(this.templateJson));
+        cimfile.saveFile(JSON.stringify(this.templateJson), "pintura.json");
     };
 
     saveToMultipartZip() {
-        cimfile.convertToMultipartZip(this.exportXmlData());
+        cimfile.convertToMultipartZip(this.getBaseJson(), "pintura.zip");
     };
 
     updateComponentInBaseJson(type, id, attribute, value) {
@@ -497,7 +497,7 @@ class cimsvg {
             console.error("Cannot find " + id + " in list of " + type);
         }
         else {
-            this.getBaseJson()[type][id][attribute] = value
+            this.getBaseJson()[type][id][attribute] = value;
             let baseJson = this.getBaseJson();
             this.templateJson = cimjson.getTemplateJson(baseJson);
             this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value) });
@@ -745,5 +745,5 @@ const currentCimsvg = function() {
     return cimsvg.getCimsvg();
 };
 
-export { cimsvg, currentCimsvg, cimxml }
+export { cimsvg, currentCimsvg, cimxml, cimfile }
 
