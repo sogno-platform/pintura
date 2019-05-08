@@ -33,7 +33,7 @@ class contextmenu {
             if ( e.keyCode === 27 ) {
                 this.toggleMenuOff();
             }
-        }
+        };
     }
 
     /*
@@ -74,7 +74,7 @@ class contextmenu {
     removeComponent() {
         currentCimsvg().removeComponent(this.type, this.id);
     }
-};
+}
 
 contextmenu.contextMenuActive = "context-menu-active";
 

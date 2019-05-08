@@ -43,7 +43,7 @@ class cimview {
         rect.x = centreOfGrid.x - (rect.width / 2);
         rect.y = centreOfGrid.y - (rect.height / 2);
         this.setViewBox(rect);
-    };
+    }
 
     zoomOut() {
         let level = this.zoomLevel-1;
@@ -52,7 +52,7 @@ class cimview {
         }
         this.zoomToLevel(level);
         //document.getElementById("zoomer").value=level;
-    };
+    }
 
     zoomIn() {
         let level = this.zoomLevel+1;
@@ -62,25 +62,25 @@ class cimview {
         }
         this.zoomToLevel(level);
         //document.getElementById("zoomer").value=level;
-    };
+    }
 
     pan(point) {
         let rect = this.getViewBox();
         rect.x += point.x;
         rect.y += point.y;
         this.setViewBox(rect);
-    };
+    }
 
     clearGrid() {
-        let oldLines = this.svgNode.querySelectorAll('.gridLine');
+        let oldLines = this.svgNode.querySelectorAll(".gridLine");
         oldLines.forEach(function(key) {
             key.remove();
         });
-        let oldLabels = this.svgNode.querySelectorAll('.gridLabel');
+        let oldLabels = this.svgNode.querySelectorAll(".gridLabel");
         oldLabels.forEach(function(key) {
             key.remove();
         });
-    };
+    }
 
     createLocationMarker(id, loc, x, y) {
         let textAttributes = {
@@ -91,11 +91,11 @@ class cimview {
         };
         let text = this.createSvgTag("text", textAttributes);
         text.innerHTML = loc;
-        let grids = this.svgNode.querySelectorAll('.grid');
+        let grids = this.svgNode.querySelectorAll(".grid");
         grids.forEach(function(grid) {
             grid.appendChild(text);
         });
-    };
+    }
 
     createGridLine(x1, y1, x2, y2) {
         let lineAttributes = {
@@ -106,11 +106,11 @@ class cimview {
             "class": "gridLine",
         };
         let line = this.createSvgTag("line", lineAttributes);
-        let grids = this.svgNode.querySelectorAll('.grid');
+        let grids = this.svgNode.querySelectorAll(".grid");
         grids.forEach(function(grid) {
             grid.appendChild(line);
         });
-    };
+    }
 
     /*
      * Create a tag in the svg namespace
@@ -122,7 +122,7 @@ class cimview {
             newTag.setAttribute(key, attributes[key]);
         }
         return newTag;
-    };
+    }
 
     calculateStartOffset(distanceFromOrigin, gridSize) {
         let offset;
@@ -133,7 +133,7 @@ class cimview {
             offset = distanceFromOrigin + gridSize - ( distanceFromOrigin % gridSize );
         }
         return offset;
-    };
+    }
 
     createGrid() {
         this.clearGrid();
@@ -153,7 +153,7 @@ class cimview {
             this.createGridLine(xval, viewBoxRect.y, xval, viewBoxRect.height+viewBoxRect.y);
             this.createLocationMarker(xval+"x", xval.toString(), xval+10, viewBoxRect.y+20);
         }
-    };
+    }
 
     /*
      * Convert a point in the window into a point in the svg component.
@@ -164,34 +164,34 @@ class cimview {
         position.x = (Number(evt.clientX));
         position.y = (Number(evt.clientY));
         return position.matrixTransform(m.inverse());
-    };
+    }
 
     fit() {
         // TODO : this just uses the last diagram, instead of the
         // set of all boundaries. Fine for one diagram.
         let diagramBoundary = null;
-        let diagramList = this.svgNode.querySelectorAll('.diagrams')
+        let diagramList = this.svgNode.querySelectorAll(".diagrams");
         diagramList.forEach(function(diagram) {
             diagramBoundary = diagram.getBBox();
         });
         this.setViewBox(diagramBoundary);
-    };
+    }
 
     getViewBox() {
         let rect = {};
         this.viewBoxString = this.svgNode.getAttribute("viewBox");
         this.viewBoxElements = this.viewBoxString.split(" ");
-        rect.x = parseInt(this.viewBoxElements[0]);
-        rect.y = parseInt(this.viewBoxElements[1]);
-        rect.width = parseInt(this.viewBoxElements[2]);
-        rect.height = parseInt(this.viewBoxElements[3]);
+        rect.x = parseInt(this.viewBoxElements[0], 10);
+        rect.y = parseInt(this.viewBoxElements[1], 10);
+        rect.width = parseInt(this.viewBoxElements[2], 10);
+        rect.height = parseInt(this.viewBoxElements[3], 10);
         return rect;
-    };
+    }
 
     setViewBox(rect) {
         let viewBoxString = rect.x+" "+rect.y+" "+rect.width+" "+rect.height;
         this.svgNode.setAttribute("viewBox", viewBoxString);
-        let bg = this.svgNode.querySelectorAll('.backing');
+        let bg = this.svgNode.querySelectorAll(".backing");
         bg.forEach(function(backing) {
             backing.setAttribute("x", rect.x);
             backing.setAttribute("y", rect.y);
@@ -199,20 +199,20 @@ class cimview {
             backing.setAttribute("height", "100%");
         });
         this.createGrid();
-    };
+    }
 
     clearDisplay() {
         while (this.svgNode.firstChild) {
             this.svgNode.removeChild(this.svgNode.firstChild);
         }
-    };
+    }
 
     hideAllLabels() {
-        let svglabels = this.svgNode.querySelectorAll('.svglabel');
+        let svglabels = this.svgNode.querySelectorAll(".svglabel");
         svglabels.forEach(function (label) {
             label.setAttributeNS(null, "visibility", "hidden");
         });
-    };
-};
+    }
+}
 
 export default cimview ;

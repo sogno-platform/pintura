@@ -24,13 +24,13 @@ class common {
      */
     static generateUUID() {
         let d = new Date().getTime();
-        if (typeof performance !== 'undefined' && typeof performance.now === 'function'){
+        if (typeof performance !== "undefined" && typeof performance.now === "function"){
             d += performance.now(); //use high-precision timer if available
         }
-        return 'idxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        return "idxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
             let r = (d + Math.random() * 16) % 16 | 0;
             d = Math.floor(d / 16);
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            return (c === "x" ? r : (r & 0x3 | 0x8)).toString(16);
         });
     }
     /*
@@ -38,22 +38,22 @@ class common {
      */
 
     static removeColon(str) {
-        return str.replace(':', '');
-    };
+        return str.replace(":", "");
+    }
 
     static addClassToNode(node, selector, newClass) {
         let list = node.querySelectorAll(selector);
         list.forEach((item)=> {
             item.classList.add(newClass);
         });
-    };
+    }
 
     static removeClassFromNode(node, selector, removeClass) {
         let list = node.querySelectorAll(selector);
         list.forEach((item)=> {
             item.classList.remove(removeClass);
         });
-    };
+    }
 
     static safeExtract(graph) {
         let object = graph;
@@ -62,14 +62,14 @@ class common {
         for (let arg in args) {
             let argument = args[arg];
             if (object !== undefined) {
-                object = object[argument]
+                object = object[argument];
             }
             else {
                 return undefined;
             }
         }
         return object;
-    };
+    }
 
     static safeDelete(graph) {
         let object = graph;
@@ -81,14 +81,14 @@ class common {
             if (object !== undefined) {
                 owner = object;
                 key = argument; 
-                object = object[argument]
+                object = object[argument];
             }
             else {
                 return undefined;
             }
         }
         delete owner[key]; 
-    };
+    }
 
     static getObjectTypeFromId(graph, id) {
         for (let type in graph) {
@@ -99,28 +99,28 @@ class common {
             }
         }
         return undefined;
-    };
+    }
 
     static pinturaDiagramObjectPoints() {
         return "pintura:diagramObjectPoints";
-    };
+    }
 
     static pinturaDiagramObject() {
         return "pintura:diagramObject";
-    };
+    }
 
     static pinturaRdfid() {
         return "pintura:rdfid";
-    };
+    }
 
     static pinturaTerminals() {
         return "pintura:terminals";
-    };
+    }
 
     static identifiedObjectName() {
         return "cim:IdentifiedObject.name";
-    };
-};
+    }
+}
 
 export default common;
 

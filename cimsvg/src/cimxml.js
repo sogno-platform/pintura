@@ -16,7 +16,7 @@
  *  in the top level directory of this source tree.
  */
 
-import common from './common.js';
+import common from "./common.js";
 
 class cimxml {
 
@@ -36,7 +36,7 @@ class cimxml {
         let sXML = oSerializer.serializeToString(baseXml);
 
         return sXML;
-    };
+    }
 
     static copyTag(object, component, baseXml) {
         //let object = baseJson[component][rdfid]
@@ -46,11 +46,11 @@ class cimxml {
         }
         for (let item in object) {
             if(item.substring(0, 7) != "pintura") {
-                cimxml.addChild(object[item], item, baseXml, child)
+                cimxml.addChild(object[item], item, baseXml, child);
             }
         }
-        baseXml.documentElement.appendChild(child)
-    };
+        baseXml.documentElement.appendChild(child);
+    }
 
     static getXMLSerializer() {
         return new XMLSerializer();
@@ -71,11 +71,11 @@ class cimxml {
             owner.appendChild(child);
         }
         return owner;
-    };
+    }
 
     static copyXmlDataIntoObject(object, node) {
         let nextNode = node.firstChild;
-        while (nextNode != undefined) {
+        while (nextNode) {
             if (cimxml.isElementNode(nextNode.nodeType)) {
                 if (nextNode.attributes.length > 0) {
                     object[nextNode.nodeName] = { "rdf:resource": nextNode.getAttribute("rdf:resource")};
@@ -86,14 +86,14 @@ class cimxml {
             }
             nextNode = nextNode.nextSibling;
         }
-    };
+    }
 
     static importXmlNodeIntoGraph(graph, nodeCategory, node, id) {
 
         let thisObject = { };
 
         if (id) {
-            thisObject[common.pinturaRdfid()] = id
+            thisObject[common.pinturaRdfid()] = id;
         }
 
         cimxml.copyXmlDataIntoObject(thisObject, node);
@@ -107,32 +107,32 @@ class cimxml {
             let categoryGraph = graph[nodeCategory];
             categoryGraph[id] = thisObject;
         }
-    };
+    }
 
     static importAboutDataIntoGraph(graph, nodeCategory, thisNode, id) {
         if (graph[nodeCategory] && graph[nodeCategory][id]) {
             graph[nodeCategory][id].about = [];
             cimxml.copyXmlDataIntoObject(graph[nodeCategory][id].about, thisNode, true);
         }
-    };
+    }
 
     /*
      * What is the rdf:ID attribute for this node
      */
     static getRdfId(node) {
         return node.getAttribute("rdf:ID");
-    };
+    }
 
     /*
      * What is the rdf:about attribute for this node
      */
     static getRdfAbout(node) {
         return node.getAttribute("rdf:about");
-    };
+    }
 
     static xmlns(){
         return "xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:cim='http://iec.ch/TC57/2013/CIM-schema-cim16#' xmlns:md='http://iec.ch/TC57/61970-552/ModelDescription/1#' xmlns:entsoe='http://entsoe.eu/Secretariat/ProfileExtension/2#'";
-    };
+    }
 
     /*
      * Function to create a JSON document from an RDF (XML) DOM.
@@ -144,7 +144,7 @@ class cimxml {
 
         /* loop through all of the top level nodes */
         let nextNode = xmlData.documentElement.firstChild;
-        while (nextNode != undefined) {
+        while (nextNode) {
             if (cimxml.isElementNode(nextNode.nodeType)) {
                 /* find out what type of node we are reading */
                 let nodeCategory = nextNode.nodeName;
@@ -154,11 +154,11 @@ class cimxml {
                 }
             }
             nextNode = nextNode.nextSibling;
-        };
+        }
 
         /* we need all of the rdf:id nodes before importing the rdf:about nodes */
         nextNode = xmlData.documentElement.firstChild;
-        while (nextNode != undefined) {
+        while (nextNode) {
             if (cimxml.isElementNode(nextNode.nodeType)) {
                 /* find out what type of node we are reading */
                 let nodeCategory = nextNode.nodeName;
@@ -168,18 +168,18 @@ class cimxml {
                 }
             }
             nextNode = nextNode.nextSibling;
-        };
+        }
         return graph;
-    };
+    }
 
     static isElementNode(nodeType) {
-        if (nodeType == Node.ELEMENT_NODE) {
+        if (nodeType === Node.ELEMENT_NODE) {
             return true;
         }
         else {
             return false;
         }
-    };
+    }
 
     /*
      * Do we have a valid tag?
@@ -197,7 +197,7 @@ class cimxml {
         let cimVersion, entsoe;
         let nodes = newDoc.documentElement.childNodes;
         for (let i = 0; i < nodes.length; i++) {
-		    if (cimxml.isElementNode(nodes[i].nodeType)) {
+            if (cimxml.isElementNode(nodes[i].nodeType)) {
                 xmlDoc.documentElement.appendChild(nodes[i].cloneNode(true));
             }
         }
@@ -231,7 +231,7 @@ class cimxml {
         }
 
         return { cimVersion: cimVersion, entsoe: entsoe };
-    };
+    }
 
     /*
      * Different method of getting DOM required for some platforms
@@ -252,8 +252,8 @@ class cimxml {
             throw new Error( "Cannot find an XML parser!" );
         }
         return newDoc;
-    };
-};
+    }
+}
 
 
 export default cimxml;

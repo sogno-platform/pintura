@@ -16,18 +16,18 @@
  *  in the top level directory of this source tree.
  */
 
-import term        from '../images/term.svg';
-import brea        from '../images/brea.svg';
-import conn        from '../images/conn.svg';
-import cons        from '../images/cons.svg';
-import net         from '../images/net.svg';
-import tran        from '../images/trans.svg';
-import sola        from '../images/sol.svg';
-import sync        from '../images/sync.svg';
-import topo        from '../images/topo.svg';
-import node        from '../images/node.svg';
-import common      from './common.js';
-import cimedit     from './cimedit.js';
+import term        from "../images/term.svg";
+import brea        from "../images/brea.svg";
+import conn        from "../images/conn.svg";
+import cons        from "../images/cons.svg";
+import net         from "../images/net.svg";
+import tran        from "../images/trans.svg";
+import sola        from "../images/sol.svg";
+import sync        from "../images/sync.svg";
+import topo        from "../images/topo.svg";
+import node        from "../images/node.svg";
+import common      from "./common.js";
+import cimedit     from "./cimedit.js";
 
 class cimjson {
 
@@ -51,27 +51,27 @@ class cimjson {
             for (let index in originalPoints) {
                 let point = common.safeExtract(graph, "cim:DiagramObjectPoint", originalPoints[index]);
                 preOffsetPoints.push(
-                {
-                    "x": parseInt(point["cim:DiagramObjectPoint.xPosition"]).toString(),
-                    "y": parseInt(point["cim:DiagramObjectPoint.yPosition"]).toString()
-                });
+                    {
+                        "x": parseInt(point["cim:DiagramObjectPoint.xPosition"]).toString(),
+                        "y": parseInt(point["cim:DiagramObjectPoint.yPosition"]).toString()
+                    });
                 imagePoints.push(
-                {
-                    "imageHeight" : imageHeight.toString(),
-                    "imageWidth"  : imageWidth.toString(),
-                    "x"           : (parseInt(point["cim:DiagramObjectPoint.xPosition"]) - (imageWidth/2)).toString(),
-                    "y"           : (parseInt(point["cim:DiagramObjectPoint.yPosition"]) - (imageHeight/2)).toString()
-                });
-            };
+                    {
+                        "imageHeight" : imageHeight.toString(),
+                        "imageWidth"  : imageWidth.toString(),
+                        "x"           : (parseInt(point["cim:DiagramObjectPoint.xPosition"]) - (imageWidth/2)).toString(),
+                        "y"           : (parseInt(point["cim:DiagramObjectPoint.yPosition"]) - (imageHeight/2)).toString()
+                    });
+            }
             labelPoint = {
                 "x": (parseInt(preOffsetPoints[0].x) + (imageWidth/2)).toString(),
                 "y": (parseInt(preOffsetPoints[0].y) - (imageHeight/2)).toString()
 	        };
-	        rotation = parseInt(diagramObject["cim:DiagramObject.rotation"])
+	        rotation = parseInt(diagramObject["cim:DiagramObject.rotation"]);
             rotationCenter = {
                 "x": (parseInt(imagePoints[0].x) + parseInt(imagePoints[0].imageWidth/2)).toString(),
                 "y": (parseInt(imagePoints[0].y) + parseInt(imagePoints[0].imageHeight/2)).toString()
-	        }
+	        };
             object = {
                 "pintura:diagram"  : diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1),
                 "pintura:image"    : cimjson.getImageName(categoryGraphName),
@@ -83,7 +83,7 @@ class cimjson {
                     "x"   : labelPoint.x,
                     "y"   : labelPoint.y
                 }
-            }
+            };
             while (preOffsetPoints.length > 1) {
                 if (object["pintura:line"] == null) {
                     object["pintura:line"] = [];
@@ -95,14 +95,14 @@ class cimjson {
                     "y2": preOffsetPoints[1].y
                 };
                 object["pintura:line"].push(line);
-                preOffsetPoints.shift()
+                preOffsetPoints.shift();
             }
         }
         return object;
-    };
+    }
 
     static addObjectToDiagramList(object, graph, categoryGraphName, diagramList) {
-        let diagram = object["pintura:diagram"]
+        let diagram = object["pintura:diagram"];
         if (diagramList[diagram] === undefined){
             diagramList[diagram] = { "pintura:name" : graph["cim:Diagram"][diagram]["cim:IdentifiedObject.name"] };
         }
@@ -116,11 +116,11 @@ class cimjson {
             }
             diagramList[diagram]["components"][categoryGraphName][identifiedObject] = object;
         }
-    };
+    }
 
     static convertToTemplatableFormat(diagramObjects, graph) {
-        let output = { 'Diagram' : {} };
-        let diagramList = output['Diagram'];
+        let output = { "Diagram" : {} };
+        let diagramList = output["Diagram"];
 
         /* List the objects to be drawn by diagram */
         for (let categoryGraphName in cimjson.imageNames) {
@@ -129,7 +129,7 @@ class cimjson {
             for (let key in categoryGraph) {
                 let diagramObject = diagramObjects[key];
                 if (diagramObject != undefined) {
-                    categoryGraph[key][common.pinturaDiagramObject()] = diagramObjects[key][common.pinturaRdfid()]
+                    categoryGraph[key][common.pinturaDiagramObject()] = diagramObjects[key][common.pinturaRdfid()];
                     let object = cimjson.convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName);
                     cimjson.addObjectToDiagramList(object, graph, categoryGraphName, diagramList);
                 }
@@ -144,7 +144,7 @@ class cimjson {
         }
 
         return output;
-    };
+    }
 
     static indexDiagramGraphByComponentType(input) {
         /*
@@ -157,7 +157,7 @@ class cimjson {
             let diagramPlusHash = common.safeExtract(diagramObject, "cim:DiagramObject.Diagram", "rdf:resource");
             if (diagramPlusHash) {
                 let diagram = diagramPlusHash.substring(1);
-                let identifiedObject = common.safeExtract(diagramObject, "cim:DiagramObject.IdentifiedObject")
+                let identifiedObject = common.safeExtract(diagramObject, "cim:DiagramObject.IdentifiedObject");
                 if (identifiedObject) {
                     let identifiedObjectRdfResource = identifiedObject["rdf:resource"].substring(1);
                     graph[identifiedObjectRdfResource] = diagramObject;
@@ -165,13 +165,13 @@ class cimjson {
             }
         }
         return graph;
-    };
+    }
 
     static addDiagramObjectPointsToDiagramObjects(diagramObjectPointGraph, diagramObjectGraph){
         for (let key in diagramObjectPointGraph) {
             cimjson.mergeMatchingDataIntoParentNodeArray(diagramObjectGraph, key, diagramObjectPointGraph[key], "cim:DiagramObjectPoint.DiagramObject", common.pinturaDiagramObjectPoints());
         }
-    };
+    }
 
     /*
      * Create link to a member of an array of e.g. points
@@ -194,11 +194,11 @@ class cimjson {
         else {
             console.error("Could not find matching element "+matchingElement+" to merge "+destinationElement+" into .");
         }
-    };
+    }
 
     static refineTerminals(graph) {
-        if ('cim:Terminal' in graph) {
-            Object.keys(graph['cim:Terminal']).forEach((terminalId)=>{
+        if ("cim:Terminal" in graph) {
+            Object.keys(graph["cim:Terminal"]).forEach((terminalId)=>{
                 let conductingEqId = cimedit.getConductingEquipmentFromTerminal(graph, terminalId);
                 if (conductingEqId !== undefined) {
                     let conductingEqType = cimedit.getConductingEquipmentObjectTypeFromId(graph, conductingEqId);
@@ -209,7 +209,7 @@ class cimjson {
                         }
                         else {
                             if (!graph[conductingEqType][conductingEqId][common.pinturaTerminals()].includes(terminalId)) {
-                                graph[conductingEqType][conductingEqId][common.pinturaTerminals()].push(terminalId)
+                                graph[conductingEqType][conductingEqId][common.pinturaTerminals()].push(terminalId);
                             }
                         }
                     }
@@ -217,24 +217,24 @@ class cimjson {
             });
         }
         return graph;
-    };
+    }
 
     static getTemplateJson(graph) {
         let diagramObjectsByIdentifiedObjects = {};
         let refinedGraph = {};
-        if (graph['cim:DiagramObject'] !== undefined) {
-            let diagramObjects = graph['cim:DiagramObject'];
-            let diagramObjectPoints = graph['cim:DiagramObjectPoint'];
+        if (graph["cim:DiagramObject"] !== undefined) {
+            let diagramObjects = graph["cim:DiagramObject"];
+            let diagramObjectPoints = graph["cim:DiagramObjectPoint"];
             cimjson.addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
             diagramObjectsByIdentifiedObjects = cimjson.indexDiagramGraphByComponentType(diagramObjects);
         }
-        if (graph['cim:Terminal'] !== undefined) {
-            refinedGraph = cimjson.refineTerminals(graph)
+        if (graph["cim:Terminal"] !== undefined) {
+            refinedGraph = cimjson.refineTerminals(graph);
         }
         let templateReadyFormat = cimjson.convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
         return templateReadyFormat;
-    };
-};
+    }
+}
 
 cimjson.imageNames = {
     "cim:ACLineSegment":             term,

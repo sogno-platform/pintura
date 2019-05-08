@@ -16,8 +16,8 @@
  *  in the top level directory of this source tree.
  */
 
-import common from './common.js';
-import { cimsvg, currentCimsvg } from './cimsvg.js';
+import common from "./common.js";
+import { cimsvg, currentCimsvg } from "./cimsvg.js";
 
 class cimedit {
 
@@ -25,14 +25,14 @@ class cimedit {
         let id = common.generateUUID();
         let counter = currentCimsvg().getNameCounter("cim:Diagram");
         let diagram = {
-           "cim:Diagram.orientation" : {
+            "cim:Diagram.orientation" : {
                 "rdf:resource" : "http://iec.ch/TC57/2013/CIM-schema-cim16#OrientationKind.negative",
             },
             "cim:IdentifiedObject.name": "Diagram " + counter.toString(),
         };
         cimedit.addCategorizedItem(newStuff, "cim:Diagram", id, diagram);
         return id;
-    };
+    }
 
     static addCategorizedItem(object, category, id, item) {
         if (!object[category]) {
@@ -40,7 +40,7 @@ class cimedit {
         }
         item[common.pinturaRdfid()] = id;
         object[category][id] = item;
-    };
+    }
 
     static makeVisibleComponent(diagramId, graph, type, point, attributes, terminalConfig) {
         let id = common.generateUUID();
@@ -49,12 +49,12 @@ class cimedit {
         let terminalIds = [];
         componentPoints[0] = point;
 
-        if (terminalConfig['terminalStyle'] == cimedit.linePoints) {
+        if (terminalConfig["terminalStyle"] === cimedit.linePoints) {
             let nextPoint = {};
             nextPoint.x = point.x;
             nextPoint.y = point.y;
             terminalPoints.push(point);
-            if (type == "cim:ACLineSegment") {
+            if (type === "cim:ACLineSegment") {
                 nextPoint.x = 100 + point.x;
             }
             else {
@@ -66,7 +66,7 @@ class cimedit {
                 terminalIds.push(cimedit.makeTerminal(diagramId, graph, (i+1).toString(), id, terminalPoints[i]));
             }
         }
-        if (terminalConfig['terminalStyle'] == cimedit.constellationPoints) {
+        if (terminalConfig["terminalStyle"] === cimedit.constellationPoints) {
             let nextPoint = {};
             nextPoint.x = 10 + point.x;
             nextPoint.y = point.y;
@@ -82,22 +82,22 @@ class cimedit {
         };
         let componentData = Object.assign({}, attributes, newAttributes);
         cimedit.addCategorizedItem(graph, type, id, componentData);
-        if (terminalConfig['terminalStyle'] == cimedit.constellationPoints) {
+        if (terminalConfig["terminalStyle"] === cimedit.constellationPoints) {
             for (let i = 0; i<terminalPoints.length; i++) {
-                cimedit.addTerminal(graph, type, id)
+                cimedit.addTerminal(graph, type, id);
             }
         }
         return id;
-    };
+    }
 
     static getConductingEquipmentFromTerminal(graph, terminalId) {
-        if (graph['cim:Terminal'][terminalId]['cim:Terminal.ConductingEquipment']) {
-            let conductingEquipmentObject = graph['cim:Terminal'][terminalId]['cim:Terminal.ConductingEquipment'];
-            if (conductingEquipmentObject['rdf:resource']) {
-                return conductingEquipmentObject['rdf:resource'].substr(1);
+        if (graph["cim:Terminal"][terminalId]["cim:Terminal.ConductingEquipment"]) {
+            let conductingEquipmentObject = graph["cim:Terminal"][terminalId]["cim:Terminal.ConductingEquipment"];
+            if (conductingEquipmentObject["rdf:resource"]) {
+                return conductingEquipmentObject["rdf:resource"].substr(1);
             }
         }
-    };
+    }
 
     static getConductingEquipmentObjectTypeFromId(graph, rdfid) {
         let type = undefined;
@@ -107,7 +107,7 @@ class cimedit {
             }
         });
         return type;
-    };
+    }
 
     static moveTerminalIntoComponentOrbit(graph, terminalId, type, conductingEquipmentId) {
         let terminalDiagramObjectId            = common.safeExtract(graph, "cim:Terminal", terminalId, common.pinturaDiagramObject());
@@ -120,11 +120,11 @@ class cimedit {
                 let firstPoint                     = common.safeExtract(graph, "cim:DiagramObjectPoint", terminalPoints[0]);
                 let x                              = common.safeExtract(conductingEquipmentPoint, "cim:DiagramObjectPoint.xPosition");
                 let y                              = common.safeExtract(conductingEquipmentPoint, "cim:DiagramObjectPoint.yPosition");
-                firstPoint["cim:DiagramObjectPoint.xPosition"] = (parseInt(x) + 10).toString();
+                firstPoint["cim:DiagramObjectPoint.xPosition"] = (parseInt(x, 10) + 10).toString();
                 firstPoint["cim:DiagramObjectPoint.yPosition"] = y;
             }
         }
-    };
+    }
 
     static addTerminal(baseJson, type, rdfid) {
         if (baseJson[type] && baseJson[type][rdfid]) {
@@ -138,9 +138,9 @@ class cimedit {
             }
             let terminal = cimedit.makeTerminal(currentCimsvg().getCurrentDiagramId(), baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
             cimedit.moveTerminalIntoComponentOrbit(baseJson, terminal, type, rdfid);
-            baseJson[type][rdfid][common.pinturaTerminals()].push(terminal)
+            baseJson[type][rdfid][common.pinturaTerminals()].push(terminal);
         }
-    };
+    }
 
     static removeDiagramObjectPointFromObject(graph, diagramObjectId, diagramObjectPointId) {
         /* Remove the diagram object from the diagram object list and
@@ -152,18 +152,17 @@ class cimedit {
                 pointsArray.splice(index, 1);
             }
         }
-        common.safeDelete(graph, "cim:DiagramObjectPoint", diagramObjectPointId)
-    };
+        common.safeDelete(graph, "cim:DiagramObjectPoint", diagramObjectPointId);
+    }
 
     static connectTerminalToTopologicalNode(graph, terminalId, topologicalNodeId) {
         let baseJson                       = currentCimsvg().getBaseJson();
         let terminal                       = common.safeExtract(graph, "cim:Terminal", terminalId);
         let topologicalNode                = common.safeExtract(graph, "cim:TopologicalNode", topologicalNodeId);
-        let terminalDiagramObjectId        = terminal[common.pinturaDiagramObject()]
+        let terminalDiagramObjectId        = terminal[common.pinturaDiagramObject()];
         let terminalDiagramObject          = common.safeExtract(graph, "cim:DiagramObject", terminalDiagramObjectId);
         let topologicalNodeDiagramObjectId = topologicalNode[common.pinturaDiagramObject()];
         let topologicalNodeDiagramObject   = common.safeExtract(graph, "cim:DiagramObject", topologicalNodeDiagramObjectId);
-        let topologicalNodePoints    = common.safeExtract(topologicalNodeDiagramObject, common.pinturaDiagramObjectPoints());
         let firstTopologicalNodePointId    = common.safeExtract(topologicalNodeDiagramObject, common.pinturaDiagramObjectPoints(), "0");
         let firstTopologicalNodePoint      = common.safeExtract(graph, "cim:DiagramObjectPoint", firstTopologicalNodePointId);
         let firstTerminalPointId           = common.safeExtract(terminalDiagramObject, common.pinturaDiagramObjectPoints(), "0");
@@ -171,7 +170,7 @@ class cimedit {
         let secondTerminalPointId          = common.safeExtract(terminalDiagramObject, common.pinturaDiagramObjectPoints(), "1");
         if (secondTerminalPointId) {
             cimedit.removeDiagramObjectPointFromObject(graph, terminalDiagramObjectId, secondTerminalPointId);
-        };
+        }
         if (firstTopologicalNodePoint && firstTerminalPoint) {
             let x = common.safeExtract(firstTopologicalNodePoint, "cim:DiagramObjectPoint.xPosition");
             let y = common.safeExtract(firstTerminalPoint, "cim:DiagramObjectPoint.yPosition");
@@ -183,7 +182,7 @@ class cimedit {
                 }
             }
         }
-    };
+    }
 
     static makeTerminal(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point) {
         let id = common.generateUUID();
@@ -196,10 +195,10 @@ class cimedit {
             "cim:Terminal.ConnectivityNode": { "rdf:resource":"#none" },
             "cim:Terminal.phases": "",
             "pintura:diagramObject": diagramObjectId,
-        }
+        };
         cimedit.addCategorizedItem(newStuff, "cim:Terminal", id, terminal);
         return id;
-    };
+    }
 
     static makeDiagramObjectWithPoints(graph, diagramId, identifiedObjectId, points) {
         let diagramObjectId = cimedit.makeDiagramObject(graph, diagramId, identifiedObjectId);
@@ -211,7 +210,7 @@ class cimedit {
         }
         graph["cim:DiagramObject"][diagramObjectId][common.pinturaDiagramObjectPoints()] = diagramObjectPoints;
         return diagramObjectId;
-    };
+    }
 
     static makeDiagramObject(newStuff, diagramId, identifiedObjectId) {
         let id = common.generateUUID();
@@ -228,12 +227,12 @@ class cimedit {
         };
         cimedit.addCategorizedItem(newStuff, "cim:DiagramObject", id, diagramObject);
         return id;
-    };
+    }
 
     static makeDiagramObjectPoint(newStuff, diagramObjectId, seq, x, y) {
         let counter = currentCimsvg().getNameCounter("cim:DiagramObjectPoint");
         let diagramObjectPoint = {
-           "cim:DiagramObjectPoint.DiagramObject" : {
+            "cim:DiagramObjectPoint.DiagramObject" : {
                 "rdf:resource" : "#"+diagramObjectId
             },
             "cim:DiagramObjectPoint.sequenceNumber": seq,
@@ -244,7 +243,7 @@ class cimedit {
         let id = common.generateUUID();
         cimedit.addCategorizedItem(newStuff, "cim:DiagramObjectPoint", id, diagramObjectPoint);
         return id;
-    };
+    }
 
     static makeAggregateComponent(diagramId, jsonBaseData, type) {
         let counter = currentCimsvg().getNameCounter(type);
@@ -255,7 +254,7 @@ class cimedit {
         let id = common.generateUUID();
         cimedit.addCategorizedItem(jsonBaseData, type, id, aggregateComponent);
         return id;
-    };
+    }
 
     static makeRawAggregateComponent(jsonBaseData, type) {
         let counter = currentCimsvg().getNameCounter(type);
@@ -265,43 +264,38 @@ class cimedit {
         let id = common.generateUUID();
         cimedit.addCategorizedItem(jsonBaseData, type, id, aggregateComponent);
         return id;
-    };
+    }
 
     static typeHasVariableTerminalCount(type) {
         if(cimedit.terminalAndPointLimits[type]) {
-            return (cimedit.terminalAndPointLimits[type]['minTerminals'] != cimedit.terminalAndPointLimits[type]['maxTerminals'])
+            return (cimedit.terminalAndPointLimits[type]["minTerminals"] !== cimedit.terminalAndPointLimits[type]["maxTerminals"]);
         }
         else {
-            return false
+            return false;
         }
-    };
+    }
 
     static typeIsVisible(type) {
-        if (type == "cim:Terminal") {
+        if (type === "cim:Terminal") {
             return false;
         }
         if(cimedit.terminalAndPointLimits[type]) {
-            return (cimedit.terminalAndPointLimits[type]["points"] > 0)
+            return (cimedit.terminalAndPointLimits[type]["points"] > 0);
         }
         else {
             return false;
         }
-    };
+    }
 
     static removeComponentFromBaseJson(jsonBaseData, type, rdfid) {
-        if (type == "cim:DiagramObject") {
+        if (type === "cim:DiagramObject") {
             let diagramObject = common.safeExtract(jsonBaseData, "cim:DiagramObject", rdfid);
             let points = common.safeExtract(jsonBaseData, "cim:DiagramObject", rdfid, common.pinturaDiagramObjectPoints());
             points.forEach( function(point) {
                 cimedit.removeComponentFromBaseJson(jsonBaseData, "cim:DiagramObjectPoint", point);
             });
         }
-        else if (type == "cim:Terminal") {
-            let conductingEquipment = common.safeExtract(jsonBaseData, "cim:Terminal", rdfid, "cim:Terminal.ConductingEquipment");
-            if (conductingEquipment) {
-                let conductingEquipmentId = conductingEquipment["rdf:resource"].substr(1);
-                let ownerType = currentCimsvg().getObjectTypeUsingId(conductingEquipmentId);
-            }
+        else if (type === "cim:Terminal") {
         }
         else {
             let diagramObjectId = common.safeExtract(jsonBaseData, type, rdfid, "diagramObject");
@@ -311,25 +305,25 @@ class cimedit {
             let terminals = common.safeExtract(jsonBaseData, type, rdfid, "terminals");
             if (terminals) {
                 terminals.forEach(function(terminal) {
-                    currentCimsvg().removeTerminal(type, rdfid, terminal)
+                    currentCimsvg().removeTerminal(type, rdfid, terminal);
                 });
             }
         }
         if (jsonBaseData[type] && jsonBaseData[type][rdfid]) {
             delete jsonBaseData[type][rdfid];
         }
-    };
+    }
 
     static addRawComponentToBaseJson(jsonBaseData, type) {
         return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
-    };
+    }
 
     static addComponentToBaseJson(jsonBaseData, type, point, diagramId) {
         // TODO: diagramId is ignored.
 
         if (type == "cim:Diagram") {
             return cimedit.makeDiagram(jsonBaseData);
-        };
+        }
 
         if (cimedit.terminalAndPointLimits[type] != undefined) {
             if (cimedit.typeIsVisible(type)) {
@@ -342,8 +336,8 @@ class cimedit {
         else {
             return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
         }
-    };
-};
+    }
+}
 
 cimedit.constellationPoints = 1;
 cimedit.linePoints = 2;

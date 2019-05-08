@@ -16,15 +16,15 @@
  *  in the top level directory of this source tree.
  */
 
-import templates from '../handlebars/index.js';
-import cimfile from './cimfile.js';
-import cimxml from './cimxml.js';
-import cimview from './cimview.js';
-import cimedit from './cimedit.js';
-import cimjson from './cimjson.js';
-import common from './common.js';
-import JSZip from 'jszip';
-import css from '../css/svg.css';
+import templates from "../handlebars/index.js";
+import cimfile from "./cimfile.js";
+import cimxml from "./cimxml.js";
+import cimview from "./cimview.js";
+import cimedit from "./cimedit.js";
+import cimjson from "./cimjson.js";
+import common from "./common.js";
+import JSZip from "jszip";
+import css from "../css/svg.css";
 
 class cimsvg {
 
@@ -48,10 +48,10 @@ class cimsvg {
 
     static addPinturaStyle(svg, css) {
         let docu = svg.ownerDocument;
-        let pinturaStyleTags = docu.querySelectorAll('style.pintura');
-        let style = docu.createElement('style');
-        style.type = 'text/css';
-        style.classList.add('pintura');
+        let pinturaStyleTags = docu.querySelectorAll("style.pintura");
+        let style = docu.createElement("style");
+        style.type = "text/css";
+        style.classList.add("pintura");
 
         if (pinturaStyleTags.length < 1) {
             let head = docu.head;
@@ -97,27 +97,27 @@ class cimsvg {
         }
         else {
             return 0;
-        };
-    };
+        }
+    }
 
     /*
      * How many pieces the data will be arriving in
      */
     setFileCount(count) {
         this.rdfFileCount = count;
-    };
+    }
 
     updateRawComponentSearch(regexInput) {
         let regex = regexInput.toUpperCase();
-        let floatingPanelList = this.floatingMenu.querySelectorAll('.floating-panel-list')
+        let floatingPanelList = this.floatingMenu.querySelectorAll(".floating-panel-list");
         floatingPanelList.forEach((elem)=>{
             elem.childNodes.forEach((component)=>{
                 let name = component.id.toUpperCase().substr(0, regex.length);
                 if (regex.match(name)) {
-                    component.classList.remove('invisible')
+                    component.classList.remove("invisible");
                 }
                 else {
-                    component.classList.add('invisible')
+                    component.classList.add("invisible");
                 }
             });
         });
@@ -125,11 +125,11 @@ class cimsvg {
 
     resetFileReceivedCount() {
         this.rdfFileReceived = 0;
-    };
+    }
 
     incFileReceivedCount() {
         this.rdfFileReceived++;
-    };
+    }
 
     /*
      * Have we received all the data files yet?
@@ -141,59 +141,59 @@ class cimsvg {
             }
         }
 
-    };
+    }
 
     fit() {
         this.cimview.fit();
-    };
+    }
 
     getXmlDoc() {
         return this.xmlDoc;
-    };
+    }
 
     setXmlDoc(doc) {
         this.xmlDoc = doc;
-    };
+    }
 
     getBaseJson() {
         if (this.jsonBaseData === null) {
-            this.jsonBaseData = {}
+            this.jsonBaseData = {};
         }
         return this.jsonBaseData;
-    };
+    }
 
     setBaseJson(data) {
         this.jsonBaseData = data;
-    };
+    }
 
     getNameCounter(type) {
         if (this.nameCounter[type] === undefined){
             this.nameCounter[type] = "0";
         }
         return (++this.nameCounter[type]).toString();
-    };
+    }
 
     setCurrentDiagramId(diagramId) {
         this.currentDiagramId = diagramId;
-    };
+    }
 
     getObjectsOfType(type) {
         let baseJson=this.getBaseJson();
         let objects=common.safeExtract(baseJson, type);
         return objects;
-    };
+    }
 
     getCurrentDiagramId() {
         return this.currentDiagramId;
-    };
+    }
 
     static getCimsvg() {
         return cimsvg.currentCimsvgClass;
-    };
+    }
 
     static setCimsvg(cimsvgClass) {
         cimsvg.currentCimsvgClass = cimsvgClass;
-    };
+    }
 
     includeFile (fileName, callback) {
         let dom = this.svgNode.ownerDocument;
@@ -206,55 +206,55 @@ class cimsvg {
             };
         }
         this.svgNode.parentElement.appendChild(newTag);
-    };
+    }
 
     addDiagram() {
-        return this.addComponentAndApplyTemplates("cim:Diagram")
-    };
+        return this.addComponentAndApplyTemplates("cim:Diagram");
+    }
 
     isAllComponentsListVisible() {
         let visible = true;
-        let tableList = this.getAllComponentsMenu().querySelectorAll('.floating-panel-table');
+        let tableList = this.getAllComponentsMenu().querySelectorAll(".floating-panel-table");
         tableList.forEach((table)=>{
-            if (table.classList.contains('invisible')) {
+            if (table.classList.contains("invisible")) {
                 visible = false;
             }
         });
         return visible;
-    };
+    }
 
     addRawComponent(type) {
         this.addRawComponentAndApplyTemplates(type);
         this.updateCimmenu(()=>{ this.cimmenu.populateAllComponents(); });
-    };
+    }
 
     addComponent(type) {
-        if (type.substring(0, 4) !== 'cim:') {
-            type = 'cim:' + type;
+        if (type.substring(0, 4) !== "cim:") {
+            type = "cim:" + type;
         }
         if (cimedit.typeIsVisible(type)) {
             this.addingType = type;
             let image = cimjson.getImageName(type);
-            let backingList = this.svgNode.querySelectorAll('.backing');
+            let backingList = this.svgNode.querySelectorAll(".backing");
             backingList.forEach(function(backing){
-                backing.style.cursor = 'url("' + image + '"), crosshair';
+                backing.style.cursor = "url(\"" + image + "\"), crosshair";
             });
         }
         else {
             return this.addComponentAndApplyTemplates(type);
         }
-    };
+    }
 
     removeComponent(type, rdfid) {
         let baseJson = this.getBaseJson();
-        cimedit.removeComponentFromBaseJson(baseJson, type, rdfid)
+        cimedit.removeComponentFromBaseJson(baseJson, type, rdfid);
         this.applyTemplates();
-    };
+    }
 
     addTerminal(type, rdfid) {
         let baseJson = this.getBaseJson();
         cimedit.addTerminal(baseJson, type, rdfid);
-    };
+    }
 
     removeTerminal(type, rdfid, terminalId) {
         let baseJson = this.getBaseJson();
@@ -263,18 +263,18 @@ class cimsvg {
             if (terminals) {
                 let index = terminals.indexOf(terminalId);
                 if (index != -1) {
-                    terminals.splice(index)
+                    terminals.splice(index);
                 }
                 else {
-                    console.error("Cannot remove terminal " + terminalId + " because it does not exist in the list.")
+                    console.error("Cannot remove terminal " + terminalId + " because it does not exist in the list.");
                 }
             }
             else {
-                console.error("Cannot remove terminal " + terminalId + " because there are none.")
+                console.error("Cannot remove terminal " + terminalId + " because there are none.");
             }
-            this.removeComponent("cim:Terminal", terminalId)
+            this.removeComponent("cim:Terminal", terminalId);
         }
-    };
+    }
 
     updateGridLocation (node, length) {
         node.style.gridArea = "1 / 1 / 8 / 2";
@@ -284,46 +284,46 @@ class cimsvg {
         let baseJson = this.getBaseJson();
         /* getTemplateJson will associate the diagram objects with components */
         this.templateJson = cimjson.getTemplateJson(baseJson);
-        this.updateCimmenu(()=>{ this.cimmenu.update(this.templateJson) });
-    };
+        this.updateCimmenu(()=>{ this.cimmenu.update(this.templateJson); });
+    }
 
     populateComponentTypeListForDiagram(diagramId) {
-        let diagram = common.safeExtract(this.templateJson, 'Diagram', diagramId)
+        let diagram = common.safeExtract(this.templateJson, "Diagram", diagramId);
         if (diagramId) {
-            let justThisDiagram = { "Diagram": { [diagramId]: diagram } }
-            let componentTypesPanel = this.getColumnPanel('.component-types-panel');
+            let justThisDiagram = { "Diagram": { [diagramId]: diagram } };
+            let componentTypesPanel = this.getColumnPanel(".component-types-panel");
             if(componentTypesPanel != null) {
-                this.updateCimmenu(()=>{ this.cimmenu.populatePanelWithTemplate(componentTypesPanel, justThisDiagram, 'pinturaJson2DiagramComponentTypeList', "Component Types"); });
+                this.updateCimmenu(()=>{ this.cimmenu.populatePanelWithTemplate(componentTypesPanel, justThisDiagram, "pinturaJson2DiagramComponentTypeList", "Component Types"); });
             }
         }
-    };
+    }
 
     populateComponentsOfTypeListForDiagramAndComponentType(diagramId, componentType) {
-        let components = common.safeExtract(this.templateJson, 'Diagram', diagramId, 'components', componentType)
-        let diagram = common.safeExtract(this.templateJson, 'Diagram', diagramId)
+        let components = common.safeExtract(this.templateJson, "Diagram", diagramId, "components", componentType);
+        let diagram = common.safeExtract(this.templateJson, "Diagram", diagramId);
         if (diagramId) {
-            let justThisDiagram = { "Diagram": { [diagramId]: diagram } }
-            let justTheseComponents = { "Diagram": { [diagramId]: { 'components': { [componentType]: components } } } };
-            let componentsPanel = this.getColumnPanel('.components-panel');
+            let justThisDiagram = { "Diagram": { [diagramId]: diagram } };
+            let justTheseComponents = { "Diagram": { [diagramId]: { "components": { [componentType]: components } } } };
+            let componentsPanel = this.getColumnPanel(".components-panel");
             if(componentsPanel != null) {
-                this.updateCimmenu(()=>{ this.cimmenu.populatePanelWithTemplate(componentsPanel, justTheseComponents, 'pinturaJson2ComponentOfTypeList', "Component Types"); });
+                this.updateCimmenu(()=>{ this.cimmenu.populatePanelWithTemplate(componentsPanel, justTheseComponents, "pinturaJson2ComponentOfTypeList", "Component Types"); });
             }
         }
-    };
+    }
 
     loadUri() {
-        let uri = this.uriChooser()
+        let uri = this.uriChooser();
         if (uri !== undefined) {
             this.downloadUri(uri);
         }
-    };
+    }
 
     saveToUri() {
-        let uri = this.uriChooser()
+        let uri = this.uriChooser();
         if (uri !== undefined) {
             this.uploadToUri(uri);
         }
-    };
+    }
 
     uriChooser(prev) {
         let response = prompt("Enter URI", prev || this.uri);
@@ -333,38 +333,38 @@ class cimsvg {
         } else {
             return response;
         }
-    };
+    }
 
     populateAttributes(type, id) {
         this.updateCimmenu(()=>{ return this.cimmenu.populateAttributes(type, id); });
-    };
+    }
 
     populateAttributesIdOnly(id) {
         this.updateCimmenu(()=>{ return this.cimmenu.populateAttributesIdOnly(id); });
-    };
+    }
 
     /*
      * This function needs to call into the model generation to discover what
      * components are available.
      */
     populateComponentCreationMenu() {
-        let accordionList = this.dialog.querySelectorAll('.dialog-list')
+        let accordionList = this.dialog.querySelectorAll(".dialog-list");
         accordionList.forEach((accordion)=>{
             accordion.innerHTML = this.componentCreationHtml;
         });
-        let titleList = this.dialog.querySelectorAll('.dialog-title')
+        let titleList = this.dialog.querySelectorAll(".dialog-title");
         titleList.forEach((title)=>{
             title.innerHTML = "Add Component";
         });
         this.showDialog();
-    };
+    }
 
     populateTerminals(type, rdfid) {
-        this.updateCimmenu(()=>{ this.cimmenu.populateTerminals(type, this.getCimVersionFolder(), rdfid) });
-    };
+        this.updateCimmenu(()=>{ this.cimmenu.populateTerminals(type, this.getCimVersionFolder(), rdfid); });
+    }
 
     checkComponentReadyToAdd(evt) {
-        let visibleMenus = this.updateCimmenu(()=>{ return this.cimmenu.getListOfVisibleMenus() });
+        let visibleMenus = this.updateCimmenu(()=>{ return this.cimmenu.getListOfVisibleMenus(); });
         let rdfid = null;
         this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
         if (this.addingType != null) {
@@ -373,43 +373,43 @@ class cimsvg {
             rdfid = this.addComponentAndApplyTemplates(type, point);
             this.addingType = null;
             this.addingPoint = null;
-        };
-        let backingList = this.svgNode.querySelectorAll('.backing')
+        }
+        let backingList = this.svgNode.querySelectorAll(".backing");
         backingList.forEach(function(backing) {
-            backing.style.cursor = 'initial';
+            backing.style.cursor = "initial";
         });
         this.updateCimmenu(()=>{ this.cimmenu.redrawMenus(visibleMenus); });
         return rdfid;
-    };
+    }
 
     applyDiagramTemplate(templateJson) {
         let templateHtml = templates.cim2svg(templateJson);
-        let diagramList = this.svgNode.querySelectorAll('.diagrams')
+        let diagramList = this.svgNode.querySelectorAll(".diagrams");
         diagramList.forEach(function(diagram) {
             diagram.innerHTML = templateHtml;
         });
-    };
+    }
 
     applyTemplates() {
         let baseJson = this.getBaseJson();
         this.templateJson = cimjson.getTemplateJson(baseJson);
-        this.applyDiagramTemplate(this.templateJson)
-        this.updateCimmenu(()=>{ this.cimmenu.update(this.templateJson, baseJson) });
-    };
+        this.applyDiagramTemplate(this.templateJson);
+        this.updateCimmenu(()=>{ this.cimmenu.update(this.templateJson, baseJson); });
+    }
 
     addRawComponentAndApplyTemplates(type, point) {
         let baseJson = this.getBaseJson();
         let rdfid = cimedit.addRawComponentToBaseJson(baseJson, type, point);
         this.applyTemplates();
         return rdfid;
-    };
+    }
 
     addComponentAndApplyTemplates(type, point) {
         let baseJson = this.getBaseJson();
         let rdfid = cimedit.addComponentToBaseJson(baseJson, type, point);
         this.applyTemplates();
         return rdfid;
-    };
+    }
 
     clearAllData() {
         this.xmlNode = null;
@@ -422,21 +422,21 @@ class cimsvg {
         this.rdfFileReceived = 0;
         this.jsonBaseData = null;
         this.templateJson = null;
-        this.cimVersion = 'cim16';
+        this.cimVersion = "cim16";
         this.cimVersionFromFile = false;
         this.entsoe = "";
-    };
+    }
 
     getCimVersionFolder() {
         return this.cimVersion + this.entsoe;
-    };
+    }
 
     getCimversion() {
         return this.cimVersion;
-    };
+    }
 
     setCimVersion(cim, entsoe) {
-        let regex = /.*CIM-schema-(.*)#/.exec(cim)
+        let regex = /.*CIM-schema-(.*)#/.exec(cim);
         if (regex.length > 1) {
             let newCimVersion = regex[1];
             if (this.cimVersionFromFile) {
@@ -453,7 +453,7 @@ class cimsvg {
         }
         this.entsoe = entsoe ? "_entsoe" : "";
         return true;
-    };
+    }
 
     loadFile(fileContents) {
         if (!this.getXmlDoc()) {
@@ -477,18 +477,18 @@ class cimsvg {
                 this.resetFileReceivedCount(0);
                 this.setFileCount(0);
                 this.populateDiagramLinks();
-                this.applyDiagramTemplate(this.templateJson)
+                this.applyDiagramTemplate(this.templateJson);
             }
         }
 
-    };
+    }
 
     exportXmlData() {
         return cimxml.getBaseXML(this.getBaseJson());
-    };
+    }
 
     exportSVGData() {
-        let SVGDiagrams = this.svgNode.querySelectorAll('.diagrams');
+        let SVGDiagrams = this.svgNode.querySelectorAll(".diagrams");
         let SVGData = "";
         SVGDiagrams.forEach((data)=>{
             SVGData += data.outerHTML;
@@ -496,27 +496,27 @@ class cimsvg {
         let templateData = {
             style: css,
             diagrams: SVGData,
-            viewBox: this.svgNode.getAttribute('viewBox'),
-        }
+            viewBox: this.svgNode.getAttribute("viewBox"),
+        };
         let returnData = templates.cim2svg(templateData);
         return (returnData);
-    };
+    }
 
     saveGridXml(filename) {
         cimfile.saveFile(this.exportXmlData(), filename);
-    };
+    }
 
     saveToSVG() {
         cimfile.saveFile(this.exportSVGData(), "pintura.svg");
-    };
+    }
 
     saveTemplateJson() {
         cimfile.saveFile(JSON.stringify(this.templateJson, true, 2), "pintura.json");
-    };
+    }
 
     saveToMultipartZip() {
         cimfile.convertToMultipartZip(this.getBaseJson(), "pintura.zip");
-    };
+    }
 
     updateComponentInBaseJson(type, id, attribute, value) {
         if (this.getBaseJson()[type][id] === undefined) {
@@ -526,42 +526,42 @@ class cimsvg {
             this.getBaseJson()[type][id][attribute] = value;
             let baseJson = this.getBaseJson();
             this.templateJson = cimjson.getTemplateJson(baseJson);
-            this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value) });
-            this.updateCimmenu(()=>{ this.cimmenu.update(this.templateJson) });
+            this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value); });
+            this.updateCimmenu(()=>{ this.cimmenu.update(this.templateJson); });
         }
-    };
+    }
 
     updateComponent(type, id, attribute, value) {
         this.updateComponentInBaseJson(type, id, attribute, value);
-    };
+    }
 
     updateComponentRDF(type, id, attribute, rdfid) {
-        let value = { "rdf:resource" : "#" + rdfid }
-        this.updateComponentInBaseJson(type, id, attribute, value)
-        this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value) });
+        let value = { "rdf:resource" : "#" + rdfid };
+        this.updateComponentInBaseJson(type, id, attribute, value);
+        this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value); });
         if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
             let baseJson = this.getBaseJson();
             cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);
             /* TODO: are we doing too much work here? */
             let templateJson = cimjson.getTemplateJson(baseJson);
-            this.applyDiagramTemplate(templateJson)
+            this.applyDiagramTemplate(templateJson);
         }
-    };
+    }
 
     toggleDiagramVisible(id, icon) {
-        let diagram = this.svgNode.querySelector('#' + id);
-        let diagramComponents = this.cimmenu.panels['diagramsPanel'];
+        let diagram = this.svgNode.querySelector("#" + id);
+        let diagramComponents = this.cimmenu.panels["diagramsPanel"];
         if(diagramComponents != null) {
-            let iconNode = diagramComponents.querySelector('#' + icon);
-            if (diagram.classList.contains('invisible')) {
-                diagram.classList.remove('invisible');
+            let iconNode = diagramComponents.querySelector("#" + icon);
+            if (diagram.classList.contains("invisible")) {
+                diagram.classList.remove("invisible");
                 iconNode.innerHTML = "&#9728;";
             } else {
-                diagram.classList.add('invisible');
+                diagram.classList.add("invisible");
                 iconNode.innerHTML = "&#9788;";
             }
         }
-    };
+    }
 
     importZip(uri, blob) {
         let archive = new JSZip();
@@ -578,27 +578,27 @@ class cimsvg {
             }, (error)=>{
                 console.error("failure", error);
             }
-        );
-    };
+            );
+    }
 
     setTitle(title) {
-        this.svgNode.ownerDocument.documentElement.querySelectorAll('title').forEach((elem)=> {
+        this.svgNode.ownerDocument.documentElement.querySelectorAll("title").forEach((elem)=> {
             elem.innerHTML = title;
         });
-    };
+    }
 
     uploadToUri(uri) {
         let fileString = "";
-        let uriSuffix = uri.substring(uri.length-4)
-        if (uriSuffix == '.xml') {
+        let uriSuffix = uri.substring(uri.length-4);
+        if (uriSuffix == ".xml") {
             let data = this.exportXmlData();
             cimfile.uploadAsText(data, uri);
         }
-        else if (uriSuffix == '.zip') {
+        else if (uriSuffix == ".zip") {
             let data = this.exportXmlData();
             cimfile.uploadAsZip(data, uri);
         }
-    };
+    }
 
     /*
      * This function is used to download models using
@@ -615,7 +615,7 @@ class cimsvg {
                         this.loadFile(text);
                         this.setTitle(uri);
                         this.uri = uri;
-                    })
+                    });
                 }
                 else if (suffix == '.zip') {
                     response.blob().then((blob)=>{
@@ -638,8 +638,8 @@ class cimsvg {
         Connect.open("GET", fileName, true);
         Connect.setRequestHeader("Content-Type", "text/xml");
         Connect.onerror = function (e) {
-            alert("Failed to download " + fileName)
-        }
+            alert("Failed to download " + fileName);
+        };
         Connect.onload = function (e) {
             if(Connect.readyState === 4) {
                 if(Connect.status === 200) {
@@ -652,7 +652,7 @@ class cimsvg {
         };
         // send the request.
         Connect.send(null);
-    };
+    }
 
     getObjectUsingId(id) {
         let baseJson = this.getBaseJson();
@@ -671,7 +671,7 @@ class cimsvg {
         else {
             return undefined;
         }
-    };
+    }
 
     getObjectTypeUsingId(rdfid) {
         let baseJson = this.getBaseJson();
@@ -683,71 +683,71 @@ class cimsvg {
             }
         }
         return type;
-    };
+    }
 
     getObjectNameUsingTypeAndId(type, rdfid) {
-        return common.safeExtract(this.getBaseJson(), type, rdfid, common.identifiedObjectName())
-    };
+        return common.safeExtract(this.getBaseJson(), type, rdfid, common.identifiedObjectName());
+    }
 
     getRdfResource(object) {
         if (object) {
-            let rdfid = object['rdf:resource'];
+            let rdfid = object["rdf:resource"];
             if (rdfid != undefined) {
                 return rdfid.substring(1);
             }
         }
         return undefined;
-    };
+    }
 
     showFileMenu() {
-        this.showCornerPanel('.diagrams-panel');
-    };
+        this.showCornerPanel(".diagrams-panel");
+    }
 
     hideFileMenu() {
-            this.hideCornerPanel('.diagrams-panel');
-    };
+        this.hideCornerPanel(".diagrams-panel");
+    }
 
     showCornerPanel(name) {
         let tables = this.getColumnPanel(name).querySelectorAll(".floating-panel-table");
         tables.forEach(function(table){
-            table.classList.remove('invisible');
+            table.classList.remove("invisible");
         });
-    };
+    }
 
     hideCornerPanel(name) {
         let tables = this.getColumnPanel(name).querySelectorAll(".floating-panel-table");
         tables.forEach(function(table){
-            table.classList.add('invisible');
+            table.classList.add("invisible");
         });
-    };
+    }
 
     closeDialog() {
-        this.dialog.classList.add('invisible');
-    };
+        this.dialog.classList.add("invisible");
+    }
 
     showDialog() {
-        this.dialog.classList.remove('invisible');
-    };
+        this.dialog.classList.remove("invisible");
+    }
 
     hideAllComponentsList() {
         let tables = this.getAllComponentsMenu().querySelectorAll(".floating-panel-table");
         tables.forEach(function(table){
-            table.classList.add('invisible');
+            table.classList.add("invisible");
         });
-        let switchList = this.getAllComponentsMenu().querySelectorAll('.switch');
+        let switchList = this.getAllComponentsMenu().querySelectorAll(".switch");
         switchList.forEach(function(sw){
-            sw.classList.remove('invisible');
+            sw.classList.remove("invisible");
         });
-    };
+    }
 
     static terminalAndPointLimits() {
         return cimedit.terminalAndPointLimits;
-    };
+    }
 
     static typeIsVisible(type) {
         return cimedit.typeIsVisible(type);
-    };
-};
+    }
+}
 
 cimsvg.currentCimsvgClass = null;
 
@@ -755,5 +755,5 @@ const currentCimsvg = function() {
     return cimsvg.getCimsvg();
 };
 
-export { cimsvg, currentCimsvg, cimxml, cimfile }
+export { cimsvg, currentCimsvg, cimxml, cimfile };
 

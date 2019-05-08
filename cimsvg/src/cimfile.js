@@ -16,16 +16,16 @@
  *  in the top level directory of this source tree.
  */
 
-import cimxml from './cimxml.js';
-import JSZip from 'jszip';
-import packageIndex from './packageIndex.js';
+import cimxml from "./cimxml.js";
+import JSZip from "jszip";
+import packageIndex from "./packageIndex.js";
 class cimfile {
 
     static addToFileMap(fileData, fileName, fileMap){
         let fileExists = fileName in fileMap;
         if (fileExists) {
             let tmp = Object.assign(fileMap[fileName], fileData);
-            fileMap[fileName] = tmp
+            fileMap[fileName] = tmp;
         }
         else {
             fileMap[fileName] = fileData;
@@ -38,23 +38,23 @@ class cimfile {
             packageData[pack] = {};
         }
         packageData[pack][key] = data;
-    };
+    }
 
     static saveFile(data, filename) {
         // TODO : get rid of the document references
-        let filesave = document.getElementById("filesave")
-        let element = document.createElement('a');
-        if (typeof data == "string") {
-            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(data));
+        let filesave = document.getElementById("filesave");
+        let element = document.createElement("a");
+        if (typeof data === "string") {
+            element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(data));
         }
-        else if (typeof data == "object") {
-            element.setAttribute('href', URL.createObjectURL(data));
+        else if (typeof data === "object") {
+            element.setAttribute("href", URL.createObjectURL(data));
         }
         else {
-            console.error("I don't know how to save data of type ", typeof data)
+            console.error("I don't know how to save data of type ", typeof data);
         }
-        element.setAttribute('download', filename);
-        element.style.display = 'none';
+        element.setAttribute("download", filename);
+        element.style.display = "none";
         filesave.appendChild(element);
         element.click();
         filesave.removeChild(element);
@@ -64,34 +64,34 @@ class cimfile {
         let zip = new JSZip();
         zip.file("pinturaGrid.xml", xml);
         zip.generateAsync({type:"blob"})
-        .then(function (blob) {
-            var oReq = new XMLHttpRequest();
-            oReq.open("POST", uri, true);
-            oReq.setRequestHeader('Accept', 'text/plain')
-            oReq.onreadystatechange = function (oEvent) {
-                if (oReq.readyState === 4) {
-                    if (oReq.status != 200) {
-                        console.error("Error [", oReq.statusText, "](", oReq.status, ")");
+            .then(function (blob) {
+                var oReq = new XMLHttpRequest();
+                oReq.open("POST", uri, true);
+                oReq.setRequestHeader("Accept", "text/plain");
+                oReq.onreadystatechange = function (oEvent) {
+                    if (oReq.readyState === 4) {
+                        if (oReq.status != 200) {
+                            console.error("Error [", oReq.statusText, "](", oReq.status, ")");
+                        }
                     }
-                }
-            };
-            var formData = new FormData();
-            formData.append("pinturaGrid.zip", blob);
-            oReq.send(formData);
-        });
-    };
+                };
+                var formData = new FormData();
+                formData.append("pinturaGrid.zip", blob);
+                oReq.send(formData);
+            });
+    }
 
     static uploadAsText(xml, uri) {
         fetch(uri, {
-          method: 'post',
-          headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'text/plain'
-          },
-          body: xml
+            method: "post",
+            headers: {
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "text/plain"
+            },
+            body: xml
         }).then(res=>res.text())
-          .then(res => { let json = JSON.parse(res); });
-    };
+            .then(res => { let json = JSON.parse(res); });
+    }
 
     static sortJsonKeys(unordered) {
         const ordered = {};
@@ -103,35 +103,35 @@ class cimfile {
 
     static saveZip(zip, filename) {
         zip.generateAsync({type:"blob"})
-        .then((blob) => {
-            cimfile.saveFile(blob, filename);
-        });
+            .then((blob) => {
+                cimfile.saveFile(blob, filename);
+            });
     }
 
     static createMultipartZip(jsonData, fullModel, filename) {
         let fileMap = { components: {}};
         let zip = new JSZip();
         for(let packageName in jsonData) {
-            cimfile.addToFileMap(jsonData[packageName], packageName, fileMap['components']);
-        };
-        for (let file in fileMap['components']) {
-            let fileDataWithModel = fileMap['components'][file];
+            cimfile.addToFileMap(jsonData[packageName], packageName, fileMap["components"]);
+        }
+        for (let file in fileMap["components"]) {
+            let fileDataWithModel = fileMap["components"][file];
             fileDataWithModel["md:FullModel"] = fullModel;
-            let fileData = '<?xml version="1.0" encoding="utf-8"?>' + cimxml.getBaseXML(fileDataWithModel);
+            let fileData = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + cimxml.getBaseXML(fileDataWithModel);
             zip.file(file, fileData);
         }
         cimfile.saveZip(zip, filename);
-    };
+    }
 
     static doSave(data, filename) {
         cimfile.saveFile(data, filename);
-    };
+    }
 
     static convertToMultipartZip(jsonData, filename) {
         let packageData = {};
         let fullModel = {};
         for (let key in jsonData) {
-            let pack = packageIndex[key.substring(4)][0]
+            let pack = packageIndex[key.substring(4)][0];
             if (pack) {
                 cimfile.addToPackage(jsonData[key], key, pack, packageData);
             }
@@ -140,15 +140,15 @@ class cimfile {
             }
         }
         let d = new Date();
-        fullModel['md:Model.created'] = d.getFullYear() +
+        fullModel["md:Model.created"] = d.getFullYear() +
                                "-" + (d.getMonth() + 1) +
                                "-" + d.getDate() +
                                "T" + d.getHours() +
                                ":" + d.getMinutes() +
                                ":" + d.getSeconds();
-        cimfile.createMultipartZip(packageData, fullModel, filename)
+        cimfile.createMultipartZip(packageData, fullModel, filename);
     }
-};
+}
 
-export default cimfile
+export default cimfile;
 

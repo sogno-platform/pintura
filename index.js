@@ -22,20 +22,18 @@ let cimsvgInstance = new cimsvg(
     document.getElementById("new-component-dialog")
 );
 
-let urlTokens = window.location.href.split('?');
+let urlTokens = window.location.href.split("?");
 let pairs = urlTokens.slice(1);
 let params = {};
-
 for (let index in pairs) {
     let pair = pairs[index];
-    let param = pair.split('=');
-    if (param.length == 2) {
+    let param = pair.split("=");
+    if (param.length == 2){
         params[param[0]] = param[1];
     }
 }
-
-if ("uri" in params) {
-    let uri=params.uri;
+if ("uri" in params){
+    let uri=params["uri"];
     cimsvgInstance.downloadUri(uri);
 }
 
