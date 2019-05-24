@@ -23,22 +23,33 @@ class cimxml {
     static getBaseXML(baseJson) {
         let baseXml = cimxml.getDOM("<rdf:RDF "+cimxml.xmlns()+"/>");
         for (let component in baseJson) {
-            for (let rdfid in baseJson[component]) {
-                let object = baseJson[component][rdfid]
-                let child = baseXml.createElement(component);
-                child.setAttribute("rdf:ID", object[common.pinturaRdfid()]);
-                for (let item in object) {
-                    if(item.substring(0, 7) != "pintura") {
-                        cimxml.addChild(object[item], item, baseXml, child)
-                    }
+            if (component !== "md:FullModel") {
+                for (let rdfid in baseJson[component]) {
+                    cimxml.copyTag(baseJson[component][rdfid], component, baseXml);
                 }
-                baseXml.documentElement.appendChild(child)
+            }
+            else {
+                cimxml.copyTag(baseJson[component], component, baseXml);
             }
         }
         let oSerializer = cimxml.getXMLSerializer();
         let sXML = oSerializer.serializeToString(baseXml);
 
         return sXML;
+    };
+
+    static copyTag(object, component, baseXml) {
+        //let object = baseJson[component][rdfid]
+        let child = baseXml.createElement(component);
+        if (common.pinturaRdfid() in object) {
+            child.setAttribute("rdf:ID", object[common.pinturaRdfid()]);
+        }
+        for (let item in object) {
+            if(item.substring(0, 7) != "pintura") {
+                cimxml.addChild(object[item], item, baseXml, child)
+            }
+        }
+        baseXml.documentElement.appendChild(child)
     };
 
     static getXMLSerializer() {
@@ -50,17 +61,19 @@ class cimxml {
      */
     static addChild(object, name, doc, owner) {
         let child = doc.createElement(name);
-        if (object["rdf:resource"] !== undefined) {
+        if (typeof(object) === "object" && "rdf:resource" in object) {
             child.setAttribute("rdf:resource", object["rdf:resource"]);
         }
         else {
-            child.innerHTML = object;
+            child.appendChild(doc.createTextNode(object));
         }
-        owner.appendChild(child);
+        if(name !== "about") {
+            owner.appendChild(child);
+        }
+        return owner;
     };
 
     static copyXmlDataIntoObject(object, node) {
-
         let nextNode = node.firstChild;
         while (nextNode != undefined) {
             if (cimxml.isElementNode(nextNode.nodeType)) {
@@ -79,7 +92,9 @@ class cimxml {
 
         let thisObject = { };
 
-        thisObject[common.pinturaRdfid()] = id
+        if (id) {
+            thisObject[common.pinturaRdfid()] = id
+        }
 
         cimxml.copyXmlDataIntoObject(thisObject, node);
 
@@ -87,16 +102,20 @@ class cimxml {
             graph[nodeCategory] = {};
         }
 
-        /* add the new object to the graph */
-        let categoryGraph = graph[nodeCategory];
-        categoryGraph[id] = thisObject;
+        if (id) {
+            /* add the new object to the graph */
+            let categoryGraph = graph[nodeCategory];
+            categoryGraph[id] = thisObject;
+        }
+        else if (nodeCategory === "md:FullModel"){
+            graph[nodeCategory] = thisObject;
+        }
     };
 
     static importAboutDataIntoGraph(graph, nodeCategory, thisNode, id) {
-
         if (graph[nodeCategory] && graph[nodeCategory][id]) {
-            let thisObject = graph[nodeCategory][id].about = [];
-            cimxml.copyXmlDataIntoObject(thisObject, thisNode);
+            graph[nodeCategory][id].about = [];
+            cimxml.copyXmlDataIntoObject(graph[nodeCategory][id].about, thisNode, true);
         }
     };
 
@@ -115,7 +134,7 @@ class cimxml {
     };
 
     static xmlns(){
-        return "xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:cim='http://iec.ch/TC57/2012/CIM-schema-cim16#' xmlns:md='http://iec.ch/TC57/61970-552/ModelDescription/1#' xmlns:entsoe='http://entsoe.eu/Secretariat/ProfileExtension/2#'";
+        return "xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' xmlns:cim='http://iec.ch/TC57/2013/CIM-schema-cim16#' xmlns:md='http://iec.ch/TC57/61970-552/ModelDescription/1#' xmlns:entsoe='http://entsoe.eu/Secretariat/ProfileExtension/2#'";
     };
 
     /*
@@ -135,6 +154,11 @@ class cimxml {
                 let id = cimxml.getRdfId(nextNode);
                 if (id) {
                     cimxml.importXmlNodeIntoGraph(graph, nodeCategory, nextNode, id);
+                }
+                else {
+                    if (nodeCategory === "md:FullModel") {
+                        cimxml.importXmlNodeIntoGraph(graph, nodeCategory, nextNode);
+                    }
                 }
             }
             nextNode = nextNode.nextSibling;

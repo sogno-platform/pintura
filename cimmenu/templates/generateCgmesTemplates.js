@@ -81,7 +81,7 @@ const processArrayOfCategoryMaps = function(mapArray) {
     let indexData = {};
     mapArray.forEach((map) => {
         Object.keys(map).forEach((objectName) => {
-            addToCategoryIfLarger(finalMap, objectName, map[objectName]);
+            addOrMergeCategory(finalMap, objectName, map[objectName]);
         });
     });
     Object.keys(finalMap).forEach((category) => {
@@ -161,17 +161,48 @@ const getRidOfHash = function(name){
     return name;
 }
 
-const addToCategoryIfLarger = function(map, name, object) {
+const componentsAreEqual = function(component1, component2) {
+    if (Object.keys(component1).length != Object.keys(component2).length) {
+        return false;
+    }
+
+    for (let item in component1) {
+        if (!component2[item]) {
+            return false;
+        }
+        if (typeof(component1[item]) === 'object') {
+            if (!componentsAreEqual(component1[item], component2[item])) {
+                return false;
+            }
+        }
+        else {
+            if (component1[item] !== component2[item]) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+const addOrMergeCategory = function(map, packageName, object) {
     let objectLength = JSON.stringify(object).length;
-    if (name in map) {
-        let str = JSON.stringify(map[name])
-        let categoryObjectLength = str.length;
-        if (categoryObjectLength < objectLength) {
-            map[name] = object;
+    if (packageName in map) {
+        for (let componentName in object) {
+            if (map[packageName][componentName]) {
+                if (!componentsAreEqual(map[packageName][componentName], object[componentName])) {
+                    for(let item in object[componentName]) {
+                        map[packageName][componentName][item] = object[componentName][item];
+                    }
+                }
+            }
+            else {
+                map[packageName][componentName] = object[componentName];
+            }
         }
     }
     else {
-        map[name] = object;
+        map[packageName] = object;
     }
     return map;
 }
@@ -214,7 +245,7 @@ const parseRDF = function(input) {
         let belongsToCategory = extractString(descriptions[objectKey]['cims:belongsToCategory']);
         if (belongsToCategory && map[about]) {
             newDomain(categories, belongsToCategory)
-            addToCategoryIfLarger(categories[belongsToCategory], about, map[about]);
+            addOrMergeCategory(categories[belongsToCategory], about, map[about]);
         }
     });
     return categories;

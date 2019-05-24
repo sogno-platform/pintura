@@ -103,6 +103,7 @@ class cimfile {
             Package_DiagramLayout: baseName + "DL.xml",
             Package_Equivalents: baseName + "EQ.xml",
             Package_OperationalLimits: baseName + "EQ.xml",
+            Package_Production: baseName + "EQ.xml",
             Package_StateVariables: baseName + "SV.xml",
             Package_Topology: baseName + "TP.xml",
             Package_Wires: baseName + "EQ.xml",
@@ -131,17 +132,19 @@ class cimfile {
         });
     }
 
-    static createMultipartZip(jsonData, filename) {
-        let fileMap = {};
+    static createMultipartZip(jsonData, fullModel, filename) {
+        let fileMap = { components: {}};
         let zip = new JSZip();
-        for(let component in jsonData) {
-            let packageFilename = cimfile.getPackageFilename(component)
+        for(let packageName in jsonData) {
+            let packageFilename = cimfile.getPackageFilename(packageName)
             if (packageFilename) {
-                cimfile.addToFileMap(jsonData[component], packageFilename, fileMap);
+                cimfile.addToFileMap(jsonData[packageName], packageFilename, fileMap['components']);
             }
         };
-        for (let file in fileMap) {
-            let fileData = cimxml.getBaseXML(fileMap[file]);
+        for (let file in fileMap['components']) {
+            let fileDataWithModel = fileMap['components'][file];
+            fileDataWithModel["md:FullModel"] = fullModel;
+            let fileData = '<?xml version="1.0" encoding="utf-8"?>' + cimxml.getBaseXML(fileDataWithModel);
             zip.file(file, fileData);
         }
         cimfile.saveZip(zip, filename);
@@ -153,16 +156,20 @@ class cimfile {
 
     static convertToMultipartZip(jsonData, filename) {
         let packageData = {};
+        let fullModel;
         for (let key in jsonData) {
             let pack = packageIndex[key.substring(4)]
             if (pack) {
                 cimfile.addToPackage(jsonData[key], key, pack, packageData);
             }
+            else if (key === "md:FullModel") {
+                 fullModel = jsonData[key];
+            }
             else {
                 console.error("Could not find " + key + " in packageIndex.");
             }
         }
-        cimfile.createMultipartZip(packageData, filename)
+        cimfile.createMultipartZip(packageData, fullModel, filename)
     }
 };
 

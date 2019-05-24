@@ -485,7 +485,7 @@ class cimsvg {
     };
 
     saveTemplateJson() {
-        cimfile.saveFile(JSON.stringify(this.templateJson), "pintura.json");
+        cimfile.saveFile(JSON.stringify(this.templateJson, true, 2), "pintura.json");
     };
 
     saveToMultipartZip() {
