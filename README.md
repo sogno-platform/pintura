@@ -15,26 +15,14 @@ $ sudo usermod -aG docker $USER
 $ exit # You have to log out and back in to apply the group change in the previous step
 ```
 
-### Install other deps
+### Build Docker image
 
 ```bash
-$ sudo apt-get install -y git make
-$ git clone https://git.rwth-aachen.de/PowerSystemSimulation/Pintura
-$ cd Pintura/
-$ git submodule init
-$ git submodule update
-$ make
+$ docker build --tag pintura .
 ```
 
 ### Start it up
 
 ```bash
-$ docker run --rm -p 443:443 pintura
-```
-
-### Update it
-
-```bash
-$ git pull
-$ make
+$ docker run --rm --detach -p 8080:80 pintura
 ```
