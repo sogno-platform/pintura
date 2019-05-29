@@ -55,14 +55,12 @@ const createCustomEvent = function(x, y) {
 };
 
 const saveZip = function(zip, filename) {
-    console.log("saveZip spyon: ");
-    console.log(zip.files);
     expect(filename).toBe("pintura.zip");
+    expect(Object.keys(zip.files).length).not.toBe(0);
     //TODO: perform content checking
 };
 
 const saveFileFunction = function(data, filename="BLAG.xml") {
-    console.log("saveFileFunction spyon")
     //TODO: perform content checking
 };
 

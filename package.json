@@ -10,9 +10,10 @@
   "mode": "production",
   "scripts": {
     "makeDirs": "mkdir -p cimmenu/templates/generated/attributes/cgmes && mkdir -p cimmenu/lib && mkdir -p cimsvg/lib && mkdir -p dist",
+    "cimmenu_base": "cd cimmenu && npm install && node templates/generateCgmesTemplates.js && cp templates/packageIndex.js ../cimsvg/src",
     "cimsvg": "cd cimsvg && npm install && npm run build",
     "cimmenu": "cd cimmenu && npm install && npm run build",
-    "libs": "npm run cimsvg && npm run cimmenu",
+    "libs": "npm run cimmenu_base && npm run cimsvg && npm run cimmenu",
     "generateIndex": "node generateIndex.js $(npm config get mode) > index.html",
     "makeDist": "cp -a cimmenu/templates/generated/*.xml cimmenu/lib/*.js cimsvg/lib/*.js dist",
     "build-tasks": "npm run makeDirs && npm run libs && npm run generateIndex",
