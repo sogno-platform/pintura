@@ -102,6 +102,8 @@ class cimfile {
             Package_ControlArea: baseName + "EQ.xml",
             Package_DiagramLayout: baseName + "DL.xml",
             Package_Equivalents: baseName + "EQ.xml",
+            Package_LoadDynamics: baseName + "DY.xml",
+            Package_LoadModel: baseName + "DY.xml",
             Package_OperationalLimits: baseName + "EQ.xml",
             Package_Production: baseName + "EQ.xml",
             Package_StateVariables: baseName + "SV.xml",
