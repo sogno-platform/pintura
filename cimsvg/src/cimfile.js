@@ -158,19 +158,23 @@ class cimfile {
 
     static convertToMultipartZip(jsonData, filename) {
         let packageData = {};
-        let fullModel;
+        let fullModel = {};
         for (let key in jsonData) {
             let pack = packageIndex[key.substring(4)]
             if (pack) {
                 cimfile.addToPackage(jsonData[key], key, pack, packageData);
             }
-            else if (key === "md:FullModel") {
-                 fullModel = jsonData[key];
-            }
             else {
                 console.error("Could not find " + key + " in packageIndex.");
             }
         }
+        let d = new Date();
+        fullModel['md:Model.created'] = d.getFullYear() +
+                               "-" + (d.getMonth() + 1) +
+                               "-" + d.getDate() +
+                               "T" + d.getHours() +
+                               ":" + d.getMinutes() +
+                               ":" + d.getSeconds();
         cimfile.createMultipartZip(packageData, fullModel, filename)
     }
 };

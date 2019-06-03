@@ -107,9 +107,6 @@ class cimxml {
             let categoryGraph = graph[nodeCategory];
             categoryGraph[id] = thisObject;
         }
-        else if (nodeCategory === "md:FullModel"){
-            graph[nodeCategory] = thisObject;
-        }
     };
 
     static importAboutDataIntoGraph(graph, nodeCategory, thisNode, id) {
@@ -154,11 +151,6 @@ class cimxml {
                 let id = cimxml.getRdfId(nextNode);
                 if (id) {
                     cimxml.importXmlNodeIntoGraph(graph, nodeCategory, nextNode, id);
-                }
-                else {
-                    if (nodeCategory === "md:FullModel") {
-                        cimxml.importXmlNodeIntoGraph(graph, nodeCategory, nextNode);
-                    }
                 }
             }
             nextNode = nextNode.nextSibling;
