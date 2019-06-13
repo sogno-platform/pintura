@@ -15,7 +15,7 @@ let handlebarsTemplate = `<ul class="floating-panel-list">
     <li class="wide-row floating-panel-item list-entry">
         <span class="row-left floating-panel-name">{{label}}</span>
         \\{{{getAggregateComponentMenu 'cim:{{@root.name}}' [pintura:rdfid] [cim:
-           {{~getRidOfHash @key}}] '{{getType this}}' '{{label}}' \}}}
+           {{~getRidOfHash about}}] '{{getType this}}' '{{label}}' \}}}
 
     </li>
 {{/each}}
@@ -41,14 +41,18 @@ handlebars.registerHelper('getType', function(object) {
         return object.range.substr(1);
     }
     else {
-        console.log("Failed to determine datatype for: " + JSON.stringify(object, true, 3));
+        console.error("Failed to determine datatype for: " + JSON.stringify(object, true, 3));
         return object.range;
     }
 });
 
 let template = handlebars.compile(handlebarsTemplate);
 
-const inputPath = path.join(__dirname, '/../../data_model/cgmes/');
+const inputPath = process.argv.length > 2 ? path.join(process.argv[2]) : path.join(__dirname, '/../../data_model/cgmes/');
+let test = false;
+if (process.argv[3] === "test") {
+    test = true;
+}
 const outputPath = path.join(__dirname, '/generated/attributes/cgmes');
 const indexPath = path.join(__dirname, '/packageIndex.js');
 
@@ -79,14 +83,22 @@ fs.readdir(inputPath, (err, files) => {
 const processArrayOfCategoryMaps = function(mapArray) {
     let finalMap = {};
     let indexData = {};
-    mapArray.forEach((map) => {
-        Object.keys(map).forEach((objectName) => {
-            addOrMergeCategory(finalMap, objectName, map[objectName]);
+    // This loop merges all instances of all components into one big map
+    mapArray.forEach((profile) => {
+        Object.keys(profile).forEach((profileName) => {
+            if (!finalMap[profileName]) {
+                finalMap[profileName] = {}
+            }
+            Object.keys(profile[profileName]).forEach((className) => {
+                addClassToPackage(finalMap, profileName, profile[profileName][className]);
+            });
         });
     });
-    Object.keys(finalMap).forEach((category) => {
-        let categoryWithoutHash = getRidOfHash(category);
-        writePackage(categoryWithoutHash, finalMap[category], indexData);
+    Object.keys(finalMap).forEach((profileName) => {
+        Object.keys(finalMap[profileName]).forEach((className) => {
+            let classJson = finalMap[profileName][className];
+            writeHandlebarsFile(profileName, className, classJson['attributes'], indexData);
+        });
     });
     writeToFile(indexPath, "export default " + JSON.stringify(indexData, true, 2));
 }
@@ -126,28 +138,47 @@ const extractString = function(object) {
     return object;
 }
 
-const newDomain = function (map, domain) {
+const newAttribute = function(array, object) {
+    array.push(object);
+}
+
+const newClass = function (map, domain, object) {
     if (!(domain in map)) {
-        map[domain] = {};
+        map[domain] = object || {};
+        map[domain]['attributes'] = [];
+    }
+    else {
+        console.error("Class already exists.");
     }
     return map;
 }
 
 const writeToFile = function(outputPath, component) {
+    let folderName = path.dirname(outputPath);
+    if (!fs.existsSync(folderName)) {
+        fs.mkdirSync(folderName)
+        let helpersData = "import helpers from '../../../../handlebars/helpers/index.js';\nexport default helpers";
+        fs.writeFile(folderName + "/helpers.js", helpersData, function (err) {
+            if (err) throw err;
+        });
+    }
     fs.writeFile(outputPath, component, function (err) {
         if (err) throw err;
     });
 }
 
-const writePackage = function(packageName, data, lookupMap) {
-    Object.keys(data).forEach((key) => {
-        let objectName = getRidOfHash(key);
-        let keyPath = outputPath + "/" + objectName + ".handlebars";
-        lookupMap[objectName] = packageName;
-        let keyWithoutHash = getRidOfHash(key);
-        let outputData = template({ name: keyWithoutHash, attributes: data[key] });
+const writeHandlebarsFile = function(packageFileStub, className, attributes, lookupMap) {
+    if (!test) {
+        let keyPath = outputPath + "/" + packageFileStub + "/" + className + ".handlebars";
+        if (lookupMap[className]) {
+            lookupMap[className].push(packageFileStub);
+        }
+        else {
+            lookupMap[className] = [ packageFileStub ];
+        }
+        let outputData = template({ name: className, attributes: attributes });
         writeToFile(keyPath, outputData);
-    });
+    }
 }
 
 const getRidOfHash = function(name){
@@ -162,42 +193,80 @@ const getRidOfHash = function(name){
 }
 
 const componentsAreEqual = function(component1, component2) {
-    if (Object.keys(component1).length != Object.keys(component2).length) {
-        return false;
-    }
-
-    for (let item in component1) {
-        if (!component2[item]) {
+    if (component1 && component2) {
+        if (Object.keys(component1).length != Object.keys(component2).length) {
             return false;
         }
-        if (typeof(component1[item]) === 'object') {
-            if (!componentsAreEqual(component1[item], component2[item])) {
+        for (let item in component1) {
+            if (!component2[item]) {
                 return false;
             }
-        }
-        else {
-            if (component1[item] !== component2[item]) {
-                return false;
+            if (typeof(component1[item]) === 'object') {
+                if (!componentsAreEqual(component1[item], component2[item])) {
+                    return false;
+                }
+            }
+            else {
+                if (component1[item] !== component2[item]) {
+                    return false;
+                }
             }
         }
+    }
+    else {
+        return false;
     }
 
     return true;
 }
 
+const addAttributeToClassIfUnique = function(classObject, attribute) {
+    for(let item in classObject['attributes']) {
+        if (componentsAreEqual(classObject['attributes'][item], attribute)){
+            return;
+        }
+    }
+    classObject['attributes'].push(attribute)
+}
+
+const addClassToPackage = function(map, packageName, object) {
+    if (packageName in map) {
+        let componentName = object['about'];
+        let className = getRidOfHash(componentName);
+        if (map[packageName][className]) {
+            if (!componentsAreEqual(map[packageName][className], object)) {
+                for(let item in object[className]) {
+                    if (item != "attributes") {
+                        map[packageName][className][item] = object[item];
+                    }
+                }
+                for(let item in object['attributes']) {
+                    addAttributeToClassIfUnique(map[packageName][className], object['attributes'][item]);
+                }
+            }
+        }
+        else {
+            map[packageName][className] = object;
+        }
+    }
+    else {
+        map[packageName] = object;
+    }
+}
+
 const addOrMergeCategory = function(map, packageName, object) {
-    let objectLength = JSON.stringify(object).length;
     if (packageName in map) {
         for (let componentName in object) {
-            if (map[packageName][componentName]) {
-                if (!componentsAreEqual(map[packageName][componentName], object[componentName])) {
-                    for(let item in object[componentName]) {
-                        map[packageName][componentName][item] = object[componentName][item];
+            let className = getRidOfHash(componentName);
+            if (map[packageName][className]) {
+                if (!componentsAreEqual(map[packageName][className], object[className])) {
+                    for(let item in object[className]) {
+                        map[packageName][className][item] = object[className][item];
                     }
                 }
             }
             else {
-                map[packageName][componentName] = object[componentName];
+                map[packageName][className] = object[className];
             }
         }
     }
@@ -207,63 +276,54 @@ const addOrMergeCategory = function(map, packageName, object) {
     return map;
 }
 
+const setIfDefined = function(object, name, value) {
+    if (value) {
+        object[name] = value;
+    }
+}
+
 const parseRDF = function(input) {
     let map = {};
     let categories = {};
+    let attributes = [];
+    //let profileName=extractString(input['rdf:RDF'])['profileName']
+    let profileFileStub=extractString(input['rdf:RDF'])['profileFileStub']
+    map[profileFileStub] = {};
     // rdf file is basically a big array of descriptions
     let descriptions = input['rdf:RDF']['rdf:Description'];
     Object.keys(descriptions).forEach((objectKey) => {
-        let domain = extractString(descriptions[objectKey]['rdfs:domain']);
-        if (domain === undefined) {
-            domain = "header";
+        let object = {}
+        if (descriptions[objectKey] !== undefined) {
+            setIfDefined(object, 'about', getRidOfHash(extractString(descriptions[objectKey])));
         }
-        let about = extractString(descriptions[objectKey]);
-        let datatype = extractString(descriptions[objectKey]['cims:dataType']);
-        let label = extractText(descriptions[objectKey]['rdfs:label']);
-        let range = extractString(descriptions[objectKey]['rdfs:range']);
-        let stereotype = extractString(descriptions[objectKey]['cims:stereotype']);
-        let subclassof = extractString(descriptions[objectKey]['rdfs:subClassOf']);
-        newDomain(map, domain);
-        newDomain(map[domain], about);
-        if (range !== undefined)
-            map[domain][about]['range'] = range;
-        if (label !== undefined)
-            map[domain][about]['label'] = label;
-        if (datatype !== undefined)
-            map[domain][about]['datatype'] = datatype;
-        if (stereotype !== undefined)
-            map[domain][about]['stereotype'] = stereotype;
-        if (subclassof !== undefined)
-            map[domain][about]['subclassof'] = subclassof;
-    });
-    Object.keys(descriptions).forEach((objectKey) => {
-        let about = extractString(descriptions[objectKey]);
-        let domain = extractString(descriptions[objectKey]['rdfs:domain']);
-        if (domain === undefined) {
-            domain = "header";
+        setIfDefined(object, 'datatype', extractString(descriptions[objectKey]['cims:dataType']));
+        if (descriptions[objectKey]['rdfs:domain'] !== undefined) {
+            setIfDefined(object, 'domain', getRidOfHash(extractString(descriptions[objectKey]['rdfs:domain'])));
         }
-        let belongsToCategory = extractString(descriptions[objectKey]['cims:belongsToCategory']);
-        if (belongsToCategory && map[about]) {
-            newDomain(categories, belongsToCategory)
-            addOrMergeCategory(categories[belongsToCategory], about, map[about]);
+        setIfDefined(object, 'label', extractText(descriptions[objectKey]['rdfs:label']));
+        setIfDefined(object, 'range', extractString(descriptions[objectKey]['rdfs:range']));
+        setIfDefined(object, 'subclassof', extractString(descriptions[objectKey]['rdfs:subClassOf']));
+        setIfDefined(object, 'stereotype', extractString(descriptions[objectKey]['cims:stereotype']));
+        setIfDefined(object, 'type', extractString(descriptions[objectKey]['rdf:type']));
+        if (object['type'] === 'http://www.w3.org/2000/01/rdf-schema#Class') {
+            newClass(map[profileFileStub], object['about'], object);
+        }
+        if (object['type'] === "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property") {
+            newAttribute(attributes, object);
         }
     });
-    return categories;
-}
-
-let addToDirectoryMap = function(name, map) {
-    let tokens = name.split('_');
-    if (tokens.length != 3) {
-        console.error("Unexpected token list length: " , tokens.length);
-    }
-    else {
-        if (map[tokens[2]] == undefined) {
-            map[tokens[2]] = [ name ];
+    attributes.forEach((attribute) => {
+        let clarse = attribute['domain'];
+        if (clarse && map[profileFileStub][clarse]) {
+            map[profileFileStub][clarse].attributes.push(attribute)
         }
         else {
-            map[tokens[2]].append(name);
+            if (attribute['domain'] == "ACDCTerminal") {
+                console.error("Class somewhere else: ", attribute);
+            }
         }
-    }
+    });
+    return map;
 }
 
 

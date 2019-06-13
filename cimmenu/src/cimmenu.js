@@ -19,6 +19,7 @@
 import templates from '../templates/index.js';
 import common from './common.js';
 import contextmenu from './contextmenu.js';
+import packageIndex from '../templates/packageIndex.js';
 
 class cimmenu {
 
@@ -510,6 +511,24 @@ class cimmenu {
         });
     };
 
+    static getPackageName(type) {
+        let packageArray = packageIndex[type.substring(4)];
+        let packageName = null;
+        if (packageArray.length === 1) {
+            packageName = packageArray[0]
+        }
+        else if (packageArray.length === 2) {
+            packageName = packageArray[0]
+        }
+        else if (packageArray.length === 3) {
+            packageName = packageArray[1]
+        }
+        else if (packageArray.length === 6) {
+            packageName = packageArray[2]
+        }
+        return packageName;
+    }
+
     populate(node, type, cimVersion, id) {
         cimmenu.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
@@ -521,13 +540,23 @@ class cimmenu {
                 console.error("Cannot find " + id + " in data to display id of " + type);
             }
             else {
-                let templatePath = "generated_attributes_" + cimVersion + "_" +type.substring(4);
+                let templatePath;
+                if (cimVersion === "cgmes") {
+                    let packageName = cimmenu.getPackageName(type);
+                    templatePath = "generated_attributes_" + cimVersion + "_" + packageName + "_" +type.substring(4);
+                }
+                else {
+                    templatePath = "generated_attributes_" + cimVersion + "_" +type.substring(4);
+                }
                 if (templatePath in templates) {
                     let template = templates[templatePath];
                     let data = template(attributes);
                     cimmenu.populatePanelWithData(node, data, "Attributes");
                     cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
                     this.showPanel('attributesPanel');
+                }
+                else {
+                    console.error("Couldn't find templatePath: ", templatePath, " in templates.");
                 }
             }
         });

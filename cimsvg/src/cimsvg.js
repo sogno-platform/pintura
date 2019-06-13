@@ -442,9 +442,15 @@ class cimsvg {
 
         let cimParse = cimxml.moreXmlData(fileContents, this.getXmlDoc());
         if (cimParse) {
+            if (this.rdfFileCount === 1) {
+                this.setCimVersion(cimParse.cimVersion, cimParse.entsoe);
+            }
+            else {
+                this.cimVersion = "cgmes";
+                this.entsoe     = "";
+            }
             let oSerializer = cimxml.getXMLSerializer();
             var sXML = oSerializer.serializeToString(this.getXmlDoc());
-            this.setCimVersion(cimParse.cimVersion, cimParse.entsoe);
             this.incFileReceivedCount();
             if (this.checkIfParseReady()) {
                 this.setBaseJson(cimxml.createObjectGraphFromXml(this.getXmlDoc()));

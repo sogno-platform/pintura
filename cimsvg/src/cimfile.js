@@ -93,32 +93,6 @@ class cimfile {
           .then(res => { let json = JSON.parse(res); });
     };
 
-    static getPackageFilename(packageName, baseName="") {
-        if (baseName !== "" && !baseName.endsWith("_")) {
-            baseName += "_";
-        }
-        let name = {
-            Package_Core: baseName + "EQ.xml",
-            Package_ControlArea: baseName + "EQ.xml",
-            Package_DiagramLayout: baseName + "DL.xml",
-            Package_Equivalents: baseName + "EQ.xml",
-            Package_LoadDynamics: baseName + "DY.xml",
-            Package_LoadModel: baseName + "DY.xml",
-            Package_OperationalLimits: baseName + "EQ.xml",
-            Package_Production: baseName + "EQ.xml",
-            Package_StateVariables: baseName + "SV.xml",
-            Package_Topology: baseName + "TP.xml",
-            Package_Wires: baseName + "EQ.xml",
-        }[packageName];
-        if (name) {
-            return name;
-        }
-        else {
-            console.error("Package file name not known for package: ", packageName);
-            return undefined;
-        }
-    }
-
     static sortJsonKeys(unordered) {
         const ordered = {};
         Object.keys(unordered).sort().forEach(function(key) {
@@ -138,10 +112,7 @@ class cimfile {
         let fileMap = { components: {}};
         let zip = new JSZip();
         for(let packageName in jsonData) {
-            let packageFilename = cimfile.getPackageFilename(packageName)
-            if (packageFilename) {
-                cimfile.addToFileMap(jsonData[packageName], packageFilename, fileMap['components']);
-            }
+            cimfile.addToFileMap(jsonData[packageName], packageName, fileMap['components']);
         };
         for (let file in fileMap['components']) {
             let fileDataWithModel = fileMap['components'][file];
@@ -160,7 +131,7 @@ class cimfile {
         let packageData = {};
         let fullModel = {};
         for (let key in jsonData) {
-            let pack = packageIndex[key.substring(4)]
+            let pack = packageIndex[key.substring(4)][0]
             if (pack) {
                 cimfile.addToPackage(jsonData[key], key, pack, packageData);
             }
