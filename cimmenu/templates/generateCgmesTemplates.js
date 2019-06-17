@@ -13,9 +13,9 @@ let handlebarsTemplate = `<ul class="floating-panel-list">
     </li>
 {{#each attributes}}
     <li class="wide-row floating-panel-item list-entry">
-        <span class="row-left floating-panel-name">{{label}}</span>
+        <span class="row-left floating-panel-name">{{name}}</span>
         \\{{{getAggregateComponentMenu 'cim:{{@root.name}}' [pintura:rdfid] [cim:
-           {{~getRidOfHash about}}] '{{getType this}}' '{{label}}' \}}}
+           {{type}}] '{{type}}' '{{name}}' \}}}
 
     </li>
 {{/each}}
@@ -56,11 +56,18 @@ if (process.argv[3] === "test") {
 const outputPath = path.join(__dirname, '/generated/attributes/cgmes');
 const indexPath = path.join(__dirname, '/packageIndex.js');
 
+const extFilter = "rdf";
+
+function extension(element) {
+  let extName = path.extname(element);
+  return extName === '.' + extFilter;
+};
+
 fs.readdir(inputPath, (err, files) => {
     if (err)
         return console.error('Unable to scan directory: ' + err);
 
-    files = files.map(file => path.join(inputPath, file));
+    files = files.filter(extension).map(file => path.join(inputPath, file));
 
     //Read all files in parallel
     async.map(files, fs.readFile, (err, fileContents) => {
@@ -107,8 +114,11 @@ const getAboutOrResource = function(object) {
     if ('rdf:resource' in object) {
         return object['rdf:resource'];
     }
-    if ('rdf:about' in object) {
+    else if ('rdf:about' in object) {
         return object['rdf:about'];
+    }
+    else if ('rdfs:Literal' in object) {
+        return object['rdfs:Literal'];
     }
     return object;
 }
@@ -122,13 +132,12 @@ const extractString = function(object) {
         if (Array.isArray(object)) {
             if (object.length > 0) {
                 if (typeof object[0] === 'string' || object[0] instanceof String) {
-                    return object;
+                    return object[0];
                 }
                 if ('$' in object[0]) {
                     return getAboutOrResource(object[0]['$']);
                 }
             }
-            return object[0];
         }
         if ('$' in object) {
             return getAboutOrResource(object['$']);
@@ -282,15 +291,38 @@ const setIfDefined = function(object, name, value) {
     }
 }
 
+const restructureRDFSJson = function(rdfs) {
+    let returnJson = {};
+    for (let classJson in rdfs) {
+        let className = rdfs[classJson]['label'];
+        returnJson[className] = { attributes: [] };
+        for(let prop in rdfs[classJson]) {
+            if(prop != 'attributes') {
+                returnJson[className][prop] = rdfs[classJson][prop];
+            }
+        }
+        rdfs[classJson]['attributes'].forEach((attribute) => {
+            let attr = {
+                name: attribute['label'],
+                type: attribute['range'] ? getRidOfHash(attribute['range']) :
+                      attribute['datatype'] ? getRidOfHash(attribute['datatype']) : attribute[about]
+            }
+            if (attribute['isFixed']) {
+                attr.value = attribute['isFixed'];
+            }
+            returnJson[className].attributes.push(attr)
+        });
+    }
+    return returnJson;
+}
+
 const parseRDF = function(input) {
-    let map = {};
-    let categories = {};
+    let profileData = {};
     let attributes = [];
-    //let profileName=extractString(input['rdf:RDF'])['profileName']
-    let profileFileStub=extractString(input['rdf:RDF'])['profileFileStub']
-    map[profileFileStub] = {};
+    let profileMetaData = [];
     // rdf file is basically a big array of descriptions
     let descriptions = input['rdf:RDF']['rdf:Description'];
+
     Object.keys(descriptions).forEach((objectKey) => {
         let object = {}
         if (descriptions[objectKey] !== undefined) {
@@ -305,25 +337,28 @@ const parseRDF = function(input) {
         setIfDefined(object, 'subclassof', extractString(descriptions[objectKey]['rdfs:subClassOf']));
         setIfDefined(object, 'stereotype', extractString(descriptions[objectKey]['cims:stereotype']));
         setIfDefined(object, 'type', extractString(descriptions[objectKey]['rdf:type']));
+        setIfDefined(object, 'isFixed', extractString(descriptions[objectKey]['cims:isFixed']));
         if (object['type'] === 'http://www.w3.org/2000/01/rdf-schema#Class') {
-            newClass(map[profileFileStub], object['about'], object);
+            newClass(profileData, object['label'], object);
         }
         if (object['type'] === "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property") {
             newAttribute(attributes, object);
         }
+        if (object['stereotype'] === 'Entsoe') {
+            profileMetaData.push(object['about'])
+        }
     });
     attributes.forEach((attribute) => {
         let clarse = attribute['domain'];
-        if (clarse && map[profileFileStub][clarse]) {
-            map[profileFileStub][clarse].attributes.push(attribute)
+        if (clarse && profileData[clarse]) {
+            profileData[clarse].attributes.push(attribute)
         }
         else {
-            if (attribute['domain'] == "ACDCTerminal") {
-                console.error("Class somewhere else: ", attribute);
-            }
+            console.error("Class somewhere else: ", attribute);
         }
     });
-    return map;
+    profileData = restructureRDFSJson(profileData);
+    return { [profileMetaData[0]['label']]: profileData };
 }
 
 

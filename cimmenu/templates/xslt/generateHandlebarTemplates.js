@@ -182,7 +182,7 @@ const parseOptions = function( args ) {
       let do_once = true;
       model_versions.forEach(function(dir) {
         let directory = options[xmlOpt] + '/' + dir + '/*.xsd';
-        if (do_once) {
+        if (do_once && dir !== 'cgmes') {
           do_once = false;
           glob(directory, function(err, files) {
             let arrayOfFiles = processFilenamesForMenus(files, dir, options);
