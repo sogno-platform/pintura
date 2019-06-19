@@ -38,6 +38,7 @@ export default {
             include: [ 'css/*.css' ], 
         }),
         handlebars({
+            handlebars: {},
             id: 'handlebars/runtime',
             options: {
                 jquery: false,
