@@ -79,9 +79,18 @@ class cimsvg {
     }
 
     getValueOf(type, id, attribute) {
+        if (id === undefined) {
+            console.error("Cannot get value without id for category: ", type, " and attribute: ", attribute);
+            return 0;
+        }
+        if (type === undefined) {
+            console.error("Cannot get value without type for id: ", id, " and attribute: ", attribute);
+            return 0;
+        }
         let object = common.safeExtract(this.getBaseJson(), type, id);
         if (object == undefined) {
             console.error("No object with id: ", id, " in category: ", type);
+            return 0;
         }
         if (attribute in object) {
             return object[attribute];
@@ -331,6 +340,10 @@ class cimsvg {
         this.updateCimmenu(()=>{ return this.cimmenu.populateAttributesIdOnly(id); });
     };
 
+    /*
+     * This function needs to call into the model generation to discover what
+     * components are available.
+     */
     populateComponentCreationMenu() {
         let accordionList = this.dialog.querySelectorAll('.dialog-list')
         accordionList.forEach((accordion)=>{
@@ -413,6 +426,10 @@ class cimsvg {
 
     getCimVersionFolder() {
         return this.cimVersion + this.entsoe;
+    };
+
+    getCimversion() {
+        return this.cimVersion;
     };
 
     setCimVersion(cim, entsoe) {

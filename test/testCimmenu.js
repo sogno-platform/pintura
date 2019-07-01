@@ -172,11 +172,9 @@ describe("cimmenu", function() {
     let cimsvgInstance;
     let cimmenuInstance;
     let menu = null;
-    let globaldom = null;
 
     beforeAll(function(done) {
         JSDOM.fromFile("index.html", { runScripts: "outside-only" }).then(dom => {
-            globaldom = dom;
             // TODO: remove the stuffing of dom elements into global
             // https://github.com/jsdom/jsdom/wiki/Don%27t-stuff-jsdom-globals-onto-the-Node-global
             global.window = dom.window;

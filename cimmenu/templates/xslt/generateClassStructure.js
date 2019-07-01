@@ -52,31 +52,6 @@ var cimheritance = cimheritance || (function() {
         classMap['simpleTypes'][name] = newSimpleType
     };
 
-    var getSuperClassList = function(baseClass) {
-        let list = [ baseClass ];
-        let bigList = recursiveSearch(baseClass, list);
-        let smallList = [];
-        for (let item in bigList) {
-            addToList(bigList[item], smallList);
-        }
-        return smallList;
-    };
-
-    var isInList = function(item, list) {
-        for (let next in list) {
-            if (list[next] == item){
-                return true;
-            }
-        }
-        return false;
-    };
-
-    var addToList = function(superClass, insertList) {
-        if (!isInList(superClass, insertList)) {
-            insertList.push(superClass)
-        }
-    };
-
     var recursiveSearch = function(baseClass, searchList) {
         let superClassList = classMap['complexTypes'][baseClass];
         if (superClassList != undefined) {
@@ -146,7 +121,6 @@ var cimheritance = cimheritance || (function() {
         },
         generateSuperClassTree,
         getClassMap,
-        getSuperClassList,
     };
 }());
 

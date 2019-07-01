@@ -46,6 +46,58 @@ const simple_type_template = function(type, rdfid, requestedType, matchingCompon
     return template(matchingComponents);
 };
 
+const getAggregateComponentMenuCGMES = function(parentType, parentId, rdfid, type, attribute){
+  let updateMenu = "";
+  let requestedType = "cim:" + type;
+  let dropdownId = common.generateUUID();
+  let matchingComponents = {
+    'attribute': attribute,
+    'dropdownId': dropdownId,
+    'requestedType': requestedType,
+    'rdfid': parentId,
+    'type': parentType,
+  }
+  updateMenu = complex_type_template(type, rdfid, requestedType, matchingComponents);
+  return new SafeString(updateMenu);
+};
+
+const getAggregateComponentMenuCIM16 = function(parentType, parentId, rdfid, type, attribute){
+  let updateMenu = "";
+  if (type !== undefined) {
+      if (type == "Float" || type == "Integer" || type == "Boolean" ) {
+          let primitive_template = {
+              type: parentType,
+              rdfid: parentId,
+              attribute: attribute,
+              value: currentCimsvg().getValueOf(parentType, parentId, attribute)
+          }
+          let template = templates.handlebars_cim_update_primitive_type;
+          updateMenu = template(primitive_template);
+      }
+      else {
+          let requestedType = "cim:" + type;
+          let dropdownId = common.generateUUID();
+          let matchingComponents = {
+              'attribute': attribute,
+              'dropdownId': dropdownId,
+              'requestedType': requestedType,
+              'rdfid': parentId,
+              'type': parentType,
+          }
+          if (classStructure.simpleTypes[type]) {
+              updateMenu = simple_type_template(type, rdfid, requestedType, matchingComponents);
+          }
+          else if (classStructure.complexTypes[type]) {
+              updateMenu = complex_type_template(type, rdfid, requestedType, matchingComponents);
+          }
+          else {
+              console.error("Cannot find ", type, " in simple or complex types.")
+          }
+      }
+  }
+  return new SafeString(updateMenu);
+};
+
 export default function(Handlebars) {
 
   Handlebars.registerHelper('neq', function neq(v1, v2, options) {
@@ -114,36 +166,11 @@ export default function(Handlebars) {
   });
 
   Handlebars.registerHelper('getAggregateComponentMenu', function (parentType, parentId, rdfid, type, attribute) {
-    let updateMenu = "";
-    if (type !== undefined) {
-        if (type == "Float" || type == "Integer" || type == "Boolean" ) {
-            let primitive_template = {
-                type: parentType,
-                rdfid: parentId,
-                attribute: attribute,
-                value: currentCimsvg().getValueOf(parentType, parentId, attribute)
-            }
-            let template = templates.handlebars_cim_update_primitive_type;
-            updateMenu = template(primitive_template);
-        }
-        else {
-            let requestedType = "cim:" + type;
-            let dropdownId = common.generateUUID();
-            let matchingComponents = {
-                'attribute': attribute,
-                'dropdownId': dropdownId,
-                'requestedType': requestedType,
-                'rdfid': parentId,
-                'type': parentType,
-            }
-            if (classStructure.simpleTypes[type]) {
-                updateMenu = simple_type_template(type, rdfid, requestedType, matchingComponents);
-            }
-            else if (classStructure.complexTypes[type]) {
-                updateMenu = complex_type_template(type, rdfid, requestedType, matchingComponents);
-            }
-        }
+    if (currentCimsvg().getCimversion() === "cgmes") {
+      return getAggregateComponentMenuCGMES(parentType, parentId, rdfid, type, attribute);
     }
-    return new SafeString(updateMenu);
+    else {
+      return getAggregateComponentMenuCIM16(parentType, parentId, rdfid, type, attribute);
+    }
   });
 }

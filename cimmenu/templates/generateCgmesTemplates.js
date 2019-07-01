@@ -5,27 +5,34 @@ const fs = require('fs'),
     async = require('async'),
     handlebars = require('handlebars');
 
+  handlebars.registerHelper('neq', function neq(v1, v2, options) {
+    if(v1 !== v2) {
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  });
+
+
 let parser = new xml2js.Parser();
 let handlebarsTemplate = `<ul class="floating-panel-list">
-    <li class="wide-row floating-panel-item list-entry">
-        <span class="row-left floating-panel-name">IdentifiedObject.name</span>
-        <span class="row-right wide-row floating-panel-value"><input type="text" value="\\{{[cim:IdentifiedObject.name]}}" onchange="javascript:updateComponent('cim:{{name}}', '\\{{{[pintura:rdfid]}}}', 'cim:IdentifiedObject.name', this.value)"></span>
-    </li>
 {{#each attributes}}
     <li class="wide-row floating-panel-item list-entry">
-        <span class="row-left floating-panel-name">{{name}}</span>
-        \\{{{getAggregateComponentMenu 'cim:{{@root.name}}' [pintura:rdfid] [cim:
-           {{type}}] '{{type}}' '{{name}}' \}}}
+        <span class="row-left floating-panel-name">{{@key}}</span>
+        \\{{{getAggregateComponentMenu 'cim:{{@key}}' [pintura:rdfid] [cim:
+           {{type}}] '{{this}}' '{{@key}}' \}}}
 
     </li>
 {{/each}}
-\\{{#neq '{{name}}' 'Terminal'\}}
-<li class="wide-row floating-panel-item list-subtitle">
-        <span class="row-left floating-panel-name">Show Terminals</span><span class="row-right floating-panel-value"><button onclick="currentCimsvg().populateTerminals('cim:{{name}}', '\\{{{[pintura:rdfid]}}}')">
+{{#neq name 'Terminal'}}
+    <li class="wide-row floating-panel-item list-subtitle">
+        <span class="row-left floating-panel-name">Show Terminals</span>
+        <span class="row-right floating-panel-value">
+            <button onclick="currentCimsvg().populateTerminals('cim:{{name}}', '\\{{{[pintura:rdfid]}}}')">
                            -&gt;
-                       </button></span>
-</li>
-\\{{/neq\}}
+            </button>
+        </span>
+    </li>
+{{/neq}}
 </ul>
 `;
 
@@ -34,83 +41,144 @@ handlebars.registerHelper('getRidOfHash', function(input) {
 });
 
 handlebars.registerHelper('getType', function(object) {
+    let returnString;
     if (object.datatype !== undefined) {
-        return getRidOfHash(object.datatype);
+        returnString = getRidOfHash(object.datatype);
     }
     else if (object.range !== undefined) {
-        return object.range.substr(1);
+        returnString = object.range.substr(1);
     }
     else {
         console.error("Failed to determine datatype for: " + JSON.stringify(object, true, 3));
-        return object.range;
+        returnString = object.range;
     }
+    if (returnString === undefined) {
+        console.error("Failed to parse: " + JSON.stringify(object, true, 3));
+    }
+    return returnString;
 });
 
 let template = handlebars.compile(handlebarsTemplate);
 
 const inputPath = process.argv.length > 2 ? path.join(process.argv[2]) : path.join(__dirname, '/../../data_model/cgmes/');
-let test = false;
-if (process.argv[3] === "test") {
-    test = true;
-}
 const outputPath = path.join(__dirname, '/generated/attributes/cgmes');
 const indexPath = path.join(__dirname, '/packageIndex.js');
-
 const extFilter = "rdf";
 
-function extension(element) {
-  let extName = path.extname(element);
-  return extName === '.' + extFilter;
-};
+let test = false;
+let files;
+if (process.argv[3] === "test") {
+    test = true;
+    files = [ 'DynamicsProfile.rdf' ];
+}
+else {
+    /*
+     * File names left commented out because they are deliberately ommited,
+     * as they contain specialized profiles with duplicate classes.
+     */
+    files = [
+        'DiagramLayoutProfileRDFSAugmented-v2_4_15-16Feb2016.rdf',
+        'DynamicsProfileRDFSAugmented-v2_4_15-16Feb2016.rdf',
+        //'DynamicsProfileRDFSAugmented_noAbstract-v2_4_15-16Feb2016.rdf',
+        //'EquipmentBoundaryProfileRDFSAugmented-v2_4_15-16Feb2016.rdf',
+        'EquipmentProfileCoreRDFSAugmented-v2_4_15-4Jul2016.rdf',
+        //'EquipmentProfileCoreOperationRDFSAugmented-v2_4_15-4Jul2016.rdf',
+        //'EquipmentProfileCoreShortCircuitRDFSAugmented-v2_4_15-4Jul2016.rdf',
+        //'EquipmentProfileCoreShortCircuitOperationRDFSAugmented-v2_4_15-4Jul2016.rdf',
+        'GeographicalLocationProfileRDFSAugmented-v2_4_15-16Feb2016.rdf',
+        'StateVariablesProfileRDFSAugmented-v2_4_15-16Feb2016.rdf',
+        'SteadyStateHypothesisProfileRDFSAugmented-v2_4_15-16Feb2016.rdf',
+        'TopologyProfileRDFSAugmented-v2_4_15-16Feb2016.rdf',
+        //'TopologyBoundaryProfileRDFSAugmented-v2_4_15-16Feb2016.rdf',
+    ];
+}
 
-fs.readdir(inputPath, (err, files) => {
-    if (err)
-        return console.error('Unable to scan directory: ' + err);
+files = files.map(file => path.join(inputPath, file));
 
-    files = files.filter(extension).map(file => path.join(inputPath, file));
+//Read all files in parallel
+async.map(files, fs.readFile, (err, fileContents) => {
+    if (err) {
+        console.error("ERR ", err)
+    }
+    async.map(fileContents, parser.parseString, (err, parseResults) =>{
 
-    //Read all files in parallel
-    async.map(files, fs.readFile, (err, fileContents) => {
-        if (err) {
-            console.error("ERR ", err)
-            return reject(err);
-        }
-        async.map(fileContents, parser.parseString, (err, parseResults) =>{
-
-            let categoriesArray = [];
-            parseResults.forEach((parseResult) => {
-                let parsed = parseRDF(parseResult);
-                categoriesArray.push(parsed);
-            });
-            processArrayOfCategoryMaps(categoriesArray);
+        let categoriesArray = [];
+        parseResults.forEach((parseResult) => {
+            let parsed = parseRDF(parseResult);
+            categoriesArray.push(parsed);
         });
+        let undiscoveredClasses = [];
+        let overloadedClasses = [];
+        Object.keys(unorderedClasses).forEach((classList) => {
+            if (unorderedClasses[classList].length > 1) {
+                overloadedClasses.push(JSON.stringify(classList, true, 3))
+            }
+        })
+        Object.keys(unorderedClasses).forEach((classList) => {
+            if (unorderedClasses[classList][0]['subclassof']) {
+                let subclass = unorderedClasses[classList][0];
+                let profile = subclass.profile;
+                let superclassName = unorderedClasses[classList][0]['subclassof'].substring(1) + '.' + profile;
+                if (unorderedClasses[superclassName]) {
+                    let superclass = unorderedClasses[superclassName][0];
+                    recursiveCopyAttributesFromSuperclass(subclass, superclass, profile);
+                }
+                else {
+                    undiscoveredClasses.push(superclassName)
+                }
+            }
+        });
+        let discoveredClasses = {};
+        Object.keys(unorderedClasses).sort().forEach((classList) => {
+            discoveredClasses[classList] = unorderedClasses[classList];
+        })
+        processArrayOfCategoryMaps(discoveredClasses);
     });
 });
 
-const processArrayOfCategoryMaps = function(mapArray) {
-    let finalMap = {};
-    let indexData = {};
-    // This loop merges all instances of all components into one big map
-    mapArray.forEach((profile) => {
-        Object.keys(profile).forEach((profileName) => {
-            if (!finalMap[profileName]) {
-                finalMap[profileName] = {}
-            }
-            Object.keys(profile[profileName]).forEach((className) => {
-                addClassToPackage(finalMap, profileName, profile[profileName][className]);
-            });
-        });
+const recursiveCopyAttributesFromSuperclass = function(dest, from, profile) {
+    // check if the superclass also has attributes in
+    // the supersuperclass that need to be copied in
+    if (from['subclassof']) {
+        let superclassName = from['subclassof'].substring(1) + '.' + profile;
+        if (unorderedClasses[superclassName]) {
+            let superclass = unorderedClasses[superclassName][0];
+            recursiveCopyAttributesFromSuperclass(from, superclass, profile);
+        }
+    }
+    // check the subclass hasn't already had the attributes copied in
+    if (dest['copiedIn'] === false) {
+        dest['copiedIn'] = true;
+        copyAttributesFromSuperclass(dest, from);
+    }
+}
+
+const copyAttributesFromSuperclass = function(dest, from) {
+    Object.keys(from.attributes).forEach((attribute) => {
+        let newAttributeName = "Unitialised attribute name.";
+        if (attribute.indexOf('.') > 1) {
+            newAttributeName = attribute;
+        }
+        else {
+            newAttributeName = from['name'] + "." + attribute;
+        }
+        dest.attributes[newAttributeName] = from.attributes[attribute];
     });
-    Object.keys(finalMap).forEach((profileName) => {
-        Object.keys(finalMap[profileName]).forEach((className) => {
-            let classJson = finalMap[profileName][className];
-            writeHandlebarsFile(profileName, className, classJson['attributes'], indexData);
-        });
+}
+
+const processArrayOfCategoryMaps = function(mapArray) {
+    let indexData = {};
+    Object.keys(mapArray).forEach((profileAndClassName) => {
+        let tokens = profileAndClassName.split('.')
+        let profileName = tokens[1]
+        let className = tokens[0]
+        let classJson = mapArray[profileAndClassName][0];
+        writeHandlebarsFile(profileName, className, classJson['attributes'], indexData);
     });
     writeToFile(indexPath, "export default " + JSON.stringify(indexData, true, 2));
 }
 
-const getAboutOrResource = function(object) {
+const getAboutOrResource = function(object, log = false) {
     if ('rdf:resource' in object) {
         return object['rdf:resource'];
     }
@@ -127,7 +195,7 @@ const extractText = function(object) {
     return object[0]['_'];
 }
 
-const extractString = function(object) {
+const extractString = function(object, log = false) {
     if (object) {
         if (Array.isArray(object)) {
             if (object.length > 0) {
@@ -135,7 +203,7 @@ const extractString = function(object) {
                     return object[0];
                 }
                 if ('$' in object[0]) {
-                    return getAboutOrResource(object[0]['$']);
+                    return getAboutOrResource(object[0]['$'], log);
                 }
             }
         }
@@ -207,7 +275,7 @@ const componentsAreEqual = function(component1, component2) {
             return false;
         }
         for (let item in component1) {
-            if (!component2[item]) {
+            if (!(item in component2)) {
                 return false;
             }
             if (typeof(component1[item]) === 'object') {
@@ -239,18 +307,13 @@ const addAttributeToClassIfUnique = function(classObject, attribute) {
 }
 
 const addClassToPackage = function(map, packageName, object) {
+    let componentName = object['about'];
+    let className = getRidOfHash(componentName);
     if (packageName in map) {
-        let componentName = object['about'];
-        let className = getRidOfHash(componentName);
         if (map[packageName][className]) {
             if (!componentsAreEqual(map[packageName][className], object)) {
                 for(let item in object[className]) {
-                    if (item != "attributes") {
-                        map[packageName][className][item] = object[item];
-                    }
-                }
-                for(let item in object['attributes']) {
-                    addAttributeToClassIfUnique(map[packageName][className], object['attributes'][item]);
+                    map[packageName][className][item] = object[item];
                 }
             }
         }
@@ -296,6 +359,10 @@ const restructureRDFSJson = function(rdfs) {
     for (let classJson in rdfs) {
         let className = rdfs[classJson]['label'];
         returnJson[className] = { attributes: [] };
+
+        if (rdfs[classJson]['subclassof']) {
+            returnJson[className]['subclassof'] = rdfs[classJson]['subclassof'];
+        }
         for(let prop in rdfs[classJson]) {
             if(prop != 'attributes') {
                 returnJson[className][prop] = rdfs[classJson][prop];
@@ -304,16 +371,52 @@ const restructureRDFSJson = function(rdfs) {
         rdfs[classJson]['attributes'].forEach((attribute) => {
             let attr = {
                 name: attribute['label'],
-                type: attribute['range'] ? getRidOfHash(attribute['range']) :
-                      attribute['datatype'] ? getRidOfHash(attribute['datatype']) : attribute[about]
+                type: ('range' in attribute) ? getRidOfHash(attribute['range']) :
+                      ('datatype' in attribute) ? getRidOfHash(attribute['datatype']) : attribute[about]
             }
-            if (attribute['isFixed']) {
+            if ('isFixed' in attribute) {
                 attr.value = attribute['isFixed'];
             }
             returnJson[className].attributes.push(attr)
         });
     }
     return returnJson;
+}
+
+var unorderedClasses = {};
+
+const recordClass = function(name, object, profileName) {
+    let newClass = { name: name, profile: profileName, attributes: {}, copiedIn: false };
+
+    Object.keys(object).forEach((item) => {
+        if (item === 'subclassof') {
+            newClass['subclassof'] = object['subclassof'];
+        }
+    });
+    object['attributes'].forEach((attr) => {
+        newClass.attributes[attr.name] = attr.type;
+    })
+    let nameWithProfile = name + "." + profileName;
+
+    if (!unorderedClasses[nameWithProfile]) {
+        unorderedClasses[nameWithProfile] = [];
+    }
+    unorderedClasses[nameWithProfile].push(newClass);
+}
+
+
+const displayProfileNameAndAttributes = function(name, profile) {
+    console.log("Profile name: ", name)
+    Object.keys(profile).forEach((item) => {
+        if (item !== 'attributes') {
+            console.log("item: ", item, " value: ", profile[item]);
+        }
+    });
+    profile['attributes'].forEach((attr) => {
+        if (attr['value']) {
+            console.log("attr name: ", attr['name'], " value: ", attr['value'])
+        }
+    })
 }
 
 const parseRDF = function(input) {
@@ -333,7 +436,7 @@ const parseRDF = function(input) {
             setIfDefined(object, 'domain', getRidOfHash(extractString(descriptions[objectKey]['rdfs:domain'])));
         }
         setIfDefined(object, 'label', extractText(descriptions[objectKey]['rdfs:label']));
-        setIfDefined(object, 'range', extractString(descriptions[objectKey]['rdfs:range']));
+        setIfDefined(object, 'range', extractString(descriptions[objectKey]['rdfs:range'], true));
         setIfDefined(object, 'subclassof', extractString(descriptions[objectKey]['rdfs:subClassOf']));
         setIfDefined(object, 'stereotype', extractString(descriptions[objectKey]['cims:stereotype']));
         setIfDefined(object, 'type', extractString(descriptions[objectKey]['rdf:type']));
@@ -345,6 +448,7 @@ const parseRDF = function(input) {
             newAttribute(attributes, object);
         }
         if (object['stereotype'] === 'Entsoe') {
+            // Record the type, which will be [PackageName]Version
             profileMetaData.push(object['about'])
         }
     });
@@ -358,7 +462,10 @@ const parseRDF = function(input) {
         }
     });
     profileData = restructureRDFSJson(profileData);
-    return { [profileMetaData[0]['label']]: profileData };
+    Object.keys(profileData).forEach((className) => {
+        recordClass(className, profileData[className], profileMetaData[0])
+    })
+    return { [profileMetaData[0]]: profileData };
 }
 
 
