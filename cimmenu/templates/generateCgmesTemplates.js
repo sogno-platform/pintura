@@ -18,8 +18,8 @@ let handlebarsTemplate = `<ul class="floating-panel-list">
 {{#each attributes}}
     <li class="wide-row floating-panel-item list-entry">
         <span class="row-left floating-panel-name">{{@key}}</span>
-        \\{{{getAggregateComponentMenu 'cim:{{@key}}' [pintura:rdfid] [cim:
-           {{type}}] '{{this}}' '{{@key}}' \}}}
+
+        \\{{{getAggregateComponentMenu 'cim:{{../name}}' [pintura:rdfid] [cim:{{../name}}.{{@key}}] '{{this}}' '{{@key}}' \}}}
 
     </li>
 {{/each}}

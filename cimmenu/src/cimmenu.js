@@ -526,6 +526,9 @@ class cimmenu {
         else if (packageArray.length === 6) {
             packageName = packageArray[2]
         }
+        else {
+            packageName = packageArray[1]
+        }
         return packageName;
     }
 
@@ -536,7 +539,7 @@ class cimmenu {
                 return;
             }
             let attributes = common.safeExtract(baseJson, type, id);
-            if (attributes == undefined) {
+            if (attributes === undefined) {
                 console.error("Cannot find " + id + " in data to display id of " + type);
             }
             else {
