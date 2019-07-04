@@ -12,6 +12,10 @@ const fs = require('fs'),
     return options.inverse(this);
   });
 
+handlebars.registerHelper('all', function (thing) {
+    console.log(JSON.stringify(thing, true, 2))
+    return new handlebars.SafeString(JSON.stringify(thing, true, 2));
+});
 
 let parser = new xml2js.Parser();
 let handlebarsTemplate = `<ul class="floating-panel-list">
