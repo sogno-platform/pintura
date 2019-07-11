@@ -23,7 +23,7 @@ let handlebarsTemplate = `<ul class="floating-panel-list">
     <li class="wide-row floating-panel-item list-entry">
         <span class="row-left floating-panel-name">{{@key}}</span>
 
-        \\{{{getAggregateComponentMenu 'cim:{{../name}}' [pintura:rdfid] [cim:{{../name}}.{{@key}}] '{{this}}' '{{@key}}' \}}}
+        \\{{{getAggregateComponentMenu 'cim:{{../name}}' [pintura:rdfid] [cim:{{@key}}] 'cim:{{this}}' 'cim:{{@key}}' \}}}
 
     </li>
 {{/each}}
@@ -67,6 +67,8 @@ let template = handlebars.compile(handlebarsTemplate);
 const inputPath = process.argv.length > 2 ? path.join(process.argv[2]) : path.join(__dirname, '/../../data_model/cgmes/');
 const outputPath = path.join(__dirname, '/generated/attributes/cgmes');
 const indexPath = path.join(__dirname, '/packageIndex.js');
+const cgmesPath = path.join(__dirname, '/generated/cgmes.js');
+const concretePath = path.join(__dirname, '/generated/concrete.js');
 const extFilter = "rdf";
 
 let test = false;
@@ -136,9 +138,24 @@ async.map(files, fs.readFile, (err, fileContents) => {
         Object.keys(unorderedClasses).sort().forEach((classList) => {
             discoveredClasses[classList] = unorderedClasses[classList];
         })
+        Object.keys(discoveredClasses).forEach((profileName) => {
+            let profile = discoveredClasses[profileName];
+            Object.keys(profile).forEach((className) => {
+                checkPrimitive(profile[className], className)
+            })
+        })
         processArrayOfCategoryMaps(discoveredClasses);
     });
 });
+
+const checkPrimitive = function(classObject, className) {
+    if ('attributes' in classObject) {
+        if ('value' in classObject['attributes'] && 'unit' in classObject['attributes'] && 'multiplier' in classObject['attributes']) {
+            classObject['primitive'] = 'float';
+            return true;
+        }
+    }
+};
 
 const recursiveCopyAttributesFromSuperclass = function(dest, from, profile) {
     // check if the superclass also has attributes in
@@ -170,16 +187,30 @@ const copyAttributesFromSuperclass = function(dest, from) {
     });
 }
 
+const showComplex = function(matchingComponents) {
+}
+
 const processArrayOfCategoryMaps = function(mapArray) {
     let indexData = {};
+    let cgmesIndex = {};
     Object.keys(mapArray).forEach((profileAndClassName) => {
         let tokens = profileAndClassName.split('.')
         let profileName = tokens[1]
         let className = tokens[0]
         let classJson = mapArray[profileAndClassName][0];
-        writeHandlebarsFile(profileName, className, classJson['attributes'], indexData);
+        let render = undefined;
+        if ('primitive' in mapArray[profileAndClassName][0]) {
+            let primitive = mapArray[profileAndClassName][0]['primitive'];
+            render = '"renderFloat"';
+        }
+        else {
+            render = '"renderClass"';
+        }
+        writeHandlebarsFile(profileName, className, classJson['attributes'], render, indexData, cgmesIndex);
     });
     writeToFile(indexPath, "export default " + JSON.stringify(indexData, true, 2));
+    writeToFile(cgmesPath, "export default " + JSON.stringify(cgmesIndex, true, 2));
+    writeToFile(concretePath, "export default " + JSON.stringify(concreteClassList, true, 2));
 }
 
 const getAboutOrResource = function(object, log = false) {
@@ -220,6 +251,9 @@ const extractString = function(object, log = false) {
 }
 
 const newAttribute = function(array, object) {
+    if (object.about.substring(0,4) != "cim:") {
+        object.about = "cim:" + object.about;
+    }
     array.push(object);
 }
 
@@ -248,9 +282,9 @@ const writeToFile = function(outputPath, component) {
     });
 }
 
-const writeHandlebarsFile = function(packageFileStub, className, attributes, lookupMap) {
+const writeHandlebarsFile = function(packageFileStub, className, attributes, render, lookupMap, jsMap) {
     if (!test) {
-        let keyPath = outputPath + "/" + packageFileStub + "/" + className + ".handlebars";
+        let templatePath = outputPath + "/" + packageFileStub + "/" + className + ".handlebars";
         if (lookupMap[className]) {
             lookupMap[className].push(packageFileStub);
         }
@@ -258,7 +292,18 @@ const writeHandlebarsFile = function(packageFileStub, className, attributes, loo
             lookupMap[className] = [ packageFileStub ];
         }
         let outputData = template({ name: className, attributes: attributes });
-        writeToFile(keyPath, outputData);
+        writeToFile(templatePath, outputData);
+
+        let jsCode;
+        let codePath = outputPath + "/" + packageFileStub + "/" + className + ".js";
+        if (!jsMap[className]) {
+            jsMap[className] = {};
+        }
+        jsMap[className][packageFileStub] = codePath;
+        if (render) {
+            jsCode = 'export default { "render": ' + render + '}';
+        }
+        writeToFile(codePath, jsCode);
     }
 }
 
@@ -358,11 +403,29 @@ const setIfDefined = function(object, name, value) {
     }
 }
 
-const restructureRDFSJson = function(rdfs) {
+let concreteClassList = {};
+
+const restructureRDFSJson = function(rdfs, profile) {
     let returnJson = {};
     for (let classJson in rdfs) {
         let className = rdfs[classJson]['label'];
         returnJson[className] = { attributes: [] };
+
+        if (!concreteClassList[className]) {
+            concreteClassList[className] = {};
+        }
+
+        if (rdfs[classJson]['stereotype'] === 'http://iec.ch/TC57/NonStandard/UML#concrete') {
+            concreteClassList[className]['concrete'] = profile;
+        }
+        else {
+            if(!concreteClassList[className]['abstract']) {
+                concreteClassList[className]['abstract'] = [ profile ];
+            }
+            else {
+                concreteClassList[className]['abstract'].push(profile);
+            }
+        }
 
         if (rdfs[classJson]['subclassof']) {
             returnJson[className]['subclassof'] = rdfs[classJson]['subclassof'];
@@ -465,7 +528,7 @@ const parseRDF = function(input) {
             console.error("Class somewhere else: ", attribute);
         }
     });
-    profileData = restructureRDFSJson(profileData);
+    profileData = restructureRDFSJson(profileData, profileMetaData[0]);
     Object.keys(profileData).forEach((className) => {
         recordClass(className, profileData[className], profileMetaData[0])
     })

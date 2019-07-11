@@ -84,6 +84,30 @@ const openCgmesFile = function(cimsvgInstance, callback) {
     });
 };
 
+checkAttributeHasValue = function(attributesPanel, attributeName, value, done) {
+    let attributeListEntries = attributesPanel.querySelectorAll(".list-entry");
+    let entryFound = false;
+    let xmlSerializer = getXMLSerializer();
+    attributeListEntries.forEach((entry) => {
+        let attributeNameList = entry.querySelectorAll(".floating-panel-name");
+        if (attributeNameList.length == 1) {
+            if (attributeNameList[0].innerHTML == "RotatingMachine.ratedS") {
+                let attributeValueList = entry.querySelectorAll(".floating-panel-value");
+                if (attributeValueList.length > 0) {
+                    let attributeValue = attributeValueList[0]
+                    let input = attributeValue.querySelector("label");
+                    if (input) {
+                        expect(input.innerHTML).toEqual("150");
+                        entryFound = true;
+                    }
+                }
+            }
+        }
+    });
+    expect(entryFound).toEqual(true)
+    done();
+};
+
 describe("cgmes", function() {
 
     let cimsvgInstance = null;
@@ -124,11 +148,8 @@ describe("cgmes", function() {
             let firstSynchronousMachine = synchronousMachines[Object.keys(synchronousMachines)[0]];
             cimmenuInstance.populateAttributes("cim:SynchronousMachine",  firstSynchronousMachine['pintura:rdfid']);
             let attributesPanel = menu.querySelectorAll(".attributes-panel")[0];
-            //checkSelectedAttributeDropdownHasValue(attributesPanel, "LoadResponse", "L-1230804819");
-            done();
+            checkAttributeHasValue(attributesPanel, "RotatingMachine.ratedS", "150", done);
         });
     });
-
-
 });
 

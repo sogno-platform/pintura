@@ -1,8 +1,10 @@
 import { SafeString } from 'handlebars/runtime';
 import { customEachFunction } from '../../../src/helperUtils.js';
 import classStructure from '../../generated/classStructure.js';
+import concrete from '../../generated/concrete.js';
 import templates from '../../index.js';
 import common from '../../../src/common.js';
+import cgmes from '../../cgmesIndex.js';
 
 const complex_type_template = function(type, rdfid, requestedType, matchingComponents) {
     let template = templates.handlebars_cim_update_complex_type;
@@ -46,19 +48,34 @@ const simple_type_template = function(type, rdfid, requestedType, matchingCompon
     return template(matchingComponents);
 };
 
+class aggregateRenderer {
+    static renderFloat(data) {
+        console.log("RENDER FLOAT: ", JSON.stringify(data, true, 2))
+        return templates.handlebars_cim_render_float(data)
+    }
+    static renderClass(data) {
+        return templates.handlebars_cim_update_complex_type(data)
+    }
+};
+
 const getAggregateComponentMenuCGMES = function(parentType, parentId, rdfid, type, attribute){
-  let updateMenu = "";
-  let requestedType = "cim:" + type;
-  let dropdownId = common.generateUUID();
-  let matchingComponents = {
-    'attribute': attribute,
-    'dropdownId': dropdownId,
-    'requestedType': requestedType,
-    'rdfid': parentId,
-    'type': parentType,
-  }
-  updateMenu = complex_type_template(type, rdfid, requestedType, matchingComponents);
-  return new SafeString(updateMenu);
+    let updateMenu = "";
+    let profile = concrete[parentType.substring(4)]['concrete']
+    let jsObject = 'generated_attributes_cgmes_' + profile + '_' + type.substring(4) + '_js';
+    let functionName = cgmes[jsObject].render;
+    let render = aggregateRenderer[functionName];
+    let dropdownId = common.generateUUID();
+    if (type !== undefined) {
+        let attributeDetails = {
+            dropdownId: dropdownId,
+            type: parentType,
+            rdfid: parentId,
+            attribute: attribute,
+            value: currentCimsvg().getValueOf(parentType, parentId, attribute)
+        }
+        updateMenu = render(attributeDetails);
+    }
+    return new SafeString(updateMenu);
 };
 
 const getAggregateComponentMenuCIM16 = function(parentType, parentId, rdfid, type, attribute){

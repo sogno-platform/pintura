@@ -11,7 +11,7 @@
     "generateClassStructure": "node templates/xslt/generateClassStructure.js",
     "generateHandlebars": "node templates/xslt/generateHandlebarTemplates.js --xmlDir=../data_model",
     "generateCgmesHandlebars": "node templates/generateCgmesTemplates.js",
-    "createIndex": "cd templates && node createIndex.js > index.js",
+    "createIndex": "cd templates && node createIndex.js > index.js && node createCgmesIndex.js > cgmesIndex.js",
     "templates": "npm run generateCgmesHandlebars && npm run generateHandlebars && npm run generateClassStructure && npm run createIndex",
     "build": "npm install && npm run templates && rollup -c"
   },
