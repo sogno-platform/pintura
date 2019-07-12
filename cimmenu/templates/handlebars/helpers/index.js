@@ -50,7 +50,6 @@ const simple_type_template = function(type, rdfid, requestedType, matchingCompon
 
 class aggregateRenderer {
     static renderFloat(data) {
-        console.log("RENDER FLOAT: ", JSON.stringify(data, true, 2))
         return templates.handlebars_cim_render_float(data)
     }
     static renderClass(data) {

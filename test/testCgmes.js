@@ -95,9 +95,10 @@ checkAttributeHasValue = function(attributesPanel, attributeName, value, done) {
                 let attributeValueList = entry.querySelectorAll(".floating-panel-value");
                 if (attributeValueList.length > 0) {
                     let attributeValue = attributeValueList[0]
-                    let input = attributeValue.querySelector("label");
-                    if (input) {
-                        expect(input.innerHTML).toEqual("150");
+                    let floatList = attributeValue.querySelectorAll(".update-float");
+                    if (floatList.length > 0) {
+                        let floatValue = floatList[0]
+                        expect(floatValue.value).toEqual("150");
                         entryFound = true;
                     }
                 }

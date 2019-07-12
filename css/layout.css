@@ -58,6 +58,9 @@ button {
     margin: 0px;
     padding: 8px;
 }
+.hiddenbutton {
+    visibility: hidden;
+}
 span input, select, textarea{
     padding: 0;
     max-width:200px;
