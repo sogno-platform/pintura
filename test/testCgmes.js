@@ -84,10 +84,9 @@ const openCgmesFile = function(cimsvgInstance, callback) {
     });
 };
 
-checkAttributeHasValue = function(attributesPanel, attributeName, value, done) {
+const checkAttributeHasValue = function(attributesPanel, attributeName, value, done) {
     let attributeListEntries = attributesPanel.querySelectorAll(".list-entry");
     let entryFound = false;
-    let xmlSerializer = getXMLSerializer();
     attributeListEntries.forEach((entry) => {
         let attributeNameList = entry.querySelectorAll(".floating-panel-name");
         if (attributeNameList.length == 1) {
@@ -108,6 +107,27 @@ checkAttributeHasValue = function(attributesPanel, attributeName, value, done) {
     expect(entryFound).toEqual(true)
     done();
 };
+
+const getFloatInputFromAttribute = function(attributesPanel, attributeName) {
+    let attributeListEntries = attributesPanel.querySelectorAll(".list-entry");
+    let floatInput;
+    attributeListEntries.forEach((entry) => {
+        let attributeNameList = entry.querySelectorAll(".floating-panel-name");
+        if (attributeNameList.length == 1) {
+            if (attributeNameList[0].innerHTML == "RotatingMachine.ratedS") {
+                let attributeValueList = entry.querySelectorAll(".floating-panel-value");
+                if (attributeValueList.length > 0) {
+                    let attributeValue = attributeValueList[0]
+                    let floatList = attributeValue.querySelectorAll(".update-float");
+                    if (floatList.length > 0) {
+                        floatInput = floatList[0]
+                    }
+                }
+            }
+        }
+    });
+    return floatInput;
+}
 
 describe("cgmes", function() {
 
@@ -150,6 +170,32 @@ describe("cgmes", function() {
             cimmenuInstance.populateAttributes("cim:SynchronousMachine",  firstSynchronousMachine['pintura:rdfid']);
             let attributesPanel = menu.querySelectorAll(".attributes-panel")[0];
             checkAttributeHasValue(attributesPanel, "RotatingMachine.ratedS", "150", done);
+        });
+    });
+
+    it("should be possible to update an attribute for an object", function(done) {
+        openCgmesFile(cimsvgInstance, function() {
+            let synchronousMachines = cimsvgInstance.getObjectsOfType("cim:SynchronousMachine");
+            let firstSynchronousMachine = synchronousMachines[Object.keys(synchronousMachines)[0]];
+            cimmenuInstance.populateAttributes("cim:SynchronousMachine",  firstSynchronousMachine['pintura:rdfid']);
+            let attributesPanel = menu.querySelectorAll(".attributes-panel")[0];
+            checkAttributeHasValue(attributesPanel, "RotatingMachine.ratedS", "150", done);
+            let floatInput = getFloatInputFromAttribute(attributesPanel, "RotatingMachine.ratedS");
+            expect(floatInput).not.toBe(null);
+            expect(floatInput).not.toBe(undefined);
+            let newFloatValue = '254.33';
+            floatInput.setAttribute("value", newFloatValue);
+            let raw = floatInput.getAttribute("onchange");
+            let onchange = raw.replace("this.value", "'" + floatInput.getAttribute("value") + "'");
+            eval(onchange);
+            let terminals = cimsvgInstance.getObjectsOfType("cim:Terminal");
+            let firstTerminal = terminals[Object.keys(terminals)[0]];
+            cimmenuInstance.populateAttributes("cim:Terminal",  firstTerminal['pintura:rdfid']);
+            cimmenuInstance.populateAttributes("cim:SynchronousMachine",  firstSynchronousMachine['pintura:rdfid']);
+            let newFloatInput = getFloatInputFromAttribute(attributesPanel, "RotatingMachine.ratedS");
+            expect(newFloatInput).not.toBe(null);
+            expect(newFloatInput.value).toBe(newFloatValue);
+            done();
         });
     });
 });

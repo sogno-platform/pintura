@@ -2,28 +2,31 @@ import { SafeString } from 'handlebars/runtime';
 import { customEachFunction } from '../../../src/helperUtils.js';
 import classStructure from '../../generated/classStructure.js';
 import concrete from '../../generated/concrete.js';
+import cgmesClassStructure from '../../generated/cgmesClassStructure.js';
 import templates from '../../index.js';
 import common from '../../../src/common.js';
 import cgmes from '../../cgmesIndex.js';
 
-const complex_type_template = function(type, rdfid, requestedType, matchingComponents) {
+const complex_type_template = function(matchingComponents) {
     let template = templates.handlebars_cim_update_complex_type;
-    let possibleClasses = [ type ];
-    possibleClasses = possibleClasses.concat(classStructure.complexTypes[type]);
-    matchingComponents.aggregates = currentCimmenu().getAggregateComponentsList(requestedType, possibleClasses).aggregates;
+    let shortenedTypeName = matchingComponents.requestedType.substring(0,4) === 'cim:' ?
+        matchingComponents.requestedType.substring(4) : matchingComponents.requestedType;
+    let possibleClasses = [ shortenedTypeName ];
+    possibleClasses = possibleClasses.concat(classStructure.complexTypes[shortenedTypeName]);
+    matchingComponents.aggregates = currentCimmenu().getAggregateComponentsList(matchingComponents.requestedType, possibleClasses).aggregates;
     let targetRdfId;
-    if (rdfid && rdfid["rdf:resource"]) {
-        targetRdfId = rdfid["rdf:resource"].substr(1)
+    if (matchingComponents.attributeRdfid && matchingComponents.attributeRdfid["rdf:resource"]) {
+        targetRdfId = matchingComponents.attributeRdfid["rdf:resource"].substr(1)
     }
     else {
-        targetRdfId = rdfid;
+        targetRdfId = matchingComponents.attributeRdfid;
     }
     for (let index in matchingComponents.aggregates) {
         if(matchingComponents.aggregates[index].rdfid == targetRdfId) {
             matchingComponents.aggregates[index].selected = 'selected';
         }
     }
-    if (type == "Terminal") {
+    if (matchingComponents.classType == "Terminal") {
         for (let index in matchingComponents.aggregates) {
             if(matchingComponents.aggregates[index].attribute == "cim:Terminal.ConductingEquipment") {
                 matchingComponents.aggregates[index].disabled = 'disabled';
@@ -33,13 +36,13 @@ const complex_type_template = function(type, rdfid, requestedType, matchingCompo
     return template(matchingComponents);
 };
 
-const simple_type_template = function(type, rdfid, requestedType, matchingComponents) {
+const simple_type_template = function(matchingComponents) {
     let template = templates.handlebars_cim_update_simple_type;
-    let possibleValues = JSON.parse(JSON.stringify(classStructure.simpleTypes[type]));
+    let possibleValues = JSON.parse(JSON.stringify(classStructure.simpleTypes[matchingComponents.requestedType]));
     possibleValues.values.splice(0, 0, { value: "--"});
     matchingComponents.values = possibleValues.values;
     for (let index in matchingComponents.values) {
-        if(matchingComponents.values[index].value == rdfid) {
+        if(matchingComponents.values[index].value == matchingComponents.parentRdfid) {
             matchingComponents.values[index].selected = 'selected';
         }
     }
@@ -48,66 +51,154 @@ const simple_type_template = function(type, rdfid, requestedType, matchingCompon
     return template(matchingComponents);
 };
 
+const getRidOfHash = function(name){
+    if (name !== undefined) {
+       let tokens = name.split('#');
+       if (tokens !== undefined) {
+           if (tokens.length == 1) {
+               return tokens[0];
+           }
+           if (tokens.length > 1) {
+               return tokens[1];
+           }
+       }
+    }
+    return name;
+}
+
+const render_instance = function(matchingComponents) {
+    let template = templates.handlebars_cim_instance_type;
+    let shortenedTypeName = matchingComponents.requestedType.substring(0,4) === 'cim:' ?
+        matchingComponents.requestedType.substring(4) : matchingComponents.requestedType;
+    if (cgmesClassStructure[shortenedTypeName] !== undefined) {
+
+        let possibleValues = JSON.parse(JSON.stringify(cgmesClassStructure[shortenedTypeName].instances));
+        possibleValues.splice(0, 0, { value: "--"});
+        if (cgmesClassStructure[shortenedTypeName].instances) {
+            matchingComponents.aggregates = possibleValues;
+        }
+        else {
+            console.error("render_instance: Cannot create menu for class without instance list!");
+            return;
+        }
+        for (let index in matchingComponents.aggregates) {
+            let candidate = matchingComponents.aggregates[index].about;
+            let value = matchingComponents.value['rdf:resource']
+            if(candidate !== undefined && getRidOfHash(value) == candidate) {
+                matchingComponents.aggregates[index].selected = 'selected';
+            }
+        }
+        if (matchingComponents.classType == "Terminal") {
+            for (let index in matchingComponents.aggregates) {
+                if(matchingComponents.aggregates[index].attribute == "cim:Terminal.ConductingEquipment") {
+                    matchingComponents.aggregates[index].disabled = 'disabled';
+                }
+            }
+        }
+    }
+    return template(matchingComponents);
+};
+
+const render_cgmes_class = function(matchingComponents) {
+    let template = templates.handlebars_cim_update_complex_type;
+    let shortenedTypeName = matchingComponents.requestedType.substring(0,4) === 'cim:' ?
+        matchingComponents.requestedType.substring(4) : matchingComponents.requestedType;
+    if (cgmesClassStructure[shortenedTypeName] !== undefined) {
+        let subclasses = cgmesClassStructure[shortenedTypeName].subclasses;
+        if (subclasses !== undefined) {
+            let possibleClasses = [ shortenedTypeName ];
+            possibleClasses = possibleClasses.concat(cgmesClassStructure[shortenedTypeName].subclasses);
+            matchingComponents.aggregates = currentCimmenu().getAggregateComponentsList(matchingComponents.requestedType, possibleClasses).aggregates;
+            let targetRdfId;
+            if (matchingComponents.value && matchingComponents.value["rdf:resource"]) {
+                targetRdfId = matchingComponents.value["rdf:resource"].substr(1)
+            }
+            else {
+                targetRdfId = matchingComponents.value;
+            }
+            for (let index in matchingComponents.aggregates) {
+                if(matchingComponents.aggregates[index].rdfid == targetRdfId) {
+                    matchingComponents.aggregates[index].selected = 'selected';
+                }
+            }
+            if (matchingComponents.classType == "Terminal") {
+                for (let index in matchingComponents.aggregates) {
+                    if(matchingComponents.aggregates[index].attribute == "cim:Terminal.ConductingEquipment") {
+                        matchingComponents.aggregates[index].disabled = 'disabled';
+                    }
+                }
+            }
+        }
+    }
+    return template(matchingComponents);
+};
+
 class aggregateRenderer {
     static renderFloat(data) {
         return templates.handlebars_cim_render_float(data)
     }
     static renderClass(data) {
-        return templates.handlebars_cim_update_complex_type(data)
+        return render_cgmes_class(data);
+    }
+    static renderInstance(data) {
+        return render_instance(data);
     }
 };
 
-const getAggregateComponentMenuCGMES = function(parentType, parentId, rdfid, type, attribute){
+const getAggregateComponentMenuCGMES = function(details){
     let updateMenu = "";
-    let profile = concrete[parentType.substring(4)]['concrete']
-    let jsObject = 'generated_attributes_cgmes_' + profile + '_' + type.substring(4) + '_js';
+    let profile = concrete[details.classType.substring(4)]['concrete']
+    let jsObject = 'generated_attributes_cgmes_' + profile + '_' + details.type.substring(4) + '_js';
     let functionName = cgmes[jsObject].render;
     let render = aggregateRenderer[functionName];
     let dropdownId = common.generateUUID();
-    if (type !== undefined) {
+    if (details.type !== undefined) {
+        let value = currentCimsvg().getValueOf(details.classType, details.parentId, details.attribute)
         let attributeDetails = {
+            attribute: details.attribute,
             dropdownId: dropdownId,
-            type: parentType,
-            rdfid: parentId,
-            attribute: attribute,
-            value: currentCimsvg().getValueOf(parentType, parentId, attribute)
+            parentRdfid: details.parentId,
+            requestedType: details.type,
+            classType: details.classType,
+            value: value
         }
         updateMenu = render(attributeDetails);
     }
     return new SafeString(updateMenu);
 };
 
-const getAggregateComponentMenuCIM16 = function(parentType, parentId, rdfid, type, attribute){
+const getAggregateComponentMenuCIM16 = function(details){
   let updateMenu = "";
-  if (type !== undefined) {
-      if (type == "Float" || type == "Integer" || type == "Boolean" ) {
+  if (details.type !== undefined) {
+      if (details.type == "Float" || details.type == "Integer" || details.type == "Boolean" ) {
           let primitive_template = {
-              type: parentType,
-              rdfid: parentId,
-              attribute: attribute,
-              value: currentCimsvg().getValueOf(parentType, parentId, attribute)
+              classType: details.classType,
+              rdfid: details.parentId,
+              attribute: details.classType + "." + details.attribute,
+              value: currentCimsvg().getValueOf(details.classType, details.parentId, details.attribute)
           }
           let template = templates.handlebars_cim_update_primitive_type;
           updateMenu = template(primitive_template);
       }
       else {
-          let requestedType = "cim:" + type;
+          let requestedType = "cim:" + details.type;
           let dropdownId = common.generateUUID();
           let matchingComponents = {
-              'attribute': attribute,
+              'attribute': details.classType + "." + details.attribute,
               'dropdownId': dropdownId,
-              'requestedType': requestedType,
-              'rdfid': parentId,
-              'type': parentType,
+              'requestedType': details.type,
+              'parentRdfid': details.parentId,
+              'classType': details.classType,
+              'attributeRdfid': details.rdfid,
           }
-          if (classStructure.simpleTypes[type]) {
-              updateMenu = simple_type_template(type, rdfid, requestedType, matchingComponents);
+          if (classStructure.simpleTypes[details.type] !== undefined) {
+              updateMenu = simple_type_template(matchingComponents);
           }
-          else if (classStructure.complexTypes[type]) {
-              updateMenu = complex_type_template(type, rdfid, requestedType, matchingComponents);
+          else if (classStructure.complexTypes[details.type] !== undefined) {
+              updateMenu = complex_type_template(matchingComponents);
           }
           else {
-              console.error("Cannot find ", type, " in simple or complex types.")
+              console.error("Cannot find ", details.type, " in simple or complex types.")
           }
       }
   }
@@ -181,12 +272,19 @@ export default function(Handlebars) {
     return new SafeString(common.removeColon(str));
   });
 
-  Handlebars.registerHelper('getAggregateComponentMenu', function (parentType, parentId, rdfid, type, attribute) {
+  Handlebars.registerHelper('getAggregateComponentMenu', function (classType, parentId, rdfid, type, attribute) {
+    let details = {
+        classType: classType,
+        parentId: parentId,
+        rdfid: rdfid,
+        type: type,
+        attribute: attribute
+    };
     if (currentCimsvg().getCimversion() === "cgmes") {
-      return getAggregateComponentMenuCGMES(parentType, parentId, rdfid, type, attribute);
+      return getAggregateComponentMenuCGMES(details);
     }
     else {
-      return getAggregateComponentMenuCIM16(parentType, parentId, rdfid, type, attribute);
+      return getAggregateComponentMenuCIM16(details);
     }
   });
 }

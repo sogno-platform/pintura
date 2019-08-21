@@ -23,7 +23,7 @@ let handlebarsTemplate = `<ul class="floating-panel-list">
     <li class="wide-row floating-panel-item list-entry">
         <span class="row-left floating-panel-name">{{@key}}</span>
 
-        \\{{{getAggregateComponentMenu 'cim:{{../name}}' [pintura:rdfid] [cim:{{@key}}] 'cim:{{this}}' 'cim:{{@key}}' \}}}
+        \\{{{getAggregateComponentMenu 'cim:{{../name}}' [pintura:rdfid] [cim:{{@key}}] 'cim:{{this}}' 'cim:{{../name}}.{{@key}}' \}}}
 
     </li>
 {{/each}}
@@ -69,6 +69,7 @@ const outputPath = path.join(__dirname, '/generated/attributes/cgmes');
 const indexPath = path.join(__dirname, '/packageIndex.js');
 const cgmesPath = path.join(__dirname, '/generated/cgmes.js');
 const concretePath = path.join(__dirname, '/generated/concrete.js');
+const cgmesClassStructurePath = path.join(__dirname, '/generated/cgmesClassStructure.js');
 const extFilter = "rdf";
 
 let test = false;
@@ -113,6 +114,8 @@ async.map(files, fs.readFile, (err, fileContents) => {
             let parsed = parseRDF(parseResult);
             categoriesArray.push(parsed);
         });
+        let classTree = generateClassTree(classHierarchy);
+        writeToFile(cgmesClassStructurePath, "export default " + JSON.stringify(classTree, true, 2));
         let undiscoveredClasses = [];
         let overloadedClasses = [];
         Object.keys(unorderedClasses).forEach((classList) => {
@@ -147,6 +150,55 @@ async.map(files, fs.readFile, (err, fileContents) => {
         processArrayOfCategoryMaps(discoveredClasses);
     });
 });
+
+const recursiveSearch = function(map, className, searchList) {
+    if (className in map) {
+        if ('subclasses' in map[className]) {
+            let subClassList = map[className].subclasses;
+            subClassList.forEach((subClass) => {
+                searchList.push(subClass);
+            });
+            subClassList.forEach((subClass) => {
+                searchList.concat(recursiveSearch(map, subClass, searchList));
+            });
+        }
+    }
+    return searchList;
+};
+
+const generateClassTree = function(map) {
+    let newMap = {};
+    let dotsUnique = {};
+    let anotherMap = {};
+    Object.keys(map).map((className) => {
+        newMap[getRidOfHash(className)] = map[className]
+    });
+    Object.keys(newMap).forEach((superclass) => {
+        if (newMap[superclass].subclasses) {
+            dotsUnique[superclass] = {};
+            dotsUnique[superclass].temp = [];
+            newMap[superclass].subclasses.forEach((cl) => {
+                dotsUnique[superclass].temp.push(getRidOfDot(cl));
+            });
+        }
+    });
+    Object.keys(dotsUnique).forEach((superclass) => {
+        if (dotsUnique[superclass]) {
+            dotsUnique[superclass].subclasses = Array.from(new Set(dotsUnique[superclass].temp));
+        }
+    });
+    Object.keys(dotsUnique).forEach((superclass) => {
+        if (dotsUnique[superclass]) {
+            anotherMap[superclass] = {};
+            anotherMap[superclass].subclasses = []
+            recursiveSearch(dotsUnique, superclass, anotherMap[superclass].subclasses)
+        }
+        if (map[superclass].instances) {
+            anotherMap[superclass].instances = map[superclass].instances
+        }
+    });
+    return anotherMap;
+}
 
 const checkPrimitive = function(classObject, className) {
     if ('attributes' in classObject) {
@@ -199,7 +251,10 @@ const processArrayOfCategoryMaps = function(mapArray) {
         let className = tokens[0]
         let classJson = mapArray[profileAndClassName][0];
         let render = undefined;
-        if ('primitive' in mapArray[profileAndClassName][0]) {
+        if (mapArray[profileAndClassName][0].instances) {
+            render = '"renderInstance"';
+        }
+        else if ('primitive' in mapArray[profileAndClassName][0]) {
             let primitive = mapArray[profileAndClassName][0]['primitive'];
             render = '"renderFloat"';
         }
@@ -318,6 +373,14 @@ const getRidOfHash = function(name){
     return name;
 }
 
+const getRidOfDot = function(name){
+    let tokens = name.split('.');
+    if (tokens.length > 0) {
+        return tokens[0];
+    }
+    return name;
+}
+
 const componentsAreEqual = function(component1, component2) {
     if (component1 && component2) {
         if (Object.keys(component1).length != Object.keys(component2).length) {
@@ -410,6 +473,7 @@ const restructureRDFSJson = function(rdfs, profile) {
     for (let classJson in rdfs) {
         let className = rdfs[classJson]['label'];
         returnJson[className] = { attributes: [] };
+        returnJson[className]['instances'] = rdfs[classJson]['instances']
 
         if (!concreteClassList[className]) {
             concreteClassList[className] = {};
@@ -451,10 +515,13 @@ const restructureRDFSJson = function(rdfs, profile) {
 }
 
 var unorderedClasses = {};
+var classHierarchy = {};
 
 const recordClass = function(name, object, profileName) {
     let newClass = { name: name, profile: profileName, attributes: {}, copiedIn: false };
-
+    if (object.instances) {
+        newClass.instances = object.instances
+    }
     Object.keys(object).forEach((item) => {
         if (item === 'subclassof') {
             newClass['subclassof'] = object['subclassof'];
@@ -469,8 +536,22 @@ const recordClass = function(name, object, profileName) {
         unorderedClasses[nameWithProfile] = [];
     }
     unorderedClasses[nameWithProfile].push(newClass);
-}
 
+    if (newClass.subclassof) {
+        let superClassName = getRidOfHash(newClass.subclassof);
+        if (classHierarchy[superClassName] === undefined) {
+            classHierarchy[superClassName] = {};
+            classHierarchy[superClassName].subclasses = [];
+        }
+        classHierarchy[superClassName].subclasses.push(nameWithProfile);
+    }
+    if (newClass.instances) {
+        if (classHierarchy[newClass.name] === undefined) {
+            classHierarchy[newClass.name] = { 'subclasses': [] };
+        }
+        classHierarchy[newClass.name].instances = newClass.instances;
+    }
+}
 
 const displayProfileNameAndAttributes = function(name, profile) {
     console.log("Profile name: ", name)
@@ -486,10 +567,18 @@ const displayProfileNameAndAttributes = function(name, profile) {
     })
 }
 
+const newClassInstance = function(instances, classType, instance) {
+    if (!([classType] in instances)) {
+        instances[classType] = []
+    }
+    instances[classType].push(instance)
+}
+
 const parseRDF = function(input) {
     let profileData = {};
     let attributes = [];
     let profileMetaData = [];
+    let instances = {};
     // rdf file is basically a big array of descriptions
     let descriptions = input['rdf:RDF']['rdf:Description'];
 
@@ -511,8 +600,13 @@ const parseRDF = function(input) {
         if (object['type'] === 'http://www.w3.org/2000/01/rdf-schema#Class') {
             newClass(profileData, object['label'], object);
         }
-        if (object['type'] === "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property") {
+        else if (object['type'] === "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property") {
             newAttribute(attributes, object);
+        }
+        else if (object['type'] === "http://iec.ch/TC57/1999/rdf-schema-extensions-19990926#ClassCategory") {
+        }
+        else {
+            newClassInstance(instances, object['type'], object);
         }
         if (object['stereotype'] === 'Entsoe') {
             // Record the type, which will be [PackageName]Version
@@ -527,6 +621,9 @@ const parseRDF = function(input) {
         else {
             console.error("Class somewhere else: ", attribute);
         }
+    });
+    Object.keys(instances).forEach((className) => {
+        profileData[getRidOfHash(className)].instances = instances[className]
     });
     profileData = restructureRDFSJson(profileData, profileMetaData[0]);
     Object.keys(profileData).forEach((className) => {

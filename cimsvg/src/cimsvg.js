@@ -229,6 +229,9 @@ class cimsvg {
     };
 
     addComponent(type) {
+        if (type.substring(0, 4) !== 'cim:') {
+            type = 'cim:' + type;
+        }
         if (cimedit.typeIsVisible(type)) {
             this.addingType = type;
             let image = cimjson.getImageName(type);
@@ -694,22 +697,6 @@ class cimsvg {
             }
         }
         return undefined;
-    };
-
-    getAggregateComponentsList(requestedClass, types) {
-        let baseJson = this.getBaseJson();
-        let aggregateComponents = { aggregates: [{ rdfid: "", name: "Select " + requestedClass }]};
-        for (let index in types) {
-            let type = "cim:" + types[index];
-            for (let component in baseJson[type]) {
-                aggregateComponents['aggregates'].push({
-                    rdfid: baseJson[type][component][common.pinturaRdfid()],
-                    name: baseJson[type][component]["cim:IdentifiedObject.name"],
-                    type: type
-                })
-            }
-        }
-        return aggregateComponents;
     };
 
     showFileMenu() {

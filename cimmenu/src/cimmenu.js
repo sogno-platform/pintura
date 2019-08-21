@@ -570,14 +570,19 @@ class cimmenu {
         cimmenu.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
             for (let index in types) {
-                let type = "cim:" + types[index];
+                let type = types[index];
+                if (type.substring(0,4) !== 'cim:') {
+                    type = "cim:" + type;
+                }
                 let components = common.safeExtract(baseJson, type)
-                for (let component in components) {
-                    aggregateComponents['aggregates'].push({
-                        rdfid: components[component][common.pinturaRdfid()],
-                        name:  components[component][common.identifiedObjectName()],
-                        type:  type
-                    })
+                if (components !== undefined) {
+                    for (let component in components) {
+                        aggregateComponents['aggregates'].push({
+                            rdfid: components[component][common.pinturaRdfid()],
+                            name:  components[component][common.identifiedObjectName()],
+                            type:  type
+                        })
+                    }
                 }
             }
         });
