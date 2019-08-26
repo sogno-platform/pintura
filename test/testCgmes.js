@@ -90,14 +90,14 @@ const checkAttributeHasValue = function(attributesPanel, attributeName, value, d
     attributeListEntries.forEach((entry) => {
         let attributeNameList = entry.querySelectorAll(".floating-panel-name");
         if (attributeNameList.length == 1) {
-            if (attributeNameList[0].innerHTML == "RotatingMachine.ratedS") {
+            if (attributeNameList[0].innerHTML == attributeName) {
                 let attributeValueList = entry.querySelectorAll(".floating-panel-value");
                 if (attributeValueList.length > 0) {
                     let attributeValue = attributeValueList[0]
                     let floatList = attributeValue.querySelectorAll(".update-float");
                     if (floatList.length > 0) {
                         let floatValue = floatList[0]
-                        expect(floatValue.value).toEqual("150");
+                        expect(floatValue.value).toEqual(value);
                         entryFound = true;
                     }
                 }

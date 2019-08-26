@@ -137,6 +137,17 @@ class aggregateRenderer {
     static renderFloat(data) {
         return templates.handlebars_cim_render_float(data)
     }
+    static renderString(data) {
+        return templates.handlebars_cim_render_string(data)
+    }
+    static renderBoolean(data) {
+        // TODO: WRONG!
+        return templates.handlebars_cim_render_string(data)
+    }
+    static renderInteger(data) {
+        // TODO: WRONG!
+        return templates.handlebars_cim_render_string(data)
+    }
     static renderClass(data) {
         return render_cgmes_class(data);
     }
@@ -184,7 +195,7 @@ const getAggregateComponentMenuCIM16 = function(details){
           let requestedType = "cim:" + details.type;
           let dropdownId = common.generateUUID();
           let matchingComponents = {
-              'attribute': details.classType + "." + details.attribute,
+              'attribute': details.attribute,
               'dropdownId': dropdownId,
               'requestedType': details.type,
               'parentRdfid': details.parentId,
@@ -273,12 +284,21 @@ export default function(Handlebars) {
   });
 
   Handlebars.registerHelper('getAggregateComponentMenu', function (classType, parentId, rdfid, type, attribute) {
+    //console.log("getAggregateComponentMenu: ", classType, parentId, rdfid, type, attribute)
+    let completeAttributeName;
+    let tokens = attribute.split(['.'])
+    if (tokens.length == 2) {
+        completeAttributeName = 'cim:' + attribute
+    }
+    else {
+        completeAttributeName = classType + '.' + tokens[0]
+    }
     let details = {
         classType: classType,
         parentId: parentId,
         rdfid: rdfid,
         type: type,
-        attribute: attribute
+        attribute: completeAttributeName
     };
     if (currentCimsvg().getCimversion() === "cgmes") {
       return getAggregateComponentMenuCGMES(details);

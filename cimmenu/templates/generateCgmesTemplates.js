@@ -23,7 +23,7 @@ let handlebarsTemplate = `<ul class="floating-panel-list">
     <li class="wide-row floating-panel-item list-entry">
         <span class="row-left floating-panel-name">{{@key}}</span>
 
-        \\{{{getAggregateComponentMenu 'cim:{{../name}}' [pintura:rdfid] [cim:{{@key}}] 'cim:{{this}}' 'cim:{{../name}}.{{@key}}' \}}}
+        \\{{{getAggregateComponentMenu 'cim:{{../name}}' [pintura:rdfid] [cim:{{@key}}] 'cim:{{this}}' '{{@key}}' \}}}
 
     </li>
 {{/each}}
@@ -203,7 +203,7 @@ const generateClassTree = function(map) {
 const checkPrimitive = function(classObject, className) {
     if ('attributes' in classObject) {
         if ('value' in classObject['attributes'] && 'unit' in classObject['attributes'] && 'multiplier' in classObject['attributes']) {
-            classObject['primitive'] = 'float';
+            classObject['primitive'] = 'Float';
             return true;
         }
     }
@@ -239,7 +239,45 @@ const copyAttributesFromSuperclass = function(dest, from) {
     });
 }
 
-const showComplex = function(matchingComponents) {
+const selectPrimitiveRenderFunction = function(primitive){
+    let render = "";
+    if (primitive == "Float") {
+        render = '"renderFloat"';
+    }
+    else if (primitive == "String") {
+        render = '"renderString"';
+    }
+    else if (primitive == "Boolean") {
+        // TODO: Implementation Required!
+        console.error("Boolean primitive renderer not implemented!")
+        render = '"renderString"';
+    }
+    else if (primitive == "Date") {
+        console.error("Date primitive renderer not implemented!")
+        // TODO: Implementation Required!
+        render = '"renderString"';
+    }
+    else if (primitive == "DateTime") {
+        console.error("DateTime primitive renderer not implemented!")
+        // TODO: Implementation Required!
+        render = '"renderString"';
+    }
+    else if (primitive == "Decimal") {
+        console.error("Decimal primitive renderer not implemented!")
+        // TODO: Implementation Required!
+        render = '"renderString"';
+    }
+    else if (primitive == "Integer") {
+        console.error("Integer primitive renderer not implemented!")
+        // TODO: Implementation Required!
+        render = '"renderString"';
+    }
+    else if (primitive == "MonthDay") {
+        console.error("MonthDay primitive renderer not implemented!")
+        // TODO: Implementation Required!
+        render = '"renderString"';
+    }
+    return render;
 }
 
 const processArrayOfCategoryMaps = function(mapArray) {
@@ -255,8 +293,7 @@ const processArrayOfCategoryMaps = function(mapArray) {
             render = '"renderInstance"';
         }
         else if ('primitive' in mapArray[profileAndClassName][0]) {
-            let primitive = mapArray[profileAndClassName][0]['primitive'];
-            render = '"renderFloat"';
+            render = selectPrimitiveRenderFunction(mapArray[profileAndClassName][0]['primitive']);
         }
         else {
             render = '"renderClass"';
@@ -319,6 +356,16 @@ const newClass = function (map, domain, object) {
     }
     else {
         console.error("Class already exists.");
+    }
+    return map;
+}
+
+const newPrimitive = function (map, domain, object) {
+    if (!(domain in map)) {
+        map[domain] = object || {};
+    }
+    else {
+        console.error("Primitive already exists: ", object);
     }
     return map;
 }
@@ -522,6 +569,9 @@ const recordClass = function(name, object, profileName) {
     if (object.instances) {
         newClass.instances = object.instances
     }
+    if (object.primitive) {
+        newClass.primitive = object.primitive
+    }
     Object.keys(object).forEach((item) => {
         if (item === 'subclassof') {
             newClass['subclassof'] = object['subclassof'];
@@ -598,6 +648,9 @@ const parseRDF = function(input) {
         setIfDefined(object, 'type', extractString(descriptions[objectKey]['rdf:type']));
         setIfDefined(object, 'isFixed', extractString(descriptions[objectKey]['cims:isFixed']));
         if (object['type'] === 'http://www.w3.org/2000/01/rdf-schema#Class') {
+            if (object['stereotype'] === 'Primitive') {
+                object['primitive'] = object['label']
+            }
             newClass(profileData, object['label'], object);
         }
         else if (object['type'] === "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property") {
