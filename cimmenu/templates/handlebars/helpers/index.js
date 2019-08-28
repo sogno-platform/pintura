@@ -103,30 +103,28 @@ const render_cgmes_class = function(matchingComponents) {
     let template = templates.handlebars_cim_update_complex_type;
     let shortenedTypeName = matchingComponents.requestedType.substring(0,4) === 'cim:' ?
         matchingComponents.requestedType.substring(4) : matchingComponents.requestedType;
-    if (cgmesClassStructure[shortenedTypeName] !== undefined) {
+    let possibleClasses = [ shortenedTypeName ];
+    if (shortenedTypeName in cgmesClassStructure) {
         let subclasses = cgmesClassStructure[shortenedTypeName].subclasses;
-        if (subclasses !== undefined) {
-            let possibleClasses = [ shortenedTypeName ];
-            possibleClasses = possibleClasses.concat(cgmesClassStructure[shortenedTypeName].subclasses);
-            matchingComponents.aggregates = currentCimmenu().getAggregateComponentsList(matchingComponents.requestedType, possibleClasses).aggregates;
-            let targetRdfId;
-            if (matchingComponents.value && matchingComponents.value["rdf:resource"]) {
-                targetRdfId = matchingComponents.value["rdf:resource"].substr(1)
-            }
-            else {
-                targetRdfId = matchingComponents.value;
-            }
-            for (let index in matchingComponents.aggregates) {
-                if(matchingComponents.aggregates[index].rdfid == targetRdfId) {
-                    matchingComponents.aggregates[index].selected = 'selected';
-                }
-            }
-            if (matchingComponents.classType == "Terminal") {
-                for (let index in matchingComponents.aggregates) {
-                    if(matchingComponents.aggregates[index].attribute == "cim:Terminal.ConductingEquipment") {
-                        matchingComponents.aggregates[index].disabled = 'disabled';
-                    }
-                }
+        possibleClasses = possibleClasses.concat(cgmesClassStructure[shortenedTypeName].subclasses);
+    }
+    matchingComponents.aggregates = currentCimmenu().getAggregateComponentsList(matchingComponents.requestedType, possibleClasses).aggregates;
+    let targetRdfId;
+    if (matchingComponents.value && matchingComponents.value["rdf:resource"]) {
+        targetRdfId = matchingComponents.value["rdf:resource"].substr(1)
+    }
+    else {
+        targetRdfId = matchingComponents.value;
+    }
+    for (let index in matchingComponents.aggregates) {
+        if(matchingComponents.aggregates[index].rdfid == targetRdfId) {
+            matchingComponents.aggregates[index].selected = 'selected';
+        }
+    }
+    if (matchingComponents.classType == "Terminal") {
+        for (let index in matchingComponents.aggregates) {
+            if(matchingComponents.aggregates[index].attribute == "cim:Terminal.ConductingEquipment") {
+                matchingComponents.aggregates[index].disabled = 'disabled';
             }
         }
     }
