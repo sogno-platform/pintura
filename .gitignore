@@ -2,7 +2,10 @@ cimmenu/lib/*
 cimsvg/lib/*
 cimmenu/templates/generated
 cimmenu/templates/index.js
+cimmenu/templates/cgmesIndex.js
+cimmenu/templates/packageIndex.js
 cimmenu/node_modules/*
+cimsvg/src/packageIndex.js
 cimsvg/node_modules/*
 dist/*
 index.html
