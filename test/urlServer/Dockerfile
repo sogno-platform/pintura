@@ -1,7 +1,8 @@
 
 from node:alpine
 workdir /bin
-copy urlServer.js /bin/urlServer.js
 run npm install http fs formidable
-expose 8080
+expose 4040
+copy files/1.xml /var/urlserver/file1.xml
+copy urlServer.js /bin/urlServer.js
 cmd /bin/urlServer.js

@@ -3,24 +3,43 @@
 var http = require('http');
 var fs = require('fs');
 var formidable = require('formidable');
+var files=[ { name: "file1.xml" }, { name: "file2.xml" } ];
 
 http.createServer(function (req, res) {
   console.log(req.method);
   if (req.method == "GET") {
-    fs.readFile('.' + req.url, (err, data)=>{
-      if (err) {
-        res.writeHead(404, {'Content-Type': 'text/plain'});
-        res.write("Error: " + req.url + '\n');
-        res.write("Not found, sorry!");
-        res.end();
+    console.log(req.url)
+    let tokens = req.url.split('/');
+    console.log(tokens)
+    if (tokens.length == 2 && tokens[1] == 'files') {
+      res.writeHead(200, {'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*'});
+      res.write(JSON.stringify(files));
+      res.end();
+    }
+    else if (tokens.length == 3 && tokens[1] == 'files') {
+      let fileid = tokens[2];
+      if (fileid in files && 'name' in files[fileid]) {
+        let filename = '/var/urlserver/' + files[fileid].name;
+        console.log(filename)
+        fs.readFile(filename, (err, data)=>{
+          if (err) {
+            res.writeHead(404, {'Content-Type': 'text/plain'});
+            res.write("Error: " + filename + '\n');
+            res.write("Not found, sorry!");
+            res.end();
+          }
+          else {
+            console.log("Replying with file: ", filename);
+            res.writeHead(200, { "Content-Disposition": "attachment;filename=" + filename,
+                                 "Access-Control-Expose-Headers": "Content-Disposition",
+		                 "Content-Type": "text/plain",
+		                 "Access-Control-Allow-Origin": "*"});
+            res.write(data);
+            res.end();
+          }
+        });
       }
-      else {
-        console.log("Replying with file: ", req.data);
-        res.writeHead(200, {'Content-Type': 'text/plain', 'Access-Control-Allow-Origin': '*'});
-        res.write(data);
-        res.end();
-      }
-    });
+    }
   }
   else if (req.method == "POST") {
     let contentType = req.headers['content-type'].split(';')[0];
@@ -96,4 +115,4 @@ http.createServer(function (req, res) {
       console.error("Cannot parse content type : ", contentType);
     }
   }
-}).listen(8080);
+}).listen(4040);

@@ -605,11 +605,11 @@ class cimsvg {
      * the uri= parameter in the url
      */
     downloadUri(uri) {
-        let length=uri.length;
-        if(length > 4) {
-            let uriSuffix = uri.substring(length-4)
-            fetch(uri,{ headers: { "Accept": "application/xml, application/json, text/plain" }}).then((response)=>{
-                if (uriSuffix == '.xml') {
+        fetch(uri,{ headers: { "Accept": "application/xml, application/json, text/plain" }}).then((response)=>{
+            let filename=response.headers.get('Content-Disposition');
+            if (filename.length > 4) {
+                let suffix=filename.substring(filename.length - 4)
+                if (suffix == '.xml') {
                     response.text().then((text)=>{
                         this.setFileCount(1);
                         this.loadFile(text);
@@ -617,15 +617,15 @@ class cimsvg {
                         this.uri = uri;
                     })
                 }
-                else if (uriSuffix == '.zip') {
+                else if (suffix == '.zip') {
                     response.blob().then((blob)=>{
                         this.importZip(uri, blob);
                         this.setTitle(uri);
                         this.uri = uri;
                     });
                 }
-            });
-        }
+            }
+        });
     };
 
     /*
