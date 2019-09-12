@@ -1,8 +1,7 @@
 
-GIT_RESULT=$(git pull)
 while true;
 do
-  sleep 2m
+  GIT_RESULT=$(git pull)
   if [ "x$GIT_RESULT" = "xAlready up to date." ]
   then
     echo "true: "$GIT_RESULT
@@ -12,5 +11,6 @@ do
     make stop
     make start
   fi
+  sleep 2m
 done
 
