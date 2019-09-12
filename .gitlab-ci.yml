@@ -29,3 +29,15 @@ deploy:docker:
   only:
     refs:
       - master
+
+deploy:docker-test:
+  stage: deploy
+  script:
+    - echo "docker push ${DOCKER_IMAGE}-test:${DOCKER_TAG}"; docker push ${DOCKER_IMAGE}-test:${DOCKER_TAG}
+  dependencies:
+    - build:docker
+  tags:
+    - shell
+  only:
+    refs:
+      - 86-get-pinturas-working-with-villasweb-and-urlserver-for-demo
