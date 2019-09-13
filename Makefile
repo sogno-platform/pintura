@@ -29,52 +29,17 @@ ATTRIBUTE_DIR=$(TEMPLATE_DIR)/attributes
 
 all: docker
 
-clean:
-	rm -f $(TEMPLATE_DIR)/template.js
-	rm -f $(TEMPLATE_DIR)/add_components_menu.xml
-	rm -fr $(ATTRIBUTE_DIR)
-
-electron_deps:
-	rm -f package.json
-	cp package.json.head package.json
-	npm install --save electron
-	npm install --save-dev electron-mocha jshint mocha webpack
-
-local: index.html $(TEMPLATE_DIR)/template.js $(TEMPLATE_DIR)/add_components_menu.xml
-
-develop: local
-	docker run --rm --detach --publish 80:80 --name pintura-dev \
-		--volume $(shell pwd):/usr/share/nginx/html \
-		nginx
-
-index.html: generateIndex.js
-	node $<  > $@
-
-# Docker related targets
-run-docker: docker
-	docker run $(DOCKER_OPTS) --detach --publish 8082:80 --name=pintura $(DOCKER_IMAGE):latest
-	echo "Access Pintura at http://localhost:8082"
-
-docker:
+docker: cimsvg cimmenu
 	docker build \
 		--tag $(DOCKER_IMAGE) \
 		--iidfile $@ \
 		.
 
-stop_docker:
+start: docker
+	docker run $(DOCKER_OPTS) --detach --publish 8082:80 --name=pintura $(DOCKER_IMAGE):latest
+	echo "Access Pintura at http://localhost:8082"
+
+stop:
 	docker container stop pintura
 
-# Create templates
-templates: $(TEMPLATE_DIR)/template.js
-
-$(TEMPLATE_DIR)/template.js: $(handlebars) $(handlebars_attr)
-	npm install
-	npm run build
-
-# Create non-existent directories
-.SECONDEXPANSION:
-.PRECIOUS: %/
-%/:
-	mkdir -p $@
-
-.PHONY: all clean electron_deps templates run-docker local
+.PHONY: all docker start stop
