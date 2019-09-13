@@ -42,10 +42,10 @@
                     </div>
                 </div>
             </div>
-            <nav id="context-menu" class="context-menu" onmouseup="onBodyMouseUp()" style="left: 451px; top: 285px;">
+            <nav id="context-menu" class="context-menu" onmouseup="currentCimmenu().getContextMenu().toggleMenuOff();" style="left: 451px; top: 285px;pointer-events:auto;">
                 <ul class="context-menu-items">
                     <li class="context-menu-item">
-                        <a class="undefined" onclick="currentCimsvg().getContextMenu().removeComponent()">Delete Component</a>
+                        <a onmouseup="currentCimmenu().getContextMenu().removeComponent()">Delete Component</a>
                     </li>
                 </ul>
             </nav>

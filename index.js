@@ -19,50 +19,44 @@
 let cimsvg = libcimsvg.cimsvg;
 let cimsvgInstance = new cimsvg(
     document.getElementById("svg"),
-    document.getElementById("new-component-dialog"),
+    document.getElementById("new-component-dialog")
 );
 
-let urlTokens = window.location.href.split('?')
-let pairs = urlTokens.slice(1)
-let params = {}
+let urlTokens = window.location.href.split('?');
+let pairs = urlTokens.slice(1);
+let params = {};
+
 for (let index in pairs) {
-    let pair = pairs[index]
+    let pair = pairs[index];
     let param = pair.split('=');
-    if (param.length == 2){
+    if (param.length == 2) {
         params[param[0]] = param[1];
     }
 }
-if ("uri" in params){
-    let uri=params['uri'];
+
+if ("uri" in params) {
+    let uri=params.uri;
     cimsvgInstance.downloadUri(uri);
 }
-document.oncontextmenu = function(e){
-    if(e.preventDefault != undefined) {
+
+document.oncontextmenu = function(e) {
+    if (e.preventDefault != undefined) {
         e.preventDefault();
     }
-    if(e.stopPropagation != undefined) {
+    if (e.stopPropagation != undefined) {
         e.stopPropagation();
     }
-}
+};
 
-var updateComponent = function(type, id, attribute, value) {
-    currentCimsvg().updateComponent(type, id, attribute, value)
-}
-
-var updateComponentRDF = function(type, id, attribute, value) {
-    currentCimsvg().updateComponentRDF(type, id, attribute, value)
-}
-
-var noInputFocus = function(evt) {
+const noInputFocus = function(evt) {
     if (evt.target.nodeName === "BODY") {
-        return true
+        return true;
     }
-    return false
-}
+    return false;
+};
 
 document.onkeydown = function(evt) {
     evt = evt || window.event;
-    let key_press = String.fromCharCode(evt.charCode || evt.keyCode);
 
     /* ctrl + up key */
     if (evt.ctrlKey && (evt.keyCode == 38)) {
@@ -103,93 +97,15 @@ document.onkeydown = function(evt) {
         }
     }
 };
-var onMouseDown = function(){
-};
-var onBodyMouseUp = function(evt){
-    contextMenu.toggleMenuOff();
-};
-var onMouseUp = function(evt){
+
+/* jshint ignore:start */
+const onMouseUp = function(evt){
     if (currentCimmenu()) {
         currentCimmenu().onMouseUp(evt);
     }
 };
-var onMouseMove = function(){
+const onBodyMouseUp = function(evt){
+    contextMenu.toggleMenuOff();
 };
-var onMouseOver = function(evt){
-    let id = evt.currentTarget.id.slice(0,-5);
-    let txt = document.getElementById(id+"-txt0");
-    let bbox = txt.getBBox();
-    let bg = document.getElementById(id+"-bg0");
+/* jshint ignore:end */
 
-    bg.setAttribute("x", bbox.x - 3);
-    bg.setAttribute("y", bbox.y - 3);
-    bg.setAttribute("width", bbox.width + 6);
-    bg.setAttribute("height", bbox.height + 6);
-
-    txt.classList.add("svglabel-high");
-    bg.classList.add("svglabel-high");
-};
-var onMouseLeave = function(evt){
-    let id = evt.currentTarget.id.slice(0,-5);
-    let txt = document.getElementById(id+"-txt0");
-    let bg = document.getElementById(id+"-bg0");
-    txt.classList.remove("svglabel-high");
-    bg.classList.remove("svglabel-high");
-};
-var addClass = function(container, newClass, oldClass1, oldClass2) {
-    let elem = document.getElementById(container);
-    if (oldClass1 != '')
-    {
-        elem.classList.remove(oldClass1)
-    }
-    if (oldClass2 != '')
-    {
-        elem.classList.remove(oldClass2)
-    }
-    elem.classList.add(newClass)
-};
-let hideContainer = function(container) {
-    let x = document.getElementById(container);
-    x.style.display = "none";
-};
-let showContainer = function(container, icon, show="false", newClass="block"){
-    let x = document.getElementById(container);
-    let y = document.getElementById(icon);
-    if ((show == "true") || (x.style.display == "") || (x.style.display == "none")) {
-        x.style.display = newClass;
-        if (y != undefined) {
-            y.innerHTML = '&nbsp;&darr;';
-        }
-    } else {
-        x.style.display = "none";
-        if (y != undefined) {
-            y.innerHTML = '&nbsp;&crarr;';
-        }
-    }
-};
-
-const saveBinaryFile=function(data) {
-    let filesave = document.getElementById("filesave")
-    let element = document.createElement('a');
-    element.setAttribute('href', window.URL.createObjectURL(data));
-    element.setAttribute('download', "pinturaGrid.zip");
-    element.style.display = 'none';
-    filesave.appendChild(element);
-    element.click();
-    filesave.removeChild(element);
-}
-
-function populateAttributes(node, type, id) {
-    cimmenu.populateAttributes(node, type, id);
-};
-function populateAttributesIdOnly(node, id) {
-    cimmenu.populateAttributesIdOnly(node, id);
-};
-if (typeof module !== 'undefined' && module.exports) {
-    global.showContainer = showContainer;
-    global.onMouseLeave = onMouseLeave;
-    global.onMouseOver = onMouseOver;
-    global.onMouseUp = onMouseUp;
-    global.onMouseDown = onMouseDown;
-    global.onMouseMove = onMouseMove;
-};

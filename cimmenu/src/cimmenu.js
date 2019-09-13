@@ -152,6 +152,10 @@ class cimmenu {
         }
     };
 
+    getContextMenu() {
+        return this.contextMenu;
+    }
+
     getListOfVisibleMenus() {
         this.visibleMenus = [];
         Object.keys(this.panels).forEach((panelName, visibleMenus)=>{
@@ -511,6 +515,7 @@ class cimmenu {
         });
     };
 
+    // TODO: this is not the best way to do this
     static getPackageName(type) {
         let packageArray = packageIndex[type.substring(4)];
         let packageName = null;
