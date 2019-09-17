@@ -14,7 +14,7 @@ stages:
 build:docker:
   stage: build
   script:
-    - docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .; docker build -t ${DOCKER_IMAGE}-test .
+    - docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
   tags:
     - shell
 
@@ -29,15 +29,3 @@ deploy:docker:
   only:
     refs:
       - master
-
-deploy:docker-test:
-  stage: deploy
-  script:
-    - echo "docker push ${DOCKER_IMAGE}-test"; docker push ${DOCKER_IMAGE}-test
-  dependencies:
-    - build:docker
-  tags:
-    - shell
-  only:
-    refs:
-      - 86-get-pinturas-working-with-villasweb-and-urlserver-for-demo
