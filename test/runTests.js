@@ -21,7 +21,7 @@ const fs = require('fs')
 const Jasmine = require('jasmine');
 const jasmine = new Jasmine();
 
-fs.access("test/grid-data", fs.F_OK, function(err) {
+fs.access("test/grid-data/CIM", fs.F_OK, function(err) {
     if (!err) {
         // setup Jasmine
         jasmine.loadConfig({
@@ -53,7 +53,8 @@ fs.access("test/grid-data", fs.F_OK, function(err) {
         jasmine.addReporter(reporter);
         jasmine.execute();
     } else {
-        console.error("The test submodule has not been checked out.\nIn order to run the tests, execute:\ngit submodule init\ngit submodule update\n");
+        console.error("The test submodule has not been checked out.\nIn order to run the tests, execute:\ngit submodule update --init\n");
+        process.exit(1);
     }
 });
 

@@ -10,13 +10,16 @@ const xslt = require('./xslt.js');
 const xmlOpt = '--xmlDir';
 const dbgOpt = '--debug';
 
-const createAddComponentMenuFilename = "templates/xslt/cim_add_components_menu.xslt";
-const createAttributeListFilename = "templates/xslt/cim_xml_scheme.xslt";
-const sortMenuXSLTFilename = "templates/xslt/sort_menu.xslt";
-const sortedMenuFilename = "templates/generated/add_components_menu.xml";
-const sortedAllComponentsFilename = "templates/generated/add_all_components_menu.xml";
-const attributeDir = "templates/generated/attributes/";
+const createAddComponentMenuFilename = "/xslt/cim_add_components_menu.xslt";
+const createAttributeListFilename = "/xslt/cim_xml_scheme.xslt";
+const sortMenuXSLTFilename = "/xslt/sort_menu.xslt";
+const sortedMenuFilename = "/generated/add_components_menu.xml";
+const sortedAllComponentsFilename = "/generated/add_all_components_menu.xml";
+const attributeDir = "/generated/attributes/";
 global.window = { clientWidth: 300, clientHeight: 300 };
+global.JSZip = require('jszip');
+global.Handlebars = require('handlebars/runtime');
+const terminalAndPointLimits = require('./terminalAndPointLimits');
 var body = {
     head: { appendChild: function() {} }
 }
@@ -35,9 +38,6 @@ global.document = {
         stuff[place] = thing;
     }
 };
-global.JSZip = require('jszip');
-global.Handlebars = require('handlebars/runtime');
-global.cimsvg = require('../../../cimsvg/lib/libcimsvg.umd.js').cimsvg;
 
 const getOptions = function(args) {
   let options = {};
@@ -99,8 +99,8 @@ const writeArrayOfFiles = function(objects, index, done) {
 
 const createComponentCreationHtml = function(menuXml) {
   let ul = "<ul class='floating-panel-list'>";
-  for (let item in cimsvg.terminalAndPointLimits()) {
-    if (cimsvg.typeIsVisible(item)) {
+  for (let item in terminalAndPointLimits) {
+    if (terminalAndPointLimits.typeIsVisible(item)) {
       let xpathQuery = "/menu/ul/li[@id='" + item.substr(4) + "']";
       let result = menuXml.get(xpathQuery);
       if (result) {

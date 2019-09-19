@@ -55,7 +55,7 @@ let customEachFunction = function(context, options, customize) {
 
             for (let key in customizedContext) {
                 let hasOwnProp = Object.prototype.hasOwnProperty.call(customizedContext, key);
-                if (hasKeyProperty) {
+                if (hasOwnProp) {
                     // We're running the iterations one step out of sync so we can detect
                     // the last iteration without have to scan the object twice and create
                     // an itermediate keys array.

@@ -1,5 +1,30 @@
-FROM node:8-stretch AS builder
+FROM node:8-stretch AS xslt-builder
 
+RUN mkdir /xslt
+WORKDIR /xslt
+COPY cimmenu/templates/xslt/package.json /xslt/package.json
+RUN npm install
+RUN mkdir /data_model
+RUN mkdir /generated
+COPY data_model/cim16/ /data_model/cim16/
+COPY data_model/cim16_entsoe/ /data_model/cim16_entsoe/
+COPY cimmenu/templates/xslt/generateClassStructure.js  \
+     cimmenu/templates/xslt/generateHandlebarTemplates.js \
+     cimmenu/templates/xslt/xslt.js \
+     cimmenu/templates/xslt/terminalAndPointLimits.js \
+     cimmenu/templates/xslt/cim_add_components_menu.xslt \
+     cimmenu/templates/xslt/cim_add_raw_components_menu.xslt \
+     cimmenu/templates/xslt/cim_xml_scheme.xslt \
+     cimmenu/templates/xslt/merge_xml_files.xslt \
+     cimmenu/templates/xslt/sort_menu.xslt /xslt/
+RUN chown -R node:node /data_model /generated /xslt
+USER node
+RUN ls /data_model
+RUN npm run build
+
+FROM node AS builder
+
+COPY --from=xslt-builder /generated /pintura/cimmenu/templates/generated/
 COPY . /pintura
 WORKDIR pintura
 RUN rm -rf node_modules

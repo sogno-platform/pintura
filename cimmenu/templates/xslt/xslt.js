@@ -51,7 +51,7 @@ var performXSLTTranslation = function(xml, xsl, attribute, debug) {
  
   var params = {}
   if (attribute) {
-      log("Setting attribute");
+      log("Setting attribute", attribute.toString());
       params['attribute'] = attribute;
   }
   log("PARAMS: ");
