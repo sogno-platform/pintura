@@ -37,7 +37,7 @@
                     <span class="row-right wide-row floating-panel-value">
                        <input type="text">
                            <xsl:attribute name="value">{{[cim:IdentifiedObject.name]}}</xsl:attribute>
-                           <xsl:attribute name="onchange">javascript:updateComponent('<xsl:value-of select="$type"/>', <xsl:value-of select="concat($apos, $thr_lbr, $parentId, $thr_rbr, $apos)"/>, 'cim:IdentifiedObject.name', this.value)</xsl:attribute>
+                           <xsl:attribute name="onchange">javascript:currentCimsvg().updateComponent('<xsl:value-of select="$type"/>', <xsl:value-of select="concat($apos, $thr_lbr, $parentId, $thr_rbr, $apos)"/>, 'cim:IdentifiedObject.name', this.value)</xsl:attribute>
                        </input>
 <!--
                         <button style="visibility:hidden"> + </button>

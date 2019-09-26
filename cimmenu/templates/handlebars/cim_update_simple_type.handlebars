@@ -1,6 +1,6 @@
 <span class="row-right wide-row floating-panel-value">
     {{#if this.simpletype}}
-        <select onchange="updateComponent('{{type}}', '{{rdfid}}', '{{attribute}}', this.value)" class="update-simple-type">
+        <select onchange="currentCimsvg().updateComponent('{{type}}', '{{rdfid}}', '{{attribute}}', this.value)" class="update-simple-type">
         {{#each values}}
             <option value="{{this.value}}" {{#if this.selected}} selected="selected" {{/if}} >{{this.value}}</option>
         {{/each}}

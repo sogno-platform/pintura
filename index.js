@@ -28,7 +28,7 @@ let params = {};
 for (let index in pairs) {
     let pair = pairs[index];
     let param = pair.split("=");
-    if (param.length == 2){
+    if (param.length === 2){
         params[param[0]] = param[1];
     }
 }
@@ -38,10 +38,10 @@ if ("uri" in params){
 }
 
 document.oncontextmenu = function(e) {
-    if (e.preventDefault != undefined) {
+    if (e.preventDefault !== undefined) {
         e.preventDefault();
     }
-    if (e.stopPropagation != undefined) {
+    if (e.stopPropagation !== undefined) {
         e.stopPropagation();
     }
 };
@@ -57,53 +57,41 @@ document.onkeydown = function(evt) {
     evt = evt || window.event;
 
     /* ctrl + up key */
-    if (evt.ctrlKey && (evt.keyCode == 38)) {
+    if (evt.ctrlKey && (evt.keyCode === 38)) {
         currentCimsvg().cimview.zoomIn();
     }
     /* ctrl + down key */
-    else if (evt.ctrlKey && (evt.keyCode == 40)) {
+    else if (evt.ctrlKey && (evt.keyCode === 40)) {
         currentCimsvg().cimview.zoomOut();
     }
     /* left key */
-    else if (evt.keyCode == 37) {
+    else if (evt.keyCode === 37) {
         if (noInputFocus(evt)) {
             currentCimsvg().cimview.pan({ x: -10, y: 0 });
         }
     }
     /* up key */
-    else if (evt.keyCode == 38) {
+    else if (evt.keyCode === 38) {
         if (noInputFocus(evt)) {
             currentCimsvg().cimview.pan({ x: 0, y: -10 });
         }
     }
     /* right key */
-    else if (evt.keyCode == 39) {
+    else if (evt.keyCode === 39) {
         if (noInputFocus(evt)) {
             currentCimsvg().cimview.pan({ x: 10, y: 0 });
         }
     }
     /* down key */
-    else if (evt.keyCode == 40) {
+    else if (evt.keyCode === 40) {
         if (noInputFocus(evt)) {
             currentCimsvg().cimview.pan({ x: 0, y: 10 });
         }
     }
     /* spacebar */
-    else if (evt.keyCode == 32) {
+    else if (evt.keyCode === 32) {
         if (noInputFocus(evt)) {
             currentCimsvg().cimview.fit();
         }
     }
 };
-
-/* jshint ignore:start */
-const onMouseUp = function(evt){
-    if (currentCimmenu()) {
-        currentCimmenu().onMouseUp(evt);
-    }
-};
-const onBodyMouseUp = function(evt){
-    contextMenu.toggleMenuOff();
-};
-/* jshint ignore:end */
-

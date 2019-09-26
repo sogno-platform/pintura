@@ -218,6 +218,39 @@ body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimme
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
 // TODO move event handlers into code so we don't need this stub
 head.c(new tag('script').a('type', '"text/javascript"').t("var currentCimmenu=function() { return { hideAllMenuPanels: function () {console.log('ok');} }; }"))
+let mouseEventScripts = `
+const onMouseDown = function(){
+};
+const onMouseUp = function(evt){
+    if (currentCimmenu()) {
+        currentCimmenu().onMouseUp(evt);
+    }
+};
+const onMouseMove = function(){
+};
+const onMouseOver = function(evt){
+    let id = evt.currentTarget.id.slice(0,-5);
+    let txt = document.getElementById(id+"-txt0");
+    let bbox = txt.getBBox();
+    let bg = document.getElementById(id+"-bg0");
+
+    bg.setAttribute("x", bbox.x - 3);
+    bg.setAttribute("y", bbox.y - 3);
+    bg.setAttribute("width", bbox.width + 6);
+    bg.setAttribute("height", bbox.height + 6);
+
+    txt.classList.add("svglabel-high");
+    bg.classList.add("svglabel-high");
+};
+const onMouseLeave = function(evt){
+    let id = evt.currentTarget.id.slice(0,-5);
+    let txt = document.getElementById(id+"-txt0");
+    let bg = document.getElementById(id+"-bg0");
+    txt.classList.remove("svglabel-high");
+    bg.classList.remove("svglabel-high");
+};
+`;
+head.c(new tag('script').a('type', '"text/javascript"').t(mouseEventScripts))
 let initScript = `
 var currentCimmenu = libcimmenu.currentCimmenu;
 var currentCimsvg = libcimsvg.currentCimsvg;

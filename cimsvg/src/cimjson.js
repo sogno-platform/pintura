@@ -24,8 +24,6 @@ import net         from "../images/net.svg";
 import tran        from "../images/trans.svg";
 import sola        from "../images/sol.svg";
 import sync        from "../images/sync.svg";
-import topo        from "../images/topo.svg";
-import node        from "../images/node.svg";
 import common      from "./common.js";
 import cimedit     from "./cimedit.js";
 
@@ -46,7 +44,7 @@ class cimjson {
         let categoryGraph = graph[categoryGraphName];
         const imageHeight = 18;
         const imageWidth = 18;
-        if (diagramObject["cim:DiagramObject.IdentifiedObject"] != undefined) {
+        if (diagramObject["cim:DiagramObject.IdentifiedObject"] !== undefined) {
             let rdfId = diagramObject["cim:DiagramObject.IdentifiedObject"]["rdf:resource"].substring(1);
             for (let index in originalPoints) {
                 let point = common.safeExtract(graph, "cim:DiagramObjectPoint", originalPoints[index]);
@@ -66,12 +64,12 @@ class cimjson {
             labelPoint = {
                 "x": (parseInt(preOffsetPoints[0].x) + (imageWidth/2)).toString(),
                 "y": (parseInt(preOffsetPoints[0].y) - (imageHeight/2)).toString()
-	        };
-	        rotation = parseInt(diagramObject["cim:DiagramObject.rotation"]);
+            };
+            rotation = parseInt(diagramObject["cim:DiagramObject.rotation"]);
             rotationCenter = {
                 "x": (parseInt(imagePoints[0].x) + parseInt(imagePoints[0].imageWidth/2)).toString(),
                 "y": (parseInt(imagePoints[0].y) + parseInt(imagePoints[0].imageHeight/2)).toString()
-	        };
+            };
             object = {
                 "pintura:diagram"  : diagramObject["cim:DiagramObject.Diagram"]["rdf:resource"].substring(1),
                 "pintura:image"    : cimjson.getImageName(categoryGraphName),
@@ -128,7 +126,7 @@ class cimjson {
             let categoryGraph = graph[categoryGraphName];
             for (let key in categoryGraph) {
                 let diagramObject = diagramObjects[key];
-                if (diagramObject != undefined) {
+                if (diagramObject !== undefined) {
                     categoryGraph[key][common.pinturaDiagramObject()] = diagramObjects[key][common.pinturaRdfid()];
                     let object = cimjson.convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName);
                     cimjson.addObjectToDiagramList(object, graph, categoryGraphName, diagramList);
@@ -156,7 +154,6 @@ class cimjson {
             let diagramObject = input[key];
             let diagramPlusHash = common.safeExtract(diagramObject, "cim:DiagramObject.Diagram", "rdf:resource");
             if (diagramPlusHash) {
-                let diagram = diagramPlusHash.substring(1);
                 let identifiedObject = common.safeExtract(diagramObject, "cim:DiagramObject.IdentifiedObject");
                 if (identifiedObject) {
                     let identifiedObjectRdfResource = identifiedObject["rdf:resource"].substring(1);
@@ -183,7 +180,7 @@ class cimjson {
                 if (destinationGraph[id][destinationElement] === undefined) {
                     destinationGraph[id][destinationElement] = [];
                 }
-                if (destinationGraph[id][destinationElement].indexOf(matchingNodeId) == -1) {
+                if (destinationGraph[id][destinationElement].indexOf(matchingNodeId) === -1) {
                     destinationGraph[id][destinationElement].push(matchingNodeId);
                 }
             }
@@ -221,17 +218,17 @@ class cimjson {
 
     static getTemplateJson(graph) {
         let diagramObjectsByIdentifiedObjects = {};
-        let refinedGraph = {};
         if (graph["cim:DiagramObject"] !== undefined) {
             let diagramObjects = graph["cim:DiagramObject"];
             let diagramObjectPoints = graph["cim:DiagramObjectPoint"];
             cimjson.addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
             diagramObjectsByIdentifiedObjects = cimjson.indexDiagramGraphByComponentType(diagramObjects);
         }
+        let refinedGraph = {};
         if (graph["cim:Terminal"] !== undefined) {
             refinedGraph = cimjson.refineTerminals(graph);
         }
-        let templateReadyFormat = cimjson.convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, graph);
+        let templateReadyFormat = cimjson.convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, refinedGraph);
         return templateReadyFormat;
     }
 }

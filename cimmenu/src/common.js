@@ -93,7 +93,7 @@ class common {
     static getObjectTypeFromId(graph, id) {
         for (let type in graph) {
             for (let _id in graph[type]) {
-                if (_id == id) {
+                if (_id === id) {
                     return type;
                 }
             }

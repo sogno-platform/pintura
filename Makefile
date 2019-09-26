@@ -29,43 +29,13 @@ ATTRIBUTE_DIR=$(TEMPLATE_DIR)/attributes
 
 all: docker
 
-<<<<<<< HEAD
 docker: cimsvg cimmenu
-=======
-clean:
-	rm -f $(TEMPLATE_DIR)/template.js
-	rm -f $(TEMPLATE_DIR)/add_components_menu.xml
-	rm -fr $(ATTRIBUTE_DIR)
-
-electron_deps:
-	rm -f package.json
-	cp package.json.head package.json
-	npm install --save electron
-	npm install --save-dev electron-mocha jshint mocha webpack
-
-local: index.html $(TEMPLATE_DIR)/template.js $(TEMPLATE_DIR)/add_components_menu.xml
-
-develop: local
-	docker run --rm --detach --publish 80:80 --name pintura-dev \
-		--volume $(shell pwd):/usr/share/nginx/html \
-		nginx
-
-index.html: generateIndex.js
-	node $<  > $@
-
-# Docker related targets
-run-docker: docker
-	docker run $(DOCKER_OPTS) --detach --publish 8082:80 --name=pintura $(DOCKER_IMAGE):latest
-	echo "Access Pintura at http://localhost:8082"
-
-docker:
->>>>>>> Move dockerization of xslt into main docker as extra build container
 	docker build \
 		--tag $(DOCKER_IMAGE) \
 		--iidfile $@ \
 		.
 
-start: docker
+start: stop
 	docker run $(DOCKER_OPTS) --detach --publish 8082:80 --name=pintura $(DOCKER_IMAGE):latest
 	echo "Access Pintura at http://localhost:8082"
 

@@ -45,7 +45,7 @@ class cimxml {
             child.setAttribute("rdf:ID", object[common.pinturaRdfid()]);
         }
         for (let item in object) {
-            if(item.substring(0, 7) != "pintura") {
+            if(item.substring(0, 7) !== "pintura") {
                 cimxml.addChild(object[item], item, baseXml, child);
             }
         }
@@ -191,7 +191,7 @@ class cimxml {
     /*
      * Here comes some more data
      */
-    static moreXmlData(text, xmlDoc, draw=true) {
+    static moreXmlData(text, xmlDoc) {
 
         let newDoc = cimxml.getDOM(text);
         let cimVersion, entsoe;
@@ -215,8 +215,6 @@ class cimxml {
             else {
                 cimVersion = newDoc.documentElement.getAttribute("xmlns:cim");
             }
-        }
-        else {
         }
 
         entsoe = xmlDoc.documentElement.getAttribute("xmlns:entsoe");

@@ -82,10 +82,10 @@ class cimmenu {
     onMouseUp(evt) {
         let rightclick;
         if (evt.which) {
-            rightclick = (evt.which == 3);
+            rightclick = (evt.which === 3);
         }
         else if (evt.button) {
-            rightclick = (evt.button == 2);
+            rightclick = (evt.button === 2);
         }
         let id = evt.currentTarget.id.slice(0,-5);
         let type = evt.currentTarget.parentElement.getAttribute("type");
@@ -127,7 +127,7 @@ class cimmenu {
     }
 
     resizeListener(_window) {
-        _window.onresize = (e)=> {
+        _window.onresize = () => {
             this.calculateScreenHeight();
             this.contextMenu.toggleMenuOff();
         };
@@ -158,7 +158,7 @@ class cimmenu {
 
     getListOfVisibleMenus() {
         this.visibleMenus = [];
-        Object.keys(this.panels).forEach((panelName, visibleMenus)=>{
+        Object.keys(this.panels).forEach( ( panelName ) => {
             if (this.panels[panelName] !== undefined) {
                 if (!this.panels[panelName].classList.contains("invisible")) {
                     this.visibleMenus.push(panelName);
@@ -265,7 +265,7 @@ class cimmenu {
 
     showPanel(panelName) {
         let panel = this.panels[panelName];
-        if (panel != undefined) {
+        if (panel !== undefined) {
             if(panel.classList.contains("invisible")) {
                 panel.classList.remove("invisible");
             }
@@ -287,7 +287,7 @@ class cimmenu {
 
     hidePanels(panels) {
         panels.forEach((panelClass)=>{
-            if (this.panels[panelClass] != undefined) {
+            if (this.panels[panelClass] !== undefined) {
                 this.panels[panelClass].classList.add("invisible");
             }
         });
@@ -295,8 +295,8 @@ class cimmenu {
 
     hidePanel(panelName) {
         let panel = this.panels[panelName];
-        if (panel != undefined) {
-            if (panel != undefined) {
+        if (panel !== undefined) {
+            if (panel !== undefined) {
                 panel.classList.add("invisible");
             }
         }
@@ -398,7 +398,7 @@ class cimmenu {
             if (id) {
                 justTheseComponents["Diagram"][diagramId]["components"][componentType][id].selected = "selected";
             }
-            if(this.panels.componentsPanel != null) {
+            if(this.panels.componentsPanel !== null) {
                 cimmenu.populatePanelWithTemplate(this.panels.componentsPanel, justTheseComponents, "handlebars_pinturaJson2ComponentOfTypeList", "Component Types");
             }
             if(id) {
@@ -500,7 +500,7 @@ class cimmenu {
     static populateAttributesIdOnly (node, cimVersion, id) {
         cimmenu.cimsvgFunction(()=> {
             let type = currentCimsvg().getObjectTypeUsingId(id);
-            if (type != undefined) {
+            if (type !== undefined) {
                 cimmenu.populateAttributes(node, type, cimVersion, id);
             }
             else {
@@ -540,7 +540,7 @@ class cimmenu {
     populate(node, type, cimVersion, id) {
         cimmenu.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
-            if (id == "No Object" || id == "Missing rdf:resource") {
+            if (id === "No Object" || id === "Missing rdf:resource") {
                 return;
             }
             let attributes = common.safeExtract(baseJson, type, id);
@@ -603,7 +603,7 @@ class cimmenu {
     }
 
     populateTerminals (type, cimVersion, rdfid) {
-        cimmenu.cimsvgFunction(()=> {
+        let menuData = cimmenu.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
             if (baseJson[type] && baseJson[type][rdfid]) {
                 let template = templates.handlebars_cim_list_terminals;
@@ -616,7 +616,7 @@ class cimmenu {
                 let end = `;'> + </button>
                     </span>
                 `;
-                let menuData = begin + click + end;
+                menuData = begin + click + end;
                 for (let index in terminals) {
                     let terminalId = terminals[index];
                     let terminal = baseJson["cim:Terminal"][terminalId];
@@ -632,6 +632,7 @@ class cimmenu {
             else {
                 console.error("Couldn't find " + rdfid + " in " + baseJson[type]);
             }
+            return menuData;
         });
 
         cimmenu.populatePanelWithData(this.panels.allComponentsPanel, menuData, "Terminals");

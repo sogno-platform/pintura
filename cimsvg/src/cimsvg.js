@@ -32,7 +32,7 @@ class cimsvg {
         this.svgNode = svg;
         this.dialog = dialog;
         this.cimview = new cimview(svg);
-        if(dialog != undefined) {
+        if(dialog !== undefined) {
             this.loadXml("dist/add_components_menu.xml", (xml)=>{
                 this.componentCreationHtml = xml.documentElement.outerHTML;
             });
@@ -72,7 +72,7 @@ class cimsvg {
     }
 
     updateCimmenu(func) {
-        if(this.cimmenu != null) {
+        if(this.cimmenu !== null) {
             return func();
         }
         return null;
@@ -88,7 +88,7 @@ class cimsvg {
             return 0;
         }
         let object = common.safeExtract(this.getBaseJson(), type, id);
-        if (object == undefined) {
+        if (object === undefined) {
             console.error("No object with id: ", id, " in category: ", type);
             return 0;
         }
@@ -136,7 +136,7 @@ class cimsvg {
      */
     checkIfParseReady() {
         if (this.rdfFileReceived > 0) {
-            if (this.rdfFileCount == this.rdfFileReceived) {
+            if (this.rdfFileCount === this.rdfFileReceived) {
                 return true;
             }
         }
@@ -200,7 +200,7 @@ class cimsvg {
         let newTag = dom.createElement("script");
         newTag.type = "text/javascript";
         newTag.src=fileName;
-        if ( callback != undefined ) {
+        if ( callback !== undefined ) {
             newTag.onload=function() {
                 callback();
             };
@@ -262,7 +262,7 @@ class cimsvg {
             let terminals = baseJson[type][rdfid][common.pinturaTerminals()];
             if (terminals) {
                 let index = terminals.indexOf(terminalId);
-                if (index != -1) {
+                if (index !== -1) {
                     terminals.splice(index);
                 }
                 else {
@@ -276,7 +276,7 @@ class cimsvg {
         }
     }
 
-    updateGridLocation (node, length) {
+    updateGridLocation (node) {
         node.style.gridArea = "1 / 1 / 8 / 2";
     }
 
@@ -292,7 +292,7 @@ class cimsvg {
         if (diagramId) {
             let justThisDiagram = { "Diagram": { [diagramId]: diagram } };
             let componentTypesPanel = this.getColumnPanel(".component-types-panel");
-            if(componentTypesPanel != null) {
+            if(componentTypesPanel !== null) {
                 this.updateCimmenu(()=>{ this.cimmenu.populatePanelWithTemplate(componentTypesPanel, justThisDiagram, "pinturaJson2DiagramComponentTypeList", "Component Types"); });
             }
         }
@@ -300,12 +300,10 @@ class cimsvg {
 
     populateComponentsOfTypeListForDiagramAndComponentType(diagramId, componentType) {
         let components = common.safeExtract(this.templateJson, "Diagram", diagramId, "components", componentType);
-        let diagram = common.safeExtract(this.templateJson, "Diagram", diagramId);
         if (diagramId) {
-            let justThisDiagram = { "Diagram": { [diagramId]: diagram } };
             let justTheseComponents = { "Diagram": { [diagramId]: { "components": { [componentType]: components } } } };
             let componentsPanel = this.getColumnPanel(".components-panel");
-            if(componentsPanel != null) {
+            if(componentsPanel !== null) {
                 this.updateCimmenu(()=>{ this.cimmenu.populatePanelWithTemplate(componentsPanel, justTheseComponents, "pinturaJson2ComponentOfTypeList", "Component Types"); });
             }
         }
@@ -328,7 +326,7 @@ class cimsvg {
     uriChooser(prev) {
         let response = prompt("Enter URI", prev || this.uri);
 
-        if (response == null || response == "") {
+        if (response === null || response === "") {
             return undefined;
         } else {
             return response;
@@ -367,7 +365,7 @@ class cimsvg {
         let visibleMenus = this.updateCimmenu(()=>{ return this.cimmenu.getListOfVisibleMenus(); });
         let rdfid = null;
         this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
-        if (this.addingType != null) {
+        if (this.addingType !== null) {
             let type = this.addingType;
             let point = this.addingPoint;
             rdfid = this.addComponentAndApplyTemplates(type, point);
@@ -440,7 +438,7 @@ class cimsvg {
         if (regex.length > 1) {
             let newCimVersion = regex[1];
             if (this.cimVersionFromFile) {
-                if (this.cimVersion != newCimVersion) {
+                if (this.cimVersion !== newCimVersion) {
                     console.error("Files loaded with non-matching cim versions!");
                     return false;
                 }
@@ -469,8 +467,6 @@ class cimsvg {
                 this.cimVersion = "cgmes";
                 this.entsoe     = "";
             }
-            let oSerializer = cimxml.getXMLSerializer();
-            var sXML = oSerializer.serializeToString(this.getXmlDoc());
             this.incFileReceivedCount();
             if (this.checkIfParseReady()) {
                 this.setBaseJson(cimxml.createObjectGraphFromXml(this.getXmlDoc()));
@@ -539,7 +535,7 @@ class cimsvg {
         let value = { "rdf:resource" : "#" + rdfid };
         this.updateComponentInBaseJson(type, id, attribute, value);
         this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value); });
-        if (type == "cim:Terminal" && attribute == "cim:Terminal.TopologicalNode") {
+        if (type === "cim:Terminal" && attribute === "cim:Terminal.TopologicalNode") {
             let baseJson = this.getBaseJson();
             cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);
             /* TODO: are we doing too much work here? */
@@ -551,7 +547,7 @@ class cimsvg {
     toggleDiagramVisible(id, icon) {
         let diagram = this.svgNode.querySelector("#" + id);
         let diagramComponents = this.cimmenu.panels["diagramsPanel"];
-        if(diagramComponents != null) {
+        if(diagramComponents !== null) {
             let iconNode = diagramComponents.querySelector("#" + icon);
             if (diagram.classList.contains("invisible")) {
                 diagram.classList.remove("invisible");
@@ -588,13 +584,12 @@ class cimsvg {
     }
 
     uploadToUri(uri) {
-        let fileString = "";
         let uriSuffix = uri.substring(uri.length-4);
-        if (uriSuffix == ".xml") {
+        if (uriSuffix === ".xml") {
             let data = this.exportXmlData();
             cimfile.uploadAsText(data, uri);
         }
-        else if (uriSuffix == ".zip") {
+        else if (uriSuffix === ".zip") {
             let data = this.exportXmlData();
             cimfile.uploadAsZip(data, uri);
         }
@@ -606,10 +601,10 @@ class cimsvg {
      */
     downloadUri(uri) {
         fetch(uri,{ headers: { "Accept": "application/xml, application/json, text/plain" }}).then((response)=>{
-            let filename=response.headers.get('Content-Disposition');
+            let filename=response.headers.get("Content-Disposition");
             if (filename.length > 4) {
-                let suffix=filename.substring(filename.length - 4)
-                if (suffix == '.xml') {
+                let suffix=filename.substring(filename.length - 4);
+                if (suffix === ".xml") {
                     response.text().then((text)=>{
                         this.setFileCount(1);
                         this.loadFile(text);
@@ -617,7 +612,7 @@ class cimsvg {
                         this.uri = uri;
                     });
                 }
-                else if (suffix == '.zip') {
+                else if (suffix === ".zip") {
                     response.blob().then((blob)=>{
                         this.importZip(uri, blob);
                         this.setTitle(uri);
@@ -626,7 +621,7 @@ class cimsvg {
                 }
             }
         });
-    };
+    }
 
     /*
      * This function is used to import the menu xml
@@ -637,10 +632,10 @@ class cimsvg {
         // Define which file to open and
         Connect.open("GET", fileName, true);
         Connect.setRequestHeader("Content-Type", "text/xml");
-        Connect.onerror = function (e) {
+        Connect.onerror = function () {
             alert("Failed to download " + fileName);
         };
-        Connect.onload = function (e) {
+        Connect.onload = function () {
             if(Connect.readyState === 4) {
                 if(Connect.status === 200) {
                     callback(Connect.responseXML);
@@ -659,13 +654,13 @@ class cimsvg {
         let type = undefined;
         for (let types in baseJson) {
             for (let rdfid in baseJson[types]) {
-                if (id == rdfid) {
+                if (id === rdfid) {
                     type = types;
                     continue;
                 }
             }
         }
-        if (type != undefined) {
+        if (type !== undefined) {
             return baseJson[type][id];
         }
         else {
@@ -692,7 +687,7 @@ class cimsvg {
     getRdfResource(object) {
         if (object) {
             let rdfid = object["rdf:resource"];
-            if (rdfid != undefined) {
+            if (rdfid !== undefined) {
                 return rdfid.substring(1);
             }
         }

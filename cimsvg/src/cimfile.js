@@ -68,9 +68,9 @@ class cimfile {
                 var oReq = new XMLHttpRequest();
                 oReq.open("POST", uri, true);
                 oReq.setRequestHeader("Accept", "text/plain");
-                oReq.onreadystatechange = function (oEvent) {
+                oReq.onreadystatechange = function () {
                     if (oReq.readyState === 4) {
-                        if (oReq.status != 200) {
+                        if (oReq.status !== 200) {
                             console.error("Error [", oReq.statusText, "](", oReq.status, ")");
                         }
                     }
@@ -89,8 +89,7 @@ class cimfile {
                 "Content-Type": "text/plain"
             },
             body: xml
-        }).then(res=>res.text())
-            .then(res => { let json = JSON.parse(res); });
+        }).then(res=>res.text());
     }
 
     static sortJsonKeys(unordered) {

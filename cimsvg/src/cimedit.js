@@ -17,7 +17,7 @@
  */
 
 import common from "./common.js";
-import { cimsvg, currentCimsvg } from "./cimsvg.js";
+import { currentCimsvg } from "./cimsvg.js";
 
 class cimedit {
 
@@ -289,15 +289,12 @@ class cimedit {
 
     static removeComponentFromBaseJson(jsonBaseData, type, rdfid) {
         if (type === "cim:DiagramObject") {
-            let diagramObject = common.safeExtract(jsonBaseData, "cim:DiagramObject", rdfid);
             let points = common.safeExtract(jsonBaseData, "cim:DiagramObject", rdfid, common.pinturaDiagramObjectPoints());
             points.forEach( function(point) {
                 cimedit.removeComponentFromBaseJson(jsonBaseData, "cim:DiagramObjectPoint", point);
             });
         }
-        else if (type === "cim:Terminal") {
-        }
-        else {
+        else if (type !== "cim:Terminal") {
             let diagramObjectId = common.safeExtract(jsonBaseData, type, rdfid, "diagramObject");
             if (diagramObjectId) {
                 cimedit.removeComponentFromBaseJson(jsonBaseData, "cim:DiagramObject", diagramObjectId);
@@ -318,14 +315,14 @@ class cimedit {
         return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
     }
 
-    static addComponentToBaseJson(jsonBaseData, type, point, diagramId) {
+    static addComponentToBaseJson(jsonBaseData, type, point) {
         // TODO: diagramId is ignored.
 
-        if (type == "cim:Diagram") {
+        if (type === "cim:Diagram") {
             return cimedit.makeDiagram(jsonBaseData);
         }
 
-        if (cimedit.terminalAndPointLimits[type] != undefined) {
+        if (cimedit.terminalAndPointLimits[type] !== undefined) {
             if (cimedit.typeIsVisible(type)) {
                 return cimedit.makeVisibleComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, cimedit.terminalAndPointLimits[type]);
             }

@@ -300,9 +300,9 @@ const processArrayOfCategoryMaps = function(mapArray) {
         }
         writeHandlebarsFile(profileName, className, classJson['attributes'], render, indexData, cgmesIndex);
     });
-    writeToFile(indexPath, "export default " + JSON.stringify(indexData, true, 2));
-    writeToFile(cgmesPath, "export default " + JSON.stringify(cgmesIndex, true, 2));
-    writeToFile(concretePath, "export default " + JSON.stringify(concreteClassList, true, 2));
+    writeToFile(indexPath, "export default " + JSON.stringify(indexData, true, 4) + ";");
+    writeToFile(cgmesPath, "export default " + JSON.stringify(cgmesIndex, true, 4) + ";");
+    writeToFile(concretePath, "export default " + JSON.stringify(concreteClassList, true, 4) + ";");
 }
 
 const getAboutOrResource = function(object, log = false) {
