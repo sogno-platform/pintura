@@ -23,13 +23,7 @@ class cimview {
         let rect = { x: "-100", y: "-100", width: "1024", height: "768" };
         this.setViewBox(rect);
         this.zoomSizes = [
-            { width: 1024, height: 768 },
-            { width: 920, height: 690 },
-            { width: 816, height: 612 },
-            { width: 712, height: 532 },
-            { width: 608, height: 456 },
-            { width: 504, height: 378 },
-            { width: 400, height: 300 },
+            { width: 400, height: 300 }
         ];
         this.zoomLevel = 0;
     }
@@ -58,7 +52,8 @@ class cimview {
         let level = this.zoomLevel+1;
         let lastIndex = this.zoomSizes.length-1;
         if (level > lastIndex) {
-            level = lastIndex;
+            let currentWidth = this.zoomSizes[lastIndex].width;
+            this.addNewZoomSize(currentWidth);
         }
         this.zoomToLevel(level);
         //document.getElementById("zoomer").value=level;
@@ -166,6 +161,43 @@ class cimview {
         return position.matrixTransform(m.inverse());
     }
 
+    addNewZoomSize(currentWidth) {
+        let newWidth = currentWidth + 104;
+        let newHeight = newWidth * 0.75;
+        let zoomSize = {
+            width: newWidth,
+            height: newHeight
+        };
+        this.zoomSizes.push(zoomSize);
+        return zoomSize;
+    }
+
+    getZoomSize(diagramBoundary) {
+        let required = {};
+        let newZoomSize = {
+            width: this.zoomSizes[this.zoomSizes.length-1].width,
+            height: this.zoomSizes[this.zoomSizes.length-1].height
+        };
+        let currentIndex = this.zoomSizes.length-1;
+        while (!(required.widthFound && required.heightFound)) {
+            newZoomSize = this.addNewZoomSize(newZoomSize.width);
+            currentIndex += 1;
+            if (newZoomSize.height > diagramBoundary.height) {
+                if (!required.heightFound) {
+                    required.heightFound = true;
+                    required.height = currentIndex;
+                }
+            }
+            if (newZoomSize.width > diagramBoundary.width) {
+                if (!required.widthFound) {
+                    required.widthFound = true;
+                    required.width = currentIndex;
+                }
+            }
+        }
+        return required;
+    }
+
     fit() {
         // TODO : this just uses the last diagram, instead of the
         // set of all boundaries. Fine for one diagram.
@@ -174,7 +206,10 @@ class cimview {
         diagramList.forEach(function(diagram) {
             diagramBoundary = diagram.getBBox();
         });
+        let required = this.getZoomSize(diagramBoundary);
+        let zoomLevel = required.width > required.height ? required.width : required.height;
         this.setViewBox(diagramBoundary);
+        this.zoomToLevel(zoomLevel);
     }
 
     getViewBox() {
