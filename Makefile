@@ -40,6 +40,6 @@ start: stop
 	echo "Access Pintura at http://localhost:8082"
 
 stop:
-	docker container stop pintura
+	$(shell echo ./stop_docker.sh)
 
 .PHONY: all docker start stop
