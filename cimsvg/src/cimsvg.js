@@ -448,6 +448,7 @@ class cimsvg {
         }
         else {
             console.error("Failed to parse cim version.");
+            return false;
         }
         this.entsoe = entsoe ? "_entsoe" : "";
         return true;
@@ -457,7 +458,6 @@ class cimsvg {
         if (!this.getXmlDoc()) {
             this.setXmlDoc(cimxml.getDOM("<rdf:RDF "+cimxml.xmlns()+"/>"));
         }
-
         let cimParse = cimxml.moreXmlData(fileContents, this.getXmlDoc());
         if (cimParse) {
             if (this.rdfFileCount === 1) {

@@ -1,0 +1,17 @@
+<span class="row-right wide-row  floating-panel-value">
+    <select value="{{value}}" id="{{dropdownId}}" type="select" onchange="currentCimsvg().updateComponent('{{classType}}', '{{parentRdfid}}', '{{attribute}}', this.value)">
+        <option>Select</label>
+        {{#eq value "True"}}
+            <option selected="selected" value="True">True</label>
+        {{else}}
+            <option value="True">True</label>
+        {{/eq}}
+        {{#eq value "False"}}
+            <option selected="selected" value="False">False</label>
+        {{else}}
+            <option value="False">False</label>
+        {{/eq}}
+    </select>
+    <button class="hiddenbutton"> + </button>
+    <button class="hiddenbutton"> -> </button>
+</span>

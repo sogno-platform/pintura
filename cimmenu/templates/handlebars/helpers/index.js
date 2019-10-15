@@ -139,8 +139,7 @@ class aggregateRenderer {
         return templates.handlebars_cim_render_string(data)
     }
     static renderBoolean(data) {
-        // TODO: WRONG!
-        return templates.handlebars_cim_render_string(data)
+        return templates.handlebars_cim_render_boolean(data)
     }
     static renderInteger(data) {
         // TODO: WRONG!
@@ -216,8 +215,16 @@ const getAggregateComponentMenuCIM16 = function(details){
 
 export default function(Handlebars) {
 
-  Handlebars.registerHelper('neq', function neq(v1, v2, options) {
+  Handlebars.registerHelper('neq', function (v1, v2, options) {
     if(v1 !== v2) {
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  });
+
+  Handlebars.registerHelper('eq', function (v1, v2, options) {
+    console.log("v1: ", v1, " v2: ", v2, " options: ", options);
+    if(v1 == v2) {
       return options.fn(this);
     }
     return options.inverse(this);

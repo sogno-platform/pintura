@@ -248,9 +248,7 @@ const selectPrimitiveRenderFunction = function(primitive){
         render = '"renderString"';
     }
     else if (primitive == "Boolean") {
-        // TODO: Implementation Required!
-        console.error("Boolean primitive renderer not implemented!")
-        render = '"renderString"';
+        render = '"renderBoolean"';
     }
     else if (primitive == "Date") {
         console.error("Date primitive renderer not implemented!")
