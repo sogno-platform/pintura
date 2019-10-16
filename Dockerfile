@@ -8,7 +8,7 @@ RUN mkdir /data_model
 RUN mkdir /generated
 COPY data_model/cim16/ /data_model/cim16/
 COPY data_model/cim16_entsoe/ /data_model/cim16_entsoe/
-COPY cimmenu/templates/xslt/generateClassStructure.js  \
+COPY cimmenu/templates/xslt/generateClassStructure.js \
      cimmenu/templates/xslt/generateHandlebarTemplates.js \
      cimmenu/templates/xslt/xslt.js \
      cimmenu/templates/xslt/terminalAndPointLimits.js \

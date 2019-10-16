@@ -223,7 +223,6 @@ export default function(Handlebars) {
   });
 
   Handlebars.registerHelper('eq', function (v1, v2, options) {
-    console.log("v1: ", v1, " v2: ", v2, " options: ", options);
     if(v1 == v2) {
       return options.fn(this);
     }
@@ -289,7 +288,6 @@ export default function(Handlebars) {
   });
 
   Handlebars.registerHelper('getAggregateComponentMenu', function (classType, parentId, rdfid, type, attribute) {
-    //console.log("getAggregateComponentMenu: ", classType, parentId, rdfid, type, attribute)
     let completeAttributeName;
     let tokens = attribute.split(['.'])
     if (tokens.length == 2) {

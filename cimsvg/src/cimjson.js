@@ -121,8 +121,7 @@ class cimjson {
         let diagramList = output["Diagram"];
 
         /* List the objects to be drawn by diagram */
-        for (let categoryGraphName in cimjson.imageNames) {
-
+        for (let categoryGraphName in graph) {
             let categoryGraph = graph[categoryGraphName];
             for (let key in categoryGraph) {
                 let diagramObject = diagramObjects[key];

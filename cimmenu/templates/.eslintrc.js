@@ -1,28 +1,19 @@
-{
+module.exports = {
     "env": {
         "browser": true,
-        "es6": true
+        "commonjs": true,
+        "es6": true,
+        "node": true
     },
     "extends": "eslint:recommended",
     "globals": {
         "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly",
-        "currentCimsvg": "readonly",
-        "currentCimmenu": "readonly",
-        "libcimsvg": "readonly"
+        "SharedArrayBuffer": "readonly"
     },
     "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
+        "ecmaVersion": 2018
     },
     "rules": {
-        "eqeqeq": [
-            "error",
-            "always",
-            {
-                "null": "ignore"
-            }
-        ],
         "indent": [
             "error",
             4
@@ -35,10 +26,11 @@
             "error",
             {
                 "allow": [
-                    "error"
+                    "warn", "error", "log"
                 ]
             }
         ],
+        "no-useless-escape": "off",
         "quotes": [
             "error",
             "double"
@@ -48,4 +40,4 @@
             "always"
         ]
     }
-}
+};
