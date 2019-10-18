@@ -29,6 +29,13 @@ ATTRIBUTE_DIR=$(TEMPLATE_DIR)/attributes
 
 all: docker
 
+dev: cimsvg cimmenu
+	docker build \
+		--file Dockerfile.dev \
+		--tag $(DOCKER_IMAGE) \
+		--iidfile $@ \
+		.
+
 docker: cimsvg cimmenu
 	docker build \
 		--tag $(DOCKER_IMAGE) \
@@ -42,4 +49,4 @@ start: stop
 stop:
 	$(shell echo ./stop_docker.sh)
 
-.PHONY: all docker start stop
+.PHONY: all dev docker start stop

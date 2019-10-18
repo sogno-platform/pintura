@@ -11,7 +11,7 @@
     "generateCgmesHandlebars": "node templates/generateCgmesTemplates.js",
     "createIndex": "cd templates && node createIndex.js > index.js && node createCgmesIndex.js > cgmesIndex.js",
     "templates": "npm run generateCgmesHandlebars && npm run createIndex",
-    "package": "rollup -c",
+    "package": "rollup -c ${ROLLUP_FLAGS}",
     "build": "npm install && npm run templates && npm run package"
   },
   "devDependencies": {

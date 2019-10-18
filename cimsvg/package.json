@@ -8,7 +8,7 @@
     "url": "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "rollup -c ${ROLLUP_FLAGS}",
     "test": ""
   },
   "devDependencies": {

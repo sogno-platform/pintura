@@ -1,0 +1,56 @@
+FROM node:8-stretch AS xslt-builder
+
+RUN mkdir /xslt
+WORKDIR /xslt
+COPY cimmenu/templates/xslt/package.json /xslt/package.json
+RUN npm install
+RUN mkdir /data_model
+RUN mkdir /generated
+COPY data_model/cim16/ /data_model/cim16/
+COPY data_model/cim16_entsoe/ /data_model/cim16_entsoe/
+COPY cimmenu/templates/xslt/generateClassStructure.js \
+     cimmenu/templates/xslt/generateHandlebarTemplates.js \
+     cimmenu/templates/xslt/xslt.js \
+     cimmenu/templates/xslt/terminalAndPointLimits.js \
+     cimmenu/templates/xslt/cim_add_components_menu.xslt \
+     cimmenu/templates/xslt/cim_add_raw_components_menu.xslt \
+     cimmenu/templates/xslt/cim_xml_scheme.xslt \
+     cimmenu/templates/xslt/merge_xml_files.xslt \
+     cimmenu/templates/xslt/sort_menu.xslt /xslt/
+RUN chown -R node:node /data_model /generated /xslt
+USER node
+RUN ls /data_model
+RUN npm run build
+
+FROM node AS builder
+
+COPY --from=xslt-builder /generated /pintura/cimmenu/templates/generated/
+COPY . /pintura
+WORKDIR pintura
+RUN rm -rf node_modules
+RUN npm install
+RUN npm run build-dev
+
+FROM nginx
+
+RUN mkdir -p /usr/share/nginx/html/templates
+
+COPY images   /usr/share/nginx/html/images
+COPY css      /usr/share/nginx/html/css
+COPY index.js /usr/share/nginx/html
+
+COPY --from=builder /pintura/dist /usr/share/nginx/html/dist/
+COPY --from=builder /pintura/index.html /usr/share/nginx/html/
+
+LABEL \
+	org.label-schema.schema-version = "1.0" \
+	org.label-schema.name = "Pintura" \
+	org.label-schema.license = "GPL-3.0" \
+	org.label-schema.vendor = "Institute for Automation of Complex Power Systems, RWTH Aachen University" \
+	org.label-schema.author.name = "Richard Marston" \
+	org.label-schema.author.email = "rmarston@eonerc.rwth-aachen.de" \
+	org.label-schema.maintainer.name = "Steffen Vogel" \
+	org.label-schema.maintainer.email = "stvogel@eonerc.rwth-aachen.de" \
+	org.label-schema.description = "Pintura is a graphical editor for CIM XML-RDF files. CIM refers to the Common Information Model (CIM) standard (i.e. IEC61970/61968/62325) for the energy sector." \
+	org.label-schema.url = "http://fein-aachen.org/projects/pintura/" \
+	org.label-schema.vcs-url = "http://git.rwth-aachen.de/acs/core/cim/pintura"

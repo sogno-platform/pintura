@@ -20,17 +20,26 @@ import term        from "../images/term.svg";
 import brea        from "../images/brea.svg";
 import conn        from "../images/conn.svg";
 import cons        from "../images/cons.svg";
+import gene        from "../images/gene.svg";
 import net         from "../images/net.svg";
 import tran        from "../images/trans.svg";
 import sola        from "../images/sol.svg";
 import sync        from "../images/sync.svg";
+
 import common      from "./common.js";
 import cimedit     from "./cimedit.js";
 
 class cimjson {
 
     static getImageName(type) {
-        return cimjson.imageNames[type];
+        let imageName;
+        if (cimjson.imageNames[type] !== undefined) {
+            imageName = cimjson.imageNames[type];
+        }
+        else {
+            imageName = cimjson.imageNames["generic"];
+        }
+        return imageName;
     }
 
     static convertDiagramObjectToTemplateFormat(diagramObject, graph, categoryGraphName) {
@@ -245,6 +254,7 @@ cimjson.imageNames = {
     "cim:SynchronousMachine":        sync,
     "cim:TopologicalNode":           conn,
     "cim:TransformerWinding":        tran,
+    "generic":                       gene
 };
 
 
