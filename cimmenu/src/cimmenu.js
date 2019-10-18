@@ -676,7 +676,7 @@ cimmenu.menuStructure = {
                         "id": "filesave",
                     },
                     "a": {
-                        "onclick" : "currentCimsvg().saveGridXml();currentCimmenu().hidePanel('file-menu-panel')",
+                        "onclick" : "currentCimsvg().saveGridXml('pinturaGrid.xml');currentCimmenu().hidePanel('file-menu-panel')",
                         "text" : "Save to file 🖿",
                     }
                 },
