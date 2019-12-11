@@ -124,10 +124,6 @@ function tag(name){
     return this
   }
 }
-var makeFileMenu = function (links) {
-  let menu = new tag('div')
-  menu.a('id', '"menu"')
-}
 var makeAccordionDiv = function(id, action) {
   return new tag('div').a('id', '"'+id+'"').c(new tag('div').a('id', '"'+id+'-accordion"').t(" "))
 }

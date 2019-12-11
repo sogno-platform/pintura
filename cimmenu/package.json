@@ -12,12 +12,16 @@
     "createIndex": "cd templates && node createIndex.js > index.js && node createCgmesIndex.js > cgmesIndex.js",
     "templates": "npm run generateCgmesHandlebars && npm run createIndex",
     "package": "rollup -c ${ROLLUP_FLAGS}",
-    "build": "npm install && npm run templates && npm run package"
+    "build": "npm install && npm run templates && npm run package",
+    "build-dev": "export ROLLUP_FLAGS=' --sourcemap inline'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build"
   },
   "devDependencies": {
     "async": "^3.1.0",
+    "@babel/preset-react": "^7.4.0",
     "fast-glob": "^2.2.6",
+    "rollup": "^1.7.0",
     "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-handlebars-plus": "^0.2.3",
     "xml2js": "^0.4.19"
   }
