@@ -16,7 +16,7 @@
     "libs": "npm run cimmenu_base && npm run cimsvg && npm run cimmenu",
     "generateIndex": "node generateIndex.js $(npm config get mode) > index.html",
     "makeDist": "cp -a cimmenu/templates/generated/*.xml cimmenu/lib/*.js cimsvg/lib/*.js dist",
-    "build-tasks": "npm run makeDirs && npm run libs && npm run generateIndex && npm run makeDist && npm run test",
+    "build-tasks": "npm run makeDirs && npm run libs && npm run generateIndex && npm run makeDist",
     "build": "npm config set mode production && npm run build-tasks",
     "build-dev": "export ROLLUP_FLAGS=' --sourcemap inline'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build-tasks",
     "initializeTests": "node node_modules/jasmine/bin/jasmine init",

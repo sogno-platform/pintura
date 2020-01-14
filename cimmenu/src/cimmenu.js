@@ -20,13 +20,15 @@ import templates from "../templates/index.js";
 import common from "./common.js";
 import contextmenu from "./contextmenu.js";
 import packageIndex from "../templates/packageIndex.js";
+import Menu from "./react-menu.js";
+const e = React.createElement;
 
 class cimmenu {
 
     constructor(node) {
+        this.reactMenu = e(libcimmenu.Menu)
+        ReactDOM.render(this.reactMenu, node);
         this.menuNode                = node;
-        this.template                = templates.handlebars_menu;
-        node.innerHTML               = this.template("");
         this.panels = {
             "diagramsPanel"          : this.menuNode.querySelectorAll(".diagrams-panel")[0],
             "componentsPanel"        : this.menuNode.querySelectorAll(".components-panel")[0],
@@ -41,21 +43,25 @@ class cimmenu {
         this.populateFileLinks();
         this.addEventListeners(this.menuNode);
         this.calculateScreenHeight();
-        cimmenu.cimsvgFunction(()=> { currentCimsvg().setCimmenu(this); });
         cimmenu.setCimmenu(this);
+        this.cimsvg                 = false;
         this.contextMenu = new contextmenu(this.menuNode.querySelector("#context-menu"), "context-menu");
         this.contextMenu.keyUpListener(window);
     }
 
-    static cimsvgFunction(func) {
+    cimsvgFunction(func) {
         try {
-            if(currentCimsvg()) {
+            if(this.cimsvg !== undefined && currentCimsvg()) {
                 func();
             }
         }
         catch (e) {
             console.error(e);
         }
+    }
+
+    setCimsvg(cimsvg) {
+        this.cimsvg = cimsvg;
     }
 
     applyTemplate(data, templateName) {
@@ -134,17 +140,23 @@ class cimmenu {
     }
 
     addEventListeners(node) {
-        let keys = Object.keys(cimmenu.menuStructure.main);
+        let keys = Object.keys(Menu.menuStructure);
         keys.forEach((key)=>{
-            let menu = cimmenu.menuStructure.main[key];
-            node.querySelector("#" + menu.button.id).addEventListener("mouseover", (evt)=>{
-                this.hideAllMenuPanels();
-                this.showPanel(menu.panel.id);
-                evt.stopPropagation();
-            });
-            node.querySelector("#" + menu.panel.id).addEventListener("mouseover", (evt)=>{
-                evt.stopPropagation();
-            });
+            let menu = Menu.menuStructure[key];
+            let menuButton = node.querySelector("#" + menu.button.id);
+            if(menuButton !== undefined && menuButton !== null) {
+                node.querySelector("#" + menu.button.id).addEventListener("mouseover", (evt)=>{
+                    this.hideAllMenuPanels();
+                    this.showPanel(menu.panel.id);
+                    evt.stopPropagation();
+                });
+            }
+            let menuPanel = node.querySelector("#" + menu.panel.id);
+            if(menuPanel !== undefined && menuPanel !== null) {
+                node.querySelector("#" + menu.panel.id).addEventListener("mouseover", (evt)=>{
+                    evt.stopPropagation();
+                });
+            }
             this.panels[menu.panel.id] = this.menuNode.querySelector("#" + menu.panel.id);
         });
         if(typeof window !== undefined) {
@@ -186,8 +198,9 @@ class cimmenu {
     static readFile(e) {
         let files = e.target.files;
         if (files) {
-            cimmenu.cimsvgFunction(()=>{ currentCimsvg().clearAllData(); });
-            cimmenu.cimsvgFunction(()=>{ currentCimsvg().setFileCount(files.length); });
+            let cimmenuInstance = currentCimmenu();
+            cimmenuInstance.cimsvgFunction(()=>{ currentCimsvg().clearAllData(); });
+            cimmenuInstance.cimsvgFunction(()=>{ currentCimsvg().setFileCount(files.length); });
             Array.from(files).forEach((file)=>{
                 if (!file) {
                     return;
@@ -195,7 +208,7 @@ class cimmenu {
                 let reader = new FileReader();
                 reader.onload = function(e) {
                     let contents = e.target.result;
-                    cimmenu.cimsvgFunction(()=>{ currentCimsvg().loadFile(contents); });
+                    cimmenuInstance.cimsvgFunction(()=>{ currentCimsvg().loadFile(contents); });
                 };
                 reader.readAsText(file);
             });
@@ -238,7 +251,7 @@ class cimmenu {
     }
 
     populateAllComponents() {
-        cimmenu.cimsvgFunction(()=> {
+        this.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
             let items = this.applyTemplate(baseJson, "handlebars_pinturaJson2AllComponentsList");
             cimmenu.populatePanelWithData(this.panels.allComponentsPanel, items, "All Components");
@@ -253,8 +266,6 @@ class cimmenu {
 
     populateFileLinks() {
         let template = templates.handlebars_menu_json;
-        let items = template(cimmenu.menuStructure);
-        this.panels["mainMenu"].innerHTML = items;
         this.panels["mainMenu"].querySelectorAll("#fileopen").forEach((elem)=>{ elem.addEventListener("change", cimmenu.readFile, false); });
     }
 
@@ -497,8 +508,8 @@ class cimmenu {
         }
     }
 
-    static populateAttributesIdOnly (node, cimVersion, id) {
-        cimmenu.cimsvgFunction(()=> {
+    populateAttributesIdOnly (node, cimVersion, id) {
+        this.cimsvgFunction(()=> {
             let type = currentCimsvg().getObjectTypeUsingId(id);
             if (type !== undefined) {
                 cimmenu.populateAttributes(node, type, cimVersion, id);
@@ -510,7 +521,7 @@ class cimmenu {
     }
 
     populateAttributes (type, id) {
-        cimmenu.cimsvgFunction(()=> {
+        this.cimsvgFunction(()=> {
             this.populate(this.panels.attributesPanel, type, currentCimsvg().getCimVersionFolder(), id);
         });
     }
@@ -538,7 +549,7 @@ class cimmenu {
     }
 
     populate(node, type, cimVersion, id) {
-        cimmenu.cimsvgFunction(()=> {
+        this.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
             if (id === "No Object" || id === "Missing rdf:resource") {
                 return;
@@ -572,7 +583,7 @@ class cimmenu {
 
     getAggregateComponentsList(requestedClass, types) {
         let aggregateComponents = { aggregates: [{ rdfid: "", name: "Select " + requestedClass }]};
-        cimmenu.cimsvgFunction(()=> {
+        this.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
             for (let index in types) {
                 let type = types[index];
@@ -603,7 +614,7 @@ class cimmenu {
     }
 
     populateTerminals (type, cimVersion, rdfid) {
-        let menuData = cimmenu.cimsvgFunction(()=> {
+        let menuData = this.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
             if (baseJson[type] && baseJson[type][rdfid]) {
                 let template = templates.handlebars_cim_list_terminals;
@@ -645,99 +656,11 @@ class cimmenu {
     }
 }
 
-cimmenu.menuStructure = {
-    "main": {
-        "File": {
-            "button": {
-                "id": "file-menu-button",
-            },
-            "panel": {
-                "id": "file-menu-panel",
-            },
-            "links": [
-                {
-                    "input": {
-                        "id": "fileopen",
-                        "type": "file",
-                    },
-                    "a": {
-                        "onclick" : "fileopen.click();currentCimmenu().hidePanel('file-menu-panel')",
-                        "text" : "Open file 🖿",
-                    }
-                },
-                {
-                    "a": {
-                        "onclick" : "currentCimsvg().loadUri();currentCimmenu().hidePanel('file-menu-panel')",
-                        "text" : "Open link 🔗",
-                    }
-                },
-                {
-                    "input": {
-                        "id": "filesave",
-                    },
-                    "a": {
-                        "onclick" : "currentCimsvg().saveGridXml('pinturaGrid.xml');currentCimmenu().hidePanel('file-menu-panel')",
-                        "text" : "Save to file 🖿",
-                    }
-                },
-                {
-                    "a": {
-                        "onclick" : "currentCimsvg().saveToMultipartZip();currentCimmenu().hidePanel('file-menu-panel')",
-                        "text" : "Save to multipart zip 🖿",
-                    }
-                },
-                {
-                    "a": {
-                        "onclick" : "currentCimsvg().saveTemplateJson();currentCimmenu().hidePanel('file-menu-panel')",
-                        "text" : "Save JSON  🖿",
-                    }
-                },
-                {
-                    "a": {
-                        "onclick" : "currentCimsvg().saveToUri();currentCimmenu().hidePanel('file-menu-panel')",
-                        "text" : "Save to link 🔗",
-                    }
-                },
-                {
-                    "a": {
-                        "onclick" : "currentCimsvg().saveToSVG();currentCimmenu().hidePanel('file-menu-panel')",
-                        "text" : "Export to SVG 🖿",
-                    }
-                },
-            ]
-        },
-        "Diagram": {
-            "button": {
-                "id": "diagram-menu-button",
-            },
-            "panel": {
-                "id": "diagram-menu-panel",
-            },
-            links: [
-                {
-                    "a": {
-                        "onclick" : "currentCimsvg().addDiagram();currentCimmenu().hidePanel('diagram-menu-panel')",
-                        "text" : "Add Diagram",
-                    }
-                },
-            ]
-        },
-        "Close" : {
-            "button": {
-                "id": "close-menu-button",
-            },
-            "panel": {
-                "id": "close-menu-panel",
-            },
-        }
-    }
-};
-
 cimmenu.currentCimmenuClass = null;
 
 const currentCimmenu = function() {
     return cimmenu.getCimmenu();
 };
 
-export { cimmenu, currentCimmenu };
+export { cimmenu, currentCimmenu, Menu };
 

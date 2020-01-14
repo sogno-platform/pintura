@@ -153,7 +153,7 @@ head.c(new tag('meta').a('nam', '"msapplication-config"').a('content', '"/images
 head.c(new tag('meta').a('nam', '"theme-color"').a('content', '"#ffffff"'))
 
 var body = new tag('body')
-
+var react = new tag('div').a('id', '"react"')
 var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns', '"http://www.w3.org/2000/svg"').
 	          a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
@@ -181,14 +181,11 @@ var radio_input = function(onchange, name, id, text, checked=false) {
     return new tag('a').c(input).c(label)
 };
 
-
-var menu = new tag('div').a('id', '"menu"')
-
 var spacer  = function() {
     return new tag('div').a('class', '"spacer"');
 }
 
-body.c(menu).c(svg)
+body.c(react).c(svg)
 
 var vert_centre = new tag('div').a('class', '"middle-dialog"').
                           c(new tag('div').a('class', '"spacer"')).
@@ -209,9 +206,14 @@ body.c(new tag('div').
              c(new tag('div').a('class', '"spacer"')));
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.runtime.min.js"').t(" "));
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js"').t(" "));
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimsvg.js"').t(" "))
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimmenu.js"').t(" "))
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://unpkg.com/react@16/umd/react.development.js"').a('crossorigin', '"anonymous"').t(" "));
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://unpkg.com/react-dom@16/umd/react-dom.development.js"').a('crossorigin', '"anonymous"').t(" "));
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"').a('crossorigin', '"anonymous"').t(" "));
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimsvg.js"').t(" "));
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimmenu.js"').t(" "));
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "));
+
+
 // TODO move event handlers into code so we don't need this stub
 head.c(new tag('script').a('type', '"text/javascript"').t("var currentCimmenu=function() { return { hideAllMenuPanels: function () {console.log('ok');} }; }"))
 let mouseEventScripts = `
@@ -247,12 +249,16 @@ const onMouseLeave = function(evt){
 };
 `;
 head.c(new tag('script').a('type', '"text/javascript"').t(mouseEventScripts))
+
 let initScript = `
 var currentCimmenu = libcimmenu.currentCimmenu;
 var currentCimsvg = libcimsvg.currentCimsvg;
-var cimmenuInstance = new libcimmenu.cimmenu(document.getElementById('menu'));
+var cimmenuInstance = new libcimmenu.cimmenu(document.querySelector('#react'));
+cimmenuInstance.setCimsvg(libcimsvg.currentCimsvg());
+currentCimsvg().setCimmenu(libcimmenu.currentCimmenu());
 `;
 body.c(new tag('script').a('type', '"text/javascript"').t(initScript))
+
 body.a('onmouseover', '"currentCimmenu().hideAllMenuPanels();"')
 html.c(head)
 html.c(body)
