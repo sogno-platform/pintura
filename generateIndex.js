@@ -153,7 +153,7 @@ head.c(new tag('meta').a('nam', '"msapplication-config"').a('content', '"/images
 head.c(new tag('meta').a('nam', '"theme-color"').a('content', '"#ffffff"'))
 
 var body = new tag('body')
-var react = new tag('div').a('id', '"react"')
+var menu = new tag('div').a('id', '"menu"')
 var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns', '"http://www.w3.org/2000/svg"').
 	          a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
@@ -185,7 +185,7 @@ var spacer  = function() {
     return new tag('div').a('class', '"spacer"');
 }
 
-body.c(react).c(svg)
+body.c(menu).c(svg)
 
 var vert_centre = new tag('div').a('class', '"middle-dialog"').
                           c(new tag('div').a('class', '"spacer"')).
@@ -253,7 +253,7 @@ head.c(new tag('script').a('type', '"text/javascript"').t(mouseEventScripts))
 let initScript = `
 var currentCimmenu = libcimmenu.currentCimmenu;
 var currentCimsvg = libcimsvg.currentCimsvg;
-var cimmenuInstance = new libcimmenu.cimmenu(document.querySelector('#react'));
+var cimmenuInstance = new libcimmenu.cimmenu(document.querySelector('#menu'));
 cimmenuInstance.setCimsvg(libcimsvg.currentCimsvg());
 currentCimsvg().setCimmenu(libcimmenu.currentCimmenu());
 `;

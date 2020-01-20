@@ -89,7 +89,7 @@ class Menu extends React.Component {
     }
 
     render() {
-        let element = <div id="menu">
+        let element = <>
             <div id="corner-switches">
                 <span id="barmenu-switch" className="switch button row-right topleft" onClick={ function() { currentCimmenu().toggleMainMenuVisible() }} >
                     <span className="fa fa-bars"></span>
@@ -146,7 +146,7 @@ class Menu extends React.Component {
                     </li>
                 </ul>
             </nav>
-        </div>;
+        </>;
 	return element;
     }
 };
