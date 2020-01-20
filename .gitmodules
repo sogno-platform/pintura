@@ -1,3 +1,0 @@
-[submodule "test/grid-data"]
-	path = test/grid-data
-	url = ../../simulation/grid-data.git
