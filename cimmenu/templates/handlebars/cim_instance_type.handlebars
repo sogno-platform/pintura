@@ -1,7 +1,7 @@
 <span class="row-right wide-row  floating-panel-value">
-    <select id='{{dropdownId}}' onchange="currentCimsvg().updateComponentRDF('{{classType}}', '{{parentRdfid}}', '{{attribute}}', this.value)" class="update-complex-type">
+    <select id='{{dropdownId}}' onchange="currentCimsvg().updateComponentRDF('{{classType}}', '{{parentRdfid}}', '{{attribute}}', this.value)" class="update-instance-type">
         {{#each aggregates}}
-            <option type="{{../requestedType}}" value="{{value}}" {{#if disabled}} disabled="disabled" {{/if}} {{#if selected}} selected="selected" {{/if}} >{{label}}</option>
+            <option type="{{../requestedType}}" value="{{about}}" {{#if disabled}} disabled="disabled" {{/if}} {{#if selected}} selected="selected" {{/if}} >{{label}}</option>
         {{/each}}
     </select>
     <button class="hiddenbutton"> + </button>
