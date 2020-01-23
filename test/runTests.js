@@ -21,7 +21,7 @@ const fs = require('fs')
 const Jasmine = require('jasmine');
 const jasmine = new Jasmine();
 
-fs.access("test/grid-data/CIM", fs.F_OK, function(err) {
+fs.access("test/grid-data/Components", fs.F_OK, function(err) {
     if (!err) {
         // setup Jasmine
         jasmine.loadConfig({

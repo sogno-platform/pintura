@@ -41,7 +41,7 @@ COPY index.js /usr/share/nginx/html
 
 COPY --from=builder /pintura/dist /usr/share/nginx/html/dist/
 COPY --from=builder /pintura/index.html /usr/share/nginx/html/
-
+ARG GIT_COMMIT
 LABEL \
 	org.label-schema.schema-version = "1.0" \
 	org.label-schema.name = "Pintura" \
@@ -53,4 +53,5 @@ LABEL \
 	org.label-schema.maintainer.email = "stvogel@eonerc.rwth-aachen.de" \
 	org.label-schema.description = "Pintura is a graphical editor for CIM XML-RDF files. CIM refers to the Common Information Model (CIM) standard (i.e. IEC61970/61968/62325) for the energy sector." \
 	org.label-schema.url = "http://fein-aachen.org/projects/pintura/" \
-	org.label-schema.vcs-url = "http://git.rwth-aachen.de/acs/core/cim/pintura"
+	org.label-schema.vcs-url = "http://git.rwth-aachen.de/acs/public/cim/pintura" \
+	org.label-schema.vcs-commit = $GIT_COMMIT

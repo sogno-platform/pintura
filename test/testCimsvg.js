@@ -133,7 +133,7 @@ describe("cimsvg", function() {
         spyOn(libcimsvg.cimxml, "getDOM").and.callFake(getDOM);
         spyOn(libcimsvg.cimxml, "isElementNode").and.callFake(isElementNode);
         cimsvgInstance.setFileCount(1);
-        fs.readFile("test/grid-data/CIM/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
+        fs.readFile("test/grid-data/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
             expect(err).toBe(null);
             cimsvgInstance.loadFile(data);
             let energyConsumerObjects=cimsvgInstance.getObjectsOfType("cim:EnergyConsumer");

@@ -25,7 +25,7 @@ all: files/file1.xml files/file2.zip
 	docker build -t urlserver .
 
 files/file1.xml:
-	cp ../../test/grid-data/CIM/Components/EnergyConsumer/entsoe.xml files/file1.xml
+	cp ../../test/grid-data/Components/EnergyConsumer/entsoe.xml files/file1.xml
 
 files/file2.zip:
 	zip files/file2.zip ../../test/grid-data/CIM/WSCC-09_Neplan/*.xml

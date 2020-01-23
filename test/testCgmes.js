@@ -69,13 +69,13 @@ const openCgmesFile = function(cimsvgInstance, callback) {
     spyOn(libcimsvg.cimxml, "isElementNode").and.callFake(isElementNode);
     spyOn(global.libcimsvg.cimfile, "saveFile").and.callFake(saveFileFunction);
     cimsvgInstance.setFileCount(3);
-    fs.readFile("test/grid-data/CIM/Components/GeneratingUnit/DL.xml", 'utf8', (err, data) => {
+    fs.readFile("test/grid-data/Components/GeneratingUnit/DL.xml", 'utf8', (err, data) => {
         expect(err).toBe(null);
         cimsvgInstance.loadFile(data);
-        fs.readFile("test/grid-data/CIM/Components/GeneratingUnit/EQ.xml", 'utf8', (err, data) => {
+        fs.readFile("test/grid-data/Components/GeneratingUnit/EQ.xml", 'utf8', (err, data) => {
             expect(err).toBe(null);
             cimsvgInstance.loadFile(data);
-            fs.readFile("test/grid-data/CIM/Components/GeneratingUnit/TP.xml", 'utf8', (err, data) => {
+            fs.readFile("test/grid-data/Components/GeneratingUnit/TP.xml", 'utf8', (err, data) => {
                 expect(err).toBe(null);
                 cimsvgInstance.loadFile(data);
                 callback();

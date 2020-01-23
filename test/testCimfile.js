@@ -92,7 +92,7 @@ describe("cimfile", function() {
         spyOn(libcimsvg.cimxml, "isElementNode").and.callFake(isElementNode);
         spyOn(global.libcimsvg.cimfile, "saveFile").and.callFake(saveFileFunction);
         cimsvgInstance.setFileCount(1);
-        fs.readFile("test/grid-data/CIM/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
+        fs.readFile("test/grid-data/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
             expect(err).toBe(null);
             cimsvgInstance.loadFile(data);
             cimsvgInstance.saveGridXml("filename.xml");
@@ -105,7 +105,7 @@ describe("cimfile", function() {
         spyOn(libcimsvg.cimxml, "isElementNode").and.callFake(isElementNode);
         spyOn(libcimsvg.cimfile, "saveZip").and.callFake(saveZip);
         cimsvgInstance.setFileCount(1);
-        fs.readFile("test/grid-data/CIM/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
+        fs.readFile("test/grid-data/Components/EnergyConsumer/entsoe.xml", 'utf8', (err, data) => {
             expect(err).toBe(null);
             cimsvgInstance.loadFile(data);
             cimsvgInstance.saveToMultipartZip("myfile.zip");

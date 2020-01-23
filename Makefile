@@ -26,6 +26,7 @@ DOCKER_OPTS?=--rm
 
 TEMPLATE_DIR=generated
 ATTRIBUTE_DIR=$(TEMPLATE_DIR)/attributes
+GIT_COMMIT=$(shell git log -1 --format=%h)
 
 all: docker
 
@@ -34,12 +35,14 @@ dev: cimsvg cimmenu
 		--file Dockerfile.dev \
 		--tag $(DOCKER_IMAGE) \
 		--iidfile $@ \
+		--build-arg GIT_COMMIT=git[${GIT_COMMIT}] \
 		.
 
 docker: cimsvg cimmenu
 	docker build \
 		--tag $(DOCKER_IMAGE) \
 		--iidfile $@ \
+		--build-arg GIT_COMMIT=git[${GIT_COMMIT}] \
 		.
 
 start: stop
