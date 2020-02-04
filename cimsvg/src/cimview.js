@@ -39,30 +39,42 @@ class cimview {
         this.setViewBox(rect);
     }
 
-    zoomOut() {
-        let level = this.zoomLevel-1;
+    getProportionalZoomDelta() {
+        /* avoids: - zoom delta of 0
+	 *         - divide by 0 in calculation */
+        if (this.zoomLevel > 10) {
+            return parseInt(this.zoomLevel / 10);
+        }
+        else {
+            return 1;
+        }
+    }
+
+    zoomIn() {
+        let proportionalZoomDelta = this.getProportionalZoomDelta();
+        let level = this.zoomLevel - proportionalZoomDelta;
         if (level < 0) {
             level = 0;
         }
         this.zoomToLevel(level);
-        //document.getElementById("zoomer").value=level;
     }
 
-    zoomIn() {
-        let level = this.zoomLevel+1;
+    zoomOut() {
+        let proportionalZoomDelta = this.getProportionalZoomDelta();
+        let level = this.zoomLevel + proportionalZoomDelta;
         let lastIndex = this.zoomSizes.length-1;
-        if (level > lastIndex) {
+        while (level > lastIndex) {
             let currentWidth = this.zoomSizes[lastIndex].width;
             this.addNewZoomSize(currentWidth);
+            lastIndex = this.zoomSizes.length-1;
         }
         this.zoomToLevel(level);
-        //document.getElementById("zoomer").value=level;
     }
 
     pan(point) {
         let rect = this.getViewBox();
-        rect.x += point.x;
-        rect.y += point.y;
+        rect.x += (this.zoomLevel * point.x) + point.x;
+        rect.y += (this.zoomLevel * point.y) + point.y;
         this.setViewBox(rect);
     }
 
@@ -199,8 +211,6 @@ class cimview {
     }
 
     fit() {
-        // TODO : this just uses the last diagram, instead of the
-        // set of all boundaries. Fine for one diagram.
         let diagramBoundary = null;
         let diagramList = this.svgNode.querySelectorAll(".diagrams");
         diagramList.forEach(function(diagram) {

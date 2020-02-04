@@ -44,6 +44,7 @@ class cimsvg {
         this.cimmenu = null;
         cimsvg.setCimsvg(this);
         cimsvg.addPinturaStyle(svg, css);
+        this.testOnly = false;
     }
 
     static addPinturaStyle(svg, css) {
@@ -143,8 +144,14 @@ class cimsvg {
 
     }
 
+    setTest() {
+        this.testOnly = true;
+    }
+
     fit() {
-        this.cimview.fit();
+        if ( this.testOnly === false) {
+            this.cimview.fit();
+        }
     }
 
     getXmlDoc() {
@@ -474,6 +481,7 @@ class cimsvg {
                 this.setFileCount(0);
                 this.populateDiagramLinks();
                 this.applyDiagramTemplate(this.templateJson);
+                this.fit();
             }
         }
 

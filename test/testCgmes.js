@@ -148,6 +148,7 @@ describe("cgmes", function() {
             let dialog = dom.window.document.querySelector("#dialog")
             spyOn(cimsvg.prototype, "loadXml").and.callFake(loadXml);
             cimsvgInstance = new cimsvg(svg, dialog)
+            cimsvgInstance.setTest();
             cimsvg.setCimsvg(cimsvgInstance);
             menu = dom.window.document.querySelector("#menu")
             Object.defineProperty(menu, 'clientHeight', {value: 400});

@@ -1,5 +1,5 @@
 #!/bin/sh
-running=$(docker container ls -aqf name=pintura);
+running=$(docker container ls -aqf name="pintura|libcimmenu");
 echo "container listed as ${running}"
 
 if [ ! -z "${running}" ];
