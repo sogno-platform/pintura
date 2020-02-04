@@ -53,6 +53,18 @@ const noInputFocus = function(evt) {
     return false;
 };
 
+let body = document.querySelector("body");
+if (body !== undefined) {
+    body.addEventListener("wheel", (mouseEvent) =>{
+        if (mouseEvent.deltaY > 0) {
+            currentCimsvg().cimview.zoomIn();
+        }
+        else {
+            currentCimsvg().cimview.zoomOut();
+        }
+    });
+}
+
 document.onkeydown = function(evt) {
     evt = evt || window.event;
 
