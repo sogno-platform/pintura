@@ -25,13 +25,22 @@ class cimview {
             { width: 400, height: 300 }
         ];
         this.zoomLevel = 0;
+        this.dragPoint = null;
     }
 
     static noInputFocus(evt) {
-        if (evt.target.nodeName === "BODY") {
+        if (evt.target.nodeName.toUpperCase() === "BODY" || evt.target.nodeName.toUpperCase() === "RECT") {
             return true;
         }
         return false;
+    }
+
+    getMouseCoord(evt) {
+        let m = evt.target.getScreenCTM();
+        let position = this.svgNode.createSVGPoint();
+        position.x = (Number(evt.clientX));
+        position.y = (Number(evt.clientY));
+        return position.matrixTransform(m.inverse());
     }
 
     addEventListeners(bodyNode) {
@@ -44,10 +53,39 @@ class cimview {
             }
         });
         bodyNode.addEventListener("mousedown", (mouseEvent) =>{
-            console.log("mousedown: ", mouseEvent);
+            if (cimview.noInputFocus(mouseEvent)) {
+                this.dragPoint = this.getMouseCoord(mouseEvent);
+            }
         });
         bodyNode.addEventListener("mouseup", (mouseEvent) =>{
-            console.log("mouseup: ", mouseEvent);
+            if (cimview.noInputFocus(mouseEvent)) {
+                if(this.dragPoint) {
+                    let newDragPoint = this.getMouseCoord(mouseEvent);
+                    let deltaPoint = this.svgNode.createSVGPoint();
+                    deltaPoint.x = this.dragPoint.x - newDragPoint.x;
+                    deltaPoint.y = this.dragPoint.y - newDragPoint.y;
+                    this.pan(deltaPoint, false);
+                    this.dragPoint = null;
+                }
+            }
+        });
+        bodyNode.addEventListener("mousemove", (mouseEvent) =>{
+            if (cimview.noInputFocus(mouseEvent)) {
+                if(this.dragPoint) {
+                    let newDragPoint = this.getMouseCoord(mouseEvent);
+                    let deltaPoint = this.svgNode.createSVGPoint();
+                    deltaPoint.x = this.dragPoint.x - newDragPoint.x;
+                    deltaPoint.y = this.dragPoint.y - newDragPoint.y;
+                    this.pan(deltaPoint, false);
+                }
+            }
+        });
+        bodyNode.addEventListener("mouseleave", (mouseEvent) =>{
+            if (cimview.noInputFocus(mouseEvent)) {
+                if(this.dragPoint) {
+                    this.dragPoint = null;
+                }
+            }
         });
         bodyNode.addEventListener("keydown", (keyEvent) =>{
             /* ctrl + up key */
@@ -134,10 +172,12 @@ class cimview {
         this.zoomToLevel(level);
     }
 
-    pan(point) {
+    pan(point, zoomMultiplier=true) {
         let rect = this.getViewBox();
-        rect.x += (this.zoomLevel * point.x) + point.x;
-        rect.y += (this.zoomLevel * point.y) + point.y;
+        let xDelta = zoomMultiplier ? (this.zoomLevel * point.x) : point.x;
+        let yDelta = zoomMultiplier ? (this.zoomLevel * point.y) : point.y;
+        rect.x += xDelta;
+        rect.y += yDelta;
         this.setViewBox(rect);
     }
 
