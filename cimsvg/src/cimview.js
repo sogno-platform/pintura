@@ -17,7 +17,6 @@
  */
 
 class cimview {
-
     constructor(svg) {
         this.svgNode = svg;
         let rect = { x: "-100", y: "-100", width: "1024", height: "768" };
@@ -26,6 +25,70 @@ class cimview {
             { width: 400, height: 300 }
         ];
         this.zoomLevel = 0;
+    }
+
+    static noInputFocus(evt) {
+        if (evt.target.nodeName === "BODY") {
+            return true;
+        }
+        return false;
+    }
+
+    addEventListeners(bodyNode) {
+        bodyNode.addEventListener("wheel", (mouseEvent) =>{
+            if (mouseEvent.deltaY > 0) {
+                this.zoomIn();
+            }
+            else {
+                this.zoomOut();
+            }
+        });
+        bodyNode.addEventListener("mousedown", (mouseEvent) =>{
+            console.log("mousedown: ", mouseEvent);
+        });
+        bodyNode.addEventListener("mouseup", (mouseEvent) =>{
+            console.log("mouseup: ", mouseEvent);
+        });
+        bodyNode.addEventListener("keydown", (keyEvent) =>{
+            /* ctrl + up key */
+            if (keyEvent.ctrlKey && (keyEvent.keyCode === 38)) {
+                currentCimsvg().cimview.zoomIn();
+            }
+            /* ctrl + down key */
+            else if (keyEvent.ctrlKey && (keyEvent.keyCode === 40)) {
+                currentCimsvg().cimview.zoomOut();
+            }
+            /* left key */
+            else if (keyEvent.keyCode === 37) {
+                if (cimview.noInputFocus(keyEvent)) {
+                    currentCimsvg().cimview.pan({ x: -10, y: 0 });
+                }
+            }
+            /* up key */
+            else if (keyEvent.keyCode === 38) {
+                if (cimview.noInputFocus(keyEvent)) {
+                    currentCimsvg().cimview.pan({ x: 0, y: -10 });
+                }
+            }
+            /* right key */
+            else if (keyEvent.keyCode === 39) {
+                if (cimview.noInputFocus(keyEvent)) {
+                    currentCimsvg().cimview.pan({ x: 10, y: 0 });
+                }
+            }
+            /* down key */
+            else if (keyEvent.keyCode === 40) {
+                if (cimview.noInputFocus(keyEvent)) {
+                    currentCimsvg().cimview.pan({ x: 0, y: 10 });
+                }
+            }
+            /* spacebar */
+            else if (keyEvent.keyCode === 32) {
+                if (cimview.noInputFocus(keyEvent)) {
+                    currentCimsvg().cimview.fit();
+                }
+            }
+        });
     }
 
     zoomToLevel(level) {

@@ -209,11 +209,22 @@ body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://cdnjs
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://unpkg.com/react@16/umd/react.development.js"').a('crossorigin', '"anonymous"').t(" "));
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://unpkg.com/react-dom@16/umd/react-dom.development.js"').a('crossorigin', '"anonymous"').t(" "));
 body.c(new tag('script').a('type', '"text/javascript"').a('src', '"https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js"').a('crossorigin', '"anonymous"').t(" "));
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimsvg.js"').t(" "));
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimmenu.js"').t(" "));
-body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "));
-
-
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimsvg.js"').t(" "))
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"dist/libcimmenu.js"').t(" "))
+let initScript = `
+var currentCimmenu = libcimmenu.currentCimmenu;
+var currentCimsvg = libcimsvg.currentCimsvg;
+var cimmenuInstance = new libcimmenu.cimmenu(document.getElementById('menu'));
+var cimsvg = libcimsvg.cimsvg;
+var cimsvgInstance = new cimsvg(
+    document.getElementById("svg"),
+    document.getElementById("new-component-dialog")
+);
+cimsvgInstance.setCimmenu(cimmenuInstance);
+`;
+body.c(new tag('script').a('type', '"text/javascript"').t(initScript))
+body.c(new tag('script').a('type', '"text/javascript"').a('src', '"index.js"').t(" "))
+body.a('onmouseover', '"currentCimmenu().hideAllMenuPanels();"')
 // TODO move event handlers into code so we don't need this stub
 head.c(new tag('script').a('type', '"text/javascript"').t("var currentCimmenu=function() { return { hideAllMenuPanels: function () {console.log('ok');} }; }"))
 let mouseEventScripts = `
@@ -249,17 +260,6 @@ const onMouseLeave = function(evt){
 };
 `;
 head.c(new tag('script').a('type', '"text/javascript"').t(mouseEventScripts))
-
-let initScript = `
-var currentCimmenu = libcimmenu.currentCimmenu;
-var currentCimsvg = libcimsvg.currentCimsvg;
-var cimmenuInstance = new libcimmenu.cimmenu(document.querySelector('#menu'));
-cimmenuInstance.setCimsvg(libcimsvg.currentCimsvg());
-currentCimsvg().setCimmenu(libcimmenu.currentCimmenu());
-`;
-body.c(new tag('script').a('type', '"text/javascript"').t(initScript))
-
-body.a('onmouseover', '"currentCimmenu().hideAllMenuPanels();"')
 html.c(head)
 html.c(body)
 

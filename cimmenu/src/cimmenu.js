@@ -41,12 +41,11 @@ class cimmenu {
         this.diagramId               = null;
         this.templateJson            = null;
         this.populateFileLinks();
-        this.addEventListeners(this.menuNode);
+        this.addMenuEventListeners(this.menuNode);
         this.calculateScreenHeight();
         cimmenu.setCimmenu(this);
         this.cimsvg                 = false;
         this.contextMenu = new contextmenu(this.menuNode.querySelector("#context-menu"), "context-menu");
-        this.contextMenu.keyUpListener(window);
     }
 
     cimsvgFunction(func) {
@@ -83,6 +82,41 @@ class cimmenu {
     static updateGridLocation (node, column, row, length) {
         let area = row.toString() + " / " + column.toString() + " / " + (row + length).toString() + " / " + (column + 1).toString();
         node.style.gridArea = area;
+    }
+
+    addMenuEventListeners(node) {
+        let keys = Object.keys(Menu.menuStructure.main);
+        keys.forEach((key)=>{
+            let menu = Menu.menuStructure.main[key];
+            node.querySelector("#" + menu.button.id).addEventListener("mouseover", (evt)=>{
+                this.hideAllMenuPanels();
+                this.showPanel(menu.panel.id);
+                evt.stopPropagation();
+            });
+            node.querySelector("#" + menu.panel.id).addEventListener("mouseover", (evt)=>{
+                evt.stopPropagation();
+            });
+            this.panels[menu.panel.id] = this.menuNode.querySelector("#" + menu.panel.id);
+        });
+        if(typeof window !== undefined) {
+            this.resizeListener(window);
+        }
+    }
+
+    addEventListeners(bodyNode) {
+        bodyNode.addEventListener("contextmenu", (mouseEvent) =>{
+            if (mouseEvent.preventDefault !== undefined) {
+                mouseEvent.preventDefault();
+            }
+            if (mouseEvent.stopPropagation !== undefined) {
+                mouseEvent.stopPropagation();
+            }
+        });
+        bodyNode.addEventListener("keyup", (keyEvent) =>{
+            if ( keyEvent.keyCode === 27 ) {
+                this.toggleMenuOff();
+            }
+        });
     }
 
     onMouseUp(evt) {
@@ -137,31 +171,6 @@ class cimmenu {
             this.calculateScreenHeight();
             this.contextMenu.toggleMenuOff();
         };
-    }
-
-    addEventListeners(node) {
-        let keys = Object.keys(Menu.menuStructure);
-        keys.forEach((key)=>{
-            let menu = Menu.menuStructure[key];
-            let menuButton = node.querySelector("#" + menu.button.id);
-            if(menuButton !== undefined && menuButton !== null) {
-                node.querySelector("#" + menu.button.id).addEventListener("mouseover", (evt)=>{
-                    this.hideAllMenuPanels();
-                    this.showPanel(menu.panel.id);
-                    evt.stopPropagation();
-                });
-            }
-            let menuPanel = node.querySelector("#" + menu.panel.id);
-            if(menuPanel !== undefined && menuPanel !== null) {
-                node.querySelector("#" + menu.panel.id).addEventListener("mouseover", (evt)=>{
-                    evt.stopPropagation();
-                });
-            }
-            this.panels[menu.panel.id] = this.menuNode.querySelector("#" + menu.panel.id);
-        });
-        if(typeof window !== undefined) {
-            this.resizeListener(window);
-        }
     }
 
     getContextMenu() {

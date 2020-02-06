@@ -25,7 +25,7 @@ RUN npm run build
 FROM node AS builder
 
 COPY --from=xslt-builder /generated /pintura/cimmenu/templates/generated/
-COPY . /pintura
+COPY cimmenu data_model  generateIndex.js  Makefile package-lock.json cimsvg Dockerfile images test css Dockerfile.dev index.js package.json /pintura
 WORKDIR pintura
 RUN rm -rf node_modules
 RUN npm install

@@ -28,14 +28,6 @@ class contextmenu {
         this.type;
     }
 
-    keyUpListener(_window) {
-        _window.onkeyup = (e)=> {
-            if ( e.keyCode === 27 ) {
-                this.toggleMenuOff();
-            }
-        };
-    }
-
     /*
      * Toggles menu on.
      */
