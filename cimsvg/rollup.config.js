@@ -39,6 +39,7 @@ export default {
         }),
         handlebars({
             handlebars: {},
+            helpers: [ "./helpers.js" ],
             id: "handlebars/runtime",
             options: {
                 jquery: false,

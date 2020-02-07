@@ -238,7 +238,7 @@ const onMouseUp = function(evt){
 const onMouseMove = function(){
 };
 const onMouseOver = function(evt){
-    let id = evt.currentTarget.id.slice(0,-5);
+    let id = evt.currentTarget.id.slice(0,-8);
     let txt = document.getElementById(id+"-txt0");
     let bbox = txt.getBBox();
     let bg = document.getElementById(id+"-bg0");
@@ -252,7 +252,7 @@ const onMouseOver = function(evt){
     bg.classList.add("svglabel-high");
 };
 const onMouseLeave = function(evt){
-    let id = evt.currentTarget.id.slice(0,-5);
+    let id = evt.currentTarget.id.slice(0,-8);
     let txt = document.getElementById(id+"-txt0");
     let bg = document.getElementById(id+"-bg0");
     txt.classList.remove("svglabel-high");

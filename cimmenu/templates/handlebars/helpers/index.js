@@ -157,22 +157,28 @@ const getAggregateComponentMenuCGMES = function(details){
     let updateMenu = "";
     let profile = concrete[details.classType.substring(4)]['concrete']
     let jsObject = 'generated_attributes_cgmes_' + profile + '_' + details.type.substring(4) + '_js';
-    let functionName = cgmes[jsObject].render;
-    let render = aggregateRenderer[functionName];
-    let dropdownId = common.generateUUID();
-    if (details.type !== undefined) {
-        let value = currentCimsvg().getValueOf(details.classType, details.parentId, details.attribute)
-        let attributeDetails = {
-            attribute: details.attribute,
-            dropdownId: dropdownId,
-            parentRdfid: details.parentId,
-            requestedType: details.type,
-            classType: details.classType,
-            value: value
+    if (jsObject in cgmes) {
+        let functionName = cgmes[jsObject].render;
+        let render = aggregateRenderer[functionName];
+        let dropdownId = common.generateUUID();
+        if (details.type !== undefined) {
+            let value = currentCimsvg().getValueOf(details.classType, details.parentId, details.attribute)
+            let attributeDetails = {
+                attribute: details.attribute,
+                dropdownId: dropdownId,
+                parentRdfid: details.parentId,
+                requestedType: details.type,
+                classType: details.classType,
+                value: value
+            }
+            updateMenu = render(attributeDetails);
         }
-        updateMenu = render(attributeDetails);
+        return new SafeString(updateMenu);
     }
-    return new SafeString(updateMenu);
+    else {
+        console.error("Cannot find [", jsObject, "] in cgmes render table.");
+        return new SafeString("");
+    }
 };
 
 const getAggregateComponentMenuCIM16 = function(details){

@@ -14,7 +14,7 @@
         <svg
           x="{{x}}"
           y="{{y}}"
-          id="{{componentId}}-img{{@key}}"
+          id="{{componentId}}-img{{{fourdigits @key}}}"
           height="{{imageHeight}}"
           width="{{imageWidth}}"
           transform="{{../pintura:transform}}"
@@ -35,7 +35,7 @@
           y1="{{y1}}"
           x2="{{x2}}"
           y2="{{y2}}"
-          id="{{componentId}}-bar{{@index}}"
+          id="{{componentId}}-bar{{{fourdigits @index}}}"
           class="line"
           onmouseup="onMouseUp(evt)"
           onmouseover="onMouseOver(evt)"
