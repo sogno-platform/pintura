@@ -85,9 +85,9 @@ class cimmenu {
     }
 
     addMenuEventListeners(node) {
-        let keys = Object.keys(Menu.menuStructure.main);
+        let keys = Object.keys(Menu.menuStructure);
         keys.forEach((key)=>{
-            let menu = Menu.menuStructure.main[key];
+            let menu = Menu.menuStructure[key];
             node.querySelector("#" + menu.button.id).addEventListener("mouseover", (evt)=>{
                 this.hideAllMenuPanels();
                 this.showPanel(menu.panel.id);
@@ -127,7 +127,7 @@ class cimmenu {
         else if (evt.button) {
             rightclick = (evt.button === 2);
         }
-        let id = evt.currentTarget.id.slice(0,-5);
+        let id = evt.currentTarget.id.slice(0,-8);
         let type = evt.currentTarget.parentElement.getAttribute("type");
         if (rightclick) {
             this.contextMenu.setComponent(type, id);
