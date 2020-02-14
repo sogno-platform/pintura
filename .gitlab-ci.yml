@@ -22,9 +22,9 @@ deploy:docker:
   stage: deploy
   script:
     - docker push ${DOCKER_IMAGE}:${DOCKER_TAG}
-    - ssh-agent -s
+    - eval $(ssh-agent -s)
     - echo "${SSH_DEPLOY_KEY}" | perl -p -e 's/&&&&&&&&/\n/g' | ssh-add - > /dev/null
-    - ssh -o "StrictHostKeyChecking=no"  "${VM_IP}" "cd Pintura && git pull && ./stop_docker.sh && make docker && make start"
+    - ssh -l ubuntu -o "StrictHostKeyChecking=no"  "${VM_IP}" "cd pintura && git checkout master && git pull && ./stop_docker.sh && make docker && make start"
   dependencies:
     - build:docker
   tags:
