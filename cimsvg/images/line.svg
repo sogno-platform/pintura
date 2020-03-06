@@ -18,11 +18,13 @@
 -->
 <svg xmlns="http://www.w3.org/2000/svg">
   <rect
+     file="line.svg"
+     class="fillwhenstill"
      x="12.970563"
      y="-4"
      width="8"
      height="8"
-     style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1"
+     style="stroke:#000000;stroke-width:1"
      id="rect4"
      ry="2.1230769"
      transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,0,0)" />

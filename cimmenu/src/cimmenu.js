@@ -119,31 +119,23 @@ class cimmenu {
         });
     }
 
-    onMouseUp(evt) {
-        let rightclick;
-        if (evt.which) {
-            rightclick = (evt.which === 3);
-        }
-        else if (evt.button) {
-            rightclick = (evt.button === 2);
-        }
+    processRightClick(evt) {
         let id = evt.currentTarget.id.slice(0,-8);
         let type = evt.currentTarget.parentElement.getAttribute("type");
-        if (rightclick) {
-            this.contextMenu.setComponent(type, id);
-            let pos = {x: evt.clientX, y: evt.clientY};
-            this.contextMenu.positionMenu(pos, "context-menu");
-            this.contextMenu.toggleMenuOn("context-menu");
+        this.contextMenu.setComponent(type, id);
+        let pos = {x: evt.clientX, y: evt.clientY};
+        this.contextMenu.positionMenu(pos, "context-menu");
+        this.contextMenu.toggleMenuOn("context-menu");
+    }
+
+    processLeftClick(evt) {
+        let id = evt.currentTarget.id.slice(0,-8);
+        let type = evt.currentTarget.parentElement.getAttribute("type");
+        let diagramId = evt.currentTarget.parentElement.getAttribute("diagram-id");
+        if (diagramId && type && id) {
+            this.redrawMenu(diagramId, type, id);
         }
-        else {
-            let type = evt.currentTarget.parentElement.getAttribute("type");
-            let diagramId = evt.currentTarget.parentElement.getAttribute("diagram-id");
-            if (diagramId && type && id) {
-                this.redrawMenu(diagramId, type, id);
-            }
-            this.contextMenu.toggleMenuOff();
-        }
-        evt.stopPropagation();
+        this.contextMenu.toggleMenuOff();
     }
 
     redrawMenu(diagramId, type, id) {
@@ -381,7 +373,7 @@ class cimmenu {
         let rowsBetweenSelectedAndBottom = prevColumnSelected + numberOfRows;
 
         if (numberOfRows >= this.componentPanelGridHeight) {
-            console.error("Number of rows is bigger than componentPanelGridHeight. numberOfRows: ", numberOfRows, " componentPanelGridHeight: ", this.componentPanelGridHeight);
+            console.warn("Number of rows is bigger than componentPanelGridHeight. numberOfRows: ", numberOfRows, " componentPanelGridHeight: ", this.componentPanelGridHeight);
         }
         else {
             if (rowsBetweenSelectedAndBottom >= this.componentPanelGridHeight) {

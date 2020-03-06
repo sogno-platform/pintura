@@ -75,6 +75,9 @@ class cimjson {
                 "y": (parseInt(preOffsetPoints[0].y) - (imageHeight/2)).toString()
             };
             rotation = parseInt(diagramObject["cim:DiagramObject.rotation"]);
+            if(isNaN(rotation)) {
+                rotation = 0;
+            }
             rotationCenter = {
                 "x": (parseInt(imagePoints[0].x) + parseInt(imagePoints[0].imageWidth/2)).toString(),
                 "y": (parseInt(imagePoints[0].y) + parseInt(imagePoints[0].imageHeight/2)).toString()

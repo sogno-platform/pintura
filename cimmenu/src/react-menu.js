@@ -91,13 +91,13 @@ class Menu extends React.Component {
     render() {
         let element = <>
             <div id="corner-switches">
-                <span id="barmenu-switch" className="switch button row-right topleft" onClick={ function() { currentCimmenu().toggleMainMenuVisible() }} >
+                <span id="barmenu-switch" className="switch button row-right topleft" onClick={ function(evt) { currentCimmenu().toggleMainMenuVisible(); evt.stopPropagation(); }} >
                     <span className="fa fa-bars"></span>
                 </span>
-                <span id="all-components-switch" className="switch button row-right bottomright" onClick={ function() { currentCimmenu().toggleAllComponentsVisibility() }} >
+                <span id="all-components-switch" className="switch button row-right bottomright" onClick={ function() { currentCimmenu().toggleAllComponentsVisibility(); evt.stopPropagation(); }} >
                     <span className="fa fa-gears"></span>
                 </span>
-                    <span id="diagram-components-switch" className="switch button row-right bottomleft" onClick={ function() { currentCimmenu().toggleDiagramComponentsVisibility() }} >
+                    <span id="diagram-components-switch" className="switch button row-right bottomleft" onClick={ function() { currentCimmenu().toggleDiagramComponentsVisibility(); evt.stopPropagation(); }} >
                     <span className="fa fa-cubes"></span>
                 </span>
             </div>

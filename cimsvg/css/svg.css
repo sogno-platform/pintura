@@ -2,19 +2,20 @@
     stroke: #000;
     stroke-width: 3px;
 }
-
+.fillwhenstill {
+    fill: inherit;
+    stroke-dasharray: 0;
+    stroke-width: 1px;
+}
 .highlighted-node:hover {
   stroke: #ff0;
 }
-
 line {
     stroke: #000;
     stroke-width: 1px;
 }
-
 .line {
     stroke: #000;
-    stroke-width: 2px;
 }
 .terminal-connnode {
     stroke: #000;
@@ -71,12 +72,13 @@ line {
     stroke: #aaa;
     stroke-width: 1px;
     pointer-events: none;
+    stroke-dasharray: 0;
     -webkit-user-select: none;  /* Chrome all / Safari all */
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
 }
 .gridLabel {
-    font-size: 8px;
+    font-size: 5px;
     font-family: "sans-serif";
     fill: grey;
     stroke-width: 0px;

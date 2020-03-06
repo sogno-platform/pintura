@@ -135,7 +135,6 @@ var head = new tag('head')
 
 head.c(new tag('meta').a('charset', '"utf-8"'))
 head.c(new tag('title').t('Pintura'))
-head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/svg.css"'))
 head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/layout.css"'))
 head.c(new tag('link').a('rel', '"stylesheet"').a('href', '"css/colours.css"'))
 head.c(new tag('link').a('rel', '"stylesheet"').
@@ -159,6 +158,7 @@ var svg = new tag('svg').a('id', '"svg"').
 	          a('xmlns:xlink','"http://www.w3.org/1999/xlink"').
 	          c(new tag('rect').
                       a('class', '"backing"').
+                      a('id', '"bg"').
                       a('onclick', '"currentCimsvg().checkComponentReadyToAdd(evt)"')).
 	          c(new tag('g').a('class', '"grid"')).
 	          c(new tag('g').a('class', '"diagrams"'))
@@ -231,8 +231,8 @@ let mouseEventScripts = `
 const onMouseDown = function(){
 };
 const onMouseUp = function(evt){
-    if (currentCimmenu()) {
-        currentCimmenu().onMouseUp(evt);
+    if (currentCimsvg()) {
+        currentCimsvg().onMouseUp(evt);
     }
 };
 const onMouseMove = function(){

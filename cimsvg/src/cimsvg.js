@@ -30,6 +30,8 @@ class cimsvg {
 
     constructor(svg, dialog) {
         this.svgNode = svg;
+        this.readyToMove = false;
+        this.processLoop = 0;
         this.dialog = dialog;
         this.cimview = new cimview(svg);
         if(dialog !== undefined) {
@@ -43,27 +45,160 @@ class cimsvg {
         this.clearAllData();
         this.cimmenu = null;
         cimsvg.setCimsvg(this);
-        cimsvg.addPinturaStyle(svg, css);
+        this.addPinturaStyle(svg, css);
         this.testOnly = false;
     }
 
-    static addPinturaStyle(svg, css) {
+    ghostModeOn() {
+        this.updateStyle(".fillwhenstill", "{ fill: none; stroke-dasharray: 2,4; stroke-width: 0.6px }");
+        this.updateStyle(".gridLine", "{ stroke: #000; stroke-dasharray: 1,20; }");
+    }
+
+    ghostModeOff() {
+        this.updateStyle(".fillwhenstill", "{ fill: inherit; stroke-dasharray: 0; stroke-width: 1px; }");
+        this.updateStyle(".gridLine", "{ stroke: #aaa; stroke-dasharray: 0; }");
+    }
+
+    addEvent(evt) {
+        cimsvg.events.push(evt);
+    }
+
+    static getLatestEvent() {
+        if (cimsvg.events.length > 0) {
+            let evt = cimsvg.events[ cimsvg.events.length-1 ];
+            cimsvg.events = [];
+            return evt;
+        }
+        else {
+            return null;
+        }
+    }
+
+    processLatestEvent() {
+        currentCimsvg().moved = true;
+        let evt = cimsvg.getLatestEvent();
+        if (evt != null) {
+            currentCimsvg().cimview.mouseMove(evt);
+        }
+    }
+
+    addEventListeners(bodyNode) {
+        bodyNode.addEventListener("wheel", (mouseEvent) =>{
+            this.cimview.wheelEvent(mouseEvent);
+        });
+        bodyNode.addEventListener("mousedown", (mouseEvent) =>{
+            this.moved = false;
+            this.readyToMove = true;
+            this.processLoop = setInterval(this.processLatestEvent, 330);
+            if (cimview.noInputFocus(mouseEvent)) {
+                this.cimview.mouseDown(mouseEvent);
+            }
+            if (!cimsvg.isRightClick(mouseEvent)) {
+                this.ghostModeOn();
+            }
+        });
+        bodyNode.addEventListener("mouseup", (mouseEvent) =>{
+            clearInterval(this.processLoop);
+            this.readyToMove = false;
+            this.ghostModeOff();
+            this.cimview.mouseUp(mouseEvent);
+            if (!cimsvg.isRightClick(mouseEvent)) {
+                if (!this.moved) {
+                    this.updateCimmenu(()=>{ this.cimmenu.processLeftClick(mouseEvent); })
+                }
+            }
+        });
+        bodyNode.addEventListener("mousemove", (mouseEvent) =>{
+            if(this.readyToMove) {
+                this.addEvent(mouseEvent);
+            }
+        });
+        bodyNode.addEventListener("mouseleave", (mouseEvent) =>{
+            clearInterval(this.processLoop);
+            this.readyToMove = false;
+            this.ghostModeOff();
+            this.cimview.mouseLeave(mouseEvent);
+        });
+        bodyNode.addEventListener("keydown", (keyEvent) =>{
+            /* ctrl + up key */
+            if (keyEvent.ctrlKey && (keyEvent.keyCode === 38)) {
+                this.cimview.zoomIn();
+            }
+            /* ctrl + down key */
+            else if (keyEvent.ctrlKey && (keyEvent.keyCode === 40)) {
+                this.cimview.zoomOut();
+            }
+            /* left key */
+            else if (keyEvent.keyCode === 37) {
+                if (cimview.noInputFocus(keyEvent)) {
+                    this.cimview.pan({ x: -10, y: 0 });
+                }
+            }
+            /* up key */
+            else if (keyEvent.keyCode === 38) {
+                if (cimview.noInputFocus(keyEvent)) {
+                    this.cimview.pan({ x: 0, y: -10 });
+                }
+            }
+            /* right key */
+            else if (keyEvent.keyCode === 39) {
+                if (cimview.noInputFocus(keyEvent)) {
+                    this.cimview.pan({ x: 10, y: 0 });
+                }
+            }
+            /* down key */
+            else if (keyEvent.keyCode === 40) {
+                if (cimview.noInputFocus(keyEvent)) {
+                    this.cimview.pan({ x: 0, y: 10 });
+                }
+            }
+            /* spacebar */
+            else if (keyEvent.keyCode === 32) {
+                if (cimview.noInputFocus(keyEvent)) {
+                    this.cimview.fit();
+                }
+            }
+        });
+    }
+
+    updateStyle(name, value) {
+        let counter = 0;
+        let docu = this.svgNode.ownerDocument;
+        for (let sheetIndex = 0; sheetIndex < docu.styleSheets.length; sheetIndex++) {
+            let styleSheet = docu.styleSheets[sheetIndex];
+            if (styleSheet.title === "cimsvg-style") {
+                let relevantRuleIndex = -1;
+                for (let ruleIndex = 0; ruleIndex < styleSheet.cssRules.length; ruleIndex++) {
+                    if(styleSheet.cssRules[ruleIndex].selectorText === name) {
+                        relevantRuleIndex = ruleIndex;
+                    }
+                }
+                if (relevantRuleIndex !== -1) {
+                    styleSheet.deleteRule(relevantRuleIndex);
+                    styleSheet.insertRule(name + value, relevantRuleIndex);
+		}
+            }
+        }
+    }
+
+    addPinturaStyle(svg, css) {
         let docu = svg.ownerDocument;
         let pinturaStyleTags = docu.querySelectorAll("style.pintura");
-        let style = docu.createElement("style");
-        style.type = "text/css";
-        style.classList.add("pintura");
+        this.style = docu.createElement("style");
+        this.style.type = "text/css";
+        this.style.classList.add("pintura");
+        this.style.setAttribute("title", "cimsvg-style");
 
         if (pinturaStyleTags.length < 1) {
             let head = docu.head;
             if(head === undefined) {
                 console.error("Failed to get head from document.");
             }
-            docu.head.appendChild(style);
-            if (style.styleSheet) {
-                style.styleSheet.cssText = css;
+            docu.head.appendChild(this.style);
+            if (this.style.styleSheet) {
+                this.style.styleSheet.cssText = css;
             } else {
-                style.appendChild(docu.createTextNode(css));
+                this.style.appendChild(docu.createTextNode(css));
             }
         }
     }
@@ -338,6 +473,28 @@ class cimsvg {
         } else {
             return response;
         }
+    }
+
+    static isRightClick(evt) {
+        if (evt.which) {
+            return (evt.which === 3);
+        }
+        else if (evt.button) {
+            return (evt.button === 2);
+        }
+        return false;
+    }
+
+    onMouseUp(evt) {
+        let id = evt.currentTarget.id.slice(0,-8);
+        let type = evt.currentTarget.parentElement.getAttribute("type");
+        if (cimsvg.isRightClick(evt)) {
+            this.updateCimmenu(()=>{ return this.cimmenu.processRightClick(evt); });
+        }
+        else {
+            this.updateCimmenu(()=>{ return this.cimmenu.processLeftClick(evt); });
+        }
+        evt.stopPropagation();
     }
 
     populateAttributes(type, id) {
@@ -753,6 +910,7 @@ class cimsvg {
 }
 
 cimsvg.currentCimsvgClass = null;
+cimsvg.events = [];
 
 const currentCimsvg = function() {
     return cimsvg.getCimsvg();

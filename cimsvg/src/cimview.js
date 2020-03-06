@@ -19,114 +19,76 @@
 class cimview {
     constructor(svg) {
         this.svgNode = svg;
-        let rect = { x: "-100", y: "-100", width: "1024", height: "768" };
+        let rect = { x: "-100", y: "-100", width: "400", height: "300" };
         this.setViewBox(rect);
         this.zoomSizes = [
             { width: 400, height: 300 }
         ];
         this.zoomLevel = 0;
         this.dragPoint = null;
+        this.moved = false;
     }
 
     static noInputFocus(evt) {
-        if (evt.target.nodeName.toUpperCase() === "BODY" || evt.target.nodeName.toUpperCase() === "RECT") {
+        if (evt.target.nodeName.toUpperCase() === "BODY" || evt.target.id.toUpperCase() === "BG") {
             return true;
         }
         return false;
     }
 
     getMouseCoord(evt) {
-        let m = evt.target.getScreenCTM();
         let position = this.svgNode.createSVGPoint();
         position.x = (Number(evt.clientX));
         position.y = (Number(evt.clientY));
-        return position.matrixTransform(m.inverse());
+        return position.matrixTransform(this.screenCTM);
     }
 
-    addEventListeners(bodyNode) {
-        bodyNode.addEventListener("wheel", (mouseEvent) =>{
-            if (mouseEvent.deltaY > 0) {
-                this.zoomIn();
+    wheelEvent(mouseEvent) {
+        if (mouseEvent.deltaY > 0) {
+            this.zoomIn();
+        }
+        else {
+            this.zoomOut();
+        }
+    }
+
+    mouseDown(mouseEvent) {
+        if (cimview.noInputFocus(mouseEvent)) {
+            this.dragPoint = this.getMouseCoord(mouseEvent);
+        }
+    }
+
+    mouseUp(mouseEvent) {
+        if (cimview.noInputFocus(mouseEvent)) {
+            if(this.dragPoint) {
+                let newDragPoint = this.getMouseCoord(mouseEvent);
+                let deltaPoint = this.svgNode.createSVGPoint();
+                deltaPoint.x = this.dragPoint.x - newDragPoint.x;
+                deltaPoint.y = this.dragPoint.y - newDragPoint.y;
+                this.pan(deltaPoint, false);
+                this.dragPoint = null;
             }
-            else {
-                this.zoomOut();
+        }
+    }
+
+    mouseMove(mouseEvent) {
+        if (cimview.noInputFocus(mouseEvent)) {
+            if(this.dragPoint) {
+                let newDragPoint = this.getMouseCoord(mouseEvent);
+                let deltaPoint = this.svgNode.createSVGPoint();
+                deltaPoint.x = this.dragPoint.x - newDragPoint.x;
+                deltaPoint.y = this.dragPoint.y - newDragPoint.y;
+                this.pan(deltaPoint, false);
             }
-        });
-        bodyNode.addEventListener("mousedown", (mouseEvent) =>{
-            if (cimview.noInputFocus(mouseEvent)) {
-                this.dragPoint = this.getMouseCoord(mouseEvent);
+        }
+    }
+
+    mouseLeave(mouseEvent) {
+        if (cimview.noInputFocus(mouseEvent)) {
+            if(this.dragPoint) {
+                this.dragPoint = null;
             }
-        });
-        bodyNode.addEventListener("mouseup", (mouseEvent) =>{
-            if (cimview.noInputFocus(mouseEvent)) {
-                if(this.dragPoint) {
-                    let newDragPoint = this.getMouseCoord(mouseEvent);
-                    let deltaPoint = this.svgNode.createSVGPoint();
-                    deltaPoint.x = this.dragPoint.x - newDragPoint.x;
-                    deltaPoint.y = this.dragPoint.y - newDragPoint.y;
-                    this.pan(deltaPoint, false);
-                    this.dragPoint = null;
-                }
-            }
-        });
-        bodyNode.addEventListener("mousemove", (mouseEvent) =>{
-            if (cimview.noInputFocus(mouseEvent)) {
-                if(this.dragPoint) {
-                    let newDragPoint = this.getMouseCoord(mouseEvent);
-                    let deltaPoint = this.svgNode.createSVGPoint();
-                    deltaPoint.x = this.dragPoint.x - newDragPoint.x;
-                    deltaPoint.y = this.dragPoint.y - newDragPoint.y;
-                    this.pan(deltaPoint, false);
-                }
-            }
-        });
-        bodyNode.addEventListener("mouseleave", (mouseEvent) =>{
-            if (cimview.noInputFocus(mouseEvent)) {
-                if(this.dragPoint) {
-                    this.dragPoint = null;
-                }
-            }
-        });
-        bodyNode.addEventListener("keydown", (keyEvent) =>{
-            /* ctrl + up key */
-            if (keyEvent.ctrlKey && (keyEvent.keyCode === 38)) {
-                currentCimsvg().cimview.zoomIn();
-            }
-            /* ctrl + down key */
-            else if (keyEvent.ctrlKey && (keyEvent.keyCode === 40)) {
-                currentCimsvg().cimview.zoomOut();
-            }
-            /* left key */
-            else if (keyEvent.keyCode === 37) {
-                if (cimview.noInputFocus(keyEvent)) {
-                    currentCimsvg().cimview.pan({ x: -10, y: 0 });
-                }
-            }
-            /* up key */
-            else if (keyEvent.keyCode === 38) {
-                if (cimview.noInputFocus(keyEvent)) {
-                    currentCimsvg().cimview.pan({ x: 0, y: -10 });
-                }
-            }
-            /* right key */
-            else if (keyEvent.keyCode === 39) {
-                if (cimview.noInputFocus(keyEvent)) {
-                    currentCimsvg().cimview.pan({ x: 10, y: 0 });
-                }
-            }
-            /* down key */
-            else if (keyEvent.keyCode === 40) {
-                if (cimview.noInputFocus(keyEvent)) {
-                    currentCimsvg().cimview.pan({ x: 0, y: 10 });
-                }
-            }
-            /* spacebar */
-            else if (keyEvent.keyCode === 32) {
-                if (cimview.noInputFocus(keyEvent)) {
-                    currentCimsvg().cimview.fit();
-                }
-            }
-        });
+        }
     }
 
     zoomToLevel(level) {
@@ -245,23 +207,41 @@ class cimview {
         return offset;
     }
 
+    updateStyle(name, value) {
+        if(currentCimsvg()) {
+            currentCimsvg().updateStyle(name, value);
+        }
+    }
+
+    calculateGridSize(viewRect){
+        let debug = true;
+        let provisionalGridSize = viewRect.width / 5;
+        let roundedGridSize = parseInt(provisionalGridSize / 100) * 100;
+        let fontInt = parseInt(provisionalGridSize / 20);
+        this.updateStyle(".gridLabel", "{ font-size: " + fontInt.toString() + "px; }");
+        if (roundedGridSize < 100) {
+            return 100;
+        }
+        return roundedGridSize;
+    }
+
     createGrid() {
         this.clearGrid();
-        let gridSize = 100;
         let viewBoxRect = this.getViewBox();
+        let gridSize = this.calculateGridSize(viewBoxRect);
         /* horizontal lines */
         let startOffsetY = this.calculateStartOffset(viewBoxRect.y, gridSize);
         let startOffsetX = this.calculateStartOffset(viewBoxRect.x, gridSize);
         for (let i=0; i<(viewBoxRect.height/gridSize); i++) {
             let yval = i*gridSize+startOffsetY;
             this.createGridLine(viewBoxRect.x, yval, viewBoxRect.width+viewBoxRect.x, yval);
-            this.createLocationMarker(yval+"y", yval.toString(), viewBoxRect.x+10, yval+20);
+            this.createLocationMarker(yval+"y", yval.toString(), viewBoxRect.x+(gridSize / 15), yval+(gridSize / 10));
         }
         /* vertical lines */
         for (let i=0; i<(viewBoxRect.width/gridSize); i++) {
             let xval = i*gridSize+startOffsetX;
             this.createGridLine(xval, viewBoxRect.y, xval, viewBoxRect.height+viewBoxRect.y);
-            this.createLocationMarker(xval+"x", xval.toString(), xval+10, viewBoxRect.y+20);
+            this.createLocationMarker(xval+"x", xval.toString(), xval+(gridSize / 15), viewBoxRect.y+(gridSize / 10));
         }
     }
 
@@ -290,13 +270,17 @@ class cimview {
     getZoomSize(diagramBoundary) {
         let required = {};
         let newZoomSize = {
-            width: this.zoomSizes[this.zoomSizes.length-1].width,
-            height: this.zoomSizes[this.zoomSizes.length-1].height
+            width: this.zoomSizes[0].width,
+            height: this.zoomSizes[0].height
         };
-        let currentIndex = this.zoomSizes.length-1;
+        let currentIndex = 0;
         while (!(required.widthFound && required.heightFound)) {
-            newZoomSize = this.addNewZoomSize(newZoomSize.width);
-            currentIndex += 1;
+            if(currentIndex > this.zoomSizes.length - 1) {
+                newZoomSize = this.addNewZoomSize(newZoomSize.width);
+            }
+            else {
+                newZoomSize = this.zoomSizes[currentIndex];
+	    }
             if (newZoomSize.height > diagramBoundary.height) {
                 if (!required.heightFound) {
                     required.heightFound = true;
@@ -309,6 +293,7 @@ class cimview {
                     required.width = currentIndex;
                 }
             }
+            currentIndex += 1;
         }
         return required;
     }
@@ -347,6 +332,7 @@ class cimview {
             backing.setAttribute("height", "100%");
         });
         this.createGrid();
+        this.screenCTM = svg.getScreenCTM().inverse();
     }
 
     clearDisplay() {

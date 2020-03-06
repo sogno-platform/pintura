@@ -33,7 +33,7 @@ if ("uri" in params){
 
 let body = document.querySelector("body");
 if (body !== undefined) {
-    currentCimsvg().cimview.addEventListeners(body);
+    currentCimsvg().addEventListeners(body);
     currentCimmenu().addEventListeners(document);
 }
 
