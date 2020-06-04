@@ -44,11 +44,13 @@ class cimview {
     }
 
     wheelEvent(mouseEvent) {
-        if (mouseEvent.deltaY > 0) {
-            this.zoomIn();
-        }
-        else {
-            this.zoomOut();
+        if (cimview.noInputFocus(mouseEvent)) {
+            if (mouseEvent.deltaY > 0) {
+                this.zoomIn();
+            }
+            else {
+                this.zoomOut();
+            }
         }
     }
 

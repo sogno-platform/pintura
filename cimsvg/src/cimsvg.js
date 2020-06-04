@@ -92,9 +92,9 @@ class cimsvg {
             this.processLoop = setInterval(this.processLatestEvent, 330);
             if (cimview.noInputFocus(mouseEvent)) {
                 this.cimview.mouseDown(mouseEvent);
-            }
-            if (!cimsvg.isRightClick(mouseEvent)) {
-                this.ghostModeOn();
+                if (!cimsvg.isRightClick(mouseEvent)) {
+                    this.ghostModeOn();
+                }
             }
         });
         bodyNode.addEventListener("mouseup", (mouseEvent) =>{
