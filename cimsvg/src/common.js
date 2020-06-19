@@ -38,6 +38,9 @@ class common {
      * End of Public Domain/MIT function
      */
 
+    static emptylog(...args) {
+    }
+
     static safeExtract(graph) {
         let object = graph;
         let args = Array.prototype.slice.call(arguments, 1);

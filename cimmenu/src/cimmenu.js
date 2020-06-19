@@ -19,9 +19,9 @@
 import templates from "../templates/index.js";
 import common from "./common.js";
 import contextmenu from "./contextmenu.js";
-import packageIndex from "../templates/packageIndex.js";
 import Menu from "./react-menu.js";
 const e = React.createElement;
+import cgmes from '../cgmes/cgmesIndex.js';
 
 class cimmenu {
 
@@ -61,6 +61,23 @@ class cimmenu {
 
     setCimsvg(cimsvg) {
         this.cimsvg = cimsvg;
+    }
+
+    checkBaseJson(baseJson) {
+        Object.keys(baseJson).forEach((component) => {
+            let shortName = component.substr(4)
+            let cgmesObject = cgmes["src_" + shortName + "_js" ]
+            if (cgmesObject) {
+                let read = cgmesObject.read;
+                let componentMap = baseJson[component];
+                Object.keys(componentMap).forEach((componentInstance) => {
+                    read(componentMap[componentInstance]);
+                });
+            }
+            else {
+                logIfDebug("Cannot find [", shortName, "] in class list.");
+            }
+	});
     }
 
     applyTemplate(data, templateName) {
@@ -527,26 +544,101 @@ class cimmenu {
         });
     }
 
-    // TODO: this is not the best way to do this
-    static getPackageName(type) {
-        let packageArray = packageIndex[type.substring(4)];
-        let packageName = null;
-        if (packageArray.length === 1) {
-            packageName = packageArray[0];
-        }
-        else if (packageArray.length === 2) {
-            packageName = packageArray[0];
-        }
-        else if (packageArray.length === 3) {
-            packageName = packageArray[1];
-        }
-        else if (packageArray.length === 6) {
-            packageName = packageArray[2];
+    findPossibleClasses(matchingComponents, subClassList) {
+        let shortenedTypeName = matchingComponents.requestedType.substring(0,4) === 'cim:' ?
+            matchingComponents.requestedType.substring(4) : matchingComponents.requestedType;
+        let possibleClasses = [ shortenedTypeName ].concat(subClassList);
+        matchingComponents.aggregates = this.getAggregateComponentsList(matchingComponents.requestedType, possibleClasses).aggregates;
+        let targetRdfId;
+        if (matchingComponents.value && matchingComponents.value["rdf:resource"]) {
+            targetRdfId = matchingComponents.value["rdf:resource"].substr(1)
         }
         else {
-            packageName = packageArray[1];
+            targetRdfId = matchingComponents.value;
         }
-        return packageName;
+        for (let index in matchingComponents.aggregates) {
+            if(matchingComponents.aggregates[index].rdfid == targetRdfId) {
+                matchingComponents.aggregates[index].selected = 'selected';
+            }
+        }
+        if (matchingComponents.classType == "Terminal") {
+            for (let index in matchingComponents.aggregates) {
+                if(matchingComponents.aggregates[index].attribute == "cim:Terminal.ConductingEquipment") {
+                    matchingComponents.aggregates[index].disabled = 'disabled';
+                }
+            }
+        }
+        return matchingComponents;
+    };
+
+
+    /* TODO: package allocation needs a re-write when we look at
+     * serialization in the cimgen project. The general rule is
+     * that the big classes are only in one profile and the primitives
+     * can be in any of them. So one strategy could be to write all of
+     * the classes that only have one profile into their profiles, then
+     * write all the components that are connected to them into the
+     * same profile, and then check that they are all written.
+    static getPackageName(type) {
+    }
+    */
+
+    getAggregateComponentMenuCGMES(details){
+        let updateMenu = "";
+        let jsObject = 'src_' + details.type.substring(4) + '_js';
+        if (jsObject in cgmes) {
+            let render = cgmes[jsObject].renderAsAttribute;
+            let subClassList = cgmes[jsObject].subClassList();
+            let dropdownId = common.generateUUID();
+            if (details.type !== undefined) {
+                let value = currentCimsvg().getValueOf(details.classType, details.parentId, details.attribute)
+                let attributeDetails = {
+                    attribute: details.attribute,
+                    dropdownId: dropdownId,
+                    parentRdfid: details.parentId,
+                    requestedType: details.type,
+                    classType: details.classType,
+                    value: value
+                }
+                let matchingComponents = this.findPossibleClasses(attributeDetails, subClassList);
+                logIfDebug("Rendering attribute: ", matchingComponents);
+                updateMenu = render(matchingComponents);
+            }
+            return updateMenu;
+        }
+        else {
+            console.error("Cannot find [", jsObject, "] in cgmes render table.");
+            return "";
+        }
+    };
+
+    getAggregateComponentMenu(classType, parentId, rdfid, type, attribute) {
+        let completeAttributeName;
+        let tokens = attribute.split(['.'])
+        if (tokens.length == 2) {
+            if (attribute.substring(0,4) == "cim:") {
+                completeAttributeName = attribute
+            }
+            else {
+                completeAttributeName = "cim:" + attribute
+            }
+        }
+        else {
+            completeAttributeName = classType + '.' + tokens[0]
+        }
+        let details = {
+            classType: classType,
+            parentId: parentId,
+            rdfid: rdfid,
+            type: type,
+            attribute: completeAttributeName
+        };
+        if (currentCimsvg().getCimversion() === "cgmes") {
+            return this.getAggregateComponentMenuCGMES(details);
+        }
+        else {
+            return this.getAggregateComponentMenuCIM16(details);
+        }
     }
 
     populate(node, type, cimVersion, id) {
@@ -562,21 +654,30 @@ class cimmenu {
             else {
                 let templatePath;
                 if (cimVersion === "cgmes") {
-                    let packageName = cimmenu.getPackageName(type);
-                    templatePath = "generated_attributes_" + cimVersion + "_" + packageName + "_" +type.substring(4);
+                    templatePath = "src_" + type.substring(4);
+                    let renderClass = cgmes[templatePath + "_js"];
+                    if (renderClass) {
+                        let data = renderClass.renderAsClass(attributes, this);
+                        cimmenu.populatePanelWithData(node, data, "Attributes");
+                        cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
+                        this.showPanel("attributesPanel");
+                    }
+                    else {
+                        console.error("Couldn't find renderClass: ", templatePath, " in templates.");
+                    }
                 }
                 else {
                     templatePath = "generated_attributes_" + cimVersion + "_" +type.substring(4);
-                }
-                if (templatePath in templates) {
-                    let template = templates[templatePath];
-                    let data = template(attributes);
-                    cimmenu.populatePanelWithData(node, data, "Attributes");
-                    cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
-                    this.showPanel("attributesPanel");
-                }
-                else {
-                    console.error("Couldn't find templatePath: ", templatePath, " in templates.");
+                    if (templatePath in templates) {
+                        let template = templates[templatePath];
+                        let data = template(attributes);
+                        cimmenu.populatePanelWithData(node, data, "Attributes");
+                        cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
+                        this.showPanel("attributesPanel");
+                    }
+                    else {
+                        console.error("Couldn't find templatePath: ", templatePath, " in templates.");
+                    }
                 }
             }
         });

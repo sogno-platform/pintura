@@ -1,10 +1,16 @@
 import babel from "rollup-plugin-babel";
 import json from "rollup-plugin-json";
 import handlebars from "rollup-plugin-handlebars-plus";
+import replace from "@rollup/plugin-replace";
 
 const global = {
     "handlebars/runtime": "Handlebars"
 };
+
+let logIfDebugFunction = "common.emptylog";
+if (process.env.BUILD == "development") {
+    logIfDebugFunction = "console.log";
+}
 
 export default {
     input: "src/cimmenu.js",
@@ -43,6 +49,10 @@ export default {
         babel({
             exclude: "node_modules/**",
             presets: ['@babel/env', '@babel/preset-react']
+        }),
+        replace({
+            exclude: 'node_modules/**',
+            "logIfDebug": logIfDebugFunction
         }),
         json()
     ]

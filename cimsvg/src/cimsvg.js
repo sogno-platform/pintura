@@ -29,6 +29,7 @@ import css from "../css/svg.css";
 class cimsvg {
 
     constructor(svg, dialog) {
+        logIfDebug('Logging is enabled!');
         this.svgNode = svg;
         this.readyToMove = false;
         this.processLoop = 0;
@@ -232,7 +233,7 @@ class cimsvg {
             return object[attribute];
         }
         else {
-            return 0;
+            return undefined;
         }
     }
 
@@ -545,6 +546,7 @@ class cimsvg {
     }
 
     applyDiagramTemplate(templateJson) {
+        logIfDebug("Redrawing")
         let templateHtml = templates.cim2svg(templateJson);
         let diagramList = this.svgNode.querySelectorAll(".diagrams");
         diagramList.forEach(function(diagram) {
@@ -633,7 +635,9 @@ class cimsvg {
             }
             this.incFileReceivedCount();
             if (this.checkIfParseReady()) {
+                logIfDebug("Loading file cimVersion: ", this.cimVersion, " entsoe: ", this.entsoe);
                 this.setBaseJson(cimxml.createObjectGraphFromXml(this.getXmlDoc()));
+                this.cimmenu.checkBaseJson(this.getBaseJson());
                 this.resetFileReceivedCount(0);
                 this.setFileCount(0);
                 this.populateDiagramLinks();
@@ -697,6 +701,7 @@ class cimsvg {
     }
 
     updateComponentRDF(type, id, attribute, rdfid) {
+        logIfDebug("updateComponentRDF(", type, id, attribute, rdfid, ")", )
         let value = { "rdf:resource" : "#" + rdfid };
         this.updateComponentInBaseJson(type, id, attribute, value);
         this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value); });

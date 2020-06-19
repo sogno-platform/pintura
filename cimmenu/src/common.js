@@ -37,6 +37,9 @@ class common {
      * End of Public Domain/MIT function
      */
 
+    static emptylog(...args) {
+    }
+
     static removeColon(str) {
         return str.replace(":", "");
     }
@@ -119,6 +122,20 @@ class common {
 
     static identifiedObjectName() {
         return "cim:IdentifiedObject.name";
+    }
+    static getRidOfHash(name){
+        if (name !== undefined) {
+           let tokens = name.split('#');
+           if (tokens !== undefined) {
+               if (tokens.length == 1) {
+                   return tokens[0];
+               }
+               if (tokens.length > 1) {
+                   return tokens[1];
+               }
+           }
+        }
+        return name;
     }
 }
 

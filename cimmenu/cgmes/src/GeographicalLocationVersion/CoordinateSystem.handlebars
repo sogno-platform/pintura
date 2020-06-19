@@ -1,0 +1,34 @@
+<ul class="floating-panel-list">
+    <li class="wide-row floating-panel-item list-entry">
+        <span class="row-left floating-panel-name">cim:CoordinateSystem.crsUrn</span>
+
+        {{{getAggregateComponentMenu 'cim:CoordinateSystem' [pintura:rdfid] [cim:cim:CoordinateSystem.crsUrn] 'cim:String' 'cim:CoordinateSystem.crsUrn' }}}
+
+    </li>
+    <li class="wide-row floating-panel-item list-entry">
+        <span class="row-left floating-panel-name">cim:CoordinateSystem.Location</span>
+
+        {{{getAggregateComponentMenu 'cim:CoordinateSystem' [pintura:rdfid] [cim:cim:CoordinateSystem.Location] 'cim:Location' 'cim:CoordinateSystem.Location' }}}
+
+    </li>
+    <li class="wide-row floating-panel-item list-entry">
+        <span class="row-left floating-panel-name">cim:IdentifiedObject.mRID</span>
+
+        {{{getAggregateComponentMenu 'cim:CoordinateSystem' [pintura:rdfid] [cim:cim:IdentifiedObject.mRID] 'cim:String' 'cim:IdentifiedObject.mRID' }}}
+
+    </li>
+    <li class="wide-row floating-panel-item list-entry">
+        <span class="row-left floating-panel-name">cim:IdentifiedObject.name</span>
+
+        {{{getAggregateComponentMenu 'cim:CoordinateSystem' [pintura:rdfid] [cim:cim:IdentifiedObject.name] 'cim:String' 'cim:IdentifiedObject.name' }}}
+
+    </li>
+    <li class="wide-row floating-panel-item list-subtitle">
+        <span class="row-left floating-panel-name">Show Terminals</span>
+        <span class="row-right floating-panel-value">
+            <button onclick="currentCimsvg().populateTerminals('cim:CoordinateSystem', '{{{[pintura:rdfid]}}}')">
+                           -&gt;
+            </button>
+        </span>
+    </li>
+</ul>

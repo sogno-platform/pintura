@@ -18,7 +18,6 @@
 
 import cimxml from "./cimxml.js";
 import JSZip from "jszip";
-import packageIndex from "./packageIndex.js";
 class cimfile {
 
     static addToFileMap(fileData, fileName, fileMap){
@@ -126,6 +125,8 @@ class cimfile {
         cimfile.saveFile(data, filename);
     }
 
+/* TODO: multipart disabled for now, until discovery during serialization work
+ * how hard it is to re-weave the components back into packages
     static convertToMultipartZip(jsonData, filename) {
         let packageData = {};
         let fullModel = {};
@@ -147,6 +148,7 @@ class cimfile {
                                ":" + d.getSeconds();
         cimfile.createMultipartZip(packageData, fullModel, filename);
     }
+    */
 }
 
 export default cimfile;

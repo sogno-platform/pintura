@@ -8,12 +8,13 @@
     "url": "https://git.rwth-aachen.de/acs/core/cim/pintura.git"
   },
   "scripts": {
-    "generateCgmesHandlebars": "node templates/generateCgmesTemplates.js",
-    "createIndex": "cd templates && node createIndex.js > index.js && node createCgmesIndex.js > cgmesIndex.js",
-    "templates": "npm run generateCgmesHandlebars && npm run createIndex",
+    "createCgmesIndex": "cd cgmes && node createCgmesIndex.js > cgmesIndex.js",
+    "createIndex": "cd templates && node createIndex.js > index.js",
+    "indexes": "npm run createIndex & npm run createCgmesIndex",
     "package": "rollup -c ${ROLLUP_FLAGS}",
-    "build": "npm install && npm run templates && npm run package",
-    "build-dev": "export ROLLUP_FLAGS=' --sourcemap inline'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build"
+    "build": "npm install && npm run indexes && npm run package",
+    "build-dev": "npm run install-deps && export ROLLUP_FLAGS=' --sourcemap inline'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build",
+    "install-deps": "npm install async @babel/preset-react fast-glob rollup rollup-plugin-babel rollup-plugin-json rollup-plugin-handlebars-plus xml2js"
   },
   "devDependencies": {
     "async": "^3.1.0",
@@ -23,6 +24,7 @@
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-handlebars-plus": "^0.2.3",
+    "@rollup/plugin-replace": "^2.3.3",
     "xml2js": "^0.4.19"
   }
 }

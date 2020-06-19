@@ -1,11 +1,18 @@
 import babel from "rollup-plugin-babel";
 import handlebars from "rollup-plugin-handlebars-plus";
 import { string } from "rollup-plugin-string";
+import replace from "@rollup/plugin-replace";
+
 import svgo from "rollup-plugin-svgo";
 const global = {
     "handlebars/runtime": "Handlebars",
-    "jszip": "JSZip"
+    "jszip": "JSZip",
 };
+
+let logIfDebugFunction = "common.emptylog";
+if (process.env.BUILD == "development") {
+    logIfDebugFunction = "console.log";
+}
 
 export default {
     input: "src/cimsvg.js",
@@ -48,6 +55,10 @@ export default {
         }),
         babel({
             exclude: "node_modules/**"
+        }),
+        replace({
+            exclude: 'node_modules/**',
+            "logIfDebug": logIfDebugFunction
         })
     ]
 };
