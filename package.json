@@ -13,9 +13,8 @@
     "cimsvg": "cd cimsvg && npm install && npm run build",
     "cimmenu": "cd cimmenu && npm install && npm run build",
     "libs": "npm run cimsvg && npm run cimmenu",
-    "generateIndex": "node generateIndex.js $(npm config get mode) > index.html",
-    "makeDist": "cp -a cimmenu/templates/generated/*.xml cimmenu/lib/*.js cimsvg/lib/*.js dist",
-    "build-tasks": "npm run makeDirs && npm run libs && npm run generateIndex && npm run makeDist",
+    "makeDist": "cp -a cimmenu/lib/*.js cimsvg/lib/*.js dist",
+    "build-tasks": "npm run makeDirs && npm run libs && npm run makeDist",
     "build": "npm config set mode production && npm run build-tasks",
     "build-dev": "export ROLLUP_FLAGS=' --sourcemap inline --environment BUILD:development'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build-tasks",
     "initializeTests": "node node_modules/jasmine/bin/jasmine init",
@@ -25,23 +24,21 @@
     "lint": "eslint index.js cimsvg/*.js cimsvg/src/*.js cimmenu/*.js cimmenu/src/*.js ${ESLINT_FLAGS}",
     "mockNpmInstall": "./npm/mockInstall.sh"
   },
-  "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/register": "^7.0.0",
-    "eslint": "^6.4.0",
-    "formidable": "^1.2.1",
-    "handlebars": "^4.0.11",
-    "jasmine": "^3.2.0",
-    "jasmine-console-reporter": "^3.1.0",
-    "jsdom": "^12.0.0",
-    "jszip": "^3.2.0",
-    "rollup": "^2.15.0",
-    "xmldom": "^0.1.27"
-  },
   "dependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/register": "^7.10.3",
+    "eslint": "^7.3.1",
+    "formidable": "^1.2.2",
+    "handlebars": "^4.7.6",
     "html": "^1.0.0",
     "html-format": "^1.0.1",
-    "js-beautify": "^1.8.9"
+    "jasmine": "^3.5.0",
+    "jasmine-console-reporter": "^3.1.0",
+    "js-beautify": "^1.11.0",
+    "jsdom": "^16.2.2",
+    "jszip": "^3.5.0",
+    "rollup": "^2.18.0",
+    "xmldom": "^0.3.0"
   }
 }

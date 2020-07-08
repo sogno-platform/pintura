@@ -16,15 +16,15 @@
     "build-dev": "npm run install-deps && export ROLLUP_FLAGS=' --sourcemap inline'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build",
     "install-deps": "npm install async @babel/preset-react fast-glob rollup rollup-plugin-babel rollup-plugin-json rollup-plugin-handlebars-plus xml2js"
   },
-  "devDependencies": {
-    "async": "^3.1.0",
-    "@babel/preset-react": "^7.4.0",
-    "fast-glob": "^2.2.6",
-    "rollup": "^1.7.0",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-handlebars-plus": "^0.2.3",
+  "dependencies": {
+    "@babel/preset-react": "^7.10.1",
+    "@rollup/plugin-babel": "^5.0.4",
     "@rollup/plugin-replace": "^2.3.3",
-    "xml2js": "^0.4.19"
+    "async": "^3.2.0",
+    "fast-glob": "^3.2.4",
+    "rollup": "^2.18.0",
+    "rollup-plugin-handlebars-plus": "^0.2.5",
+    "rollup-plugin-json": "^4.0.0",
+    "xml2js": "^0.4.23"
   }
 }

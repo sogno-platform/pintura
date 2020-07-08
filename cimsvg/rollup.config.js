@@ -1,4 +1,4 @@
-import babel from "rollup-plugin-babel";
+import babel from "@rollup/plugin-babel";
 import handlebars from "rollup-plugin-handlebars-plus";
 import { string } from "rollup-plugin-string";
 import replace from "@rollup/plugin-replace";

@@ -25,24 +25,19 @@ import cgmes from '../cgmes/cgmesIndex.js';
 
 class cimmenu {
 
-    constructor(node) {
-        this.reactMenu = e(libcimmenu.Menu)
-        ReactDOM.render(this.reactMenu, node);
-        this.menuNode                = node;
+    constructor(leftnode, rightnode) {
+        let reactMenu = e(libcimmenu.Menu)
+        this.reactMenu = ReactDOM.render(reactMenu, leftnode);
+        this.menuNode                = leftnode;
         this.panels = {
-            "diagramsPanel"          : this.menuNode.querySelectorAll(".diagrams-panel")[0],
-            "componentsPanel"        : this.menuNode.querySelectorAll(".components-panel")[0],
-            "attributesPanel"        : this.menuNode.querySelectorAll(".attributes-panel")[0],
-            "allComponentsPanel"     : this.menuNode.querySelectorAll(".all-components-panel")[0],
-            "mainMenu"               : this.menuNode.querySelector("#main-menu"),
-            "file-menu-panel"        : null,
-            "diagram-menu-panel"     : null,
+            "file-menu-panel"        : this.menuNode.querySelector("#file-menu-panel"),
+            "diagramsPanel"          : this.menuNode.querySelector("#diagram-menu-panel"),
+            "componentsPanel"        : this.menuNode.querySelector("#components-menu-panel"),
+            "attributesPanel"        : rightnode,
         };
         this.diagramId               = null;
         this.templateJson            = null;
         this.populateFileLinks();
-        this.addMenuEventListeners(this.menuNode);
-        this.calculateScreenHeight();
         cimmenu.setCimmenu(this);
         this.cimsvg                 = false;
         this.contextMenu = new contextmenu(this.menuNode.querySelector("#context-menu"), "context-menu");
@@ -61,6 +56,8 @@ class cimmenu {
 
     setCimsvg(cimsvg) {
         this.cimsvg = cimsvg;
+        this.contextMenu.setCimsvg(cimsvg);
+        this.reactMenu.setCimsvg(cimsvg);
     }
 
     checkBaseJson(baseJson) {
@@ -87,36 +84,6 @@ class cimmenu {
         }
         else {
             return "";
-        }
-    }
-
-    calculateScreenHeight() {
-        let bottomHalfHeight = this.menuNode.clientHeight / 2;
-        let numberOfRowsFloat = bottomHalfHeight / 40;
-        this.componentPanelGridHeight = Math.round(numberOfRowsFloat);
-    }
-
-    static updateGridLocation (node, column, row, length) {
-        let area = row.toString() + " / " + column.toString() + " / " + (row + length).toString() + " / " + (column + 1).toString();
-        node.style.gridArea = area;
-    }
-
-    addMenuEventListeners(node) {
-        let keys = Object.keys(Menu.menuStructure);
-        keys.forEach((key)=>{
-            let menu = Menu.menuStructure[key];
-            node.querySelector("#" + menu.button.id).addEventListener("mouseover", (evt)=>{
-                this.hideAllMenuPanels();
-                this.showPanel(menu.panel.id);
-                evt.stopPropagation();
-            });
-            node.querySelector("#" + menu.panel.id).addEventListener("mouseover", (evt)=>{
-                evt.stopPropagation();
-            });
-            this.panels[menu.panel.id] = this.menuNode.querySelector("#" + menu.panel.id);
-        });
-        if(typeof window !== undefined) {
-            this.resizeListener(window);
         }
     }
 
@@ -157,60 +124,16 @@ class cimmenu {
 
     redrawMenu(diagramId, type, id) {
         this.diagramId = diagramId;
-        this.showPanel("diagramsPanel");
-        this.showDiagramComponentList(diagramId, type);
-        this.populateComponentsListForDiagramAndComponentType(diagramId, type, id);
         this.populateAttributes(type, id);
-    }
-
-    redrawMenus(visibleMenus) {
-        this.hidePanels(Object.keys(this.panels));
-        this.showPanels(visibleMenus);
-        if (visibleMenus.includes("componentsAccordion")) {
-            let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel);
-            cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
-        }
-        if (visibleMenus.includes("componentsPanel")) {
-            this.doPopulateComponentsList(this.diagramId, this.componentType, this.id);
-        }
-    }
-
-    resizeListener(_window) {
-        _window.onresize = () => {
-            this.calculateScreenHeight();
-            this.contextMenu.toggleMenuOff();
-        };
     }
 
     getContextMenu() {
         return this.contextMenu;
     }
 
-    getListOfVisibleMenus() {
-        this.visibleMenus = [];
-        Object.keys(this.panels).forEach( ( panelName ) => {
-            if (this.panels[panelName] !== undefined) {
-                if (!this.panels[panelName].classList.contains("invisible")) {
-                    this.visibleMenus.push(panelName);
-                }
-            }
-        });
-        return this.visibleMenus;
-    }
-
     update(templateJson) {
         this.templateJson = templateJson;
         this.populateDiagramComponents();
-        this.panels.componentsAccordion = this.menuNode.querySelectorAll(".component-accordion")[0];
-    }
-
-    toggleMainMenuVisible() {
-        if (this.panels.mainMenu.classList.contains("invisible")) {
-            this.panels.mainMenu.classList.remove("invisible");
-        }
-        else {
-            this.panels.mainMenu.classList.add("invisible");
-        }
     }
 
     static readFile(e) {
@@ -246,241 +169,17 @@ class cimmenu {
         }
     }
 
-    updateComponent(type, id, attribute, value) {
-        if (attribute === "cim:IdentifiedObject.name") {
-            let componentsPanelButtonId = "#" + id + "-components-panel-button";
-            this.updateButtonInPanel("componentsPanel", componentsPanelButtonId, value);
-            let allComponentsPanelButtonId = "#" + id + "-all-components-button";
-            this.updateButtonInPanel("allComponentsPanel", allComponentsPanelButtonId, value);
-        }
-    }
-
-    toggleAllComponentsVisibility() {
-        this.panels.diagramsPanel.classList.add("invisible");
-        this.panels.componentsPanel.classList.add("invisible");
-        this.panels.attributesPanel.classList.add("invisible");
-        if (this.panels.allComponentsPanel.classList.contains("invisible")) {
-            this.populateAllComponents();
-            this.panels.allComponentsPanel.classList.remove("invisible");
-        }
-        else {
-            this.panels.allComponentsPanel.classList.add("invisible");
-        }
-    }
-
-    populateAllComponents() {
-        this.cimsvgFunction(()=> {
-            let baseJson = currentCimsvg().getBaseJson();
-            let items = this.applyTemplate(baseJson, "handlebars_pinturaJson2AllComponentsList");
-            cimmenu.populatePanelWithData(this.panels.allComponentsPanel, items, "All Components");
-            cimmenu.updateGridLocation(this.panels.allComponentsPanel, 4, 1, 10);
-            this.showPanel("allComponentsPanel");
-        });
-    }
-
-    populateAllComponentsCreationMenu() {
-        cimmenu.populatePanelWithData(this.panels.allComponentsPanel, this.allComponentsCreationHtml, "Add Component");
-    }
-
     populateFileLinks() {
         let template = templates.handlebars_menu_json;
-        this.panels["mainMenu"].querySelectorAll("#fileopen").forEach((elem)=>{ elem.addEventListener("change", cimmenu.readFile, false); });
+        this.panels["file-menu-panel"].querySelectorAll("#fileopen").forEach((elem)=>{ elem.addEventListener("change", cimmenu.readFile, false); });
     }
 
     showFileMenu(evt) {
-        this.showPanel("fileMenu");
         evt.stopPropagation();
     }
 
-    showPanel(panelName) {
-        let panel = this.panels[panelName];
-        if (panel !== undefined) {
-            if(panel.classList.contains("invisible")) {
-                panel.classList.remove("invisible");
-            }
-        }
-    }
-
-    showPanels(panels) {
-        panels.forEach((panelName)=>{
-            this.showPanel(panelName);
-        });
-    }
-
-    hideAllMenuPanels() {
-        let menuPanels = this.panels.mainMenu.querySelectorAll(".main-menu-panel");
-        menuPanels.forEach((panel)=>{
-            panel.classList.add("invisible");
-        });
-    }
-
-    hidePanels(panels) {
-        panels.forEach((panelClass)=>{
-            if (this.panels[panelClass] !== undefined) {
-                this.panels[panelClass].classList.add("invisible");
-            }
-        });
-    }
-
-    hidePanel(panelName) {
-        let panel = this.panels[panelName];
-        if (panel !== undefined) {
-            if (panel !== undefined) {
-                panel.classList.add("invisible");
-            }
-        }
-    }
-
-    toggleDiagramComponentsVisibility() {
-        this.panels.componentsPanel.classList.add("invisible");
-        this.panels.allComponentsPanel.classList.add("invisible");
-        this.panels.attributesPanel.classList.add("invisible");
-        if (this.panels.diagramsPanel.classList.contains("invisible")) {
-            this.panels.diagramsPanel.classList.remove("invisible");
-        }
-        else {
-            this.panels.diagramsPanel.classList.add("invisible");
-        }
-    }
-
-    toggleDiagramComponentListVisibility(diagramId) {
-        this.panels.componentsPanel.classList.add("invisible");
-        this.panels.attributesPanel.classList.add("invisible");
-        let accordionId = "#" + diagramId + "-accordion";
-        let accordionNode = this.panels.diagramsPanel.querySelector(accordionId);
-        if (accordionNode.classList.contains("invisible")) {
-            accordionNode.classList.remove("invisible");
-        }
-        else {
-            accordionNode.classList.add("invisible");
-        }
-        let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel);
-        cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
-    }
-
-    static markSelected(node, addSelector, removeSelector, markClass) {
-        common.removeClassFromNode(node, removeSelector, markClass);
-        common.addClassToNode(node, addSelector, markClass);
-    }
-
-    showDiagramComponentList(diagramId, type) {
-        let accordionId = "#" + diagramId + "-accordion";
-        let accordionNode = this.panels.diagramsPanel.querySelector(accordionId);
-        if (accordionNode) {
-            accordionNode.classList.remove("invisible");
-            let classSelector = "." + common.removeColon(type) + "-li";
-            if (type) {
-                cimmenu.markSelected(accordionNode, classSelector, ".selected", "selected");
-            }
-        }
-        let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel);
-        cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
-    }
-
     populateDiagramComponents() {
-        cimmenu.populatePanelWithTemplate(this.panels.diagramsPanel,
-            this.templateJson, "handlebars_pinturaJson2DiagramList", "Diagram Components");
-        let rows = cimmenu.calculatePanelHeight(this.panels.diagramsPanel);
-        cimmenu.updateGridLocation(this.panels.diagramsPanel, 1, 1, rows);
-    }
-
-    decideWhichRow(prevColumnSelected, numberOfRows) {
-        let rowIndex = 1;
-        let halfOfRows = parseInt(numberOfRows / 2);
-        let rowsBetweenSelectedAndBottom = prevColumnSelected + numberOfRows;
-
-        if (numberOfRows >= this.componentPanelGridHeight) {
-            console.warn("Number of rows is bigger than componentPanelGridHeight. numberOfRows: ", numberOfRows, " componentPanelGridHeight: ", this.componentPanelGridHeight);
-        }
-        else {
-            if (rowsBetweenSelectedAndBottom >= this.componentPanelGridHeight) {
-                rowIndex = this.componentPanelGridHeight - numberOfRows;
-            }
-            if (halfOfRows < prevColumnSelected) {
-                rowIndex = prevColumnSelected - halfOfRows;
-            }
-        }
-
-        /* Safety checks */
-        if (rowIndex < 0) {
-            rowIndex = 1;
-        }
-        if (rowIndex > this.componentPanelGridHeight) {
-            console.error("Correcting excessive row index. rowIndex: ", rowIndex, " componentPanelGridHeight: ", this.componentPanelGridHeight);
-            rowIndex = 1;
-        }
-        return rowIndex;
-    }
-
-    populateComponentsListForDiagramAndComponentType(diagramId, componentType, id) {
-        if (this.doPopulateComponentsList(diagramId, componentType, id)) {
-            this.diagramId = diagramId;
-            this.componentType = componentType;
-            this.componentId = id;
-        }
-    }
-
-    doPopulateComponentsList(diagramId, componentType, id) {
-        let components = common.safeExtract(this.templateJson, "Diagram", diagramId, "components", componentType);
-        if (components) {
-            let justTheseComponents = { "Diagram": { [diagramId]: { "components": { [componentType]: components } } } };
-            if (id) {
-                justTheseComponents["Diagram"][diagramId]["components"][componentType][id].selected = "selected";
-            }
-            if(this.panels.componentsPanel !== null) {
-                cimmenu.populatePanelWithTemplate(this.panels.componentsPanel, justTheseComponents, "handlebars_pinturaJson2ComponentOfTypeList", "Component Types");
-            }
-            if(id) {
-                delete justTheseComponents["Diagram"][diagramId]["components"][componentType][id].selected;
-            }
-            let prevRowIndex = 2;
-            let buttons = this.panels["diagramsPanel"].querySelectorAll(".list-subtitle");
-            buttons.forEach((button, index)=>{
-                if (button.classList.contains("selected")) {
-                    prevRowIndex += index;
-                }
-            });
-            let numberOfRows = Object.keys(components).length;
-            let gridRowIndex = this.decideWhichRow(prevRowIndex, numberOfRows);
-            let maxRow = (numberOfRows > this.componentPanelGridHeight) ? this.componentPanelGridHeight : numberOfRows;
-            cimmenu.updateGridLocation(this.panels.componentsPanel, 2, gridRowIndex, maxRow);
-            this.showPanel("componentsPanel");
-            return true;
-        }
-        return false;
-    }
-
-    /* calculates the number of rows that would be taken up
-     * if all diagrams and components were displayed */
-    static calculatePanelHeight(panel) {
-        let height = 0;
-        let accordionList = panel.querySelectorAll(".component-accordion");
-        accordionList.forEach((accordion)=>{
-            height++;
-            if (!accordion.classList.contains("invisible")) {
-                let liList = accordion.querySelectorAll("li");
-                height += liList.length;
-            }
-        });
-        return height;
-    }
-
-    static populatePanelWithTemplate(panelNode, templateJson, templateName, titleText) {
-        if (templateName in templates) {
-            let template = templates[templateName];
-            let data = template(templateJson);
-            let list = panelNode.querySelectorAll(".floating-menu-list");
-            list.forEach(function(subpanel) {
-                subpanel.innerHTML = data;
-            });
-            let titleList = panelNode.querySelectorAll(".floating-panel-title");
-            titleList.forEach(function(title) {
-                title.innerHTML = titleText;
-            });
-        }
-        else {
-            console.error("Requested template does not exist!", templateName);
-        }
+        this.reactMenu.updateDiagramMenuLinks(this.templateJson["Diagram"]);
     }
 
     static populatePanelWithData(panelNode, menuItems, titleText) {
@@ -494,36 +193,8 @@ class cimmenu {
         });
     }
 
-    unselectAllInPanel(panelName) {
-        let buttons = this.panels[panelName].querySelectorAll(".selected");
-        buttons.forEach((button)=> {
-            button.classList.remove("selected");
-        });
-    }
-
-    componentTypeSelected(htmlNode, diagramId, type) {
-        if (htmlNode.classList.contains("selected")) {
-            htmlNode.classList.remove("selected");
-            this.hidePanels(["componentsPanel", "attributesPanel"]);
-        }
-        else {
-            this.unselectAllInPanel("diagramsPanel");
-            this.hidePanel("attributesPanel");
-            htmlNode.classList.add("selected");
-            this.populateComponentsListForDiagramAndComponentType(diagramId, type);
-        }
-    }
-
     componentInstanceSelected(htmlNode, typeName, componentId) {
-        if(htmlNode.selected) {
-            this.panels.attributesPanel.classList.add("invisible");
-            htmlNode.classList.remove("selected");
-        }
-        else {
-            this.unselectAllInPanel("componentsPanel");
-            this.populateAttributes(typeName, componentId);
-            htmlNode.classList.add("selected");
-        }
+        this.populateAttributes(typeName, componentId);
     }
 
     populateAttributesIdOnly (node, cimVersion, id) {
@@ -659,8 +330,6 @@ class cimmenu {
                     if (renderClass) {
                         let data = renderClass.renderAsClass(attributes, this);
                         cimmenu.populatePanelWithData(node, data, "Attributes");
-                        cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
-                        this.showPanel("attributesPanel");
                     }
                     else {
                         console.error("Couldn't find renderClass: ", templatePath, " in templates.");
@@ -672,8 +341,6 @@ class cimmenu {
                         let template = templates[templatePath];
                         let data = template(attributes);
                         cimmenu.populatePanelWithData(node, data, "Attributes");
-                        cimmenu.updateGridLocation(this.panels.attributesPanel, 3, 1, 9);
-                        this.showPanel("attributesPanel");
                     }
                     else {
                         console.error("Couldn't find templatePath: ", templatePath, " in templates.");
@@ -684,7 +351,7 @@ class cimmenu {
     }
 
     getAggregateComponentsList(requestedClass, types) {
-        let aggregateComponents = { aggregates: [{ rdfid: "", name: "Select " + requestedClass }]};
+        let aggregateComponents = { aggregates: [{ rdfid: "", name: "Select..." }]};
         this.cimsvgFunction(()=> {
             let baseJson = currentCimsvg().getBaseJson();
             for (let index in types) {
@@ -748,9 +415,7 @@ class cimmenu {
             return menuData;
         });
 
-        cimmenu.populatePanelWithData(this.panels.allComponentsPanel, menuData, "Terminals");
-        cimmenu.updateGridLocation(this.panels.allComponentsPanel, 4, 1, 10);
-        this.showPanel("allComponentsPanel");
+        //cimmenu.populatePanelWithData(this.panels.allComponentsPanel, menuData, "Terminals");
     }
 
     getSelectFromDropdown(column, id) {

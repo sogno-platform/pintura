@@ -197,6 +197,14 @@ class cimxml {
         let cimVersion, entsoe;
         let nodes = newDoc.documentElement.childNodes;
         for (let i = 0; i < nodes.length; i++) {
+            if (nodes[i].nodeName == "md:FullModel") {
+                let children = nodes[i].childNodes;
+                for (let j = 0; j < children.length; j++) {
+                    if (children[j].nodeName == "md:Model.profile") {
+                        console.log(children[j].textContent)
+                    }
+                }
+            }
             if (cimxml.isElementNode(nodes[i].nodeType)) {
                 xmlDoc.documentElement.appendChild(nodes[i].cloneNode(true));
             }

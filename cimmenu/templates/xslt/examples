@@ -1,3 +1,0 @@
-electron electron_xslt --xmlFile=../data_model/Domain.xsd --xsltFile=../generated/cim_add_components_menu.xslt --attribute=Time --debug=true &&
-electron electron_xslt --xmlFile=../data_model/DiagramLayout.xsd --xsltFile=../generated/cim_xml_scheme.xslt --attribute=DiagramObject --debug=true &&
-electron electron_xslt --xmlFile=../data_model/DiagramLayout.xsd --xsltFile=../generated/attribute_list.xslt

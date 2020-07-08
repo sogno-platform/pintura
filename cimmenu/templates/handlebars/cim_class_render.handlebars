@@ -1,7 +1,9 @@
 <ul class="floating-panel-list">
 {{#each attributes}}
     <li class="wide-row floating-panel-item list-entry">
-        <span class="row-left floating-panel-name">{{@key}}</span>
+        <div class="row-left floating-panel-name tooltip">{{#removeClass @key}}{{/removeClass}}
+            <span class="tooltiptext">{{@key}}</span>
+        </div>
         {{{.}}}
     </li>
 {{/each}}

@@ -16,17 +16,96 @@
  *  in the top level directory of this source tree.
  */
 
+/* The viewport doesn't change. That is the width / height of the parent container.
+ * The viewbox does change. That must always have the same ratio as the view box, so
+ * that the grid squares are still square and not rectangles. However, we need to be
+ * able to pan and zoom within the viewbox. In order to pan we will add an offset to
+ * the viewbox's x and y co-ordinates. In order to zoom we will apply a zoom factor
+ * to the viewbox's width and height values. This will be calculated from the centre
+ * of the viewbox.
+ */
 class cimview {
     constructor(svg) {
         this.svgNode = svg;
-        let rect = { x: "-100", y: "-100", width: "400", height: "300" };
-        this.setViewBox(rect);
-        this.zoomSizes = [
-            { width: 400, height: 300 }
-        ];
-        this.zoomLevel = 0;
+        this.centre = { "x": 0, "y": 0 };
+        this.setViewBox(this.calculateViewBox());
+        this.zoomLevel = 0.9;
         this.dragPoint = null;
         this.moved = false;
+    }
+
+    /*
+     * Calculate the view box after a change has occured. Nothing should change except
+     * the values in the view box.
+     *
+     */
+    calculateViewBox() {
+        let viewPort = { "width": this.svgNode.clientWidth, "height": this.svgNode.clientHeight };
+        let zoomedWidth = Math.trunc(viewPort.width * this.zoomLevel).toString();
+        let zoomedHeight = Math.trunc(viewPort.height * this.zoomLevel).toString();
+	let halfHeight = zoomedHeight/2;
+        let halfWidth = zoomedWidth/2;
+        let viewBox = { "x": this.centre.x - halfWidth, "y": this.centre.y - halfHeight, "height": zoomedHeight, "width": zoomedWidth };
+        return viewBox;
+    }
+
+    resize(width, height) {
+        let viewPortWidth = width.toString();
+        let viewPortHeight = height.toString();
+        this.svgNode.setAttribute("width", viewPortWidth);
+        this.svgNode.setAttribute("height", viewPortHeight);
+        this.setViewBox(this.calculateViewBox());
+    }
+
+    fit() {
+        let currentDiagramRect;
+        let diagramList = this.svgNode.querySelectorAll(".diagrams");
+        if (diagramList.length > 0) {
+            currentDiagramRect = cimview.convertBoundaryToRect(diagramList[0].getBBox());
+        }
+        diagramList.forEach(function(diagram) {
+            let candidateBoundary = diagram.getBBox();
+            let candidateRect = cimview.convertBoundaryToRect(candidateBoundary);
+            if (currentDiagramRect.left > candidateBoundary.left) {
+                currentDiagramRect.left = candidateBoundary.left;
+            }
+            if (currentDiagramRect.bottom > candidateBoundary.bottom) {
+                currentDiagramRect.bottom = candidateBoundary.bottom;
+            }
+            if (currentDiagramRect.right < candidateBoundary.right) {
+                currentDiagramRect.right = candidateBoundary.right;
+            }
+            if (currentDiagramRect.top < candidateBoundary.top) {
+                currentDiagramRect.top = candidateBoundary.top;
+            }
+        });
+        let diagramBoundary = cimview.convertRectToBoundary(currentDiagramRect);
+        this.centre.x = diagramBoundary.x;
+        this.centre.y = diagramBoundary.y;
+        let viewPortHeight = this.svgNode.clientHeight;
+	let viewPortWidth = this.svgNode.clientWidth;
+        let heightZoomLevel = diagramBoundary.height / viewPortHeight;
+        this.zoomLevel = Math.round(heightZoomLevel * 10) / 10;
+        this.zoomLevel += 0.1;
+        this.setViewBox(this.calculateViewBox());
+    }
+
+    zoomIn() {
+	this.zoomLevel -= 0.1;
+        this.setViewBox(this.calculateViewBox());
+    }
+
+    zoomOut() {
+	this.zoomLevel += 0.1;
+        this.setViewBox(this.calculateViewBox());
+    }
+
+    pan(point, zoomMultiplier=true) {
+        let xDelta = point.x;
+        let yDelta = point.y;
+        this.centre.x += xDelta;
+        this.centre.y += yDelta;
+        this.setViewBox(this.calculateViewBox());
     }
 
     static noInputFocus(evt) {
@@ -91,58 +170,6 @@ class cimview {
                 this.dragPoint = null;
             }
         }
-    }
-
-    zoomToLevel(level) {
-        this.zoomLevel = level;
-        let rect = this.getViewBox();
-        let centreOfGrid = { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
-        rect.width = this.zoomSizes[level].width;
-        rect.height = this.zoomSizes[level].height;
-        rect.x = centreOfGrid.x - (rect.width / 2);
-        rect.y = centreOfGrid.y - (rect.height / 2);
-        this.setViewBox(rect);
-    }
-
-    getProportionalZoomDelta() {
-        /* avoids: - zoom delta of 0
-	 *         - divide by 0 in calculation */
-        if (this.zoomLevel > 10) {
-            return parseInt(this.zoomLevel / 10);
-        }
-        else {
-            return 1;
-        }
-    }
-
-    zoomIn() {
-        let proportionalZoomDelta = this.getProportionalZoomDelta();
-        let level = this.zoomLevel - proportionalZoomDelta;
-        if (level < 0) {
-            level = 0;
-        }
-        this.zoomToLevel(level);
-    }
-
-    zoomOut() {
-        let proportionalZoomDelta = this.getProportionalZoomDelta();
-        let level = this.zoomLevel + proportionalZoomDelta;
-        let lastIndex = this.zoomSizes.length-1;
-        while (level > lastIndex) {
-            let currentWidth = this.zoomSizes[lastIndex].width;
-            this.addNewZoomSize(currentWidth);
-            lastIndex = this.zoomSizes.length-1;
-        }
-        this.zoomToLevel(level);
-    }
-
-    pan(point, zoomMultiplier=true) {
-        let rect = this.getViewBox();
-        let xDelta = zoomMultiplier ? (this.zoomLevel * point.x) : point.x;
-        let yDelta = zoomMultiplier ? (this.zoomLevel * point.y) : point.y;
-        rect.x += xDelta;
-        rect.y += yDelta;
-        this.setViewBox(rect);
     }
 
     clearGrid() {
@@ -258,58 +285,18 @@ class cimview {
         return position.matrixTransform(m.inverse());
     }
 
-    addNewZoomSize(currentWidth) {
-        let newWidth = currentWidth + 104;
-        let newHeight = newWidth * 0.75;
-        let zoomSize = {
-            width: newWidth,
-            height: newHeight
-        };
-        this.zoomSizes.push(zoomSize);
-        return zoomSize;
+    static convertBoundaryToRect(boundary) {
+        return { "left": parseFloat(boundary.x),
+		 "right": boundary.x + boundary.width,
+                 "top": boundary.y + boundary.height,
+                 "bottom": boundary.y };
     }
 
-    getZoomSize(diagramBoundary) {
-        let required = {};
-        let newZoomSize = {
-            width: this.zoomSizes[0].width,
-            height: this.zoomSizes[0].height
-        };
-        let currentIndex = 0;
-        while (!(required.widthFound && required.heightFound)) {
-            if(currentIndex > this.zoomSizes.length - 1) {
-                newZoomSize = this.addNewZoomSize(newZoomSize.width);
-            }
-            else {
-                newZoomSize = this.zoomSizes[currentIndex];
-	    }
-            if (newZoomSize.height > diagramBoundary.height) {
-                if (!required.heightFound) {
-                    required.heightFound = true;
-                    required.height = currentIndex;
-                }
-            }
-            if (newZoomSize.width > diagramBoundary.width) {
-                if (!required.widthFound) {
-                    required.widthFound = true;
-                    required.width = currentIndex;
-                }
-            }
-            currentIndex += 1;
-        }
-        return required;
-    }
-
-    fit() {
-        let diagramBoundary = null;
-        let diagramList = this.svgNode.querySelectorAll(".diagrams");
-        diagramList.forEach(function(diagram) {
-            diagramBoundary = diagram.getBBox();
-        });
-        let required = this.getZoomSize(diagramBoundary);
-        let zoomLevel = required.width > required.height ? required.width : required.height;
-        this.setViewBox(diagramBoundary);
-        this.zoomToLevel(zoomLevel);
+    static convertRectToBoundary(rect) {
+        return { "x": parseFloat(rect.left),
+		 "y": rect.bottom,
+                 "width": rect.right - rect.left,
+                 "height": rect.top - rect.bottom };
     }
 
     getViewBox() {
@@ -326,13 +313,6 @@ class cimview {
     setViewBox(rect) {
         let viewBoxString = rect.x+" "+rect.y+" "+rect.width+" "+rect.height;
         this.svgNode.setAttribute("viewBox", viewBoxString);
-        let bg = this.svgNode.querySelectorAll(".backing");
-        bg.forEach(function(backing) {
-            backing.setAttribute("x", rect.x);
-            backing.setAttribute("y", rect.y);
-            backing.setAttribute("width", "100%");
-            backing.setAttribute("height", "100%");
-        });
         this.createGrid();
         this.screenCTM = svg.getScreenCTM().inverse();
     }

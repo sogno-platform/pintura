@@ -18,11 +18,18 @@ $ exit # You have to log out and back in to apply the group change in the previo
 ### Build Docker image
 
 ```bash
-$ docker build --tag pintura .
+$ make
 ```
 
 ### Start it up
 
 ```bash
-$ docker run --rm --detach -p 8080:80 pintura
+$ make start
 ```
+
+## Developer notes
+
+### Cimmenu
+
+#### Cimgen
+

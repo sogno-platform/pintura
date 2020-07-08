@@ -26,6 +26,11 @@ class contextmenu {
         this.menuState = {};
         this.id;
         this.type;
+        this.cimsvg = null;
+    }
+
+    setCimsvg(cimsvg) {
+        this.cimsvg = cimsvg;
     }
 
     /*
@@ -64,7 +69,9 @@ class contextmenu {
     }
 
     removeComponent() {
-        currentCimsvg().removeComponent(this.type, this.id);
+        if (this.cimsvg) {
+            this.cimsvg.removeComponent(this.type, this.id);
+        }
     }
 }
 

@@ -1,93 +1,60 @@
 {
-    "File": {
-        "button": {
-            "id": "file-menu-button"
-        },
-        "panel": {
-            "id": "file-menu-panel"
-        },
-        "links": [
-            {
-                "input": {
-                    "id": "fileopen",
-                    "type": "file"
-                },
-                "a": {
-                    "onclick" : "fileopen.click();currentCimmenu().hidePanel('file-menu-panel')",
-                    "text" : "Open file 🖿"
-                }
+    "links": [
+        {
+            "input": {
+                "id": "fileopen",
+                "type": "file"
             },
-            {
-                "a": {
-                    "onclick" : "currentCimsvg().loadUri();currentCimmenu().hidePanel('file-menu-panel')",
-                    "text" : "Open link 🔗"
-                }
-            },
-            {
-                "input": {
-                    "id": "filesave"
-                },
-                "a": {
-                    "onclick" : "currentCimsvg().saveGridXml('pinturaGrid.xml');currentCimmenu().hidePanel('file-menu-panel')",
-                    "text" : "Save to file 🖿"
-                }
-            },
-            {
-                "a": {
-                    "onclick" : "currentCimsvg().saveToMultipartZip();currentCimmenu().hidePanel('file-menu-panel')",
-                    "text" : "Save to multipart zip 🖿"
-                }
-            },
-            {
-                "a": {
-                    "onclick" : "currentCimsvg().saveTemplateJson();currentCimmenu().hidePanel('file-menu-panel')",
-                    "text" : "Save JSON  🖿"
-                }
-            },
-            {
-                "a": {
-                    "onclick" : "currentCimsvg().saveToUri();currentCimmenu().hidePanel('file-menu-panel')",
-                    "text" : "Save to link 🔗"
-                }
-            },
-            {
-                "a": {
-                    "onclick" : "currentCimsvg().saveToSVG();currentCimmenu().hidePanel('file-menu-panel')",
-                    "text" : "Export to SVG 🖿"
-                }
+            "a": {
+                "onclick" : "fileopen.click();",
+                "text" : "  Open file",
+		"icon" : "fa fa-file-o"
             }
-        ]
-    },
-    "Diagram": {
-        "button": {
-            "id": "diagram-menu-button"
         },
-        "panel": {
-            "id": "diagram-menu-panel"
-        },
-        "links": [
-            {
-                "a": {
-                    "onclick" : "currentCimsvg().addDiagram();currentCimmenu().hidePanel('diagram-menu-panel')",
-                    "text" : "Add Diagram"
-                }
+        {
+            "a": {
+                "onclick" : "currentCimsvg().loadUri();",
+                "text" : "  Open link",
+		"icon" : "fa fa-link"
             }
-        ]
-    },
-    "Close" : {
-        "button": {
-            "id": "close-menu-button"
         },
-        "panel": {
-            "id": "close-menu-panel"
-        },
-        "links": [
-            {
-                "a": {
-                    "onclick" : "currentCimsvg().addDiagram();currentCimmenu().hidePanel('diagram-menu-panel')",
-                    "text" : "Add Diagram"
-                }
+        {
+            "input": {
+                "id": "filesave"
+            },
+            "a": {
+                "onclick" : "currentCimsvg().saveGridXml('pinturaGrid.xml');",
+                "text" : "  Save to file",
+		"icon" : "fa fa-file"
             }
-        ]
-    }
+        },
+        {
+            "a": {
+                "onclick" : "currentCimsvg().saveToMultipartZip();",
+                "text" : "  Save to multipart zip",
+		"icon" : "fa fa-file-archive-o"
+            }
+        },
+        {
+            "a": {
+                "onclick" : "currentCimsvg().saveTemplateJson();",
+                "text" : "  Save JSON",
+		"icon" : "fa fa-file-text-o"
+            }
+        },
+        {
+            "a": {
+                "onclick" : "currentCimsvg().saveToUri();",
+                "text" : "  Save to link",
+		"icon" : "fa fa-link"
+            }
+        },
+        {
+            "a": {
+                "onclick" : "currentCimsvg().saveToSVG();",
+                "text" : "  Export to SVG",
+		"icon" : "fa fa-file-image-o"
+            }
+        }
+    ]
 }

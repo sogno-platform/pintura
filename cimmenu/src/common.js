@@ -40,6 +40,21 @@ class common {
     static emptylog(...args) {
     }
 
+    static removeClass(str) {
+        let colonTokens = str.split(":");
+        if (colonTokens.length == 2) {
+            let dotTokens = colonTokens[1].split(".");
+            if (dotTokens.length == 2) {
+                let nameOnly = dotTokens[1];
+                if (nameOnly.length > 14) {
+                    nameOnly = nameOnly.substring(0, 12) + "..";
+                }
+                return nameOnly;
+            }
+        }
+        return str
+    }
+
     static removeColon(str) {
         return str.replace(":", "");
     }

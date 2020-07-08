@@ -48,6 +48,7 @@ class cimsvg {
         cimsvg.setCimsvg(this);
         this.addPinturaStyle(svg, css);
         this.testOnly = false;
+        this.resizeAllowed = true;
     }
 
     ghostModeOn() {
@@ -84,6 +85,16 @@ class cimsvg {
     }
 
     addEventListeners(bodyNode) {
+        const resizeObserver = new ResizeObserver(entries => {
+            if (this.resizeAllowed) {
+                this.resizeAllowed = false;
+                for (const entry of entries) {
+                    this.cimview.resize(Math.trunc(entry.contentRect.width), Math.trunc(entry.contentRect.height));
+                }
+                this.resizeAllowed = true;
+            }
+        });
+	resizeObserver.observe(this.svgNode.parentNode);
         bodyNode.addEventListener("wheel", (mouseEvent) =>{
             this.cimview.wheelEvent(mouseEvent);
         });
@@ -419,10 +430,6 @@ class cimsvg {
         }
     }
 
-    updateGridLocation (node) {
-        node.style.gridArea = "1 / 1 / 8 / 2";
-    }
-
     populateDiagramLinks() {
         let baseJson = this.getBaseJson();
         /* getTemplateJson will associate the diagram objects with components */
@@ -527,7 +534,6 @@ class cimsvg {
     }
 
     checkComponentReadyToAdd(evt) {
-        let visibleMenus = this.updateCimmenu(()=>{ return this.cimmenu.getListOfVisibleMenus(); });
         let rdfid = null;
         this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
         if (this.addingType !== null) {
@@ -541,7 +547,6 @@ class cimsvg {
         backingList.forEach(function(backing) {
             backing.style.cursor = "initial";
         });
-        this.updateCimmenu(()=>{ this.cimmenu.redrawMenus(visibleMenus); });
         return rdfid;
     }
 
@@ -691,7 +696,6 @@ class cimsvg {
             this.getBaseJson()[type][id][attribute] = value;
             let baseJson = this.getBaseJson();
             this.templateJson = cimjson.getTemplateJson(baseJson);
-            this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value); });
             this.updateCimmenu(()=>{ this.cimmenu.update(this.templateJson); });
         }
     }
@@ -704,7 +708,6 @@ class cimsvg {
         logIfDebug("updateComponentRDF(", type, id, attribute, rdfid, ")", )
         let value = { "rdf:resource" : "#" + rdfid };
         this.updateComponentInBaseJson(type, id, attribute, value);
-        this.updateCimmenu(()=>{ this.cimmenu.updateComponent(type, id, attribute, value); });
         if (type === "cim:Terminal" && attribute === "cim:Terminal.TopologicalNode") {
             let baseJson = this.getBaseJson();
             cimedit.connectTerminalToTopologicalNode(baseJson, id, rdfid);
@@ -714,18 +717,17 @@ class cimsvg {
         }
     }
 
-    toggleDiagramVisible(id, icon) {
+    /*
+     * Returns true if diagram has been turned invisible
+     */
+    toggleDiagramVisible(id) {
         let diagram = this.svgNode.querySelector("#" + id);
-        let diagramComponents = this.cimmenu.panels["diagramsPanel"];
-        if(diagramComponents !== null) {
-            let iconNode = diagramComponents.querySelector("#" + icon);
-            if (diagram.classList.contains("invisible")) {
-                diagram.classList.remove("invisible");
-                iconNode.innerHTML = "&#9728;";
-            } else {
-                diagram.classList.add("invisible");
-                iconNode.innerHTML = "&#9788;";
-            }
+        if (diagram.classList.contains("invisible")) {
+            diagram.classList.remove("invisible");
+            return false;
+        } else {
+            diagram.classList.add("invisible");
+            return true;
         }
     }
 
