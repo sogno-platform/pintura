@@ -8,7 +8,6 @@ cimmenu/node_modules/*
 cimsvg/src/packageIndex.js
 cimsvg/node_modules/*
 dist/*
-index.html
 node_modules/*
 package-lock.json
 **/.*.swp

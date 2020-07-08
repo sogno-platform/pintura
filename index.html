@@ -1,0 +1,103 @@
+<!--
+    Copyright © 2016-2017, RWTH Aachen University
+    Authors: Richard Marston
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    A copy of the GNU General Public License is in the LICENSE file
+    in the top level directory of this source tree.
+-->
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Pintura</title>
+        <link rel="stylesheet" href="css/layout.css"/>
+        <link rel="stylesheet" href="css/colours.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" type="text/css"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+        <link rel="manifest" href="/images/site.webmanifest"/>
+        <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5"/>
+        <link rel="shortcut icon" href="/images/favicon.ico"/>
+        <meta nam="msapplication-TileColor" content="#da532c"/>
+        <meta nam="msapplication-config" content="/images/browserconfig.xml"/>
+        <meta nam="theme-color" content="#ffffff"/>
+        <script type="text/javascript">
+const onMouseDown = function(){
+};
+const onMouseUp = function(evt){
+    if (currentCimsvg()) {
+        currentCimsvg().onMouseUp(evt);
+    }
+};
+const onMouseMove = function(){
+};
+const onMouseOver = function(evt){
+    let id = evt.currentTarget.id.slice(0,-8);
+    let txt = document.getElementById(id+"-txt0");
+    let bbox = txt.getBBox();
+    let bg = document.getElementById(id+"-bg0");
+
+    bg.setAttribute("x", bbox.x - 3);
+    bg.setAttribute("y", bbox.y - 3);
+    bg.setAttribute("width", bbox.width + 6);
+    bg.setAttribute("height", bbox.height + 6);
+
+    txt.classList.add("svglabel-high");
+    bg.classList.add("svglabel-high");
+};
+const onMouseLeave = function(evt){
+    let id = evt.currentTarget.id.slice(0,-8);
+    let txt = document.getElementById(id+"-txt0");
+    let bg = document.getElementById(id+"-bg0");
+    txt.classList.remove("svglabel-high");
+    bg.classList.remove("svglabel-high");
+};
+</script>
+    </head>
+    <body>
+        <div id="left-panel">
+        </div>
+        <div id="svg-container">
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect class="backing" id="bg" onclick="currentCimsvg().checkComponentReadyToAdd(evt)"/>
+                <g class="grid"/>
+                <g class="diagrams"/>
+            </svg>
+        </div>
+        <div id="right-panel" class="vertical-menu">
+            <div class="floating-panel-table">
+                <div class="floating-menu-list"> </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.runtime.min.js"> </script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js"> </script>
+        <script type="text/javascript" src="https://unpkg.com/react@16/umd/react.development.js" crossorigin="anonymous"> </script>
+        <script type="text/javascript" src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin="anonymous"> </script>
+        <script type="text/javascript" src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin="anonymous"> </script>
+        <script type="text/javascript" src="dist/libcimsvg.js"> </script>
+        <script type="text/javascript" src="dist/libcimmenu.js"> </script>
+        <script type="text/javascript">
+var currentCimmenu = libcimmenu.currentCimmenu;
+var currentCimsvg = libcimsvg.currentCimsvg;
+var cimmenuInstance = new libcimmenu.cimmenu(document.getElementById('left-panel'), document.getElementById('right-panel'));
+var cimsvg = libcimsvg.cimsvg;
+var cimsvgInstance = new cimsvg(
+    document.getElementById("svg"),
+);
+cimsvgInstance.setCimmenu(cimmenuInstance);
+cimmenuInstance.setCimsvg(cimsvgInstance);
+</script>
+        <script type="text/javascript" src="index.js"> </script>
+    </body>
+</html>

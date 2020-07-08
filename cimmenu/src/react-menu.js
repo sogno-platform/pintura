@@ -42,8 +42,18 @@ class FileMenuEntry extends React.Component {
 class HideableMenu extends React.Component {
     constructor(props) {
         super(props);
+        let title = null, main = null;
+        if (props.children) {
+            if ('title' in props.children) {
+                title = props.children.title;
+            }
+            if ('main' in props.children) {
+                main = props.children.main;
+            }
+        }
         this.state = {
-            content:    props.children || {},
+            title:      title,
+            main:       main,
             id:         props.id,
             isHidden:   props.isHidden,
         };
@@ -71,10 +81,10 @@ class HideableMenu extends React.Component {
         let style   = { display: this.state.isHidden ? "none" : "inline-block" };
         let element = <div className="HideableMenu" id={this.props.id}>
                           <div className="HideableMenuTitleContainer" onClick={this.toggleBody}>
-                              {this.state.content.title}
+                              {this.state.title}
                           </div>
                           <div className="HideableMenuBodyContainer" style={style}>
-                              {this.state.content.body}
+                              {this.state.main}
                           </div>
                       </div>
         return element;
@@ -131,10 +141,11 @@ class DiagramComponentList extends React.Component {
     constructor(props) {
         super(props);
         this.updatableList = new UpdatableComponentList(this);
-        this.updatableList.updateAll(props.components);
+        const diagramComponentList = this.updatableList.updateAll(props.components);
         this.state = {
-            bodyId:            props.diagramId,
-            title:             props.title,
+            body:    diagramComponentList,
+            bodyId:  props.diagramId,
+            title:   props.title,
         }
         this.hideableMenu = React.createRef();
     }
@@ -144,14 +155,14 @@ class DiagramComponentList extends React.Component {
     }
 
     update(componentList) {
-        this.updatableList.updateAll(componentList["components"]);
-        this.hideableMenu.current.update({ title: this.state.title, body: this.updatableList.state.instances });
+        const componentInstances = this.updatableList.updateAll(componentList["components"]);
+        this.hideableMenu.current.update({ title: this.state.title, main: componentInstances });
     }
 
     render() {
 	return <HideableMenu className="DiagramComponentList" ref={this.hideableMenu} bodyId={this.state.bodyId} isHidden={true}>
                    {{ title: this.state.title,
-                      body:  this.updatableList.state.instances }}
+                      main:  this.state.body }}
                </HideableMenu>
     }
 }
@@ -193,10 +204,10 @@ class ComponentOfTypeList extends React.Component {
     constructor(props) {
         super(props);
         this.updatableList = new UpdatableComponentList(this);
-        this.updatableList.updateAll(props.instances);
+        const componentInstances = this.updatableList.updateAll(props.instances);
         this.state = {
             title:     props.title,
-            instances: this.updatableList.state.instances
+            instances: componentInstances
         }
     }
 
@@ -205,26 +216,28 @@ class ComponentOfTypeList extends React.Component {
     }
 
     update(componentList) {
-        this.updatableList.updateAll(componentList);
-        this.setState({ instances:  this.updatableList.state.instances });
+        const componentInstances = this.updatableList.updateAll(componentList);
+        this.setState({ instances:  componentInstances });
     }
 
     render() {
         let componentTitle = <ComponentTitle title={this.state.title}/>
         return <HideableMenu className="ComponentOfTypeList" isHidden={true} title={componentTitle}>
-                   {{ title: componentTitle, body: this.state.instances }}
+                   {{ title: componentTitle, main: this.state.instances }}
                </HideableMenu>
     }
 }
 
 class UpdatableComponentList {
+
     constructor (creator) {
         this.creator = creator;
         this.state = {
-            instances: [],
+            instances: {},
             refs: {},
         }
     }
+
     updateAll(updateObject) {
         if (updateObject) {
             Object.keys(updateObject).map((key, index) => {
@@ -235,11 +248,17 @@ class UpdatableComponentList {
                 else {
                     this.state.refs[key] = React.createRef();
                     const meta = { id: key, index: index, ref: this.state.refs[key] }
-                    let instance = this.creator.createEntry(object, meta);
-                    this.state.instances.push(instance);
+                    this.state.instances[key] = this.creator.createEntry(object, meta);
                 }
 	    });
+            Object.keys(this.state.refs).forEach((key) => {
+                if (!key in updateObject || updateObject[key] === undefined) {
+                    delete this.state.refs[key];
+                    delete this.state.instances[key];
+                }
+            });
         }
+        return Object.values(this.state.instances);
     }
 }
 
@@ -261,9 +280,9 @@ class DiagramList extends React.Component {
     }
 
     updateLinks(diagramsObject) {
-        this.updatableList.updateAll(diagramsObject);
+        const diagramList = this.updatableList.updateAll(diagramsObject);
         if (this.hideableMenu.current) {
-            this.hideableMenu.current.update({ content: { body: this.updatableList.state.instances } })
+            this.hideableMenu.current.update({ main: diagramList })
         }
     }
 
@@ -353,7 +372,7 @@ class Menu extends React.Component {
             </li>
             <div id="multi-menu-panel">
                 <HideableMenu id="file-menu-panel" isHidden={false} ref={this.tabs["file-menu-switch"]} iconClass="fa fa-file-archive-o">
-		    {{ body: this.state.fileMenuLinks }}
+		    {{ main: this.state.fileMenuLinks }}
                 </HideableMenu>
                 <DiagramList className="theDiagramList" id="diagram-menu-panel" cimsvg={this.state.cimsvg} isHidden={true} ref={this.tabs["diagram-menu-switch"]} iconClass="fa fa-sitemap"/>
                 <NewComponentList id="new-component-menu" ref={this.tabs["new-component-menu-switch"]}/>
