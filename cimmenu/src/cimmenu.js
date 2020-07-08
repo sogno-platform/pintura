@@ -22,6 +22,7 @@ import contextmenu from "./contextmenu.js";
 import Menu from "./react-menu.js";
 const e = React.createElement;
 import cgmes from '../cgmes/cgmesIndex.js';
+import css from "../css/bundle.css";
 
 class cimmenu {
 
@@ -41,6 +42,30 @@ class cimmenu {
         cimmenu.setCimmenu(this);
         this.cimsvg                 = false;
         this.contextMenu = new contextmenu(this.menuNode.querySelector("#context-menu"), "context-menu");
+        this.addCss(leftnode, css);
+    }
+
+    addCss(htmlNode, css) {
+        let docu = svg.ownerDocument;
+        let pinturaStyleTags = docu.querySelectorAll("style.pintura");
+
+        if (pinturaStyleTags.length < 1) {
+            this.style = docu.createElement("style");
+            this.style.type = "text/css";
+            this.style.classList.add("pintura");
+            this.style.setAttribute("title", "cimsvg-style");
+
+            let head = docu.head;
+            if(head === undefined) {
+                console.error("Failed to get head from document.");
+            }
+            docu.head.appendChild(this.style);
+            if (this.style.styleSheet) {
+                this.style.styleSheet.cssText = css;
+            } else {
+                this.style.appendChild(docu.createTextNode(css));
+            }
+        }
     }
 
     cimsvgFunction(func) {

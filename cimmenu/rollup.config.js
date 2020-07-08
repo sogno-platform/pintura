@@ -1,6 +1,7 @@
 import babel from "@rollup/plugin-babel";
 import json from "rollup-plugin-json";
 import handlebars from "rollup-plugin-handlebars-plus";
+import { string } from "rollup-plugin-string";
 import replace from "@rollup/plugin-replace";
 
 const global = {
@@ -53,6 +54,9 @@ export default {
         replace({
             exclude: 'node_modules/**',
             "logIfDebug": logIfDebugFunction
+        }),
+        string({
+            include: [ "css/*.css" ],
         }),
         json()
     ]

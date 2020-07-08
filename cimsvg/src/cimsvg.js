@@ -196,12 +196,12 @@ class cimsvg {
     addPinturaStyle(svg, css) {
         let docu = svg.ownerDocument;
         let pinturaStyleTags = docu.querySelectorAll("style.pintura");
-        this.style = docu.createElement("style");
-        this.style.type = "text/css";
-        this.style.classList.add("pintura");
-        this.style.setAttribute("title", "cimsvg-style");
-
         if (pinturaStyleTags.length < 1) {
+            this.style = docu.createElement("style");
+            this.style.type = "text/css";
+            this.style.classList.add("pintura");
+            this.style.setAttribute("title", "cimsvg-style");
+
             let head = docu.head;
             if(head === undefined) {
                 console.error("Failed to get head from document.");
