@@ -14,7 +14,7 @@
     "cimmenu": "cd cimmenu && npm install && npm run build",
     "libs": "npm run cimsvg && npm run cimmenu",
     "makeDist": "cp -a cimmenu/lib/*.js cimsvg/lib/*.js dist",
-    "build-tasks": "npm run makeDirs && npm run libs && npm run makeDist",
+    "build-tasks": "cat cimmenu/css/layout.css cimmenu/css/colours.css cimsvg/css/svg.css > cimmenu/css/bundle.css && npm run makeDirs && npm run libs && npm run makeDist",
     "build": "npm config set mode production && npm run build-tasks",
     "build-dev": "export ROLLUP_FLAGS=' --sourcemap inline --environment BUILD:development'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build-tasks",
     "initializeTests": "node node_modules/jasmine/bin/jasmine init",
@@ -22,7 +22,8 @@
     "lintfix": "eslint --fix index.js cimsvg/*.js cimsvg/src/*.js cimmenu/*.js cimmenu/src/*.js ${ESLINT_FLAGS}",
     "ctlint": "cd cimmenu/templates && eslint -c .eslintrc.js *.js ${ESLINT_FLAGS} && cd ../..",
     "lint": "eslint index.js cimsvg/*.js cimsvg/src/*.js cimmenu/*.js cimmenu/src/*.js ${ESLINT_FLAGS}",
-    "mockNpmInstall": "./npm/mockInstall.sh"
+    "mockNpmInstall": "./npm/mockInstall.sh",
+    "release": "npm run build && tar zcvf dist/release.tgz index.html dist/libcimsvg.js dist/libcimmenu.js"
   },
   "dependencies": {
     "@babel/core": "^7.10.3",

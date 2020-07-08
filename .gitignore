@@ -1,5 +1,7 @@
 cimmenu/lib/*
 cimsvg/lib/*
+cimmenu/css/bundle.css
+cimmenu/cgmes/cgmesIndex.js
 cimmenu/templates/generated
 cimmenu/templates/index.js
 cimmenu/templates/cgmesIndex.js

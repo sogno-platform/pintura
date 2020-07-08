@@ -25,6 +25,7 @@
     "rollup": "^2.18.0",
     "rollup-plugin-handlebars-plus": "^0.2.5",
     "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-string": "^3.0.0",
     "xml2js": "^0.4.23"
   }
 }

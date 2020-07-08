@@ -20,8 +20,6 @@
     <head>
         <meta charset="utf-8"/>
         <title>Pintura</title>
-        <link rel="stylesheet" href="css/layout.css"/>
-        <link rel="stylesheet" href="css/colours.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" type="text/css"/>
         <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
@@ -88,16 +86,35 @@ const onMouseLeave = function(evt){
         <script type="text/javascript" src="dist/libcimsvg.js"> </script>
         <script type="text/javascript" src="dist/libcimmenu.js"> </script>
         <script type="text/javascript">
-var currentCimmenu = libcimmenu.currentCimmenu;
-var currentCimsvg = libcimsvg.currentCimsvg;
-var cimmenuInstance = new libcimmenu.cimmenu(document.getElementById('left-panel'), document.getElementById('right-panel'));
-var cimsvg = libcimsvg.cimsvg;
-var cimsvgInstance = new cimsvg(
-    document.getElementById("svg"),
-);
-cimsvgInstance.setCimmenu(cimmenuInstance);
-cimmenuInstance.setCimsvg(cimsvgInstance);
-</script>
-        <script type="text/javascript" src="index.js"> </script>
+            var currentCimmenu = libcimmenu.currentCimmenu;
+            var currentCimsvg = libcimsvg.currentCimsvg;
+            var cimmenuInstance = new libcimmenu.cimmenu(document.getElementById('left-panel'), document.getElementById('right-panel'));
+            var cimsvg = libcimsvg.cimsvg;
+            var cimsvgInstance = new cimsvg(
+                document.getElementById("svg"),
+            );
+            cimsvgInstance.setCimmenu(cimmenuInstance);
+            cimmenuInstance.setCimsvg(cimsvgInstance);
+
+            let urlTokens = window.location.href.split("?");
+            let pairs = urlTokens.slice(1);
+            let params = {};
+            for (let index in pairs) {
+                let pair = pairs[index];
+                let param = pair.split("=");
+                if (param.length === 2){
+                    params[param[0]] = param[1];
+                }
+            }
+            if ("uri" in params){
+                let uri=params["uri"];
+                cimsvgInstance.downloadUri(uri);
+            }
+            let body = document.querySelector("body");
+            if (body !== undefined) {
+                cimsvgInstance.addEventListeners(body);
+                cimmenuInstance.addEventListeners(document);
+            }
+	</script>
     </body>
 </html>

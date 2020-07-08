@@ -1,0 +1,69 @@
+name: package build workflow
+# https://www.patriksvensson.se/2020/03/creating-release-artifacts-with-github-actions/
+# https://github.community/t5/GitHub-Actions/Using-on-push-tags-ignore-and-paths-ignore-together/td-p/38559
+# https://github.com/softprops/action-gh-release
+# https://github.com/actions/download-artifact
+
+on:
+  push:
+    tags:
+      - 'release-v*'
+
+jobs:
+  package:
+    strategy:
+      matrix:
+        node-version: [14.x]
+    runs-on: ubuntu-latest
+    name: A job to build the packages
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: NPM
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm install
+    - run: npm run release --if-present
+      # TODO: tests need to be rewritten
+      # since the component files were
+      # deleted from grid-data
+      #- run: npm test
+    - name: UploadIndex
+      uses: actions/upload-artifact@v2
+      with:
+        name: index 
+        path: ${{ github.workspace }}/index.html
+    - name: UploadCimsvg
+      uses: actions/upload-artifact@v2
+      with:
+        name: cimsvglib
+        path: ${{ github.workspace }}/dist/libcimsvg.js
+    - name: UploadCimmenu
+      uses: actions/upload-artifact@v2
+      with:
+        name: cimmenulib
+        path: ${{ github.workspace }}/dist/libcimmenu.js
+    - name: UploadRelease
+      uses: actions/upload-artifact@v2
+      with:
+        name: bundle
+        path: ${{ github.workspace }}/dist/release.tgz
+  release:
+    needs: package
+    runs-on: ubuntu-latest
+    steps:
+    - name: GetArtifact
+      uses: actions/download-artifact@v2
+    - name: Display structure of downloaded files
+      run: ls -l /home/runner/work/pintura/pintura
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          bundle/release.tgz
+          index/index.html
+          cimsvglib/*
+          cimmenulib/*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
