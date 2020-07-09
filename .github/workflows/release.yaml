@@ -29,11 +29,9 @@ jobs:
       # since the component files were
       # deleted from grid-data
       #- run: npm test
-    - name: UploadIndex
-      uses: actions/upload-artifact@v2
-      with:
-        name: index 
-        path: ${{ github.workspace }}/index.html
+    - name: Get version info
+      id:   version
+      run:  echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/release-}
     - name: UploadCimsvg
       uses: actions/upload-artifact@v2
       with:
@@ -44,11 +42,13 @@ jobs:
       with:
         name: cimmenulib
         path: ${{ github.workspace }}/dist/libcimmenu.js
+    - name: RenameRelease
+      run: cp ${{ github.workspace }}/dist/release.tgz ${{ github.workspace }}/dist/pintura-${{ steps.version.outputs.VERSION }}.tgz
     - name: UploadRelease
       uses: actions/upload-artifact@v2
       with:
         name: bundle
-        path: ${{ github.workspace }}/dist/release.tgz
+        path: ${{ github.workspace }}/dist/pintura-${{ steps.version.outputs.VERSION }}.tgz
   release:
     needs: package
     runs-on: ubuntu-latest
@@ -61,8 +61,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          bundle/release.tgz
-          index/index.html
+          bundle/pintura-*.tgz
           cimsvglib/*
           cimmenulib/*
       env:
