@@ -3,11 +3,10 @@ FROM node AS builder
 # copy data approximately in order of how often they change / how big they are
 COPY data_model /pintura/data_model
 COPY images /pintura/images
-COPY css /pintura/css
 COPY test/ /pintura/test
 COPY cimmenu /pintura/cimmenu
 COPY cimsvg /pintura/cimsvg
-COPY index.html Makefile package-lock.json index.js package.json /pintura/
+COPY index.html Makefile package-lock.json package.json /pintura/
 
 WORKDIR /pintura
 RUN npm install
@@ -18,8 +17,6 @@ FROM nginx
 RUN mkdir -p /usr/share/nginx/html/templates
 
 COPY images   /usr/share/nginx/html/images
-COPY css      /usr/share/nginx/html/css
-COPY index.js /usr/share/nginx/html
 
 COPY --from=builder /pintura/dist /usr/share/nginx/html/dist/
 COPY --from=builder /pintura/index.html /usr/share/nginx/html/

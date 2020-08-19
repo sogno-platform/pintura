@@ -37,18 +37,25 @@ jobs:
       with:
         name: cimsvglib
         path: ${{ github.workspace }}/dist/libcimsvg.js
-    - name: UploadCimmenu
+    - name: Upload Cimmenu
       uses: actions/upload-artifact@v2
       with:
         name: cimmenulib
         path: ${{ github.workspace }}/dist/libcimmenu.js
-    - name: RenameRelease
+    - name: Rename Release
       run: cp ${{ github.workspace }}/dist/release.tgz ${{ github.workspace }}/dist/pintura-${{ steps.version.outputs.VERSION }}.tgz
-    - name: UploadRelease
+    - name: Upload Release
       uses: actions/upload-artifact@v2
       with:
         name: bundle
         path: ${{ github.workspace }}/dist/pintura-${{ steps.version.outputs.VERSION }}.tgz
+    - name: Build Docker
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_NAME }}
+        password: ${{ secrets.DOCKER_HUB_PASS }}
+        repository: rwthacs/pintura
+        tags: latest
   release:
     needs: package
     runs-on: ubuntu-latest
