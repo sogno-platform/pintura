@@ -28,8 +28,8 @@ class cimview {
     constructor(svg) {
         this.svgNode = svg;
         this.centre = { "x": 0, "y": 0 };
-        this.setViewBox(this.calculateViewBox());
         this.zoomLevel = 0.9;
+        this.setViewBox(this.calculateViewBox());
         this.dragPoint = null;
         this.moved = false;
     }
@@ -80,14 +80,17 @@ class cimview {
             }
         });
         let diagramBoundary = cimview.convertRectToBoundary(currentDiagramRect);
-        this.centre.x = diagramBoundary.x;
-        this.centre.y = diagramBoundary.y;
+        let halfDiagramBoundaryHeight = diagramBoundary.height / 2;
+        let halfDiagramBoundaryWidth = diagramBoundary.width / 2;
+        this.centre.x = diagramBoundary.x + halfDiagramBoundaryWidth;
+        this.centre.y = diagramBoundary.y + halfDiagramBoundaryHeight;
         let viewPortHeight = this.svgNode.clientHeight;
 	let viewPortWidth = this.svgNode.clientWidth;
         let heightZoomLevel = diagramBoundary.height / viewPortHeight;
         this.zoomLevel = Math.round(heightZoomLevel * 10) / 10;
         this.zoomLevel += 0.1;
-        this.setViewBox(this.calculateViewBox());
+        let viewBox = this.calculateViewBox();
+        this.setViewBox(viewBox);
     }
 
     zoomIn() {
