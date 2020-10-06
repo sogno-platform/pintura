@@ -287,7 +287,7 @@ class DiagramList extends React.Component {
     }
 
     render() {
-        return <HideableMenu className="DiagramList" ref={this.hideableMenu} isHidden={true} title={null}/>
+        return <HideableMenu id={this.props.id} className="DiagramList" ref={this.hideableMenu} isHidden={true} title={null}/>
     }
 }
 
@@ -358,7 +358,7 @@ class Menu extends React.Component {
         let diagramSwitchClass = this.state.selectedSwitch == "diagram-menu-switch" ? " selected" : ""
         let componentSwitchClass = this.state.selectedSwitch == "new-component-menu-switch" ? " selected" : ""
 
-        let element = <div>
+        let element = <div style={{ "height": "100%" }}>
             <li id="icons" className="row tabs">
                 <ul id="file-menu-switch" className={baseSwitchClasses + fileSwitchClass} onClick={ (e) => { this.updateSelectedTab(e) } }>
                     <span className="fa fa-file-archive-o"></span>

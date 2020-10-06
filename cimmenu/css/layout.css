@@ -133,6 +133,13 @@ button::-moz-focus-inner,
   flex-direction: column;
   width: 20%;
 }
+#multi-menu-panel {
+  height:100%
+}
+#diagram-menu-panel {
+  overflow-y: scroll;
+  height:100%
+}
 #menu {
     display: flex;
     flex-direction: column;
@@ -282,6 +289,7 @@ button::-moz-focus-inner,
 }
 #right-panel {
   width: 20%;
+  overflow-y: scroll;
 }
 #diagram-display {
     flex: 1;
