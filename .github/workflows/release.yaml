@@ -55,7 +55,7 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_NAME }}
         password: ${{ secrets.DOCKER_HUB_PASS }}
         repository: rwthacs/pintura
-        tags: latest
+        tags: latest, ${{ steps.version.outputs.VERSION }}
   release:
     needs: package
     runs-on: ubuntu-latest
