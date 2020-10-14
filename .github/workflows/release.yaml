@@ -19,6 +19,11 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Get version info
+      id:   version
+      run:  echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/release-}
+    - name: Check release is correct
+      run: grep ${{ steps.version.outputs.VERSION }} index.html
     - name: NPM
       uses: actions/setup-node@v1
       with:
@@ -29,9 +34,6 @@ jobs:
       # since the component files were
       # deleted from grid-data
       #- run: npm test
-    - name: Get version info
-      id:   version
-      run:  echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/release-}
     - name: UploadCimsvg
       uses: actions/upload-artifact@v2
       with:
