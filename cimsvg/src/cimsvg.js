@@ -668,7 +668,7 @@ class cimsvg {
             diagrams: SVGData,
             viewBox: this.svgNode.getAttribute("viewBox"),
         };
-        let returnData = templates.cim2svg(templateData);
+        let returnData = templates.cim_create_svg(templateData);
         return (returnData);
     }
 
