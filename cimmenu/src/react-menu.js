@@ -78,12 +78,12 @@ class HideableMenu extends React.Component {
     }
 
     render() {
-        let style   = { display: this.state.isHidden ? "none" : "inline-block" };
-        let element = <div className="HideableMenu" id={this.props.id}>
-                          <div className="HideableMenuTitleContainer" onClick={this.toggleBody}>
+        let hiddenMenuBodyClass   = this.state.isHidden ? " hiddenmenu" : "";
+        let element = <div className={this.props.className} id={this.props.id}>
+                          <div className={this.props.className+"Title"} onClick={this.toggleBody}>
                               {this.state.title}
                           </div>
-                          <div className="HideableMenuBodyContainer" style={style}>
+                          <div className={this.props.className+"Body"+hiddenMenuBodyClass}>
                               {this.state.main}
                           </div>
                       </div>
@@ -143,9 +143,9 @@ class DiagramComponentList extends React.Component {
         this.updatableList = new UpdatableComponentList(this);
         const diagramComponentList = this.updatableList.updateAll(props.components);
         this.state = {
-            body:    diagramComponentList,
-            bodyId:  props.diagramId,
-            title:   props.title,
+            body:     diagramComponentList,
+            bodyId:   props.diagramId,
+            title:    props.title,
         }
         this.hideableMenu = React.createRef();
     }
@@ -192,7 +192,7 @@ class ComponentListEntry extends React.Component {
         let buttonId = this.props.componentId + "-components-panel-button";
         return <li className="ComponentListEntry list-entry">
                    <button id={buttonId}
-                       className="row bigindent button wide-button {{this.selected}}"
+                       className="row button wide-button {{this.selected}}"
                        onClick={this.selectEntry}>
                            <span className="fa fa-cube">
                    </span>{this.state.label}</button>
@@ -204,7 +204,7 @@ class ComponentOfTypeList extends React.Component {
     constructor(props) {
         super(props);
         this.updatableList = new UpdatableComponentList(this);
-        const componentInstances = this.updatableList.updateAll(props.instances);
+        const componentInstances = <ul> {this.updatableList.updateAll(props.instances)} </ul>;
         this.state = {
             title:     props.title,
             instances: componentInstances
@@ -229,7 +229,6 @@ class ComponentOfTypeList extends React.Component {
 }
 
 class UpdatableComponentList {
-
     constructor (creator) {
         this.creator = creator;
         this.state = {
@@ -262,10 +261,70 @@ class UpdatableComponentList {
     }
 }
 
+class TabMenu extends React.Component {
+    constructor(props) {
+        super(props);
+        this.setViewability = this.setViewability.bind(this);
+        this.state = {
+          body:        props.body,
+          className:   props.className,
+          id:          props.id,
+          isOutOfView: props.outOfView
+        }
+    }
+
+    setViewability(inView) {
+        this.setState({
+            isOutOfView: !inView
+        });
+    }
+
+    update(content) {
+        this.setState(content);
+    }
+
+    render() {
+        let tabClass = "";
+        if (this.state.isOutOfView) {
+            tabClass = this.state.className + " hiddentab";
+        }
+        else {
+            tabClass = this.state.className;
+        }
+        return <div id={this.state.id} className={tabClass}>
+             {this.state.body}
+        </div>;
+    }
+}
+
+class FileMenu extends React.Component {
+    constructor(props) {
+        super(props);
+        this.tabMenu = React.createRef();
+        let fileMenuLinks = null;
+        if ("links" in theMenuStructure && theMenuStructure.links !== undefined) {
+            fileMenuLinks = theMenuStructure.links.map((item, index) =>
+                <FileMenuEntry key={index} icon={item.icon} a={item.a} input={item.input} ></FileMenuEntry>
+            );
+        }
+        this.state = {
+            fileMenuLinks: fileMenuLinks,
+	};
+    }
+
+    showBody(show=true) {
+        this.tabMenu.current.setViewability(show);
+    }
+
+    render() {
+        return <TabMenu className={this.props.className} body={this.state.fileMenuLinks} id={this.props.id} ref={this.tabMenu} outOfView={this.props.isHidden}/>
+    }
+}
+
 class DiagramList extends React.Component {
     constructor(props) {
         super(props);
-        this.hideableMenu = React.createRef();
+        this.tabMenu = React.createRef();
         this.updatableList = new UpdatableComponentList(this);
     }
 
@@ -276,48 +335,42 @@ class DiagramList extends React.Component {
     }
 
     showBody(show=true) {
-        this.hideableMenu.current.showBody(show);
+        this.tabMenu.current.setViewability(show);
     }
 
     updateLinks(diagramsObject) {
         const diagramList = this.updatableList.updateAll(diagramsObject);
-        if (this.hideableMenu.current) {
-            this.hideableMenu.current.update({ main: diagramList })
+        if (this.tabMenu.current) {
+            this.tabMenu.current.update({ body: diagramList })
         }
     }
 
     render() {
-        return <HideableMenu id={this.props.id} className="DiagramList" ref={this.hideableMenu} isHidden={true} title={null}/>
+        return <TabMenu className={this.props.className} id={this.props.id} ref={this.tabMenu} outOfView={this.props.isHidden}/>
     }
 }
 
 class NewComponentList extends React.Component {
     constructor(props) {
         super(props);
-        this.hideableMenu = React.createRef();
+        this.tabMenu = React.createRef();
     }
 
     showBody(show=true) {
-        this.hideableMenu.current.showBody(show);
+        this.tabMenu.current.setViewability(show);
     }
 
     render() {
-        return <HideableMenu className="NewComponentList" ref={this.hideableMenu} isHidden={true} title={null}/>
+        return <TabMenu className={this.props.className} id={this.props.id} ref={this.tabMenu} outOfView={this.props.isHidden}/>
     }
 }
  
 class Menu extends React.Component {
     constructor(props) {
         super(props);
-        let fileMenuLinks = null;
-        if ("links" in theMenuStructure && theMenuStructure.links !== undefined) {
-            fileMenuLinks = theMenuStructure.links.map((item, index) =>
-                <FileMenuEntry key={index} icon={item.icon} a={item.a} input={item.input} ></FileMenuEntry>
-            );
-        }
+
         this.state = {
             selectedSwitch: "file-menu-switch",
-            fileMenuLinks: fileMenuLinks,
             diagramMenuLinks: null,
             cimsvg: null,
 	};
@@ -338,7 +391,7 @@ class Menu extends React.Component {
             tab.current.showBody(false);
         });
         if(e.currentTarget.id in this.tabs) {
-            this.tabs[e.currentTarget.id].current.showBody();
+            this.tabs[e.currentTarget.id].current.showBody(true);
             this.setState({ "selectedSwitch": e.currentTarget.id });
         }
         else {
@@ -371,10 +424,8 @@ class Menu extends React.Component {
                 </ul>
             </li>
             <div id="multi-menu-panel">
-                <HideableMenu id="file-menu-panel" isHidden={false} ref={this.tabs["file-menu-switch"]} iconClass="fa fa-file-archive-o">
-		    {{ main: this.state.fileMenuLinks }}
-                </HideableMenu>
-                <DiagramList className="theDiagramList" id="diagram-menu-panel" cimsvg={this.state.cimsvg} isHidden={true} ref={this.tabs["diagram-menu-switch"]} iconClass="fa fa-sitemap"/>
+                <FileMenu className="FileMenu" id="file-menu-panel" isHidden={false} ref={this.tabs["file-menu-switch"]} iconClass="fa fa-file-archive-o"> </FileMenu>
+                <DiagramList className="DiagramList" id="diagram-menu-panel" cimsvg={this.state.cimsvg} isHidden={true} ref={this.tabs["diagram-menu-switch"]} iconClass="fa fa-sitemap"/>
                 <NewComponentList id="new-component-menu" ref={this.tabs["new-component-menu-switch"]}/>
             </div>
             <nav id="context-menu" className="context-menu" onMouseUp={ function() { currentCimmenu().getContextMenu().toggleMenuOff() }} style={{ left: "451px", top: "285px", pointerEvents: "auto" }} >

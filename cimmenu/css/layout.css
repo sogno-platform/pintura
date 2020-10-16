@@ -58,9 +58,6 @@ button {
     margin: 0px;
     padding: 8px;
 }
-.hiddenbutton {
-    visibility: hidden;
-}
 span input, select, textarea{
     padding: 0;
     max-width:150px;
@@ -136,7 +133,7 @@ button::-moz-focus-inner,
 #multi-menu-panel {
   height:100%
 }
-#diagram-menu-panel {
+.DiagramList {
   overflow-y: scroll;
   height:100%
 }
@@ -527,4 +524,14 @@ ul {
 .invisible {
     display:none;
     pointer-events: none;
+}
+.hiddenbutton {
+    visibility: hidden;
+}
+.hiddenmenu {
+    display: none;
+}
+.hiddentab {
+    height: 0;
+    display: none;
 }
