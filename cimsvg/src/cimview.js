@@ -118,6 +118,9 @@ class cimview {
         return false;
     }
 
+    /*
+     * Convert a point in the window into a point in the svg component.
+     */
     getMouseCoord(evt) {
         let position = this.svgNode.createSVGPoint();
         position.x = (Number(evt.clientX));
@@ -275,17 +278,6 @@ class cimview {
             this.createGridLine(xval, viewBoxRect.y, xval, viewBoxRect.height+viewBoxRect.y);
             this.createLocationMarker(xval+"x", xval.toString(), xval+(gridSize / 15), viewBoxRect.y+(gridSize / 10));
         }
-    }
-
-    /*
-     * Convert a point in the window into a point in the svg component.
-     */
-    getMouseCoordFromWindow(evt) {
-        let m = evt.target.getScreenCTM();
-        let position = this.svgNode.createSVGPoint();
-        position.x = (Number(evt.clientX));
-        position.y = (Number(evt.clientY));
-        return position.matrixTransform(m.inverse());
     }
 
     static convertBoundaryToRect(boundary) {
