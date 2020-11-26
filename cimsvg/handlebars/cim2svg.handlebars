@@ -12,6 +12,7 @@
         diagram-id="{{@diagramId}}">
       {{#each pintura:points}}
         <svg
+          diagramObjectPointId="{{diagramObjectPointId}}"
           x="{{x}}"
           y="{{y}}"
           id="{{componentId}}-img{{{fourdigits @key}}}"
@@ -20,11 +21,6 @@
           transform="{{../pintura:transform}}"
           viewBox="0 0 24 24"
           imageIndex="1"
-          onmousedown="onMouseDown(evt)"
-          onmouseup="onMouseUp(evt)"
-          onmousemove="onMouseMove(evt)"
-          onmouseover="onMouseOver(evt)"
-          onmouseleave="onMouseLeave(evt)"
         >
           {{{../pintura:image}}}
         </svg>
@@ -37,9 +33,6 @@
           y2="{{y2}}"
           id="{{componentId}}-bar{{{fourdigits @index}}}"
           class="line fillwhenstill"
-          onmouseup="onMouseUp(evt)"
-          onmouseover="onMouseOver(evt)"
-          onmouseleave="onMouseLeave(evt)"
         />
       {{/each}}
       </g>
@@ -63,7 +56,6 @@
           class="svglabel"
           type="{{typeName}}"
           id="{{componentId}}-txt0"
-          onmouseup="onMouseUp(evt)"
         >{{text}}</text>
       {{/pintura:label}}
       </g>

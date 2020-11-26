@@ -363,7 +363,10 @@ class cimsvg {
     }
 
     addDiagram() {
-        return this.addComponentAndApplyTemplates("cim:Diagram");
+        let newDiagram = this.addComponentAndApplyTemplates("cim:Diagram");
+        if (this.currentDiagramId === undefined) {
+            this.currentDiagramId = newDiagram
+        }
     }
 
     isAllComponentsListVisible() {
@@ -379,7 +382,7 @@ class cimsvg {
 
     addRawComponent(type) {
         this.addRawComponentAndApplyTemplates(type);
-        this.updateCimmenu(()=>{ this.cimmenu.populateAllComponents(); });
+        this.updateCimmenu(()=>{ this.cimmenu.populateDiagramComponents(); });
     }
 
     addComponent(type) {
@@ -493,40 +496,12 @@ class cimsvg {
         return false;
     }
 
-    onMouseUp(evt) {
-        let id = evt.currentTarget.id.slice(0,-8);
-        let type = evt.currentTarget.parentElement.getAttribute("type");
-        if (cimsvg.isRightClick(evt)) {
-            this.updateCimmenu(()=>{ return this.cimmenu.processRightClick(evt); });
-        }
-        else {
-            this.updateCimmenu(()=>{ return this.cimmenu.processLeftClick(evt); });
-        }
-        evt.stopPropagation();
-    }
-
     populateAttributes(type, id) {
         this.updateCimmenu(()=>{ return this.cimmenu.populateAttributes(type, id); });
     }
 
     populateAttributesIdOnly(id) {
         this.updateCimmenu(()=>{ return this.cimmenu.populateAttributesIdOnly(id); });
-    }
-
-    /*
-     * This function needs to call into the model generation to discover what
-     * components are available.
-     */
-    populateComponentCreationMenu() {
-        let accordionList = this.dialog.querySelectorAll(".dialog-list");
-        accordionList.forEach((accordion)=>{
-            accordion.innerHTML = this.componentCreationHtml;
-        });
-        let titleList = this.dialog.querySelectorAll(".dialog-title");
-        titleList.forEach((title)=>{
-            title.innerHTML = "Add Component";
-        });
-        this.showDialog();
     }
 
     populateTerminals(type, rdfid) {
@@ -554,6 +529,8 @@ class cimsvg {
         logIfDebug("Redrawing")
         let templateHtml = templates.cim2svg(templateJson);
         let diagramList = this.svgNode.querySelectorAll(".diagrams");
+        // This is not copying templateHtml for every diagram
+        // it is copying it for every node of class "diagrams"
         diagramList.forEach(function(diagram) {
             diagram.innerHTML = templateHtml;
         });
@@ -591,12 +568,13 @@ class cimsvg {
         this.rdfFileReceived = 0;
         this.jsonBaseData = null;
         this.templateJson = null;
-        this.cimVersion = "cim16";
+        this.cimVersion = "cgmes";
         this.cimVersionFromFile = false;
         this.entsoe = "";
     }
 
     getCimVersionFolder() {
+        logIfDebug("CIM Version: ", this.cimVersion + this.entsoe)
         return this.cimVersion + this.entsoe;
     }
 
@@ -772,26 +750,24 @@ class cimsvg {
      * the uri= parameter in the url
      */
     downloadUri(uri) {
-        fetch(uri,{ headers: { "Accept": "application/xml, application/json, text/plain" }}).then((response)=>{
-            let filename=response.headers.get("Content-Disposition");
-            if (filename.length > 4) {
-                let suffix=filename.substring(filename.length - 4);
-                if (suffix === ".xml") {
-                    response.text().then((text)=>{
-                        this.setFileCount(1);
-                        this.loadFile(text);
-                        this.setTitle(uri);
-                        this.uri = uri;
-                    });
-                }
-                else if (suffix === ".zip") {
-                    response.blob().then((blob)=>{
-                        this.importZip(uri, blob);
-                        this.setTitle(uri);
-                        this.uri = uri;
-                    });
-                }
+        fetch(uri,{ headers: { "Accept": "application/zip, application/xml, application/json, text/plain" }}).then((response)=>{
+            if (response.headers.get("Content-Type") === "application/xml") {
+                response.text().then((text)=>{
+                    this.setFileCount(1);
+                    this.loadFile(text);
+                    this.setTitle(uri);
+                    this.uri = uri;
+                });
             }
+            else if (response.headers.get("Content-Type") === "application/zip") {
+                response.blob().then((blob)=>{
+                    this.importZip(uri, blob);
+                    this.setTitle(uri);
+                    this.uri = uri;
+                });
+            }
+        }).catch(function(error) {
+            console.log(error);
         });
     }
 
@@ -886,14 +862,6 @@ class cimsvg {
         tables.forEach(function(table){
             table.classList.add("invisible");
         });
-    }
-
-    closeDialog() {
-        this.dialog.classList.add("invisible");
-    }
-
-    showDialog() {
-        this.dialog.classList.remove("invisible");
     }
 
     hideAllComponentsList() {

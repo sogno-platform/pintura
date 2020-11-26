@@ -64,6 +64,7 @@ class cimjson {
                     });
                 imagePoints.push(
                     {
+                        "diagramObjectPointId" : point["pintura:rdfid"],
                         "imageHeight" : imageHeight.toString(),
                         "imageWidth"  : imageWidth.toString(),
                         "x"           : (parseInt(point["cim:DiagramObjectPoint.xPosition"]) - (imageWidth/2)).toString(),
@@ -235,10 +236,7 @@ class cimjson {
             cimjson.addDiagramObjectPointsToDiagramObjects(diagramObjectPoints, diagramObjects);
             diagramObjectsByIdentifiedObjects = cimjson.indexDiagramGraphByComponentType(diagramObjects);
         }
-        let refinedGraph = {};
-        if (graph["cim:Terminal"] !== undefined) {
-            refinedGraph = cimjson.refineTerminals(graph);
-        }
+        let refinedGraph = cimjson.refineTerminals(graph);
         let templateReadyFormat = cimjson.convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, refinedGraph);
         return templateReadyFormat;
     }

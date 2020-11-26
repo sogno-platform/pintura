@@ -20,6 +20,9 @@ COPY images   /usr/share/nginx/html/images
 
 COPY --from=builder /pintura/dist /usr/share/nginx/html/dist/
 COPY --from=builder /pintura/index.html /usr/share/nginx/html/
+
+COPY example/example.zip /usr/share/nginx/html/example.zip
+
 ARG GIT_COMMIT
 LABEL \
 	org.label-schema.schema-version = "1.0" \

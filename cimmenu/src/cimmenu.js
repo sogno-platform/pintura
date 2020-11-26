@@ -70,7 +70,7 @@ class cimmenu {
 
     cimsvgFunction(func) {
         try {
-            if(this.cimsvg !== undefined && currentCimsvg()) {
+            if(this.cimsvg !== undefined) {
                 func();
             }
         }
@@ -224,7 +224,7 @@ class cimmenu {
 
     populateAttributesIdOnly (node, cimVersion, id) {
         this.cimsvgFunction(()=> {
-            let type = currentCimsvg().getObjectTypeUsingId(id);
+            let type = this.cimsvg.getObjectTypeUsingId(id);
             if (type !== undefined) {
                 cimmenu.populateAttributes(node, type, cimVersion, id);
             }
@@ -236,7 +236,7 @@ class cimmenu {
 
     populateAttributes (type, id) {
         this.cimsvgFunction(()=> {
-            this.populate(this.panels.attributesPanel, type, currentCimsvg().getCimVersionFolder(), id);
+            this.populate(this.panels.attributesPanel, type, this.cimsvg.getCimVersionFolder(), id);
         });
     }
 
@@ -287,7 +287,7 @@ class cimmenu {
             let subClassList = cgmes[jsObject].subClassList();
             let dropdownId = common.generateUUID();
             if (details.type !== undefined) {
-                let value = currentCimsvg().getValueOf(details.classType, details.parentId, details.attribute)
+                let value = this.cimsvg.getValueOf(details.classType, details.parentId, details.attribute)
                 let attributeDetails = {
                     attribute: details.attribute,
                     dropdownId: dropdownId,
@@ -329,7 +329,7 @@ class cimmenu {
             type: type,
             attribute: completeAttributeName
         };
-        if (currentCimsvg().getCimversion() === "cgmes") {
+        if (this.cimsvg.getCimversion() === "cgmes") {
             return this.getAggregateComponentMenuCGMES(details);
         }
         else {
@@ -339,7 +339,7 @@ class cimmenu {
 
     populate(node, type, cimVersion, id) {
         this.cimsvgFunction(()=> {
-            let baseJson = currentCimsvg().getBaseJson();
+            let baseJson = this.cimsvg.getBaseJson();
             if (id === "No Object" || id === "Missing rdf:resource") {
                 return;
             }
@@ -378,7 +378,7 @@ class cimmenu {
     getAggregateComponentsList(requestedClass, types) {
         let aggregateComponents = { aggregates: [{ rdfid: "", name: "Select..." }]};
         this.cimsvgFunction(()=> {
-            let baseJson = currentCimsvg().getBaseJson();
+            let baseJson = this.cimsvg.getBaseJson();
             for (let index in types) {
                 let type = types[index];
                 if (type.substring(0,4) !== "cim:") {
@@ -409,7 +409,7 @@ class cimmenu {
 
     populateTerminals (type, cimVersion, rdfid) {
         let menuData = this.cimsvgFunction(()=> {
-            let baseJson = currentCimsvg().getBaseJson();
+            let baseJson = this.cimsvg.getBaseJson();
             if (baseJson[type] && baseJson[type][rdfid]) {
                 let template = templates.handlebars_cim_list_terminals;
                 let terminals = baseJson[type][rdfid][common.pinturaTerminals()];
