@@ -49,6 +49,7 @@ class cimsvg {
         this.addPinturaStyle(svg, css);
         this.testOnly = false;
         this.resizeAllowed = true;
+        this.draggedObject = { type: undefined, dopi: undefined, id: undefined };
     }
 
     ghostModeOn() {
@@ -81,6 +82,18 @@ class cimsvg {
         let evt = cimsvg.getLatestEvent();
         if (evt != null) {
             currentCimsvg().cimview.mouseMove(evt);
+            if (evt.draggedObject) {
+                if (evt.draggedObject.type && evt.draggedObject.id && evt.draggedObject.dopi) {
+                    let baseJson = currentCimsvg().getBaseJson();
+                    let newPoint = currentCimsvg().cimview.getMouseCoord(evt);
+                    currentCimsvg().updateComponent("cim:DiagramObjectPoint", evt.draggedObject.dopi, "cim:DiagramObjectPoint.xPosition", newPoint.x);
+                    currentCimsvg().updateComponent("cim:DiagramObjectPoint", evt.draggedObject.dopi, "cim:DiagramObjectPoint.yPosition", newPoint.y);
+                    if (evt.draggedObject.dopi && evt.draggedObject.dopi in baseJson["cim:DiagramObjectPoint"]) {
+                        let templateJson = cimjson.getTemplateJson(baseJson);
+                        currentCimsvg().applyDiagramTemplate(templateJson);
+                    }
+                }
+            }
         }
     }
 
@@ -99,9 +112,25 @@ class cimsvg {
             this.cimview.wheelEvent(mouseEvent);
         });
         bodyNode.addEventListener("mousedown", (mouseEvent) =>{
+            if (mouseEvent.target == this.svgNode) {
+                this.checkComponentReadyToAdd(mouseEvent);
+            }
+            let ggparent = mouseEvent.target.parentElement.parentElement.parentElement;
+            let gparent = mouseEvent.target.parentElement.parentElement;
+            let id, type, diagramObjectPointId;
+            if (ggparent) {
+                id = ggparent.id;
+                type = ggparent.getAttribute("type");
+                diagramObjectPointId = gparent.getAttribute("diagramobjectpointid");
+            }
+
+            this.draggedObject.type = type;
+            this.draggedObject.dopi = diagramObjectPointId;
+            this.draggedObject.id = id;
             this.moved = false;
             this.readyToMove = true;
             this.processLoop = setInterval(this.processLatestEvent, 330);
+
             if (cimview.noInputFocus(mouseEvent)) {
                 this.cimview.mouseDown(mouseEvent);
                 if (!cimsvg.isRightClick(mouseEvent)) {
@@ -119,9 +148,25 @@ class cimsvg {
                     this.updateCimmenu(()=>{ this.cimmenu.processLeftClick(mouseEvent); })
                 }
             }
+            let baseJson = this.getBaseJson();
+            if (this.draggedObject.dopi && this.draggedObject.dopi in baseJson["cim:DiagramObjectPoint"]) {
+                let templateJson = cimjson.getTemplateJson(baseJson);
+                this.applyDiagramTemplate(this.templateJson);
+            }
+            this.draggedObject.type = undefined;
+            this.draggedObject.dopi = undefined;
+            this.draggedObject.id = undefined;
+            if (cimsvg.isRightClick(mouseEvent)) {
+                this.updateCimmenu(()=>{ return this.cimmenu.processRightClick(mouseEvent); });
+            }
+            else {
+                this.updateCimmenu(()=>{ return this.cimmenu.processLeftClick(mouseEvent); });
+            }
+            mouseEvent.stopPropagation();
         });
         bodyNode.addEventListener("mousemove", (mouseEvent) =>{
             if(this.readyToMove) {
+                mouseEvent.draggedObject = this.draggedObject;
                 this.addEvent(mouseEvent);
             }
         });
@@ -510,7 +555,7 @@ class cimsvg {
 
     checkComponentReadyToAdd(evt) {
         let rdfid = null;
-        this.addingPoint = this.cimview.getMouseCoordFromWindow(evt);
+        this.addingPoint = this.cimview.getMouseCoord(evt);
         if (this.addingType !== null) {
             let type = this.addingType;
             let point = this.addingPoint;
@@ -526,6 +571,10 @@ class cimsvg {
     }
 
     applyDiagramTemplate(templateJson) {
+        if (templateJson == undefined || templateJson == "") {
+            console.error("Attempt to draw empty / invalid diagram");
+            return;
+        }
         logIfDebug("Redrawing")
         let templateHtml = templates.cim2svg(templateJson);
         let diagramList = this.svgNode.querySelectorAll(".diagrams");
