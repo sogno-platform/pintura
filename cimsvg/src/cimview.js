@@ -58,7 +58,7 @@ class cimview {
     }
 
     fit() {
-        let currentDiagramRect;
+        let currentDiagramRect = { left: "0", right: "0", top: "0", bottom: "0" };
         let diagramList = this.svgNode.querySelectorAll(".diagrams");
         if (diagramList.length > 0) {
             currentDiagramRect = cimview.convertBoundaryToRect(diagramList[0].getBBox());
@@ -112,7 +112,7 @@ class cimview {
     }
 
     static noInputFocus(evt) {
-        if (evt.target.nodeName.toUpperCase() === "BODY" || evt.target.id.toUpperCase() === "BG") {
+        if (evt.target.nodeName.toUpperCase() === "BODY" || evt.target.id.toUpperCase() === "BG" || evt.target.id.toUpperCase() === "SVG") {
             return true;
         }
         return false;

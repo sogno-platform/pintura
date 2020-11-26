@@ -108,15 +108,15 @@ class DiagramTitle extends React.Component {
         this.visibleIconChar =   "fa-star";
         this.invisibleIconChar = "fa-star-o";
         this.state = {
-            name:              props.name,
+            name:     props.name,
             iconChar: this.visibleIconChar,
 	}
         this.toggleDiagramVisibility = this.toggleDiagramVisibility.bind(this);
     }
 
     toggleDiagramVisibility(e) {
-        if (this.props.cimsvg) {
-            if (this.props.cimsvg.toggleDiagramVisible(this.props.diagramId)) {
+        if (this.props.getCimsvg()) {
+            if (this.props.getCimsvg().toggleDiagramVisible(this.props.diagramId)) {
                  this.setState({iconChar: this.invisibleIconChar});
             }
             else {
@@ -242,7 +242,9 @@ class UpdatableComponentList {
             Object.keys(updateObject).map((key, index) => {
                 let object = updateObject[key];
                 if (key in this.state.refs) {
-                   this.state.refs[key].current.update(object)
+                    if ('current' in this.state.refs[key] && this.state.refs[key].current) {
+                        this.state.refs[key].current.update(object)
+                    }
                 }
                 else {
                     this.state.refs[key] = React.createRef();
@@ -266,7 +268,7 @@ class TabMenu extends React.Component {
         super(props);
         this.setViewability = this.setViewability.bind(this);
         this.state = {
-          body:        props.body,
+          body:        props.body || props.children,
           className:   props.className,
           id:          props.id,
           isOutOfView: props.outOfView
@@ -326,10 +328,15 @@ class DiagramList extends React.Component {
         super(props);
         this.tabMenu = React.createRef();
         this.updatableList = new UpdatableComponentList(this);
+        this.getCimsvg = this.getCimsvg.bind(this)
+    }
+
+    getCimsvg() {
+        return this.state.cimsvg;
     }
 
     createEntry(object, meta) {
-        const diagramTitle = <DiagramTitle name={object['pintura:name']} cimsvg={this.props.cimsvg} diagramId={meta.id}/>
+        const diagramTitle = <DiagramTitle name={object['pintura:name']} getCimsvg={this.getCimsvg} diagramId={meta.id}/>
         const diagramComponentList = <DiagramComponentList key={meta.index} ref={meta.ref} title={diagramTitle} components={object["components"]}/>
         return diagramComponentList;
     }
@@ -338,30 +345,110 @@ class DiagramList extends React.Component {
         this.tabMenu.current.setViewability(show);
     }
 
+    setCimsvg(cimsvg) {
+        this.setState(cimsvg);
+    }
+
     updateLinks(diagramsObject) {
         const diagramList = this.updatableList.updateAll(diagramsObject);
+        const buttonAndList = <>
+            <button className="component-type-name button wide-button" onClick={ () => { this.state.cimsvg.addDiagram();} }>New Diagram</button>
+            { diagramList }
+        </>;
         if (this.tabMenu.current) {
-            this.tabMenu.current.update({ body: diagramList })
+            this.tabMenu.current.update({ body: buttonAndList })
         }
     }
 
     render() {
-        return <TabMenu className={this.props.className} id={this.props.id} ref={this.tabMenu} outOfView={this.props.isHidden}/>
+        return <TabMenu className={this.props.className} id={this.props.id} ref={this.tabMenu} outOfView={this.props.isHidden}>
+                   <button className="component-type-name button wide-button" onClick={ () => { this.state.cimsvg.addDiagram(); } }>New Diagram</button>
+               </TabMenu>;
     }
 }
 
-class NewComponentList extends React.Component {
+class CreateNewComponentList extends React.Component {
+
     constructor(props) {
         super(props);
+    }
+
+    render() {
+        return <>
+            <button className="component-type-name button wide-button" onClick={ () => { this.props.getCimsvg().addComponent('cim:ACLineSegment');} }>ACLineSegment</button>
+            <button className="component-type-name button wide-button" onClick={ () => { this.props.getCimsvg().addComponent('cim:EnergyConsumer');} }>EnergyConsumer</button>
+            <button className="component-type-name button wide-button" onClick={ () => { this.props.getCimsvg().addComponent('cim:PowerTransformer');} }>PowerTransformer</button>
+            <button className="component-type-name button wide-button" onClick={ () => { this.props.getCimsvg().addComponent('cim:SynchronousMachine');} }>SynchronousMachine</button>
+            <button className="component-type-name button wide-button" onClick={ () => { this.props.getCimsvg().addComponent('cim:TopologicalNode');} }>TopologicalNode</button>
+        </>;
+    }
+}
+
+class DiagramPicker extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            cimsvg: this.props.cimsvg
+        }
+    }
+
+    setCimsvg(cimsvg) {
+        this.setState(cimsvg);
+    }
+
+    updateDiagramList(diagrams) {
+        let diagramList = []
+        Object.keys(diagrams).map((diagram, index) =>{
+            diagramList.push(<option key={index} value={diagram}>{diagrams[diagram]['pintura:name']}</option>)
+        });
+        this.setState({ options: diagramList })
+    }
+
+    render() {
+        return <select className="center-button" id="diagram-picker" onChange={ (e)=>{ this.state.cimsvg.setCurrentDiagramId(e.target.value); } }>
+                   <option>Select Diagram To Edit</option>
+                   { this.state.options }
+               </select>;
+    }
+}
+
+class NewComponentMenu extends React.Component {
+    constructor(props) {
+        super(props);
+        this.getCimsvg = this.getCimsvg.bind(this)
         this.tabMenu = React.createRef();
+        this.diagramPicker = React.createRef();
+        this.state = {
+            cimsvg: this.props.cimsvg
+        }
     }
 
     showBody(show=true) {
         this.tabMenu.current.setViewability(show);
     }
 
+    getCimsvg() {
+        return this.state.cimsvg;
+    }
+
+    setCimsvg(cimsvg) {
+        this.setState(cimsvg);
+        if (this.diagramPicker.current) {
+            this.diagramPicker.current.setState(cimsvg);
+        }
+    }
+
+    updateDiagramList(diagrams) {
+        if (this.diagramPicker.current) {
+            this.diagramPicker.current.updateDiagramList(diagrams);
+        }
+    }
+
     render() {
-        return <TabMenu className={this.props.className} id={this.props.id} ref={this.tabMenu} outOfView={this.props.isHidden}/>
+        return <TabMenu className={this.props.className} id={this.props.id} ref={this.tabMenu} outOfView={this.props.isHidden}>
+                   <DiagramPicker ref={this.diagramPicker} cimsvg={this.state.cimsvg} />
+                   <CreateNewComponentList getCimsvg={this.getCimsvg} />
+               </TabMenu>
     }
 }
  
@@ -384,6 +471,12 @@ class Menu extends React.Component {
 
     setCimsvg(cimsvg) {
         this.setState({cimsvg});
+        if (this.tabs["new-component-menu-switch"].current) {
+            this.tabs["new-component-menu-switch"].current.setCimsvg({cimsvg});
+        }
+        if (this.tabs["diagram-menu-switch"].current) {
+            this.tabs["diagram-menu-switch"].current.setCimsvg({cimsvg});
+        }
     }
 
     updateSelectedTab(e) {
@@ -402,7 +495,12 @@ class Menu extends React.Component {
     }
 
     updateDiagramMenuLinks(links) {
-        this.tabs["diagram-menu-switch"].current.updateLinks(links);
+        if (this.tabs["diagram-menu-switch"].current) {
+            this.tabs["diagram-menu-switch"].current.updateLinks(links);
+        }
+        if (this.tabs["new-component-menu-switch"].current) {
+            this.tabs["new-component-menu-switch"].current.updateDiagramList(links);
+        }
     }
 
     render() {
@@ -424,9 +522,9 @@ class Menu extends React.Component {
                 </ul>
             </li>
             <div id="multi-menu-panel">
-                <FileMenu className="FileMenu" id="file-menu-panel" isHidden={false} ref={this.tabs["file-menu-switch"]} iconClass="fa fa-file-archive-o"> </FileMenu>
-                <DiagramList className="DiagramList" id="diagram-menu-panel" cimsvg={this.state.cimsvg} isHidden={true} ref={this.tabs["diagram-menu-switch"]} iconClass="fa fa-sitemap"/>
-                <NewComponentList id="new-component-menu" ref={this.tabs["new-component-menu-switch"]}/>
+                <FileMenu id="file-menu-panel" className="FileMenu" isHidden={false} ref={this.tabs["file-menu-switch"]} iconClass="fa fa-file-archive-o"> </FileMenu>
+                <DiagramList id="diagram-menu-panel" className="DiagramList" cimsvg={this.state.cimsvg} isHidden={true} ref={this.tabs["diagram-menu-switch"]} iconClass="fa fa-sitemap"/>
+                <NewComponentMenu id="new-component-menu" className="NewComponentMenu" cimsvg={this.state.cimsvg} isHidden={true} ref={this.tabs["new-component-menu-switch"]}/>
             </div>
             <nav id="context-menu" className="context-menu" onMouseUp={ function() { currentCimmenu().getContextMenu().toggleMenuOff() }} style={{ left: "451px", top: "285px", pointerEvents: "auto" }} >
                 <ul className="context-menu-items">

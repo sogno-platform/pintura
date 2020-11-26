@@ -31,15 +31,7 @@
         <meta nam="msapplication-config" content="/images/browserconfig.xml"/>
         <meta nam="theme-color" content="#ffffff"/>
         <script type="text/javascript">
-const onMouseDown = function(){
-};
-const onMouseUp = function(evt){
-    if (currentCimsvg()) {
-        currentCimsvg().onMouseUp(evt);
-    }
-};
-const onMouseMove = function(){
-};
+
 const onMouseOver = function(evt){
     let id = evt.currentTarget.id.slice(0,-8);
     let txt = document.getElementById(id+"-txt0");
@@ -68,7 +60,7 @@ const onMouseLeave = function(evt){
         </div>
         <div id="svg-container">
             <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <rect class="backing" id="bg" onclick="currentCimsvg().checkComponentReadyToAdd(evt)"/>
+                <rect class="backing" id="bg"/>
                 <g class="grid"/>
                 <g class="diagrams"/>
             </svg>
