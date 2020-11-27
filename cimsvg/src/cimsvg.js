@@ -77,6 +77,16 @@ class cimsvg {
         }
     }
 
+    moveComponentInSVG(evt, newPoint) {
+        if (evt.draggedObject && evt.draggedObject.componentSvgGroup) {
+            let xdiff = newPoint.x - evt.draggedObject.startPoint.x;
+            let ydiff = newPoint.y - evt.draggedObject.startPoint.y;
+            let transform = "translate(" + xdiff + ", "  + ydiff + ")";
+            let componentSvgGroup = evt.draggedObject.componentSvgGroup;
+            componentSvgGroup.setAttribute("transform", transform);
+        }
+    }
+
     processLatestEvent() {
         currentCimsvg().moved = true;
         let evt = cimsvg.getLatestEvent();
@@ -86,18 +96,35 @@ class cimsvg {
                 if (evt.draggedObject.type && evt.draggedObject.id && evt.draggedObject.dopi) {
                     let baseJson = currentCimsvg().getBaseJson();
                     let newPoint = currentCimsvg().cimview.getMouseCoord(evt);
-                    currentCimsvg().updateComponent("cim:DiagramObjectPoint", evt.draggedObject.dopi, "cim:DiagramObjectPoint.xPosition", newPoint.x);
-                    currentCimsvg().updateComponent("cim:DiagramObjectPoint", evt.draggedObject.dopi, "cim:DiagramObjectPoint.yPosition", newPoint.y);
-                    if (evt.draggedObject.dopi && evt.draggedObject.dopi in baseJson["cim:DiagramObjectPoint"]) {
-                        let templateJson = cimjson.getTemplateJson(baseJson);
-                        currentCimsvg().applyDiagramTemplate(templateJson);
-                    }
+                    currentCimsvg().moveComponentInSVG(evt, newPoint);
                 }
             }
         }
     }
 
-    addEventListeners(bodyNode) {
+    calculateComponentMove(mouseEvent) {
+        let baseJson = this.getBaseJson();
+        let newPoint = this.cimview.getMouseCoord(mouseEvent);
+        let xdiff = newPoint.x - this.draggedObject.startPoint.x;
+        let ydiff = newPoint.y - this.draggedObject.startPoint.y;
+        let newComponentPoint = {
+            x: Number(this.getValueOf("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.xPosition")) + xdiff,
+            y: Number(this.getValueOf("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.yPosition")) + ydiff
+        };
+        this.updateComponent("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.xPosition", newComponentPoint.x);
+        this.updateComponent("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.yPosition", newComponentPoint.y);
+        if (this.draggedObject.dopi && this.draggedObject.dopi in baseJson["cim:DiagramObjectPoint"]) {
+            let templateJson = cimjson.getTemplateJson(baseJson);
+            this.applyDiagramTemplate(templateJson);
+        }
+        this.draggedObject.type = undefined;
+        this.draggedObject.dopi = undefined;
+        this.draggedObject.id = undefined;
+        this.draggedObject.startPoint = undefined;
+        this.draggedObject.componentSvgGroup = undefined;
+    }
+
+    addMouseEventListeners(node) {
         const resizeObserver = new ResizeObserver(entries => {
             if (this.resizeAllowed) {
                 this.resizeAllowed = false;
@@ -108,25 +135,27 @@ class cimsvg {
             }
         });
 	resizeObserver.observe(this.svgNode.parentNode);
-        bodyNode.addEventListener("wheel", (mouseEvent) =>{
+        node.addEventListener("wheel", (mouseEvent) =>{
             this.cimview.wheelEvent(mouseEvent);
         });
-        bodyNode.addEventListener("mousedown", (mouseEvent) =>{
+        node.addEventListener("mousedown", (mouseEvent) =>{
             if (mouseEvent.target == this.svgNode) {
                 this.checkComponentReadyToAdd(mouseEvent);
             }
-            let ggparent = mouseEvent.target.parentElement.parentElement.parentElement;
-            let gparent = mouseEvent.target.parentElement.parentElement;
+            let componentSvgGroup = mouseEvent.target.parentElement.parentElement.parentElement.parentElement;
+            let embeddedSvg       = mouseEvent.target.parentElement.parentElement.parentElement;
+            let svgImage          = mouseEvent.target.parentElement.parentElement;
             let id, type, diagramObjectPointId;
-            if (ggparent) {
-                id = ggparent.id;
-                type = ggparent.getAttribute("type");
-                diagramObjectPointId = gparent.getAttribute("diagramobjectpointid");
+            if (componentSvgGroup) {
+                id = componentSvgGroup.id;
+                type = componentSvgGroup.getAttribute("type");
+                diagramObjectPointId = svgImage.getAttribute("diagramobjectpointid");
+                this.draggedObject.type = type;
+                this.draggedObject.dopi = diagramObjectPointId;
+                this.draggedObject.id = id;
+                this.draggedObject.startPoint = this.cimview.getMouseCoord(mouseEvent);
+                this.draggedObject.componentSvgGroup = embeddedSvg;
             }
-
-            this.draggedObject.type = type;
-            this.draggedObject.dopi = diagramObjectPointId;
-            this.draggedObject.id = id;
             this.moved = false;
             this.readyToMove = true;
             this.processLoop = setInterval(this.processLatestEvent, 330);
@@ -138,44 +167,39 @@ class cimsvg {
                 }
             }
         });
-        bodyNode.addEventListener("mouseup", (mouseEvent) =>{
+        node.addEventListener("mouseup", (mouseEvent) =>{
             clearInterval(this.processLoop);
             this.readyToMove = false;
             this.ghostModeOff();
             this.cimview.mouseUp(mouseEvent);
-            if (!cimsvg.isRightClick(mouseEvent)) {
-                if (!this.moved) {
-                    this.updateCimmenu(()=>{ this.cimmenu.processLeftClick(mouseEvent); })
-                }
-            }
-            let baseJson = this.getBaseJson();
-            if (this.draggedObject.dopi && this.draggedObject.dopi in baseJson["cim:DiagramObjectPoint"]) {
-                let templateJson = cimjson.getTemplateJson(baseJson);
-                this.applyDiagramTemplate(this.templateJson);
-            }
-            this.draggedObject.type = undefined;
-            this.draggedObject.dopi = undefined;
-            this.draggedObject.id = undefined;
             if (cimsvg.isRightClick(mouseEvent)) {
                 this.updateCimmenu(()=>{ return this.cimmenu.processRightClick(mouseEvent); });
             }
             else {
-                this.updateCimmenu(()=>{ return this.cimmenu.processLeftClick(mouseEvent); });
+                if (!this.moved) {
+                    this.updateCimmenu(()=>{ this.cimmenu.processLeftClick(mouseEvent); })
+                }
+                if (this.draggedObject.startPoint) {
+                    this.calculateComponentMove(mouseEvent);
+                }
+                mouseEvent.stopPropagation();
             }
-            mouseEvent.stopPropagation();
         });
-        bodyNode.addEventListener("mousemove", (mouseEvent) =>{
+        node.addEventListener("mousemove", (mouseEvent) =>{
             if(this.readyToMove) {
                 mouseEvent.draggedObject = this.draggedObject;
                 this.addEvent(mouseEvent);
             }
         });
-        bodyNode.addEventListener("mouseleave", (mouseEvent) =>{
+        node.addEventListener("mouseleave", (mouseEvent) =>{
             clearInterval(this.processLoop);
             this.readyToMove = false;
             this.ghostModeOff();
             this.cimview.mouseLeave(mouseEvent);
         });
+    }
+
+    addKeyEventListeners(bodyNode) {
         bodyNode.addEventListener("keydown", (keyEvent) =>{
             /* ctrl + up key */
             if (keyEvent.ctrlKey && (keyEvent.keyCode === 38)) {
