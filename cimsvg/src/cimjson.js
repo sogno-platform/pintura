@@ -114,18 +114,25 @@ class cimjson {
 
     static addObjectToDiagramList(object, graph, categoryGraphName, diagramList) {
         let diagram = object["pintura:diagram"];
-        if (diagramList[diagram] === undefined){
-            diagramList[diagram] = { "pintura:name" : graph["cim:Diagram"][diagram]["cim:IdentifiedObject.name"] };
+        if (diagram == undefined) {
+            return
         }
-        if (object["pintura:rdfId"]) {
-            let identifiedObject = object["pintura:rdfId"];
-            if (diagramList[diagram]["components"] === undefined){
-                diagramList[diagram]["components"] = {};
+        else {
+            if (graph["cim:Diagram"][diagram] !== undefined) {
+                if (diagramList[diagram] === undefined){
+                    diagramList[diagram] = { "pintura:name" : graph["cim:Diagram"][diagram]["cim:IdentifiedObject.name"] };
+                }
+                if (object["pintura:rdfId"]) {
+                    let identifiedObject = object["pintura:rdfId"];
+                    if (diagramList[diagram]["components"] === undefined){
+                        diagramList[diagram]["components"] = {};
+                    }
+                    if (diagramList[diagram]["components"][categoryGraphName] === undefined){
+                        diagramList[diagram]["components"][categoryGraphName] = {};
+                    }
+                    diagramList[diagram]["components"][categoryGraphName][identifiedObject] = object;
+                }
             }
-            if (diagramList[diagram]["components"][categoryGraphName] === undefined){
-                diagramList[diagram]["components"][categoryGraphName] = {};
-            }
-            diagramList[diagram]["components"][categoryGraphName][identifiedObject] = object;
         }
     }
 
