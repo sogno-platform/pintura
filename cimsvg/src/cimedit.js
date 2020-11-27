@@ -322,16 +322,18 @@ class cimedit {
             return cimedit.makeDiagram(jsonBaseData);
         }
 
-        if (cimedit.terminalAndPointLimits[type] !== undefined) {
-            if (cimedit.typeIsVisible(type)) {
-                return cimedit.makeVisibleComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, cimedit.terminalAndPointLimits[type]);
+        if (currentCimsvg().getCurrentDiagramId() !== undefined) {
+            if (cimedit.terminalAndPointLimits[type] !== undefined) {
+                if (cimedit.typeIsVisible(type)) {
+                    return cimedit.makeVisibleComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, cimedit.terminalAndPointLimits[type]);
+                }
+                else {
+                    return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
+                }
             }
             else {
                 return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
             }
-        }
-        else {
-            return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
         }
     }
 }

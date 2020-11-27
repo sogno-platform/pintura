@@ -140,11 +140,13 @@ class cimmenu {
 
     processLeftClick(evt) {
         let svgComponentGroup = evt.target.parentElement.parentElement.parentElement.parentElement;
-        let id        = svgComponentGroup.id;
-        let type      = svgComponentGroup.getAttribute("type");
-        let diagramId = svgComponentGroup.getAttribute("diagram-id");
-        if (diagramId && type && id) {
-            this.redrawMenu(diagramId, type, id);
+        if (svgComponentGroup) {
+            let id        = svgComponentGroup.id;
+            let type      = svgComponentGroup.getAttribute("type");
+            let diagramId = svgComponentGroup.getAttribute("diagram-id");
+            if (diagramId && type && id) {
+                this.redrawMenu(diagramId, type, id);
+            }
         }
         this.contextMenu.toggleMenuOff();
     }
