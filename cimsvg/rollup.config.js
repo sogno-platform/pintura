@@ -38,8 +38,14 @@ export default {
     ],
     plugins: [
         svgo({
-            removingComments: true,
-            removeAttrs: "xmlns",
+          plugins: [
+            { "removeXMLNS" : false },
+            {
+              "addAttributesToSVGElement": {
+                "attributes": [ 'height="26"', 'width="26"' ]
+              }
+            }
+          ]
         }),
         string({
             include: [ "css/*.css" ],

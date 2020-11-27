@@ -91,13 +91,15 @@ class cimsvg {
         currentCimsvg().moved = true;
         let evt = cimsvg.getLatestEvent();
         if (evt != null) {
-            currentCimsvg().cimview.mouseMove(evt);
             if (evt.draggedObject) {
                 if (evt.draggedObject.type && evt.draggedObject.id && evt.draggedObject.dopi) {
                     let baseJson = currentCimsvg().getBaseJson();
                     let newPoint = currentCimsvg().cimview.getMouseCoord(evt);
                     currentCimsvg().moveComponentInSVG(evt, newPoint);
                 }
+            }
+            else {
+                currentCimsvg().cimview.mouseMove(evt);
             }
         }
     }
@@ -145,11 +147,10 @@ class cimsvg {
             let componentSvgGroup = mouseEvent.target.parentElement.parentElement.parentElement.parentElement;
             let embeddedSvg       = mouseEvent.target.parentElement.parentElement.parentElement;
             let svgImage          = mouseEvent.target.parentElement.parentElement;
-            let id, type, diagramObjectPointId;
             if (componentSvgGroup) {
-                id = componentSvgGroup.id;
-                type = componentSvgGroup.getAttribute("type");
-                diagramObjectPointId = svgImage.getAttribute("diagramobjectpointid");
+                let id = componentSvgGroup.id;
+                let type = componentSvgGroup.getAttribute("type");
+                let diagramObjectPointId = svgImage.getAttribute("diagramobjectpointid");
                 this.draggedObject.type = type;
                 this.draggedObject.dopi = diagramObjectPointId;
                 this.draggedObject.id = id;
@@ -169,6 +170,7 @@ class cimsvg {
         });
         node.addEventListener("mouseup", (mouseEvent) =>{
             clearInterval(this.processLoop);
+            cimsvg.events = [];
             this.readyToMove = false;
             this.ghostModeOff();
             this.cimview.mouseUp(mouseEvent);
@@ -187,7 +189,9 @@ class cimsvg {
         });
         node.addEventListener("mousemove", (mouseEvent) =>{
             if(this.readyToMove) {
-                mouseEvent.draggedObject = this.draggedObject;
+                if (this.draggedObject.type) {
+                    mouseEvent.draggedObject = this.draggedObject;
+                }
                 this.addEvent(mouseEvent);
             }
         });
@@ -461,10 +465,8 @@ class cimsvg {
         if (cimedit.typeIsVisible(type)) {
             this.addingType = type;
             let image = cimjson.getImageName(type);
-            let backingList = this.svgNode.querySelectorAll(".backing");
-            backingList.forEach(function(backing){
-                backing.style.cursor = "url(\"" + image + "\"), crosshair";
-            });
+            let encodedImage = "url(data:image/svg+xml;base64," + btoa(image) + "), crosshair";
+            this.svgNode.style.cursor = encodedImage;
         }
         else {
             return this.addComponentAndApplyTemplates(type);
@@ -587,10 +589,7 @@ class cimsvg {
             this.addingType = null;
             this.addingPoint = null;
         }
-        let backingList = this.svgNode.querySelectorAll(".backing");
-        backingList.forEach(function(backing) {
-            backing.style.cursor = "initial";
-        });
+        this.svgNode.style.cursor = "initial";
         return rdfid;
     }
 
