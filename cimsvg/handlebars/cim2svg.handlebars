@@ -11,19 +11,21 @@
         class="image"
         diagram-id="{{@diagramId}}">
       {{#each pintura:points}}
-        <svg
-          diagramObjectPointId="{{diagramObjectPointId}}"
-          x="{{x}}"
-          y="{{y}}"
-          id="{{componentId}}-img{{{fourdigits @key}}}"
-          height="{{imageHeight}}"
-          width="{{imageWidth}}"
-          transform="{{../pintura:transform}}"
-          viewBox="0 0 24 24"
-          imageIndex="1"
-        >
-          {{{../pintura:image}}}
-        </svg>
+        <g>
+          <svg
+            diagramObjectPointId="{{diagramObjectPointId}}"
+            x="{{x}}"
+            y="{{y}}"
+            id="{{componentId}}-img{{{fourdigits @key}}}"
+            height="{{imageHeight}}"
+            width="{{imageWidth}}"
+            transform="{{../pintura:transform}}"
+            viewBox="0 0 24 24"
+            imageIndex="1"
+          >
+            {{{../pintura:image}}}
+          </svg>
+        </g>
       {{/each}}
       {{#each pintura:line}}
         <line

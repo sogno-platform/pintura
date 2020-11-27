@@ -82,9 +82,8 @@ const onMouseLeave = function(evt){
             var currentCimsvg = libcimsvg.currentCimsvg;
             var cimmenuInstance = new libcimmenu.cimmenu(document.getElementById('left-panel'), document.getElementById('right-panel'));
             var cimsvg = libcimsvg.cimsvg;
-            var cimsvgInstance = new cimsvg(
-                document.getElementById("svg"),
-            );
+            var svgNode = document.getElementById("svg");
+            var cimsvgInstance = new cimsvg(svgNode);
             cimsvgInstance.setCimmenu(cimmenuInstance);
             cimmenuInstance.setCimsvg(cimsvgInstance);
 
@@ -104,7 +103,8 @@ const onMouseLeave = function(evt){
             }
             let body = document.querySelector("body");
             if (body !== undefined) {
-                cimsvgInstance.addEventListeners(body);
+                cimsvgInstance.addMouseEventListeners(svg);
+                cimsvgInstance.addKeyEventListeners(body);
                 cimmenuInstance.addEventListeners(document);
             }
 	</script>

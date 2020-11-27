@@ -129,8 +129,9 @@ class cimmenu {
     }
 
     processRightClick(evt) {
-        let id = evt.currentTarget.id.slice(0,-8);
-        let type = evt.currentTarget.parentElement.getAttribute("type");
+        let svgComponentGroup = evt.target.parentElement.parentElement.parentElement.parentElement;
+        let id = svgComponentGroup.id;
+        let type = svgComponentGroup.getAttribute("type");
         this.contextMenu.setComponent(type, id);
         let pos = {x: evt.clientX, y: evt.clientY};
         this.contextMenu.positionMenu(pos, "context-menu");
@@ -138,9 +139,10 @@ class cimmenu {
     }
 
     processLeftClick(evt) {
-        let id = evt.currentTarget.id.slice(0,-8);
-        let type = evt.currentTarget.parentElement.getAttribute("type");
-        let diagramId = evt.currentTarget.parentElement.getAttribute("diagram-id");
+        let svgComponentGroup = evt.target.parentElement.parentElement.parentElement.parentElement;
+        let id        = svgComponentGroup.id;
+        let type      = svgComponentGroup.getAttribute("type");
+        let diagramId = svgComponentGroup.getAttribute("diagram-id");
         if (diagramId && type && id) {
             this.redrawMenu(diagramId, type, id);
         }
