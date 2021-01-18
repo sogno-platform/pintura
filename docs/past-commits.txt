@@ -1,0 +1,36 @@
+I, Steffen Vogel hereby sign-off-by all of my past commits to this repo subject to the Developer Certificate of Origin (DCO), Version 1.1. In the past I have used emails: post@steffenvogel.de
+
+54c552cbd63e0df1c32bfedfbee074aa223152d7 ci: only update docker images on master branch
+2a34a1bc8557be540d9b8b2ddd0966fee7a4b4f7 add missing repo and license fields to package.json (closes #49)
+3f623210260847b59cabeebaf1a2ea90e1eb9689 enlarged images and improved readability of SVG
+c17598fd2657bc434cd584e91057c954684cca37 move labels into front and improve label contrast by adding a white background
+ee2206461b328894a22202bafea9d1117b4807f8 added support for rotated components
+6db70ebe06e7182423ca799a639badaa92c602e2 clean node_modules before building Docker image
+5b78e672535e189f2b92e3988e15d3fca8f322f6 add favicons
+5818211b46b7f06d819322dae767f6cf9808ecc1 fix component images in Safari (closes #17)
+2c8b6cd2cd330b919904ad07376c9a7d1d80fbae fix typo in CI config
+668edbae180fd496d1bea153648f9f08e785acb4 reference git submodule relative in order to make the accessible to CI
+1992b5e080172e49871c93f0db3fa844aa4c11fc add CI config
+a7b2e115d0f03c547c9d28dc244771d672e976a3 improve building Docker images in  Makefile
+6afc89f79cdc04ae85b79e24893224db82ea4762 added labels to docker images
+575689627c72a69f03078af39f0192d1f0e1c6ed make all Makefile variables uppercase
+a0c4cc788ac1c5a2223efccbdf98cb4520457337 update Makefile header infos
+690233297429ad005d4e37618b529adfaf07c7ee align colors between VILLASweb and Pintura
+4ea1765475adc69a21dda2ae99161fe0040522f2 allow passing options to docker run
+3d97cef06b52316977e03205edb9deadad52f7fc add notice how to access Pintura container
+e2de424d0240cae852b00ca6ba7de814053ca701 move instructions for small.html example to example folder
+015b04cef305c3fdf6787e7d3072ec758acc8bcc moved cimsvg minimal working example to examples folder
+8ccc47b46b022e09c06fd1901ef3bfa6d63554d9 added a simple example for rendering CIM files as SVG nodes
+51f2308cd092ef1be7dc4711974564d88b567890 another fix
+5f01d635d58a347a410f69c801d25952e79db501 fix docker deployment
+2c01fb995f931ca7a9413ced766da0afb8278332 use multi stage Docker build and get rid of html.tgz
+07f56d0f7f4b6e3cff2d7567fb44fb1474739855 cleanup of Makefile
+d0bd69ca6f0a5d098bdea357180950a6f21adabf remove obsolete compile.sh
+03c0e7e606dc4da39585d2723782408b75405c1e generate add components menu via Makefile
+c127a88e484f4682117899deadd93b6a3109ba12 add .PHONY target
+a5bdde49a64ff04120065cef1779c0e092f38306 build templates as part of the Makefile
+d58d878d3054f38a6c04f4cb20e13c94ae8ffdf4 map spacebar to git diagram
+6ca4af1a9f1a6ffb174639c582cb60d383980d53 add cimview.fit() for autofitting the diagram into the viewport
+ca3086a870e10836d897547e95cc7ccd36e69bce add environment variables for letsencrypt
+de8acfbc9ce32d6bad8b5b65f4000231c16cd0c8 do not create SSL self-signed certificates. instead use letsencrypt
+f8441bc3b46d17fb8157bb7a6f3c5a01dee3a127 added license file to repo (closes #9)
