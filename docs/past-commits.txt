@@ -34,3 +34,17 @@ d58d878d3054f38a6c04f4cb20e13c94ae8ffdf4 map spacebar to git diagram
 ca3086a870e10836d897547e95cc7ccd36e69bce add environment variables for letsencrypt
 de8acfbc9ce32d6bad8b5b65f4000231c16cd0c8 do not create SSL self-signed certificates. instead use letsencrypt
 f8441bc3b46d17fb8157bb7a6f3c5a01dee3a127 added license file to repo (closes #9)
+
+I, Markus Mirz hereby sign-off-by all of my past commits to this repo subject to the Developer Certificate of Origin (DCO), Version 1.1. In the past I have used emails: mmirz@eonerc.rwth-aachen.de
+
+82e60ada55e53f96e9bfc1261bdb32cab87b0fef adding cgmes rdf files
+26f20dfd815b7068507eeeb12bf2adb443676e63 Update build instructions
+ea0ecc690d6c9e887a95f7792b2fe43a2494b9b7 updating CIM XSD
+d3180125eee62b60bc6be2655cb4b0f35deb4dcf grouped make targets
+12ddb14b4d0377da8540e447aad2726845a14804 Use handlebars on the whole folder
+15940b0b1052c7bcd9de5cc1f6e1873b97361570 updated package head
+21535299763c3521591efaed178ab4c8d449e360 added new grid data repo
+089b48b8318dafb3f31595e9dcc9e76f225359a8 removed dep. modules
+0df9c4ee90208e6a72139dacd29267a2bcbee2cb added data model and templates
+f401bcdf9fb142c6d7a46b270a12ef514c022622 added templates to pintura data model
+b0c4b464d7c321f5ba525323b36101afe01b6a00 added logo
