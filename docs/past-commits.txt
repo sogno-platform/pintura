@@ -48,3 +48,406 @@ d3180125eee62b60bc6be2655cb4b0f35deb4dcf grouped make targets
 0df9c4ee90208e6a72139dacd29267a2bcbee2cb added data model and templates
 f401bcdf9fb142c6d7a46b270a12ef514c022622 added templates to pintura data model
 b0c4b464d7c321f5ba525323b36101afe01b6a00 added logo
+
+I, Richard Marston hereby sign-off-by all of my past commits to this repo subject to the Developer Certificate of Origin (DCO), Version 1.1. In the past I have used emails: rmarston@eonerc.rwth-aachen.de
+
+eae7b1d7933d3d34697aebc9f3b5eae29c71e83b Bump version to 0.4.6
+aedf3dafaa9b218727b019e9ba16ee160c818e36 Check for invalid diagram when adding components
+8eab12312d92962fdb7b68f3b92e170944ffb6fd Bump version to 0.4.5
+b6caa8d61cf8077dbc8d461686258fa3ad8588b7 Fix for add component icons
+bc54d69f5c96b3f88ce32d3a4dab96b5078fc7ff Create release before docker for easier testing
+e5f0090de70670678b02f60fa2802653266f7d26 Drag and drop without full redraw until move complete
+543e831cadcaba3fcec677ffc0cef73a33bb322a Drag and drop working with complete redraw
+77eb3bc593dd366d0c3b1577f50f19b0485f5b0d Populate new component menu
+67a483305728e61bafe9312fe91f4dbbdbe3c122 Bump version to 0.4.4
+505a43186dac0de98c350efb98fb3e672baac2e8 New TabMenu class to ensure scrollbars of hidden menus invisible
+ac43f1379d20f8a2fe757e90c93331f235be03eb Bump to release v0.4.3
+eaf1ffb5a5395a91fa3595579b646e720d6687fb Check release in title matches release tag
+f99199723478a0184702b4aee3c1cdc23789572a Fix SVG export
+ac88638c32dce0b4dfe6be6ba49387ae4e9a8d96 Tag docker image with release version
+779b9c58a17648b751f67574b0a0e244a5bf171a Scrollable left/right panels
+c00de8aab488c1eb4a5286ea3f2cfe31bc0d6b46 Correct positioning during fit and remove generateCgmesTemplates.js
+fb564b22d8e864cf8ab1d909846d3ea0530d3bbd Fix export to SVG and remove unused generateIndex.js
+fbe93f5cbcea95feddb9422697dc15b3d18c8c42 Add docker push to release
+065734c861f26aab17a1d3412cfeb8c37cf19839 Better release filename
+614aafeec93b095cda34b5afa6f60365b3cc509f Github release workflow
+f95a41c949dba2d9085333231133d7520d5eb5db Fix non-deleting menu items
+61051b02af2cd5536e6e481de64e9e7363c3048e New menu layout
+a1931c8b97449a5a6088740e1b6a28892d6e8881 Use CIMgen to create CGMES classes
+004b55acf385e2a475508fa06cb4a32b6da182df Update package-lock files
+2af4cf80f73e950939f91a74b18c637f981c4a8f Stop stray events zooming / ghosting
+eb08d7033c366b9664caee5386d3cba721ab5a05 Remove unused docker objects
+9f793aea61ea67268c1a1e7917b7b507f42bb551 Big event reorganisation to avoid lag in big grids
+fc6b3cd320f5b2e046e73b7691ea870dcd6841e4 Dockerfile copy improvement & VM deploy
+087ffb020ab36485885feb62566b043e2fb1a66d Add VM to deploy script
+ef61de77b802939d10cdd8ee7561f76abb2a67d6 Update submodule to fix broken tests
+ef31cc0d52849dba0fd8e73b6a76b8fd6058abca Couple of small fixes
+bf57155326c1df89833a96a867c532766505c5e8 Cimsvg helpers
+72913e8119d42abc5450b385a342df62edac5cb1 Fix broken tooltip
+88ae41c4f127ae2f9e7c2b81993611698d520915 Add mouse listeners to drag diagram
+2377167cd0501bd64f3d62a1bc67b806e0115053 Unify around addEventListener function for listeners
+c0eed5fa4efb3a26d0809c494b91dc1f74f0cfda Enable mouse wheel zoom
+34238550f9523811ebc35bc4bdf50494ebe775a5 Pan / zoom sizes proportional to zoom level
+f6a148009be1c7a997ef515bf46904c7d483f911 Update submodule location
+86960cac0b1b29e14ee921cc03c55c10df455ad9 Add json file for defining menu
+ec200101114f16abfa58fb10d36a168d1e64de85 Rename react tag back to menu
+b06bcb754d4a5edecbf14d3b3eb1d58656220129 Use react for main menu
+3276f87d37df63499a91f9b8dc137801d0dab742 Add libcimmenu build
+7af26a4c3a12fba92a999adf8901f78b6f019427 Use about instead of value field
+9bdc49e54beb65fa00cf96283262e342d2a1fe11 Changes due to grid-data move
+4d20f2bf7576e829447391596208cc98c3d0ecfd Set filename for file saves
+74ef0d21625cb4705a9874daf8ba1c85dd929252 Use generic icons for unknown graphical components
+3ea68e9a6b7fd5b79387aa8f8a7a754b9878d991 Add console.log test and clean up problems found
+02af886b18f28efb8b75f6059056ed10bb7fbd4f Show dropdown for true / false attributes
+99be4b8621dc38226a8fd40c0ecdda5009693fbc Makefile improvement
+5baa1c4aee4224703803c6f448fe1e5daa297f87 Fix zoom code
+304b43abd9094bde04659c08247cb3e40ef8ffe6 Fix remaining lint errors
+035899c9ddb0cd76dc0e7394b8f4c55950f2c73a Run xslt in xslt-build container
+8450a0cf3e3c7d7eb2607bc1287c2a6d964823f0 Configure eslint and make some corrections
+c37ffa512815caf82a4987b0474f9f36d4a4e121 Fix context menu
+6d945853ba172d1d8b4a0e696f7f86ed83699fa7 Use docker file layout for save and clean Makefile
+757a77a4110c0589f000d8dea58625a19648d536 Correct file path
+28d3b4b70225703c2091d6aec5b0662b9baf4b24 Add test file to urlserver
+834ed4dd64490a36c28036d2e2e96fe6bfe30bdd Put sleep in the right place
+9bec39b334fb8c0bd4de4336560d62799f05d5d3 Move monitorGit.sh
+35f93b77ae33f90a46de48f71490824452fa6fa6 Remove cruft file
+9a3a1e018c4901ff7578954750748710e76498fd Indentation
+2472f2674113812f2f85177c8d5fd8907835dfe8 Use Content-Disposition header for URL type
+9ab7a21dcc54d3749705223a296694c67e19f7c3 Dockerize urlServer.js
+b56740b6a9832402b304aca26a1920b177f1bbd2 Add some generated files to .gitignore
+72fc9fcd03ec3fb76f76697af98cde9d384dbaa1 Fix dropdown for classes without subclasses
+d55fef0ae02749f9a3b59a447839eb3ea1336dac Fix broken code discovered by tests
+1f317980389bf1e4529aed0085cc7ba9d9fd3a7c Forgot template file
+0c86240569fc48af1c899b086aff733beb371bec Displays correct instance in menu
+856223c097f3c3698e078b64f36829a103c3e2d5 Use input for float rendering
+158c8289d0d7cda37f0706a130d6548b4b006e25 Add aggregateRenderer class
+cb715ef211acb04d8de0f28e9dd880f49b5a2552 Remove unused handlebar helper files
+0e53abdfb0346f2fa4dc69ecafb0bf112869db7a Fix component addition button
+4ce62096c3cff9ebb539865e6e929130ba99e344 Items from subclasses displayed in attribute list
+17f009e656c0b0861d34f4158114f2c46387f873 Fix repeat attributes regression
+7251e1845229e11644f76ff4551d38721166c042 Add class / attribute based on 'type' value
+e8df41d84c3ad1415869947d3ac3bb1b6c33dd61 Remove copy-through of FullModel, generate skeleton version
+f0e8551312a35408e1664c599cd03e726bd2ae2b Add files for LoadDynamics / LoadModel
+e64c0985aa13e935f6d4c9c79ae083e09565c3b1 Fix build error
+2082545d8207b37ef82cac25d40a7e09a8660da6 Merge RDFS definitions when names clash
+e0057311a1bcf7c24159b3ccfd5cb590dbf32b7c Can create zip file
+dfb7091c29fbc2a8bb04a15c974b5b3ec3f3feaa Add test file for cimfile
+6bd864305f2bba972c85678f357f662b0859fdfc Add new cimfile module
+2f3b48c6eacabc49ed9e60e91dd3475380dee587 Include CGMES template generation in npm build
+36d919869b2b56992ac5139b854ac3c8d00c4854 Remove unnecessary white space
+2cd4e4b5f2da65ac809e19385a9910fb3ffa247b Remove stray hashes in templates
+3e4461fd513364dc119bbd3290aa6fe7987a879b Add handlebars template with implementation of rdfs translation
+d25e313d968eb9ec91f065951766ee3912ac5911 Creates directory of profile definitions
+85ade582c84233938f8000085eef6fe44dd5e1c8 Add script to generate cgmes templates
+a64427c1bb2ad214231d2dd6c3119bbc6abde2ce Update rollup with missing handlebars module
+f001f8da857e291ed3c94138aa847c0695930611 Fix cimmenu build order
+c09ec46dbcaed1e6da365f66a483954e96a190fe Remove unused webpack stuff
+4ab4809772285cb413f8572a7a5bd78d321071be Add babel plugin to package.json
+07eaee67041d8fb822ea9df3a842e266206e8315 Add jszip to dev dependencies (used by template generator)
+28137e22b3008784564e1035ef098335dd861ae2 Add rollup to dev dependencies
+2af40e3a415bc56a4a27865c0483682c4714ee7f Add script for mock npm installation
+8e509ba13a0d53e2e1b01f0cb83b38acb451506f Add index for cimsvg handlebars
+04607073fdf163c1c3d81f4c9045dee67b946db4 Rollup config working with web, react and test
+724c9811f3d780a5e5e522c15023053035e777a6 Move cimmenu to rollup
+8b15cf25334b9538e2739b48110b27c2c67ab5dc Use rollup so that react compilation passes
+cbb537d58e91c963f770c07e7757c636bfa71942 Some changes for VILLASweb import
+a9089651eece76ac88e74ea79d6c83bcbbd83660 Add tests for cimmmenu
+57f523bc73d8d93660972822afb2e4df85dc9e7e Add helper files required by handlebars-loader
+bb7474a6920a53f9cc3387b1938e38783d6d5ed4 Fix generateHandlebarTemplates.js
+7e567ecd99998e15ab5c40e4a2f5d19a9d2c6c6d Add iterator helpers and update templates to use them
+b013d77316c44be271d440d47e7fe4a4f6d77b77 Add aggregate component and neq helpers
+c044ad7650a32cc488ce18570e78c1c6b53d3578 Move classStructure.js to templates/generated and helper into own dir
+035f125b47e5f8edb9256b9894a51aef5c5a81c2 Moved to ES6 import
+be2a346777cf71e014e6ee653b364d89f4c6909d Add css for svg export
+3716d229a1861cd6526677cdc691d1bc73a6a9eb Install svg-inline-loader as dev dependency
+47fc515329ac6f46b0eb2c5edab02bb04dbd35a8 Inline svg as string instead of base64 encoded
+e72d84727a25063d2c0376ff96284e78c75c5a14 Put svg.css into cimsvg directory
+2555b5672a018a16b9e9d6b009d4156c12ca1a96 Repair failing test
+7587a2c236f4a1f64225a5b16c23e02300c8e7ea CSS bundled into libcimsvg using css-loader
+d2e6a1304e20257a98115a93a53e38fe3d14aa0c Add cim_create_svg template
+72e3b89795ef24766a9a4a9f0ccc7f168333b4c8 Save using svg filename
+67b8cc1144e38bf1bcefc1fe5aeb127716a03b4e Add svg export functionality
+2834140a92e16624cf6eb650ca74c43506ba05d6 Update gen xml location
+254c5c26c99a7592cbf0dd7949cf15474ccff096 Update library location
+adaa7c4cae6d566df5ec8354f4b05e7661629b2d Reinstate tests
+435639c9ef957f380843d0d3f34605205e151c61 Update menus when adding new component
+091613cedf9b1241c36a379b03c0b34dbf20dc08 Some menu interaction improvements
+1d9b0c7d0828669c96f871480f45370b0daa4ce3 Reinstate dev mode and simplify webpack config
+cc8993f36d597272c673fd1178a2aed8c930f84a Sort components in all components list
+1b299257a3c656cd702a8a9d6be5e8e4d25bd990 Sort menu elements
+c4b81a1614fb0e1123104658279fe6b55a98811c Remove type from front of attributes
+df45e1697b783d459e602eba57f0b26c0cf4e41d Use base json for attributes and protect cimsvg access in cimmenu
+c84d478894b07c87c83bf1c15453b96c4abaf60b Remove accidentally checked-in generated file
+5faf72161d656b27e9dac012ce262bc7d46382a2 Fix problem with Save File link
+cfd98872c2b1d599eac7ccdde33963dabb56e231 Move cimmenu templates into cimmenu
+1b33ea53cc9db052d991329561af4affddb4847e Split out cimsvg code into own directory
+482704060919a336dba7c2466ccc30eec10016ee Protect currentCimsvg in cimmenu
+635211e9f0cc05cc19bdd4083424191756a6d311 Make lib dir if necessary
+dda691b390629eb50d8d9cc2e39a9b22868e6a9e remove checked-in swp file
+85dca199d31009103fc1b3d3c987ae2589bb333e Fix xml link upload
+300a7e7a4e3f0c58f7e5f96c55cb17d6d8132aa0 Add and clear selections when clicking on diagram icons too
+eb7a29d3f97e7f79df71a9f99ba996cdce04a8df Add and clear selections when clicking on icons
+e4092332d91b71790f4f334db82a167867f73b1c Use currentCimmenu() similar to currentCimsvg()
+f90140a359fed60141a8c0fd52a8fe62556fea0c New component dialog
+734be82a47836be1b16859f24db691d96dab31cd Fix docker build
+9e144b742d8ebea078e534d4473dce28abfff2d6 New cimmenu module with grid layout
+46086b93848d1ef5d4d9b59359d7227ea88e6f94 Header panel for menu
+74b26411e170f05181843630f73f509e9a2abd83 Three panes menu
+cb1476bc6178e5eebb2b185638194db1b0f48062 Add corner switches and panels
+7079f325e463c4cfc4f7ef96bd5ce7a0d52bdeb4 Scroll bar for All Components
+57dbb4638bcc29fd777d021f160e7dae513333a0 Generalize populateSidebar/FloatingMenu to use it for new Diagram menu
+a95924553294dbf3d433d1e892cf114fcae7cc79 Example of url server
+fdb5745f4b1d31f092e9787d759cc246556e0268 Code to transmit zip files
+6e1d0880989a30a7f61ac65f06249d5c7e64a044 Search box at top off all components list
+01eb4b45d6bd46ee1aa33d80a5b8e0b040f7fcbd Code for generating stubs of any component
+fb7633c08423787e42e19301831b305524da9fe7 Move all components dialog and icon to bottom right
+906c1a184ad84935ad1e5bf19482ba06e77fc04e Template for showing all components
+23f99efee25495a828f3c52d7ad3c9aa74d02283 Fix icon visibility
+781e23cee89c595b9e30ee11a516343e89b2b3cb Shows all components, icon not visible
+2489546814c85ae53035582d89082e7cde8981dc Make new File Menu and link saving targets
+3c8584233145882d996c1c2a0d3b10522fcc3c04 Remove unrequired svg tag
+9c2f6c87680e1c66c61b8500315d7b762117f2af Populate terminal list
+92c88dbbce277f34e300e6078b605da8eac31f68 Default rotation is 0
+d9f0a7b17f0a6e5f2ffac5102039ba47b4aa6e88 Organize SVG labels
+c31e4701df512278c949da99f14ea26c543a84ea Revert "Move label and rect into svg group"
+This reverts commit 0b2c98ee264ebeb795bda55c9868ad67894d88a5.
+7de549034376ce8bdbcb4bf723cbd1d905d1ea4f Move label and rect into svg group
+0ac38ac4f0c34ea62dbf0118abecc48bf3c350a7 Some more primitive variables in Synch Machine
+506de1097ddfe1b4b628053158c03e10c23bba5e Float instead of Domain classes for visible entsoe components
+b33bcada459e3f71245f52499240b17a0ec55c9e Remove excessive logs
+92abad54a041af458d3513a7a370e7f567836c96 Generate templates for multiple data models
+1036b4dba9e8a48add829197def5996fc8314e85 Create separate directory for entsoe model
+8b42459a1346cd489cdc4e2097474fe336b2da42 Allow updating of attributes using alt cim schema
+f7487b4b1cb8d2751c0c02cf2a5033993bfcc026 Fix sample file
+974c4dba3a6e5e483eb8e3bead42906538afa51e Fix xml loading in parameter
+7ba92cbabb89d5df347ea56a0e22b4b046eca09f Add unzip functionality
+a2dc3a4764d6cd77d4d62b790dc075db1f9664a1 Remove deprecated async without callback warning
+da71d894d01db13a287c11b5534ff4b46495ef8a Load parameter works for one file
+ae7362ca4102309384aa07088ccfee5ce6f94f9a Get rid of log error
+b89ccce8b96f1cc1efb789b506855accdac9f0a8 Fix example
+de0c64bb9ea8064429711f560d4d911350860c51 Fix context menu
+6c68bd0251748e6e9314d58df39e4c2e06184ebf Remove globals from cimcontextmenu
+f713a16991a1826c25ce5c2cd1ec08360e406e01 Fix test in build system
+45fa5e0d37c80a4d2f81c3dd23c9472610f28c9c Remove global variables from common
+440ec7380d6bb6624d51f88e7562ffe76d283d82 Remove global variables from cimjson
+e19029e41362abd9f4d74d0a854ecd58dd2e3cdc Enable tests in build system
+033680b4e9159a23b5a977dceed0d48955a45b0e Remove global variable from cimxml
+3a24ecefd9ab7cf22ba47ad50fece506624c6f92 Remove globals from cimedit
+5e623ae9616ff4e9114ff56788a095a4d2d191b1 Execute test as part of build phase
+2aabd6823382cda74533ed40c948af743daf6b47 Enable tests in gitlab
+36ff31bf69e50f2b04bf5e6fd5511e5a93d411a1 Simplify cimmenu file
+1be6e3070f962fab2a5ef62cfacca1621294d18e Simplify cimsvg file
+0f1590ab6233aebd713e67785fdae5bbd75cb878 Remove global vars from cimview
+09bd1845f3ff5d4a3c1fa7dc9c7e640afb1bb07f Fix context menu
+23ad7de27e72da2b2f708fbd409dad5508a2ffd9 Border, panel height etc
+250561880923f225334feb16b18a60b83734c97d Tidy terminal list
+b3dfcea26547e62ed411608b04cf1014b7a29780 Fix colour on terminal link
+920caa686e879be55c6939d8397e2ed5da7c923b Remove big sidebar and update css
+175cd4131e1f6ad818c15144be7eb448244efd41 Implement and use currentCimsvg()
+2f855b0f4d9651524293d12ce476046d22a872bd Implement and use cimmenu class
+c5082a577bcee78334a3697e6280fd0718ba97e9 Use cimsvg class
+abda835a3efd113874dcd6ec75c65211baa30688 Move generated stuff into a separate folder
+49f0ce839577d07fd812e814fa16013b73cab0a3 Add missing template
+9e127bf9ce1077492dac23f82d1dbaece626553e Fix broken link
+fbe4a290465ea1a52396b1e2d8ef6ec822ffc6e6 Separate templates into handlebars and xslt folders
+3ffde7ddbafc5ceb4d5566aed530050adf5a3798 Remove unused CSS rules
+1e77d22c23e468d652be0b7ec5b3057f1f35a39e Fix layout
+6f0c2975f7d8455a565606c4142fef1dd0666610 CSS for delete box
+a408ef070edd2b71773f4b2e1549093135271c5a Context menu for deleting items
+d6fb4e33fef7d7178210e177a058edbd40d220c2 Menu appears (in wrong place) and can delete component (but won't go away)
+dc20f8d595eafbd1ba8e882d86d0d77235b36b0b Right-clicking deletes a component
+39759891ced4661fbb2ab5f4e22ed9c4af5efb12 Use common function for diagram object and terminals
+1ee59377c2a67cef6d28d911fa4a6ca0360e49e1 More villasweb styling
+4b5dde45c8671c3bc0a333b42e0053972702ff0a Move add diagram button to main menu
+33eb457c564e7d8b17479d0fd2733cf5ac5f8913 Move stray colour css out of layout css
+c3a90359ca08aee84c3b7522adcb561a7b6611d8 White background for file menu
+2f92a7b24c2d4fd344bf6d324937aa4ea8c87c1f Use form and submit for save file
+44c06ffdf04aa507a9d77d384ceacf96fda6b105 Add headers to webpack js files
+5824ed30176a1b6c96f1cb3d4b13e24e4dd1076a Add header to common
+77cb89b602e510cf774591291d041508d7c56a1f Remove two files that aren't used
+9aa4011cf4f59fbedd12119149db07286066f52e Fix clean checkout build
+4855dc63caab917f25fa448eb74bc352e40e42fa Fix issue #33 cannot connect to topological node read from file
+ecd9b4563e2e61d9ec4d900d9a71d50e3f0a5b65 Replace link to Topological node instead of just adding one
+23ab7409a816d135449ba33b18f83ebea687671f Can join terminal to topological nodes
+c3033c63d47a6699ebe85b711d4135a7037aa36b No terminals for Top Node
+2422d4c268ef2f40b8def314c1fa07924074bfbb Added Terminal moved next to component, only works with first
+a9d607f37a34a0db26d6509dd4b50f96ede41b3f Don't show Terminal list for a Terminal
+a56b36d61f88737b3c67695e0f951b19ec12c1cf Allow adding and subtracting terminals
+a291a2c67ab1380f4facb38d688b2d299dba3566 Don't add Terminals to components that don't have to have them
+30a5534427b686da152ca7d4c76f2cf7b521fe0e Basic file saving working
+f1840d53664f93b83add1a0408a88aa0363c0f72 Saves xml stub
+adf8b2fc2028a7d239593b2a776752a78616e6c8 Fix indentation
+1b097deaba6fe8ae469b68e6d00ca7157e8ddcc5 Don't show scrollbar when multiple input boxes in attribute panel
+0a82b4b8e6649477dd1b6bb4175df8fce834f232 Create attribute dialog for Domain types
+9278e34a6cd375b899f0a87a92a71888611fd171 Store simple type values
+33b1b688e418cb6411bc37f1a953d47c4c171453 Create button to add aggregate component
+7c1038a51dcf985b8ef257bdf3004ff836b8f7e0 Can select an aggregate type and it will remember it
+7bacdfe7ef9ea9d8620f80dee25e4b50e8b77ea7 Possible to add some non-visible components
+1938dcd6fc3fff0ed27486f9f810a4542415102f Classes in list must be unique
+b9620f153b8409344584c5693353e8fe2d9ff9bc Import class structure as js file instead of json
+c51c86bf0ed0c5e2f35a3a40358b3a3e9c4395e4 Condense link generation to getAggregateComponentMenu
+873dee32b29799c9bd29a36ea1c4795fc59aaecc Use getAggregateComponentEditMenu helper + template to do heavy lifting
+499dad2f891dd8241accf19f16ee0212ff33545a Use getAggregateComponentEditMenu helper + template to do heavy lifting
+1ae722b42d4202f9047412898551753e4ceb8fca Add functions for accessing objects with id to cimsvg
+84397cf2fde6c08b64543e7c0ef0778668d271ea List complexTypes as list of superclasses and simpleTypes with valid values
+d994f4111f863819dbba3b74bfc0a24773156044 Generate name counter per type
+ba77c07ca3e1d9789e6ffa5b7bc5a68dc47eb9c1 Use handlebar template to generate an html list of addable components
+8294c21b10f0833c5db81530ee825719720f64da Refactor superclass list generator
+c0d971c6465159a959852ec14963bc729e5a2472 Add script which can create a list of superclasses
+fcd57e327c6f09d1712d2304954bf8daff84d67d Shows a link to an object
+4f71bfa5732c817381ebd28cfd64878966d63bdd Remove unused main.js
+75018287f04ccb0bf9e23e1f4ebad92d8e267811 Fix problem changing attribute with non-imported components
+e2ce5567e8fd0a6de70cccfe63d72bca81567586 Add cimlog.js so logging can be disabled in production
+9dd992443b7cc45189a904ab21dc6fe293919255 Move webpack config to new file, split dev / production builds
+648a217a6215daf13ed16e73db250e332572295d Put terminals next to components
+662c228fafdff31780a9dba3a07213d3e1ab9532 Only show the components we know how to add
+18710bb3f3c963ad998a985a5676d45839f1f3f2 More component types and improved way of recording point/terminal limits
+530f58dc85e4bc64cd7d72bb46047aff9da56012 Clean up Makefile and package.json
+4cb9d8fe105c1d7f6b75d3a2032e29fdbe968a0c Rename electron_xslt because we aren't using electron
+bdac514fbafc28ff63cd3fd7046498e577042cf8 Move to libxslt for xslt translations
+4274add1abffb03a2cb60967203932566be21a57 Start electron in the correct way
+4b0983e27aedfcc8417c42e1aa55d23d95a64bff Source cimsvg library from build container
+e463e565b61a3b8de99cd2ee04a73b66ecc28283 Add new command to run docker locally
+b9228496ede2c28777bbd1925e883a5c4959a65d Update Dockerfile to npm build and use electron-cli for templates
+028123dc70682aa48f4379f10b99e7a215e6e24c Create attribute dir if non-existent
+511ddde0d044bed64ad2fbedb4520b5cff18552d Update webpack in package.json
+ef2d29f3256c23f7f56032e4d7deb7da923c487b Electron as dev dependency for template build
+0fcd0833b1b41cb7f7bcd69bd46e8cd850079408 No electron window for template build
+370a0adad0f2fe83ec7b69127be96d9e2257145e Update gitignore with location of npm build
+d747d6f5259bca042c94908d482117003e52af39 Fix code broken by relocation to attributes directory
+920286420072b1ef077e01a6b6a9c6b329a265e9 Generate sorted add component menu
+4c7b6312fe9e8ebc3445f1928696f3c2184495c9 Create attribute handlebars and template.js
+69ae614f81e8947a109ea72ca8170fdcaf6ef002 Make separate file for each component in each xsd file
+52b9805959fa4cc70229938547a0e6bad87e52cd Calling from within npm works
+1354ed86eaac03c5e81bae55af9cf5551e38f094 Can build menu and attribute files
+ec5df4a930c126193870054e44a03b21819b22ef moving to work pc
+54c78f65caa0225236d3a672f00686e2756c61f0 Can use electron to generate all types of template
+6407f8b2f48d5c3db964e432b3d6bf69714e05d6 Fix clean checkout, broken by outdated reference to PinturaDataModel in Makefile
+892ea77eaf676fa55abfaa0e548d3d9b74798571 Remove unnecessary electron dependency from library build
+e1507097a873d00554fa5c547dcdf5b6a55545c7 Neater require statements
+86c254efb219e402cfe4155225891e8ed605a777 Include handlebars and templates in webpack, exclude index.js
+1545b6b0e0a22fc0cff97669dd1685496e023638 Webpack makes html/cimsvg.js
+38874f8351d8e314bf3b6cbc207e992ca2d02a69 Use pointer icon to place new component
+07f9cda2f8137acaa16cd78dcc79fc65d0f81229 Parse menu XML during cimmenu init
+b373103c122fa3c6e120802e5b7a210bd808ab3d Toggle visibility icon
+ff4a976705ff9bb9ae7b7bd3ba98ed725d2a2da2 Generate UUIDs instead of using simple counter
+8752039e53da6741805dc284c6de6aba819a28d9 Put menu item above diagram add
+1c043adc1a83b90ba0f539a3f31cc5510983cdef Add a diagram capability
+ff828af97de8f7be834e52c7d4adabea2d4b1da6 ACLineSegment terminals not in same location
+185198c30350e42945f436b4497b62eeb856081d Update instructions to include submodule
+f819af68a2caa3f8056a22770828de6bee54b0ee First implementation of add component menu
+cd0624c7afe795377e8c488af5c17d364476ce93 Fix broken settings panel
+16a6828ec499c28b75a35b579349a071c1fb1623 Don't load cimmenu.js if we have no menu
+e406b6ffac057c6a0e883ba3c662340f6bc603d9 Update README.md with instructions for embedding grid
+f3ad0416e49497fb25c569caec20673422fc8718 Loading order to avoid Handlebar error
+919fe0d173428f3160b0c8f50549fc399c012032 Add small sample html for including cimsvg
+65c9faaf7b1b2997969744c98fc0fda93bb9ffcc Clear xml data so files are not loaded simultaneously
+52c6d76c14372fd7b4221f8031974abfb9f021f5 Fix build process for container
+0882f96b52fd6956f1476e046c969e587ca7a2d5 Fix issue #12 lines not drawn completely
+37739728cb943af46a30bbcf72510fb56e7de5aa Sort add menu components
+6f1fb951f80a90d3a765baac9c3555f2f77f4c0a Fix Handlebars not defined bug
+d586bdb5e3e66ebde913fb597f0badfe58e9ccea Move svg diagrams into subtags to allow multiple
+80a5a2a3c28f0156663fb7f3f7a187371e4edebe Make sure template.js is loaded after handlebars
+77d2c258b848e208ecfc24ae91d3f5edb9a48eb7 Balance padding
+a5e27741f92a344d136aeabbe842073f358719e8 Table align component list
+8bea64d9e0a758e10aeb41413cb323a67494840a Adjust height of floating panel
+2e715e75d15d4bb1a744303c42553bdaeaf2cc73 Match add component list highlighting to sidebar
+f6249ce161239f7a57ae088c3c0cdb44e10ec980 Enable scrollbar for add component list
+a749830306d32efa77412cd6b8bdb81dce7116f9 Don't show floating panel on startup
+15bf0827107eff0f37242f43ae241289122f232a Refactor floating panel code so I can re-use it
+12a1a21fbc51cb1bb53f6fb595a74c854c54f563 Moving to desktop
+7136d4003f74c812dfc095f4c88ae3c3e92fbe04 Couple of untidy function quirks
+c1f8151ca3ce76f5b7afce3057297d00a19c4183 Add basis of template for generating component add menu
+59227c761775051dad7d1b318a6ff7e7410722ec Remove generated files
+82bf608b556a3e1c539067a93ec687953c6a966a Fix margins
+14dbee55f2b69d023f7237c0c8c6b91faaffa443 Adapt print function so that text nodes aren't created
+a01b3153b917a55cb5048379c6648afbae59ba1c Use subdir for attribute lists so we can make the add component templates
+131c3c27a204af72afeccc0813fc123437e1fe74 Remove unnecessary div
+e0a9de463a3c63fd128c14a4d165cc7533a0f87b Tidy up generateIndex.js
+90a1e3846fdfcdf16034e6f2bc50f9d1cc1882a6 Highlight sidebar buttons and more consistent heading
+85319749692696b45cd3f76b48e1931fcd680a65 Remove w3.css import
+996299b019937b4d5bb8baaee1931f3a0c456052 Make sure scrollbar is in attribute list when required
+27805fa5eeedb071924566d93cd9092f7947c570 Update submodule address
+2206775abb96bf11fa0f217f58703ce7a7c9025f Move to new repo for submodule
+944edcf2f9c36b4bf4dbb074ed61c9649c237ab5 Only update the name in the sidebar when the user updates the name
+7b8c15353342593d71ba30c8d98329570bf3bf9d Update the name in the sidebar when the user updates the name
+bc4c24727adb24c2650945eb53df1a81a2d37f51 Wire up attribute editing so it updates the document
+f796cec5484c6289b9ec9b82e6ac0aea3eef43e2 Update templates so function is called when attributes changed
+74c0e1d0e7c693fdeeb3bf45e6e8ddfdbb3cecbd Don't pan when focus is on input box
+d485a6e3e581bc5dc4448d712e04bf3aed96f98a Ignore generated template files
+19db2a916932b306fca694cbdac296bd47a59b4c Use input boxes in attribute list
+00dc6e86957a182ecfad00834c06aa6f4e6adbac Stop writing over generated template files
+45dd6115c83a6dd2f7de8228351649131d80a412 Use generated templates to populate attribute list
+2360f8609e7b86dc6e55a54fe597bb16fc6acafe Templates generated in container
+8be0a3ef16eb70ac27587f0d1ed511792aed0c6c Tell git to ignore node_modules
+56c7bb5953e6d7435650de1cc37fce22e43bf810 Tell git to ignore generated files
+045fe23bc381c9e104c5056a50a6cd0d07718882 New generateIndex.js style
+a97efa555ee98baa8a1d4473114d6a0ce4fda3f2 Remove array-type children
+e82f54a446285afe9e4f091210e94386baae52a1 Add target for local dependencies
+fe4cc6d442a801fee05e5bb9f03479ed0d022a47 Clean up release a little
+7f01449e6e1e679830a15f97812889fdfdbbfbac Remove border, 100% height from attribute list
+f3749db4725d11296247b55f42037e789d553ce6 Really check settings are set correctly
+8d96544d36e58121cdbbf48105b56e2d11304d45 Make sure that correct settings are checked
+2cdbdadee2552dc3d98a44c85950983fd8d38ec8 Add attribute list options
+4dc0ce3b709d3cb939faaff56ca0f53bf6d24625 Add settings menu. Unwired for now
+b1b6ad5c96f25962bb09ff52c1d7987bda3547b1 Consolidate cim*.js in src/
+34ba6c47db70ab0154900b1822557af0c71b816e Allow component attributes to be displayed on right side
+e16df847de825d5b9674e7e4dd1ea5a544cbd958 Use white border instead of black
+12b5ed62db7f38f6f9543717cef52d892aa1c849 Attribute colours
+96d120678ec263c906af2d94c12f83165a292473 One row for attributes
+8a0b5f0ce37dd72d5b332addf1cbd85c0b810b71 Centre attribute list with blue border
+1aea7eb8a1227347f16c659cb29a48538729cbbe Use a smaller font for the sidebar buttons
+b58506821320354a24a3511679aa85bf807e7d94 Use wildcard for templates
+08fda31fa5991f87653b42dde8655de358cf2a15 Add border between sidebars / main
+c074e3f0337adbd3e5d4e6082de4b19c2952774c Can see attributes in new div
+59bc6029d7adbc9e8e0f2d556e97185276d18ae3 New css and template
+9e0a8fdb5fb7acf1bd66a0fd9682d3b15e4375cc Show some component data in sidebar
+e2acdaf11db1e75295347ec5a41c69572d2bd9ed Show component list in sidebar
+5036c4cad7cf957df43b68306e801435aee00ac8 Add accordion to each component in sidebar
+722a3366b90650faacd320d324dd0ac230ece41c Add function to detect mouse button activity
+439eb9f2ba589daad549bd6cd3fe963037f0a963 Add function to show a component type in the sidebar
+ac9d545f5250bf8b89ae0a5079274a264c1c1c1b Add target to start container running
+ec9d78b4f7fb8fbf94193d9ea658daa97c65e723 Generate index.html in Makefile
+5469e83db604d80cf6f2968bd0431cc3c185ed7c Start with grid with 0,0 nearer the centre
+261f2749f61b6935abc10c1c138ab82f6871e92c Show diagram using whole screen
+ebc48a2946a4c4e6e52cc211a547d7625d82c667 Control key fix
+474351e833cfc0cb1073262b0bca23f53290480c Move setup script into index.js
+0053f654fd98e23a22033dd0b609af34472d6e02 Call init for scripts asynchronously
+1d9ea2c8878d1a39fd3d33cbeaf3783f58f3ebb0 Grid shown and can move diagram around
+080bf8af34f5ebfebfed35b4e37179d514e538f4 Added generator for index.html
+a9af0ae670ff50674d81617f216b14d7471bc977 Move some js out of html file
+a78c5860a997143d773a8d9e07b9c95d7f0e3a2e fix for button that stopped working
+250c882e76c627883f413c4ec067ae8685d6da48 New drop-down icon and move some style code into css
+715a253381a95e3a41e84ecf1384fb4fb2b81b03 Flex layout
+ee1e17c35e050cdc77a23044b78583949a986789 Update dependency installation in README
+8ee3690b0e7aadb29bb95548c61e46ad808fb3c9 Build everything in docker container to reduce VM requirements
+4516bbea64f6c038bb363eeb8b63f98a3149cc03 New template files for the diagram list and component model
+897421c912134d70641e83091c6ef83444fb4bbd Can show raw xml and pintura data format in main window
+751fef954702157c99cd7a7ac7ff4482f3847968 Restructure code to initialise sidebar
+7bd17db906d9b06e2264feb50f3d418b7bd3a6a4 Tidier handlebars check
+4ccf701678e762fc83816967026f39c66cbf21f5 Add node to install instructions and check handlebars is installed
+343ef8221e40dea1cc966c6664e473bc1d38b724 Remove some unused code
+7662eb49b5058fbb9962408de0aa50e91ec4deca Break xml stuff out into own file
+a1c67b5c274a6faa6e1ab9cb94c109037147d86a Check in handlebars template and remove PinturaDataObject from tree
+07aa71d99e40b39aad18f11fb9413512a14ff065 Use new templatable data format and pre-compiled handlebars templates
+a104a468485c10ef004e585aca3b6e726ea1c452 Factor more code out of consolidateObjectGraph
+aefb45d96784e5c9dd6cd90c8772e4569781ca02 Factor some code out of consolidateObjectGraph
+b8b804902cd24199500fa46b405314c137e57ca3 Update README.md
+2364bf9625275030857a02624a3baa610640a434 Add update instructions
+c32ff806479bbc634f25ecc053695a87fea03db2 Update README.md
+b003f59ccb8ab9a44396451d29c8b4226d1f3d8b Separate out docker instructions
+b6e709d88fc99ee7fcf651288297fbd4d7c9ecd5 Tidy up README formatting
+fed415f92df1ec5937a99e62f5c40f752ed9c2ef Remove red from aclinesegment
+020e7ca5c16dbe7874a2ceb239a8de6f492d2881 Draw lines from centre of icons
+e09ee86e676efe4fca26f0c21699552c41fec702 Layout fix
+8bf030bbf937d5939ec8f3ee556c0504e8543b43 First set of svg icons
+7b6820e1566b48b695d0d3f37502bda8085dbdaa Add svg css file
+6a2478342fa794e701267ed7716e783327d5b36e Forgot the main electron app
+87e25844b308b689f903bb306e22e08bd6995f05 Add css for svg
+6f5fc19c17affea6dd3cccd887274754479b4d83 Can draw lines, not centred in endpoints
+d81e1b7bb538b72f141629c10b994f19ec89bef8 Create restructured graph and apply handlebars template to it
+d38219b01e45e3c0acc46b94be76d7db2633cd91 First graph restructuring, DOP adding to DO and DO added to D
+5c983325b2d40c589ab53126047699a7b79bebd2 Sidebar has hidden all components list
+c92999969240260214d1496cf4fdc84c16418d90 Move searchSidebar into cimmenu.js
+662365e3112995fdbc6f16db9daee040f3ec1d70 Electron and nginx working, sidebar menu only
+cd4de9616249da9a6fe5013ce9112bf8c0e0fe19 Add test grid data submodule
