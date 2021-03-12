@@ -20,14 +20,13 @@ import templates from "../templates/index.js";
 import common from "./common.js";
 import contextmenu from "./contextmenu.js";
 import Menu from "./react-menu.js";
-const e = React.createElement;
 import cgmes from '../cgmes/cgmesIndex.js';
 import css from "../css/bundle.css";
 
 class cimmenu {
 
     constructor(leftnode, rightnode) {
-        let reactMenu = e(libcimmenu.Menu)
+        let reactMenu = React.createElement(libcimmenu.Menu)
         this.reactMenu = ReactDOM.render(reactMenu, leftnode);
         this.menuNode                = leftnode;
         this.panels = {

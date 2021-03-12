@@ -6,8 +6,6 @@ import theMenuStructure from "./react-menu.json";
 
 var Nav = ReactBootstrap.Nav;
 
-const e = React.createElement;
-
 class FileMenuEntry extends React.Component {
     constructor(props) {
         super(props);

@@ -60,7 +60,8 @@ export default {
             templateExtension: [ ".handlebars" ]
         }),
         babel({
-            exclude: "node_modules/**"
+            exclude: "node_modules/**",
+            presets: ['@babel/env', '@babel/preset-react']
         }),
         replace({
             exclude: 'node_modules/**',

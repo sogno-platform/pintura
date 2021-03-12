@@ -41,5 +41,8 @@
     "jszip": "^3.5.0",
     "rollup": "^2.18.0",
     "xmldom": "^0.3.0"
+  },
+  "devDependencies": {
+    "ol": "^6.5.0"
   }
 }
