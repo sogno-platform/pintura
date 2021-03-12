@@ -39,7 +39,15 @@ export default {
     plugins: [
         svgo({
           plugins: [
-            { "removeXMLNS" : false },
+            { "convertColors" : false  },
+            { "removeXMLNS" : false   },
+            { "removeComments" : true },
+            { "inlineStyles" : false  },
+            { "minifyStyles" : false  },
+            { "convertStyleToAttrs" : false  },
+            { "mergePaths" : false  },
+            { "removeUselessStrokeAndFill" : false  },
+            { "convertShapeToPath" : false  },
             {
               "addAttributesToSVGElement": {
                 "attributes": [ 'height="26"', 'width="26"' ]
