@@ -87,8 +87,16 @@ class common {
         return undefined;
     }
 
+    static pinturaLocation() {
+        return "pintura:location";
+    }
+
     static pinturaDiagramObjectPoints() {
         return "pintura:diagramObjectPoints";
+    }
+
+    static pinturaPositionPoints() {
+        return "pintura:positionPoints";
     }
 
     static pinturaDiagramObject() {

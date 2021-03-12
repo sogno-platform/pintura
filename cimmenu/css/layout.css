@@ -191,9 +191,26 @@ button::-moz-focus-inner,
     border: grey;
     border-left: lightgrey solid 3px;
     border-right: lightgrey solid 3px;
+    display: flex;
+    flex-direction: column;
 }
 #svg {
     pointer-events: all;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.map {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+}
+#map-container {
+    width: inherit;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
 }
 .button {
     border:none;

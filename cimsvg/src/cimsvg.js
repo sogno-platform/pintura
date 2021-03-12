@@ -35,14 +35,6 @@ class cimsvg {
         this.processLoop = 0;
         this.dialog = dialog;
         this.cimview = new cimview(svg);
-        if(dialog !== undefined) {
-            this.loadXml("dist/add_components_menu.xml", (xml)=>{
-                this.componentCreationHtml = xml.documentElement.outerHTML;
-            });
-            this.loadXml("dist/add_all_components_menu.xml", (xml)=>{
-                this.allComponentsCreationHtml = xml.documentElement.outerHTML;
-            });
-        }
         this.clearAllData();
         this.cimmenu = null;
         cimsvg.setCimsvg(this);
@@ -593,12 +585,21 @@ class cimsvg {
         return rdfid;
     }
 
+    applyOSMTemplate(templateJson) {
+        if (templateJson == undefined || templateJson == "") {
+            console.error("Attempt to draw empty / invalid diagram");
+            return;
+        }
+        logIfDebug("Redrawing OSM")
+        return templates.cim2osm(templateJson);
+    }
+
     applyDiagramTemplate(templateJson) {
         if (templateJson == undefined || templateJson == "") {
             console.error("Attempt to draw empty / invalid diagram");
             return;
         }
-        logIfDebug("Redrawing")
+        logIfDebug("Redrawing SVG")
         let templateHtml = templates.cim2svg(templateJson);
         let diagramList = this.svgNode.querySelectorAll(".diagrams");
         // This is not copying templateHtml for every diagram
@@ -698,6 +699,8 @@ class cimsvg {
                 this.populateDiagramLinks();
                 this.applyDiagramTemplate(this.templateJson);
                 this.fit();
+                let osmxml = this.applyOSMTemplate(this.templateJson);
+                this.cimview.importSvgGrid(osmxml);
             }
         }
 
