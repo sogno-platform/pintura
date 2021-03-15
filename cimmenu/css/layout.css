@@ -185,7 +185,7 @@ button::-moz-focus-inner,
 .dialog-list {
     flex-grow: 1;
 }
-#svg-container {
+#cimsvg-panel {
     width:60%;
     height:100%;
     border: grey;
@@ -195,7 +195,6 @@ button::-moz-focus-inner,
     flex-direction: column;
 }
 #svg {
-    pointer-events: all;
     width: 100%;
     height: 100%;
     z-index: 1;
