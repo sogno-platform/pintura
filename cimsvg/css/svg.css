@@ -7,6 +7,12 @@
     stroke-dasharray: 0;
     stroke-width: 1px;
 }
+.nodisplay {
+    display: none;
+}
+.nopointer {
+    pointer-events: none;
+}
 .highlighted-node:hover {
   stroke: #ff0;
 }

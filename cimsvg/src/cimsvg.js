@@ -28,17 +28,18 @@ import css from "../css/svg.css";
 
 class cimsvg {
 
-    constructor(svg, dialog) {
+    constructor(cimsvgPanel, dialog) {
         logIfDebug('Logging is enabled!');
-        this.svgNode = svg;
+        this.cimsvgPanel = cimsvgPanel;
+        this.svgNode = cimsvgPanel.querySelector("svg");
         this.readyToMove = false;
         this.processLoop = 0;
         this.dialog = dialog;
-        this.cimview = new cimview(svg);
+        this.cimview = new cimview(this.svgNode);
         this.clearAllData();
         this.cimmenu = null;
         cimsvg.setCimsvg(this);
-        this.addPinturaStyle(svg, css);
+        this.addPinturaStyle(cimsvgPanel.ownerDocument, css);
         this.testOnly = false;
         this.resizeAllowed = true;
         this.draggedObject = { type: undefined, dopi: undefined, id: undefined };
@@ -52,6 +53,23 @@ class cimsvg {
     ghostModeOff() {
         this.updateStyle(".fillwhenstill", "{ fill: inherit; stroke-dasharray: 0; stroke-width: 1px; }");
         this.updateStyle(".gridLine", "{ stroke: #aaa; stroke-dasharray: 0; }");
+    }
+
+    hideSvg() {
+        this.svgNode.classList.add("nopointer");
+        for (let childNode in this.svgNode.childNodes) {
+            console.log(this.svgNode.childNodes[childNode])
+            if (this.svgNode.childNodes[childNode].nodeType === Node.ELEMENT_NODE)
+            this.svgNode.childNodes[childNode].classList.add("nodisplay");
+        }
+    }
+
+    showSvg() {
+        this.svgNode.classList.remove("nopointer");
+        for (let childNode in this.svgNode.childNodes) {
+            console.log(this.svgNode.childNodes[childNode])
+            this.svgNode.childNodes[childNode].classList.remove("nodisplay");
+        }
     }
 
     addEvent(evt) {
@@ -128,7 +146,7 @@ class cimsvg {
                 this.resizeAllowed = true;
             }
         });
-	resizeObserver.observe(this.svgNode.parentNode);
+	resizeObserver.observe(this.cimsvgPanel);
         node.addEventListener("wheel", (mouseEvent) =>{
             this.cimview.wheelEvent(mouseEvent);
         });
@@ -258,8 +276,7 @@ class cimsvg {
         }
     }
 
-    addPinturaStyle(svg, css) {
-        let docu = svg.ownerDocument;
+    addPinturaStyle(docu, css) {
         let pinturaStyleTags = docu.querySelectorAll("style.pintura");
         if (pinturaStyleTags.length < 1) {
             this.style = docu.createElement("style");
@@ -424,7 +441,7 @@ class cimsvg {
                 callback();
             };
         }
-        this.svgNode.parentElement.appendChild(newTag);
+        this.cimsvgPanel.appendChild(newTag);
     }
 
     addDiagram() {
@@ -697,13 +714,28 @@ class cimsvg {
                 this.resetFileReceivedCount(0);
                 this.setFileCount(0);
                 this.populateDiagramLinks();
-                this.applyDiagramTemplate(this.templateJson);
-                this.fit();
-                let osmxml = this.applyOSMTemplate(this.templateJson);
-                this.cimview.importSvgGrid(osmxml);
+                this.drawMapOrSvg();
             }
         }
 
+    }
+
+    drawMapOrSvg() {
+        console.log(this.getBaseJson())
+        let baseJson = this.getBaseJson();
+        if ("cim:Diagram" in baseJson && Object.keys(baseJson["cim:Diagram"]).length > 0) {
+            this.applyDiagramTemplate(this.templateJson);
+            this.fit();
+            this.showSvg();
+        }
+        else if ("cim:CoordinateSystem" in baseJson && Object.keys(baseJson["cim:CoordinateSystem"]).length > 0) {
+            let osmxml = this.applyOSMTemplate(this.templateJson);
+            this.cimview.importSvgGrid(osmxml);
+            this.hideSvg();
+        }
+        else {
+            console.error("No location data found for this network");
+        }
     }
 
     exportXmlData() {

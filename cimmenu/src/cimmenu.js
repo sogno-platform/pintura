@@ -208,6 +208,7 @@ class cimmenu {
 
     populateDiagramComponents() {
         this.reactMenu.updateDiagramMenuLinks(this.templateJson["Diagram"]);
+        this.reactMenu.updateDiagramMenuLinks(this.templateJson["CoordinateSystem"]);
     }
 
     static populatePanelWithData(panelNode, menuItems, titleText) {
@@ -442,8 +443,6 @@ class cimmenu {
             }
             return menuData;
         });
-
-        //cimmenu.populatePanelWithData(this.panels.allComponentsPanel, menuData, "Terminals");
     }
 
     getSelectFromDropdown(column, id) {

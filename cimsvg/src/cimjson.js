@@ -171,7 +171,7 @@ class cimjson {
                     categoryGraph[key][common.pinturaLocation()] = locations[key][common.pinturaRdfid()];
                     let object = cimjson.convertDiagramObjectToTemplateFormat(location_, graph, categoryGraphName, "cim:PositionPoint",
                                  "cim:Location.PowerSystemResources", "cim:Location.CoordinateSystem", common.pinturaPositionPoints());
-                    cimjson.addObjectToDiagramList(object, graph, categoryGraphName, diagramList, "cim:CoordinateSystem");
+                    cimjson.addObjectToDiagramList(object, graph, categoryGraphName, coordinateSystem, "cim:CoordinateSystem");
                 }
                 let diagramObject = diagramObjects[key];
                 if (diagramObject !== undefined) {
