@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="CGImap 0.0.2">
+{{#each CoordinateSystem as |value coordinateSys|}}
+  {{#with components}}
+  {{#each this as |value typeName|}}
+    {{#each this as |value componentId|}}
+      {{#each pintura:points}}
+        <node id="{{../pintura:rdfId}}" lon="{{x}}" lat="{{y}}" user="SvenHRO" uid="46882" visible="true" version="1" changeset="676636" timestamp="2008-09-21T21:37:45Z">
+          <tag k="name" v="{{../pintura:label.text}}"/>
+          <tag k="icon" v="{{typeName}}"/>
+        </node>
+      {{/each}}
+    {{/each}}
+  {{/each}}
+  {{/with}}
+{{/each}}
+</osm>
