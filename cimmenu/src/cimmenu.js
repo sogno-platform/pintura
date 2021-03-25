@@ -207,8 +207,12 @@ class cimmenu {
     }
 
     populateDiagramComponents() {
-        this.reactMenu.updateDiagramMenuLinks(this.templateJson["Diagram"]);
-        this.reactMenu.updateDiagramMenuLinks(this.templateJson["CoordinateSystem"]);
+        if (Object.keys(this.templateJson["Diagram"]).length > 0) {
+            this.reactMenu.updateDiagramMenuLinks(this.templateJson["Diagram"]);
+        }
+        if (Object.keys(this.templateJson["CoordinateSystem"]).length > 0) {
+            this.reactMenu.updateDiagramMenuLinks(this.templateJson["CoordinateSystem"]);
+        }
     }
 
     static populatePanelWithData(panelNode, menuItems, titleText) {
