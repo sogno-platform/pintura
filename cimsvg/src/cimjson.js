@@ -51,8 +51,8 @@ class cimjson {
                     "diagramObjectPointId" : point["pintura:rdfid"],
                     "imageHeight" : imageHeight.toString(),
                     "imageWidth"  : imageWidth.toString(),
-                    "x"           : point[ pointIdentifierAttribute + ".xPosition"],
-                    "y"           : point[ pointIdentifierAttribute + ".yPosition"]
+                    "x"           : (parseFloat(point[pointIdentifierAttribute + ".xPosition"]) - (imageWidth/2)).toString(),
+                    "y"           : (parseFloat(point[pointIdentifierAttribute + ".yPosition"]) - (imageWidth/2)).toString(),
                 });
         }
         return points;
