@@ -58,17 +58,20 @@ class cimsvg {
     hideSvg() {
         this.svgNode.classList.add("nopointer");
         for (let childNode in this.svgNode.childNodes) {
-            console.log(this.svgNode.childNodes[childNode])
             if (this.svgNode.childNodes[childNode].nodeType === Node.ELEMENT_NODE)
-            this.svgNode.childNodes[childNode].classList.add("nodisplay");
+            {
+                this.svgNode.childNodes[childNode].classList.add("nodisplay");
+            }
         }
     }
 
     showSvg() {
         this.svgNode.classList.remove("nopointer");
         for (let childNode in this.svgNode.childNodes) {
-            console.log(this.svgNode.childNodes[childNode])
-            this.svgNode.childNodes[childNode].classList.remove("nodisplay");
+            if (this.svgNode.childNodes[childNode].nodeType === Node.ELEMENT_NODE)
+            {
+                this.svgNode.childNodes[childNode].classList.remove("nodisplay");
+            }
         }
     }
 
