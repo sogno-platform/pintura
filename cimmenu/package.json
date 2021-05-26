@@ -17,15 +17,15 @@
     "install-deps": "npm install async @babel/preset-react fast-glob rollup rollup-plugin-babel rollup-plugin-json rollup-plugin-handlebars-plus xml2js"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.10.1",
-    "@rollup/plugin-babel": "^5.0.4",
-    "@rollup/plugin-replace": "^2.3.3",
-    "async": "^3.2.0",
-    "fast-glob": "^3.2.4",
-    "rollup": "^2.18.0",
-    "rollup-plugin-handlebars-plus": "^0.2.5",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-string": "^3.0.0",
-    "xml2js": "^0.4.23"
+    "@babel/preset-react": "*",
+    "@rollup/plugin-babel": "*",
+    "@rollup/plugin-replace": "*",
+    "async": "*",
+    "fast-glob": "^3.2.5",
+    "rollup": "*",
+    "rollup-plugin-handlebars-plus": "*",
+    "rollup-plugin-json": "*",
+    "rollup-plugin-string": "*",
+    "xml2js": "*"
   }
 }

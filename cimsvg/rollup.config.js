@@ -68,12 +68,14 @@ export default {
             templateExtension: [ ".handlebars" ]
         }),
         babel({
+            babelHelpers: "bundled",
             exclude: "node_modules/**",
             presets: ['@babel/env', '@babel/preset-react']
         }),
         replace({
             exclude: 'node_modules/**',
-            "logIfDebug": logIfDebugFunction
+            "logIfDebug": logIfDebugFunction,
+            preventAssignment: false
         })
     ]
 };
