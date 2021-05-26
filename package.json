@@ -26,23 +26,23 @@
     "release": "npm run build && tar zcvf dist/release.tgz index.html dist/libcimsvg.js dist/libcimmenu.js"
   },
   "dependencies": {
-    "@babel/core": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
-    "@babel/register": "^7.10.3",
-    "eslint": "^7.3.1",
-    "formidable": "^1.2.2",
-    "handlebars": "^4.7.7",
-    "html": "^1.0.0",
-    "html-format": "^1.0.1",
-    "jasmine": "^3.5.0",
-    "jasmine-console-reporter": "^3.1.0",
-    "js-beautify": "^1.11.0",
-    "jsdom": "^16.2.2",
-    "jszip": "^3.5.0",
-    "rollup": "^2.18.0",
-    "xmldom": "^0.5.0"
+    "@babel/core": "*",
+    "@babel/preset-env": "*",
+    "@babel/register": "*",
+    "eslint": "*",
+    "formidable": "*",
+    "handlebars": "*",
+    "html": "*",
+    "html-format": "*",
+    "jasmine": "*",
+    "jasmine-console-reporter": "*",
+    "js-beautify": "*",
+    "jsdom": "*",
+    "jszip": "*",
+    "rollup": "*",
+    "xmldom": "*"
   },
   "devDependencies": {
-    "ol": "^6.5.0"
+    "ol": "*"
   }
 }
