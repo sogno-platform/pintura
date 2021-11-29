@@ -42,17 +42,32 @@ class cimjson {
         return imageName;
     }
 
+    static checkFloat(stringValue) {
+        if (stringValue.endsWith(".")) {
+            return stringValue + "0";
+        }
+        else {
+            return stringValue;
+        }
+    }
+
+    static extractFloat(stringValue) {
+        return parseFloat(cimjson.checkFloat(stringValue));
+    }
+
     static convertImagePoints(inputPoints, graph, pointIdentifierAttribute, imageWidth, imageHeight) {
         let points = [];
         for (let index in inputPoints) {
             let point = common.safeExtract(graph, pointIdentifierAttribute, inputPoints[index]);
+            let x = (cimjson.extractFloat(point[pointIdentifierAttribute + ".xPosition"]) - (imageWidth/2)).toString();
+            let y = (cimjson.extractFloat(point[pointIdentifierAttribute + ".yPosition"]) - (imageWidth/2)).toString();
             points.push(
                 {
                     "diagramObjectPointId" : point["pintura:rdfid"],
                     "imageHeight" : imageHeight.toString(),
                     "imageWidth"  : imageWidth.toString(),
-                    "x"           : (parseFloat(point[pointIdentifierAttribute + ".xPosition"]) - (imageWidth/2)).toString(),
-                    "y"           : (parseFloat(point[pointIdentifierAttribute + ".yPosition"]) - (imageWidth/2)).toString(),
+                    "x"           : x,
+                    "y"           : y,
                 });
         }
         return points;
@@ -72,8 +87,7 @@ class cimjson {
         let preOffsetPoints = [];
         let imagePoints = [];
         let labelPoint;
-        let rotation;
-        let rotationCenter;
+        let transform;
         let object;
         let categoryGraph = graph[categoryGraphName];
         const imageHeight = 18;
@@ -84,29 +98,32 @@ class cimjson {
                 let point = common.safeExtract(graph, componentIdentifierAttribute, originalPoints[index]);
                 preOffsetPoints.push(
                     {
-                        "x": (point[componentIdentifierAttribute + ".xPosition"]),
-                        "y": (point[componentIdentifierAttribute + ".yPosition"])
+                        "x": cimjson.checkFloat(point[componentIdentifierAttribute + ".xPosition"]),
+                        "y": cimjson.checkFloat(point[componentIdentifierAttribute + ".yPosition"])
                     });
             }
             if (preOffsetPoints.length > 0) {
                 imagePoints = cimjson.convertImagePoints(originalPoints, graph, componentIdentifierAttribute, imageWidth, imageHeight);
                 labelPoint = {
-                    "x": (parseFloat(preOffsetPoints[0].x) + (imageWidth/2)).toString(),
-                    "y": (parseFloat(preOffsetPoints[0].y) - (imageHeight/2)).toString()
+                    "x": (cimjson.extractFloat(preOffsetPoints[0].x) + (imageWidth/2)).toString(),
+                    "y": (cimjson.extractFloat(preOffsetPoints[0].y) - (imageHeight/2)).toString()
                 };
-                rotation = (diagramObjectOrLocation["cim:DiagramObject.rotation"]);
-                if(isNaN(rotation)) {
-                    rotation = 0;
+                let rotation = (diagramObjectOrLocation["cim:DiagramObject.rotation"]);
+                if(isNaN(rotation) || categoryGraphName == "cim:ACLineSegment") {
+                    transform = "translate(0,0)";
                 }
-                rotationCenter = {
-                    "x": (parseFloat(imagePoints[0].x) + (imagePoints[0].imageWidth/2)).toString(),
-                    "y": (parseFloat(imagePoints[0].y) + (imagePoints[0].imageHeight/2)).toString()
-                };
+                else {
+                    let rotationCenter = {
+                        "x": (cimjson.extractFloat(imagePoints[0].x) + (imagePoints[0].imageWidth/2)).toString(),
+                        "y": (cimjson.extractFloat(imagePoints[0].y) + (imagePoints[0].imageHeight/2)).toString()
+                    };
+                    transform = "rotate(" + rotation + "," + rotationCenter.x + "," + rotationCenter.y + ")"
+                }
             }
             object = {
                 "pintura:diagram"  : diagramObjectOrLocation[diagramOrCoordsAttribute]["rdf:resource"].substring(1),
                 "pintura:image"    : cimjson.getImageName(categoryGraphName),
-                "pintura:transform": "rotate(" + rotation + "," + rotationCenter.x + "," + rotationCenter.y + ")",
+                "pintura:transform": transform,
                 "pintura:rdfId"    : rdfId,
                 "pintura:points"   : imagePoints,
                 "pintura:label"    : {
@@ -286,7 +303,7 @@ class cimjson {
             templateReadyFormat = cimjson.convertToTemplatableFormat(diagramObjectsByIdentifiedObjects, locationsByPowerSystemResources, refinedGraph);
         }
         catch (e) {
-            console.error("getTemplateJson failed: " + e);
+            console.error("getTemplateJson failed: ", e);
             console.trace();
         }
         return templateReadyFormat;
