@@ -13,18 +13,17 @@
     "indexes": "npm run createIndex & npm run createCgmesIndex",
     "package": "rollup -c ${ROLLUP_FLAGS}",
     "build": "npm install && npm run indexes && npm run package",
-    "build-dev": "npm run install-deps && export ROLLUP_FLAGS=' --sourcemap inline'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build",
-    "install-deps": "npm install async @babel/preset-react fast-glob rollup rollup-plugin-babel rollup-plugin-json rollup-plugin-handlebars-plus xml2js"
+    "build-dev": "npm install && export ROLLUP_FLAGS=' --sourcemap inline'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build"
   },
   "dependencies": {
     "@babel/preset-react": "*",
     "@rollup/plugin-babel": "*",
     "@rollup/plugin-replace": "*",
+    "@rollup/plugin-json": "*",
     "async": "*",
     "fast-glob": "^3.2.5",
     "rollup": "*",
     "rollup-plugin-handlebars-plus": "*",
-    "rollup-plugin-json": "*",
     "rollup-plugin-string": "*",
     "xml2js": "*"
   }

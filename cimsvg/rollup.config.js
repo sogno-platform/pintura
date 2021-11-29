@@ -60,7 +60,7 @@ export default {
         }),
         handlebars({
             handlebars: {},
-            helpers: [ "./helpers.js" ],
+            helpers: [ "./handlebars/helpers.js" ],
             id: "handlebars/runtime",
             options: {
                 jquery: false,

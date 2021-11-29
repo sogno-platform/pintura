@@ -1,5 +1,5 @@
 import babel from "@rollup/plugin-babel";
-import json from "rollup-plugin-json";
+import json from "@rollup/plugin-json";
 import handlebars from "rollup-plugin-handlebars-plus";
 import { string } from "rollup-plugin-string";
 import replace from "@rollup/plugin-replace";
