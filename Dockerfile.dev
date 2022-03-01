@@ -28,7 +28,7 @@ ARG GIT_COMMIT
 LABEL \
 	org.label-schema.schema-version = "1.0" \
 	org.label-schema.name = "Pintura" \
-	org.label-schema.license = "GPL-3.0" \
+	org.label-schema.license = "MPL-2.0" \
 	org.label-schema.vendor = "Institute for Automation of Complex Power Systems, RWTH Aachen University" \
 	org.label-schema.author.name = "Richard Marston" \
 	org.label-schema.author.email = "rmarston@eonerc.rwth-aachen.de" \
