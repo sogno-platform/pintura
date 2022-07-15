@@ -1,7 +1,6 @@
 FROM node AS builder
 
 # copy data approximately in order of how often they change / how big they are
-COPY data_model /pintura/data_model
 COPY images /pintura/images
 COPY test/ /pintura/test
 COPY cimmenu /pintura/cimmenu
@@ -9,7 +8,10 @@ COPY cimsvg /pintura/cimsvg
 COPY index.html Makefile package-lock.json package.json /pintura/
 
 WORKDIR /pintura
-RUN npm install
+RUN rm -rf node_modules
+RUN rm -rf cimsvg/node_modules
+RUN rm -rf cimmenu/node_modules
+RUN npm install -g npm@8.14.0
 RUN npm run build
 
 FROM nginx

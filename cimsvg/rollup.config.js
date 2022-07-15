@@ -39,18 +39,28 @@ export default {
     plugins: [
         svgo({
           plugins: [
-            { "convertColors" : false  },
-            { "removeXMLNS" : false   },
-            { "removeComments" : true },
-            { "inlineStyles" : false  },
-            { "minifyStyles" : false  },
-            { "convertStyleToAttrs" : false  },
-            { "mergePaths" : false  },
-            { "removeUselessStrokeAndFill" : false  },
-            { "convertShapeToPath" : false  },
+            { "name": "convertColors",
+              "active" : false  },
+            { "name": "removeXMLNS",
+              "active" : false  },
+            { "name": "removeComments",
+              "active" : true  },
+            { "name": "inlineStyles",
+              "active" : false  },
+            { "name": "minifyStyles",
+              "active" : false  },
+            { "name": "convertStyleToAttrs",
+              "active" : false  },
+            { "name": "mergePaths",
+              "active" : false  },
+            { "name": "removeUselessStrokeAndFill",
+              "active" : false  },
+            { "name": "convertShapeToPath",
+              "active" : false  },
             {
-              "addAttributesToSVGElement": {
-                "attributes": [ 'height="26"', 'width="26"' ]
+              "name": "addAttributesToSVGElement",
+              "params": {
+                  "attributes": [ 'height="26"', 'width="26"' ]
               }
             }
           ]
