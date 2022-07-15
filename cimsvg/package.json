@@ -12,6 +12,7 @@
     "test": ""
   },
   "dependencies": {
+    "@babel/preset-env": "*",
     "@babel/preset-react": "*",
     "@rollup/plugin-babel": "*",
     "@rollup/plugin-replace": "*",

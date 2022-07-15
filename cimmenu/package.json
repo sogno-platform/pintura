@@ -16,12 +16,13 @@
     "build-dev": "npm install && export ROLLUP_FLAGS=' --sourcemap inline'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build"
   },
   "dependencies": {
+    "@babel/preset-env": "*",
     "@babel/preset-react": "*",
     "@rollup/plugin-babel": "*",
-    "@rollup/plugin-replace": "*",
     "@rollup/plugin-json": "*",
+    "@rollup/plugin-replace": "*",
     "async": "*",
-    "fast-glob": "^3.2.5",
+    "fast-glob": "*",
     "rollup": "*",
     "rollup-plugin-handlebars-plus": "*",
     "rollup-plugin-string": "*",
