@@ -111,8 +111,8 @@ class cimsvg {
         let xdiff = newPoint.x - this.draggedObject.startPoint.x;
         let ydiff = newPoint.y - this.draggedObject.startPoint.y;
         let newComponentPoint = {
-            x: Number(this.getValueOf("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.xPosition")) + xdiff,
-            y: Number(this.getValueOf("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.yPosition")) + ydiff
+            x: (Number(this.getValueOf("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.xPosition")) + xdiff).toString(),
+            y: (Number(this.getValueOf("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.yPosition")) + ydiff).toString()
         };
         this.updateComponent("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.xPosition", newComponentPoint.x);
         this.updateComponent("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.yPosition", newComponentPoint.y);
@@ -317,6 +317,12 @@ class cimsvg {
             return object[attribute];
         }
         else {
+            if ("about" in object) {
+                if(attribute in object["about"])
+                {
+                    return object["about"][attribute];
+                }
+            }
             return undefined;
         }
     }

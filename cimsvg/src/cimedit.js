@@ -143,7 +143,40 @@ class cimedit {
         common.safeDelete(graph, "cim:DiagramObjectPoint", diagramObjectPointId);
     }
 
+    static isTopologicalNodeHorizontal(points) {
+        if (points.length == 2) {
+            let point_0_x = parseFloat(points[0]["cim:DiagramObjectPoint.xPosition"]);
+            let point_1_x = parseFloat(points[1]["cim:DiagramObjectPoint.xPosition"]);
+            let xdiff = Math.abs(point_0_x - point_1_x);
+            let point_0_y = parseFloat(points[0]["cim:DiagramObjectPoint.yPosition"]);
+            let point_1_y = parseFloat(points[1]["cim:DiagramObjectPoint.yPosition"]);
+            let ydiff = Math.abs(point_0_y - point_1_y);
+            if (xdiff > ydiff) {
+                logIfDebug("topological node is horizontal");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    static isPointBetweenTwoOther(candidate, points) {
+        let candidate_float = parseFloat(candidate);
+        let point_0_float   = parseFloat(points[0]);
+        let point_1_float   = parseFloat(points[1]);
+        if (candidate_float > point_0_float && candidate_float < point_1_float) {
+            return true;
+        }
+        else if (candidate_float < point_0_float && candidate_float > point_1_float) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     static connectTerminalToTopologicalNode(graph, terminalId, topologicalNodeId) {
+        let secondTopologicalNodePoint     = null;
+        let secondTerminalPoint            = null;
         let baseJson                       = currentCimsvg().getBaseJson();
         let terminal                       = common.safeExtract(graph, "cim:Terminal", terminalId);
         let topologicalNode                = common.safeExtract(graph, "cim:TopologicalNode", topologicalNodeId);
@@ -153,21 +186,51 @@ class cimedit {
         let topologicalNodeDiagramObject   = common.safeExtract(graph, "cim:DiagramObject", topologicalNodeDiagramObjectId);
         let firstTopologicalNodePointId    = common.safeExtract(topologicalNodeDiagramObject, common.pinturaDiagramObjectPoints(), "0");
         let firstTopologicalNodePoint      = common.safeExtract(graph, "cim:DiagramObjectPoint", firstTopologicalNodePointId);
+        let secondTopologicalNodePointId   = common.safeExtract(topologicalNodeDiagramObject, common.pinturaDiagramObjectPoints(), "1");
+        if (secondTopologicalNodePointId) {
+            secondTopologicalNodePoint = common.safeExtract(graph, "cim:DiagramObjectPoint", secondTopologicalNodePointId);
+        }
         let firstTerminalPointId           = common.safeExtract(terminalDiagramObject, common.pinturaDiagramObjectPoints(), "0");
         let firstTerminalPoint             = common.safeExtract(graph, "cim:DiagramObjectPoint", firstTerminalPointId);
         let secondTerminalPointId          = common.safeExtract(terminalDiagramObject, common.pinturaDiagramObjectPoints(), "1");
+        let newPoint                       = null;
         if (secondTerminalPointId) {
+            secondTerminalPoint = common.safeExtract(graph, "cim:DiagramObjectPoint", secondTerminalPointId);
             cimedit.removeDiagramObjectPointFromObject(graph, terminalDiagramObjectId, secondTerminalPointId);
         }
-        if (firstTopologicalNodePoint && firstTerminalPoint) {
-            let x = common.safeExtract(firstTopologicalNodePoint, "cim:DiagramObjectPoint.xPosition");
-            let y = common.safeExtract(firstTerminalPoint, "cim:DiagramObjectPoint.yPosition");
-            if (terminalDiagramObject[common.pinturaDiagramObjectPoints()]) {
-                let index                      = terminalDiagramObject[common.pinturaDiagramObjectPoints()].length + 1;
-                let newPoint                   = cimedit.makeDiagramObjectPoint(baseJson, terminalDiagramObjectId, index, x, y);
+        if (cimedit.isTopologicalNodeHorizontal([firstTopologicalNodePoint, secondTopologicalNodePoint])) {
+            if (cimedit.isPointBetweenTwoOther(firstTerminalPoint["cim:DiagramObjectPoint.xPosition"],
+                                               [
+                                                   firstTopologicalNodePoint["cim:DiagramObjectPoint.xPosition"],
+                                                   secondTopologicalNodePoint["cim:DiagramObjectPoint.xPosition"]
+                                               ])) {
+                let index = terminalDiagramObject[common.pinturaDiagramObjectPoints()].length + 1;
+                newPoint = cimedit.makeDiagramObjectPoint(baseJson, terminalDiagramObjectId, index,
+                           firstTerminalPoint["cim:DiagramObjectPoint.xPosition"],
+                           firstTopologicalNodePoint["cim:DiagramObjectPoint.yPosition"]);
                 if (newPoint) {
                     terminalDiagramObject[common.pinturaDiagramObjectPoints()].push(newPoint);
                 }
+            }
+        }
+        else {
+            if (cimedit.isPointBetweenTwoOther(firstTerminalPoint["cim:DiagramObjectPoint.yPosition"], [firstTopologicalNodePoint["cim:DiagramObjectPoint.yPosition"], secondTopologicalNodePoint["cim:DiagramObjectPoint.yPosition"]])) {
+                let index = terminalDiagramObject[common.pinturaDiagramObjectPoints()].length + 1;
+                newPoint = cimedit.makeDiagramObjectPoint(baseJson, terminalDiagramObjectId, index,
+                           firstTopologicalNodePoint["cim:DiagramObjectPoint.xPosition"],
+                           firstTerminalPoint["cim:DiagramObjectPoint.yPosition"]);
+                if (newPoint) {
+                    terminalDiagramObject[common.pinturaDiagramObjectPoints()].push(newPoint);
+                }
+            }
+        }
+        if (newPoint == null) {
+            let index = terminalDiagramObject[common.pinturaDiagramObjectPoints()].length + 1;
+            let xaverage = (parseFloat(firstTopologicalNodePoint["cim:DiagramObjectPoint.xPosition"]) + parseFloat(secondTopologicalNodePoint["cim:DiagramObjectPoint.xPosition"]))/2;
+            let yaverage = (parseFloat(firstTopologicalNodePoint["cim:DiagramObjectPoint.yPosition"]) + parseFloat(secondTopologicalNodePoint["cim:DiagramObjectPoint.yPosition"]))/2;
+            newPoint = cimedit.makeDiagramObjectPoint(baseJson, terminalDiagramObjectId, index, xaverage.toString(), yaverage.toString());
+            if (newPoint) {
+                terminalDiagramObject[common.pinturaDiagramObjectPoints()].push(newPoint);
             }
         }
     }
