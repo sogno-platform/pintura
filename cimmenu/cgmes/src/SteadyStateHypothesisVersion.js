@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SteadyStateHypothesisVersion extends BaseClass {
 
@@ -208,6 +210,19 @@ class SteadyStateHypothesisVersion extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.SSH, ],
+						'baseUML': [CGMESProfile.shortNames.SSH, ],
+						'baseURI': [CGMESProfile.shortNames.SSH, ],
+						'date': [CGMESProfile.shortNames.SSH, ],
+						'differenceModelURI': [CGMESProfile.shortNames.SSH, ],
+						'entsoeUML': [CGMESProfile.shortNames.SSH, ],
+						'entsoeURI': [CGMESProfile.shortNames.SSH, ],
+						'modelDescriptionURI': [CGMESProfile.shortNames.SSH, ],
+						'namespaceRDF': [CGMESProfile.shortNames.SSH, ],
+						'namespaceUML': [CGMESProfile.shortNames.SSH, ],
+						'shortName': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

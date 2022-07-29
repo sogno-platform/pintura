@@ -1,4 +1,7 @@
 
+import templates from "../../templates/index.js"
+import common from "../../src/common.js"
+
 class BaseClass {
     static attributeHTML(object, cimmenu) { 
         return { 'filledEntries': {}, 'emptyEntries': {} };
@@ -16,4 +19,5 @@ class BaseClass {
         return [];
     }
 };
-export default BaseClass 
+export default BaseClass
+

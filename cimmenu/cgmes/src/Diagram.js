@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Diagram extends IdentifiedObject {
 
@@ -128,6 +130,15 @@ class Diagram extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DL, ],
+						'DiagramStyle': [CGMESProfile.shortNames.DL, ],
+						'orientation': [CGMESProfile.shortNames.DL, ],
+						'x1InitialView': [CGMESProfile.shortNames.DL, ],
+						'x2InitialView': [CGMESProfile.shortNames.DL, ],
+						'y1InitialView': [CGMESProfile.shortNames.DL, ],
+						'y2InitialView': [CGMESProfile.shortNames.DL, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

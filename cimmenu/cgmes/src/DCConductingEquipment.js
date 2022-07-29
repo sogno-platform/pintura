@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Equipment from "./Equipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DCConductingEquipment extends Equipment {
 
@@ -8,6 +10,9 @@ class DCConductingEquipment extends Equipment {
         let attributeEntries = Equipment.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

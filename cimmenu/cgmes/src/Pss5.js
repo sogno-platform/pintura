@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PowerSystemStabilizerDynamics from "./PowerSystemStabilizerDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Pss5 extends PowerSystemStabilizerDynamics {
 
@@ -348,6 +350,26 @@ class Pss5 extends PowerSystemStabilizerDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'kpe': [CGMESProfile.shortNames.DY, ],
+						'kf': [CGMESProfile.shortNames.DY, ],
+						'isfreq': [CGMESProfile.shortNames.DY, ],
+						'kpss': [CGMESProfile.shortNames.DY, ],
+						'ctw2': [CGMESProfile.shortNames.DY, ],
+						'tw1': [CGMESProfile.shortNames.DY, ],
+						'tw2': [CGMESProfile.shortNames.DY, ],
+						'tl1': [CGMESProfile.shortNames.DY, ],
+						'tl2': [CGMESProfile.shortNames.DY, ],
+						'tl3': [CGMESProfile.shortNames.DY, ],
+						'tl4': [CGMESProfile.shortNames.DY, ],
+						'vsmn': [CGMESProfile.shortNames.DY, ],
+						'vsmx': [CGMESProfile.shortNames.DY, ],
+						'tpe': [CGMESProfile.shortNames.DY, ],
+						'pmm': [CGMESProfile.shortNames.DY, ],
+						'deadband': [CGMESProfile.shortNames.DY, ],
+						'vadat': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

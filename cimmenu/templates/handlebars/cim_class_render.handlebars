@@ -7,14 +7,4 @@
         {{{.}}}
     </li>
 {{/each}}
-{{#neq name 'Terminal'}}
-    <li class="wide-row floating-panel-item list-subtitle">
-        <span class="row-left floating-panel-name">Show Terminals</span>
-        <span class="row-right floating-panel-value">
-            <button onclick="currentCimsvg().populateTerminals('cim:{{name}}', '\\{{{[pintura:rdfid]}}}')">
-                           -&gt;
-            </button>
-        </span>
-    </li>
-{{/neq}}
 </ul>

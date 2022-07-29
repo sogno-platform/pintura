@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PowerSystemResource from "./PowerSystemResource.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ControlArea extends PowerSystemResource {
 
@@ -108,6 +110,14 @@ class ControlArea extends PowerSystemResource {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'type': [CGMESProfile.shortNames.EQ, ],
+						'ControlAreaGeneratingUnit': [CGMESProfile.shortNames.EQ, ],
+						'EnergyArea': [CGMESProfile.shortNames.EQ, ],
+						'netInterchange': [CGMESProfile.shortNames.SSH, ],
+						'pTolerance': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

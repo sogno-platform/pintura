@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TieFlow extends BaseClass {
 
@@ -68,6 +70,12 @@ class TieFlow extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'Terminal': [CGMESProfile.shortNames.EQ, ],
+						'ControlArea': [CGMESProfile.shortNames.EQ, ],
+						'positiveFlowIn': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

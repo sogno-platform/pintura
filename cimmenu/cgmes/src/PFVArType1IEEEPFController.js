@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PFVArControllerType1Dynamics from "./PFVArControllerType1Dynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PFVArType1IEEEPFController extends PFVArControllerType1Dynamics {
 
@@ -168,6 +170,17 @@ class PFVArType1IEEEPFController extends PFVArControllerType1Dynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'ovex': [CGMESProfile.shortNames.DY, ],
+						'tpfc': [CGMESProfile.shortNames.DY, ],
+						'vitmin': [CGMESProfile.shortNames.DY, ],
+						'vpf': [CGMESProfile.shortNames.DY, ],
+						'vpfcbw': [CGMESProfile.shortNames.DY, ],
+						'vpfref': [CGMESProfile.shortNames.DY, ],
+						'vvtmax': [CGMESProfile.shortNames.DY, ],
+						'vvtmin': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

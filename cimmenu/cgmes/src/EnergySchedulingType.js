@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class EnergySchedulingType extends IdentifiedObject {
 
@@ -8,6 +10,9 @@ class EnergySchedulingType extends IdentifiedObject {
         let attributeEntries = IdentifiedObject.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import SynchronousMachineDetailed from "./SynchronousMachineDetailed.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SynchronousMachineEquivalentCircuit extends SynchronousMachineDetailed {
 
@@ -228,6 +230,20 @@ class SynchronousMachineEquivalentCircuit extends SynchronousMachineDetailed {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'xad': [CGMESProfile.shortNames.DY, ],
+						'rfd': [CGMESProfile.shortNames.DY, ],
+						'xfd': [CGMESProfile.shortNames.DY, ],
+						'r1d': [CGMESProfile.shortNames.DY, ],
+						'x1d': [CGMESProfile.shortNames.DY, ],
+						'xf1d': [CGMESProfile.shortNames.DY, ],
+						'xaq': [CGMESProfile.shortNames.DY, ],
+						'r1q': [CGMESProfile.shortNames.DY, ],
+						'x1q': [CGMESProfile.shortNames.DY, ],
+						'r2q': [CGMESProfile.shortNames.DY, ],
+						'x2q': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

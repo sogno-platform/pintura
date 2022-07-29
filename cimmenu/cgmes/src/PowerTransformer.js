@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ConductingEquipment from "./ConductingEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PowerTransformer extends ConductingEquipment {
 
@@ -128,6 +130,15 @@ class PowerTransformer extends ConductingEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'beforeShCircuitHighestOperatingCurrent': [CGMESProfile.shortNames.EQ, ],
+						'beforeShCircuitHighestOperatingVoltage': [CGMESProfile.shortNames.EQ, ],
+						'beforeShortCircuitAnglePf': [CGMESProfile.shortNames.EQ, ],
+						'highSideMinOperatingU': [CGMESProfile.shortNames.EQ, ],
+						'isPartOfGeneratorUnit': [CGMESProfile.shortNames.EQ, ],
+						'operationalValuesConsidered': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

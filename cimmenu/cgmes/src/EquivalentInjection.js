@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EquivalentEquipment from "./EquivalentEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class EquivalentInjection extends EquivalentEquipment {
 
@@ -328,6 +330,25 @@ class EquivalentInjection extends EquivalentEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'ReactiveCapabilityCurve': [CGMESProfile.shortNames.EQ, ],
+						'maxP': [CGMESProfile.shortNames.EQ, ],
+						'maxQ': [CGMESProfile.shortNames.EQ, ],
+						'minP': [CGMESProfile.shortNames.EQ, ],
+						'minQ': [CGMESProfile.shortNames.EQ, ],
+						'regulationCapability': [CGMESProfile.shortNames.EQ, ],
+						'r': [CGMESProfile.shortNames.EQ, ],
+						'r0': [CGMESProfile.shortNames.EQ, ],
+						'r2': [CGMESProfile.shortNames.EQ, ],
+						'x': [CGMESProfile.shortNames.EQ, ],
+						'x0': [CGMESProfile.shortNames.EQ, ],
+						'x2': [CGMESProfile.shortNames.EQ, ],
+						'regulationStatus': [CGMESProfile.shortNames.SSH, ],
+						'regulationTarget': [CGMESProfile.shortNames.SSH, ],
+						'p': [CGMESProfile.shortNames.SSH, ],
+						'q': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

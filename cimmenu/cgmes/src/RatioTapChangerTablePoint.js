@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TapChangerTablePoint from "./TapChangerTablePoint.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class RatioTapChangerTablePoint extends TapChangerTablePoint {
 
@@ -28,6 +30,10 @@ class RatioTapChangerTablePoint extends TapChangerTablePoint {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'RatioTapChangerTable': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

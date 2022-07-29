@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Equipment from "./Equipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GeneratingUnit extends Equipment {
 
@@ -348,6 +350,26 @@ class GeneratingUnit extends Equipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'genControlSource': [CGMESProfile.shortNames.EQ, ],
+						'governorSCD': [CGMESProfile.shortNames.EQ, ],
+						'initialP': [CGMESProfile.shortNames.EQ, ],
+						'longPF': [CGMESProfile.shortNames.EQ, ],
+						'maximumAllowableSpinningReserve': [CGMESProfile.shortNames.EQ, ],
+						'maxOperatingP': [CGMESProfile.shortNames.EQ, ],
+						'minOperatingP': [CGMESProfile.shortNames.EQ, ],
+						'nominalP': [CGMESProfile.shortNames.EQ, ],
+						'ratedGrossMaxP': [CGMESProfile.shortNames.EQ, ],
+						'ratedGrossMinP': [CGMESProfile.shortNames.EQ, ],
+						'ratedNetMaxP': [CGMESProfile.shortNames.EQ, ],
+						'shortPF': [CGMESProfile.shortNames.EQ, ],
+						'startupCost': [CGMESProfile.shortNames.EQ, ],
+						'variableCost': [CGMESProfile.shortNames.EQ, ],
+						'totalEfficiency': [CGMESProfile.shortNames.EQ, ],
+						'RotatingMachine': [CGMESProfile.shortNames.EQ, ],
+						'normalPF': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

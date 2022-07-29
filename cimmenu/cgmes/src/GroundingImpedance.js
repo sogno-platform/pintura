@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EarthFaultCompensator from "./EarthFaultCompensator.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GroundingImpedance extends EarthFaultCompensator {
 
@@ -28,6 +30,10 @@ class GroundingImpedance extends EarthFaultCompensator {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'x': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

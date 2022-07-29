@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PhaseTapChangerNonLinear from "./PhaseTapChangerNonLinear.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PhaseTapChangerAsymmetrical extends PhaseTapChangerNonLinear {
 
@@ -28,6 +30,10 @@ class PhaseTapChangerAsymmetrical extends PhaseTapChangerNonLinear {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'windingConnectionAngle': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

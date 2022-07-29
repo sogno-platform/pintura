@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Control extends IdentifiedObject {
 
@@ -128,6 +130,15 @@ class Control extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'controlType': [CGMESProfile.shortNames.EQ, ],
+						'operationInProgress': [CGMESProfile.shortNames.EQ, ],
+						'timeStamp': [CGMESProfile.shortNames.EQ, ],
+						'unitMultiplier': [CGMESProfile.shortNames.EQ, ],
+						'unitSymbol': [CGMESProfile.shortNames.EQ, ],
+						'PowerSystemResource': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

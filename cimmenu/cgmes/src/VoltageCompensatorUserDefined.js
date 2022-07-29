@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import VoltageCompensatorDynamics from "./VoltageCompensatorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class VoltageCompensatorUserDefined extends VoltageCompensatorDynamics {
 
@@ -28,6 +30,10 @@ class VoltageCompensatorUserDefined extends VoltageCompensatorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'proprietary': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

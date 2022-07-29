@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import RegulatingCondEq from "./RegulatingCondEq.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ShuntCompensator extends RegulatingCondEq {
 
@@ -188,6 +190,18 @@ class ShuntCompensator extends RegulatingCondEq {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, ],
+						'aVRDelay': [CGMESProfile.shortNames.EQ, ],
+						'grounded': [CGMESProfile.shortNames.EQ, ],
+						'maximumSections': [CGMESProfile.shortNames.EQ, ],
+						'nomU': [CGMESProfile.shortNames.EQ, ],
+						'normalSections': [CGMESProfile.shortNames.EQ, ],
+						'switchOnCount': [CGMESProfile.shortNames.EQ, ],
+						'switchOnDate': [CGMESProfile.shortNames.EQ, ],
+						'voltageSensitivity': [CGMESProfile.shortNames.EQ, ],
+						'sections': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

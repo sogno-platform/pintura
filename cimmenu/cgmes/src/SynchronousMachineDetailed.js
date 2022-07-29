@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import SynchronousMachineDynamics from "./SynchronousMachineDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SynchronousMachineDetailed extends SynchronousMachineDynamics {
 
@@ -108,6 +110,14 @@ class SynchronousMachineDetailed extends SynchronousMachineDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'saturationFactorQAxis': [CGMESProfile.shortNames.DY, ],
+						'saturationFactor120QAxis': [CGMESProfile.shortNames.DY, ],
+						'efdBaseRatio': [CGMESProfile.shortNames.DY, ],
+						'ifdBaseType': [CGMESProfile.shortNames.DY, ],
+						'ifdBaseValue': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

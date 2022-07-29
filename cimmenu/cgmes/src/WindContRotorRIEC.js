@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindContRotorRIEC extends IdentifiedObject {
 
@@ -188,6 +190,18 @@ class WindContRotorRIEC extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'kirr': [CGMESProfile.shortNames.DY, ],
+						'komegafilt': [CGMESProfile.shortNames.DY, ],
+						'kpfilt': [CGMESProfile.shortNames.DY, ],
+						'kprr': [CGMESProfile.shortNames.DY, ],
+						'rmax': [CGMESProfile.shortNames.DY, ],
+						'rmin': [CGMESProfile.shortNames.DY, ],
+						'tomegafilt': [CGMESProfile.shortNames.DY, ],
+						'tpfilt': [CGMESProfile.shortNames.DY, ],
+						'WindGenTurbineType2IEC': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

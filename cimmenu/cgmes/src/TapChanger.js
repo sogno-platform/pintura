@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PowerSystemResource from "./PowerSystemResource.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TapChanger extends PowerSystemResource {
 
@@ -188,6 +190,18 @@ class TapChanger extends PowerSystemResource {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, ],
+						'highStep': [CGMESProfile.shortNames.EQ, ],
+						'lowStep': [CGMESProfile.shortNames.EQ, ],
+						'ltcFlag': [CGMESProfile.shortNames.EQ, ],
+						'neutralStep': [CGMESProfile.shortNames.EQ, ],
+						'neutralU': [CGMESProfile.shortNames.EQ, ],
+						'normalStep': [CGMESProfile.shortNames.EQ, ],
+						'TapChangerControl': [CGMESProfile.shortNames.EQ, ],
+						'controlEnabled': [CGMESProfile.shortNames.SSH, ],
+						'step': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

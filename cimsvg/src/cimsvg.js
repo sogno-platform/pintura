@@ -13,6 +13,7 @@ import cimjson from "./cimjson.js";
 import common from "./common.js";
 import JSZip from "jszip";
 import css from "../css/svg.css";
+import cgmes from '../../cimmenu/cgmes/cgmesIndex.js';
 
 class cimsvg {
 
@@ -421,11 +422,11 @@ class cimsvg {
     }
 
     static getCimsvg() {
-        return cimsvg.currentCimsvgClass;
+        return common.getCimsvg();
     }
 
     static setCimsvg(cimsvgClass) {
-        cimsvg.currentCimsvgClass = cimsvgClass;
+        common.setCimsvg(cimsvgClass);
     }
 
     includeFile (fileName, callback) {
@@ -718,7 +719,6 @@ class cimsvg {
     }
 
     drawMapOrSvg() {
-        console.log(this.getBaseJson())
         let baseJson = this.getBaseJson();
         if ("cim:Diagram" in baseJson && Object.keys(baseJson["cim:Diagram"]).length > 0) {
             this.applyDiagramTemplate(this.templateJson);
@@ -813,7 +813,7 @@ class cimsvg {
         }
     }
 
-    importZip(uri, blob) {
+    importZip(blob) {
         let archive = new JSZip();
         archive.loadAsync(blob, {checkCRC32: true})
             .then((zip)=>{
@@ -865,7 +865,7 @@ class cimsvg {
             }
             else if (response.headers.get("Content-Type") === "application/zip") {
                 response.blob().then((blob)=>{
-                    this.importZip(uri, blob);
+                    this.importZip(blob);
                     this.setTitle(uri);
                     this.uri = uri;
                 });
@@ -988,12 +988,9 @@ class cimsvg {
     }
 }
 
-cimsvg.currentCimsvgClass = null;
 cimsvg.events = [];
 
-const currentCimsvg = function() {
-    return cimsvg.getCimsvg();
-};
+let currentCimsvg = common.currentCimsvg;
 
-export { cimsvg, currentCimsvg, cimxml, cimfile };
+export { cimsvg, cimxml, cimfile, currentCimsvg };
 

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DiagramObject from "./DiagramObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TextDiagramObject extends DiagramObject {
 
@@ -28,6 +30,10 @@ class TextDiagramObject extends DiagramObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DL, ],
+						'text': [CGMESProfile.shortNames.DL, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

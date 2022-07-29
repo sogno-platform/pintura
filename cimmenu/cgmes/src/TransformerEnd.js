@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TransformerEnd extends IdentifiedObject {
 
@@ -148,6 +150,16 @@ class TransformerEnd extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'BaseVoltage': [CGMESProfile.shortNames.EQ, ],
+						'Terminal': [CGMESProfile.shortNames.EQ, ],
+						'RatioTapChanger': [CGMESProfile.shortNames.EQ, ],
+						'endNumber': [CGMESProfile.shortNames.EQ, ],
+						'rground': [CGMESProfile.shortNames.EQ, ],
+						'grounded': [CGMESProfile.shortNames.EQ, ],
+						'xground': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

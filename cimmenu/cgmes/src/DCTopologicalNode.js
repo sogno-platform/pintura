@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DCTopologicalNode extends IdentifiedObject {
 
@@ -48,6 +50,11 @@ class DCTopologicalNode extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.SV, CGMESProfile.shortNames.TP, ],
+						'DCTerminals': [CGMESProfile.shortNames.TP, ],
+						'DCEquipmentContainer': [CGMESProfile.shortNames.TP, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

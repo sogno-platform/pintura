@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import AsynchronousMachineDynamics from "./AsynchronousMachineDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class AsynchronousMachineEquivalentCircuit extends AsynchronousMachineDynamics {
 
@@ -108,6 +110,14 @@ class AsynchronousMachineEquivalentCircuit extends AsynchronousMachineDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'xm': [CGMESProfile.shortNames.DY, ],
+						'rr1': [CGMESProfile.shortNames.DY, ],
+						'xlr1': [CGMESProfile.shortNames.DY, ],
+						'rr2': [CGMESProfile.shortNames.DY, ],
+						'xlr2': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

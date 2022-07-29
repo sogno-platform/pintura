@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindContPitchAngleIEC extends IdentifiedObject {
 
@@ -208,6 +210,19 @@ class WindContPitchAngleIEC extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'dthetamax': [CGMESProfile.shortNames.DY, ],
+						'dthetamin': [CGMESProfile.shortNames.DY, ],
+						'kic': [CGMESProfile.shortNames.DY, ],
+						'kiomega': [CGMESProfile.shortNames.DY, ],
+						'kpc': [CGMESProfile.shortNames.DY, ],
+						'kpomega': [CGMESProfile.shortNames.DY, ],
+						'kpx': [CGMESProfile.shortNames.DY, ],
+						'thetamax': [CGMESProfile.shortNames.DY, ],
+						'thetamin': [CGMESProfile.shortNames.DY, ],
+						'ttheta': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

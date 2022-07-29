@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import LoadDynamics from "./LoadDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class LoadComposite extends LoadDynamics {
 
@@ -228,6 +230,20 @@ class LoadComposite extends LoadDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'epvs': [CGMESProfile.shortNames.DY, ],
+						'epfs': [CGMESProfile.shortNames.DY, ],
+						'eqvs': [CGMESProfile.shortNames.DY, ],
+						'eqfs': [CGMESProfile.shortNames.DY, ],
+						'epvd': [CGMESProfile.shortNames.DY, ],
+						'epfd': [CGMESProfile.shortNames.DY, ],
+						'eqvd': [CGMESProfile.shortNames.DY, ],
+						'eqfd': [CGMESProfile.shortNames.DY, ],
+						'lfrac': [CGMESProfile.shortNames.DY, ],
+						'h': [CGMESProfile.shortNames.DY, ],
+						'pfrac': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

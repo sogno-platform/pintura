@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PowerSystemResource from "./PowerSystemResource.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Equipment extends PowerSystemResource {
 
@@ -48,6 +50,11 @@ class Equipment extends PowerSystemResource {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.EQ_BD, ],
+						'aggregate': [CGMESProfile.shortNames.EQ, ],
+						'EquipmentContainer': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

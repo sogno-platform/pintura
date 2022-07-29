@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DynamicsVersion extends BaseClass {
 
@@ -208,6 +210,19 @@ class DynamicsVersion extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'baseUML': [CGMESProfile.shortNames.DY, ],
+						'baseURI': [CGMESProfile.shortNames.DY, ],
+						'date': [CGMESProfile.shortNames.DY, ],
+						'differenceModelURI': [CGMESProfile.shortNames.DY, ],
+						'entsoeUML': [CGMESProfile.shortNames.DY, ],
+						'entsoeURI': [CGMESProfile.shortNames.DY, ],
+						'modelDescriptionURI': [CGMESProfile.shortNames.DY, ],
+						'namespaceRDF': [CGMESProfile.shortNames.DY, ],
+						'namespaceUML': [CGMESProfile.shortNames.DY, ],
+						'shortName': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

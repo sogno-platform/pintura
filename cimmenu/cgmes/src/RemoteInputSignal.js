@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class RemoteInputSignal extends IdentifiedObject {
 
@@ -168,6 +170,17 @@ class RemoteInputSignal extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'Terminal': [CGMESProfile.shortNames.DY, ],
+						'remoteSignalType': [CGMESProfile.shortNames.DY, ],
+						'PFVArControllerType1Dynamics': [CGMESProfile.shortNames.DY, ],
+						'UnderexcitationLimiterDynamics': [CGMESProfile.shortNames.DY, ],
+						'VoltageCompensatorDynamics': [CGMESProfile.shortNames.DY, ],
+						'PowerSystemStabilizerDynamics': [CGMESProfile.shortNames.DY, ],
+						'DiscontinuousExcitationControlDynamics': [CGMESProfile.shortNames.DY, ],
+						'WindPlantDynamics': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

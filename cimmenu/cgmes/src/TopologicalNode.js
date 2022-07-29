@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TopologicalNode extends IdentifiedObject {
 
@@ -248,6 +250,21 @@ class TopologicalNode extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.SV, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, ],
+						'SvVoltage': [CGMESProfile.shortNames.SV, ],
+						'TopologicalIsland': [CGMESProfile.shortNames.SV, ],
+						'BaseVoltage': [CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, ],
+						'ConnectivityNodeContainer': [CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, ],
+						'ReportingGroup': [CGMESProfile.shortNames.TP, ],
+						'boundaryPoint': [CGMESProfile.shortNames.TP_BD, ],
+						'fromEndIsoCode': [CGMESProfile.shortNames.TP_BD, ],
+						'fromEndName': [CGMESProfile.shortNames.TP_BD, ],
+						'fromEndNameTso': [CGMESProfile.shortNames.TP_BD, ],
+						'toEndIsoCode': [CGMESProfile.shortNames.TP_BD, ],
+						'toEndName': [CGMESProfile.shortNames.TP_BD, ],
+						'toEndNameTso': [CGMESProfile.shortNames.TP_BD, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

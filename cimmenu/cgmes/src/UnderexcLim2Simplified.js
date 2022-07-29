@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import UnderexcitationLimiterDynamics from "./UnderexcitationLimiterDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class UnderexcLim2Simplified extends UnderexcitationLimiterDynamics {
 
@@ -148,6 +150,16 @@ class UnderexcLim2Simplified extends UnderexcitationLimiterDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'q0': [CGMESProfile.shortNames.DY, ],
+						'q1': [CGMESProfile.shortNames.DY, ],
+						'p0': [CGMESProfile.shortNames.DY, ],
+						'p1': [CGMESProfile.shortNames.DY, ],
+						'kui': [CGMESProfile.shortNames.DY, ],
+						'vuimin': [CGMESProfile.shortNames.DY, ],
+						'vuimax': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

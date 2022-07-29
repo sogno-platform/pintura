@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DCConductingEquipment from "./DCConductingEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DCGround extends DCConductingEquipment {
 
@@ -48,6 +50,11 @@ class DCGround extends DCConductingEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'inductance': [CGMESProfile.shortNames.EQ, ],
+						'r': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

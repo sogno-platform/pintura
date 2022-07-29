@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ACDCConverter from "./ACDCConverter.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class VsConverter extends ACDCConverter {
 
@@ -248,6 +250,21 @@ class VsConverter extends ACDCConverter {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, ],
+						'CapabilityCurve': [CGMESProfile.shortNames.EQ, ],
+						'maxModulationIndex': [CGMESProfile.shortNames.EQ, ],
+						'maxValveCurrent': [CGMESProfile.shortNames.EQ, ],
+						'droop': [CGMESProfile.shortNames.SSH, ],
+						'droopCompensation': [CGMESProfile.shortNames.SSH, ],
+						'pPccControl': [CGMESProfile.shortNames.SSH, ],
+						'qPccControl': [CGMESProfile.shortNames.SSH, ],
+						'qShare': [CGMESProfile.shortNames.SSH, ],
+						'targetQpcc': [CGMESProfile.shortNames.SSH, ],
+						'targetUpcc': [CGMESProfile.shortNames.SSH, ],
+						'delta': [CGMESProfile.shortNames.SV, ],
+						'uf': [CGMESProfile.shortNames.SV, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

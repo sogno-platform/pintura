@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import RotatingMachine from "./RotatingMachine.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SynchronousMachine extends RotatingMachine {
 
@@ -448,6 +450,31 @@ class SynchronousMachine extends RotatingMachine {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY, ],
+						'InitialReactiveCapabilityCurve': [CGMESProfile.shortNames.EQ, ],
+						'maxQ': [CGMESProfile.shortNames.EQ, ],
+						'minQ': [CGMESProfile.shortNames.EQ, ],
+						'qPercent': [CGMESProfile.shortNames.EQ, ],
+						'type': [CGMESProfile.shortNames.EQ, ],
+						'earthing': [CGMESProfile.shortNames.EQ, ],
+						'earthingStarPointR': [CGMESProfile.shortNames.EQ, ],
+						'earthingStarPointX': [CGMESProfile.shortNames.EQ, ],
+						'ikk': [CGMESProfile.shortNames.EQ, ],
+						'mu': [CGMESProfile.shortNames.EQ, ],
+						'r0': [CGMESProfile.shortNames.EQ, ],
+						'r2': [CGMESProfile.shortNames.EQ, ],
+						'satDirectSubtransX': [CGMESProfile.shortNames.EQ, ],
+						'satDirectSyncX': [CGMESProfile.shortNames.EQ, ],
+						'satDirectTransX': [CGMESProfile.shortNames.EQ, ],
+						'shortCircuitRotorType': [CGMESProfile.shortNames.EQ, ],
+						'voltageRegulationRange': [CGMESProfile.shortNames.EQ, ],
+						'r': [CGMESProfile.shortNames.EQ, ],
+						'x0': [CGMESProfile.shortNames.EQ, ],
+						'x2': [CGMESProfile.shortNames.EQ, ],
+						'operatingMode': [CGMESProfile.shortNames.SSH, ],
+						'referencePriority': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

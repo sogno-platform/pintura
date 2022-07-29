@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Control from "./Control.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class AnalogControl extends Control {
 
@@ -68,6 +70,12 @@ class AnalogControl extends Control {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'maxValue': [CGMESProfile.shortNames.EQ, ],
+						'minValue': [CGMESProfile.shortNames.EQ, ],
+						'AnalogValue': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

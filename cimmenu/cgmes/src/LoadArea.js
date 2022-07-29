@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EnergyArea from "./EnergyArea.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class LoadArea extends EnergyArea {
 
@@ -8,6 +10,9 @@ class LoadArea extends EnergyArea {
         let attributeEntries = EnergyArea.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

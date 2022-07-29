@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Limit from "./Limit.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class AnalogLimit extends Limit {
 
@@ -48,6 +50,11 @@ class AnalogLimit extends Limit {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'value': [CGMESProfile.shortNames.EQ, ],
+						'LimitSet': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

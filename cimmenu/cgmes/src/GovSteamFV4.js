@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineGovernorDynamics from "./TurbineGovernorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GovSteamFV4 extends TurbineGovernorDynamics {
 
@@ -1028,6 +1030,60 @@ class GovSteamFV4 extends TurbineGovernorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'kf1': [CGMESProfile.shortNames.DY, ],
+						'kf3': [CGMESProfile.shortNames.DY, ],
+						'lps': [CGMESProfile.shortNames.DY, ],
+						'lpi': [CGMESProfile.shortNames.DY, ],
+						'mxef': [CGMESProfile.shortNames.DY, ],
+						'mnef': [CGMESProfile.shortNames.DY, ],
+						'crmx': [CGMESProfile.shortNames.DY, ],
+						'crmn': [CGMESProfile.shortNames.DY, ],
+						'kpt': [CGMESProfile.shortNames.DY, ],
+						'kit': [CGMESProfile.shortNames.DY, ],
+						'rvgmx': [CGMESProfile.shortNames.DY, ],
+						'rvgmn': [CGMESProfile.shortNames.DY, ],
+						'svmx': [CGMESProfile.shortNames.DY, ],
+						'svmn': [CGMESProfile.shortNames.DY, ],
+						'srmx': [CGMESProfile.shortNames.DY, ],
+						'srmn': [CGMESProfile.shortNames.DY, ],
+						'kpp': [CGMESProfile.shortNames.DY, ],
+						'kip': [CGMESProfile.shortNames.DY, ],
+						'rsmimx': [CGMESProfile.shortNames.DY, ],
+						'rsmimn': [CGMESProfile.shortNames.DY, ],
+						'kmp1': [CGMESProfile.shortNames.DY, ],
+						'kmp2': [CGMESProfile.shortNames.DY, ],
+						'srsmp': [CGMESProfile.shortNames.DY, ],
+						'ta': [CGMESProfile.shortNames.DY, ],
+						'tc': [CGMESProfile.shortNames.DY, ],
+						'ty': [CGMESProfile.shortNames.DY, ],
+						'yhpmx': [CGMESProfile.shortNames.DY, ],
+						'yhpmn': [CGMESProfile.shortNames.DY, ],
+						'tam': [CGMESProfile.shortNames.DY, ],
+						'tcm': [CGMESProfile.shortNames.DY, ],
+						'ympmx': [CGMESProfile.shortNames.DY, ],
+						'ympmn': [CGMESProfile.shortNames.DY, ],
+						'y': [CGMESProfile.shortNames.DY, ],
+						'thp': [CGMESProfile.shortNames.DY, ],
+						'trh': [CGMESProfile.shortNames.DY, ],
+						'tmp': [CGMESProfile.shortNames.DY, ],
+						'khp': [CGMESProfile.shortNames.DY, ],
+						'pr1': [CGMESProfile.shortNames.DY, ],
+						'pr2': [CGMESProfile.shortNames.DY, ],
+						'psmn': [CGMESProfile.shortNames.DY, ],
+						'kpc': [CGMESProfile.shortNames.DY, ],
+						'kic': [CGMESProfile.shortNames.DY, ],
+						'kdc': [CGMESProfile.shortNames.DY, ],
+						'tdc': [CGMESProfile.shortNames.DY, ],
+						'cpsmx': [CGMESProfile.shortNames.DY, ],
+						'cpsmn': [CGMESProfile.shortNames.DY, ],
+						'krc': [CGMESProfile.shortNames.DY, ],
+						'tf1': [CGMESProfile.shortNames.DY, ],
+						'tf2': [CGMESProfile.shortNames.DY, ],
+						'tv': [CGMESProfile.shortNames.DY, ],
+						'ksh': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

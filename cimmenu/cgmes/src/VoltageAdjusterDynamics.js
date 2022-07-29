@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DynamicsFunctionBlock from "./DynamicsFunctionBlock.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class VoltageAdjusterDynamics extends DynamicsFunctionBlock {
 
@@ -28,6 +30,10 @@ class VoltageAdjusterDynamics extends DynamicsFunctionBlock {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'PFVArControllerType1Dynamics': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

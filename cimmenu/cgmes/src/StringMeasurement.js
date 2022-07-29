@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Measurement from "./Measurement.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class StringMeasurement extends Measurement {
 
@@ -8,6 +10,9 @@ class StringMeasurement extends Measurement {
         let attributeEntries = Measurement.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

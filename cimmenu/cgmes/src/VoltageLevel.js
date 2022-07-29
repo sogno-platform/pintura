@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EquipmentContainer from "./EquipmentContainer.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class VoltageLevel extends EquipmentContainer {
 
@@ -88,6 +90,13 @@ class VoltageLevel extends EquipmentContainer {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'BaseVoltage': [CGMESProfile.shortNames.EQ, ],
+						'Substation': [CGMESProfile.shortNames.EQ, ],
+						'highVoltageLimit': [CGMESProfile.shortNames.EQ, ],
+						'lowVoltageLimit': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

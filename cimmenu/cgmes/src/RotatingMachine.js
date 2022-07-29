@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import RegulatingCondEq from "./RegulatingCondEq.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class RotatingMachine extends RegulatingCondEq {
 
@@ -128,6 +130,15 @@ class RotatingMachine extends RegulatingCondEq {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY, ],
+						'GeneratingUnit': [CGMESProfile.shortNames.EQ, ],
+						'ratedPowerFactor': [CGMESProfile.shortNames.EQ, ],
+						'ratedS': [CGMESProfile.shortNames.EQ, ],
+						'ratedU': [CGMESProfile.shortNames.EQ, ],
+						'p': [CGMESProfile.shortNames.SSH, ],
+						'q': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

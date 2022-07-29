@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Quality61850 extends BaseClass {
 
@@ -248,6 +250,21 @@ class Quality61850 extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'badReference': [CGMESProfile.shortNames.EQ, ],
+						'estimatorReplaced': [CGMESProfile.shortNames.EQ, ],
+						'failure': [CGMESProfile.shortNames.EQ, ],
+						'oldData': [CGMESProfile.shortNames.EQ, ],
+						'operatorBlocked': [CGMESProfile.shortNames.EQ, ],
+						'oscillatory': [CGMESProfile.shortNames.EQ, ],
+						'outOfRange': [CGMESProfile.shortNames.EQ, ],
+						'overFlow': [CGMESProfile.shortNames.EQ, ],
+						'source': [CGMESProfile.shortNames.EQ, ],
+						'suspect': [CGMESProfile.shortNames.EQ, ],
+						'test': [CGMESProfile.shortNames.EQ, ],
+						'validity': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

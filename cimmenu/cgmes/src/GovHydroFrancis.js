@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineGovernorDynamics from "./TurbineGovernorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GovHydroFrancis extends TurbineGovernorDynamics {
 
@@ -548,6 +550,36 @@ class GovHydroFrancis extends TurbineGovernorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'am': [CGMESProfile.shortNames.DY, ],
+						'av0': [CGMESProfile.shortNames.DY, ],
+						'av1': [CGMESProfile.shortNames.DY, ],
+						'bp': [CGMESProfile.shortNames.DY, ],
+						'db1': [CGMESProfile.shortNames.DY, ],
+						'etamax': [CGMESProfile.shortNames.DY, ],
+						'governorControl': [CGMESProfile.shortNames.DY, ],
+						'h1': [CGMESProfile.shortNames.DY, ],
+						'h2': [CGMESProfile.shortNames.DY, ],
+						'hn': [CGMESProfile.shortNames.DY, ],
+						'kc': [CGMESProfile.shortNames.DY, ],
+						'kg': [CGMESProfile.shortNames.DY, ],
+						'kt': [CGMESProfile.shortNames.DY, ],
+						'qc0': [CGMESProfile.shortNames.DY, ],
+						'qn': [CGMESProfile.shortNames.DY, ],
+						'ta': [CGMESProfile.shortNames.DY, ],
+						'td': [CGMESProfile.shortNames.DY, ],
+						'ts': [CGMESProfile.shortNames.DY, ],
+						'twnc': [CGMESProfile.shortNames.DY, ],
+						'twng': [CGMESProfile.shortNames.DY, ],
+						'tx': [CGMESProfile.shortNames.DY, ],
+						'va': [CGMESProfile.shortNames.DY, ],
+						'valvmax': [CGMESProfile.shortNames.DY, ],
+						'valvmin': [CGMESProfile.shortNames.DY, ],
+						'vc': [CGMESProfile.shortNames.DY, ],
+						'waterTunnelSurgeChamberSimulation': [CGMESProfile.shortNames.DY, ],
+						'zsfc': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

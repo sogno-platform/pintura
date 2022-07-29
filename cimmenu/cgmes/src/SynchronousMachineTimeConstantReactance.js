@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import SynchronousMachineDetailed from "./SynchronousMachineDetailed.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SynchronousMachineTimeConstantReactance extends SynchronousMachineDetailed {
 
@@ -288,6 +290,23 @@ class SynchronousMachineTimeConstantReactance extends SynchronousMachineDetailed
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'rotorType': [CGMESProfile.shortNames.DY, ],
+						'modelType': [CGMESProfile.shortNames.DY, ],
+						'ks': [CGMESProfile.shortNames.DY, ],
+						'xDirectSync': [CGMESProfile.shortNames.DY, ],
+						'xDirectTrans': [CGMESProfile.shortNames.DY, ],
+						'xDirectSubtrans': [CGMESProfile.shortNames.DY, ],
+						'xQuadSync': [CGMESProfile.shortNames.DY, ],
+						'xQuadTrans': [CGMESProfile.shortNames.DY, ],
+						'xQuadSubtrans': [CGMESProfile.shortNames.DY, ],
+						'tpdo': [CGMESProfile.shortNames.DY, ],
+						'tppdo': [CGMESProfile.shortNames.DY, ],
+						'tpqo': [CGMESProfile.shortNames.DY, ],
+						'tppqo': [CGMESProfile.shortNames.DY, ],
+						'tc': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

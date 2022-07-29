@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PowerSystemResource from "./PowerSystemResource.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class HydroPowerPlant extends PowerSystemResource {
 
@@ -28,6 +30,10 @@ class HydroPowerPlant extends PowerSystemResource {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'hydroPlantStorageType': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

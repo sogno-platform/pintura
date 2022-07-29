@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TapChangerTablePoint from "./TapChangerTablePoint.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PhaseTapChangerTablePoint extends TapChangerTablePoint {
 
@@ -48,6 +50,11 @@ class PhaseTapChangerTablePoint extends TapChangerTablePoint {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'PhaseTapChangerTable': [CGMESProfile.shortNames.EQ, ],
+						'angle': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

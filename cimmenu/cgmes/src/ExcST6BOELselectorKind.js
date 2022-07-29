@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 const ExcST6BOELselectorKindEnum = {
         noOELinput:0,
         beforeUEL:1,
@@ -19,6 +21,9 @@ class ExcST6BOELselectorKind extends BaseClass {
         let attributeEntries = BaseClass.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

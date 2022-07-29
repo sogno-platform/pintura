@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ShuntCompensator from "./ShuntCompensator.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class NonlinearShuntCompensator extends ShuntCompensator {
 
@@ -8,6 +10,9 @@ class NonlinearShuntCompensator extends ShuntCompensator {
         let attributeEntries = ShuntCompensator.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

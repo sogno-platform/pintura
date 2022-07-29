@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TapChanger from "./TapChanger.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class RatioTapChanger extends TapChanger {
 
@@ -88,6 +90,13 @@ class RatioTapChanger extends TapChanger {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'tculControlMode': [CGMESProfile.shortNames.EQ, ],
+						'stepVoltageIncrement': [CGMESProfile.shortNames.EQ, ],
+						'RatioTapChangerTable': [CGMESProfile.shortNames.EQ, ],
+						'TransformerEnd': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

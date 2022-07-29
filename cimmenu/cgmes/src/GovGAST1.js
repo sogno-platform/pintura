@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineGovernorDynamics from "./TurbineGovernorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GovGAST1 extends TurbineGovernorDynamics {
 
@@ -688,6 +690,43 @@ class GovGAST1 extends TurbineGovernorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'mwbase': [CGMESProfile.shortNames.DY, ],
+						'r': [CGMESProfile.shortNames.DY, ],
+						't1': [CGMESProfile.shortNames.DY, ],
+						't2': [CGMESProfile.shortNames.DY, ],
+						't3': [CGMESProfile.shortNames.DY, ],
+						'lmax': [CGMESProfile.shortNames.DY, ],
+						'kt': [CGMESProfile.shortNames.DY, ],
+						'vmax': [CGMESProfile.shortNames.DY, ],
+						'vmin': [CGMESProfile.shortNames.DY, ],
+						'fidle': [CGMESProfile.shortNames.DY, ],
+						'rmax': [CGMESProfile.shortNames.DY, ],
+						'loadinc': [CGMESProfile.shortNames.DY, ],
+						'tltr': [CGMESProfile.shortNames.DY, ],
+						'ltrate': [CGMESProfile.shortNames.DY, ],
+						'a': [CGMESProfile.shortNames.DY, ],
+						'b': [CGMESProfile.shortNames.DY, ],
+						'db1': [CGMESProfile.shortNames.DY, ],
+						'eps': [CGMESProfile.shortNames.DY, ],
+						'db2': [CGMESProfile.shortNames.DY, ],
+						'gv1': [CGMESProfile.shortNames.DY, ],
+						'pgv1': [CGMESProfile.shortNames.DY, ],
+						'gv2': [CGMESProfile.shortNames.DY, ],
+						'pgv2': [CGMESProfile.shortNames.DY, ],
+						'gv3': [CGMESProfile.shortNames.DY, ],
+						'pgv3': [CGMESProfile.shortNames.DY, ],
+						'gv4': [CGMESProfile.shortNames.DY, ],
+						'pgv4': [CGMESProfile.shortNames.DY, ],
+						'gv5': [CGMESProfile.shortNames.DY, ],
+						'pgv5': [CGMESProfile.shortNames.DY, ],
+						'gv6': [CGMESProfile.shortNames.DY, ],
+						'pgv6': [CGMESProfile.shortNames.DY, ],
+						'ka': [CGMESProfile.shortNames.DY, ],
+						't4': [CGMESProfile.shortNames.DY, ],
+						't5': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

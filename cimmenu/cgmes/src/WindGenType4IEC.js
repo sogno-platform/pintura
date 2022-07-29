@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import WindTurbineType3or4IEC from "./WindTurbineType3or4IEC.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindGenType4IEC extends WindTurbineType3or4IEC {
 
@@ -88,6 +90,13 @@ class WindGenType4IEC extends WindTurbineType3or4IEC {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'dipmax': [CGMESProfile.shortNames.DY, ],
+						'diqmin': [CGMESProfile.shortNames.DY, ],
+						'diqmax': [CGMESProfile.shortNames.DY, ],
+						'tg': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

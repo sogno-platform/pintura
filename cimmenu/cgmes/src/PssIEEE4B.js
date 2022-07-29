@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PowerSystemStabilizerDynamics from "./PowerSystemStabilizerDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PssIEEE4B extends PowerSystemStabilizerDynamics {
 
@@ -1348,6 +1350,76 @@ class PssIEEE4B extends PowerSystemStabilizerDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'bwh1': [CGMESProfile.shortNames.DY, ],
+						'bwh2': [CGMESProfile.shortNames.DY, ],
+						'bwl1': [CGMESProfile.shortNames.DY, ],
+						'bwl2': [CGMESProfile.shortNames.DY, ],
+						'kh': [CGMESProfile.shortNames.DY, ],
+						'kh1': [CGMESProfile.shortNames.DY, ],
+						'kh11': [CGMESProfile.shortNames.DY, ],
+						'kh17': [CGMESProfile.shortNames.DY, ],
+						'kh2': [CGMESProfile.shortNames.DY, ],
+						'ki': [CGMESProfile.shortNames.DY, ],
+						'ki1': [CGMESProfile.shortNames.DY, ],
+						'ki11': [CGMESProfile.shortNames.DY, ],
+						'ki17': [CGMESProfile.shortNames.DY, ],
+						'ki2': [CGMESProfile.shortNames.DY, ],
+						'kl': [CGMESProfile.shortNames.DY, ],
+						'kl1': [CGMESProfile.shortNames.DY, ],
+						'kl11': [CGMESProfile.shortNames.DY, ],
+						'kl17': [CGMESProfile.shortNames.DY, ],
+						'kl2': [CGMESProfile.shortNames.DY, ],
+						'omeganh1': [CGMESProfile.shortNames.DY, ],
+						'omeganh2': [CGMESProfile.shortNames.DY, ],
+						'omeganl1': [CGMESProfile.shortNames.DY, ],
+						'omeganl2': [CGMESProfile.shortNames.DY, ],
+						'th1': [CGMESProfile.shortNames.DY, ],
+						'th10': [CGMESProfile.shortNames.DY, ],
+						'th11': [CGMESProfile.shortNames.DY, ],
+						'th12': [CGMESProfile.shortNames.DY, ],
+						'th2': [CGMESProfile.shortNames.DY, ],
+						'th3': [CGMESProfile.shortNames.DY, ],
+						'th4': [CGMESProfile.shortNames.DY, ],
+						'th5': [CGMESProfile.shortNames.DY, ],
+						'th6': [CGMESProfile.shortNames.DY, ],
+						'th7': [CGMESProfile.shortNames.DY, ],
+						'th8': [CGMESProfile.shortNames.DY, ],
+						'th9': [CGMESProfile.shortNames.DY, ],
+						'ti1': [CGMESProfile.shortNames.DY, ],
+						'ti10': [CGMESProfile.shortNames.DY, ],
+						'ti11': [CGMESProfile.shortNames.DY, ],
+						'ti12': [CGMESProfile.shortNames.DY, ],
+						'ti2': [CGMESProfile.shortNames.DY, ],
+						'ti3': [CGMESProfile.shortNames.DY, ],
+						'ti4': [CGMESProfile.shortNames.DY, ],
+						'ti5': [CGMESProfile.shortNames.DY, ],
+						'ti6': [CGMESProfile.shortNames.DY, ],
+						'ti7': [CGMESProfile.shortNames.DY, ],
+						'ti8': [CGMESProfile.shortNames.DY, ],
+						'ti9': [CGMESProfile.shortNames.DY, ],
+						'tl1': [CGMESProfile.shortNames.DY, ],
+						'tl10': [CGMESProfile.shortNames.DY, ],
+						'tl11': [CGMESProfile.shortNames.DY, ],
+						'tl12': [CGMESProfile.shortNames.DY, ],
+						'tl2': [CGMESProfile.shortNames.DY, ],
+						'tl3': [CGMESProfile.shortNames.DY, ],
+						'tl4': [CGMESProfile.shortNames.DY, ],
+						'tl5': [CGMESProfile.shortNames.DY, ],
+						'tl6': [CGMESProfile.shortNames.DY, ],
+						'tl7': [CGMESProfile.shortNames.DY, ],
+						'tl8': [CGMESProfile.shortNames.DY, ],
+						'tl9': [CGMESProfile.shortNames.DY, ],
+						'vhmax': [CGMESProfile.shortNames.DY, ],
+						'vhmin': [CGMESProfile.shortNames.DY, ],
+						'vimax': [CGMESProfile.shortNames.DY, ],
+						'vimin': [CGMESProfile.shortNames.DY, ],
+						'vlmax': [CGMESProfile.shortNames.DY, ],
+						'vlmin': [CGMESProfile.shortNames.DY, ],
+						'vstmax': [CGMESProfile.shortNames.DY, ],
+						'vstmin': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

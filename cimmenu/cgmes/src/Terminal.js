@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ACDCTerminal from "./ACDCTerminal.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Terminal extends ACDCTerminal {
 
@@ -148,6 +150,16 @@ class Terminal extends ACDCTerminal {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.EQ_BD, ],
+						'ConductingEquipment': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.EQ_BD, ],
+						'phases': [CGMESProfile.shortNames.EQ, ],
+						'TieFlow': [CGMESProfile.shortNames.EQ, ],
+						'ConnectivityNode': [CGMESProfile.shortNames.EQ, ],
+						'HasSecondMutualCoupling': [CGMESProfile.shortNames.EQ, ],
+						'RemoteInputSignal': [CGMESProfile.shortNames.DY, ],
+						'TopologicalNode': [CGMESProfile.shortNames.TP, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EquivalentEquipment from "./EquivalentEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class EquivalentBranch extends EquivalentEquipment {
 
@@ -328,6 +330,25 @@ class EquivalentBranch extends EquivalentEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'r': [CGMESProfile.shortNames.EQ, ],
+						'r21': [CGMESProfile.shortNames.EQ, ],
+						'x': [CGMESProfile.shortNames.EQ, ],
+						'x21': [CGMESProfile.shortNames.EQ, ],
+						'negativeR12': [CGMESProfile.shortNames.EQ, ],
+						'negativeR21': [CGMESProfile.shortNames.EQ, ],
+						'negativeX12': [CGMESProfile.shortNames.EQ, ],
+						'negativeX21': [CGMESProfile.shortNames.EQ, ],
+						'positiveR12': [CGMESProfile.shortNames.EQ, ],
+						'positiveR21': [CGMESProfile.shortNames.EQ, ],
+						'positiveX12': [CGMESProfile.shortNames.EQ, ],
+						'positiveX21': [CGMESProfile.shortNames.EQ, ],
+						'zeroR12': [CGMESProfile.shortNames.EQ, ],
+						'zeroR21': [CGMESProfile.shortNames.EQ, ],
+						'zeroX12': [CGMESProfile.shortNames.EQ, ],
+						'zeroX21': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

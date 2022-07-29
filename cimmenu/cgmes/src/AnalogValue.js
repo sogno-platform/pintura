@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import MeasurementValue from "./MeasurementValue.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class AnalogValue extends MeasurementValue {
 
@@ -48,6 +50,11 @@ class AnalogValue extends MeasurementValue {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'Analog': [CGMESProfile.shortNames.EQ, ],
+						'value': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

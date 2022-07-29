@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindContQIEC extends IdentifiedObject {
 
@@ -528,6 +530,35 @@ class WindContQIEC extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'iqh1': [CGMESProfile.shortNames.DY, ],
+						'iqmax': [CGMESProfile.shortNames.DY, ],
+						'iqmin': [CGMESProfile.shortNames.DY, ],
+						'iqpost': [CGMESProfile.shortNames.DY, ],
+						'kiq': [CGMESProfile.shortNames.DY, ],
+						'kiu': [CGMESProfile.shortNames.DY, ],
+						'kpq': [CGMESProfile.shortNames.DY, ],
+						'kpu': [CGMESProfile.shortNames.DY, ],
+						'kqv': [CGMESProfile.shortNames.DY, ],
+						'qmax': [CGMESProfile.shortNames.DY, ],
+						'qmin': [CGMESProfile.shortNames.DY, ],
+						'rdroop': [CGMESProfile.shortNames.DY, ],
+						'tiq': [CGMESProfile.shortNames.DY, ],
+						'tpfilt': [CGMESProfile.shortNames.DY, ],
+						'tpost': [CGMESProfile.shortNames.DY, ],
+						'tqord': [CGMESProfile.shortNames.DY, ],
+						'tufilt': [CGMESProfile.shortNames.DY, ],
+						'udb1': [CGMESProfile.shortNames.DY, ],
+						'udb2': [CGMESProfile.shortNames.DY, ],
+						'umax': [CGMESProfile.shortNames.DY, ],
+						'umin': [CGMESProfile.shortNames.DY, ],
+						'uqdip': [CGMESProfile.shortNames.DY, ],
+						'uref0': [CGMESProfile.shortNames.DY, ],
+						'windLVRTQcontrolModesType': [CGMESProfile.shortNames.DY, ],
+						'windQcontrolModesType': [CGMESProfile.shortNames.DY, ],
+						'xdroop': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

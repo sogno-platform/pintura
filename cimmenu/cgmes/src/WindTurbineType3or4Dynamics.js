@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DynamicsFunctionBlock from "./DynamicsFunctionBlock.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindTurbineType3or4Dynamics extends DynamicsFunctionBlock {
 
@@ -68,6 +70,12 @@ class WindTurbineType3or4Dynamics extends DynamicsFunctionBlock {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'EnergySource': [CGMESProfile.shortNames.DY, ],
+						'RemoteInputSignal': [CGMESProfile.shortNames.DY, ],
+						'WindPlantDynamics': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

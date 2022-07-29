@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ConductingEquipment from "./ConductingEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class EnergySource extends ConductingEquipment {
 
@@ -248,6 +250,21 @@ class EnergySource extends ConductingEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.EQ_BD, ],
+						'EnergySchedulingType': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD, ],
+						'nominalVoltage': [CGMESProfile.shortNames.EQ, ],
+						'r': [CGMESProfile.shortNames.EQ, ],
+						'r0': [CGMESProfile.shortNames.EQ, ],
+						'rn': [CGMESProfile.shortNames.EQ, ],
+						'voltageAngle': [CGMESProfile.shortNames.EQ, ],
+						'voltageMagnitude': [CGMESProfile.shortNames.EQ, ],
+						'x': [CGMESProfile.shortNames.EQ, ],
+						'x0': [CGMESProfile.shortNames.EQ, ],
+						'xn': [CGMESProfile.shortNames.EQ, ],
+						'activePower': [CGMESProfile.shortNames.SSH, ],
+						'reactivePower': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

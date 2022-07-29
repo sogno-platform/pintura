@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindContCurrLimIEC extends IdentifiedObject {
 
@@ -128,6 +130,15 @@ class WindContCurrLimIEC extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'imax': [CGMESProfile.shortNames.DY, ],
+						'imaxdip': [CGMESProfile.shortNames.DY, ],
+						'mdfslim': [CGMESProfile.shortNames.DY, ],
+						'mqpri': [CGMESProfile.shortNames.DY, ],
+						'tufilt': [CGMESProfile.shortNames.DY, ],
+						'WindDynamicsLookupTable': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

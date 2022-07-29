@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class RegularTimePoint extends BaseClass {
 
@@ -88,6 +90,13 @@ class RegularTimePoint extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'IntervalSchedule': [CGMESProfile.shortNames.EQ, ],
+						'sequenceNumber': [CGMESProfile.shortNames.EQ, ],
+						'value1': [CGMESProfile.shortNames.EQ, ],
+						'value2': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class MutualCoupling extends IdentifiedObject {
 
@@ -208,6 +210,19 @@ class MutualCoupling extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'First_Terminal': [CGMESProfile.shortNames.EQ, ],
+						'Second_Terminal': [CGMESProfile.shortNames.EQ, ],
+						'b0ch': [CGMESProfile.shortNames.EQ, ],
+						'distance11': [CGMESProfile.shortNames.EQ, ],
+						'distance12': [CGMESProfile.shortNames.EQ, ],
+						'distance21': [CGMESProfile.shortNames.EQ, ],
+						'distance22': [CGMESProfile.shortNames.EQ, ],
+						'g0ch': [CGMESProfile.shortNames.EQ, ],
+						'r0': [CGMESProfile.shortNames.EQ, ],
+						'x0': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

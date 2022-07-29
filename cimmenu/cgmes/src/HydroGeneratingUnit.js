@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import GeneratingUnit from "./GeneratingUnit.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class HydroGeneratingUnit extends GeneratingUnit {
 
@@ -48,6 +50,11 @@ class HydroGeneratingUnit extends GeneratingUnit {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'energyConversionCapability': [CGMESProfile.shortNames.EQ, ],
+						'HydroPowerPlant': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

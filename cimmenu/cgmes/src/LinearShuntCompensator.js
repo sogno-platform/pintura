@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ShuntCompensator from "./ShuntCompensator.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class LinearShuntCompensator extends ShuntCompensator {
 
@@ -88,6 +90,13 @@ class LinearShuntCompensator extends ShuntCompensator {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'bPerSection': [CGMESProfile.shortNames.EQ, ],
+						'gPerSection': [CGMESProfile.shortNames.EQ, ],
+						'b0PerSection': [CGMESProfile.shortNames.EQ, ],
+						'g0PerSection': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

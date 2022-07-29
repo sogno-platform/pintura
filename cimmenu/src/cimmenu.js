@@ -163,11 +163,20 @@ class cimmenu {
                     return;
                 }
                 let reader = new FileReader();
-                reader.onload = function(e) {
-                    let contents = e.target.result;
-                    cimmenuInstance.cimsvgFunction(()=>{ currentCimsvg().loadFile(contents); });
-                };
-                reader.readAsText(file);
+                if (file.type == "application/zip") {
+                    reader.onload = function(e) {
+                        let contents = e.target.result;
+                        cimmenuInstance.cimsvgFunction(()=>{ currentCimsvg().importZip(contents); });
+                    };
+                    reader.readAsArrayBuffer(file);
+                }
+                else if (file.type === "text/xml") {
+                    reader.onload = function(e) {
+                        let contents = e.target.result;
+                        cimmenuInstance.cimsvgFunction(()=>{ currentCimsvg().loadFile(contents); });
+                    };
+                    reader.readAsText(file);
+                }
             });
         }
     }

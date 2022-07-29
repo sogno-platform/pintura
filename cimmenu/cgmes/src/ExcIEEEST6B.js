@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ExcitationSystemDynamics from "./ExcitationSystemDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ExcIEEEST6B extends ExcitationSystemDynamics {
 
@@ -288,6 +290,23 @@ class ExcIEEEST6B extends ExcitationSystemDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'ilr': [CGMESProfile.shortNames.DY, ],
+						'kci': [CGMESProfile.shortNames.DY, ],
+						'kff': [CGMESProfile.shortNames.DY, ],
+						'kg': [CGMESProfile.shortNames.DY, ],
+						'kia': [CGMESProfile.shortNames.DY, ],
+						'klr': [CGMESProfile.shortNames.DY, ],
+						'km': [CGMESProfile.shortNames.DY, ],
+						'kpa': [CGMESProfile.shortNames.DY, ],
+						'oelin': [CGMESProfile.shortNames.DY, ],
+						'tg': [CGMESProfile.shortNames.DY, ],
+						'vamax': [CGMESProfile.shortNames.DY, ],
+						'vamin': [CGMESProfile.shortNames.DY, ],
+						'vrmax': [CGMESProfile.shortNames.DY, ],
+						'vrmin': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

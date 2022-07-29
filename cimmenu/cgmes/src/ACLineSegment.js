@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Conductor from "./Conductor.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ACLineSegment extends Conductor {
 
@@ -188,6 +190,18 @@ class ACLineSegment extends Conductor {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'bch': [CGMESProfile.shortNames.EQ, ],
+						'gch': [CGMESProfile.shortNames.EQ, ],
+						'r': [CGMESProfile.shortNames.EQ, ],
+						'x': [CGMESProfile.shortNames.EQ, ],
+						'b0ch': [CGMESProfile.shortNames.EQ, ],
+						'g0ch': [CGMESProfile.shortNames.EQ, ],
+						'r0': [CGMESProfile.shortNames.EQ, ],
+						'shortCircuitEndTemperature': [CGMESProfile.shortNames.EQ, ],
+						'x0': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

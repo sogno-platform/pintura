@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Control from "./Control.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class AccumulatorReset extends Control {
 
@@ -28,6 +30,10 @@ class AccumulatorReset extends Control {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'AccumulatorValue': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

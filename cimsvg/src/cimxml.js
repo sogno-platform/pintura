@@ -17,13 +17,28 @@ class cimxml {
                 }
             }
             else {
-                cimxml.copyTag(baseJson[component], component, baseXml);
+                cimxml.copyTagWithChildArray(baseJson[component], component, baseXml);
             }
         }
         let oSerializer = cimxml.getXMLSerializer();
         let sXML = oSerializer.serializeToString(baseXml);
 
         return sXML;
+    }
+
+    static copyTagWithChildArray(object, component, baseXml) {
+        let child = baseXml.createElement(component);
+        for (let item in object) {
+            if (object[item] instanceof Array) {
+                for (let element in object[item]) {
+                    cimxml.addChild(object[item][element], item, baseXml, child);
+                }
+            }
+            else {
+                cimxml.addChild(object[item], item, baseXml, child);
+            }
+        }
+        baseXml.documentElement.prepend(child);
     }
 
     static copyTag(object, component, baseXml) {
@@ -37,7 +52,7 @@ class cimxml {
                 cimxml.addChild(object[item], item, baseXml, child);
             }
         }
-        baseXml.documentElement.appendChild(child);
+        baseXml.documentElement.append(child);
     }
 
     static getXMLSerializer() {

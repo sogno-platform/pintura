@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class LoadMotor extends IdentifiedObject {
 
@@ -288,6 +290,23 @@ class LoadMotor extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'LoadAggregate': [CGMESProfile.shortNames.DY, ],
+						'pfrac': [CGMESProfile.shortNames.DY, ],
+						'lfac': [CGMESProfile.shortNames.DY, ],
+						'ls': [CGMESProfile.shortNames.DY, ],
+						'lp': [CGMESProfile.shortNames.DY, ],
+						'lpp': [CGMESProfile.shortNames.DY, ],
+						'ra': [CGMESProfile.shortNames.DY, ],
+						'tpo': [CGMESProfile.shortNames.DY, ],
+						'tppo': [CGMESProfile.shortNames.DY, ],
+						'h': [CGMESProfile.shortNames.DY, ],
+						'd': [CGMESProfile.shortNames.DY, ],
+						'vt': [CGMESProfile.shortNames.DY, ],
+						'tv': [CGMESProfile.shortNames.DY, ],
+						'tbkr': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GeographicalLocationVersion extends BaseClass {
 
@@ -208,6 +210,19 @@ class GeographicalLocationVersion extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.GL, ],
+						'baseUML': [CGMESProfile.shortNames.GL, ],
+						'baseURI': [CGMESProfile.shortNames.GL, ],
+						'date': [CGMESProfile.shortNames.GL, ],
+						'differenceModelURI': [CGMESProfile.shortNames.GL, ],
+						'entsoeUML': [CGMESProfile.shortNames.GL, ],
+						'entsoeURI': [CGMESProfile.shortNames.GL, ],
+						'modelDescriptionURI': [CGMESProfile.shortNames.GL, ],
+						'namespaceRDF': [CGMESProfile.shortNames.GL, ],
+						'namespaceUML': [CGMESProfile.shortNames.GL, ],
+						'shortName': [CGMESProfile.shortNames.GL, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

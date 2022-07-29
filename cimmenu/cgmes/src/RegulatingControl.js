@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PowerSystemResource from "./PowerSystemResource.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class RegulatingControl extends PowerSystemResource {
 
@@ -148,6 +150,16 @@ class RegulatingControl extends PowerSystemResource {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'Terminal': [CGMESProfile.shortNames.EQ, ],
+						'mode': [CGMESProfile.shortNames.EQ, ],
+						'discrete': [CGMESProfile.shortNames.SSH, ],
+						'enabled': [CGMESProfile.shortNames.SSH, ],
+						'targetDeadband': [CGMESProfile.shortNames.SSH, ],
+						'targetValue': [CGMESProfile.shortNames.SSH, ],
+						'targetValueUnitMultiplier': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

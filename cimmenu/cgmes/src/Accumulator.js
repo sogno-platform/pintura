@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Measurement from "./Measurement.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Accumulator extends Measurement {
 
@@ -28,6 +30,10 @@ class Accumulator extends Measurement {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'AccumulatorValues': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

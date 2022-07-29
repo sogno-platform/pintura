@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DynamicsFunctionBlock from "./DynamicsFunctionBlock.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class RotatingMachineDynamics extends DynamicsFunctionBlock {
 
@@ -128,6 +130,15 @@ class RotatingMachineDynamics extends DynamicsFunctionBlock {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'damping': [CGMESProfile.shortNames.DY, ],
+						'inertia': [CGMESProfile.shortNames.DY, ],
+						'saturationFactor': [CGMESProfile.shortNames.DY, ],
+						'saturationFactor120': [CGMESProfile.shortNames.DY, ],
+						'statorLeakageReactance': [CGMESProfile.shortNames.DY, ],
+						'statorResistance': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

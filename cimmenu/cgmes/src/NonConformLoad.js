@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EnergyConsumer from "./EnergyConsumer.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class NonConformLoad extends EnergyConsumer {
 
@@ -28,6 +30,10 @@ class NonConformLoad extends EnergyConsumer {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'LoadGroup': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

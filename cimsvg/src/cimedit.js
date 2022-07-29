@@ -5,13 +5,12 @@
  */
 
 import common from "./common.js";
-import { currentCimsvg } from "./cimsvg.js";
 
 class cimedit {
 
     static makeDiagram(newStuff) {
         let id = common.generateUUID();
-        let counter = currentCimsvg().getNameCounter("cim:Diagram");
+        let counter = common.getCimsvg().getNameCounter("cim:Diagram");
         let diagram = {
             "cim:Diagram.orientation" : {
                 "rdf:resource" : "http://iec.ch/TC57/2013/CIM-schema-cim16#OrientationKind.negative",
@@ -62,7 +61,7 @@ class cimedit {
         }
 
         let diagramObject = cimedit.makeDiagramObjectWithPoints(graph, diagramId, id, componentPoints);
-        let counter = currentCimsvg().getNameCounter(type);
+        let counter = common.getCimsvg().getNameCounter(type);
         let newAttributes = {
             "cim:IdentifiedObject.name": type + counter.toString(),
             "pintura:terminals": terminalIds,
@@ -124,7 +123,7 @@ class cimedit {
                 baseJson[type][rdfid][common.pinturaTerminals()] = [];
                 sequenceNumber = 1;
             }
-            let terminal = cimedit.makeTerminal(currentCimsvg().getCurrentDiagramId(), baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
+            let terminal = cimedit.makeTerminal(common.getCimsvg().getCurrentDiagramId(), baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
             cimedit.moveTerminalIntoComponentOrbit(baseJson, terminal, type, rdfid);
             baseJson[type][rdfid][common.pinturaTerminals()].push(terminal);
         }
@@ -177,7 +176,7 @@ class cimedit {
     static connectTerminalToTopologicalNode(graph, terminalId, topologicalNodeId) {
         let secondTopologicalNodePoint     = null;
         let secondTerminalPoint            = null;
-        let baseJson                       = currentCimsvg().getBaseJson();
+        let baseJson                       = common.getCimsvg().getBaseJson();
         let terminal                       = common.safeExtract(graph, "cim:Terminal", terminalId);
         let topologicalNode                = common.safeExtract(graph, "cim:TopologicalNode", topologicalNodeId);
         let terminalDiagramObjectId        = terminal[common.pinturaDiagramObject()];
@@ -237,7 +236,7 @@ class cimedit {
 
     static makeTerminal(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point) {
         let id = common.generateUUID();
-        let counter = currentCimsvg().getNameCounter("cim:Terminal");
+        let counter = common.getCimsvg().getNameCounter("cim:Terminal");
         let diagramObjectId = cimedit.makeDiagramObjectWithPoints(newStuff, diagramId, id, [ point ]);
         let terminal = {
             "cim:ACDCTerminal.sequenceNumber": sequenceNumber.toString(),
@@ -265,7 +264,7 @@ class cimedit {
 
     static makeDiagramObject(newStuff, diagramId, identifiedObjectId) {
         let id = common.generateUUID();
-        let counter = currentCimsvg().getNameCounter("cim:DiagramObject");
+        let counter = common.getCimsvg().getNameCounter("cim:DiagramObject");
         let diagramObject = {
             "cim:DiagramObject.Diagram": {
                 "rdf:resource" : "#"+diagramId,
@@ -281,7 +280,7 @@ class cimedit {
     }
 
     static makeDiagramObjectPoint(newStuff, diagramObjectId, seq, x, y) {
-        let counter = currentCimsvg().getNameCounter("cim:DiagramObjectPoint");
+        let counter = common.getCimsvg().getNameCounter("cim:DiagramObjectPoint");
         let diagramObjectPoint = {
             "cim:DiagramObjectPoint.DiagramObject" : {
                 "rdf:resource" : "#"+diagramObjectId
@@ -289,7 +288,6 @@ class cimedit {
             "cim:DiagramObjectPoint.sequenceNumber": seq,
             "cim:DiagramObjectPoint.xPosition" : x,
             "cim:DiagramObjectPoint.yPosition" : y,
-            "cim:IdentifiedObject.name" : "diagram object point " + counter.toString(),
         };
         let id = common.generateUUID();
         cimedit.addCategorizedItem(newStuff, "cim:DiagramObjectPoint", id, diagramObjectPoint);
@@ -297,7 +295,7 @@ class cimedit {
     }
 
     static makeAggregateComponent(diagramId, jsonBaseData, type) {
-        let counter = currentCimsvg().getNameCounter(type);
+        let counter = common.getCimsvg().getNameCounter(type);
         let aggregateComponent = {
             "cim:IdentifiedObject.name": type.toString() + counter,
             "diagram": diagramId,
@@ -308,7 +306,7 @@ class cimedit {
     }
 
     static makeRawAggregateComponent(jsonBaseData, type) {
-        let counter = currentCimsvg().getNameCounter(type);
+        let counter = common.getCimsvg().getNameCounter(type);
         let aggregateComponent = {
             "cim:IdentifiedObject.name": type.toString() + counter,
         };
@@ -353,7 +351,7 @@ class cimedit {
             let terminals = common.safeExtract(jsonBaseData, type, rdfid, "terminals");
             if (terminals) {
                 terminals.forEach(function(terminal) {
-                    currentCimsvg().removeTerminal(type, rdfid, terminal);
+                    common.getCimsvg().removeTerminal(type, rdfid, terminal);
                 });
             }
         }
@@ -363,27 +361,32 @@ class cimedit {
     }
 
     static addRawComponentToBaseJson(jsonBaseData, type) {
-        return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
+        return cimedit.makeAggregateComponent(common.getCimsvg().getCurrentDiagramId(), jsonBaseData, type);
     }
 
     static addComponentToBaseJson(jsonBaseData, type, point) {
         // TODO: diagramId is ignored.
+        logIfDebug("Adding component of type " + type);
+        if ( point !== null && point !== undefined )
+        {
+            logIfDebug(" at " + point.x + ", " + point.y);
+        }
 
         if (type === "cim:Diagram") {
             return cimedit.makeDiagram(jsonBaseData);
         }
 
-        if (currentCimsvg().getCurrentDiagramId() !== undefined) {
+        if (common.getCimsvg().getCurrentDiagramId() !== undefined) {
             if (cimedit.terminalAndPointLimits[type] !== undefined) {
                 if (cimedit.typeIsVisible(type)) {
-                    return cimedit.makeVisibleComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, cimedit.terminalAndPointLimits[type]);
+                    return cimedit.makeVisibleComponent(common.getCimsvg().getCurrentDiagramId(), jsonBaseData, type, point, {}, cimedit.terminalAndPointLimits[type]);
                 }
                 else {
-                    return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
+                    return cimedit.makeAggregateComponent(common.getCimsvg().getCurrentDiagramId(), jsonBaseData, type);
                 }
             }
             else {
-                return cimedit.makeAggregateComponent(currentCimsvg().getCurrentDiagramId(), jsonBaseData, type);
+                return cimedit.makeAggregateComponent(common.getCimsvg().getCurrentDiagramId(), jsonBaseData, type);
             }
         }
     }

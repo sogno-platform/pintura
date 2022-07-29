@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PowerSystemStabilizerDynamics from "./PowerSystemStabilizerDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PssIEEE2B extends PowerSystemStabilizerDynamics {
 
@@ -548,6 +550,36 @@ class PssIEEE2B extends PowerSystemStabilizerDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'inputSignal1Type': [CGMESProfile.shortNames.DY, ],
+						'inputSignal2Type': [CGMESProfile.shortNames.DY, ],
+						'vsi1max': [CGMESProfile.shortNames.DY, ],
+						'vsi1min': [CGMESProfile.shortNames.DY, ],
+						'tw1': [CGMESProfile.shortNames.DY, ],
+						'tw2': [CGMESProfile.shortNames.DY, ],
+						'vsi2max': [CGMESProfile.shortNames.DY, ],
+						'vsi2min': [CGMESProfile.shortNames.DY, ],
+						'tw3': [CGMESProfile.shortNames.DY, ],
+						'tw4': [CGMESProfile.shortNames.DY, ],
+						't1': [CGMESProfile.shortNames.DY, ],
+						't2': [CGMESProfile.shortNames.DY, ],
+						't3': [CGMESProfile.shortNames.DY, ],
+						't4': [CGMESProfile.shortNames.DY, ],
+						't6': [CGMESProfile.shortNames.DY, ],
+						't7': [CGMESProfile.shortNames.DY, ],
+						't8': [CGMESProfile.shortNames.DY, ],
+						't9': [CGMESProfile.shortNames.DY, ],
+						't10': [CGMESProfile.shortNames.DY, ],
+						't11': [CGMESProfile.shortNames.DY, ],
+						'ks1': [CGMESProfile.shortNames.DY, ],
+						'ks2': [CGMESProfile.shortNames.DY, ],
+						'ks3': [CGMESProfile.shortNames.DY, ],
+						'n': [CGMESProfile.shortNames.DY, ],
+						'm': [CGMESProfile.shortNames.DY, ],
+						'vstmax': [CGMESProfile.shortNames.DY, ],
+						'vstmin': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class MeasurementValue extends IdentifiedObject {
 
@@ -68,6 +70,12 @@ class MeasurementValue extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'timeStamp': [CGMESProfile.shortNames.EQ, ],
+						'sensorAccuracy': [CGMESProfile.shortNames.EQ, ],
+						'MeasurementValueSource': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

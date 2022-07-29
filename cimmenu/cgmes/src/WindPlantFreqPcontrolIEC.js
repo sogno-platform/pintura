@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindPlantFreqPcontrolIEC extends IdentifiedObject {
 
@@ -208,6 +210,19 @@ class WindPlantFreqPcontrolIEC extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'dprefmax': [CGMESProfile.shortNames.DY, ],
+						'dprefmin': [CGMESProfile.shortNames.DY, ],
+						'kiwpp': [CGMESProfile.shortNames.DY, ],
+						'kpwpp': [CGMESProfile.shortNames.DY, ],
+						'prefmax': [CGMESProfile.shortNames.DY, ],
+						'prefmin': [CGMESProfile.shortNames.DY, ],
+						'tpft': [CGMESProfile.shortNames.DY, ],
+						'tpfv': [CGMESProfile.shortNames.DY, ],
+						'twpffilt': [CGMESProfile.shortNames.DY, ],
+						'twppfilt': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ACDCTerminal extends IdentifiedObject {
 
@@ -88,6 +90,13 @@ class ACDCTerminal extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP, ],
+						'BusNameMarker': [CGMESProfile.shortNames.EQ, ],
+						'sequenceNumber': [CGMESProfile.shortNames.EQ, ],
+						'Measurements': [CGMESProfile.shortNames.EQ, ],
+						'connected': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

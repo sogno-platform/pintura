@@ -33,6 +33,7 @@ dev: cimsvg cimmenu
 
 docker: cimsvg cimmenu
 	docker build \
+                --no-cache \
 		--tag $(DOCKER_IMAGE) \
 		--iidfile $@ \
 		--build-arg GIT_COMMIT=git[${GIT_COMMIT}] \

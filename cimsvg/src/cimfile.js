@@ -6,26 +6,9 @@
 
 import cimxml from "./cimxml.js";
 import JSZip from "jszip";
+import cgmes from '../../cimmenu/cgmes/cgmesIndex.js';
+
 class cimfile {
-
-    static addToFileMap(fileData, fileName, fileMap){
-        let fileExists = fileName in fileMap;
-        if (fileExists) {
-            let tmp = Object.assign(fileMap[fileName], fileData);
-            fileMap[fileName] = tmp;
-        }
-        else {
-            fileMap[fileName] = fileData;
-        }
-    }
-
-    static addToPackage(data, key, pack, packageData) {
-        let packExists = pack in packageData;
-        if (!packExists) {
-            packageData[pack] = {};
-        }
-        packageData[pack][key] = data;
-    }
 
     static saveFile(data, filename) {
         // TODO : get rid of the document references
@@ -94,16 +77,16 @@ class cimfile {
             });
     }
 
-    static createMultipartZip(jsonData, fullModel, filename) {
+    static createMultipartZip(jsonData, filename) {
         let fileMap = { components: {}};
         let zip = new JSZip();
-        for(let packageName in jsonData) {
-            cimfile.addToFileMap(jsonData[packageName], packageName, fileMap["components"]);
-        }
-        for (let file in fileMap["components"]) {
-            let fileDataWithModel = fileMap["components"][file];
-            fileDataWithModel["md:FullModel"] = fullModel;
+        for (let file in jsonData) {
+            let fileDataWithModel = jsonData[file];
+            let xml = cimxml.getBaseXML(fileDataWithModel);
             let fileData = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + cimxml.getBaseXML(fileDataWithModel);
+            if (!file.endsWith(".xml")) {
+                file = file + ".xml";
+            }
             zip.file(file, fileData);
         }
         cimfile.saveZip(zip, filename);
@@ -113,30 +96,89 @@ class cimfile {
         cimfile.saveFile(data, filename);
     }
 
-/* TODO: multipart disabled for now, until discovery during serialization work
- * how hard it is to re-weave the components back into packages
-    static convertToMultipartZip(jsonData, filename) {
-        let packageData = {};
-        let fullModel = {};
-        for (let key in jsonData) {
-            let pack = packageIndex[key.substring(4)][0];
-            if (pack) {
-                cimfile.addToPackage(jsonData[key], key, pack, packageData);
-            }
-            else {
-                console.error("Could not find " + key + " in packageIndex.");
+    static addToProfile(componentList, componentType, profile, possibleProfileList, data) {
+        let profileExists = profile in data;
+        if (!profileExists) {
+            data[profile] = {};
+        }
+        if (componentType in data[profile]) {
+            console.error("The component type: ", componentType, " already exists in profile: ", profile);
+        }
+        else {
+            data[profile][componentType] = {};
+            for (let component in componentList) {
+                for (let attr in componentList[component]) {
+                    if (cimfile.checkAttributeBelongsToProfile(attr, profile)) {
+                        let componentExists = component in data[profile][componentType];
+                        if (!componentExists)  {
+                            data[profile][componentType][component] = { "pintura:rdfid" : component };
+                        }
+                        data[profile][componentType][component][attr] = componentList[component][attr];
+                    }
+                }
             }
         }
-        let d = new Date();
-        fullModel["md:Model.created"] = d.getFullYear() +
-                               "-" + (d.getMonth() + 1) +
-                               "-" + d.getDate() +
-                               "T" + d.getHours() +
-                               ":" + d.getMinutes() +
-                               ":" + d.getSeconds();
-        cimfile.createMultipartZip(packageData, fullModel, filename);
     }
-    */
+
+    static checkAttributeBelongsToProfile(attributeName, profile) {
+        let profiles = cgmes["src_CGMESProfile_js"];
+        let profileValue = profiles["shortNames"][profile];
+        let tokens = attributeName.substring(4).split(".");
+        if (tokens.length == 2) {
+            let nameInCGMESLibrary = "src_" + tokens[0] + "_js";
+            if (nameInCGMESLibrary in cgmes) {
+                if (tokens[1] in cgmes[nameInCGMESLibrary].possibleProfileList) {
+                    if (cgmes[nameInCGMESLibrary].possibleProfileList[tokens[1]].includes(profileValue)) {
+                        return true;
+                    }
+                }
+                else {
+                    console.error("Unaware of attribute: ", tokens[1], " in component type: ", tokens[0]);
+                }
+            }
+        }
+        return false;
+    }
+
+    static checkComponentBelongsInProfile(componentName, profileNumber) {
+        let nameInCGMESLibrary = "src_" + componentName + "_js";
+        if (nameInCGMESLibrary in cgmes) {
+            if (cgmes[nameInCGMESLibrary].possibleProfileList["class"].includes(profileNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /* TODO: multipart disabled for now, until discovery during serialization work
+     * how hard it is to re-weave the components back into packages */
+    static convertToMultipartZip(jsonData, filename) {
+        let packageData = {};
+        let profiles = cgmes["src_CGMESProfile_js"];
+        for (let profileKey in profiles["shortNames"]) {
+            let profileValue = profiles["shortNames"][profileKey];
+            let d = new Date();
+
+            for (let key in jsonData) {
+                let nameInCGMESLibrary = "src_" + key.substring(4) + "_js";
+                if (cimfile.checkComponentBelongsInProfile(key.substring(4), profileValue)) {
+                    cimfile.addToProfile(jsonData[key], key, profileKey, cgmes[nameInCGMESLibrary].possibleProfileList, packageData);
+                }
+            }
+            if (profileKey in packageData) {
+                let fullModel = {};
+                fullModel["md:Model.created"] = d.getFullYear() +
+                                   "-" + (d.getMonth() + 1) +
+                                   "-" + d.getDate() +
+                                   "T" + d.getHours() +
+                                   ":" + d.getMinutes() +
+                                   ":" + d.getSeconds();
+                fullModel["md:Model.profile"] = profiles["profileUrls"][profileKey]
+                packageData[profileKey]["md:FullModel"] = fullModel;
+            }
+        }
+        cimfile.createMultipartZip(packageData, filename);
+    }
 }
 
 export default cimfile;

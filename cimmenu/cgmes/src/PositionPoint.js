@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PositionPoint extends BaseClass {
 
@@ -108,6 +110,14 @@ class PositionPoint extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.GL, ],
+						'Location': [CGMESProfile.shortNames.GL, ],
+						'sequenceNumber': [CGMESProfile.shortNames.GL, ],
+						'xPosition': [CGMESProfile.shortNames.GL, ],
+						'yPosition': [CGMESProfile.shortNames.GL, ],
+						'zPosition': [CGMESProfile.shortNames.GL, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

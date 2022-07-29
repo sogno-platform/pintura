@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class NonlinearShuntCompensatorPoint extends BaseClass {
 
@@ -128,6 +130,15 @@ class NonlinearShuntCompensatorPoint extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'NonlinearShuntCompensator': [CGMESProfile.shortNames.EQ, ],
+						'b': [CGMESProfile.shortNames.EQ, ],
+						'g': [CGMESProfile.shortNames.EQ, ],
+						'sectionNumber': [CGMESProfile.shortNames.EQ, ],
+						'b0': [CGMESProfile.shortNames.EQ, ],
+						'g0': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

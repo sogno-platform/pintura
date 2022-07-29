@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TapChanger from "./TapChanger.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PhaseTapChanger extends TapChanger {
 
@@ -28,6 +30,10 @@ class PhaseTapChanger extends TapChanger {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'TransformerEnd': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [
