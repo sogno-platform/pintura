@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ReactivePower extends BaseClass {
 
@@ -68,6 +70,12 @@ class ReactivePower extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, ],
+						'value': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, ],
+						'unit': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, ],
+						'multiplier': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

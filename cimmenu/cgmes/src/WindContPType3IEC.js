@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindContPType3IEC extends IdentifiedObject {
 
@@ -448,6 +450,31 @@ class WindContPType3IEC extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'dpmax': [CGMESProfile.shortNames.DY, ],
+						'dtrisemaxlvrt': [CGMESProfile.shortNames.DY, ],
+						'kdtd': [CGMESProfile.shortNames.DY, ],
+						'kip': [CGMESProfile.shortNames.DY, ],
+						'kpp': [CGMESProfile.shortNames.DY, ],
+						'mplvrt': [CGMESProfile.shortNames.DY, ],
+						'omegaoffset': [CGMESProfile.shortNames.DY, ],
+						'pdtdmax': [CGMESProfile.shortNames.DY, ],
+						'rramp': [CGMESProfile.shortNames.DY, ],
+						'tdvs': [CGMESProfile.shortNames.DY, ],
+						'temin': [CGMESProfile.shortNames.DY, ],
+						'tomegafilt': [CGMESProfile.shortNames.DY, ],
+						'tpfilt': [CGMESProfile.shortNames.DY, ],
+						'tpord': [CGMESProfile.shortNames.DY, ],
+						'tufilt': [CGMESProfile.shortNames.DY, ],
+						'tuscale': [CGMESProfile.shortNames.DY, ],
+						'twref': [CGMESProfile.shortNames.DY, ],
+						'udvs': [CGMESProfile.shortNames.DY, ],
+						'updip': [CGMESProfile.shortNames.DY, ],
+						'wdtd': [CGMESProfile.shortNames.DY, ],
+						'zeta': [CGMESProfile.shortNames.DY, ],
+						'WindDynamicsLookupTable': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

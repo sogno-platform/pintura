@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PowerSystemResource from "./PowerSystemResource.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ConnectivityNodeContainer extends PowerSystemResource {
 
@@ -28,6 +30,10 @@ class ConnectivityNodeContainer extends PowerSystemResource {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD, ],
+						'TopologicalNode': [CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DCSwitch from "./DCSwitch.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DCDisconnector extends DCSwitch {
 
@@ -8,6 +10,9 @@ class DCDisconnector extends DCSwitch {
         let attributeEntries = DCSwitch.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

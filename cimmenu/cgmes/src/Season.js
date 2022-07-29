@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Season extends IdentifiedObject {
 
@@ -48,6 +50,11 @@ class Season extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'endDate': [CGMESProfile.shortNames.EQ, ],
+						'startDate': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

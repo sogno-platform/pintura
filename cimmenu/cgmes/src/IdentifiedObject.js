@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class IdentifiedObject extends BaseClass {
 
@@ -108,6 +110,14 @@ class IdentifiedObject extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.GL, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD, ],
+						'mRID': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.GL, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD, ],
+						'name': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.GL, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD, ],
+						'description': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD, ],
+						'energyIdentCodeEic': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD, ],
+						'shortName': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

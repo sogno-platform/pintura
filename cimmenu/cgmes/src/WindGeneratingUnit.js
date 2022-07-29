@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import GeneratingUnit from "./GeneratingUnit.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindGeneratingUnit extends GeneratingUnit {
 
@@ -28,6 +30,10 @@ class WindGeneratingUnit extends GeneratingUnit {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'windGenUnitType': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

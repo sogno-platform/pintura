@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Equipment from "./Equipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class HydroPump extends Equipment {
 
@@ -48,6 +50,11 @@ class HydroPump extends Equipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'HydroPowerPlant': [CGMESProfile.shortNames.EQ, ],
+						'RotatingMachine': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

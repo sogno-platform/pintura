@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ExcitationSystemDynamics from "./ExcitationSystemDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ExcAC8B extends ExcitationSystemDynamics {
 
@@ -548,6 +550,36 @@ class ExcAC8B extends ExcitationSystemDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'inlim': [CGMESProfile.shortNames.DY, ],
+						'ka': [CGMESProfile.shortNames.DY, ],
+						'kc': [CGMESProfile.shortNames.DY, ],
+						'kd': [CGMESProfile.shortNames.DY, ],
+						'kdr': [CGMESProfile.shortNames.DY, ],
+						'ke': [CGMESProfile.shortNames.DY, ],
+						'kir': [CGMESProfile.shortNames.DY, ],
+						'kpr': [CGMESProfile.shortNames.DY, ],
+						'ks': [CGMESProfile.shortNames.DY, ],
+						'pidlim': [CGMESProfile.shortNames.DY, ],
+						'seve1': [CGMESProfile.shortNames.DY, ],
+						'seve2': [CGMESProfile.shortNames.DY, ],
+						'ta': [CGMESProfile.shortNames.DY, ],
+						'tdr': [CGMESProfile.shortNames.DY, ],
+						'te': [CGMESProfile.shortNames.DY, ],
+						'telim': [CGMESProfile.shortNames.DY, ],
+						've1': [CGMESProfile.shortNames.DY, ],
+						've2': [CGMESProfile.shortNames.DY, ],
+						'vemin': [CGMESProfile.shortNames.DY, ],
+						'vfemax': [CGMESProfile.shortNames.DY, ],
+						'vimax': [CGMESProfile.shortNames.DY, ],
+						'vimin': [CGMESProfile.shortNames.DY, ],
+						'vpidmax': [CGMESProfile.shortNames.DY, ],
+						'vpidmin': [CGMESProfile.shortNames.DY, ],
+						'vrmax': [CGMESProfile.shortNames.DY, ],
+						'vrmin': [CGMESProfile.shortNames.DY, ],
+						'vtmult': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

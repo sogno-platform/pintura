@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ProprietaryParameterDynamics extends BaseClass {
 
@@ -448,6 +450,31 @@ class ProprietaryParameterDynamics extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'WindPlantUserDefined': [CGMESProfile.shortNames.DY, ],
+						'WindType1or2UserDefined': [CGMESProfile.shortNames.DY, ],
+						'WindType3or4UserDefined': [CGMESProfile.shortNames.DY, ],
+						'SynchronousMachineUserDefined': [CGMESProfile.shortNames.DY, ],
+						'AsynchronousMachineUserDefined': [CGMESProfile.shortNames.DY, ],
+						'TurbineGovernorUserDefined': [CGMESProfile.shortNames.DY, ],
+						'TurbineLoadControllerUserDefined': [CGMESProfile.shortNames.DY, ],
+						'MechanicalLoadUserDefined': [CGMESProfile.shortNames.DY, ],
+						'ExcitationSystemUserDefined': [CGMESProfile.shortNames.DY, ],
+						'OverexcitationLimiterUserDefined': [CGMESProfile.shortNames.DY, ],
+						'UnderexcitationLimiterUserDefined': [CGMESProfile.shortNames.DY, ],
+						'PowerSystemStabilizerUserDefined': [CGMESProfile.shortNames.DY, ],
+						'DiscontinuousExcitationControlUserDefined': [CGMESProfile.shortNames.DY, ],
+						'PFVArControllerType1UserDefined': [CGMESProfile.shortNames.DY, ],
+						'VoltageAdjusterUserDefined': [CGMESProfile.shortNames.DY, ],
+						'PFVArControllerType2UserDefined': [CGMESProfile.shortNames.DY, ],
+						'VoltageCompensatorUserDefined': [CGMESProfile.shortNames.DY, ],
+						'LoadUserDefined': [CGMESProfile.shortNames.DY, ],
+						'parameterNumber': [CGMESProfile.shortNames.DY, ],
+						'booleanParameterValue': [CGMESProfile.shortNames.DY, ],
+						'integerParameterValue': [CGMESProfile.shortNames.DY, ],
+						'floatParameterValue': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

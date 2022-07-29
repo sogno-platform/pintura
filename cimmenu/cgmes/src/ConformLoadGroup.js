@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import LoadGroup from "./LoadGroup.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ConformLoadGroup extends LoadGroup {
 
@@ -28,6 +30,10 @@ class ConformLoadGroup extends LoadGroup {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'ConformLoadSchedules': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

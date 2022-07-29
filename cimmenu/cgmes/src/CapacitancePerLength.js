@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class CapacitancePerLength extends BaseClass {
 
@@ -108,6 +110,14 @@ class CapacitancePerLength extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'value': [CGMESProfile.shortNames.EQ, ],
+						'unit': [CGMESProfile.shortNames.EQ, ],
+						'multiplier': [CGMESProfile.shortNames.EQ, ],
+						'denominatorUnit': [CGMESProfile.shortNames.EQ, ],
+						'denominatorMultiplier': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

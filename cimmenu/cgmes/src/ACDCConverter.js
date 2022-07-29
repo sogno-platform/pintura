@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ConductingEquipment from "./ConductingEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ACDCConverter extends ConductingEquipment {
 
@@ -368,6 +370,27 @@ class ACDCConverter extends ConductingEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, ],
+						'baseS': [CGMESProfile.shortNames.EQ, ],
+						'idleLoss': [CGMESProfile.shortNames.EQ, ],
+						'maxUdc': [CGMESProfile.shortNames.EQ, ],
+						'minUdc': [CGMESProfile.shortNames.EQ, ],
+						'numberOfValves': [CGMESProfile.shortNames.EQ, ],
+						'ratedUdc': [CGMESProfile.shortNames.EQ, ],
+						'resistiveLoss': [CGMESProfile.shortNames.EQ, ],
+						'switchingLoss': [CGMESProfile.shortNames.EQ, ],
+						'valveU0': [CGMESProfile.shortNames.EQ, ],
+						'PccTerminal': [CGMESProfile.shortNames.EQ, ],
+						'p': [CGMESProfile.shortNames.SSH, ],
+						'q': [CGMESProfile.shortNames.SSH, ],
+						'targetPpcc': [CGMESProfile.shortNames.SSH, ],
+						'targetUdc': [CGMESProfile.shortNames.SSH, ],
+						'idc': [CGMESProfile.shortNames.SV, ],
+						'poleLossP': [CGMESProfile.shortNames.SV, ],
+						'uc': [CGMESProfile.shortNames.SV, ],
+						'udc': [CGMESProfile.shortNames.SV, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

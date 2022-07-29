@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EquipmentContainer from "./EquipmentContainer.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DCEquipmentContainer extends EquipmentContainer {
 
@@ -28,6 +30,10 @@ class DCEquipmentContainer extends EquipmentContainer {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP, ],
+						'DCTopologicalNode': [CGMESProfile.shortNames.TP, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

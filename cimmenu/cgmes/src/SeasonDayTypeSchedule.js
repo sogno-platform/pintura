@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import RegularIntervalSchedule from "./RegularIntervalSchedule.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SeasonDayTypeSchedule extends RegularIntervalSchedule {
 
@@ -48,6 +50,11 @@ class SeasonDayTypeSchedule extends RegularIntervalSchedule {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'DayType': [CGMESProfile.shortNames.EQ, ],
+						'Season': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

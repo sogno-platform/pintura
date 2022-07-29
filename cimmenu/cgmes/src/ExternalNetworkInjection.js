@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import RegulatingCondEq from "./RegulatingCondEq.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ExternalNetworkInjection extends RegulatingCondEq {
 
@@ -368,6 +370,27 @@ class ExternalNetworkInjection extends RegulatingCondEq {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'governorSCD': [CGMESProfile.shortNames.EQ, ],
+						'maxP': [CGMESProfile.shortNames.EQ, ],
+						'maxQ': [CGMESProfile.shortNames.EQ, ],
+						'minP': [CGMESProfile.shortNames.EQ, ],
+						'minQ': [CGMESProfile.shortNames.EQ, ],
+						'ikSecond': [CGMESProfile.shortNames.EQ, ],
+						'maxInitialSymShCCurrent': [CGMESProfile.shortNames.EQ, ],
+						'maxR0ToX0Ratio': [CGMESProfile.shortNames.EQ, ],
+						'maxR1ToX1Ratio': [CGMESProfile.shortNames.EQ, ],
+						'maxZ0ToZ1Ratio': [CGMESProfile.shortNames.EQ, ],
+						'minInitialSymShCCurrent': [CGMESProfile.shortNames.EQ, ],
+						'minR0ToX0Ratio': [CGMESProfile.shortNames.EQ, ],
+						'minR1ToX1Ratio': [CGMESProfile.shortNames.EQ, ],
+						'minZ0ToZ1Ratio': [CGMESProfile.shortNames.EQ, ],
+						'voltageFactor': [CGMESProfile.shortNames.EQ, ],
+						'referencePriority': [CGMESProfile.shortNames.SSH, ],
+						'p': [CGMESProfile.shortNames.SSH, ],
+						'q': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

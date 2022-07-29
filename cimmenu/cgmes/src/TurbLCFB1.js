@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineLoadControllerDynamics from "./TurbineLoadControllerDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TurbLCFB1 extends TurbineLoadControllerDynamics {
 
@@ -248,6 +250,21 @@ class TurbLCFB1 extends TurbineLoadControllerDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'mwbase': [CGMESProfile.shortNames.DY, ],
+						'speedReferenceGovernor': [CGMESProfile.shortNames.DY, ],
+						'db': [CGMESProfile.shortNames.DY, ],
+						'emax': [CGMESProfile.shortNames.DY, ],
+						'fb': [CGMESProfile.shortNames.DY, ],
+						'kp': [CGMESProfile.shortNames.DY, ],
+						'ki': [CGMESProfile.shortNames.DY, ],
+						'fbf': [CGMESProfile.shortNames.DY, ],
+						'pbf': [CGMESProfile.shortNames.DY, ],
+						'tpelec': [CGMESProfile.shortNames.DY, ],
+						'irmax': [CGMESProfile.shortNames.DY, ],
+						'pmwset': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

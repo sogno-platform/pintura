@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class LoadStatic extends IdentifiedObject {
 
@@ -368,6 +370,27 @@ class LoadStatic extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'LoadAggregate': [CGMESProfile.shortNames.DY, ],
+						'staticLoadModelType': [CGMESProfile.shortNames.DY, ],
+						'kp1': [CGMESProfile.shortNames.DY, ],
+						'kp2': [CGMESProfile.shortNames.DY, ],
+						'kp3': [CGMESProfile.shortNames.DY, ],
+						'kp4': [CGMESProfile.shortNames.DY, ],
+						'ep1': [CGMESProfile.shortNames.DY, ],
+						'ep2': [CGMESProfile.shortNames.DY, ],
+						'ep3': [CGMESProfile.shortNames.DY, ],
+						'kpf': [CGMESProfile.shortNames.DY, ],
+						'kq1': [CGMESProfile.shortNames.DY, ],
+						'kq2': [CGMESProfile.shortNames.DY, ],
+						'kq3': [CGMESProfile.shortNames.DY, ],
+						'kq4': [CGMESProfile.shortNames.DY, ],
+						'eq1': [CGMESProfile.shortNames.DY, ],
+						'eq2': [CGMESProfile.shortNames.DY, ],
+						'eq3': [CGMESProfile.shortNames.DY, ],
+						'kqf': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

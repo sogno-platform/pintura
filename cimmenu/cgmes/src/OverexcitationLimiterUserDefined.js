@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import OverexcitationLimiterDynamics from "./OverexcitationLimiterDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class OverexcitationLimiterUserDefined extends OverexcitationLimiterDynamics {
 
@@ -28,6 +30,10 @@ class OverexcitationLimiterUserDefined extends OverexcitationLimiterDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'proprietary': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import SynchronousMachineDynamics from "./SynchronousMachineDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SynchronousMachineUserDefined extends SynchronousMachineDynamics {
 
@@ -28,6 +30,10 @@ class SynchronousMachineUserDefined extends SynchronousMachineDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'proprietary': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

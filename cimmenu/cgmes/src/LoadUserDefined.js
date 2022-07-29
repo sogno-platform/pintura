@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import LoadDynamics from "./LoadDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class LoadUserDefined extends LoadDynamics {
 
@@ -28,6 +30,10 @@ class LoadUserDefined extends LoadDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'proprietary': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

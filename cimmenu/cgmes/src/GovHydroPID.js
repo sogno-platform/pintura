@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineGovernorDynamics from "./TurbineGovernorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GovHydroPID extends TurbineGovernorDynamics {
 
@@ -668,6 +670,42 @@ class GovHydroPID extends TurbineGovernorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'mwbase': [CGMESProfile.shortNames.DY, ],
+						'pmax': [CGMESProfile.shortNames.DY, ],
+						'pmin': [CGMESProfile.shortNames.DY, ],
+						'r': [CGMESProfile.shortNames.DY, ],
+						'td': [CGMESProfile.shortNames.DY, ],
+						'tf': [CGMESProfile.shortNames.DY, ],
+						'tp': [CGMESProfile.shortNames.DY, ],
+						'velop': [CGMESProfile.shortNames.DY, ],
+						'velcl': [CGMESProfile.shortNames.DY, ],
+						'kd': [CGMESProfile.shortNames.DY, ],
+						'kp': [CGMESProfile.shortNames.DY, ],
+						'ki': [CGMESProfile.shortNames.DY, ],
+						'kg': [CGMESProfile.shortNames.DY, ],
+						'tturb': [CGMESProfile.shortNames.DY, ],
+						'aturb': [CGMESProfile.shortNames.DY, ],
+						'bturb': [CGMESProfile.shortNames.DY, ],
+						'tt': [CGMESProfile.shortNames.DY, ],
+						'db1': [CGMESProfile.shortNames.DY, ],
+						'inputSignal': [CGMESProfile.shortNames.DY, ],
+						'eps': [CGMESProfile.shortNames.DY, ],
+						'db2': [CGMESProfile.shortNames.DY, ],
+						'gv1': [CGMESProfile.shortNames.DY, ],
+						'pgv1': [CGMESProfile.shortNames.DY, ],
+						'gv2': [CGMESProfile.shortNames.DY, ],
+						'pgv2': [CGMESProfile.shortNames.DY, ],
+						'gv3': [CGMESProfile.shortNames.DY, ],
+						'pgv3': [CGMESProfile.shortNames.DY, ],
+						'gv4': [CGMESProfile.shortNames.DY, ],
+						'pgv4': [CGMESProfile.shortNames.DY, ],
+						'gv5': [CGMESProfile.shortNames.DY, ],
+						'pgv5': [CGMESProfile.shortNames.DY, ],
+						'gv6': [CGMESProfile.shortNames.DY, ],
+						'pgv6': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

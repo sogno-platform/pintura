@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Switch from "./Switch.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Disconnector extends Switch {
 
@@ -8,6 +10,9 @@ class Disconnector extends Switch {
         let attributeEntries = Switch.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

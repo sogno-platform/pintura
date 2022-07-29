@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import MeasurementValue from "./MeasurementValue.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DiscreteValue extends MeasurementValue {
 
@@ -48,6 +50,11 @@ class DiscreteValue extends MeasurementValue {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'Discrete': [CGMESProfile.shortNames.EQ, ],
+						'value': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

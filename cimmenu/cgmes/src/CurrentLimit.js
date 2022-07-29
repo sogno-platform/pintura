@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import OperationalLimit from "./OperationalLimit.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class CurrentLimit extends OperationalLimit {
 
@@ -28,6 +30,10 @@ class CurrentLimit extends OperationalLimit {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'value': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

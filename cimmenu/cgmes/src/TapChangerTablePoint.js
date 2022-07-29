@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TapChangerTablePoint extends BaseClass {
 
@@ -128,6 +130,15 @@ class TapChangerTablePoint extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'b': [CGMESProfile.shortNames.EQ, ],
+						'g': [CGMESProfile.shortNames.EQ, ],
+						'r': [CGMESProfile.shortNames.EQ, ],
+						'ratio': [CGMESProfile.shortNames.EQ, ],
+						'step': [CGMESProfile.shortNames.EQ, ],
+						'x': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

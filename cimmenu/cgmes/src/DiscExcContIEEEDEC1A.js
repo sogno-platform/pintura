@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DiscontinuousExcitationControlDynamics from "./DiscontinuousExcitationControlDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DiscExcContIEEEDEC1A extends DiscontinuousExcitationControlDynamics {
 
@@ -368,6 +370,27 @@ class DiscExcContIEEEDEC1A extends DiscontinuousExcitationControlDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'vtlmt': [CGMESProfile.shortNames.DY, ],
+						'vomax': [CGMESProfile.shortNames.DY, ],
+						'vomin': [CGMESProfile.shortNames.DY, ],
+						'ketl': [CGMESProfile.shortNames.DY, ],
+						'vtc': [CGMESProfile.shortNames.DY, ],
+						'val': [CGMESProfile.shortNames.DY, ],
+						'esc': [CGMESProfile.shortNames.DY, ],
+						'kan': [CGMESProfile.shortNames.DY, ],
+						'tan': [CGMESProfile.shortNames.DY, ],
+						'tw5': [CGMESProfile.shortNames.DY, ],
+						'vsmax': [CGMESProfile.shortNames.DY, ],
+						'vsmin': [CGMESProfile.shortNames.DY, ],
+						'td': [CGMESProfile.shortNames.DY, ],
+						'tl1': [CGMESProfile.shortNames.DY, ],
+						'tl2': [CGMESProfile.shortNames.DY, ],
+						'vtm': [CGMESProfile.shortNames.DY, ],
+						'vtn': [CGMESProfile.shortNames.DY, ],
+						'vanmax': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

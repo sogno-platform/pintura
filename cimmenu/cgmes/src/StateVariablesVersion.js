@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class StateVariablesVersion extends BaseClass {
 
@@ -208,6 +210,19 @@ class StateVariablesVersion extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.SV, ],
+						'baseUML': [CGMESProfile.shortNames.SV, ],
+						'baseURI': [CGMESProfile.shortNames.SV, ],
+						'date': [CGMESProfile.shortNames.SV, ],
+						'differenceModelURI': [CGMESProfile.shortNames.SV, ],
+						'entsoeUML': [CGMESProfile.shortNames.SV, ],
+						'entsoeURI': [CGMESProfile.shortNames.SV, ],
+						'modelDescriptionURI': [CGMESProfile.shortNames.SV, ],
+						'namespaceRDF': [CGMESProfile.shortNames.SV, ],
+						'namespaceUML': [CGMESProfile.shortNames.SV, ],
+						'shortName': [CGMESProfile.shortNames.SV, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

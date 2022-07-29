@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Curve from "./Curve.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ReactiveCapabilityCurve extends Curve {
 
@@ -28,6 +30,10 @@ class ReactiveCapabilityCurve extends Curve {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'InitiallyUsedBySynchronousMachines': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

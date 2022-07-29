@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 const CsOperatingModeKindEnum = {
         inverter:0,
         rectifier:1,
@@ -17,6 +19,9 @@ class CsOperatingModeKind extends BaseClass {
         let attributeEntries = BaseClass.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

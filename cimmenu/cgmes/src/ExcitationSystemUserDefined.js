@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ExcitationSystemDynamics from "./ExcitationSystemDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ExcitationSystemUserDefined extends ExcitationSystemDynamics {
 
@@ -28,6 +30,10 @@ class ExcitationSystemUserDefined extends ExcitationSystemDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'proprietary': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

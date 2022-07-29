@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DCBaseTerminal from "./DCBaseTerminal.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ACDCConverterDCTerminal extends DCBaseTerminal {
 
@@ -48,6 +50,11 @@ class ACDCConverterDCTerminal extends DCBaseTerminal {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.TP, ],
+						'DCConductingEquipment': [CGMESProfile.shortNames.EQ, ],
+						'polarity': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

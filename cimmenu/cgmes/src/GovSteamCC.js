@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineGovernorDynamics from "./TurbineGovernorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GovSteamCC extends TurbineGovernorDynamics {
 
@@ -348,6 +350,26 @@ class GovSteamCC extends TurbineGovernorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'mwbase': [CGMESProfile.shortNames.DY, ],
+						'pmaxhp': [CGMESProfile.shortNames.DY, ],
+						'rhp': [CGMESProfile.shortNames.DY, ],
+						't1hp': [CGMESProfile.shortNames.DY, ],
+						't3hp': [CGMESProfile.shortNames.DY, ],
+						't4hp': [CGMESProfile.shortNames.DY, ],
+						't5hp': [CGMESProfile.shortNames.DY, ],
+						'fhp': [CGMESProfile.shortNames.DY, ],
+						'dhp': [CGMESProfile.shortNames.DY, ],
+						'pmaxlp': [CGMESProfile.shortNames.DY, ],
+						'rlp': [CGMESProfile.shortNames.DY, ],
+						't1lp': [CGMESProfile.shortNames.DY, ],
+						't3lp': [CGMESProfile.shortNames.DY, ],
+						't4lp': [CGMESProfile.shortNames.DY, ],
+						't5lp': [CGMESProfile.shortNames.DY, ],
+						'flp': [CGMESProfile.shortNames.DY, ],
+						'dlp': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

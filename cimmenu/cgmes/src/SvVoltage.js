@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SvVoltage extends BaseClass {
 
@@ -68,6 +70,12 @@ class SvVoltage extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.SV, ],
+						'angle': [CGMESProfile.shortNames.SV, ],
+						'v': [CGMESProfile.shortNames.SV, ],
+						'TopologicalNode': [CGMESProfile.shortNames.SV, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

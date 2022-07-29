@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EquipmentContainer from "./EquipmentContainer.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Line extends EquipmentContainer {
 
@@ -28,6 +30,10 @@ class Line extends EquipmentContainer {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD, ],
+						'Region': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

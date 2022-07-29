@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineGovernorDynamics from "./TurbineGovernorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GovGAST4 extends TurbineGovernorDynamics {
 
@@ -228,6 +230,20 @@ class GovGAST4 extends TurbineGovernorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'bp': [CGMESProfile.shortNames.DY, ],
+						'tv': [CGMESProfile.shortNames.DY, ],
+						'ta': [CGMESProfile.shortNames.DY, ],
+						'tc': [CGMESProfile.shortNames.DY, ],
+						'tcm': [CGMESProfile.shortNames.DY, ],
+						'ktm': [CGMESProfile.shortNames.DY, ],
+						'tm': [CGMESProfile.shortNames.DY, ],
+						'rymx': [CGMESProfile.shortNames.DY, ],
+						'rymn': [CGMESProfile.shortNames.DY, ],
+						'mxef': [CGMESProfile.shortNames.DY, ],
+						'mnef': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

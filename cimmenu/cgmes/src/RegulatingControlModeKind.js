@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 const RegulatingControlModeKindEnum = {
         voltage:0,
         activePower:1,
@@ -29,6 +31,9 @@ class RegulatingControlModeKind extends BaseClass {
         let attributeEntries = BaseClass.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

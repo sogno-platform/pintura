@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Connector from "./Connector.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class BusbarSection extends Connector {
 
@@ -28,6 +30,10 @@ class BusbarSection extends Connector {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'ipMax': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

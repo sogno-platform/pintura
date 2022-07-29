@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import RotatingMachine from "./RotatingMachine.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class AsynchronousMachine extends RotatingMachine {
 
@@ -208,6 +210,19 @@ class AsynchronousMachine extends RotatingMachine {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY, ],
+						'nominalFrequency': [CGMESProfile.shortNames.EQ, ],
+						'nominalSpeed': [CGMESProfile.shortNames.EQ, ],
+						'converterFedDrive': [CGMESProfile.shortNames.EQ, ],
+						'efficiency': [CGMESProfile.shortNames.EQ, ],
+						'iaIrRatio': [CGMESProfile.shortNames.EQ, ],
+						'polePairNumber': [CGMESProfile.shortNames.EQ, ],
+						'ratedMechanicalPower': [CGMESProfile.shortNames.EQ, ],
+						'reversible': [CGMESProfile.shortNames.EQ, ],
+						'rxLockedRotorRatio': [CGMESProfile.shortNames.EQ, ],
+						'asynchronousMachineType': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

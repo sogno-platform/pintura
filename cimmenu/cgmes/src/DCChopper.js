@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DCConductingEquipment from "./DCConductingEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DCChopper extends DCConductingEquipment {
 
@@ -8,6 +10,9 @@ class DCChopper extends DCConductingEquipment {
         let attributeEntries = DCConductingEquipment.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

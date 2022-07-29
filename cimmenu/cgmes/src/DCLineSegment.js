@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DCConductingEquipment from "./DCConductingEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DCLineSegment extends DCConductingEquipment {
 
@@ -108,6 +110,14 @@ class DCLineSegment extends DCConductingEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'capacitance': [CGMESProfile.shortNames.EQ, ],
+						'inductance': [CGMESProfile.shortNames.EQ, ],
+						'resistance': [CGMESProfile.shortNames.EQ, ],
+						'length': [CGMESProfile.shortNames.EQ, ],
+						'PerLengthParameter': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

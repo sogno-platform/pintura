@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ConductingEquipment from "./ConductingEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Switch extends ConductingEquipment {
 
@@ -88,6 +90,13 @@ class Switch extends ConductingEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'normalOpen': [CGMESProfile.shortNames.EQ, ],
+						'ratedCurrent': [CGMESProfile.shortNames.EQ, ],
+						'retained': [CGMESProfile.shortNames.EQ, ],
+						'open': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

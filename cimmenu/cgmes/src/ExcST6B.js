@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ExcitationSystemDynamics from "./ExcitationSystemDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class ExcST6B extends ExcitationSystemDynamics {
 
@@ -468,6 +470,32 @@ class ExcST6B extends ExcitationSystemDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'ilr': [CGMESProfile.shortNames.DY, ],
+						'k1': [CGMESProfile.shortNames.DY, ],
+						'kcl': [CGMESProfile.shortNames.DY, ],
+						'kff': [CGMESProfile.shortNames.DY, ],
+						'kg': [CGMESProfile.shortNames.DY, ],
+						'kia': [CGMESProfile.shortNames.DY, ],
+						'klr': [CGMESProfile.shortNames.DY, ],
+						'km': [CGMESProfile.shortNames.DY, ],
+						'kpa': [CGMESProfile.shortNames.DY, ],
+						'kvd': [CGMESProfile.shortNames.DY, ],
+						'oelin': [CGMESProfile.shortNames.DY, ],
+						'tg': [CGMESProfile.shortNames.DY, ],
+						'ts': [CGMESProfile.shortNames.DY, ],
+						'tvd': [CGMESProfile.shortNames.DY, ],
+						'vamax': [CGMESProfile.shortNames.DY, ],
+						'vamin': [CGMESProfile.shortNames.DY, ],
+						'vilim': [CGMESProfile.shortNames.DY, ],
+						'vimax': [CGMESProfile.shortNames.DY, ],
+						'vimin': [CGMESProfile.shortNames.DY, ],
+						'vmult': [CGMESProfile.shortNames.DY, ],
+						'vrmax': [CGMESProfile.shortNames.DY, ],
+						'vrmin': [CGMESProfile.shortNames.DY, ],
+						'xc': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

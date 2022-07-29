@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EquivalentEquipment from "./EquivalentEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class EquivalentShunt extends EquivalentEquipment {
 
@@ -48,6 +50,11 @@ class EquivalentShunt extends EquivalentEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'b': [CGMESProfile.shortNames.EQ, ],
+						'g': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

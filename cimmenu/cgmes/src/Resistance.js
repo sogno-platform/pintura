@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Resistance extends BaseClass {
 
@@ -68,6 +70,12 @@ class Resistance extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'value': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'unit': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'multiplier': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

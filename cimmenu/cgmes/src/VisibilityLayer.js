@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class VisibilityLayer extends IdentifiedObject {
 
@@ -48,6 +50,11 @@ class VisibilityLayer extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DL, ],
+						'VisibleObjects': [CGMESProfile.shortNames.DL, ],
+						'drawingOrder': [CGMESProfile.shortNames.DL, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

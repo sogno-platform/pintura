@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class VolumeFlowRate extends BaseClass {
 
@@ -108,6 +110,14 @@ class VolumeFlowRate extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'denominatorMultiplier': [CGMESProfile.shortNames.DY, ],
+						'denominatorUnit': [CGMESProfile.shortNames.DY, ],
+						'multiplier': [CGMESProfile.shortNames.DY, ],
+						'unit': [CGMESProfile.shortNames.DY, ],
+						'value': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

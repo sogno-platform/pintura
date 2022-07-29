@@ -102,6 +102,20 @@ class common {
     static identifiedObjectName() {
         return "cim:IdentifiedObject.name";
     }
+
+    static getCimsvg() {
+        return common.currentCimsvgClass;
+    }
+
+    static setCimsvg(cimsvgClass) {
+        common.currentCimsvgClass = cimsvgClass;
+    }
+
+    static currentCimsvg = function() {
+        return common.currentCimsvgClass;
+    };
 }
+
+common.currentCimsvgClass = null;
 
 export default common;

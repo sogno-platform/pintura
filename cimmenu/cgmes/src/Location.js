@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Location extends IdentifiedObject {
 
@@ -48,6 +50,11 @@ class Location extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.GL, ],
+						'CoordinateSystem': [CGMESProfile.shortNames.GL, ],
+						'PowerSystemResources': [CGMESProfile.shortNames.GL, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

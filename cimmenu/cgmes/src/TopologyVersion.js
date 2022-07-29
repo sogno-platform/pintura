@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TopologyVersion extends BaseClass {
 
@@ -208,6 +210,19 @@ class TopologyVersion extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.TP, ],
+						'baseUML': [CGMESProfile.shortNames.TP, ],
+						'baseURI': [CGMESProfile.shortNames.TP, ],
+						'date': [CGMESProfile.shortNames.TP, ],
+						'differenceModelURI': [CGMESProfile.shortNames.TP, ],
+						'entsoeUML': [CGMESProfile.shortNames.TP, ],
+						'entsoeURI': [CGMESProfile.shortNames.TP, ],
+						'modelDescriptionURI': [CGMESProfile.shortNames.TP, ],
+						'namespaceRDF': [CGMESProfile.shortNames.TP, ],
+						'namespaceUML': [CGMESProfile.shortNames.TP, ],
+						'shortName': [CGMESProfile.shortNames.TP, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

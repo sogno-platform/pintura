@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PhaseTapChanger from "./PhaseTapChanger.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PhaseTapChangerNonLinear extends PhaseTapChanger {
 
@@ -68,6 +70,12 @@ class PhaseTapChangerNonLinear extends PhaseTapChanger {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'voltageStepIncrement': [CGMESProfile.shortNames.EQ, ],
+						'xMax': [CGMESProfile.shortNames.EQ, ],
+						'xMin': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

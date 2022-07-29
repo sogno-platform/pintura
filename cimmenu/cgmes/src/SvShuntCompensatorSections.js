@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SvShuntCompensatorSections extends BaseClass {
 
@@ -48,6 +50,11 @@ class SvShuntCompensatorSections extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.SV, ],
+						'sections': [CGMESProfile.shortNames.SV, ],
+						'ShuntCompensator': [CGMESProfile.shortNames.SV, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineGovernorDynamics from "./TurbineGovernorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GovCT1 extends TurbineGovernorDynamics {
 
@@ -708,6 +710,44 @@ class GovCT1 extends TurbineGovernorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'mwbase': [CGMESProfile.shortNames.DY, ],
+						'r': [CGMESProfile.shortNames.DY, ],
+						'rselect': [CGMESProfile.shortNames.DY, ],
+						'tpelec': [CGMESProfile.shortNames.DY, ],
+						'maxerr': [CGMESProfile.shortNames.DY, ],
+						'minerr': [CGMESProfile.shortNames.DY, ],
+						'kpgov': [CGMESProfile.shortNames.DY, ],
+						'kigov': [CGMESProfile.shortNames.DY, ],
+						'kdgov': [CGMESProfile.shortNames.DY, ],
+						'tdgov': [CGMESProfile.shortNames.DY, ],
+						'vmax': [CGMESProfile.shortNames.DY, ],
+						'vmin': [CGMESProfile.shortNames.DY, ],
+						'tact': [CGMESProfile.shortNames.DY, ],
+						'kturb': [CGMESProfile.shortNames.DY, ],
+						'wfnl': [CGMESProfile.shortNames.DY, ],
+						'tb': [CGMESProfile.shortNames.DY, ],
+						'tc': [CGMESProfile.shortNames.DY, ],
+						'wfspd': [CGMESProfile.shortNames.DY, ],
+						'teng': [CGMESProfile.shortNames.DY, ],
+						'tfload': [CGMESProfile.shortNames.DY, ],
+						'kpload': [CGMESProfile.shortNames.DY, ],
+						'kiload': [CGMESProfile.shortNames.DY, ],
+						'ldref': [CGMESProfile.shortNames.DY, ],
+						'dm': [CGMESProfile.shortNames.DY, ],
+						'ropen': [CGMESProfile.shortNames.DY, ],
+						'rclose': [CGMESProfile.shortNames.DY, ],
+						'kimw': [CGMESProfile.shortNames.DY, ],
+						'aset': [CGMESProfile.shortNames.DY, ],
+						'ka': [CGMESProfile.shortNames.DY, ],
+						'ta': [CGMESProfile.shortNames.DY, ],
+						'db': [CGMESProfile.shortNames.DY, ],
+						'tsa': [CGMESProfile.shortNames.DY, ],
+						'tsb': [CGMESProfile.shortNames.DY, ],
+						'rup': [CGMESProfile.shortNames.DY, ],
+						'rdown': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

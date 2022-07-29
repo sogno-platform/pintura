@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class EquipmentVersion extends BaseClass {
 
@@ -288,6 +290,23 @@ class EquipmentVersion extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'baseUML': [CGMESProfile.shortNames.EQ, ],
+						'baseURIcore': [CGMESProfile.shortNames.EQ, ],
+						'baseURIoperation': [CGMESProfile.shortNames.EQ, ],
+						'baseURIshortCircuit': [CGMESProfile.shortNames.EQ, ],
+						'date': [CGMESProfile.shortNames.EQ, ],
+						'differenceModelURI': [CGMESProfile.shortNames.EQ, ],
+						'entsoeUML': [CGMESProfile.shortNames.EQ, ],
+						'entsoeURIcore': [CGMESProfile.shortNames.EQ, ],
+						'entsoeURIoperation': [CGMESProfile.shortNames.EQ, ],
+						'entsoeURIshortCircuit': [CGMESProfile.shortNames.EQ, ],
+						'modelDescriptionURI': [CGMESProfile.shortNames.EQ, ],
+						'namespaceRDF': [CGMESProfile.shortNames.EQ, ],
+						'namespaceUML': [CGMESProfile.shortNames.EQ, ],
+						'shortName': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

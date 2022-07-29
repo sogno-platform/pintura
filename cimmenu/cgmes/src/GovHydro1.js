@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineGovernorDynamics from "./TurbineGovernorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GovHydro1 extends TurbineGovernorDynamics {
 
@@ -288,6 +290,23 @@ class GovHydro1 extends TurbineGovernorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'mwbase': [CGMESProfile.shortNames.DY, ],
+						'rperm': [CGMESProfile.shortNames.DY, ],
+						'rtemp': [CGMESProfile.shortNames.DY, ],
+						'tr': [CGMESProfile.shortNames.DY, ],
+						'tf': [CGMESProfile.shortNames.DY, ],
+						'tg': [CGMESProfile.shortNames.DY, ],
+						'velm': [CGMESProfile.shortNames.DY, ],
+						'gmax': [CGMESProfile.shortNames.DY, ],
+						'gmin': [CGMESProfile.shortNames.DY, ],
+						'tw': [CGMESProfile.shortNames.DY, ],
+						'at': [CGMESProfile.shortNames.DY, ],
+						'dturb': [CGMESProfile.shortNames.DY, ],
+						'qnl': [CGMESProfile.shortNames.DY, ],
+						'hdam': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

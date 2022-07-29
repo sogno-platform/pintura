@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EarthFaultCompensator from "./EarthFaultCompensator.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PetersenCoil extends EarthFaultCompensator {
 
@@ -148,6 +150,16 @@ class PetersenCoil extends EarthFaultCompensator {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'mode': [CGMESProfile.shortNames.EQ, ],
+						'nominalU': [CGMESProfile.shortNames.EQ, ],
+						'offsetCurrent': [CGMESProfile.shortNames.EQ, ],
+						'positionCurrent': [CGMESProfile.shortNames.EQ, ],
+						'xGroundMax': [CGMESProfile.shortNames.EQ, ],
+						'xGroundMin': [CGMESProfile.shortNames.EQ, ],
+						'xGroundNominal': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

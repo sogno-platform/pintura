@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TopologyBoundaryVersion extends BaseClass {
 
@@ -208,6 +210,19 @@ class TopologyBoundaryVersion extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.TP_BD, ],
+						'baseUML': [CGMESProfile.shortNames.TP_BD, ],
+						'baseURI': [CGMESProfile.shortNames.TP_BD, ],
+						'date': [CGMESProfile.shortNames.TP_BD, ],
+						'differenceModelURI': [CGMESProfile.shortNames.TP_BD, ],
+						'entsoeUML': [CGMESProfile.shortNames.TP_BD, ],
+						'entsoeURI': [CGMESProfile.shortNames.TP_BD, ],
+						'modelDescriptionURI': [CGMESProfile.shortNames.TP_BD, ],
+						'namespaceRDF': [CGMESProfile.shortNames.TP_BD, ],
+						'namespaceUML': [CGMESProfile.shortNames.TP_BD, ],
+						'shortName': [CGMESProfile.shortNames.TP_BD, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

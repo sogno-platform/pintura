@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class OperationalLimitType extends IdentifiedObject {
 
@@ -68,6 +70,12 @@ class OperationalLimitType extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'acceptableDuration': [CGMESProfile.shortNames.EQ, ],
+						'limitType': [CGMESProfile.shortNames.EQ, ],
+						'direction': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

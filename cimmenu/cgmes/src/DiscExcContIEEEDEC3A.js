@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DiscontinuousExcitationControlDynamics from "./DiscontinuousExcitationControlDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DiscExcContIEEEDEC3A extends DiscontinuousExcitationControlDynamics {
 
@@ -48,6 +50,11 @@ class DiscExcContIEEEDEC3A extends DiscontinuousExcitationControlDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'vtmin': [CGMESProfile.shortNames.DY, ],
+						'tdr': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DiagramObject extends IdentifiedObject {
 
@@ -188,6 +190,18 @@ class DiagramObject extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DL, ],
+						'Diagram': [CGMESProfile.shortNames.DL, ],
+						'drawingOrder': [CGMESProfile.shortNames.DL, ],
+						'isPolygon': [CGMESProfile.shortNames.DL, ],
+						'offsetX': [CGMESProfile.shortNames.DL, ],
+						'offsetY': [CGMESProfile.shortNames.DL, ],
+						'rotation': [CGMESProfile.shortNames.DL, ],
+						'IdentifiedObject': [CGMESProfile.shortNames.DL, ],
+						'VisibilityLayers': [CGMESProfile.shortNames.DL, ],
+						'DiagramObjectStyle': [CGMESProfile.shortNames.DL, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import UnderexcitationLimiterDynamics from "./UnderexcitationLimiterDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class UnderexcLimIEEE2 extends UnderexcitationLimiterDynamics {
 
@@ -808,6 +810,49 @@ class UnderexcLimIEEE2 extends UnderexcitationLimiterDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'tuv': [CGMESProfile.shortNames.DY, ],
+						'tup': [CGMESProfile.shortNames.DY, ],
+						'tuq': [CGMESProfile.shortNames.DY, ],
+						'kui': [CGMESProfile.shortNames.DY, ],
+						'kul': [CGMESProfile.shortNames.DY, ],
+						'vuimax': [CGMESProfile.shortNames.DY, ],
+						'vuimin': [CGMESProfile.shortNames.DY, ],
+						'kuf': [CGMESProfile.shortNames.DY, ],
+						'kfb': [CGMESProfile.shortNames.DY, ],
+						'tul': [CGMESProfile.shortNames.DY, ],
+						'tu1': [CGMESProfile.shortNames.DY, ],
+						'tu2': [CGMESProfile.shortNames.DY, ],
+						'tu3': [CGMESProfile.shortNames.DY, ],
+						'tu4': [CGMESProfile.shortNames.DY, ],
+						'vulmax': [CGMESProfile.shortNames.DY, ],
+						'vulmin': [CGMESProfile.shortNames.DY, ],
+						'p0': [CGMESProfile.shortNames.DY, ],
+						'q0': [CGMESProfile.shortNames.DY, ],
+						'p1': [CGMESProfile.shortNames.DY, ],
+						'q1': [CGMESProfile.shortNames.DY, ],
+						'p2': [CGMESProfile.shortNames.DY, ],
+						'q2': [CGMESProfile.shortNames.DY, ],
+						'p3': [CGMESProfile.shortNames.DY, ],
+						'q3': [CGMESProfile.shortNames.DY, ],
+						'p4': [CGMESProfile.shortNames.DY, ],
+						'q4': [CGMESProfile.shortNames.DY, ],
+						'p5': [CGMESProfile.shortNames.DY, ],
+						'q5': [CGMESProfile.shortNames.DY, ],
+						'p6': [CGMESProfile.shortNames.DY, ],
+						'q6': [CGMESProfile.shortNames.DY, ],
+						'p7': [CGMESProfile.shortNames.DY, ],
+						'q7': [CGMESProfile.shortNames.DY, ],
+						'p8': [CGMESProfile.shortNames.DY, ],
+						'q8': [CGMESProfile.shortNames.DY, ],
+						'p9': [CGMESProfile.shortNames.DY, ],
+						'q9': [CGMESProfile.shortNames.DY, ],
+						'p10': [CGMESProfile.shortNames.DY, ],
+						'q10': [CGMESProfile.shortNames.DY, ],
+						'k1': [CGMESProfile.shortNames.DY, ],
+						'k2': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

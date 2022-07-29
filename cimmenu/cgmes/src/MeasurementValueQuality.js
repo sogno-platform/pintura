@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Quality61850 from "./Quality61850.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class MeasurementValueQuality extends Quality61850 {
 
@@ -28,6 +30,10 @@ class MeasurementValueQuality extends Quality61850 {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'MeasurementValue': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

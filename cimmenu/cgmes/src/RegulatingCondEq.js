@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ConductingEquipment from "./ConductingEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class RegulatingCondEq extends ConductingEquipment {
 
@@ -48,6 +50,11 @@ class RegulatingCondEq extends ConductingEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY, ],
+						'RegulatingControl': [CGMESProfile.shortNames.EQ, ],
+						'controlEnabled': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

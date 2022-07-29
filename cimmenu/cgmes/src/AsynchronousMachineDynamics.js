@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import RotatingMachineDynamics from "./RotatingMachineDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class AsynchronousMachineDynamics extends RotatingMachineDynamics {
 
@@ -48,6 +50,11 @@ class AsynchronousMachineDynamics extends RotatingMachineDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'AsynchronousMachine': [CGMESProfile.shortNames.DY, ],
+						'WindTurbineType1or2Dynamics': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

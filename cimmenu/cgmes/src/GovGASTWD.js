@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineGovernorDynamics from "./TurbineGovernorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GovGASTWD extends TurbineGovernorDynamics {
 
@@ -668,6 +670,42 @@ class GovGASTWD extends TurbineGovernorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'mwbase': [CGMESProfile.shortNames.DY, ],
+						'kdroop': [CGMESProfile.shortNames.DY, ],
+						'kp': [CGMESProfile.shortNames.DY, ],
+						'ki': [CGMESProfile.shortNames.DY, ],
+						'kd': [CGMESProfile.shortNames.DY, ],
+						'etd': [CGMESProfile.shortNames.DY, ],
+						'tcd': [CGMESProfile.shortNames.DY, ],
+						'trate': [CGMESProfile.shortNames.DY, ],
+						't': [CGMESProfile.shortNames.DY, ],
+						'tmax': [CGMESProfile.shortNames.DY, ],
+						'tmin': [CGMESProfile.shortNames.DY, ],
+						'ecr': [CGMESProfile.shortNames.DY, ],
+						'k3': [CGMESProfile.shortNames.DY, ],
+						'a': [CGMESProfile.shortNames.DY, ],
+						'b': [CGMESProfile.shortNames.DY, ],
+						'c': [CGMESProfile.shortNames.DY, ],
+						'tf': [CGMESProfile.shortNames.DY, ],
+						'kf': [CGMESProfile.shortNames.DY, ],
+						'k5': [CGMESProfile.shortNames.DY, ],
+						'k4': [CGMESProfile.shortNames.DY, ],
+						't3': [CGMESProfile.shortNames.DY, ],
+						't4': [CGMESProfile.shortNames.DY, ],
+						'tt': [CGMESProfile.shortNames.DY, ],
+						't5': [CGMESProfile.shortNames.DY, ],
+						'af1': [CGMESProfile.shortNames.DY, ],
+						'bf1': [CGMESProfile.shortNames.DY, ],
+						'af2': [CGMESProfile.shortNames.DY, ],
+						'bf2': [CGMESProfile.shortNames.DY, ],
+						'cf2': [CGMESProfile.shortNames.DY, ],
+						'tr': [CGMESProfile.shortNames.DY, ],
+						'k6': [CGMESProfile.shortNames.DY, ],
+						'tc': [CGMESProfile.shortNames.DY, ],
+						'td': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

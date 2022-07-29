@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GenICompensationForGenJ extends IdentifiedObject {
 
@@ -88,6 +90,13 @@ class GenICompensationForGenJ extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'SynchronousMachineDynamics': [CGMESProfile.shortNames.DY, ],
+						'VcompIEEEType2': [CGMESProfile.shortNames.DY, ],
+						'rcij': [CGMESProfile.shortNames.DY, ],
+						'xcij': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

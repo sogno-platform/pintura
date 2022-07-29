@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Connector from "./Connector.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Junction extends Connector {
 
@@ -8,6 +10,9 @@ class Junction extends Connector {
         let attributeEntries = Connector.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

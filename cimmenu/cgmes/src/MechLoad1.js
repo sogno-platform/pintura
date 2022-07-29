@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import MechanicalLoadDynamics from "./MechanicalLoadDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class MechLoad1 extends MechanicalLoadDynamics {
 
@@ -88,6 +90,13 @@ class MechLoad1 extends MechanicalLoadDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'a': [CGMESProfile.shortNames.DY, ],
+						'b': [CGMESProfile.shortNames.DY, ],
+						'd': [CGMESProfile.shortNames.DY, ],
+						'e': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

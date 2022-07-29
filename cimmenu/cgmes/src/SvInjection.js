@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SvInjection extends BaseClass {
 
@@ -68,6 +70,12 @@ class SvInjection extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.SV, ],
+						'pInjection': [CGMESProfile.shortNames.SV, ],
+						'qInjection': [CGMESProfile.shortNames.SV, ],
+						'TopologicalNode': [CGMESProfile.shortNames.SV, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

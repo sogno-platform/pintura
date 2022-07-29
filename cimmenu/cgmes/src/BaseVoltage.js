@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class BaseVoltage extends IdentifiedObject {
 
@@ -68,6 +70,12 @@ class BaseVoltage extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD, ],
+						'nominalVoltage': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD, ],
+						'VoltageLevel': [CGMESProfile.shortNames.EQ, ],
+						'TopologicalNode': [CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

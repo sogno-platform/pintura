@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import EnergyConsumer from "./EnergyConsumer.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class StationSupply extends EnergyConsumer {
 
@@ -8,6 +10,9 @@ class StationSupply extends EnergyConsumer {
         let attributeEntries = EnergyConsumer.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import LoadDynamics from "./LoadDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class LoadGenericNonLinear extends LoadDynamics {
 
@@ -188,6 +190,18 @@ class LoadGenericNonLinear extends LoadDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'genericNonLinearLoadModelType': [CGMESProfile.shortNames.DY, ],
+						'pt': [CGMESProfile.shortNames.DY, ],
+						'qt': [CGMESProfile.shortNames.DY, ],
+						'tp': [CGMESProfile.shortNames.DY, ],
+						'tq': [CGMESProfile.shortNames.DY, ],
+						'ls': [CGMESProfile.shortNames.DY, ],
+						'lt': [CGMESProfile.shortNames.DY, ],
+						'bs': [CGMESProfile.shortNames.DY, ],
+						'bt': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

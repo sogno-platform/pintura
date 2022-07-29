@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ProtectedSwitch from "./ProtectedSwitch.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Breaker extends ProtectedSwitch {
 
@@ -8,6 +10,9 @@ class Breaker extends ProtectedSwitch {
         let attributeEntries = ProtectedSwitch.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

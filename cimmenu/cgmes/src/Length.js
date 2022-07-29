@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Length extends BaseClass {
 
@@ -68,6 +70,12 @@ class Length extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY, ],
+						'value': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY, ],
+						'unit': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY, ],
+						'multiplier': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindDynamicsLookupTable extends IdentifiedObject {
 
@@ -168,6 +170,17 @@ class WindDynamicsLookupTable extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'WindContCurrLimIEC': [CGMESProfile.shortNames.DY, ],
+						'WindContPType3IEC': [CGMESProfile.shortNames.DY, ],
+						'WindContRotorRIEC': [CGMESProfile.shortNames.DY, ],
+						'input': [CGMESProfile.shortNames.DY, ],
+						'lookupTableFunctionType': [CGMESProfile.shortNames.DY, ],
+						'output': [CGMESProfile.shortNames.DY, ],
+						'sequence': [CGMESProfile.shortNames.DY, ],
+						'WindPlantFreqPcontrolIEC': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

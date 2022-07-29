@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import DCEquipmentContainer from "./DCEquipmentContainer.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DCConverterUnit extends DCEquipmentContainer {
 
@@ -48,6 +50,11 @@ class DCConverterUnit extends DCEquipmentContainer {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'operationMode': [CGMESProfile.shortNames.EQ, ],
+						'Substation': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

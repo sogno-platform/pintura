@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Control from "./Control.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Command extends Control {
 
@@ -88,6 +90,13 @@ class Command extends Control {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'normalValue': [CGMESProfile.shortNames.EQ, ],
+						'value': [CGMESProfile.shortNames.EQ, ],
+						'DiscreteValue': [CGMESProfile.shortNames.EQ, ],
+						'ValueAliasSet': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

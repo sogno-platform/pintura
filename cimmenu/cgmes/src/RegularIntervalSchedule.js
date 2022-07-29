@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BasicIntervalSchedule from "./BasicIntervalSchedule.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class RegularIntervalSchedule extends BasicIntervalSchedule {
 
@@ -48,6 +50,11 @@ class RegularIntervalSchedule extends BasicIntervalSchedule {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'timeStep': [CGMESProfile.shortNames.EQ, ],
+						'endTime': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

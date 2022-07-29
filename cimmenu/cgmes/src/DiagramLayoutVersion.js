@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DiagramLayoutVersion extends BaseClass {
 
@@ -208,6 +210,19 @@ class DiagramLayoutVersion extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DL, ],
+						'baseUML': [CGMESProfile.shortNames.DL, ],
+						'baseURI': [CGMESProfile.shortNames.DL, ],
+						'date': [CGMESProfile.shortNames.DL, ],
+						'differenceModelURI': [CGMESProfile.shortNames.DL, ],
+						'entsoeUML': [CGMESProfile.shortNames.DL, ],
+						'entsoeURI': [CGMESProfile.shortNames.DL, ],
+						'modelDescriptionURI': [CGMESProfile.shortNames.DL, ],
+						'namespaceRDF': [CGMESProfile.shortNames.DL, ],
+						'namespaceUML': [CGMESProfile.shortNames.DL, ],
+						'shortName': [CGMESProfile.shortNames.DL, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

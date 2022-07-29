@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import RegulatingCondEq from "./RegulatingCondEq.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class StaticVarCompensator extends RegulatingCondEq {
 
@@ -128,6 +130,15 @@ class StaticVarCompensator extends RegulatingCondEq {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						'capacitiveRating': [CGMESProfile.shortNames.EQ, ],
+						'inductiveRating': [CGMESProfile.shortNames.EQ, ],
+						'slope': [CGMESProfile.shortNames.EQ, ],
+						'sVCControlMode': [CGMESProfile.shortNames.EQ, ],
+						'voltageSetPoint': [CGMESProfile.shortNames.EQ, ],
+						'q': [CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TurbineGovernorDynamics from "./TurbineGovernorDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GovHydroWPID extends TurbineGovernorDynamics {
 
@@ -448,6 +450,31 @@ class GovHydroWPID extends TurbineGovernorDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'mwbase': [CGMESProfile.shortNames.DY, ],
+						'treg': [CGMESProfile.shortNames.DY, ],
+						'reg': [CGMESProfile.shortNames.DY, ],
+						'kp': [CGMESProfile.shortNames.DY, ],
+						'ki': [CGMESProfile.shortNames.DY, ],
+						'kd': [CGMESProfile.shortNames.DY, ],
+						'ta': [CGMESProfile.shortNames.DY, ],
+						'tb': [CGMESProfile.shortNames.DY, ],
+						'velmax': [CGMESProfile.shortNames.DY, ],
+						'velmin': [CGMESProfile.shortNames.DY, ],
+						'gatmax': [CGMESProfile.shortNames.DY, ],
+						'gatmin': [CGMESProfile.shortNames.DY, ],
+						'tw': [CGMESProfile.shortNames.DY, ],
+						'pmax': [CGMESProfile.shortNames.DY, ],
+						'pmin': [CGMESProfile.shortNames.DY, ],
+						'd': [CGMESProfile.shortNames.DY, ],
+						'gv3': [CGMESProfile.shortNames.DY, ],
+						'gv1': [CGMESProfile.shortNames.DY, ],
+						'pgv1': [CGMESProfile.shortNames.DY, ],
+						'gv2': [CGMESProfile.shortNames.DY, ],
+						'pgv2': [CGMESProfile.shortNames.DY, ],
+						'pgv3': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import ConductingEquipment from "./ConductingEquipment.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Conductor extends ConductingEquipment {
 
@@ -28,6 +30,10 @@ class Conductor extends ConductingEquipment {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'length': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

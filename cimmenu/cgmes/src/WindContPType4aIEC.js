@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindContPType4aIEC extends IdentifiedObject {
 
@@ -68,6 +70,12 @@ class WindContPType4aIEC extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'dpmax': [CGMESProfile.shortNames.DY, ],
+						'tpord': [CGMESProfile.shortNames.DY, ],
+						'tufilt': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

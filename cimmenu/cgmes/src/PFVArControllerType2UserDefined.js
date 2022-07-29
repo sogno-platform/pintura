@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PFVArControllerType2Dynamics from "./PFVArControllerType2Dynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PFVArControllerType2UserDefined extends PFVArControllerType2Dynamics {
 
@@ -28,6 +30,10 @@ class PFVArControllerType2UserDefined extends PFVArControllerType2Dynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'proprietary': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

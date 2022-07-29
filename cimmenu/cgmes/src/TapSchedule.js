@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import SeasonDayTypeSchedule from "./SeasonDayTypeSchedule.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TapSchedule extends SeasonDayTypeSchedule {
 
@@ -28,6 +30,10 @@ class TapSchedule extends SeasonDayTypeSchedule {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'TapChanger': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import WindTurbineType1or2Dynamics from "./WindTurbineType1or2Dynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindType1or2UserDefined extends WindTurbineType1or2Dynamics {
 
@@ -28,6 +30,10 @@ class WindType1or2UserDefined extends WindTurbineType1or2Dynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'proprietary': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

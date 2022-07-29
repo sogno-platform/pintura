@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class SvPowerFlow extends BaseClass {
 
@@ -68,6 +70,12 @@ class SvPowerFlow extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.SV, ],
+						'Terminal': [CGMESProfile.shortNames.SV, ],
+						'p': [CGMESProfile.shortNames.SV, ],
+						'q': [CGMESProfile.shortNames.SV, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

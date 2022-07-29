@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import WindPlantDynamics from "./WindPlantDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindPlantUserDefined extends WindPlantDynamics {
 
@@ -28,6 +30,10 @@ class WindPlantUserDefined extends WindPlantDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'proprietary': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

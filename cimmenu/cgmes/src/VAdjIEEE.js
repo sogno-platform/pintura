@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import VoltageAdjusterDynamics from "./VoltageAdjusterDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class VAdjIEEE extends VoltageAdjusterDynamics {
 
@@ -128,6 +130,15 @@ class VAdjIEEE extends VoltageAdjusterDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'vadjf': [CGMESProfile.shortNames.DY, ],
+						'adjslew': [CGMESProfile.shortNames.DY, ],
+						'vadjmax': [CGMESProfile.shortNames.DY, ],
+						'vadjmin': [CGMESProfile.shortNames.DY, ],
+						'taon': [CGMESProfile.shortNames.DY, ],
+						'taoff': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import Curve from "./Curve.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class GrossToNetActivePowerCurve extends Curve {
 
@@ -28,6 +30,10 @@ class GrossToNetActivePowerCurve extends Curve {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'GeneratingUnit': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

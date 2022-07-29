@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class WindAeroLinearIEC extends IdentifiedObject {
 
@@ -108,6 +110,14 @@ class WindAeroLinearIEC extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'dpomega': [CGMESProfile.shortNames.DY, ],
+						'dptheta': [CGMESProfile.shortNames.DY, ],
+						'omegazero': [CGMESProfile.shortNames.DY, ],
+						'pavail': [CGMESProfile.shortNames.DY, ],
+						'thetazero': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

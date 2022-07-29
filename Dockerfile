@@ -8,9 +8,6 @@ COPY cimsvg /pintura/cimsvg
 COPY index.html Makefile package-lock.json package.json /pintura/
 
 WORKDIR /pintura
-RUN rm -rf node_modules
-RUN rm -rf cimsvg/node_modules
-RUN rm -rf cimmenu/node_modules
 RUN npm install -g npm@8.14.0
 RUN npm run build
 

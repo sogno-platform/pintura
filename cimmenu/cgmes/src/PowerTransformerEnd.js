@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import TransformerEnd from "./TransformerEnd.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PowerTransformerEnd extends TransformerEnd {
 
@@ -268,6 +270,22 @@ class PowerTransformerEnd extends TransformerEnd {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'PowerTransformer': [CGMESProfile.shortNames.EQ, ],
+						'b': [CGMESProfile.shortNames.EQ, ],
+						'connectionKind': [CGMESProfile.shortNames.EQ, ],
+						'ratedS': [CGMESProfile.shortNames.EQ, ],
+						'g': [CGMESProfile.shortNames.EQ, ],
+						'ratedU': [CGMESProfile.shortNames.EQ, ],
+						'r': [CGMESProfile.shortNames.EQ, ],
+						'x': [CGMESProfile.shortNames.EQ, ],
+						'b0': [CGMESProfile.shortNames.EQ, ],
+						'phaseAngleClock': [CGMESProfile.shortNames.EQ, ],
+						'g0': [CGMESProfile.shortNames.EQ, ],
+						'r0': [CGMESProfile.shortNames.EQ, ],
+						'x0': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

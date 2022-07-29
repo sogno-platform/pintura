@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import BaseClass from "./BaseClass.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class DiagramObjectPoint extends BaseClass {
 
@@ -128,6 +130,15 @@ class DiagramObjectPoint extends BaseClass {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DL, ],
+						'DiagramObject': [CGMESProfile.shortNames.DL, ],
+						'DiagramObjectGluePoint': [CGMESProfile.shortNames.DL, ],
+						'sequenceNumber': [CGMESProfile.shortNames.DL, ],
+						'xPosition': [CGMESProfile.shortNames.DL, ],
+						'yPosition': [CGMESProfile.shortNames.DL, ],
+						'zPosition': [CGMESProfile.shortNames.DL, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

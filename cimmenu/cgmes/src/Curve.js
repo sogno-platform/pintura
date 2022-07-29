@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class Curve extends IdentifiedObject {
 
@@ -88,6 +90,13 @@ class Curve extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'curveStyle': [CGMESProfile.shortNames.EQ, ],
+						'xUnit': [CGMESProfile.shortNames.EQ, ],
+						'y1Unit': [CGMESProfile.shortNames.EQ, ],
+						'y2Unit': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

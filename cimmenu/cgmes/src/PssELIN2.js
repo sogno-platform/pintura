@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import PowerSystemStabilizerDynamics from "./PowerSystemStabilizerDynamics.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class PssELIN2 extends PowerSystemStabilizerDynamics {
 
@@ -228,6 +230,20 @@ class PssELIN2 extends PowerSystemStabilizerDynamics {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.DY, ],
+						'ts1': [CGMESProfile.shortNames.DY, ],
+						'ts2': [CGMESProfile.shortNames.DY, ],
+						'ts3': [CGMESProfile.shortNames.DY, ],
+						'ts4': [CGMESProfile.shortNames.DY, ],
+						'ts5': [CGMESProfile.shortNames.DY, ],
+						'ts6': [CGMESProfile.shortNames.DY, ],
+						'ks1': [CGMESProfile.shortNames.DY, ],
+						'ks2': [CGMESProfile.shortNames.DY, ],
+						'ppss': [CGMESProfile.shortNames.DY, ],
+						'apss': [CGMESProfile.shortNames.DY, ],
+						'psslim': [CGMESProfile.shortNames.DY, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

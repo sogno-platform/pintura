@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import RegulatingControl from "./RegulatingControl.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class TapChangerControl extends RegulatingControl {
 
@@ -8,6 +10,9 @@ class TapChangerControl extends RegulatingControl {
         let attributeEntries = RegulatingControl.attributeHTML(object, cimmenu, classType);
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [

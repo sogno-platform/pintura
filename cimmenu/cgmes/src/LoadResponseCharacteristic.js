@@ -1,6 +1,8 @@
 import templates from "../../templates/index.js"
 import IdentifiedObject from "./IdentifiedObject.js"
 import common from "../../src/common.js"
+import CGMESProfile from "./CGMESProfile.js"
+
 
 class LoadResponseCharacteristic extends IdentifiedObject {
 
@@ -228,6 +230,20 @@ class LoadResponseCharacteristic extends IdentifiedObject {
         }
         return attributeEntries;
     }
+
+    static possibleProfileList = {'class': [CGMESProfile.shortNames.EQ, ],
+						'exponentModel': [CGMESProfile.shortNames.EQ, ],
+						'pConstantCurrent': [CGMESProfile.shortNames.EQ, ],
+						'pConstantImpedance': [CGMESProfile.shortNames.EQ, ],
+						'pConstantPower': [CGMESProfile.shortNames.EQ, ],
+						'pFrequencyExponent': [CGMESProfile.shortNames.EQ, ],
+						'pVoltageExponent': [CGMESProfile.shortNames.EQ, ],
+						'qConstantCurrent': [CGMESProfile.shortNames.EQ, ],
+						'qConstantImpedance': [CGMESProfile.shortNames.EQ, ],
+						'qConstantPower': [CGMESProfile.shortNames.EQ, ],
+						'qFrequencyExponent': [CGMESProfile.shortNames.EQ, ],
+						'qVoltageExponent': [CGMESProfile.shortNames.EQ, ],
+						 }
 
     static isMemberAttribute(attribute) {
         let attributes = [
