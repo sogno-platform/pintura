@@ -582,10 +582,6 @@ class cimsvg {
         this.updateCimmenu(()=>{ return this.cimmenu.populateAttributesIdOnly(id); });
     }
 
-    populateTerminals(type, rdfid) {
-        this.updateCimmenu(()=>{ this.cimmenu.populateTerminals(type, this.getCimVersionFolder(), rdfid); });
-    }
-
     checkComponentReadyToAdd(evt) {
         let rdfid = null;
         this.addingPoint = this.cimview.getMouseCoord(evt);

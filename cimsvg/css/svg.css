@@ -65,14 +65,14 @@ line {
     -ms-user-select: none;      /* IE 10+ */
 }
 .svglabel-bg {
-	visibility: hidden;
-	fill: white;
-	stroke: grey;
-	stroke-width: 1px;
-	fill-opacity: 0.85;
+    visibility: hidden;
+    fill: white;
+    stroke: grey;
+    stroke-width: 1px;
+    fill-opacity: 0.85;
 }
 .svglabel-high {
-	visibility: visible;
+    visibility: visible;
 }
 .gridLine {
     stroke: #aaa;
