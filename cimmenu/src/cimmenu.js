@@ -412,40 +412,6 @@ class cimmenu {
         cimmenu.currentCimmenuClass = cimmenuClass;
     }
 
-    populateTerminals (type, cimVersion, rdfid) {
-        let menuData = this.cimsvgFunction(()=> {
-            let baseJson = this.cimsvg.getBaseJson();
-            if (baseJson[type] && baseJson[type][rdfid]) {
-                let template = templates.handlebars_cim_list_terminals;
-                let terminals = baseJson[type][rdfid][common.pinturaTerminals()];
-                let begin =`
-                    <span class="row-right wide-row floating-panel-value">
-                        <input class="list-subtitle" value="Add New Terminal" type="text"></input>
-                        <button onclick='`;
-                let click = "currenttCimsvg().addTerminal(\"" + type + "\", \"" +rdfid + "\");currentCimsvg().applyTemplates();currentCimsvg().populateTerminals(\"" + type + "\", \"" + rdfid +"\")";
-                let end = `;'> + </button>
-                    </span>
-                `;
-                menuData = begin + click + end;
-                for (let index in terminals) {
-                    let terminalId = terminals[index];
-                    let terminal = baseJson["cim:Terminal"][terminalId];
-                    let templateData = {
-                        "name": terminal["cim:IdentifiedObject.name"],
-                        "rdfid": rdfid,
-                        "terminalId": terminalId,
-                        "type": type,
-                    };
-                    menuData += template(templateData);
-                }
-            }
-            else {
-                console.error("Couldn't find " + rdfid + " in " + baseJson[type]);
-            }
-            return menuData;
-        });
-    }
-
     getSelectFromDropdown(column, id) {
         return this.panels[column].querySelector("#"+id);
     }
