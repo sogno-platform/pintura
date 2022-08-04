@@ -359,7 +359,7 @@ class cimmenu {
                     let renderClass = cgmes[templatePath + "_js"];
                     if (renderClass) {
                         let data = renderClass.renderAsClass(attributes, this);
-                        cimmenu.populatePanelWithData(node, data, "Attributes");
+                        cimmenu.populatePanelWithData(node, data, type.substring(4) + " Attributes");
                     }
                     else {
                         console.error("Couldn't find renderClass: ", templatePath, " in templates.");
