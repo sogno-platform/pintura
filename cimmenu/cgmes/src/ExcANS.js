@@ -341,7 +341,7 @@ class ExcANS extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcANS.isMemberAttribute(attribute)) {
+            if (!ExcANS.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcANS: ", attribute, " with value: ", object[attribute])
             }
         });

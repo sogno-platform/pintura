@@ -44,7 +44,7 @@ class OperationalLimitDirectionKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!OperationalLimitDirectionKind.isMemberAttribute(attribute)) {
+            if (!OperationalLimitDirectionKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class OperationalLimitDirectionKind: ", attribute, " with value: ", object[attribute])
             }
         });

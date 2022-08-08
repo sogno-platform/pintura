@@ -143,7 +143,7 @@ class DCLineSegment extends DCConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCLineSegment.isMemberAttribute(attribute)) {
+            if (!DCLineSegment.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCLineSegment: ", attribute, " with value: ", object[attribute])
             }
         });

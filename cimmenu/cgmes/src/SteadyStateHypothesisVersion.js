@@ -253,7 +253,7 @@ class SteadyStateHypothesisVersion extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SteadyStateHypothesisVersion.isMemberAttribute(attribute)) {
+            if (!SteadyStateHypothesisVersion.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SteadyStateHypothesisVersion: ", attribute, " with value: ", object[attribute])
             }
         });

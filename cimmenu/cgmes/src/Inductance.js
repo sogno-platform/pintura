@@ -99,7 +99,7 @@ class Inductance extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Inductance.isMemberAttribute(attribute)) {
+            if (!Inductance.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Inductance: ", attribute, " with value: ", object[attribute])
             }
         });

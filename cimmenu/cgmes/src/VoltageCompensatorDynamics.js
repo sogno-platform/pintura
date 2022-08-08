@@ -55,7 +55,7 @@ class VoltageCompensatorDynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VoltageCompensatorDynamics.isMemberAttribute(attribute)) {
+            if (!VoltageCompensatorDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VoltageCompensatorDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

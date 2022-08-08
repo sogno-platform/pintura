@@ -77,7 +77,7 @@ class AnalogLimit extends Limit {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AnalogLimit.isMemberAttribute(attribute)) {
+            if (!AnalogLimit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AnalogLimit: ", attribute, " with value: ", object[attribute])
             }
         });

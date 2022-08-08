@@ -33,7 +33,7 @@ class LoadArea extends EnergyArea {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LoadArea.isMemberAttribute(attribute)) {
+            if (!LoadArea.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LoadArea: ", attribute, " with value: ", object[attribute])
             }
         });

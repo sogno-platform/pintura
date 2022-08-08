@@ -55,7 +55,7 @@ class RaiseLowerCommand extends AnalogControl {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RaiseLowerCommand.isMemberAttribute(attribute)) {
+            if (!RaiseLowerCommand.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RaiseLowerCommand: ", attribute, " with value: ", object[attribute])
             }
         });

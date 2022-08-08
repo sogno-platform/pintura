@@ -55,7 +55,7 @@ class Discrete extends Measurement {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Discrete.isMemberAttribute(attribute)) {
+            if (!Discrete.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Discrete: ", attribute, " with value: ", object[attribute])
             }
         });

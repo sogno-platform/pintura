@@ -231,7 +231,7 @@ class WindProtectionIEC extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindProtectionIEC.isMemberAttribute(attribute)) {
+            if (!WindProtectionIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindProtectionIEC: ", attribute, " with value: ", object[attribute])
             }
         });

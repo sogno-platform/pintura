@@ -297,7 +297,7 @@ class VsConverter extends ACDCConverter {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VsConverter.isMemberAttribute(attribute)) {
+            if (!VsConverter.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VsConverter: ", attribute, " with value: ", object[attribute])
             }
         });

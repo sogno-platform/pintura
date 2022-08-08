@@ -121,7 +121,7 @@ class RatioTapChanger extends TapChanger {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RatioTapChanger.isMemberAttribute(attribute)) {
+            if (!RatioTapChanger.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RatioTapChanger: ", attribute, " with value: ", object[attribute])
             }
         });

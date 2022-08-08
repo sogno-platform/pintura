@@ -55,7 +55,7 @@ class ActivePowerLimit extends OperationalLimit {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ActivePowerLimit.isMemberAttribute(attribute)) {
+            if (!ActivePowerLimit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ActivePowerLimit: ", attribute, " with value: ", object[attribute])
             }
         });

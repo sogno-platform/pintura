@@ -803,7 +803,7 @@ class GovCT1 extends TurbineGovernorDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GovCT1.isMemberAttribute(attribute)) {
+            if (!GovCT1.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GovCT1: ", attribute, " with value: ", object[attribute])
             }
         });

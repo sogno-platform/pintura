@@ -121,7 +121,7 @@ class Curve extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Curve.isMemberAttribute(attribute)) {
+            if (!Curve.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Curve: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -253,7 +253,7 @@ class DiagramLayoutVersion extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DiagramLayoutVersion.isMemberAttribute(attribute)) {
+            if (!DiagramLayoutVersion.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DiagramLayoutVersion: ", attribute, " with value: ", object[attribute])
             }
         });

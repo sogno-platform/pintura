@@ -55,7 +55,7 @@ class WindPlantDynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindPlantDynamics.isMemberAttribute(attribute)) {
+            if (!WindPlantDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindPlantDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

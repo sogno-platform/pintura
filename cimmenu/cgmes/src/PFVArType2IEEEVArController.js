@@ -187,7 +187,7 @@ class PFVArType2IEEEVArController extends PFVArControllerType2Dynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PFVArType2IEEEVArController.isMemberAttribute(attribute)) {
+            if (!PFVArType2IEEEVArController.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PFVArType2IEEEVArController: ", attribute, " with value: ", object[attribute])
             }
         });

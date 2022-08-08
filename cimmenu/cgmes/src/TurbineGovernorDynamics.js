@@ -77,7 +77,7 @@ class TurbineGovernorDynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TurbineGovernorDynamics.isMemberAttribute(attribute)) {
+            if (!TurbineGovernorDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TurbineGovernorDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

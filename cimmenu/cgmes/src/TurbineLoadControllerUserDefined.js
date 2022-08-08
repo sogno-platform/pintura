@@ -55,7 +55,7 @@ class TurbineLoadControllerUserDefined extends TurbineLoadControllerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TurbineLoadControllerUserDefined.isMemberAttribute(attribute)) {
+            if (!TurbineLoadControllerUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TurbineLoadControllerUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

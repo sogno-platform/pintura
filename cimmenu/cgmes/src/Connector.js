@@ -33,7 +33,7 @@ class Connector extends ConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Connector.isMemberAttribute(attribute)) {
+            if (!Connector.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Connector: ", attribute, " with value: ", object[attribute])
             }
         });

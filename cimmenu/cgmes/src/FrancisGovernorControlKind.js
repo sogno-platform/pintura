@@ -44,7 +44,7 @@ class FrancisGovernorControlKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!FrancisGovernorControlKind.isMemberAttribute(attribute)) {
+            if (!FrancisGovernorControlKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class FrancisGovernorControlKind: ", attribute, " with value: ", object[attribute])
             }
         });

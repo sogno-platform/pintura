@@ -165,7 +165,7 @@ class Diagram extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Diagram.isMemberAttribute(attribute)) {
+            if (!Diagram.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Diagram: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -55,7 +55,7 @@ class LoadAggregate extends LoadDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LoadAggregate.isMemberAttribute(attribute)) {
+            if (!LoadAggregate.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LoadAggregate: ", attribute, " with value: ", object[attribute])
             }
         });

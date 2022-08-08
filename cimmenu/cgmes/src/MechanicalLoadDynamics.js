@@ -77,7 +77,7 @@ class MechanicalLoadDynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!MechanicalLoadDynamics.isMemberAttribute(attribute)) {
+            if (!MechanicalLoadDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class MechanicalLoadDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

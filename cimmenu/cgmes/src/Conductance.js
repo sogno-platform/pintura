@@ -99,7 +99,7 @@ class Conductance extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Conductance.isMemberAttribute(attribute)) {
+            if (!Conductance.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Conductance: ", attribute, " with value: ", object[attribute])
             }
         });

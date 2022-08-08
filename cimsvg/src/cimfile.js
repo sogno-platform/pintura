@@ -96,7 +96,17 @@ class cimfile {
         cimfile.saveFile(data, filename);
     }
 
-    static addToProfile(componentList, componentType, profile, possibleProfileList, data) {
+    static copyAttributeIntoComponent(destComponentList, srcComponent, componentId, profile, attr) {
+        if (cimfile.checkAttributeBelongsToProfile(attr, profile)) {
+            let componentExists = componentId in destComponentList;
+            if (!componentExists)  {
+                destComponentList[componentId] = { "pintura:rdfid" : componentId };
+            }
+            destComponentList[componentId][attr] = srcComponent[attr];
+        }
+    }
+
+    static addToProfile(componentList, componentType, profile, data) {
         let profileExists = profile in data;
         if (!profileExists) {
             data[profile] = {};
@@ -108,12 +118,13 @@ class cimfile {
             data[profile][componentType] = {};
             for (let component in componentList) {
                 for (let attr in componentList[component]) {
-                    if (cimfile.checkAttributeBelongsToProfile(attr, profile)) {
-                        let componentExists = component in data[profile][componentType];
-                        if (!componentExists)  {
-                            data[profile][componentType][component] = { "pintura:rdfid" : component };
+                    if (attr == "about") {
+                        for (let aboutAttr in componentList[component]["about"]) {
+                            cimfile.copyAttributeIntoComponent(data[profile][componentType], componentList[component]["about"], component, profile, aboutAttr);
                         }
-                        data[profile][componentType][component][attr] = componentList[component][attr];
+                    }
+                    else {
+                        cimfile.copyAttributeIntoComponent(data[profile][componentType], componentList[component], component, profile, attr);
                     }
                 }
             }
@@ -150,8 +161,6 @@ class cimfile {
         return false;
     }
 
-    /* TODO: multipart disabled for now, until discovery during serialization work
-     * how hard it is to re-weave the components back into packages */
     static convertToMultipartZip(jsonData, filename) {
         let packageData = {};
         let profiles = cgmes["src_CGMESProfile_js"];
@@ -162,7 +171,7 @@ class cimfile {
             for (let key in jsonData) {
                 let nameInCGMESLibrary = "src_" + key.substring(4) + "_js";
                 if (cimfile.checkComponentBelongsInProfile(key.substring(4), profileValue)) {
-                    cimfile.addToProfile(jsonData[key], key, profileKey, cgmes[nameInCGMESLibrary].possibleProfileList, packageData);
+                    cimfile.addToProfile(jsonData[key], key, profileKey, packageData);
                 }
             }
             if (profileKey in packageData) {

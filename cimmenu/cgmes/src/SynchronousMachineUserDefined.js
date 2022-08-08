@@ -55,7 +55,7 @@ class SynchronousMachineUserDefined extends SynchronousMachineDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SynchronousMachineUserDefined.isMemberAttribute(attribute)) {
+            if (!SynchronousMachineUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SynchronousMachineUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

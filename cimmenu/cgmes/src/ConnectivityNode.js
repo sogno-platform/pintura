@@ -231,7 +231,7 @@ class ConnectivityNode extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ConnectivityNode.isMemberAttribute(attribute)) {
+            if (!ConnectivityNode.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ConnectivityNode: ", attribute, " with value: ", object[attribute])
             }
         });

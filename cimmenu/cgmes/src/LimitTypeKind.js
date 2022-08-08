@@ -52,7 +52,7 @@ class LimitTypeKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LimitTypeKind.isMemberAttribute(attribute)) {
+            if (!LimitTypeKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LimitTypeKind: ", attribute, " with value: ", object[attribute])
             }
         });

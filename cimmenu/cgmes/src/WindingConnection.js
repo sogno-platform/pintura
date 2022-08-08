@@ -52,7 +52,7 @@ class WindingConnection extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindingConnection.isMemberAttribute(attribute)) {
+            if (!WindingConnection.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindingConnection: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -33,7 +33,7 @@ class Junction extends Connector {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Junction.isMemberAttribute(attribute)) {
+            if (!Junction.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Junction: ", attribute, " with value: ", object[attribute])
             }
         });

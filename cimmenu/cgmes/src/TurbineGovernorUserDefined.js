@@ -55,7 +55,7 @@ class TurbineGovernorUserDefined extends TurbineGovernorDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TurbineGovernorUserDefined.isMemberAttribute(attribute)) {
+            if (!TurbineGovernorUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TurbineGovernorUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

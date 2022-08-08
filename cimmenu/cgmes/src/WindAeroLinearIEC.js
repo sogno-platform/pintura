@@ -143,7 +143,7 @@ class WindAeroLinearIEC extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindAeroLinearIEC.isMemberAttribute(attribute)) {
+            if (!WindAeroLinearIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindAeroLinearIEC: ", attribute, " with value: ", object[attribute])
             }
         });

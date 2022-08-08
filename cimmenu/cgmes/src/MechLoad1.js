@@ -121,7 +121,7 @@ class MechLoad1 extends MechanicalLoadDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!MechLoad1.isMemberAttribute(attribute)) {
+            if (!MechLoad1.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class MechLoad1: ", attribute, " with value: ", object[attribute])
             }
         });

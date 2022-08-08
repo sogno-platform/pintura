@@ -55,7 +55,7 @@ class DynamicsFunctionBlock extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DynamicsFunctionBlock.isMemberAttribute(attribute)) {
+            if (!DynamicsFunctionBlock.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DynamicsFunctionBlock: ", attribute, " with value: ", object[attribute])
             }
         });

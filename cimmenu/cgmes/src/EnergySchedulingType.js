@@ -33,7 +33,7 @@ class EnergySchedulingType extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!EnergySchedulingType.isMemberAttribute(attribute)) {
+            if (!EnergySchedulingType.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class EnergySchedulingType: ", attribute, " with value: ", object[attribute])
             }
         });

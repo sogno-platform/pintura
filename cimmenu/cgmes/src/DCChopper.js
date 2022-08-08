@@ -33,7 +33,7 @@ class DCChopper extends DCConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCChopper.isMemberAttribute(attribute)) {
+            if (!DCChopper.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCChopper: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -297,7 +297,7 @@ class PssIEEE1A extends PowerSystemStabilizerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PssIEEE1A.isMemberAttribute(attribute)) {
+            if (!PssIEEE1A.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PssIEEE1A: ", attribute, " with value: ", object[attribute])
             }
         });

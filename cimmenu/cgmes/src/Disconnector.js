@@ -33,7 +33,7 @@ class Disconnector extends Switch {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Disconnector.isMemberAttribute(attribute)) {
+            if (!Disconnector.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Disconnector: ", attribute, " with value: ", object[attribute])
             }
         });

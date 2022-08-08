@@ -143,7 +143,7 @@ class ActivePowerPerCurrentFlow extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ActivePowerPerCurrentFlow.isMemberAttribute(attribute)) {
+            if (!ActivePowerPerCurrentFlow.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ActivePowerPerCurrentFlow: ", attribute, " with value: ", object[attribute])
             }
         });

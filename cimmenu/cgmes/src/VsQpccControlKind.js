@@ -44,7 +44,7 @@ class VsQpccControlKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VsQpccControlKind.isMemberAttribute(attribute)) {
+            if (!VsQpccControlKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VsQpccControlKind: ", attribute, " with value: ", object[attribute])
             }
         });

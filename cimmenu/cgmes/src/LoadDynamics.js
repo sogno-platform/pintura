@@ -33,7 +33,7 @@ class LoadDynamics extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LoadDynamics.isMemberAttribute(attribute)) {
+            if (!LoadDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LoadDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

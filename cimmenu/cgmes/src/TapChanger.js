@@ -231,7 +231,7 @@ class TapChanger extends PowerSystemResource {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TapChanger.isMemberAttribute(attribute)) {
+            if (!TapChanger.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TapChanger: ", attribute, " with value: ", object[attribute])
             }
         });

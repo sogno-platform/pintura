@@ -517,7 +517,7 @@ class GovHydroWPID extends TurbineGovernorDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GovHydroWPID.isMemberAttribute(attribute)) {
+            if (!GovHydroWPID.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GovHydroWPID: ", attribute, " with value: ", object[attribute])
             }
         });

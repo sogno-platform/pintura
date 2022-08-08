@@ -44,7 +44,7 @@ class WindLVRTQcontrolModesKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindLVRTQcontrolModesKind.isMemberAttribute(attribute)) {
+            if (!WindLVRTQcontrolModesKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindLVRTQcontrolModesKind: ", attribute, " with value: ", object[attribute])
             }
         });

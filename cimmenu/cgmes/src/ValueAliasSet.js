@@ -77,7 +77,7 @@ class ValueAliasSet extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ValueAliasSet.isMemberAttribute(attribute)) {
+            if (!ValueAliasSet.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ValueAliasSet: ", attribute, " with value: ", object[attribute])
             }
         });

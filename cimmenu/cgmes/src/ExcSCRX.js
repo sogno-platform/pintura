@@ -209,7 +209,7 @@ class ExcSCRX extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcSCRX.isMemberAttribute(attribute)) {
+            if (!ExcSCRX.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcSCRX: ", attribute, " with value: ", object[attribute])
             }
         });

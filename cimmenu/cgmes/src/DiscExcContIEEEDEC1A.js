@@ -429,7 +429,7 @@ class DiscExcContIEEEDEC1A extends DiscontinuousExcitationControlDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DiscExcContIEEEDEC1A.isMemberAttribute(attribute)) {
+            if (!DiscExcContIEEEDEC1A.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DiscExcContIEEEDEC1A: ", attribute, " with value: ", object[attribute])
             }
         });

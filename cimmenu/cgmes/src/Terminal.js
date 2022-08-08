@@ -187,7 +187,7 @@ class Terminal extends ACDCTerminal {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Terminal.isMemberAttribute(attribute)) {
+            if (!Terminal.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Terminal: ", attribute, " with value: ", object[attribute])
             }
         });

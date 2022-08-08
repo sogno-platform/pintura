@@ -99,7 +99,7 @@ class Capacitance extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Capacitance.isMemberAttribute(attribute)) {
+            if (!Capacitance.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Capacitance: ", attribute, " with value: ", object[attribute])
             }
         });

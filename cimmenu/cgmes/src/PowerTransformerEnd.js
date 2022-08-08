@@ -319,7 +319,7 @@ class PowerTransformerEnd extends TransformerEnd {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PowerTransformerEnd.isMemberAttribute(attribute)) {
+            if (!PowerTransformerEnd.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PowerTransformerEnd: ", attribute, " with value: ", object[attribute])
             }
         });

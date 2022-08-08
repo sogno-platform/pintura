@@ -165,7 +165,7 @@ class WindContCurrLimIEC extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindContCurrLimIEC.isMemberAttribute(attribute)) {
+            if (!WindContCurrLimIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindContCurrLimIEC: ", attribute, " with value: ", object[attribute])
             }
         });

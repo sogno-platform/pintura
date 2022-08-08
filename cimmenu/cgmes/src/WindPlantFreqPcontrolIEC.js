@@ -253,7 +253,7 @@ class WindPlantFreqPcontrolIEC extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindPlantFreqPcontrolIEC.isMemberAttribute(attribute)) {
+            if (!WindPlantFreqPcontrolIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindPlantFreqPcontrolIEC: ", attribute, " with value: ", object[attribute])
             }
         });

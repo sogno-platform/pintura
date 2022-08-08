@@ -77,7 +77,7 @@ class SvTapStep extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SvTapStep.isMemberAttribute(attribute)) {
+            if (!SvTapStep.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SvTapStep: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -33,7 +33,7 @@ class Breaker extends ProtectedSwitch {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Breaker.isMemberAttribute(attribute)) {
+            if (!Breaker.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Breaker: ", attribute, " with value: ", object[attribute])
             }
         });

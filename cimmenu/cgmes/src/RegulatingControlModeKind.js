@@ -54,7 +54,7 @@ class RegulatingControlModeKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RegulatingControlModeKind.isMemberAttribute(attribute)) {
+            if (!RegulatingControlModeKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RegulatingControlModeKind: ", attribute, " with value: ", object[attribute])
             }
         });

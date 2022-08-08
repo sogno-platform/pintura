@@ -77,7 +77,7 @@ class WindTurbineType1or2IEC extends WindTurbineType1or2Dynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindTurbineType1or2IEC.isMemberAttribute(attribute)) {
+            if (!WindTurbineType1or2IEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindTurbineType1or2IEC: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -429,7 +429,7 @@ class PssWECC extends PowerSystemStabilizerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PssWECC.isMemberAttribute(attribute)) {
+            if (!PssWECC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PssWECC: ", attribute, " with value: ", object[attribute])
             }
         });

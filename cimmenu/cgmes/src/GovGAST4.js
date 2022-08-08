@@ -275,7 +275,7 @@ class GovGAST4 extends TurbineGovernorDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GovGAST4.isMemberAttribute(attribute)) {
+            if (!GovGAST4.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GovGAST4: ", attribute, " with value: ", object[attribute])
             }
         });

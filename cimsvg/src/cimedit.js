@@ -325,9 +325,6 @@ class cimedit {
     }
 
     static typeIsVisible(type) {
-        if (type === "cim:Terminal") {
-            return false;
-        }
         if(cimedit.terminalAndPointLimits[type]) {
             return (cimedit.terminalAndPointLimits[type]["points"] > 0);
         }

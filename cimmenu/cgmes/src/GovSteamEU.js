@@ -803,7 +803,7 @@ class GovSteamEU extends TurbineGovernorDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GovSteamEU.isMemberAttribute(attribute)) {
+            if (!GovSteamEU.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GovSteamEU: ", attribute, " with value: ", object[attribute])
             }
         });

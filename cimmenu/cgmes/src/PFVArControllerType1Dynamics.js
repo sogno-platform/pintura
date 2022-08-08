@@ -55,7 +55,7 @@ class PFVArControllerType1Dynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PFVArControllerType1Dynamics.isMemberAttribute(attribute)) {
+            if (!PFVArControllerType1Dynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PFVArControllerType1Dynamics: ", attribute, " with value: ", object[attribute])
             }
         });

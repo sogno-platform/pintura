@@ -231,7 +231,7 @@ class ExcIEEEAC4A extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcIEEEAC4A.isMemberAttribute(attribute)) {
+            if (!ExcIEEEAC4A.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcIEEEAC4A: ", attribute, " with value: ", object[attribute])
             }
         });

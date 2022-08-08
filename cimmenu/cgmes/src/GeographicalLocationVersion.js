@@ -253,7 +253,7 @@ class GeographicalLocationVersion extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GeographicalLocationVersion.isMemberAttribute(attribute)) {
+            if (!GeographicalLocationVersion.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GeographicalLocationVersion: ", attribute, " with value: ", object[attribute])
             }
         });

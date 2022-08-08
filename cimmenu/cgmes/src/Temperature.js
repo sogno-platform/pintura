@@ -99,7 +99,7 @@ class Temperature extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Temperature.isMemberAttribute(attribute)) {
+            if (!Temperature.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Temperature: ", attribute, " with value: ", object[attribute])
             }
         });

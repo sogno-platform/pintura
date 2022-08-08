@@ -297,7 +297,7 @@ class ExcHU extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcHU.isMemberAttribute(attribute)) {
+            if (!ExcHU.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcHU: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -33,7 +33,7 @@ class DCSwitch extends DCConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCSwitch.isMemberAttribute(attribute)) {
+            if (!DCSwitch.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCSwitch: ", attribute, " with value: ", object[attribute])
             }
         });

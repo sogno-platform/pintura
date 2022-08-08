@@ -55,7 +55,7 @@ class VoltageLimit extends OperationalLimit {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VoltageLimit.isMemberAttribute(attribute)) {
+            if (!VoltageLimit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VoltageLimit: ", attribute, " with value: ", object[attribute])
             }
         });

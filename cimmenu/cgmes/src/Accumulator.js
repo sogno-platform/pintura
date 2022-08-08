@@ -55,7 +55,7 @@ class Accumulator extends Measurement {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Accumulator.isMemberAttribute(attribute)) {
+            if (!Accumulator.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Accumulator: ", attribute, " with value: ", object[attribute])
             }
         });

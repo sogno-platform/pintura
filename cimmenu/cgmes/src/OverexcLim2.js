@@ -121,7 +121,7 @@ class OverexcLim2 extends OverexcitationLimiterDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!OverexcLim2.isMemberAttribute(attribute)) {
+            if (!OverexcLim2.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class OverexcLim2: ", attribute, " with value: ", object[attribute])
             }
         });

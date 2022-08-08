@@ -121,7 +121,7 @@ class CurveData extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!CurveData.isMemberAttribute(attribute)) {
+            if (!CurveData.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class CurveData: ", attribute, " with value: ", object[attribute])
             }
         });

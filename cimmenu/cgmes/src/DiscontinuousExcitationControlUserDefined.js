@@ -55,7 +55,7 @@ class DiscontinuousExcitationControlUserDefined extends DiscontinuousExcitationC
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DiscontinuousExcitationControlUserDefined.isMemberAttribute(attribute)) {
+            if (!DiscontinuousExcitationControlUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DiscontinuousExcitationControlUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

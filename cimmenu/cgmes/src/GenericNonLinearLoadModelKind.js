@@ -42,7 +42,7 @@ class GenericNonLinearLoadModelKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GenericNonLinearLoadModelKind.isMemberAttribute(attribute)) {
+            if (!GenericNonLinearLoadModelKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GenericNonLinearLoadModelKind: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -99,7 +99,7 @@ class Resistance extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Resistance.isMemberAttribute(attribute)) {
+            if (!Resistance.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Resistance: ", attribute, " with value: ", object[attribute])
             }
         });

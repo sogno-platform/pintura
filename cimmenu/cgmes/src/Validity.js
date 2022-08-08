@@ -44,7 +44,7 @@ class Validity extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Validity.isMemberAttribute(attribute)) {
+            if (!Validity.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Validity: ", attribute, " with value: ", object[attribute])
             }
         });

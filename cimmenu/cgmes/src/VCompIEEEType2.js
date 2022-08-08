@@ -55,7 +55,7 @@ class VCompIEEEType2 extends VoltageCompensatorDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VCompIEEEType2.isMemberAttribute(attribute)) {
+            if (!VCompIEEEType2.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VCompIEEEType2: ", attribute, " with value: ", object[attribute])
             }
         });

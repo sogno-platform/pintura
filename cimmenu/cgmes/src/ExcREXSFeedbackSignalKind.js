@@ -44,7 +44,7 @@ class ExcREXSFeedbackSignalKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcREXSFeedbackSignalKind.isMemberAttribute(attribute)) {
+            if (!ExcREXSFeedbackSignalKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcREXSFeedbackSignalKind: ", attribute, " with value: ", object[attribute])
             }
         });

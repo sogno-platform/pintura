@@ -77,7 +77,7 @@ class WindTurbineType4bIEC extends WindGenType4IEC {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindTurbineType4bIEC.isMemberAttribute(attribute)) {
+            if (!WindTurbineType4bIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindTurbineType4bIEC: ", attribute, " with value: ", object[attribute])
             }
         });

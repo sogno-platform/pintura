@@ -99,7 +99,7 @@ class DCShunt extends DCConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCShunt.isMemberAttribute(attribute)) {
+            if (!DCShunt.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCShunt: ", attribute, " with value: ", object[attribute])
             }
         });

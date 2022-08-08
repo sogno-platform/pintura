@@ -253,7 +253,7 @@ class StateVariablesVersion extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!StateVariablesVersion.isMemberAttribute(attribute)) {
+            if (!StateVariablesVersion.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class StateVariablesVersion: ", attribute, " with value: ", object[attribute])
             }
         });

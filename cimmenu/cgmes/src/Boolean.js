@@ -33,7 +33,7 @@ class Boolean extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Boolean.isMemberAttribute(attribute)) {
+            if (!Boolean.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Boolean: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -275,7 +275,7 @@ class PssELIN2 extends PowerSystemStabilizerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PssELIN2.isMemberAttribute(attribute)) {
+            if (!PssELIN2.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PssELIN2: ", attribute, " with value: ", object[attribute])
             }
         });

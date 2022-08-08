@@ -55,7 +55,7 @@ class Substation extends EquipmentContainer {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Substation.isMemberAttribute(attribute)) {
+            if (!Substation.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Substation: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -341,7 +341,7 @@ class CsConverter extends ACDCConverter {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!CsConverter.isMemberAttribute(attribute)) {
+            if (!CsConverter.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class CsConverter: ", attribute, " with value: ", object[attribute])
             }
         });

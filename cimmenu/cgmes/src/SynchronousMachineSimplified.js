@@ -33,7 +33,7 @@ class SynchronousMachineSimplified extends SynchronousMachineDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SynchronousMachineSimplified.isMemberAttribute(attribute)) {
+            if (!SynchronousMachineSimplified.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SynchronousMachineSimplified: ", attribute, " with value: ", object[attribute])
             }
         });

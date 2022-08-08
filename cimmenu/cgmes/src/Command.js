@@ -121,7 +121,7 @@ class Command extends Control {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Command.isMemberAttribute(attribute)) {
+            if (!Command.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Command: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -55,7 +55,7 @@ class ConformLoadSchedule extends SeasonDayTypeSchedule {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ConformLoadSchedule.isMemberAttribute(attribute)) {
+            if (!ConformLoadSchedule.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ConformLoadSchedule: ", attribute, " with value: ", object[attribute])
             }
         });

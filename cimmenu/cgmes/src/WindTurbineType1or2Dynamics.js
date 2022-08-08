@@ -77,7 +77,7 @@ class WindTurbineType1or2Dynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindTurbineType1or2Dynamics.isMemberAttribute(attribute)) {
+            if (!WindTurbineType1or2Dynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindTurbineType1or2Dynamics: ", attribute, " with value: ", object[attribute])
             }
         });

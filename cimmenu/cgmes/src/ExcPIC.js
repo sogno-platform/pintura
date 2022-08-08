@@ -539,7 +539,7 @@ class ExcPIC extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcPIC.isMemberAttribute(attribute)) {
+            if (!ExcPIC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcPIC: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -33,7 +33,7 @@ class StationSupply extends EnergyConsumer {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!StationSupply.isMemberAttribute(attribute)) {
+            if (!StationSupply.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class StationSupply: ", attribute, " with value: ", object[attribute])
             }
         });

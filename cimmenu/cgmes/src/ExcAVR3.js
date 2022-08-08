@@ -297,7 +297,7 @@ class ExcAVR3 extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcAVR3.isMemberAttribute(attribute)) {
+            if (!ExcAVR3.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcAVR3: ", attribute, " with value: ", object[attribute])
             }
         });

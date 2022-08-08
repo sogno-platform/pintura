@@ -46,7 +46,7 @@ class GeneratorControlSource extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GeneratorControlSource.isMemberAttribute(attribute)) {
+            if (!GeneratorControlSource.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GeneratorControlSource: ", attribute, " with value: ", object[attribute])
             }
         });

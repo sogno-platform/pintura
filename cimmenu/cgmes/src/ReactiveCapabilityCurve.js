@@ -55,7 +55,7 @@ class ReactiveCapabilityCurve extends Curve {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ReactiveCapabilityCurve.isMemberAttribute(attribute)) {
+            if (!ReactiveCapabilityCurve.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ReactiveCapabilityCurve: ", attribute, " with value: ", object[attribute])
             }
         });

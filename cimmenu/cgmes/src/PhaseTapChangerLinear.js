@@ -99,7 +99,7 @@ class PhaseTapChangerLinear extends PhaseTapChanger {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PhaseTapChangerLinear.isMemberAttribute(attribute)) {
+            if (!PhaseTapChangerLinear.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PhaseTapChangerLinear: ", attribute, " with value: ", object[attribute])
             }
         });

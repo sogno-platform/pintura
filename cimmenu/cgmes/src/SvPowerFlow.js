@@ -99,7 +99,7 @@ class SvPowerFlow extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SvPowerFlow.isMemberAttribute(attribute)) {
+            if (!SvPowerFlow.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SvPowerFlow: ", attribute, " with value: ", object[attribute])
             }
         });

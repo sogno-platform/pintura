@@ -77,7 +77,7 @@ class SvShuntCompensatorSections extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SvShuntCompensatorSections.isMemberAttribute(attribute)) {
+            if (!SvShuntCompensatorSections.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SvShuntCompensatorSections: ", attribute, " with value: ", object[attribute])
             }
         });

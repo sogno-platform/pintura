@@ -77,7 +77,7 @@ class SvStatus extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SvStatus.isMemberAttribute(attribute)) {
+            if (!SvStatus.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SvStatus: ", attribute, " with value: ", object[attribute])
             }
         });

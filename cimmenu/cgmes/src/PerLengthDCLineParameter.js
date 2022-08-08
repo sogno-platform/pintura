@@ -99,7 +99,7 @@ class PerLengthDCLineParameter extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PerLengthDCLineParameter.isMemberAttribute(attribute)) {
+            if (!PerLengthDCLineParameter.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PerLengthDCLineParameter: ", attribute, " with value: ", object[attribute])
             }
         });

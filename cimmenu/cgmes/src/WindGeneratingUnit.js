@@ -55,7 +55,7 @@ class WindGeneratingUnit extends GeneratingUnit {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindGeneratingUnit.isMemberAttribute(attribute)) {
+            if (!WindGeneratingUnit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindGeneratingUnit: ", attribute, " with value: ", object[attribute])
             }
         });

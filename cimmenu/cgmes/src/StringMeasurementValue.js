@@ -77,7 +77,7 @@ class StringMeasurementValue extends MeasurementValue {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!StringMeasurementValue.isMemberAttribute(attribute)) {
+            if (!StringMeasurementValue.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class StringMeasurementValue: ", attribute, " with value: ", object[attribute])
             }
         });

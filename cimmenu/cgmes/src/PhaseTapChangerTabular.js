@@ -55,7 +55,7 @@ class PhaseTapChangerTabular extends PhaseTapChanger {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PhaseTapChangerTabular.isMemberAttribute(attribute)) {
+            if (!PhaseTapChangerTabular.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PhaseTapChangerTabular: ", attribute, " with value: ", object[attribute])
             }
         });

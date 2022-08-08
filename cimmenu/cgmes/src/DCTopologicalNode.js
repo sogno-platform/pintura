@@ -77,7 +77,7 @@ class DCTopologicalNode extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCTopologicalNode.isMemberAttribute(attribute)) {
+            if (!DCTopologicalNode.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCTopologicalNode: ", attribute, " with value: ", object[attribute])
             }
         });

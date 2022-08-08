@@ -99,7 +99,7 @@ class WindTurbineType3or4Dynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindTurbineType3or4Dynamics.isMemberAttribute(attribute)) {
+            if (!WindTurbineType3or4Dynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindTurbineType3or4Dynamics: ", attribute, " with value: ", object[attribute])
             }
         });

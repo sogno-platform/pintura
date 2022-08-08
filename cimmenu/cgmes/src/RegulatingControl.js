@@ -187,7 +187,7 @@ class RegulatingControl extends PowerSystemResource {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RegulatingControl.isMemberAttribute(attribute)) {
+            if (!RegulatingControl.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RegulatingControl: ", attribute, " with value: ", object[attribute])
             }
         });

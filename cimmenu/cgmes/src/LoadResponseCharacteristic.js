@@ -275,7 +275,7 @@ class LoadResponseCharacteristic extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LoadResponseCharacteristic.isMemberAttribute(attribute)) {
+            if (!LoadResponseCharacteristic.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LoadResponseCharacteristic: ", attribute, " with value: ", object[attribute])
             }
         });

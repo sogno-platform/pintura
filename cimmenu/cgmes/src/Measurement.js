@@ -165,7 +165,7 @@ class Measurement extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Measurement.isMemberAttribute(attribute)) {
+            if (!Measurement.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Measurement: ", attribute, " with value: ", object[attribute])
             }
         });

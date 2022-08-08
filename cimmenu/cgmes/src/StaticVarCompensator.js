@@ -165,7 +165,7 @@ class StaticVarCompensator extends RegulatingCondEq {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!StaticVarCompensator.isMemberAttribute(attribute)) {
+            if (!StaticVarCompensator.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class StaticVarCompensator: ", attribute, " with value: ", object[attribute])
             }
         });

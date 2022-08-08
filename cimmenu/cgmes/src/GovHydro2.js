@@ -671,7 +671,7 @@ class GovHydro2 extends TurbineGovernorDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GovHydro2.isMemberAttribute(attribute)) {
+            if (!GovHydro2.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GovHydro2: ", attribute, " with value: ", object[attribute])
             }
         });

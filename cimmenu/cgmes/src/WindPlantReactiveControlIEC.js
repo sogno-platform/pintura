@@ -319,7 +319,7 @@ class WindPlantReactiveControlIEC extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindPlantReactiveControlIEC.isMemberAttribute(attribute)) {
+            if (!WindPlantReactiveControlIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindPlantReactiveControlIEC: ", attribute, " with value: ", object[attribute])
             }
         });

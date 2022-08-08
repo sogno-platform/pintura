@@ -77,7 +77,7 @@ class FossilFuel extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!FossilFuel.isMemberAttribute(attribute)) {
+            if (!FossilFuel.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class FossilFuel: ", attribute, " with value: ", object[attribute])
             }
         });

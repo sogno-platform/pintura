@@ -58,7 +58,7 @@ class InputSignalKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!InputSignalKind.isMemberAttribute(attribute)) {
+            if (!InputSignalKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class InputSignalKind: ", attribute, " with value: ", object[attribute])
             }
         });

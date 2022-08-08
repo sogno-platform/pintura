@@ -42,7 +42,7 @@ class RotorKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RotorKind.isMemberAttribute(attribute)) {
+            if (!RotorKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RotorKind: ", attribute, " with value: ", object[attribute])
             }
         });

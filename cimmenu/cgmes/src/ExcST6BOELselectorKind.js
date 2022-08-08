@@ -44,7 +44,7 @@ class ExcST6BOELselectorKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcST6BOELselectorKind.isMemberAttribute(attribute)) {
+            if (!ExcST6BOELselectorKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcST6BOELselectorKind: ", attribute, " with value: ", object[attribute])
             }
         });

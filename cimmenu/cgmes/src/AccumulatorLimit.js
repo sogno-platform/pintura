@@ -77,7 +77,7 @@ class AccumulatorLimit extends Limit {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AccumulatorLimit.isMemberAttribute(attribute)) {
+            if (!AccumulatorLimit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AccumulatorLimit: ", attribute, " with value: ", object[attribute])
             }
         });

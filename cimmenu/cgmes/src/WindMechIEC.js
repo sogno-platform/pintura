@@ -143,7 +143,7 @@ class WindMechIEC extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindMechIEC.isMemberAttribute(attribute)) {
+            if (!WindMechIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindMechIEC: ", attribute, " with value: ", object[attribute])
             }
         });

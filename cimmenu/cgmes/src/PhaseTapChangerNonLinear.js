@@ -99,7 +99,7 @@ class PhaseTapChangerNonLinear extends PhaseTapChanger {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PhaseTapChangerNonLinear.isMemberAttribute(attribute)) {
+            if (!PhaseTapChangerNonLinear.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PhaseTapChangerNonLinear: ", attribute, " with value: ", object[attribute])
             }
         });

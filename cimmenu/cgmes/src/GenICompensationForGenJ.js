@@ -121,7 +121,7 @@ class GenICompensationForGenJ extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GenICompensationForGenJ.isMemberAttribute(attribute)) {
+            if (!GenICompensationForGenJ.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GenICompensationForGenJ: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -55,7 +55,7 @@ class PhaseTapChangerAsymmetrical extends PhaseTapChangerNonLinear {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PhaseTapChangerAsymmetrical.isMemberAttribute(attribute)) {
+            if (!PhaseTapChangerAsymmetrical.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PhaseTapChangerAsymmetrical: ", attribute, " with value: ", object[attribute])
             }
         });

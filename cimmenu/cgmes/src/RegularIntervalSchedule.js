@@ -77,7 +77,7 @@ class RegularIntervalSchedule extends BasicIntervalSchedule {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RegularIntervalSchedule.isMemberAttribute(attribute)) {
+            if (!RegularIntervalSchedule.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RegularIntervalSchedule: ", attribute, " with value: ", object[attribute])
             }
         });

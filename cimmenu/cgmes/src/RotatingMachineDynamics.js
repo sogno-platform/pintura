@@ -165,7 +165,7 @@ class RotatingMachineDynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RotatingMachineDynamics.isMemberAttribute(attribute)) {
+            if (!RotatingMachineDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RotatingMachineDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

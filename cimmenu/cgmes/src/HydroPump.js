@@ -77,7 +77,7 @@ class HydroPump extends Equipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!HydroPump.isMemberAttribute(attribute)) {
+            if (!HydroPump.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class HydroPump: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -77,7 +77,7 @@ class OperationalLimitSet extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!OperationalLimitSet.isMemberAttribute(attribute)) {
+            if (!OperationalLimitSet.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class OperationalLimitSet: ", attribute, " with value: ", object[attribute])
             }
         });

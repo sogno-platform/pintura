@@ -46,7 +46,7 @@ class ShortCircuitRotorKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ShortCircuitRotorKind.isMemberAttribute(attribute)) {
+            if (!ShortCircuitRotorKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ShortCircuitRotorKind: ", attribute, " with value: ", object[attribute])
             }
         });

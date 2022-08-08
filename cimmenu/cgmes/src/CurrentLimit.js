@@ -55,7 +55,7 @@ class CurrentLimit extends OperationalLimit {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!CurrentLimit.isMemberAttribute(attribute)) {
+            if (!CurrentLimit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class CurrentLimit: ", attribute, " with value: ", object[attribute])
             }
         });

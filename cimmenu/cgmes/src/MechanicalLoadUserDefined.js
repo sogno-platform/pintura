@@ -55,7 +55,7 @@ class MechanicalLoadUserDefined extends MechanicalLoadDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!MechanicalLoadUserDefined.isMemberAttribute(attribute)) {
+            if (!MechanicalLoadUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class MechanicalLoadUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

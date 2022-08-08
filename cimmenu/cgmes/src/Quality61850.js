@@ -297,7 +297,7 @@ class Quality61850 extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Quality61850.isMemberAttribute(attribute)) {
+            if (!Quality61850.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Quality61850: ", attribute, " with value: ", object[attribute])
             }
         });

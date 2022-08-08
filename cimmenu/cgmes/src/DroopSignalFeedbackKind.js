@@ -46,7 +46,7 @@ class DroopSignalFeedbackKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DroopSignalFeedbackKind.isMemberAttribute(attribute)) {
+            if (!DroopSignalFeedbackKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DroopSignalFeedbackKind: ", attribute, " with value: ", object[attribute])
             }
         });

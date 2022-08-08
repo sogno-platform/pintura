@@ -108,7 +108,13 @@ class cimxml {
         if (id) {
             /* add the new object to the graph */
             let categoryGraph = graph[nodeCategory];
-            categoryGraph[id] = thisObject;
+            let keys = Object.keys(categoryGraph);
+            if (!keys.includes(id)) {
+                categoryGraph[id] = {};
+            }
+            Object.keys(thisObject).forEach((key) => {
+                categoryGraph[id][key] = thisObject[key];
+            });
         }
     }
 

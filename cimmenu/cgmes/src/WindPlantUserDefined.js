@@ -55,7 +55,7 @@ class WindPlantUserDefined extends WindPlantDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindPlantUserDefined.isMemberAttribute(attribute)) {
+            if (!WindPlantUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindPlantUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

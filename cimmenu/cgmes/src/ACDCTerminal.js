@@ -121,7 +121,7 @@ class ACDCTerminal extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ACDCTerminal.isMemberAttribute(attribute)) {
+            if (!ACDCTerminal.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ACDCTerminal: ", attribute, " with value: ", object[attribute])
             }
         });

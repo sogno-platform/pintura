@@ -55,7 +55,7 @@ class VoltageAdjusterUserDefined extends VoltageAdjusterDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VoltageAdjusterUserDefined.isMemberAttribute(attribute)) {
+            if (!VoltageAdjusterUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VoltageAdjusterUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

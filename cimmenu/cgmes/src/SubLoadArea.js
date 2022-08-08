@@ -55,7 +55,7 @@ class SubLoadArea extends EnergyArea {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SubLoadArea.isMemberAttribute(attribute)) {
+            if (!SubLoadArea.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SubLoadArea: ", attribute, " with value: ", object[attribute])
             }
         });

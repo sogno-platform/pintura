@@ -825,7 +825,7 @@ class ExcREXS extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcREXS.isMemberAttribute(attribute)) {
+            if (!ExcREXS.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcREXS: ", attribute, " with value: ", object[attribute])
             }
         });

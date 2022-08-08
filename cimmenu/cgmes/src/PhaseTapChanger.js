@@ -55,7 +55,7 @@ class PhaseTapChanger extends TapChanger {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PhaseTapChanger.isMemberAttribute(attribute)) {
+            if (!PhaseTapChanger.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PhaseTapChanger: ", attribute, " with value: ", object[attribute])
             }
         });

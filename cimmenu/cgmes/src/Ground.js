@@ -33,7 +33,7 @@ class Ground extends ConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Ground.isMemberAttribute(attribute)) {
+            if (!Ground.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Ground: ", attribute, " with value: ", object[attribute])
             }
         });

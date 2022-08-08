@@ -297,7 +297,7 @@ class TurbLCFB1 extends TurbineLoadControllerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TurbLCFB1.isMemberAttribute(attribute)) {
+            if (!TurbLCFB1.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TurbLCFB1: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -33,7 +33,7 @@ class DCBusbar extends DCConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCBusbar.isMemberAttribute(attribute)) {
+            if (!DCBusbar.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCBusbar: ", attribute, " with value: ", object[attribute])
             }
         });

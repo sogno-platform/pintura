@@ -55,7 +55,7 @@ class AccumulatorReset extends Control {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AccumulatorReset.isMemberAttribute(attribute)) {
+            if (!AccumulatorReset.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AccumulatorReset: ", attribute, " with value: ", object[attribute])
             }
         });

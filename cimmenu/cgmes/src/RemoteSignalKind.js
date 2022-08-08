@@ -56,7 +56,7 @@ class RemoteSignalKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RemoteSignalKind.isMemberAttribute(attribute)) {
+            if (!RemoteSignalKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RemoteSignalKind: ", attribute, " with value: ", object[attribute])
             }
         });

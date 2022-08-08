@@ -77,7 +77,7 @@ class DCNode extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCNode.isMemberAttribute(attribute)) {
+            if (!DCNode.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCNode: ", attribute, " with value: ", object[attribute])
             }
         });

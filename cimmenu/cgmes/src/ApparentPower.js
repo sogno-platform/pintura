@@ -99,7 +99,7 @@ class ApparentPower extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ApparentPower.isMemberAttribute(attribute)) {
+            if (!ApparentPower.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ApparentPower: ", attribute, " with value: ", object[attribute])
             }
         });

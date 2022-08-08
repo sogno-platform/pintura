@@ -341,7 +341,7 @@ class EquipmentVersion extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!EquipmentVersion.isMemberAttribute(attribute)) {
+            if (!EquipmentVersion.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class EquipmentVersion: ", attribute, " with value: ", object[attribute])
             }
         });

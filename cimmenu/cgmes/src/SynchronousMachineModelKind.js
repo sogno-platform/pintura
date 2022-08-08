@@ -48,7 +48,7 @@ class SynchronousMachineModelKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SynchronousMachineModelKind.isMemberAttribute(attribute)) {
+            if (!SynchronousMachineModelKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SynchronousMachineModelKind: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -77,7 +77,7 @@ class AnalogValue extends MeasurementValue {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AnalogValue.isMemberAttribute(attribute)) {
+            if (!AnalogValue.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AnalogValue: ", attribute, " with value: ", object[attribute])
             }
         });

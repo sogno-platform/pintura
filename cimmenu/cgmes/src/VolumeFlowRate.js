@@ -143,7 +143,7 @@ class VolumeFlowRate extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VolumeFlowRate.isMemberAttribute(attribute)) {
+            if (!VolumeFlowRate.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VolumeFlowRate: ", attribute, " with value: ", object[attribute])
             }
         });

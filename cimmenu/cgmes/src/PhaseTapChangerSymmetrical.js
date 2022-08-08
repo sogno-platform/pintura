@@ -33,7 +33,7 @@ class PhaseTapChangerSymmetrical extends PhaseTapChangerNonLinear {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PhaseTapChangerSymmetrical.isMemberAttribute(attribute)) {
+            if (!PhaseTapChangerSymmetrical.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PhaseTapChangerSymmetrical: ", attribute, " with value: ", object[attribute])
             }
         });

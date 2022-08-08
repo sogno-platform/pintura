@@ -77,7 +77,7 @@ class SeasonDayTypeSchedule extends RegularIntervalSchedule {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SeasonDayTypeSchedule.isMemberAttribute(attribute)) {
+            if (!SeasonDayTypeSchedule.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SeasonDayTypeSchedule: ", attribute, " with value: ", object[attribute])
             }
         });

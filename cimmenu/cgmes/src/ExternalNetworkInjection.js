@@ -429,7 +429,7 @@ class ExternalNetworkInjection extends RegulatingCondEq {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExternalNetworkInjection.isMemberAttribute(attribute)) {
+            if (!ExternalNetworkInjection.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExternalNetworkInjection: ", attribute, " with value: ", object[attribute])
             }
         });

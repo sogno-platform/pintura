@@ -77,7 +77,7 @@ class WindPlantIEC extends WindPlantDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindPlantIEC.isMemberAttribute(attribute)) {
+            if (!WindPlantIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindPlantIEC: ", attribute, " with value: ", object[attribute])
             }
         });

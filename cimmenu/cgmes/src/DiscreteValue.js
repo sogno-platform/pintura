@@ -77,7 +77,7 @@ class DiscreteValue extends MeasurementValue {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DiscreteValue.isMemberAttribute(attribute)) {
+            if (!DiscreteValue.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DiscreteValue: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -341,7 +341,7 @@ class LoadMotor extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LoadMotor.isMemberAttribute(attribute)) {
+            if (!LoadMotor.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LoadMotor: ", attribute, " with value: ", object[attribute])
             }
         });

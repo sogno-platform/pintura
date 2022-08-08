@@ -33,7 +33,7 @@ class ProtectedSwitch extends Switch {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ProtectedSwitch.isMemberAttribute(attribute)) {
+            if (!ProtectedSwitch.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ProtectedSwitch: ", attribute, " with value: ", object[attribute])
             }
         });

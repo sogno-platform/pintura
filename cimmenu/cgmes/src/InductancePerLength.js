@@ -143,7 +143,7 @@ class InductancePerLength extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!InductancePerLength.isMemberAttribute(attribute)) {
+            if (!InductancePerLength.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class InductancePerLength: ", attribute, " with value: ", object[attribute])
             }
         });

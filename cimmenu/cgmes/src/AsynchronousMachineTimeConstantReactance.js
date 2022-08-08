@@ -143,7 +143,7 @@ class AsynchronousMachineTimeConstantReactance extends AsynchronousMachineDynami
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AsynchronousMachineTimeConstantReactance.isMemberAttribute(attribute)) {
+            if (!AsynchronousMachineTimeConstantReactance.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AsynchronousMachineTimeConstantReactance: ", attribute, " with value: ", object[attribute])
             }
         });

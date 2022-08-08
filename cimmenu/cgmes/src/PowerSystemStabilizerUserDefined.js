@@ -55,7 +55,7 @@ class PowerSystemStabilizerUserDefined extends PowerSystemStabilizerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PowerSystemStabilizerUserDefined.isMemberAttribute(attribute)) {
+            if (!PowerSystemStabilizerUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PowerSystemStabilizerUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

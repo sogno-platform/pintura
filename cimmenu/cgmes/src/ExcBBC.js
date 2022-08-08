@@ -275,7 +275,7 @@ class ExcBBC extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcBBC.isMemberAttribute(attribute)) {
+            if (!ExcBBC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcBBC: ", attribute, " with value: ", object[attribute])
             }
         });

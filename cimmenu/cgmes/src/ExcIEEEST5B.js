@@ -407,7 +407,7 @@ class ExcIEEEST5B extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcIEEEST5B.isMemberAttribute(attribute)) {
+            if (!ExcIEEEST5B.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcIEEEST5B: ", attribute, " with value: ", object[attribute])
             }
         });
