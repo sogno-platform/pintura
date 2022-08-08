@@ -66,7 +66,7 @@ class Currency extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Currency.isMemberAttribute(attribute)) {
+            if (!Currency.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Currency: ", attribute, " with value: ", object[attribute])
             }
         });

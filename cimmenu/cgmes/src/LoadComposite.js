@@ -275,7 +275,7 @@ class LoadComposite extends LoadDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LoadComposite.isMemberAttribute(attribute)) {
+            if (!LoadComposite.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LoadComposite: ", attribute, " with value: ", object[attribute])
             }
         });

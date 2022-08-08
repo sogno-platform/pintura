@@ -99,7 +99,7 @@ class BasicIntervalSchedule extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!BasicIntervalSchedule.isMemberAttribute(attribute)) {
+            if (!BasicIntervalSchedule.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class BasicIntervalSchedule: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -429,7 +429,7 @@ class Pss2ST extends PowerSystemStabilizerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Pss2ST.isMemberAttribute(attribute)) {
+            if (!Pss2ST.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Pss2ST: ", attribute, " with value: ", object[attribute])
             }
         });

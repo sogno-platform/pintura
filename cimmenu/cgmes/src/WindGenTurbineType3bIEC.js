@@ -143,7 +143,7 @@ class WindGenTurbineType3bIEC extends WindGenTurbineType3IEC {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindGenTurbineType3bIEC.isMemberAttribute(attribute)) {
+            if (!WindGenTurbineType3bIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindGenTurbineType3bIEC: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -429,7 +429,7 @@ class LoadStatic extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LoadStatic.isMemberAttribute(attribute)) {
+            if (!LoadStatic.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LoadStatic: ", attribute, " with value: ", object[attribute])
             }
         });

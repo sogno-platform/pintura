@@ -327,6 +327,9 @@ class cimmenu {
         else {
             completeAttributeName = classType + '.' + tokens[0]
         }
+        if (completeAttributeName === "cim:IdentifiedObject.mRID") {
+            completeAttributeName = common.pinturaRdfid();
+        }
         let details = {
             classType: classType,
             parentId: parentId,

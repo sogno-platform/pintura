@@ -297,7 +297,7 @@ class TopologicalNode extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TopologicalNode.isMemberAttribute(attribute)) {
+            if (!TopologicalNode.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TopologicalNode: ", attribute, " with value: ", object[attribute])
             }
         });

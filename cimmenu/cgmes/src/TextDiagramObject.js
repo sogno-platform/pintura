@@ -55,7 +55,7 @@ class TextDiagramObject extends DiagramObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TextDiagramObject.isMemberAttribute(attribute)) {
+            if (!TextDiagramObject.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TextDiagramObject: ", attribute, " with value: ", object[attribute])
             }
         });

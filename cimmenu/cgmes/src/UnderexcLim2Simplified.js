@@ -187,7 +187,7 @@ class UnderexcLim2Simplified extends UnderexcitationLimiterDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!UnderexcLim2Simplified.isMemberAttribute(attribute)) {
+            if (!UnderexcLim2Simplified.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class UnderexcLim2Simplified: ", attribute, " with value: ", object[attribute])
             }
         });

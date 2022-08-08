@@ -319,7 +319,7 @@ class PssSH extends PowerSystemStabilizerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PssSH.isMemberAttribute(attribute)) {
+            if (!PssSH.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PssSH: ", attribute, " with value: ", object[attribute])
             }
         });

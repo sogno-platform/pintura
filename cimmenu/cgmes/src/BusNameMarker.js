@@ -77,7 +77,7 @@ class BusNameMarker extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!BusNameMarker.isMemberAttribute(attribute)) {
+            if (!BusNameMarker.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class BusNameMarker: ", attribute, " with value: ", object[attribute])
             }
         });

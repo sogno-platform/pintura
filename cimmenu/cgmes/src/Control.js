@@ -165,7 +165,7 @@ class Control extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Control.isMemberAttribute(attribute)) {
+            if (!Control.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Control: ", attribute, " with value: ", object[attribute])
             }
         });

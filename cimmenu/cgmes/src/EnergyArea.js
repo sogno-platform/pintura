@@ -33,7 +33,7 @@ class EnergyArea extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!EnergyArea.isMemberAttribute(attribute)) {
+            if (!EnergyArea.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class EnergyArea: ", attribute, " with value: ", object[attribute])
             }
         });

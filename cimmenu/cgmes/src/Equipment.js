@@ -77,7 +77,7 @@ class Equipment extends PowerSystemResource {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Equipment.isMemberAttribute(attribute)) {
+            if (!Equipment.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Equipment: ", attribute, " with value: ", object[attribute])
             }
         });

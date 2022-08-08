@@ -165,7 +165,7 @@ class VAdjIEEE extends VoltageAdjusterDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VAdjIEEE.isMemberAttribute(attribute)) {
+            if (!VAdjIEEE.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VAdjIEEE: ", attribute, " with value: ", object[attribute])
             }
         });

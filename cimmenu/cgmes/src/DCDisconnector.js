@@ -33,7 +33,7 @@ class DCDisconnector extends DCSwitch {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCDisconnector.isMemberAttribute(attribute)) {
+            if (!DCDisconnector.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCDisconnector: ", attribute, " with value: ", object[attribute])
             }
         });

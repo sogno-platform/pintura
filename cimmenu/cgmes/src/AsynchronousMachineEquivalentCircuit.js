@@ -143,7 +143,7 @@ class AsynchronousMachineEquivalentCircuit extends AsynchronousMachineDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AsynchronousMachineEquivalentCircuit.isMemberAttribute(attribute)) {
+            if (!AsynchronousMachineEquivalentCircuit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AsynchronousMachineEquivalentCircuit: ", attribute, " with value: ", object[attribute])
             }
         });

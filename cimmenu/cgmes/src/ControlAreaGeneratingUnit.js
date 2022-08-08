@@ -77,7 +77,7 @@ class ControlAreaGeneratingUnit extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ControlAreaGeneratingUnit.isMemberAttribute(attribute)) {
+            if (!ControlAreaGeneratingUnit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ControlAreaGeneratingUnit: ", attribute, " with value: ", object[attribute])
             }
         });

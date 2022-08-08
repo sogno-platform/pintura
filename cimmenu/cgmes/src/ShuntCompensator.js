@@ -231,7 +231,7 @@ class ShuntCompensator extends RegulatingCondEq {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ShuntCompensator.isMemberAttribute(attribute)) {
+            if (!ShuntCompensator.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ShuntCompensator: ", attribute, " with value: ", object[attribute])
             }
         });

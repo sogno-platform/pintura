@@ -80,7 +80,7 @@ class PhaseCode extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PhaseCode.isMemberAttribute(attribute)) {
+            if (!PhaseCode.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PhaseCode: ", attribute, " with value: ", object[attribute])
             }
         });

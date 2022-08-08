@@ -33,7 +33,7 @@ class StringMeasurement extends Measurement {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!StringMeasurement.isMemberAttribute(attribute)) {
+            if (!StringMeasurement.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class StringMeasurement: ", attribute, " with value: ", object[attribute])
             }
         });

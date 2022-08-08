@@ -803,7 +803,7 @@ class GovHydroDD extends TurbineGovernorDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GovHydroDD.isMemberAttribute(attribute)) {
+            if (!GovHydroDD.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GovHydroDD: ", attribute, " with value: ", object[attribute])
             }
         });

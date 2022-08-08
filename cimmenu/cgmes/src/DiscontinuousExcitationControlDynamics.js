@@ -55,7 +55,7 @@ class DiscontinuousExcitationControlDynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DiscontinuousExcitationControlDynamics.isMemberAttribute(attribute)) {
+            if (!DiscontinuousExcitationControlDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DiscontinuousExcitationControlDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

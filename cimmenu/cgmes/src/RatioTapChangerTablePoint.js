@@ -55,7 +55,7 @@ class RatioTapChangerTablePoint extends TapChangerTablePoint {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RatioTapChangerTablePoint.isMemberAttribute(attribute)) {
+            if (!RatioTapChangerTablePoint.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RatioTapChangerTablePoint: ", attribute, " with value: ", object[attribute])
             }
         });

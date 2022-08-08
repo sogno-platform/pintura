@@ -209,7 +209,7 @@ class WindDynamicsLookupTable extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindDynamicsLookupTable.isMemberAttribute(attribute)) {
+            if (!WindDynamicsLookupTable.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindDynamicsLookupTable: ", attribute, " with value: ", object[attribute])
             }
         });

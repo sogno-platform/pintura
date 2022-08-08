@@ -77,7 +77,7 @@ class VisibilityLayer extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VisibilityLayer.isMemberAttribute(attribute)) {
+            if (!VisibilityLayer.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VisibilityLayer: ", attribute, " with value: ", object[attribute])
             }
         });

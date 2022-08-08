@@ -407,7 +407,7 @@ class GeneratingUnit extends Equipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GeneratingUnit.isMemberAttribute(attribute)) {
+            if (!GeneratingUnit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GeneratingUnit: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -275,7 +275,7 @@ class SynchronousMachineEquivalentCircuit extends SynchronousMachineDetailed {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SynchronousMachineEquivalentCircuit.isMemberAttribute(attribute)) {
+            if (!SynchronousMachineEquivalentCircuit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SynchronousMachineEquivalentCircuit: ", attribute, " with value: ", object[attribute])
             }
         });

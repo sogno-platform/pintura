@@ -121,7 +121,7 @@ class ExcitationSystemDynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcitationSystemDynamics.isMemberAttribute(attribute)) {
+            if (!ExcitationSystemDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcitationSystemDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -33,7 +33,7 @@ class NonlinearShuntCompensator extends ShuntCompensator {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!NonlinearShuntCompensator.isMemberAttribute(attribute)) {
+            if (!NonlinearShuntCompensator.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class NonlinearShuntCompensator: ", attribute, " with value: ", object[attribute])
             }
         });

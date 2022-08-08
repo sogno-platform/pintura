@@ -378,6 +378,7 @@ class CreateNewComponentList extends React.Component {
             <button className="component-type-name button wide-button" onClick={ () => { this.props.getCimsvg().addComponent('cim:PowerTransformer');} }>PowerTransformer</button>
             <button className="component-type-name button wide-button" onClick={ () => { this.props.getCimsvg().addComponent('cim:SynchronousMachine');} }>SynchronousMachine</button>
             <button className="component-type-name button wide-button" onClick={ () => { this.props.getCimsvg().addComponent('cim:TopologicalNode');} }>TopologicalNode</button>
+            <button className="component-type-name button wide-button" onClick={ () => { this.props.getCimsvg().addComponent('cim:Terminal');} }>Terminal</button>
         </>;
     }
 }

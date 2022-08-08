@@ -253,7 +253,7 @@ class MutualCoupling extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!MutualCoupling.isMemberAttribute(attribute)) {
+            if (!MutualCoupling.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class MutualCoupling: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -55,7 +55,7 @@ class DCLine extends DCEquipmentContainer {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCLine.isMemberAttribute(attribute)) {
+            if (!DCLine.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCLine: ", attribute, " with value: ", object[attribute])
             }
         });

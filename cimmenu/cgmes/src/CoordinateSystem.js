@@ -55,7 +55,7 @@ class CoordinateSystem extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!CoordinateSystem.isMemberAttribute(attribute)) {
+            if (!CoordinateSystem.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class CoordinateSystem: ", attribute, " with value: ", object[attribute])
             }
         });

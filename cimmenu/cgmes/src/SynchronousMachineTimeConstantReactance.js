@@ -341,7 +341,7 @@ class SynchronousMachineTimeConstantReactance extends SynchronousMachineDetailed
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SynchronousMachineTimeConstantReactance.isMemberAttribute(attribute)) {
+            if (!SynchronousMachineTimeConstantReactance.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SynchronousMachineTimeConstantReactance: ", attribute, " with value: ", object[attribute])
             }
         });

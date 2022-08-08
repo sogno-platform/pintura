@@ -77,7 +77,7 @@ class ConductingEquipment extends Equipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ConductingEquipment.isMemberAttribute(attribute)) {
+            if (!ConductingEquipment.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ConductingEquipment: ", attribute, " with value: ", object[attribute])
             }
         });

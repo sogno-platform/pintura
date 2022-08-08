@@ -77,7 +77,7 @@ class DCConverterUnit extends DCEquipmentContainer {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCConverterUnit.isMemberAttribute(attribute)) {
+            if (!DCConverterUnit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCConverterUnit: ", attribute, " with value: ", object[attribute])
             }
         });

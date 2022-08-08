@@ -99,7 +99,7 @@ class Money extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Money.isMemberAttribute(attribute)) {
+            if (!Money.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Money: ", attribute, " with value: ", object[attribute])
             }
         });

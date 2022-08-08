@@ -55,7 +55,7 @@ class Bay extends EquipmentContainer {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Bay.isMemberAttribute(attribute)) {
+            if (!Bay.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Bay: ", attribute, " with value: ", object[attribute])
             }
         });

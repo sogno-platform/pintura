@@ -385,7 +385,7 @@ class EquivalentInjection extends EquivalentEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!EquivalentInjection.isMemberAttribute(attribute)) {
+            if (!EquivalentInjection.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class EquivalentInjection: ", attribute, " with value: ", object[attribute])
             }
         });

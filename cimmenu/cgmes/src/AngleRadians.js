@@ -99,7 +99,7 @@ class AngleRadians extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AngleRadians.isMemberAttribute(attribute)) {
+            if (!AngleRadians.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AngleRadians: ", attribute, " with value: ", object[attribute])
             }
         });

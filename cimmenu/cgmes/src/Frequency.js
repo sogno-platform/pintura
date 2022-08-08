@@ -99,7 +99,7 @@ class Frequency extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Frequency.isMemberAttribute(attribute)) {
+            if (!Frequency.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Frequency: ", attribute, " with value: ", object[attribute])
             }
         });

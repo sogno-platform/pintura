@@ -55,7 +55,7 @@ class TurbineLoadControllerDynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TurbineLoadControllerDynamics.isMemberAttribute(attribute)) {
+            if (!TurbineLoadControllerDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TurbineLoadControllerDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -187,7 +187,7 @@ class SeriesCompensator extends ConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SeriesCompensator.isMemberAttribute(attribute)) {
+            if (!SeriesCompensator.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SeriesCompensator: ", attribute, " with value: ", object[attribute])
             }
         });

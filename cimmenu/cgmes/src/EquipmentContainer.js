@@ -33,7 +33,7 @@ class EquipmentContainer extends ConnectivityNodeContainer {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!EquipmentContainer.isMemberAttribute(attribute)) {
+            if (!EquipmentContainer.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class EquipmentContainer: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -77,7 +77,7 @@ class ValueToAlias extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ValueToAlias.isMemberAttribute(attribute)) {
+            if (!ValueToAlias.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ValueToAlias: ", attribute, " with value: ", object[attribute])
             }
         });

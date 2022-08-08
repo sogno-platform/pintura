@@ -55,7 +55,7 @@ class RatioTapChangerTable extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RatioTapChangerTable.isMemberAttribute(attribute)) {
+            if (!RatioTapChangerTable.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RatioTapChangerTable: ", attribute, " with value: ", object[attribute])
             }
         });

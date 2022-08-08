@@ -42,7 +42,7 @@ class CurveStyle extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!CurveStyle.isMemberAttribute(attribute)) {
+            if (!CurveStyle.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class CurveStyle: ", attribute, " with value: ", object[attribute])
             }
         });

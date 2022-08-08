@@ -55,7 +55,7 @@ class ExcitationSystemUserDefined extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcitationSystemUserDefined.isMemberAttribute(attribute)) {
+            if (!ExcitationSystemUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcitationSystemUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

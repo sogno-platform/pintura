@@ -42,7 +42,7 @@ class TransformerControlMode extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TransformerControlMode.isMemberAttribute(attribute)) {
+            if (!TransformerControlMode.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TransformerControlMode: ", attribute, " with value: ", object[attribute])
             }
         });

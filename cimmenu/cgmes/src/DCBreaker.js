@@ -33,7 +33,7 @@ class DCBreaker extends DCSwitch {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCBreaker.isMemberAttribute(attribute)) {
+            if (!DCBreaker.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCBreaker: ", attribute, " with value: ", object[attribute])
             }
         });

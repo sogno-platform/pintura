@@ -33,7 +33,7 @@ class LoadBreakSwitch extends ProtectedSwitch {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LoadBreakSwitch.isMemberAttribute(attribute)) {
+            if (!LoadBreakSwitch.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LoadBreakSwitch: ", attribute, " with value: ", object[attribute])
             }
         });

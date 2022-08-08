@@ -99,7 +99,7 @@ class ReactivePower extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ReactivePower.isMemberAttribute(attribute)) {
+            if (!ReactivePower.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ReactivePower: ", attribute, " with value: ", object[attribute])
             }
         });

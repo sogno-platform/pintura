@@ -385,7 +385,7 @@ class EquivalentBranch extends EquivalentEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!EquivalentBranch.isMemberAttribute(attribute)) {
+            if (!EquivalentBranch.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class EquivalentBranch: ", attribute, " with value: ", object[attribute])
             }
         });

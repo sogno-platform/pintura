@@ -55,7 +55,7 @@ class AsynchronousMachineUserDefined extends AsynchronousMachineDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AsynchronousMachineUserDefined.isMemberAttribute(attribute)) {
+            if (!AsynchronousMachineUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AsynchronousMachineUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -99,7 +99,7 @@ class AnalogControl extends Control {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AnalogControl.isMemberAttribute(attribute)) {
+            if (!AnalogControl.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AnalogControl: ", attribute, " with value: ", object[attribute])
             }
         });

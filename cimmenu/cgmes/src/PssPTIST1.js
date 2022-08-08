@@ -275,7 +275,7 @@ class PssPTIST1 extends PowerSystemStabilizerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PssPTIST1.isMemberAttribute(attribute)) {
+            if (!PssPTIST1.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PssPTIST1: ", attribute, " with value: ", object[attribute])
             }
         });

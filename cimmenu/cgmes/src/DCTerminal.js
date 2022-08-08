@@ -55,7 +55,7 @@ class DCTerminal extends DCBaseTerminal {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCTerminal.isMemberAttribute(attribute)) {
+            if (!DCTerminal.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCTerminal: ", attribute, " with value: ", object[attribute])
             }
         });

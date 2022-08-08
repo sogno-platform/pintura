@@ -121,7 +121,7 @@ class LinearShuntCompensator extends ShuntCompensator {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LinearShuntCompensator.isMemberAttribute(attribute)) {
+            if (!LinearShuntCompensator.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LinearShuntCompensator: ", attribute, " with value: ", object[attribute])
             }
         });

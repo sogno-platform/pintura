@@ -143,7 +143,7 @@ class ResistancePerLength extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ResistancePerLength.isMemberAttribute(attribute)) {
+            if (!ResistancePerLength.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ResistancePerLength: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -253,7 +253,7 @@ class ExcSEXS extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcSEXS.isMemberAttribute(attribute)) {
+            if (!ExcSEXS.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcSEXS: ", attribute, " with value: ", object[attribute])
             }
         });

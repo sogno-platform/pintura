@@ -33,7 +33,7 @@ class WindAeroConstIEC extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindAeroConstIEC.isMemberAttribute(attribute)) {
+            if (!WindAeroConstIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindAeroConstIEC: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -55,7 +55,7 @@ class GroundingImpedance extends EarthFaultCompensator {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GroundingImpedance.isMemberAttribute(attribute)) {
+            if (!GroundingImpedance.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GroundingImpedance: ", attribute, " with value: ", object[attribute])
             }
         });

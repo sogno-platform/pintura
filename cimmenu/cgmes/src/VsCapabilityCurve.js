@@ -33,7 +33,7 @@ class VsCapabilityCurve extends Curve {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VsCapabilityCurve.isMemberAttribute(attribute)) {
+            if (!VsCapabilityCurve.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VsCapabilityCurve: ", attribute, " with value: ", object[attribute])
             }
         });

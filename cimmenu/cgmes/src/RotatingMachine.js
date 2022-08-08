@@ -165,7 +165,7 @@ class RotatingMachine extends RegulatingCondEq {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RotatingMachine.isMemberAttribute(attribute)) {
+            if (!RotatingMachine.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RotatingMachine: ", attribute, " with value: ", object[attribute])
             }
         });

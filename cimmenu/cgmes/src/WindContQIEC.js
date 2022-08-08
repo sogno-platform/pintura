@@ -605,7 +605,7 @@ class WindContQIEC extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindContQIEC.isMemberAttribute(attribute)) {
+            if (!WindContQIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindContQIEC: ", attribute, " with value: ", object[attribute])
             }
         });

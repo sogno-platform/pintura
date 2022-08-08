@@ -253,7 +253,7 @@ class WindPitchContEmulIEC extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindPitchContEmulIEC.isMemberAttribute(attribute)) {
+            if (!WindPitchContEmulIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindPitchContEmulIEC: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -253,7 +253,7 @@ class WindContPitchAngleIEC extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!WindContPitchAngleIEC.isMemberAttribute(attribute)) {
+            if (!WindContPitchAngleIEC.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class WindContPitchAngleIEC: ", attribute, " with value: ", object[attribute])
             }
         });

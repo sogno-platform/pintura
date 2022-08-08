@@ -99,7 +99,7 @@ class Length extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Length.isMemberAttribute(attribute)) {
+            if (!Length.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Length: ", attribute, " with value: ", object[attribute])
             }
         });

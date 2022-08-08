@@ -99,7 +99,7 @@ class SvVoltage extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SvVoltage.isMemberAttribute(attribute)) {
+            if (!SvVoltage.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SvVoltage: ", attribute, " with value: ", object[attribute])
             }
         });

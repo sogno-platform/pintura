@@ -92,7 +92,7 @@ class UnitSymbol extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!UnitSymbol.isMemberAttribute(attribute)) {
+            if (!UnitSymbol.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class UnitSymbol: ", attribute, " with value: ", object[attribute])
             }
         });

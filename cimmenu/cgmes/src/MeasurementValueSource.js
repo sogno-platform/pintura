@@ -33,7 +33,7 @@ class MeasurementValueSource extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!MeasurementValueSource.isMemberAttribute(attribute)) {
+            if (!MeasurementValueSource.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class MeasurementValueSource: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -209,7 +209,7 @@ class RemoteInputSignal extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RemoteInputSignal.isMemberAttribute(attribute)) {
+            if (!RemoteInputSignal.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RemoteInputSignal: ", attribute, " with value: ", object[attribute])
             }
         });

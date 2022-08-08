@@ -77,7 +77,7 @@ class SetPoint extends AnalogControl {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SetPoint.isMemberAttribute(attribute)) {
+            if (!SetPoint.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SetPoint: ", attribute, " with value: ", object[attribute])
             }
         });

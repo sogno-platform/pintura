@@ -165,7 +165,7 @@ class NonlinearShuntCompensatorPoint extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!NonlinearShuntCompensatorPoint.isMemberAttribute(attribute)) {
+            if (!NonlinearShuntCompensatorPoint.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class NonlinearShuntCompensatorPoint: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -77,7 +77,7 @@ class EquivalentShunt extends EquivalentEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!EquivalentShunt.isMemberAttribute(attribute)) {
+            if (!EquivalentShunt.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class EquivalentShunt: ", attribute, " with value: ", object[attribute])
             }
         });

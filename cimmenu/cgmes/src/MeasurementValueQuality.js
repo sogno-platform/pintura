@@ -55,7 +55,7 @@ class MeasurementValueQuality extends Quality61850 {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!MeasurementValueQuality.isMemberAttribute(attribute)) {
+            if (!MeasurementValueQuality.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class MeasurementValueQuality: ", attribute, " with value: ", object[attribute])
             }
         });

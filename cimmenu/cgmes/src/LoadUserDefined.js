@@ -55,7 +55,7 @@ class LoadUserDefined extends LoadDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LoadUserDefined.isMemberAttribute(attribute)) {
+            if (!LoadUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LoadUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

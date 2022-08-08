@@ -42,7 +42,7 @@ class CsOperatingModeKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!CsOperatingModeKind.isMemberAttribute(attribute)) {
+            if (!CsOperatingModeKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class CsOperatingModeKind: ", attribute, " with value: ", object[attribute])
             }
         });

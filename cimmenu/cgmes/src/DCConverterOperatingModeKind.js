@@ -44,7 +44,7 @@ class DCConverterOperatingModeKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCConverterOperatingModeKind.isMemberAttribute(attribute)) {
+            if (!DCConverterOperatingModeKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCConverterOperatingModeKind: ", attribute, " with value: ", object[attribute])
             }
         });

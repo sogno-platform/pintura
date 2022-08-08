@@ -121,7 +121,7 @@ class VoltageLevel extends EquipmentContainer {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!VoltageLevel.isMemberAttribute(attribute)) {
+            if (!VoltageLevel.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class VoltageLevel: ", attribute, " with value: ", object[attribute])
             }
         });

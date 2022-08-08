@@ -253,7 +253,7 @@ class TopologyBoundaryVersion extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TopologyBoundaryVersion.isMemberAttribute(attribute)) {
+            if (!TopologyBoundaryVersion.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TopologyBoundaryVersion: ", attribute, " with value: ", object[attribute])
             }
         });

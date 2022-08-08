@@ -231,7 +231,7 @@ class LoadGenericNonLinear extends LoadDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LoadGenericNonLinear.isMemberAttribute(attribute)) {
+            if (!LoadGenericNonLinear.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LoadGenericNonLinear: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -44,7 +44,7 @@ class PetersenCoilModeKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PetersenCoilModeKind.isMemberAttribute(attribute)) {
+            if (!PetersenCoilModeKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PetersenCoilModeKind: ", attribute, " with value: ", object[attribute])
             }
         });

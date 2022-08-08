@@ -46,7 +46,7 @@ class ExcIEEEST1AUELselectorKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcIEEEST1AUELselectorKind.isMemberAttribute(attribute)) {
+            if (!ExcIEEEST1AUELselectorKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcIEEEST1AUELselectorKind: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -666,40 +666,12 @@ class cimsvg {
         return this.cimVersion;
     }
 
-    setCimVersion(cim, entsoe) {
-        let regex = /.*CIM-schema-(.*)#/.exec(cim);
-        if (regex.length > 1) {
-            let newCimVersion = regex[1];
-            if (this.cimVersionFromFile) {
-                if (this.cimVersion !== newCimVersion) {
-                    console.error("Files loaded with non-matching cim versions!");
-                    return false;
-                }
-            }
-            this.cimVersion = newCimVersion;
-            this.cimVersionFromFile = true;
-        }
-        else {
-            console.error("Failed to parse cim version.");
-            return false;
-        }
-        this.entsoe = entsoe ? "_entsoe" : "";
-        return true;
-    }
-
     loadFile(fileContents) {
         if (!this.getXmlDoc()) {
             this.setXmlDoc(cimxml.getDOM("<rdf:RDF "+cimxml.xmlns()+"/>"));
         }
         let cimParse = cimxml.moreXmlData(fileContents, this.getXmlDoc());
         if (cimParse) {
-            if (this.rdfFileCount === 1) {
-                this.setCimVersion(cimParse.cimVersion, cimParse.entsoe);
-            }
-            else {
-                this.cimVersion = "cgmes";
-                this.entsoe     = "";
-            }
             this.incFileReceivedCount();
             if (this.checkIfParseReady()) {
                 logIfDebug("Loading file cimVersion: ", this.cimVersion, " entsoe: ", this.entsoe);
@@ -711,7 +683,6 @@ class cimsvg {
                 this.drawMapOrSvg();
             }
         }
-
     }
 
     drawMapOrSvg() {
@@ -813,18 +784,40 @@ class cimsvg {
         let archive = new JSZip();
         archive.loadAsync(blob, {checkCRC32: true})
             .then((zip)=>{
-                let files = Object.keys(zip.files);
-                this.setFileCount(files.length);
-                files.forEach((filename)=>{
-                    let file = zip.files[filename];
-                    file.async("string").then((output)=>{
-                        this.loadFile(output);
+                // Get all the files objects
+                let files = Object.keys(zip.files).map(function (name) {
+                    return zip.files[name];
+                });
+                // Create map of promises returning file name, data
+                let readPromises = files.map(function(entry) {
+                    return entry.async("string").then(function (strData) {
+                        return [entry.name, strData];
+                    });
+                });
+                // Allow all promises to commence execution
+                let allData = async () => {
+                    let allPromises = await Promise.all(readPromises).then(function(readFileList) {
+                        let cache = {};
+                        readFileList.forEach((fileListEntry) => {
+                            cache[fileListEntry[0]] = fileListEntry[1];
+                        });
+                        return cache;
+                    });
+                    return allPromises;
+                }
+                // Wait for all promises then load files
+                allData().then((value) => {
+                    let fileNameList = Object.keys(value);
+                    this.setFileCount(fileNameList.length);
+                    fileNameList.forEach((filename) => {
+                        console.log("LOADING ", filename);
+                        this.loadFile(value[filename]);
                     });
                 });
             }, (error)=>{
                 console.error("failure", error);
             }
-            );
+        );
     }
 
     setTitle(title) {

@@ -55,7 +55,7 @@ class ConformLoad extends EnergyConsumer {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ConformLoad.isMemberAttribute(attribute)) {
+            if (!ConformLoad.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ConformLoad: ", attribute, " with value: ", object[attribute])
             }
         });

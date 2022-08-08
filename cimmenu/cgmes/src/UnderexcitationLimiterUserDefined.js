@@ -55,7 +55,7 @@ class UnderexcitationLimiterUserDefined extends UnderexcitationLimiterDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!UnderexcitationLimiterUserDefined.isMemberAttribute(attribute)) {
+            if (!UnderexcitationLimiterUserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class UnderexcitationLimiterUserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

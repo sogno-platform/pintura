@@ -253,7 +253,7 @@ class DynamicsVersion extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DynamicsVersion.isMemberAttribute(attribute)) {
+            if (!DynamicsVersion.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DynamicsVersion: ", attribute, " with value: ", object[attribute])
             }
         });

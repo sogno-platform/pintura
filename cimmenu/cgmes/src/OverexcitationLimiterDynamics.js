@@ -55,7 +55,7 @@ class OverexcitationLimiterDynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!OverexcitationLimiterDynamics.isMemberAttribute(attribute)) {
+            if (!OverexcitationLimiterDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class OverexcitationLimiterDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

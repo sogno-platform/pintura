@@ -451,7 +451,7 @@ class GovSteamFV3 extends TurbineGovernorDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GovSteamFV3.isMemberAttribute(attribute)) {
+            if (!GovSteamFV3.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GovSteamFV3: ", attribute, " with value: ", object[attribute])
             }
         });

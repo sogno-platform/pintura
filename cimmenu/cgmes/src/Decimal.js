@@ -33,7 +33,7 @@ class Decimal extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Decimal.isMemberAttribute(attribute)) {
+            if (!Decimal.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Decimal: ", attribute, " with value: ", object[attribute])
             }
         });

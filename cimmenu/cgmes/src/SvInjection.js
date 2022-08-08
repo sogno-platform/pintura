@@ -99,7 +99,7 @@ class SvInjection extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SvInjection.isMemberAttribute(attribute)) {
+            if (!SvInjection.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SvInjection: ", attribute, " with value: ", object[attribute])
             }
         });

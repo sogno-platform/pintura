@@ -759,7 +759,7 @@ class GovGASTWD extends TurbineGovernorDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GovGASTWD.isMemberAttribute(attribute)) {
+            if (!GovGASTWD.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GovGASTWD: ", attribute, " with value: ", object[attribute])
             }
         });

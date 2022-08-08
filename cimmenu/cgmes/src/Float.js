@@ -33,7 +33,7 @@ class Float extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Float.isMemberAttribute(attribute)) {
+            if (!Float.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Float: ", attribute, " with value: ", object[attribute])
             }
         });

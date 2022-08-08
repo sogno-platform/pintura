@@ -165,7 +165,7 @@ class DiagramObjectPoint extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DiagramObjectPoint.isMemberAttribute(attribute)) {
+            if (!DiagramObjectPoint.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DiagramObjectPoint: ", attribute, " with value: ", object[attribute])
             }
         });

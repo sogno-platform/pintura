@@ -187,7 +187,7 @@ class PetersenCoil extends EarthFaultCompensator {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PetersenCoil.isMemberAttribute(attribute)) {
+            if (!PetersenCoil.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PetersenCoil: ", attribute, " with value: ", object[attribute])
             }
         });

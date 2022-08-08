@@ -55,7 +55,7 @@ class PFVArControllerType1UserDefined extends PFVArControllerType1Dynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PFVArControllerType1UserDefined.isMemberAttribute(attribute)) {
+            if (!PFVArControllerType1UserDefined.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PFVArControllerType1UserDefined: ", attribute, " with value: ", object[attribute])
             }
         });

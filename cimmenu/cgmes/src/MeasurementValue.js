@@ -99,7 +99,7 @@ class MeasurementValue extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!MeasurementValue.isMemberAttribute(attribute)) {
+            if (!MeasurementValue.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class MeasurementValue: ", attribute, " with value: ", object[attribute])
             }
         });

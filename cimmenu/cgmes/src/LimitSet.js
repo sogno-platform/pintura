@@ -55,7 +55,7 @@ class LimitSet extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!LimitSet.isMemberAttribute(attribute)) {
+            if (!LimitSet.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class LimitSet: ", attribute, " with value: ", object[attribute])
             }
         });

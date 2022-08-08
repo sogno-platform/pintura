@@ -55,7 +55,7 @@ class DCEquipmentContainer extends EquipmentContainer {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCEquipmentContainer.isMemberAttribute(attribute)) {
+            if (!DCEquipmentContainer.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCEquipmentContainer: ", attribute, " with value: ", object[attribute])
             }
         });

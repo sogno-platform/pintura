@@ -55,7 +55,7 @@ class TapSchedule extends SeasonDayTypeSchedule {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TapSchedule.isMemberAttribute(attribute)) {
+            if (!TapSchedule.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TapSchedule: ", attribute, " with value: ", object[attribute])
             }
         });

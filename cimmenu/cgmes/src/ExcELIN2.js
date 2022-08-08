@@ -627,7 +627,7 @@ class ExcELIN2 extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcELIN2.isMemberAttribute(attribute)) {
+            if (!ExcELIN2.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcELIN2: ", attribute, " with value: ", object[attribute])
             }
         });

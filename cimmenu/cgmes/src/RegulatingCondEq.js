@@ -77,7 +77,7 @@ class RegulatingCondEq extends ConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RegulatingCondEq.isMemberAttribute(attribute)) {
+            if (!RegulatingCondEq.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RegulatingCondEq: ", attribute, " with value: ", object[attribute])
             }
         });

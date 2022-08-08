@@ -33,7 +33,7 @@ class Limit extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Limit.isMemberAttribute(attribute)) {
+            if (!Limit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Limit: ", attribute, " with value: ", object[attribute])
             }
         });

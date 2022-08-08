@@ -33,7 +33,7 @@ class ThermalGeneratingUnit extends GeneratingUnit {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ThermalGeneratingUnit.isMemberAttribute(attribute)) {
+            if (!ThermalGeneratingUnit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ThermalGeneratingUnit: ", attribute, " with value: ", object[attribute])
             }
         });

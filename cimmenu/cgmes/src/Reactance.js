@@ -99,7 +99,7 @@ class Reactance extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Reactance.isMemberAttribute(attribute)) {
+            if (!Reactance.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Reactance: ", attribute, " with value: ", object[attribute])
             }
         });

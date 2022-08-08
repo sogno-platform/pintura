@@ -407,7 +407,7 @@ class Pss5 extends PowerSystemStabilizerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Pss5.isMemberAttribute(attribute)) {
+            if (!Pss5.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Pss5: ", attribute, " with value: ", object[attribute])
             }
         });

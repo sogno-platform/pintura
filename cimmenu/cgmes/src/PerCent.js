@@ -99,7 +99,7 @@ class PerCent extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PerCent.isMemberAttribute(attribute)) {
+            if (!PerCent.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PerCent: ", attribute, " with value: ", object[attribute])
             }
         });

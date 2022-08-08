@@ -99,7 +99,7 @@ class DCSeriesDevice extends DCConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCSeriesDevice.isMemberAttribute(attribute)) {
+            if (!DCSeriesDevice.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCSeriesDevice: ", attribute, " with value: ", object[attribute])
             }
         });

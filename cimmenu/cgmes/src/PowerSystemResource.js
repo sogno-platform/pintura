@@ -55,7 +55,7 @@ class PowerSystemResource extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PowerSystemResource.isMemberAttribute(attribute)) {
+            if (!PowerSystemResource.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PowerSystemResource: ", attribute, " with value: ", object[attribute])
             }
         });

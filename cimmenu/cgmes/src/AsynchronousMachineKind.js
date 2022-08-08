@@ -42,7 +42,7 @@ class AsynchronousMachineKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AsynchronousMachineKind.isMemberAttribute(attribute)) {
+            if (!AsynchronousMachineKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AsynchronousMachineKind: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -44,7 +44,7 @@ class SynchronousMachineOperatingMode extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SynchronousMachineOperatingMode.isMemberAttribute(attribute)) {
+            if (!SynchronousMachineOperatingMode.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SynchronousMachineOperatingMode: ", attribute, " with value: ", object[attribute])
             }
         });

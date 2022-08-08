@@ -77,7 +77,7 @@ class Location extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Location.isMemberAttribute(attribute)) {
+            if (!Location.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Location: ", attribute, " with value: ", object[attribute])
             }
         });

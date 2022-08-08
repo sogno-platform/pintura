@@ -77,7 +77,7 @@ class AsynchronousMachineDynamics extends RotatingMachineDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!AsynchronousMachineDynamics.isMemberAttribute(attribute)) {
+            if (!AsynchronousMachineDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class AsynchronousMachineDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

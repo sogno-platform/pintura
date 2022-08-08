@@ -55,7 +55,7 @@ class SwitchSchedule extends SeasonDayTypeSchedule {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SwitchSchedule.isMemberAttribute(attribute)) {
+            if (!SwitchSchedule.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SwitchSchedule: ", attribute, " with value: ", object[attribute])
             }
         });

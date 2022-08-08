@@ -33,7 +33,7 @@ class Date extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Date.isMemberAttribute(attribute)) {
+            if (!Date.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Date: ", attribute, " with value: ", object[attribute])
             }
         });

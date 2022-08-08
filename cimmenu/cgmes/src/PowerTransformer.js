@@ -165,7 +165,7 @@ class PowerTransformer extends ConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PowerTransformer.isMemberAttribute(attribute)) {
+            if (!PowerTransformer.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PowerTransformer: ", attribute, " with value: ", object[attribute])
             }
         });

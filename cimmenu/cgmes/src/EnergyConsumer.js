@@ -209,7 +209,7 @@ class EnergyConsumer extends ConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!EnergyConsumer.isMemberAttribute(attribute)) {
+            if (!EnergyConsumer.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class EnergyConsumer: ", attribute, " with value: ", object[attribute])
             }
         });

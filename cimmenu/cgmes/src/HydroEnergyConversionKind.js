@@ -42,7 +42,7 @@ class HydroEnergyConversionKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!HydroEnergyConversionKind.isMemberAttribute(attribute)) {
+            if (!HydroEnergyConversionKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class HydroEnergyConversionKind: ", attribute, " with value: ", object[attribute])
             }
         });

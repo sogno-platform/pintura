@@ -55,7 +55,7 @@ class DCTopologicalIsland extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCTopologicalIsland.isMemberAttribute(attribute)) {
+            if (!DCTopologicalIsland.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCTopologicalIsland: ", attribute, " with value: ", object[attribute])
             }
         });

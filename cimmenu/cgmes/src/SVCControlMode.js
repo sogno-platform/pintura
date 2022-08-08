@@ -42,7 +42,7 @@ class SVCControlMode extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SVCControlMode.isMemberAttribute(attribute)) {
+            if (!SVCControlMode.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SVCControlMode: ", attribute, " with value: ", object[attribute])
             }
         });

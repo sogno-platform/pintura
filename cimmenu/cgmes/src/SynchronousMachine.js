@@ -517,7 +517,7 @@ class SynchronousMachine extends RotatingMachine {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SynchronousMachine.isMemberAttribute(attribute)) {
+            if (!SynchronousMachine.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SynchronousMachine: ", attribute, " with value: ", object[attribute])
             }
         });

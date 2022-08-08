@@ -60,7 +60,7 @@ class UnitMultiplier extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!UnitMultiplier.isMemberAttribute(attribute)) {
+            if (!UnitMultiplier.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class UnitMultiplier: ", attribute, " with value: ", object[attribute])
             }
         });

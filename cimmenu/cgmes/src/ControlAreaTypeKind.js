@@ -44,7 +44,7 @@ class ControlAreaTypeKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ControlAreaTypeKind.isMemberAttribute(attribute)) {
+            if (!ControlAreaTypeKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ControlAreaTypeKind: ", attribute, " with value: ", object[attribute])
             }
         });

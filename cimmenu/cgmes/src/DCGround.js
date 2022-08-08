@@ -77,7 +77,7 @@ class DCGround extends DCConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DCGround.isMemberAttribute(attribute)) {
+            if (!DCGround.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DCGround: ", attribute, " with value: ", object[attribute])
             }
         });

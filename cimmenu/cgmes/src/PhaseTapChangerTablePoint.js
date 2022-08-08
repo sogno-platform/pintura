@@ -77,7 +77,7 @@ class PhaseTapChangerTablePoint extends TapChangerTablePoint {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PhaseTapChangerTablePoint.isMemberAttribute(attribute)) {
+            if (!PhaseTapChangerTablePoint.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PhaseTapChangerTablePoint: ", attribute, " with value: ", object[attribute])
             }
         });

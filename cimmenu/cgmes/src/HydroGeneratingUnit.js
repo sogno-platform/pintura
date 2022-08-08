@@ -77,7 +77,7 @@ class HydroGeneratingUnit extends GeneratingUnit {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!HydroGeneratingUnit.isMemberAttribute(attribute)) {
+            if (!HydroGeneratingUnit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class HydroGeneratingUnit: ", attribute, " with value: ", object[attribute])
             }
         });

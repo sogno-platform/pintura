@@ -33,7 +33,7 @@ class TapChangerControl extends RegulatingControl {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TapChangerControl.isMemberAttribute(attribute)) {
+            if (!TapChangerControl.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TapChangerControl: ", attribute, " with value: ", object[attribute])
             }
         });

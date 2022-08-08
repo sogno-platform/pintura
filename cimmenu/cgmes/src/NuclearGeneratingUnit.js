@@ -33,7 +33,7 @@ class NuclearGeneratingUnit extends GeneratingUnit {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!NuclearGeneratingUnit.isMemberAttribute(attribute)) {
+            if (!NuclearGeneratingUnit.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class NuclearGeneratingUnit: ", attribute, " with value: ", object[attribute])
             }
         });

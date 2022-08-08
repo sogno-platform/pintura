@@ -99,7 +99,7 @@ class CurrentFlow extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!CurrentFlow.isMemberAttribute(attribute)) {
+            if (!CurrentFlow.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class CurrentFlow: ", attribute, " with value: ", object[attribute])
             }
         });

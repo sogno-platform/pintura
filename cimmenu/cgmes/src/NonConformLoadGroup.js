@@ -55,7 +55,7 @@ class NonConformLoadGroup extends LoadGroup {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!NonConformLoadGroup.isMemberAttribute(attribute)) {
+            if (!NonConformLoadGroup.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class NonConformLoadGroup: ", attribute, " with value: ", object[attribute])
             }
         });

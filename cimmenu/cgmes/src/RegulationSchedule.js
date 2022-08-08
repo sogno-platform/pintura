@@ -55,7 +55,7 @@ class RegulationSchedule extends SeasonDayTypeSchedule {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RegulationSchedule.isMemberAttribute(attribute)) {
+            if (!RegulationSchedule.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RegulationSchedule: ", attribute, " with value: ", object[attribute])
             }
         });

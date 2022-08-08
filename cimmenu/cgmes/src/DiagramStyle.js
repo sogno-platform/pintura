@@ -33,7 +33,7 @@ class DiagramStyle extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!DiagramStyle.isMemberAttribute(attribute)) {
+            if (!DiagramStyle.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class DiagramStyle: ", attribute, " with value: ", object[attribute])
             }
         });

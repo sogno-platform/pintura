@@ -99,7 +99,7 @@ class TieFlow extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!TieFlow.isMemberAttribute(attribute)) {
+            if (!TieFlow.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class TieFlow: ", attribute, " with value: ", object[attribute])
             }
         });

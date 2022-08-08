@@ -33,7 +33,7 @@ class GeographicalRegion extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GeographicalRegion.isMemberAttribute(attribute)) {
+            if (!GeographicalRegion.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GeographicalRegion: ", attribute, " with value: ", object[attribute])
             }
         });

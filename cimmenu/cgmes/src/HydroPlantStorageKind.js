@@ -44,7 +44,7 @@ class HydroPlantStorageKind extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!HydroPlantStorageKind.isMemberAttribute(attribute)) {
+            if (!HydroPlantStorageKind.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class HydroPlantStorageKind: ", attribute, " with value: ", object[attribute])
             }
         });

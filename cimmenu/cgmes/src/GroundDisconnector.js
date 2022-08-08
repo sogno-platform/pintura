@@ -33,7 +33,7 @@ class GroundDisconnector extends Switch {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!GroundDisconnector.isMemberAttribute(attribute)) {
+            if (!GroundDisconnector.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class GroundDisconnector: ", attribute, " with value: ", object[attribute])
             }
         });

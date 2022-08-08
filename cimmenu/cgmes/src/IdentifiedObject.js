@@ -143,7 +143,7 @@ class IdentifiedObject extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!IdentifiedObject.isMemberAttribute(attribute)) {
+            if (!IdentifiedObject.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class IdentifiedObject: ", attribute, " with value: ", object[attribute])
             }
         });

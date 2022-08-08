@@ -275,7 +275,7 @@ class PssSB4 extends PowerSystemStabilizerDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PssSB4.isMemberAttribute(attribute)) {
+            if (!PssSB4.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PssSB4: ", attribute, " with value: ", object[attribute])
             }
         });

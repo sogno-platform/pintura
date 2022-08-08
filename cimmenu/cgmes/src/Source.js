@@ -44,7 +44,7 @@ class Source extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Source.isMemberAttribute(attribute)) {
+            if (!Source.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Source: ", attribute, " with value: ", object[attribute])
             }
         });

@@ -55,7 +55,7 @@ class Simple_Float extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Simple_Float.isMemberAttribute(attribute)) {
+            if (!Simple_Float.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Simple_Float: ", attribute, " with value: ", object[attribute])
             }
         });

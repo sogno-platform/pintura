@@ -77,7 +77,7 @@ class SubGeographicalRegion extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!SubGeographicalRegion.isMemberAttribute(attribute)) {
+            if (!SubGeographicalRegion.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class SubGeographicalRegion: ", attribute, " with value: ", object[attribute])
             }
         });

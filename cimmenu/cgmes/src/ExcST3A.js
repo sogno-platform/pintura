@@ -473,7 +473,7 @@ class ExcST3A extends ExcitationSystemDynamics {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ExcST3A.isMemberAttribute(attribute)) {
+            if (!ExcST3A.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ExcST3A: ", attribute, " with value: ", object[attribute])
             }
         });

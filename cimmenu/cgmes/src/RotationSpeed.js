@@ -143,7 +143,7 @@ class RotationSpeed extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!RotationSpeed.isMemberAttribute(attribute)) {
+            if (!RotationSpeed.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class RotationSpeed: ", attribute, " with value: ", object[attribute])
             }
         });

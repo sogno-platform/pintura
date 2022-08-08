@@ -231,7 +231,7 @@ class ACLineSegment extends Conductor {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ACLineSegment.isMemberAttribute(attribute)) {
+            if (!ACLineSegment.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ACLineSegment: ", attribute, " with value: ", object[attribute])
             }
         });

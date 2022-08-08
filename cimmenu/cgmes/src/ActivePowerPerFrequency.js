@@ -143,7 +143,7 @@ class ActivePowerPerFrequency extends BaseClass {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!ActivePowerPerFrequency.isMemberAttribute(attribute)) {
+            if (!ActivePowerPerFrequency.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class ActivePowerPerFrequency: ", attribute, " with value: ", object[attribute])
             }
         });

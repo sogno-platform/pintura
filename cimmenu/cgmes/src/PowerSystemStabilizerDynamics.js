@@ -55,7 +55,7 @@ class PowerSystemStabilizerDynamics extends DynamicsFunctionBlock {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!PowerSystemStabilizerDynamics.isMemberAttribute(attribute)) {
+            if (!PowerSystemStabilizerDynamics.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class PowerSystemStabilizerDynamics: ", attribute, " with value: ", object[attribute])
             }
         });

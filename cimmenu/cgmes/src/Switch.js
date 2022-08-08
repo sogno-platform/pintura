@@ -121,7 +121,7 @@ class Switch extends ConductingEquipment {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!Switch.isMemberAttribute(attribute)) {
+            if (!Switch.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class Switch: ", attribute, " with value: ", object[attribute])
             }
         });

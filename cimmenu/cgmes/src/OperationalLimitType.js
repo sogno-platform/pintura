@@ -99,7 +99,7 @@ class OperationalLimitType extends IdentifiedObject {
 
     static read(object) {
         Object.keys(object).forEach((attribute) => {
-            if (!OperationalLimitType.isMemberAttribute(attribute)) {
+            if (!OperationalLimitType.isMemberAttribute(attribute) && !(attribute == "about")) {
                 console.error("Unexpected attribute for class OperationalLimitType: ", attribute, " with value: ", object[attribute])
             }
         });
