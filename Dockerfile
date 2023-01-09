@@ -8,7 +8,7 @@ COPY cimsvg /pintura/cimsvg
 COPY index.html Makefile package-lock.json package.json /pintura/
 
 WORKDIR /pintura
-RUN npm install -g npm@8.14.0
+RUN npm install -g npm@8.19.2
 RUN npm run build
 
 FROM nginx

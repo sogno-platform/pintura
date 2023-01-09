@@ -14,6 +14,7 @@
     "build": "npm install && npm run createIndex && npm run package",
     "build-dev": "npm install && export ROLLUP_FLAGS=' --sourcemap inline'; export ESLINT_FLAGS=' --rule no-console:off '; npm config set mode development && npm run build"
   },
+  "type": "module",
   "dependencies": {
     "@babel/preset-env": "*",
     "@babel/preset-react": "*",

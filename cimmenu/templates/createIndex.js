@@ -1,5 +1,5 @@
-const fg = require("fast-glob");
-const path = require("path");
+import fg from "fast-glob";
+import path from "path";
 const stream = fg.stream(["**/*.handlebars"]);
 const entries = [];
 
