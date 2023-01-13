@@ -1,0 +1,102 @@
+<!--
+    Copyright © 2016-2017, RWTH Aachen University
+    Authors: Richard Marston
+    SPDX-License-Identifier: MPL-2.0
+-->
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Pintura v0.4.17</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" type="text/css"/>
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+        <link rel="manifest" href="/images/site.webmanifest"/>
+        <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5"/>
+        <link rel="shortcut icon" href="/images/favicon.ico"/>
+        <meta nam="msapplication-TileColor" content="#da532c"/>
+        <meta nam="msapplication-config" content="/images/browserconfig.xml"/>
+        <meta nam="theme-color" content="#ffffff"/>
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
+        <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+        <script type="text/javascript">
+            const onMouseOver = function(evt){
+                let id = evt.currentTarget.id.slice(0,-8);
+                let txt = document.getElementById(id+"-txt0");
+                let bbox = txt.getBBox();
+                let bg = document.getElementById(id+"-bg0");
+                bg.setAttribute("x", bbox.x - 3);
+                bg.setAttribute("y", bbox.y - 3);
+                bg.setAttribute("width", bbox.width + 6);
+                bg.setAttribute("height", bbox.height + 6);
+                txt.classList.add("svglabel-high");
+                bg.classList.add("svglabel-high");
+            };
+            const onMouseLeave = function(evt){
+                let id = evt.currentTarget.id.slice(0,-8);
+                let txt = document.getElementById(id+"-txt0");
+                let bg = document.getElementById(id+"-bg0");
+                txt.classList.remove("svglabel-high");
+                bg.classList.remove("svglabel-high");
+            };
+        </script>
+    </head>
+    <body>
+        <div id="left-panel">
+        </div>
+        <div id="cimsvg-panel">
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect class="backing" id="bg"/>
+                <g class="grid"/>
+                <g class="diagrams"/>
+            </svg>
+        </div>
+        <div id="right-panel" class="vertical-menu">
+            <div class="floating-panel-table">
+                <div class="floating-panel-title center-button"> </div>
+                <div class="floating-menu-list"> </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.runtime.min.js"> </script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js"> </script>
+        <script type="text/javascript" src="https://unpkg.com/react@16/umd/react.development.js" crossorigin="anonymous"> </script>
+        <script type="text/javascript" src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin="anonymous"> </script>
+        <script type="text/javascript" src="https://unpkg.com/react-bootstrap@next/dist/react-bootstrap.min.js" crossorigin="anonymous"> </script>
+        <script type="text/javascript" src="dist/libcimsvg.js"> </script>
+        <script type="text/javascript" src="dist/libcimmenu.js"> </script>
+        <script type="text/javascript">
+            var currentCimmenu = libcimmenu.currentCimmenu;
+            var currentCimsvg = libcimsvg.currentCimsvg;
+            var cimmenuInstance = new libcimmenu.cimmenu(document.getElementById('left-panel'), document.getElementById('right-panel'));
+            var cimsvg = libcimsvg.cimsvg;
+            var svgNode = document.getElementById("cimsvg-panel");
+            var cimsvgInstance = new cimsvg(svgNode);
+            cimsvgInstance.setCimmenu(cimmenuInstance);
+            cimmenuInstance.setCimsvg(cimsvgInstance);
+
+            let urlTokens = window.location.href.split("?");
+            let pairs = urlTokens.slice(1);
+            let params = {};
+            for (let index in pairs) {
+                let pair = pairs[index];
+                let param = pair.split("=");
+                if (param.length === 2){
+                    params[param[0]] = param[1];
+                }
+            }
+            if ("uri" in params){
+                let uri=params["uri"];
+                cimsvgInstance.downloadUri(uri);
+            }
+            let body = document.querySelector("body");
+            if (body !== undefined) {
+                let svg = document.getElementById("svg");
+                cimsvgInstance.addMouseEventListeners(svg);
+                cimsvgInstance.addKeyEventListeners(body);
+                cimmenuInstance.addEventListeners(document);
+            }
+	</script>
+    </body>
+</html>
