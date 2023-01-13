@@ -5,7 +5,7 @@ COPY images /pintura/images
 COPY test/ /pintura/test
 COPY cimmenu /pintura/cimmenu
 COPY cimsvg /pintura/cimsvg
-COPY index.html Makefile package-lock.json package.json /pintura/
+COPY index.html Makefile package.json /pintura/
 
 WORKDIR /pintura
 RUN npm install -g npm@8.19.2
