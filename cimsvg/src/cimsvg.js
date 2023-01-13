@@ -35,12 +35,12 @@ class cimsvg {
     }
 
     ghostModeOn() {
-        this.updateStyle(".fillwhenstill", "{ fill: none; stroke-dasharray: 2,4; stroke-width: 0.6px }");
-        this.updateStyle(".gridLine", "{ stroke: #000; stroke-dasharray: 1,20; }");
+        this.updateStyle(".fillwhenstill", "{ fill: none; stroke-width: 0.1px; }");
+        this.updateStyle(".gridLine", "{ stroke: #000; stroke-width: 0.1px; }");
     }
 
     ghostModeOff() {
-        this.updateStyle(".fillwhenstill", "{ fill: inherit; stroke-dasharray: 0; stroke-width: 1px; }");
+        this.updateStyle(".fillwhenstill", "{}");
         this.updateStyle(".gridLine", "{ stroke: #aaa; stroke-dasharray: 0; }");
     }
 
