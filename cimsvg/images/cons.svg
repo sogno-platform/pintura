@@ -8,10 +8,17 @@
   <polygon
      class="fillwhenstill"
      points="7,10 17,10 12,24 "
-     style="stroke:#000000;stroke-width:1"
+     stroke="black"
+     stroke-width="1"
      id="polygon4"
      transform="matrix(1.0338179,0,0,0.62498801,-0.40581499,7.712741)" />
   <path
-     style="fill:none;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+     class="fillwhenstill"
+     stroke="black"
+     stroke-width="2"
+     stroke-linecap="butt"
+     stroke-linejoin="miter"
+     stroke-opacity="1"
+     stroke-miterlimit="4"
      d="M 12,9.3643411 12,20.775194" />
 </svg>

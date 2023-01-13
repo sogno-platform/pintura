@@ -5,6 +5,18 @@
     SPDX-License-Identifier: MPL-2.0
 -->
 <svg xmlns="http://www.w3.org/2000/svg">
-    <circle id="circle" cx="12" cy="12" r="10" stroke="black" stroke-width="1" fill="transparent"/>
-    <path d="M4 12 C 6 5, 10 5, 12 12 S 19 19, 20 12" stroke="black" fill="transparent"/>
+    <circle
+     class="fillwhenstill"
+     id="circle"
+     cx="12"
+     cy="12"
+     r="10"
+     stroke="black"
+     stroke-width="1"
+     fill="transparent"/>
+    <path
+     class="fillwhenstill"
+     d="M4 12 C 6 5, 10 5, 12 12 S 19 19, 20 12"
+     stroke="black"
+     fill="transparent"/>
 </svg>
