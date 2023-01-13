@@ -23,7 +23,7 @@ jobs:
       - name: Create website
         run: |
           mkdir html
-          cp index.html dist html
+          cp -r index.html dist html
 
       - name: Push
         uses: s0/git-publish-subdir-action@develop
