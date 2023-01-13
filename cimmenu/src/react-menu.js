@@ -202,11 +202,12 @@ class ComponentOfTypeList extends React.Component {
     constructor(props) {
         super(props);
         this.updatableList = new UpdatableComponentList(this);
-        const componentInstances = <ul> {this.updatableList.updateAll(props.instances)} </ul>;
+        const startInstances = <ul> {this.updatableList.updateAll(props.instances)} </ul>;
         this.state = {
             title:     props.title,
-            instances: componentInstances
+            instances: startInstances
         }
+        this.hideableMenu = React.createRef();
     }
 
     createEntry(object, meta) {
@@ -214,13 +215,14 @@ class ComponentOfTypeList extends React.Component {
     }
 
     update(componentList) {
-        const componentInstances = this.updatableList.updateAll(componentList);
-        this.setState({ instances:  componentInstances });
+        const componentInstances = <ul> {this.updatableList.updateAll(componentList)} </ul>;
+        this.setState({ instances: componentInstances });
+        this.hideableMenu.current.update({ main: componentInstances });
     }
 
     render() {
         let componentTitle = <ComponentTitle title={this.state.title}/>
-        return <HideableMenu className="ComponentOfTypeList" isHidden={true} title={componentTitle}>
+        return <HideableMenu className="ComponentOfTypeList" ref={this.hideableMenu} isHidden={true} title={componentTitle}>
                    {{ title: componentTitle, main: this.state.instances }}
                </HideableMenu>
     }
