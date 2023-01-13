@@ -21,7 +21,9 @@ jobs:
         run: npm run build
 
       - name: Create website
-        run: cp index.html dist html
+        run: |
+          mkdir html
+          cp index.html dist html
 
       - name: Push
         uses: s0/git-publish-subdir-action@develop
