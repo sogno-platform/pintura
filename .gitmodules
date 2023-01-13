@@ -1,3 +1,0 @@
-[submodule "test/grid-data"]
-	path = test/grid-data
-	url = http://git.rwth-aachen.de/acs/public/grid-data/cim-grid-data.git
