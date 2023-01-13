@@ -34,6 +34,8 @@ class cimedit {
         let componentPoints = [];
         let terminalPoints = [];
         let terminalIds = [];
+        let counter = common.getCimsvg().getNameCounter(type);
+        let name = type + counter.toString();
         componentPoints[0] = point;
 
         if (terminalConfig["terminalStyle"] === cimedit.linePoints) {
@@ -50,7 +52,7 @@ class cimedit {
             terminalPoints.push(nextPoint);
             componentPoints.push(nextPoint);
             for (let i = 0; i<terminalConfig["minTerminals"]; i++) {
-                terminalIds.push(cimedit.makeTerminal(diagramId, graph, (i+1).toString(), id, terminalPoints[i]));
+                terminalIds.push(cimedit.makeTerminal(diagramId, graph, (i+1).toString(), id, terminalPoints[i], name + "-"));
             }
         }
         if (terminalConfig["terminalStyle"] === cimedit.constellationPoints) {
@@ -61,9 +63,8 @@ class cimedit {
         }
 
         let diagramObject = cimedit.makeDiagramObjectWithPoints(graph, diagramId, id, componentPoints);
-        let counter = common.getCimsvg().getNameCounter(type);
         let newAttributes = {
-            "cim:IdentifiedObject.name": type + counter.toString(),
+            "cim:IdentifiedObject.name": name,
             "pintura:terminals": terminalIds,
             "pintura:diagramObject": diagramObject,
         };
@@ -71,7 +72,7 @@ class cimedit {
         cimedit.addCategorizedItem(graph, type, id, componentData);
         if (terminalConfig["terminalStyle"] === cimedit.constellationPoints) {
             for (let i = 0; i<terminalPoints.length; i++) {
-                cimedit.addTerminal(graph, type, id);
+                cimedit.addTerminal(graph, type, id, name + "-");
             }
         }
         return id;
@@ -113,7 +114,7 @@ class cimedit {
         }
     }
 
-    static addTerminal(baseJson, type, rdfid) {
+    static addTerminal(baseJson, type, rdfid, ownerName) {
         if (baseJson[type] && baseJson[type][rdfid]) {
             let sequenceNumber;
             if (baseJson[type][rdfid][common.pinturaTerminals()]) {
@@ -123,7 +124,7 @@ class cimedit {
                 baseJson[type][rdfid][common.pinturaTerminals()] = [];
                 sequenceNumber = 1;
             }
-            let terminal = cimedit.makeTerminal(common.getCimsvg().getCurrentDiagramId(), baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } );
+            let terminal = cimedit.makeTerminal(common.getCimsvg().getCurrentDiagramId(), baseJson, sequenceNumber, rdfid, { x: 100, y: 100 } , ownerName);
             cimedit.moveTerminalIntoComponentOrbit(baseJson, terminal, type, rdfid);
             baseJson[type][rdfid][common.pinturaTerminals()].push(terminal);
         }
@@ -234,13 +235,20 @@ class cimedit {
         }
     }
 
-    static makeTerminal(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point) {
+    static makeTerminal(diagramId, newStuff, sequenceNumber, conductingEquipmentId, point, ownerName) {
         let id = common.generateUUID();
         let counter = common.getCimsvg().getNameCounter("cim:Terminal");
+        let terminalName = "";
+        if (ownerName == "") {
+            terminalName = "terminal" + sequenceNumber.toString() + "-" + counter.toString();
+        }
+        else {
+            terminalName = ownerName + "terminal" + sequenceNumber.toString();
+        }
         let diagramObjectId = cimedit.makeDiagramObjectWithPoints(newStuff, diagramId, id, [ point ]);
         let terminal = {
             "cim:ACDCTerminal.sequenceNumber": sequenceNumber.toString(),
-            "cim:IdentifiedObject.name": "terminal" + counter.toString(),
+            "cim:IdentifiedObject.name": terminalName,
             "cim:Terminal.ConductingEquipment": { "rdf:resource": "#"+conductingEquipmentId },
             "cim:Terminal.ConnectivityNode": { "rdf:resource":"#none" },
             "cim:Terminal.phases": "",

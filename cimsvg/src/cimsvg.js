@@ -526,11 +526,6 @@ class cimsvg {
         this.applyTemplates();
     }
 
-    addTerminal(type, rdfid) {
-        let baseJson = this.getBaseJson();
-        cimedit.addTerminal(baseJson, type, rdfid);
-    }
-
     removeTerminal(type, rdfid, terminalId) {
         let baseJson = this.getBaseJson();
         if (baseJson[type] && baseJson[type][rdfid]) {
