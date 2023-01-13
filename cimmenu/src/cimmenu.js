@@ -272,18 +272,6 @@ class cimmenu {
         return matchingComponents;
     };
 
-
-    /* TODO: package allocation needs a re-write when we look at
-     * serialization in the cimgen project. The general rule is
-     * that the big classes are only in one profile and the primitives
-     * can be in any of them. So one strategy could be to write all of
-     * the classes that only have one profile into their profiles, then
-     * write all the components that are connected to them into the
-     * same profile, and then check that they are all written.
-    static getPackageName(type) {
-    }
-    */
-
     getAggregateComponentMenuCGMES(details){
         let updateMenu = "";
         let jsObject = 'src_' + details.type.substring(4) + '_js';
