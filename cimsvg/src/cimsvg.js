@@ -106,6 +106,31 @@ class cimsvg {
         }
     }
 
+    moveComponentByOffset(diagramObjectPointId, xdiff, ydiff) {
+        let oldComponentPoint = {
+            x: this.getValueOf("cim:DiagramObjectPoint", diagramObjectPointId, "cim:DiagramObjectPoint.xPosition"),
+            y: this.getValueOf("cim:DiagramObjectPoint", diagramObjectPointId, "cim:DiagramObjectPoint.yPosition")
+        };
+        let newComponentPoint = {
+            x: (Number(this.getValueOf("cim:DiagramObjectPoint", diagramObjectPointId, "cim:DiagramObjectPoint.xPosition")) + xdiff).toString(),
+            y: (Number(this.getValueOf("cim:DiagramObjectPoint", diagramObjectPointId, "cim:DiagramObjectPoint.yPosition")) + ydiff).toString()
+        };
+        this.updateComponent("cim:DiagramObjectPoint", diagramObjectPointId, "cim:DiagramObjectPoint.xPosition", newComponentPoint.x);
+        this.updateComponent("cim:DiagramObjectPoint", diagramObjectPointId, "cim:DiagramObjectPoint.yPosition", newComponentPoint.y);
+    }
+
+    decideIfTerminalIsNearestOurImage(terminalId, x, y, xoffset, yoffset) {
+        let diagramObjectId = this.getValueOf("cim:Terminal", terminalId, "pintura:diagramObject");
+        let diagramObjectPointId = this.getValueOf("cim:DiagramObject", diagramObjectId, "pintura:diagramObjectPoints")[0];
+        let terminalx = Number(this.getValueOf("cim:DiagramObjectPoint", diagramObjectPointId, "cim:DiagramObjectPoint.xPosition"));
+        let terminaly = Number(this.getValueOf("cim:DiagramObjectPoint", diagramObjectPointId, "cim:DiagramObjectPoint.yPosition"));
+        let xdiff = Math.abs(x - terminalx);
+        let ydiff = Math.abs(y - terminaly);
+        if ((xdiff < 1.0) && (ydiff < 1.0)) {
+             this.moveComponentByOffset(diagramObjectPointId, xoffset, yoffset);
+        }
+    }
+
     calculateComponentMove(mouseEvent) {
         let baseJson = this.getBaseJson();
         let newPoint = this.cimview.getMouseCoord(mouseEvent);
@@ -117,6 +142,21 @@ class cimsvg {
         };
         this.updateComponent("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.xPosition", newComponentPoint.x);
         this.updateComponent("cim:DiagramObjectPoint", this.draggedObject.dopi, "cim:DiagramObjectPoint.yPosition", newComponentPoint.y);
+        let terminals = baseJson[this.draggedObject.type][this.draggedObject.id][common.pinturaTerminals()];
+        if (terminals) {
+            if (cimsvg.terminalAndPointLimits()[this.draggedObject.type].terminalStyle == cimedit.constellationPoints) {
+                terminals.forEach((terminalId) => {
+                    let diagramObjectId = this.getValueOf("cim:Terminal", terminalId, "pintura:diagramObject");
+                    let diagramObjectPointId = this.getValueOf("cim:DiagramObject", diagramObjectId, "pintura:diagramObjectPoints")[0];
+                    this.moveComponentByOffset(diagramObjectPointId, xdiff, ydiff);
+                });
+            }
+            else if (cimsvg.terminalAndPointLimits()[this.draggedObject.type].terminalStyle == cimedit.linePoints) {
+                terminals.forEach((terminalId) => {
+                    this.decideIfTerminalIsNearestOurImage(terminalId, this.draggedObject.startPoint.x, this.draggedObject.startPoint.y, xdiff, ydiff);
+                });
+            }
+        }
         if (this.draggedObject.dopi && this.draggedObject.dopi in baseJson["cim:DiagramObjectPoint"]) {
             let templateJson = cimjson.getTemplateJson(baseJson);
             this.applyDiagramTemplate(templateJson);
