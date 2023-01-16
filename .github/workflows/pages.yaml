@@ -1,0 +1,35 @@
+on:
+  push:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-website:
+
+    runs-on: ubuntu-latest
+    name: Build website
+    steps:
+      - name: git-checkout
+        uses: actions/checkout@v2
+
+      - name: Install npm packages
+        run: npm install
+
+      - name: Create libraries
+        run: npm run build
+
+      - name: Create website
+        run: |
+          mkdir html
+          cp -r index.html dist html
+
+      - name: Push
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: dist
+          FOLDER: html
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to get a token
+          MESSAGE: "Build gh pages website: ({sha}) {msg}"
