@@ -1,6 +1,6 @@
 on:
   push:
-    branches: [ gh_pages ]
+    branches: [ master ]
 
 env:
   CARGO_TERM_COLOR: always
@@ -32,4 +32,4 @@ jobs:
           BRANCH: dist
           FOLDER: html
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to get a token
-          MESSAGE: "Build documentation: ({sha}) {msg}"
+          MESSAGE: "Build gh pages website: ({sha}) {msg}"
