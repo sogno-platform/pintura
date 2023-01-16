@@ -711,7 +711,7 @@ class cimsvg {
             if (this.checkIfParseReady()) {
                 logIfDebug("Loading file cimVersion: ", this.cimVersion, " entsoe: ", this.entsoe);
                 this.setBaseJson(cimxml.createObjectGraphFromXml(this.getXmlDoc()));
-                this.cimmenu.checkBaseJson(this.getBaseJson());
+                this.updateCimmenu(()=>{ this.cimmenu.checkBaseJson(this.getBaseJson()); });
                 this.resetFileReceivedCount(0);
                 this.setFileCount(0);
                 this.populateDiagramLinks();

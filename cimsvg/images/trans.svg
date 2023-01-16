@@ -12,7 +12,7 @@
        id="leftcircle"
        stroke="#000000"
        stroke-width="1"
-       fill="none"
+       fill-opacity="0"/>
        />
     <circle
        class="fillwhenstill"

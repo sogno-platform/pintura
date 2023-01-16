@@ -13,8 +13,6 @@
  * of the viewbox.
  */
 
-import Map from "./cimmap.js"
-
 class cimview {
     constructor(svg) {
         this.svgNode = svg;
@@ -23,15 +21,6 @@ class cimview {
         this.setViewBox(this.calculateViewBox());
         this.dragPoint = null;
         this.moved = false;
-        let background = this.svgNode.parentNode.querySelector("#map-container");
-        if (background !== null) {
-            let reactMap = React.createElement(Map);
-            this.reactMap = ReactDOM.render(reactMap, background);
-        }
-    }
-
-    importSvgGrid(osmxml) {
-        this.reactMap.importSvgGrid(osmxml);
     }
 
     /*
