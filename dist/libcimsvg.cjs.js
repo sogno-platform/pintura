@@ -57485,120 +57485,19 @@ var cimfile = /*#__PURE__*/function () {
   return cimfile;
 }();
 
-var term = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><rect class=\"fillwhenstill\" x=\"10.5\" y=\"10.5\" width=\"3\" height=\"3\" stroke=\"#000000\" stroke-width=\"1\" ry=\"1.4984024\"/></svg>";
-
-var brea = "<?xml version=\"1.0\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><rect x=\"4\" y=\"4\" height=\"16\" width=\"16\" fill-opacity=\"0\" stroke=\"black\" stroke-width=\"1\"/><line x1=\"4\" y1=\"12\" x2=\"8\" y2=\"12\" fill-opacity=\"0\" stroke=\"black\" stroke-width=\"1\"/><line x1=\"8\" y1=\"12\" x2=\"14\" y2=\"8\" fill-opacity=\"0\" stroke=\"black\" stroke-width=\"1\"/><line x1=\"15\" y1=\"12\" x2=\"20\" y2=\"12\" fill-opacity=\"0\" stroke=\"black\" stroke-width=\"1\"/></svg>";
-
-var conn = "<?xml version=\"1.0\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><circle class=\"fillwhenstill\" id=\"circle\" cx=\"12\" cy=\"12\" r=\"3\" stroke=\"black\" stroke-width=\"1\"/></svg>";
-
-var cons = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><polygon class=\"fillwhenstill\" points=\"7,10 17,10 12,24 \" stroke=\"black\" stroke-width=\"1\" id=\"polygon4\" transform=\"matrix(1.0338179,0,0,0.62498801,-0.40581499,7.712741)\"/><path class=\"fillwhenstill\" stroke=\"black\" stroke-width=\"2\" stroke-linecap=\"butt\" stroke-linejoin=\"miter\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" d=\"M 12,9.3643411 12,20.775194\"/></svg>";
-
-var gene = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><g><g><path d=\"m 10.9872,22.194 c 6.06795,0 10.9872,-4.9685 10.9872,-11.097 C 21.9744,4.9684 17.05515,0 10.9872,0 4.91935,0 0,4.9684 0,11.097 0,17.2255 4.91935,22.194 10.9872,22.194 Z\" style=\"fill:none;stroke:black\"/><path d=\"M 10.9872,11.097\" style=\"fill:none;stroke:black\"/></g><g><path d=\"m 10.9872,19.6357 c 4.6692,0 8.4543,-3.82295 8.4543,-8.5387 0,-4.71585 -3.7851,-8.5387 -8.4543,-8.5387 -4.6691,0 -8.45425,3.82285 -8.45425,8.5387 0,4.71575 3.78515,8.5387 8.45425,8.5387 z\" style=\"fill:white;stroke:none\"/><path d=\"M 10.9872,11.097\" style=\"fill:white;stroke:none\"/></g><g><path d=\"m 9.84815,15.0137 2.47655,-0.0051 V 13.0845 c 0,-0.5219 0.2433,-1.015 0.8943,-1.44205 0.65095,-0.42685 2.4682,-1.29305 2.4682,-3.57045 0,-2.2775 -1.90835,-3.8429 -3.5125,-4.175 -1.6039,-0.3321 -3.34175,-0.1136 -4.575,1.2375 -1.10435,1.20985 -1.33705,2.16685 -1.33705,4.27825 h 2.47455 v -0.49075 c 0,-1.12505 0.13015,-2.3127 1.7375,-2.6375 0.8773,-0.1773 1.6997,0.0979 2.1875,0.575 0.558,0.5456 0.5625,1.775 -0.32665,2.38715 l -1.3948,0.94895 c -0.8136,0.5219 -1.0926,11.0295 -1.0926,1.95695 z\" style=\"stroke:none\"/><path d=\"m 9.8319,18.5346 v -2.55025 h 2.5106 v 2.55025 z\" style=\"stroke:none\"/></g></g></svg>";
-
-var net = "<?xml version=\"1.0\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><defs><pattern id=\"diagonalHatch\" width=\"8\" height=\"8\" patternUnits=\"userSpaceOnUse\"><line x1=\"0\" y1=\"0\" x2=\"8\" y2=\"8\" style=\"stroke:black;stroke-width:1\"/><line x1=\"8\" y1=\"0\" x2=\"0\" y2=\"8\" style=\"stroke:black;stroke-width:1\"/></pattern></defs><rect file=\"net.svg\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" style=\"fill:url(#diagonalHatch);stroke:black;stroke-width:1\"/></svg>";
-
-var tran = "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><circle class=\"fillwhenstill\" r=\"7\" cy=\"10\" cx=\"13\" id=\"leftcircle\" stroke=\"#000000\" stroke-width=\"1\" fill=\"none\"/><circle class=\"fillwhenstill\" r=\"7\" cy=\"14\" cx=\"13\" id=\"rightcircle\" stroke=\"#000000\" stroke-width=\"1\" fill-opacity=\"0\"/></svg>";
-
-var sola = "<?xml version=\"1.0\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><defs><marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M0,2 L0,4 L2,3 z\" fill=\"#000\"/></marker><pattern id=\"diagonalHatch\" width=\"8\" height=\"8\" patternUnits=\"userSpaceOnUse\"><line x1=\"8\" y1=\"0\" x2=\"0\" y2=\"8\" style=\"stroke:black;stroke-width:1\"/></pattern></defs><line x1=\"8\" y1=\"8\" x2=\"12\" y2=\"12\" stroke=\"#000\" stroke-width=\"3\" marker-end=\"url(#arrow)\"/><line x1=\"16\" y1=\"8\" x2=\"20\" y2=\"12\" stroke=\"#000\" stroke-width=\"3\" marker-end=\"url(#arrow)\"/><rect x=\"6\" y=\"18\" width=\"24\" height=\"12\" style=\"fill:url(#diagonalHatch);stroke:black;stroke-width:1\"/><rect x=\"6\" y=\"6\" width=\"24\" height=\"24\" style=\"fill:none;stroke:black;stroke-width:1\"/></svg>";
-
-var sync = "<?xml version=\"1.0\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><circle class=\"fillwhenstill\" id=\"circle\" cx=\"12\" cy=\"12\" r=\"10\" stroke=\"black\" stroke-width=\"1\" fill=\"transparent\"/><path class=\"fillwhenstill\" d=\"M4 12 C 6 5, 10 5, 12 12 S 19 19, 20 12\" stroke=\"black\" fill=\"transparent\"/></svg>";
-
-var circ = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><g><g><path d=\"m 10.9872,22.194 c 6.06795,0 10.9872,-4.9685 10.9872,-11.097 C 21.9744,4.9684 17.05515,0 10.9872,0 4.91935,0 0,4.9684 0,11.097 0,17.2255 4.91935,22.194 10.9872,22.194 Z\" style=\"fill:none;stroke:black\"/><path d=\"M 10.9872,11.097\" style=\"fill:none;stroke:black\"/></g><g><path d=\"m 10.9872,19.6357 c 4.6692,0 8.4543,-3.82295 8.4543,-8.5387 0,-4.71585 -3.7851,-8.5387 -8.4543,-8.5387 -4.6691,0 -8.45425,3.82285 -8.45425,8.5387 0,4.71575 3.78515,8.5387 8.45425,8.5387 z\" style=\"fill:white;stroke:none\"/><path d=\"M 10.9872,11.097\" style=\"fill:white;stroke:none\"/></g></g></svg>";
-
-var Map = /*#__PURE__*/function (_React$Component) {
-  _inherits(Map, _React$Component);
-  var _super = _createSuper(Map);
-  function Map(props) {
-    var _this;
-    _classCallCheck(this, Map);
-    _this = _super.call(this, props);
-    _this.ref = React.createRef();
-    _this.state = {};
-    return _this;
-  }
-  _createClass(Map, [{
-    key: "importSvgGrid",
-    value: function importSvgGrid(osmxml) {
-      var features = new ol.format.OSMXML().readFeatures(osmxml, {
-        featureProjection: 'EPSG:4326'
-      });
-      this.vectorSource.addFeatures(features);
-      this.map = new ol.Map({
-        target: 'map',
-        layers: [new ol.layer.Tile({
-          source: new ol.source.OSM()
-        }), this.vectorLayer],
-        view: new ol.View({
-          extent: [-180, -90, 180, 90],
-          center: [0, 0],
-          projection: 'EPSG:4326',
-          zoom: 2
-        })
-      });
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.vectorSource = new ol.source.Vector({
-        format: new ol.format.OSMXML(),
-        strategy: ol.loadingstrategy.bbox
-      });
-      this.vectorLayer = new ol.layer.Vector({
-        source: this.vectorSource,
-        style: Map.getStyle
-      });
-    }
-  }, {
-    key: "render",
-    value: function render(args) {
-      var element = /*#__PURE__*/React.createElement("div", {
-        ref: this.ref,
-        id: "map",
-        className: "map"
-      });
-      return element;
-    }
-  }], [{
-    key: "iconStyle",
-    value: function iconStyle(svg) {
-      return new ol.style.Style({
-        image: new ol.style.Icon({
-          opacity: 1,
-          src: 'data:image/svg+xml;utf8,' + svg,
-          scale: 1,
-          color: 'rgba(255, 255, 255, 1)'
-        })
-      });
-    }
-  }, {
-    key: "getStyle",
-    value: function getStyle(feature) {
-      for (var key in Map.styles) {
-        var value = feature.get(key);
-        if (value !== undefined) {
-          for (var regexp in Map.styles[key]) {
-            if (new RegExp(regexp).test(value)) {
-              return Map.styles[key][regexp];
-            }
-          }
-        }
-      }
-      return null;
-    }
-  }]);
-  return Map;
-}(React.Component);
-Map.styles = {
-  'icon': {
-    /*
-            'cim:Terminal': Map.iconStyle(term),
-            'cim:SynchronousGenerator': Map.iconStyle(sync),
-            'cim:AsynchronousGenerator': Map.iconStyle(asyn),
-    */
-    '.*': Map.iconStyle(circ)
-  }
-};
-
+/*
+ *  Copyright © 2016-2017, RWTH Aachen University
+ *  Authors: Richard Marston
+ *  SPDX-License-Identifier: MPL-2.0
+ */
+/* The viewport doesn't change. That is the width / height of the parent container.
+ * The viewbox does change. That must always have the same ratio as the view box, so
+ * that the grid squares are still square and not rectangles. However, we need to be
+ * able to pan and zoom within the viewbox. In order to pan we will add an offset to
+ * the viewbox's x and y co-ordinates. In order to zoom we will apply a zoom factor
+ * to the viewbox's width and height values. This will be calculated from the centre
+ * of the viewbox.
+ */
 var cimview = /*#__PURE__*/function () {
   function cimview(svg) {
     _classCallCheck(this, cimview);
@@ -57611,24 +57510,14 @@ var cimview = /*#__PURE__*/function () {
     this.setViewBox(this.calculateViewBox());
     this.dragPoint = null;
     this.moved = false;
-    var background = this.svgNode.parentNode.querySelector("#map-container");
-    if (background !== null) {
-      var reactMap = React.createElement(Map);
-      this.reactMap = ReactDOM.render(reactMap, background);
-    }
   }
-  _createClass(cimview, [{
-    key: "importSvgGrid",
-    value: function importSvgGrid(osmxml) {
-      this.reactMap.importSvgGrid(osmxml);
-    }
 
-    /*
-     * Calculate the view box after a change has occured. Nothing should change except
-     * the values in the view box.
-     *
-     */
-  }, {
+  /*
+   * Calculate the view box after a change has occured. Nothing should change except
+   * the values in the view box.
+   *
+   */
+  _createClass(cimview, [{
     key: "calculateViewBox",
     value: function calculateViewBox() {
       var viewPort = {
@@ -58405,6 +58294,24 @@ cimedit.terminalAndPointLimits = {
     "terminalStyle": cimedit.constellationPoints
   }
 };
+
+var term = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><rect class=\"fillwhenstill\" x=\"10.5\" y=\"10.5\" width=\"3\" height=\"3\" stroke=\"#000000\" stroke-width=\"1\" ry=\"1.4984024\"/></svg>";
+
+var brea = "<?xml version=\"1.0\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><rect x=\"4\" y=\"4\" height=\"16\" width=\"16\" fill-opacity=\"0\" stroke=\"black\" stroke-width=\"1\"/><line x1=\"4\" y1=\"12\" x2=\"8\" y2=\"12\" fill-opacity=\"0\" stroke=\"black\" stroke-width=\"1\"/><line x1=\"8\" y1=\"12\" x2=\"14\" y2=\"8\" fill-opacity=\"0\" stroke=\"black\" stroke-width=\"1\"/><line x1=\"15\" y1=\"12\" x2=\"20\" y2=\"12\" fill-opacity=\"0\" stroke=\"black\" stroke-width=\"1\"/></svg>";
+
+var conn = "<?xml version=\"1.0\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><circle class=\"fillwhenstill\" id=\"circle\" cx=\"12\" cy=\"12\" r=\"3\" stroke=\"black\" stroke-width=\"1\"/></svg>";
+
+var cons = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><polygon class=\"fillwhenstill\" points=\"7,10 17,10 12,24 \" stroke=\"black\" stroke-width=\"1\" id=\"polygon4\" transform=\"matrix(1.0338179,0,0,0.62498801,-0.40581499,7.712741)\"/><path class=\"fillwhenstill\" stroke=\"black\" stroke-width=\"2\" stroke-linecap=\"butt\" stroke-linejoin=\"miter\" stroke-opacity=\"1\" stroke-miterlimit=\"4\" d=\"M 12,9.3643411 12,20.775194\"/></svg>";
+
+var gene = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><g><g><path d=\"m 10.9872,22.194 c 6.06795,0 10.9872,-4.9685 10.9872,-11.097 C 21.9744,4.9684 17.05515,0 10.9872,0 4.91935,0 0,4.9684 0,11.097 0,17.2255 4.91935,22.194 10.9872,22.194 Z\" style=\"fill:none;stroke:black\"/><path d=\"M 10.9872,11.097\" style=\"fill:none;stroke:black\"/></g><g><path d=\"m 10.9872,19.6357 c 4.6692,0 8.4543,-3.82295 8.4543,-8.5387 0,-4.71585 -3.7851,-8.5387 -8.4543,-8.5387 -4.6691,0 -8.45425,3.82285 -8.45425,8.5387 0,4.71575 3.78515,8.5387 8.45425,8.5387 z\" style=\"fill:white;stroke:none\"/><path d=\"M 10.9872,11.097\" style=\"fill:white;stroke:none\"/></g><g><path d=\"m 9.84815,15.0137 2.47655,-0.0051 V 13.0845 c 0,-0.5219 0.2433,-1.015 0.8943,-1.44205 0.65095,-0.42685 2.4682,-1.29305 2.4682,-3.57045 0,-2.2775 -1.90835,-3.8429 -3.5125,-4.175 -1.6039,-0.3321 -3.34175,-0.1136 -4.575,1.2375 -1.10435,1.20985 -1.33705,2.16685 -1.33705,4.27825 h 2.47455 v -0.49075 c 0,-1.12505 0.13015,-2.3127 1.7375,-2.6375 0.8773,-0.1773 1.6997,0.0979 2.1875,0.575 0.558,0.5456 0.5625,1.775 -0.32665,2.38715 l -1.3948,0.94895 c -0.8136,0.5219 -1.0926,11.0295 -1.0926,1.95695 z\" style=\"stroke:none\"/><path d=\"m 9.8319,18.5346 v -2.55025 h 2.5106 v 2.55025 z\" style=\"stroke:none\"/></g></g></svg>";
+
+var net = "<?xml version=\"1.0\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><defs><pattern id=\"diagonalHatch\" width=\"8\" height=\"8\" patternUnits=\"userSpaceOnUse\"><line x1=\"0\" y1=\"0\" x2=\"8\" y2=\"8\" style=\"stroke:black;stroke-width:1\"/><line x1=\"8\" y1=\"0\" x2=\"0\" y2=\"8\" style=\"stroke:black;stroke-width:1\"/></pattern></defs><rect file=\"net.svg\" x=\"0\" y=\"0\" width=\"24\" height=\"24\" style=\"fill:url(#diagonalHatch);stroke:black;stroke-width:1\"/></svg>";
+
+var tran = "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><circle class=\"fillwhenstill\" r=\"7\" cy=\"10\" cx=\"13\" id=\"leftcircle\" stroke=\"#000000\" stroke-width=\"1\" fill-opacity=\"0\"/>/&gt;<circle class=\"fillwhenstill\" r=\"7\" cy=\"14\" cx=\"13\" id=\"rightcircle\" stroke=\"#000000\" stroke-width=\"1\" fill-opacity=\"0\"/></svg>";
+
+var sola = "<?xml version=\"1.0\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><defs><marker id=\"arrow\" markerWidth=\"10\" markerHeight=\"10\" refX=\"0\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\"><path d=\"M0,2 L0,4 L2,3 z\" fill=\"#000\"/></marker><pattern id=\"diagonalHatch\" width=\"8\" height=\"8\" patternUnits=\"userSpaceOnUse\"><line x1=\"8\" y1=\"0\" x2=\"0\" y2=\"8\" style=\"stroke:black;stroke-width:1\"/></pattern></defs><line x1=\"8\" y1=\"8\" x2=\"12\" y2=\"12\" stroke=\"#000\" stroke-width=\"3\" marker-end=\"url(#arrow)\"/><line x1=\"16\" y1=\"8\" x2=\"20\" y2=\"12\" stroke=\"#000\" stroke-width=\"3\" marker-end=\"url(#arrow)\"/><rect x=\"6\" y=\"18\" width=\"24\" height=\"12\" style=\"fill:url(#diagonalHatch);stroke:black;stroke-width:1\"/><rect x=\"6\" y=\"6\" width=\"24\" height=\"24\" style=\"fill:none;stroke:black;stroke-width:1\"/></svg>";
+
+var sync = "<?xml version=\"1.0\"?><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"26\" width=\"26\"><circle class=\"fillwhenstill\" id=\"circle\" cx=\"12\" cy=\"12\" r=\"10\" stroke=\"black\" stroke-width=\"1\" fill-opacity=\"0\"/><path class=\"fillwhenstill\" d=\"M4 12 C 6 5, 10 5, 12 12 S 19 19, 20 12\" stroke=\"black\" fill-opacity=\"0\"/></svg>";
 
 var cimjson = /*#__PURE__*/function () {
   function cimjson() {
@@ -59470,6 +59377,7 @@ var cimsvg = /*#__PURE__*/function () {
   }, {
     key: "loadFile",
     value: function loadFile(fileContents) {
+      var _this11 = this;
       if (!this.getXmlDoc()) {
         this.setXmlDoc(cimxml.getDOM("<rdf:RDF " + cimxml.xmlns() + "/>"));
       }
@@ -59479,7 +59387,9 @@ var cimsvg = /*#__PURE__*/function () {
         if (this.checkIfParseReady()) {
           common$1.emptylog("Loading file cimVersion: ", this.cimVersion, " entsoe: ", this.entsoe);
           this.setBaseJson(cimxml.createObjectGraphFromXml(this.getXmlDoc()));
-          this.cimmenu.checkBaseJson(this.getBaseJson());
+          this.updateCimmenu(function () {
+            _this11.cimmenu.checkBaseJson(_this11.getBaseJson());
+          });
           this.resetFileReceivedCount(0);
           this.setFileCount(0);
           this.populateDiagramLinks();
@@ -59547,7 +59457,7 @@ var cimsvg = /*#__PURE__*/function () {
   }, {
     key: "updateComponentInBaseJson",
     value: function updateComponentInBaseJson(type, id, attribute, value) {
-      var _this11 = this;
+      var _this12 = this;
       if (this.getBaseJson()[type][id] === undefined) {
         console.error("Cannot find " + id + " in list of " + type);
       } else {
@@ -59555,7 +59465,7 @@ var cimsvg = /*#__PURE__*/function () {
         var baseJson = this.getBaseJson();
         this.templateJson = cimjson.getTemplateJson(baseJson);
         this.updateCimmenu(function () {
-          _this11.cimmenu.update(_this11.templateJson);
+          _this12.cimmenu.update(_this12.templateJson);
         });
       }
     }
@@ -59599,7 +59509,7 @@ var cimsvg = /*#__PURE__*/function () {
   }, {
     key: "importZip",
     value: function importZip(blob) {
-      var _this12 = this;
+      var _this13 = this;
       var archive = new JSZip();
       archive.loadAsync(blob, {
         checkCRC32: true
@@ -59645,10 +59555,10 @@ var cimsvg = /*#__PURE__*/function () {
         // Wait for all promises then load files
         allData().then(function (value) {
           var fileNameList = Object.keys(value);
-          _this12.setFileCount(fileNameList.length);
+          _this13.setFileCount(fileNameList.length);
           fileNameList.forEach(function (filename) {
             console.log("LOADING ", filename);
-            _this12.loadFile(value[filename]);
+            _this13.loadFile(value[filename]);
           });
         });
       }, function (error) {
@@ -59682,7 +59592,7 @@ var cimsvg = /*#__PURE__*/function () {
   }, {
     key: "downloadUri",
     value: function downloadUri(uri) {
-      var _this13 = this;
+      var _this14 = this;
       fetch(uri, {
         headers: {
           "Accept": "application/zip, application/xml, application/json, text/plain"
@@ -59690,16 +59600,16 @@ var cimsvg = /*#__PURE__*/function () {
       }).then(function (response) {
         if (response.headers.get("Content-Type") === "application/xml") {
           response.text().then(function (text) {
-            _this13.setFileCount(1);
-            _this13.loadFile(text);
-            _this13.setTitle(uri);
-            _this13.uri = uri;
+            _this14.setFileCount(1);
+            _this14.loadFile(text);
+            _this14.setTitle(uri);
+            _this14.uri = uri;
           });
         } else if (response.headers.get("Content-Type") === "application/zip") {
           response.blob().then(function (blob) {
-            _this13.importZip(blob);
-            _this13.setTitle(uri);
-            _this13.uri = uri;
+            _this14.importZip(blob);
+            _this14.setTitle(uri);
+            _this14.uri = uri;
           });
         }
       })["catch"](function (error) {
