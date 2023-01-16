@@ -3,46 +3,33 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Simple Pintura Integration</title>
+	</head>
+	<body>
 		<style>
-			#grid {
+			.grid {
 				display: none;
 			}
-			#backing {
+			.backing {
 				fill: transparent;
 			}
 		</style>
-	</head>
-	<body>
-		<svg id="cim" width="800" >
-			<rect class="backing" />
-			<g class="grid" />
-			<g class="diagrams" />
-		</svg>
-		<script type="text/javascript" src="../cimsvg/lib/libcimsvg.js"></script>
+                <div id=svg-panel>
+			<svg id="cim" width="800" height="600">
+				<rect class="backing" />
+				<g class="grid" />
+				<g class="diagrams" />
+			</svg>
+		</div>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.runtime.min.js"> </script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.2.0/jszip.min.js"> </script>
+		<script type="text/javascript" src="https://sogno.energy/pintura/dist/libcimsvg.js"></script>
 		<script language="javascript" type="text/javascript">
-			(function() {
-				var client = new XMLHttpRequest();
-				client.open('GET', 'IEEE-09_ME.xml');
-				client.onreadystatechange = function() {
-					if (client.readyState == 4 && client.status == 200) {
-						let svgelm = document.getElementById("cim");
-						let cimsvgInstance = new cimsvg(svgelm);
-						cimsvg.setCimsvg(cimsvgInstance);
-						cimsvgInstance.setFileCount(1);
-						cimsvgInstance.loadFile(client.responseText);
-						cimsvgInstance.fit();
-
-						window.onMouseLeave = function() {};
-						window.onMouseOver = function() {};
-						window.onMouseLeave = function() {};
-						window.onMouseUp = function() {};
-						window.onMouseDown = function() {};
-						window.onMouseMove = function() {};
-					}
-				}
-				client.send();
-			})();
+			var currentCimsvg = libcimsvg.currentCimsvg;
+			var svg = document.getElementById("svg-panel");
+			var cimsvg = libcimsvg.cimsvg;
+			var cimsvgInstance = new cimsvg(svg);
+			cimsvgInstance.downloadUri("http://localhost:8082/example.zip");
+			cimsvgInstance.fit();
 		</script>
 	</body>
 </html>
-

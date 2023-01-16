@@ -21,6 +21,7 @@ COPY --from=builder /pintura/dist /usr/share/nginx/html/dist/
 COPY --from=builder /pintura/index.html /usr/share/nginx/html/
 
 COPY example/example.zip /usr/share/nginx/html/example.zip
+COPY example/index.html /usr/share/nginx/html/example.html
 
 ARG GIT_COMMIT
 LABEL \
