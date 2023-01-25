@@ -52,4 +52,12 @@ to select it, but there is no way to add the component.
 * If you haven't added a diagram, you can't start adding components
 * There's no way to remove a diagram once it has been added
 
+## Publications
+
+If you are using Pintura for your research, please cite the following paper in your publications:
+
+Dinkelbach, J., Razik, L., Mirz, M., Benigni, A., Monti, A.: Template-based generation of programming language specific code for smart grid modelling compliant with CIM and CGMES.
+J. Eng. 2023, 1–13 (2022). [https://doi.org/10.1049/tje2.12208](https://doi.org/10.1049/tje2.12208)
+
+
 
