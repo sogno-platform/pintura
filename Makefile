@@ -10,7 +10,7 @@
 #
 ###################################################################################
 
-DOCKER_IMAGE=rwthacs/pintura
+DOCKER_IMAGE=sogno/pintura
 DOCKER_OPTS?=--rm
 
 TEMPLATE_DIR=generated

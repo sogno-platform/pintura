@@ -80,7 +80,7 @@ jobs:
     - name: Build Docker
       uses: docker/build-push-action@v1
       with:
-        username: ${{ secrets.DOCKER_HUB_NAME }}
-        password: ${{ secrets.DOCKER_HUB_PASS }}
-        repository: rwthacs/pintura
+        username: ${{ secrets.DOCKERHUB_USER }}
+        password: ${{ secrets.DOCKERHUB_SECRET }}
+        repository: sogno/pintura
         tags: latest, ${{ steps.version.outputs.VERSION }}
