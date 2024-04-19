@@ -1,6 +1,6 @@
 variables:
   DOCKER_TAG: ${CI_COMMIT_REF_NAME}
-  DOCKER_IMAGE: rwthacs/pintura
+  DOCKER_IMAGE: sogno/pintura
 
 before_script:
   - git submodule sync --recursive
