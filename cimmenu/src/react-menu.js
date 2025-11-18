@@ -4,7 +4,7 @@ import templates from "../templates/index.js";
 import common from "./common.js";
 import theMenuStructure from "./react-menu.json";
 
-var Nav = ReactBootstrap.Nav;
+//var Nav = ReactBootstrap.Nav;
 
 class FileMenuEntry extends React.Component {
     constructor(props) {
