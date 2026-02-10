@@ -4,153 +4,113 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.libcimmenu = global.libcimmenu || {}, global.libcimmenu.umd = {}), global.Handlebars, global.Handlebars));
 })(this, (function (exports, Handlebars, runtime) { 'use strict';
 
-  function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object);
-      enumerableOnly && (symbols = symbols.filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-      })), keys.push.apply(keys, symbols);
-    }
-    return keys;
+  function _assertThisInitialized(e) {
+    if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+    return e;
   }
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = null != arguments[i] ? arguments[i] : {};
-      i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
-        _defineProperty(target, key, source[key]);
-      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
-        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-      });
-    }
-    return target;
+  function _callSuper(t, o, e) {
+    return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e));
   }
-  function _typeof(obj) {
-    "@babel/helpers - typeof";
-
-    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-      return typeof obj;
-    } : function (obj) {
-      return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    }, _typeof(obj);
+  function _classCallCheck(a, n) {
+    if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
   }
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError("Cannot call a class as a function");
+  function _defineProperties(e, r) {
+    for (var t = 0; t < r.length; t++) {
+      var o = r[t];
+      o.enumerable = o.enumerable || false, o.configurable = true, "value" in o && (o.writable = true), Object.defineProperty(e, _toPropertyKey(o.key), o);
     }
   }
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
-    }
-  }
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    Object.defineProperty(Constructor, "prototype", {
+  function _createClass(e, r, t) {
+    return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
       writable: false
-    });
-    return Constructor;
+    }), e;
   }
-  function _defineProperty(obj, key, value) {
-    key = _toPropertyKey(key);
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-    return obj;
+  function _defineProperty(e, r, t) {
+    return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+      value: t,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    }) : e[r] = t, e;
   }
-  function _inherits(subClass, superClass) {
-    if (typeof superClass !== "function" && superClass !== null) {
-      throw new TypeError("Super expression must either be null or a function");
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
+  function _getPrototypeOf(t) {
+    return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
+      return t.__proto__ || Object.getPrototypeOf(t);
+    }, _getPrototypeOf(t);
+  }
+  function _inherits(t, e) {
+    if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
+    t.prototype = Object.create(e && e.prototype, {
       constructor: {
-        value: subClass,
+        value: t,
         writable: true,
         configurable: true
       }
-    });
-    Object.defineProperty(subClass, "prototype", {
+    }), Object.defineProperty(t, "prototype", {
       writable: false
-    });
-    if (superClass) _setPrototypeOf(subClass, superClass);
-  }
-  function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
-      return o.__proto__ || Object.getPrototypeOf(o);
-    };
-    return _getPrototypeOf(o);
-  }
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
-      o.__proto__ = p;
-      return o;
-    };
-    return _setPrototypeOf(o, p);
+    }), e && _setPrototypeOf(t, e);
   }
   function _isNativeReflectConstruct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
     try {
-      Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
-      return true;
-    } catch (e) {
-      return false;
+      var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    } catch (t) {}
+    return (_isNativeReflectConstruct = function () {
+      return !!t;
+    })();
+  }
+  function ownKeys(e, r) {
+    var t = Object.keys(e);
+    if (Object.getOwnPropertySymbols) {
+      var o = Object.getOwnPropertySymbols(e);
+      r && (o = o.filter(function (r) {
+        return Object.getOwnPropertyDescriptor(e, r).enumerable;
+      })), t.push.apply(t, o);
     }
+    return t;
   }
-  function _assertThisInitialized(self) {
-    if (self === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  function _objectSpread2(e) {
+    for (var r = 1; r < arguments.length; r++) {
+      var t = null != arguments[r] ? arguments[r] : {};
+      r % 2 ? ownKeys(Object(t), true).forEach(function (r) {
+        _defineProperty(e, r, t[r]);
+      }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+        Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+      });
     }
-    return self;
+    return e;
   }
-  function _possibleConstructorReturn(self, call) {
-    if (call && (typeof call === "object" || typeof call === "function")) {
-      return call;
-    } else if (call !== void 0) {
-      throw new TypeError("Derived constructors may only return object or undefined");
-    }
-    return _assertThisInitialized(self);
+  function _possibleConstructorReturn(t, e) {
+    if (e && ("object" == typeof e || "function" == typeof e)) return e;
+    if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
+    return _assertThisInitialized(t);
   }
-  function _createSuper(Derived) {
-    var hasNativeReflectConstruct = _isNativeReflectConstruct();
-    return function _createSuperInternal() {
-      var Super = _getPrototypeOf(Derived),
-        result;
-      if (hasNativeReflectConstruct) {
-        var NewTarget = _getPrototypeOf(this).constructor;
-        result = Reflect.construct(Super, arguments, NewTarget);
-      } else {
-        result = Super.apply(this, arguments);
-      }
-      return _possibleConstructorReturn(this, result);
-    };
+  function _setPrototypeOf(t, e) {
+    return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+      return t.__proto__ = e, t;
+    }, _setPrototypeOf(t, e);
   }
-  function _toPrimitive(input, hint) {
-    if (typeof input !== "object" || input === null) return input;
-    var prim = input[Symbol.toPrimitive];
-    if (prim !== undefined) {
-      var res = prim.call(input, hint || "default");
-      if (typeof res !== "object") return res;
+  function _toPrimitive(t, r) {
+    if ("object" != typeof t || !t) return t;
+    var e = t[Symbol.toPrimitive];
+    if (void 0 !== e) {
+      var i = e.call(t, r);
+      if ("object" != typeof i) return i;
       throw new TypeError("@@toPrimitive must return a primitive value.");
     }
-    return (hint === "string" ? String : Number)(input);
+    return (String )(t);
   }
-  function _toPropertyKey(arg) {
-    var key = _toPrimitive(arg, "string");
-    return typeof key === "symbol" ? key : String(key);
+  function _toPropertyKey(t) {
+    var i = _toPrimitive(t, "string");
+    return "symbol" == typeof i ? i : i + "";
+  }
+  function _typeof(o) {
+    "@babel/helpers - typeof";
+
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+      return typeof o;
+    } : function (o) {
+      return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+    }, _typeof(o);
   }
 
   // Sourced from lodash
@@ -232,7 +192,7 @@
     function common() {
       _classCallCheck(this, common);
     }
-    _createClass(common, null, [{
+    return _createClass(common, null, [{
       key: "generateUUID",
       value:
       /*
@@ -244,7 +204,6 @@
         if (typeof performance !== "undefined" && typeof performance.now === "function") {
           d += performance.now(); //use high-precision timer if available
         }
-
         return "idxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
           var r = (d + Math.random() * 16) % 16 | 0;
           d = Math.floor(d / 16);
@@ -382,7 +341,6 @@
         return name;
       }
     }]);
-    return common;
   }();
 
   function templates$1 (Handlebars) {
@@ -457,9 +415,9 @@
       };
 
     return "    <li class=\"wide-row floating-panel-item list-entry\">\n        <div class=\"row-left floating-panel-name tooltip\">"
-      + ((stack1 = (lookupProperty(helpers,"removeClass")||(depth0 && lookupProperty(depth0,"removeClass"))||alias2).call(alias1,(data && lookupProperty(data,"key")),{"name":"removeClass","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":4,"column":58},"end":{"line":4,"column":95}}})) != null ? stack1 : "")
+      + ((stack1 = (lookupProperty(helpers,"removeClass")||(depth0 && lookupProperty(depth0,"removeClass"))||alias2).call(alias1,(data && lookupProperty(data,"key")),{"name":"removeClass","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":58},"end":{"line":4,"column":95}}})) != null ? stack1 : "")
       + "\n            <span class=\"tooltiptext\">"
-      + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"key") || (data && lookupProperty(data,"key"))) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"key","hash":{},"data":data,"loc":{"start":{"line":5,"column":38},"end":{"line":5,"column":46}}}) : helper)))
+      + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"key") || (data && lookupProperty(data,"key"))) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"key","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":5,"column":38},"end":{"line":5,"column":46}}}) : helper)))
       + "</span>\n        </div>\n        "
       + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
       + "\n    </li>\n";
@@ -474,7 +432,7 @@
       };
 
     return "<ul class=\"floating-panel-list\">\n"
-      + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"attributes") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":0},"end":{"line":9,"column":9}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"attributes") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":0},"end":{"line":9,"column":9}}})) != null ? stack1 : "")
       + "</ul>\n";
   },"useData":true});
   function handlebars_cim_class_render(data, options, asString) {
@@ -492,16 +450,16 @@
       };
 
     return "<?xml version=\"1.0\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 20010904//EN\"\n\"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd\">\n<svg id=\"svg\"\n     xmlns=\"http://www.w3.org/2000/svg\"\n     xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n     viewBox=\""
-      + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"viewBox") || (depth0 != null ? lookupProperty(depth0,"viewBox") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"viewBox","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":7,"column":14},"end":{"line":7,"column":25}}}) : helper)))
+      + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"viewBox") || (depth0 != null ? lookupProperty(depth0,"viewBox") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"viewBox","hash":{},"data":data,"loc":{"start":{"line":7,"column":14},"end":{"line":7,"column":25}}}) : helper)))
       + "\">\n<style>\n"
-      + ((stack1 = ((helper = (helper = lookupProperty(helpers,"style") || (depth0 != null ? lookupProperty(depth0,"style") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"style","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":9,"column":0},"end":{"line":9,"column":11}}}) : helper))) != null ? stack1 : "")
+      + ((stack1 = ((helper = (helper = lookupProperty(helpers,"style") || (depth0 != null ? lookupProperty(depth0,"style") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"style","hash":{},"data":data,"loc":{"start":{"line":9,"column":0},"end":{"line":9,"column":11}}}) : helper))) != null ? stack1 : "")
       + "\n</style>\n"
-      + ((stack1 = ((helper = (helper = lookupProperty(helpers,"diagrams") || (depth0 != null ? lookupProperty(depth0,"diagrams") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"diagrams","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":11,"column":0},"end":{"line":11,"column":14}}}) : helper))) != null ? stack1 : "")
+      + ((stack1 = ((helper = (helper = lookupProperty(helpers,"diagrams") || (depth0 != null ? lookupProperty(depth0,"diagrams") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"diagrams","hash":{},"data":data,"loc":{"start":{"line":11,"column":0},"end":{"line":11,"column":14}}}) : helper))) != null ? stack1 : "")
       + "\n</svg>\n";
   },"useData":true});
   function handlebars_cim_create_svg(data, options, asString) {
     var html = Template$7(data, options);
-    return (asString || true) ? html : $(html);
+    return html ;
   }
 
   init();
@@ -516,13 +474,13 @@
     return "            <option type=\""
       + alias1(container.lambda((depths[1] != null ? lookupProperty(depths[1],"requestedType") : depths[1]), depth0))
       + "\" value=\""
-      + alias1(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":55},"end":{"line":4,"column":64}}}) : helper)))
+      + alias1(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":55},"end":{"line":4,"column":64}}}) : helper)))
       + "\" "
-      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"disabled") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":66},"end":{"line":4,"column":110}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"disabled") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":66},"end":{"line":4,"column":110}}})) != null ? stack1 : "")
       + " "
-      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":111},"end":{"line":4,"column":144}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":111},"end":{"line":4,"column":144}}})) != null ? stack1 : "")
       + " >"
-      + alias1(((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"label","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":146},"end":{"line":4,"column":155}}}) : helper)))
+      + alias1(((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"label","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":146},"end":{"line":4,"column":155}}}) : helper)))
       + "</option>\n";
   },"2":function(container,depth0,helpers,partials,data) {
       return " disabled=\"disabled\" ";
@@ -537,20 +495,20 @@
       };
 
     return "<span class=\"row-right wide-row  floating-panel-value\">\n    <select id='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":16},"end":{"line":2,"column":30}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":16},"end":{"line":2,"column":30}}}) : helper)))
       + "' onchange=\"currentCimsvg().updateComponentRDF('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":78},"end":{"line":2,"column":91}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":78},"end":{"line":2,"column":91}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":95},"end":{"line":2,"column":110}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":95},"end":{"line":2,"column":110}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":114},"end":{"line":2,"column":127}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":114},"end":{"line":2,"column":127}}}) : helper)))
       + "', this.value)\" class=\"update-instance-type\">\n"
-      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"aggregates") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":3,"column":8},"end":{"line":5,"column":17}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"aggregates") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":3,"column":8},"end":{"line":5,"column":17}}})) != null ? stack1 : "")
       + "    </select>\n    <button class=\"hiddenbutton\"> + </button>\n    <button class=\"hiddenbutton\"> -> </button>\n</span>\n";
   },"useData":true,"useDepths":true});
   function handlebars_cim_instance_type(data, options, asString) {
     var html = Template$6(data, options);
-    return (asString || true) ? html : $(html);
+    return html ;
   }
 
   init();
@@ -571,23 +529,23 @@
       };
 
     return "<span class=\"row-right wide-row  floating-panel-value\">\n    <select value=\""
-      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":19},"end":{"line":2,"column":28}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":19},"end":{"line":2,"column":28}}}) : helper)))
       + "\" id=\""
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":34},"end":{"line":2,"column":48}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":34},"end":{"line":2,"column":48}}}) : helper)))
       + "\" type=\"select\" onchange=\"currentCimsvg().updateComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":107},"end":{"line":2,"column":120}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":107},"end":{"line":2,"column":120}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":124},"end":{"line":2,"column":139}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":124},"end":{"line":2,"column":139}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":143},"end":{"line":2,"column":156}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":143},"end":{"line":2,"column":156}}}) : helper)))
       + "', this.value)\">\n        <option>Select</label>\n"
-      + ((stack1 = (lookupProperty(helpers,"eq")||(depth0 && lookupProperty(depth0,"eq"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"value") : depth0),"true",{"name":"eq","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":8},"end":{"line":8,"column":15}}})) != null ? stack1 : "")
-      + ((stack1 = (lookupProperty(helpers,"eq")||(depth0 && lookupProperty(depth0,"eq"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"value") : depth0),"false",{"name":"eq","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":9,"column":8},"end":{"line":13,"column":15}}})) != null ? stack1 : "")
+      + ((stack1 = (lookupProperty(helpers,"eq")||(depth0 && lookupProperty(depth0,"eq"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"value") : depth0),"true",{"name":"eq","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":8},"end":{"line":8,"column":15}}})) != null ? stack1 : "")
+      + ((stack1 = (lookupProperty(helpers,"eq")||(depth0 && lookupProperty(depth0,"eq"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"value") : depth0),"false",{"name":"eq","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":9,"column":8},"end":{"line":13,"column":15}}})) != null ? stack1 : "")
       + "    </select>\n    <button class=\"hiddenbutton\"> + </button>\n    <button class=\"hiddenbutton\"> -> </button>\n</span>\n";
   },"useData":true});
   function handlebars_cim_render_boolean(data, options, asString) {
     var html = Template$5(data, options);
-    return (asString || true) ? html : $(html);
+    return html ;
   }
 
   init();
@@ -600,20 +558,20 @@
       };
 
     return "<span class=\"row-right wide-row  floating-panel-value\">\n    <input value='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":18},"end":{"line":2,"column":27}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":18},"end":{"line":2,"column":27}}}) : helper)))
       + "' id='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":33},"end":{"line":2,"column":47}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":33},"end":{"line":2,"column":47}}}) : helper)))
       + "' type=\"number\" step=\"any\" onchange=\"currentCimsvg().updateComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":117},"end":{"line":2,"column":130}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":117},"end":{"line":2,"column":130}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":134},"end":{"line":2,"column":149}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":134},"end":{"line":2,"column":149}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":153},"end":{"line":2,"column":166}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":153},"end":{"line":2,"column":166}}}) : helper)))
       + "', this.value)\" class=\"update-float\"/>\n    <button class=\"hiddenbutton\"> + </button>\n    <button class=\"hiddenbutton\"> -> </button>\n</span>\n";
   },"useData":true});
   function handlebars_cim_render_float(data, options, asString) {
     var html = Template$4(data, options);
-    return (asString || true) ? html : $(html);
+    return html ;
   }
 
   init();
@@ -626,20 +584,20 @@
       };
 
     return "<span class=\"row-right wide-row  floating-panel-value\">\n    <input value='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":18},"end":{"line":2,"column":27}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":18},"end":{"line":2,"column":27}}}) : helper)))
       + "' id='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":33},"end":{"line":2,"column":47}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":33},"end":{"line":2,"column":47}}}) : helper)))
       + "' type=\"string\" step=\"any\" onchange=\"currentCimsvg().updateComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":117},"end":{"line":2,"column":130}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":117},"end":{"line":2,"column":130}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":134},"end":{"line":2,"column":149}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":134},"end":{"line":2,"column":149}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":153},"end":{"line":2,"column":166}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":153},"end":{"line":2,"column":166}}}) : helper)))
       + "', this.value)\"/>\n    <button class=\"hiddenbutton\"> + </button>\n    <button class=\"hiddenbutton\"> -> </button>\n</span>\n";
   },"useData":true});
   function handlebars_cim_render_string(data, options, asString) {
     var html = Template$3(data, options);
-    return (asString || true) ? html : $(html);
+    return html ;
   }
 
   init();
@@ -654,13 +612,13 @@
     return "            <option type=\""
       + alias1(container.lambda((depths[1] != null ? lookupProperty(depths[1],"requestedType") : depths[1]), depth0))
       + "\" value=\""
-      + alias1(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":55},"end":{"line":4,"column":64}}}) : helper)))
+      + alias1(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":55},"end":{"line":4,"column":64}}}) : helper)))
       + "\" "
-      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"disabled") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":66},"end":{"line":4,"column":110}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"disabled") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":66},"end":{"line":4,"column":110}}})) != null ? stack1 : "")
       + " "
-      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":111},"end":{"line":4,"column":155}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":111},"end":{"line":4,"column":155}}})) != null ? stack1 : "")
       + " >"
-      + alias1(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":157},"end":{"line":4,"column":165}}}) : helper)))
+      + alias1(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":157},"end":{"line":4,"column":165}}}) : helper)))
       + "</option>\n";
   },"2":function(container,depth0,helpers,partials,data) {
       return " disabled=\"disabled\" ";
@@ -675,30 +633,30 @@
       };
 
     return "<span class=\"row-right wide-row  floating-panel-value\">\n    <select id='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":16},"end":{"line":2,"column":30}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":16},"end":{"line":2,"column":30}}}) : helper)))
       + "' onchange=\"currentCimsvg().updateComponentRDF('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":78},"end":{"line":2,"column":91}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":78},"end":{"line":2,"column":91}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":95},"end":{"line":2,"column":110}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":95},"end":{"line":2,"column":110}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":114},"end":{"line":2,"column":127}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":114},"end":{"line":2,"column":127}}}) : helper)))
       + "', this.value)\" class=\"update-complex-type\">\n"
-      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"aggregates") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":3,"column":8},"end":{"line":5,"column":17}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"aggregates") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":3,"column":8},"end":{"line":5,"column":17}}})) != null ? stack1 : "")
       + "    </select>\n    <button class=\"smallbutton\" onclick=\"currentCimsvg().addComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"requestedType") || (depth0 != null ? lookupProperty(depth0,"requestedType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"requestedType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":7,"column":71},"end":{"line":7,"column":88}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"requestedType") || (depth0 != null ? lookupProperty(depth0,"requestedType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"requestedType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":7,"column":71},"end":{"line":7,"column":88}}}) : helper)))
       + "');currentCimsvg().populateAttributes('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":7,"column":127},"end":{"line":7,"column":140}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":7,"column":127},"end":{"line":7,"column":140}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":7,"column":144},"end":{"line":7,"column":159}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":7,"column":144},"end":{"line":7,"column":159}}}) : helper)))
       + "')\"> + </button>\n    <button class=\"smallbutton\" onclick=\"currentCimsvg().populateAttributes('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"requestedType") || (depth0 != null ? lookupProperty(depth0,"requestedType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"requestedType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":8,"column":77},"end":{"line":8,"column":94}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"requestedType") || (depth0 != null ? lookupProperty(depth0,"requestedType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"requestedType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":8,"column":77},"end":{"line":8,"column":94}}}) : helper)))
       + "', currentCimmenu().getSelectFromDropdown('attributesPanel', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":8,"column":156},"end":{"line":8,"column":170}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":8,"column":156},"end":{"line":8,"column":170}}}) : helper)))
       + "').value)\"> -> </button>\n</span>\n";
   },"useData":true,"useDepths":true});
   function handlebars_cim_update_complex_type(data, options, asString) {
     var html = Template$2(data, options);
-    return (asString || true) ? html : $(html);
+    return html ;
   }
 
   init();
@@ -711,18 +669,18 @@
       };
 
     return "<span class=\"row-right wide-row floating-panel-value\">\n    <input type=\"text\" value='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":30},"end":{"line":2,"column":39}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":30},"end":{"line":2,"column":39}}}) : helper)))
       + "' onchange=\"currentCimsvg().updateComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":84},"end":{"line":2,"column":92}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":84},"end":{"line":2,"column":92}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":96},"end":{"line":2,"column":105}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":96},"end":{"line":2,"column":105}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":109},"end":{"line":2,"column":122}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":109},"end":{"line":2,"column":122}}}) : helper)))
       + "', this.value)\"></input>\n<!--\n    <button style=\"visibility:hidden\"> + </button>\n    <button style=\"visibility:hidden\"> -> </button>\n-->\n</span>\n";
   },"useData":true});
   function handlebars_cim_update_primitive_type(data, options, asString) {
     var html = Template$1(data, options);
-    return (asString || true) ? html : $(html);
+    return html ;
   }
 
   init();
@@ -735,13 +693,13 @@
       };
 
     return "        <select onchange=\"currentCimsvg().updateComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":3,"column":59},"end":{"line":3,"column":67}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":3,"column":59},"end":{"line":3,"column":67}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":3,"column":71},"end":{"line":3,"column":80}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":3,"column":71},"end":{"line":3,"column":80}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":3,"column":84},"end":{"line":3,"column":97}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":3,"column":84},"end":{"line":3,"column":97}}}) : helper)))
       + "', this.value)\" class=\"update-simple-type\">\n"
-      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"values") : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":8},"end":{"line":6,"column":17}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"values") : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":8},"end":{"line":6,"column":17}}})) != null ? stack1 : "")
       + "        </select>\n";
   },"2":function(container,depth0,helpers,partials,data) {
       var stack1, alias1=container.lambda, alias2=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -754,7 +712,7 @@
     return "            <option value=\""
       + alias2(alias1((depth0 != null ? lookupProperty(depth0,"value") : depth0), depth0))
       + "\" "
-      + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":5,"column":43},"end":{"line":5,"column":92}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":5,"column":43},"end":{"line":5,"column":92}}})) != null ? stack1 : "")
       + " >"
       + alias2(alias1((depth0 != null ? lookupProperty(depth0,"value") : depth0), depth0))
       + "</option>\n";
@@ -769,7 +727,7 @@
       };
 
     return "<span class=\"row-right wide-row floating-panel-value\">\n"
-      + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"simpletype") : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":4},"end":{"line":8,"column":11}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"simpletype") : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":4},"end":{"line":8,"column":11}}})) != null ? stack1 : "")
       + "<!--\n    <button class=\"smallbutton\" style=\""
       + alias2(alias1((depth0 != null ? lookupProperty(depth0,"buttonVisibility") : depth0), depth0))
       + "\"> + </button>\n    <button class=\"smallbutton\" style=\""
@@ -778,7 +736,7 @@
   },"useData":true});
   function handlebars_cim_update_simple_type(data, options, asString) {
     var html = Template(data, options);
-    return (asString || true) ? html : $(html);
+    return html ;
   }
 
   var templates = {
@@ -810,7 +768,7 @@
       this.type;
       this.cimsvg = null;
     }
-    _createClass(contextmenu, [{
+    return _createClass(contextmenu, [{
       key: "setCimsvg",
       value: function setCimsvg(cimsvg) {
         this.cimsvg = cimsvg;
@@ -865,7 +823,6 @@
         }
       }
     }]);
-    return contextmenu;
   }();
   contextmenu.contextMenuActive = "context-menu-active";
 
@@ -931,15 +888,14 @@
   	links: links
   };
 
-  ReactBootstrap.Nav;
+  //var Nav = ReactBootstrap.Nav;
   var FileMenuEntry = /*#__PURE__*/function (_React$Component) {
-    _inherits(FileMenuEntry, _React$Component);
-    var _super = _createSuper(FileMenuEntry);
     function FileMenuEntry(props) {
       _classCallCheck(this, FileMenuEntry);
-      return _super.call(this, props);
+      return _callSuper(this, FileMenuEntry, [props]);
     }
-    _createClass(FileMenuEntry, [{
+    _inherits(FileMenuEntry, _React$Component);
+    return _createClass(FileMenuEntry, [{
       key: "render",
       value: function render() {
         var input, a;
@@ -980,15 +936,12 @@
         return element;
       }
     }]);
-    return FileMenuEntry;
   }(React.Component);
   var HideableMenu = /*#__PURE__*/function (_React$Component2) {
-    _inherits(HideableMenu, _React$Component2);
-    var _super2 = _createSuper(HideableMenu);
     function HideableMenu(props) {
       var _this;
       _classCallCheck(this, HideableMenu);
-      _this = _super2.call(this, props);
+      _this = _callSuper(this, HideableMenu, [props]);
       var title = null,
         main = null;
       if (props.children) {
@@ -1005,11 +958,12 @@
         id: props.id,
         isHidden: props.isHidden
       };
-      _this.showBody = _this.showBody.bind(_assertThisInitialized(_this));
-      _this.toggleBody = _this.toggleBody.bind(_assertThisInitialized(_this));
+      _this.showBody = _this.showBody.bind(_this);
+      _this.toggleBody = _this.toggleBody.bind(_this);
       return _this;
     }
-    _createClass(HideableMenu, [{
+    _inherits(HideableMenu, _React$Component2);
+    return _createClass(HideableMenu, [{
       key: "update",
       value: function update(content) {
         this.setState(content);
@@ -1047,16 +1001,14 @@
         return element;
       }
     }]);
-    return HideableMenu;
   }(React.Component);
   var ComponentTitle = /*#__PURE__*/function (_React$Component3) {
-    _inherits(ComponentTitle, _React$Component3);
-    var _super3 = _createSuper(ComponentTitle);
     function ComponentTitle(props) {
       _classCallCheck(this, ComponentTitle);
-      return _super3.call(this, props);
+      return _callSuper(this, ComponentTitle, [props]);
     }
-    _createClass(ComponentTitle, [{
+    _inherits(ComponentTitle, _React$Component3);
+    return _createClass(ComponentTitle, [{
       key: "render",
       value: function render() {
         return /*#__PURE__*/React.createElement("li", {
@@ -1068,25 +1020,23 @@
         }), "  ", this.props.title));
       }
     }]);
-    return ComponentTitle;
   }(React.Component);
   var DiagramTitle = /*#__PURE__*/function (_React$Component4) {
-    _inherits(DiagramTitle, _React$Component4);
-    var _super4 = _createSuper(DiagramTitle);
     function DiagramTitle(props) {
       var _this2;
       _classCallCheck(this, DiagramTitle);
-      _this2 = _super4.call(this, props);
+      _this2 = _callSuper(this, DiagramTitle, [props]);
       _this2.visibleIconChar = "fa-star";
       _this2.invisibleIconChar = "fa-star-o";
       _this2.state = {
         name: props.name,
         iconChar: _this2.visibleIconChar
       };
-      _this2.toggleDiagramVisibility = _this2.toggleDiagramVisibility.bind(_assertThisInitialized(_this2));
+      _this2.toggleDiagramVisibility = _this2.toggleDiagramVisibility.bind(_this2);
       return _this2;
     }
-    _createClass(DiagramTitle, [{
+    _inherits(DiagramTitle, _React$Component4);
+    return _createClass(DiagramTitle, [{
       key: "toggleDiagramVisibility",
       value: function toggleDiagramVisibility(e) {
         if (this.props.getCimsvg()) {
@@ -1119,16 +1069,13 @@
         }));
       }
     }]);
-    return DiagramTitle;
   }(React.Component);
   var DiagramComponentList = /*#__PURE__*/function (_React$Component5) {
-    _inherits(DiagramComponentList, _React$Component5);
-    var _super5 = _createSuper(DiagramComponentList);
     function DiagramComponentList(props) {
       var _this3;
       _classCallCheck(this, DiagramComponentList);
-      _this3 = _super5.call(this, props);
-      _this3.updatableList = new UpdatableComponentList(_assertThisInitialized(_this3));
+      _this3 = _callSuper(this, DiagramComponentList, [props]);
+      _this3.updatableList = new UpdatableComponentList(_this3);
       var diagramComponentList = _this3.updatableList.updateAll(props.components);
       _this3.state = {
         body: diagramComponentList,
@@ -1138,7 +1085,8 @@
       _this3.hideableMenu = React.createRef();
       return _this3;
     }
-    _createClass(DiagramComponentList, [{
+    _inherits(DiagramComponentList, _React$Component5);
+    return _createClass(DiagramComponentList, [{
       key: "createEntry",
       value: function createEntry(object, meta) {
         return /*#__PURE__*/React.createElement(ComponentOfTypeList, {
@@ -1171,25 +1119,23 @@
         });
       }
     }]);
-    return DiagramComponentList;
   }(React.Component);
   var ComponentListEntry = /*#__PURE__*/function (_React$Component6) {
-    _inherits(ComponentListEntry, _React$Component6);
-    var _super6 = _createSuper(ComponentListEntry);
     function ComponentListEntry(props) {
       var _this4;
       _classCallCheck(this, ComponentListEntry);
-      _this4 = _super6.call(this, props);
+      _this4 = _callSuper(this, ComponentListEntry, [props]);
       _this4.state = {
         label: props.label,
         dropdownId: props.dropdownId,
         componentId: props.componentId,
         componentType: props.componentType
       };
-      _this4.selectEntry = _this4.selectEntry.bind(_assertThisInitialized(_this4));
+      _this4.selectEntry = _this4.selectEntry.bind(_this4);
       return _this4;
     }
-    _createClass(ComponentListEntry, [{
+    _inherits(ComponentListEntry, _React$Component6);
+    return _createClass(ComponentListEntry, [{
       key: "update",
       value: function update(object) {
         this.setState({
@@ -1216,16 +1162,13 @@
         }), this.state.label));
       }
     }]);
-    return ComponentListEntry;
   }(React.Component);
   var ComponentOfTypeList = /*#__PURE__*/function (_React$Component7) {
-    _inherits(ComponentOfTypeList, _React$Component7);
-    var _super7 = _createSuper(ComponentOfTypeList);
     function ComponentOfTypeList(props) {
       var _this5;
       _classCallCheck(this, ComponentOfTypeList);
-      _this5 = _super7.call(this, props);
-      _this5.updatableList = new UpdatableComponentList(_assertThisInitialized(_this5));
+      _this5 = _callSuper(this, ComponentOfTypeList, [props]);
+      _this5.updatableList = new UpdatableComponentList(_this5);
       var startInstances = /*#__PURE__*/React.createElement("ul", null, " ", _this5.updatableList.updateAll(props.instances), " ");
       _this5.state = {
         title: props.title,
@@ -1234,7 +1177,8 @@
       _this5.hideableMenu = React.createRef();
       return _this5;
     }
-    _createClass(ComponentOfTypeList, [{
+    _inherits(ComponentOfTypeList, _React$Component7);
+    return _createClass(ComponentOfTypeList, [{
       key: "createEntry",
       value: function createEntry(object, meta) {
         return /*#__PURE__*/React.createElement(ComponentListEntry, {
@@ -1273,7 +1217,6 @@
         });
       }
     }]);
-    return ComponentOfTypeList;
   }(React.Component);
   var UpdatableComponentList = /*#__PURE__*/function () {
     function UpdatableComponentList(creator) {
@@ -1284,7 +1227,7 @@
         refs: {}
       };
     }
-    _createClass(UpdatableComponentList, [{
+    return _createClass(UpdatableComponentList, [{
       key: "updateAll",
       value: function updateAll(updateObject) {
         var _this6 = this;
@@ -1315,16 +1258,13 @@
         return Object.values(this.state.instances);
       }
     }]);
-    return UpdatableComponentList;
   }();
   var TabMenu = /*#__PURE__*/function (_React$Component8) {
-    _inherits(TabMenu, _React$Component8);
-    var _super8 = _createSuper(TabMenu);
     function TabMenu(props) {
       var _this7;
       _classCallCheck(this, TabMenu);
-      _this7 = _super8.call(this, props);
-      _this7.setViewability = _this7.setViewability.bind(_assertThisInitialized(_this7));
+      _this7 = _callSuper(this, TabMenu, [props]);
+      _this7.setViewability = _this7.setViewability.bind(_this7);
       _this7.state = {
         body: props.body || props.children,
         className: props.className,
@@ -1333,7 +1273,8 @@
       };
       return _this7;
     }
-    _createClass(TabMenu, [{
+    _inherits(TabMenu, _React$Component8);
+    return _createClass(TabMenu, [{
       key: "setViewability",
       value: function setViewability(inView) {
         this.setState({
@@ -1360,15 +1301,12 @@
         }, this.state.body);
       }
     }]);
-    return TabMenu;
   }(React.Component);
   var FileMenu = /*#__PURE__*/function (_React$Component9) {
-    _inherits(FileMenu, _React$Component9);
-    var _super9 = _createSuper(FileMenu);
     function FileMenu(props) {
       var _this8;
       _classCallCheck(this, FileMenu);
-      _this8 = _super9.call(this, props);
+      _this8 = _callSuper(this, FileMenu, [props]);
       _this8.tabMenu = React.createRef();
       var fileMenuLinks = null;
       if ("links" in theMenuStructure && theMenuStructure.links !== undefined) {
@@ -1386,7 +1324,8 @@
       };
       return _this8;
     }
-    _createClass(FileMenu, [{
+    _inherits(FileMenu, _React$Component9);
+    return _createClass(FileMenu, [{
       key: "showBody",
       value: function showBody() {
         var show = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
@@ -1404,21 +1343,19 @@
         });
       }
     }]);
-    return FileMenu;
   }(React.Component);
-  var DiagramList = /*#__PURE__*/function (_React$Component10) {
-    _inherits(DiagramList, _React$Component10);
-    var _super10 = _createSuper(DiagramList);
+  var DiagramList = /*#__PURE__*/function (_React$Component0) {
     function DiagramList(props) {
       var _this9;
       _classCallCheck(this, DiagramList);
-      _this9 = _super10.call(this, props);
+      _this9 = _callSuper(this, DiagramList, [props]);
       _this9.tabMenu = React.createRef();
-      _this9.updatableList = new UpdatableComponentList(_assertThisInitialized(_this9));
-      _this9.getCimsvg = _this9.getCimsvg.bind(_assertThisInitialized(_this9));
+      _this9.updatableList = new UpdatableComponentList(_this9);
+      _this9.getCimsvg = _this9.getCimsvg.bind(_this9);
       return _this9;
     }
-    _createClass(DiagramList, [{
+    _inherits(DiagramList, _React$Component0);
+    return _createClass(DiagramList, [{
       key: "getCimsvg",
       value: function getCimsvg() {
         return this.state.cimsvg;
@@ -1453,12 +1390,12 @@
     }, {
       key: "updateLinks",
       value: function updateLinks(diagramsObject) {
-        var _this10 = this;
+        var _this0 = this;
         var diagramList = this.updatableList.updateAll(diagramsObject);
         var buttonAndList = /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
           className: "component-type-name button wide-button",
           onClick: function onClick() {
-            _this10.state.cimsvg.addDiagram();
+            _this0.state.cimsvg.addDiagram();
           }
         }, "New Diagram"), diagramList);
         if (this.tabMenu.current) {
@@ -1470,7 +1407,7 @@
     }, {
       key: "render",
       value: function render() {
-        var _this11 = this;
+        var _this1 = this;
         return /*#__PURE__*/React.createElement(TabMenu, {
           className: this.props.className,
           id: this.props.id,
@@ -1479,72 +1416,68 @@
         }, /*#__PURE__*/React.createElement("button", {
           className: "component-type-name button wide-button",
           onClick: function onClick() {
-            _this11.state.cimsvg.addDiagram();
+            _this1.state.cimsvg.addDiagram();
           }
         }, "New Diagram"));
       }
     }]);
-    return DiagramList;
   }(React.Component);
-  var CreateNewComponentList = /*#__PURE__*/function (_React$Component11) {
-    _inherits(CreateNewComponentList, _React$Component11);
-    var _super11 = _createSuper(CreateNewComponentList);
+  var CreateNewComponentList = /*#__PURE__*/function (_React$Component1) {
     function CreateNewComponentList(props) {
       _classCallCheck(this, CreateNewComponentList);
-      return _super11.call(this, props);
+      return _callSuper(this, CreateNewComponentList, [props]);
     }
-    _createClass(CreateNewComponentList, [{
+    _inherits(CreateNewComponentList, _React$Component1);
+    return _createClass(CreateNewComponentList, [{
       key: "render",
       value: function render() {
-        var _this12 = this;
+        var _this10 = this;
         return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("button", {
           className: "component-type-name button wide-button",
           onClick: function onClick() {
-            _this12.props.getCimsvg().addComponent('cim:ACLineSegment');
+            _this10.props.getCimsvg().addComponent('cim:ACLineSegment');
           }
         }, "ACLineSegment"), /*#__PURE__*/React.createElement("button", {
           className: "component-type-name button wide-button",
           onClick: function onClick() {
-            _this12.props.getCimsvg().addComponent('cim:EnergyConsumer');
+            _this10.props.getCimsvg().addComponent('cim:EnergyConsumer');
           }
         }, "EnergyConsumer"), /*#__PURE__*/React.createElement("button", {
           className: "component-type-name button wide-button",
           onClick: function onClick() {
-            _this12.props.getCimsvg().addComponent('cim:PowerTransformer');
+            _this10.props.getCimsvg().addComponent('cim:PowerTransformer');
           }
         }, "PowerTransformer"), /*#__PURE__*/React.createElement("button", {
           className: "component-type-name button wide-button",
           onClick: function onClick() {
-            _this12.props.getCimsvg().addComponent('cim:SynchronousMachine');
+            _this10.props.getCimsvg().addComponent('cim:SynchronousMachine');
           }
         }, "SynchronousMachine"), /*#__PURE__*/React.createElement("button", {
           className: "component-type-name button wide-button",
           onClick: function onClick() {
-            _this12.props.getCimsvg().addComponent('cim:TopologicalNode');
+            _this10.props.getCimsvg().addComponent('cim:TopologicalNode');
           }
         }, "TopologicalNode"), /*#__PURE__*/React.createElement("button", {
           className: "component-type-name button wide-button",
           onClick: function onClick() {
-            _this12.props.getCimsvg().addComponent('cim:Terminal');
+            _this10.props.getCimsvg().addComponent('cim:Terminal');
           }
         }, "Terminal"));
       }
     }]);
-    return CreateNewComponentList;
   }(React.Component);
-  var DiagramPicker = /*#__PURE__*/function (_React$Component12) {
-    _inherits(DiagramPicker, _React$Component12);
-    var _super12 = _createSuper(DiagramPicker);
+  var DiagramPicker = /*#__PURE__*/function (_React$Component10) {
     function DiagramPicker(props) {
-      var _this13;
+      var _this11;
       _classCallCheck(this, DiagramPicker);
-      _this13 = _super12.call(this, props);
-      _this13.state = {
-        cimsvg: _this13.props.cimsvg
+      _this11 = _callSuper(this, DiagramPicker, [props]);
+      _this11.state = {
+        cimsvg: _this11.props.cimsvg
       };
-      return _this13;
+      return _this11;
     }
-    _createClass(DiagramPicker, [{
+    _inherits(DiagramPicker, _React$Component10);
+    return _createClass(DiagramPicker, [{
       key: "setCimsvg",
       value: function setCimsvg(cimsvg) {
         this.setState(cimsvg);
@@ -1554,7 +1487,7 @@
       value: function updateDiagramList(diagrams) {
         var diagramList = [];
         Object.keys(diagrams).map(function (diagram, index) {
-          diagramList.push( /*#__PURE__*/React.createElement("option", {
+          diagramList.push(/*#__PURE__*/React.createElement("option", {
             key: index,
             value: diagram
           }, diagrams[diagram]['pintura:name']));
@@ -1566,34 +1499,32 @@
     }, {
       key: "render",
       value: function render() {
-        var _this14 = this;
+        var _this12 = this;
         return /*#__PURE__*/React.createElement("select", {
           className: "center-button",
           id: "diagram-picker",
           onChange: function onChange(e) {
-            _this14.state.cimsvg.setCurrentDiagramId(e.target.value);
+            _this12.state.cimsvg.setCurrentDiagramId(e.target.value);
           }
         }, /*#__PURE__*/React.createElement("option", null, "Select Diagram To Edit"), this.state.options);
       }
     }]);
-    return DiagramPicker;
   }(React.Component);
-  var NewComponentMenu = /*#__PURE__*/function (_React$Component13) {
-    _inherits(NewComponentMenu, _React$Component13);
-    var _super13 = _createSuper(NewComponentMenu);
+  var NewComponentMenu = /*#__PURE__*/function (_React$Component11) {
     function NewComponentMenu(props) {
-      var _this15;
+      var _this13;
       _classCallCheck(this, NewComponentMenu);
-      _this15 = _super13.call(this, props);
-      _this15.getCimsvg = _this15.getCimsvg.bind(_assertThisInitialized(_this15));
-      _this15.tabMenu = React.createRef();
-      _this15.diagramPicker = React.createRef();
-      _this15.state = {
-        cimsvg: _this15.props.cimsvg
+      _this13 = _callSuper(this, NewComponentMenu, [props]);
+      _this13.getCimsvg = _this13.getCimsvg.bind(_this13);
+      _this13.tabMenu = React.createRef();
+      _this13.diagramPicker = React.createRef();
+      _this13.state = {
+        cimsvg: _this13.props.cimsvg
       };
-      return _this15;
+      return _this13;
     }
-    _createClass(NewComponentMenu, [{
+    _inherits(NewComponentMenu, _React$Component11);
+    return _createClass(NewComponentMenu, [{
       key: "showBody",
       value: function showBody() {
         var show = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
@@ -1635,29 +1566,27 @@
         }));
       }
     }]);
-    return NewComponentMenu;
   }(React.Component);
-  var Menu = /*#__PURE__*/function (_React$Component14) {
-    _inherits(Menu, _React$Component14);
-    var _super14 = _createSuper(Menu);
+  var Menu = /*#__PURE__*/function (_React$Component12) {
     function Menu(props) {
-      var _this16;
+      var _this14;
       _classCallCheck(this, Menu);
-      _this16 = _super14.call(this, props);
-      _this16.state = {
+      _this14 = _callSuper(this, Menu, [props]);
+      _this14.state = {
         selectedSwitch: "file-menu-switch",
         diagramMenuLinks: null,
         cimsvg: null
       };
-      _this16.tabs = {
+      _this14.tabs = {
         "file-menu-switch": React.createRef(),
         "diagram-menu-switch": React.createRef(),
         "new-component-menu-switch": React.createRef()
       };
-      _this16.updateSelectedTab = _this16.updateSelectedTab.bind(_assertThisInitialized(_this16));
-      return _this16;
+      _this14.updateSelectedTab = _this14.updateSelectedTab.bind(_this14);
+      return _this14;
     }
-    _createClass(Menu, [{
+    _inherits(Menu, _React$Component12);
+    return _createClass(Menu, [{
       key: "setCimsvg",
       value: function setCimsvg(cimsvg) {
         this.setState({
@@ -1704,7 +1633,7 @@
     }, {
       key: "render",
       value: function render() {
-        var _this17 = this;
+        var _this15 = this;
         var baseSwitchClasses = "switch button tab";
         var fileSwitchClass = this.state.selectedSwitch == "file-menu-switch" ? " selected" : "";
         var diagramSwitchClass = this.state.selectedSwitch == "diagram-menu-switch" ? " selected" : "";
@@ -1720,7 +1649,7 @@
           id: "file-menu-switch",
           className: baseSwitchClasses + fileSwitchClass,
           onClick: function onClick(e) {
-            _this17.updateSelectedTab(e);
+            _this15.updateSelectedTab(e);
           }
         }, /*#__PURE__*/React.createElement("span", {
           className: "fa fa-file-archive-o"
@@ -1728,7 +1657,7 @@
           id: "diagram-menu-switch",
           className: baseSwitchClasses + diagramSwitchClass,
           onClick: function onClick(e) {
-            _this17.updateSelectedTab(e);
+            _this15.updateSelectedTab(e);
           }
         }, /*#__PURE__*/React.createElement("span", {
           className: "fa fa-sitemap"
@@ -1736,7 +1665,7 @@
           id: "new-component-menu-switch",
           className: baseSwitchClasses + componentSwitchClass,
           onClick: function onClick(e) {
-            _this17.updateSelectedTab(e);
+            _this15.updateSelectedTab(e);
           }
         }, /*#__PURE__*/React.createElement("span", {
           className: "fa fa-plus-square"
@@ -1784,7 +1713,6 @@
         return element;
       }
     }]);
-    return Menu;
   }(React.Component);
   Menu.menuStructure = theMenuStructure;
 
@@ -1792,7 +1720,7 @@
     function BaseClass() {
       _classCallCheck(this, BaseClass);
     }
-    _createClass(BaseClass, null, [{
+    return _createClass(BaseClass, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         return {
@@ -1821,7 +1749,6 @@
         return [];
       }
     }]);
-    return BaseClass;
   }();
 
   var CGMESProfile = /*#__PURE__*/_createClass(function CGMESProfile() {
@@ -1851,13 +1778,12 @@
   });
 
   var IdentifiedObject = /*#__PURE__*/function (_BaseClass) {
-    _inherits(IdentifiedObject, _BaseClass);
-    var _super = _createSuper(IdentifiedObject);
     function IdentifiedObject() {
       _classCallCheck(this, IdentifiedObject);
-      return _super.apply(this, arguments);
+      return _callSuper(this, IdentifiedObject, arguments);
     }
-    _createClass(IdentifiedObject, null, [{
+    _inherits(IdentifiedObject, _BaseClass);
+    return _createClass(IdentifiedObject, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "IdentifiedObject";
@@ -1937,7 +1863,6 @@
         return subClasses;
       }
     }]);
-    return IdentifiedObject;
   }(BaseClass);
   _defineProperty(IdentifiedObject, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.GL, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD],
@@ -1949,13 +1874,12 @@
   });
 
   var PowerSystemResource = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(PowerSystemResource, _IdentifiedObject);
-    var _super = _createSuper(PowerSystemResource);
     function PowerSystemResource() {
       _classCallCheck(this, PowerSystemResource);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PowerSystemResource, arguments);
     }
-    _createClass(PowerSystemResource, null, [{
+    _inherits(PowerSystemResource, _IdentifiedObject);
+    return _createClass(PowerSystemResource, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PowerSystemResource";
@@ -2015,7 +1939,6 @@
         return subClasses;
       }
     }]);
-    return PowerSystemResource;
   }(IdentifiedObject);
   _defineProperty(PowerSystemResource, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.GL, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.EQ_BD],
@@ -2023,13 +1946,12 @@
   });
 
   var Equipment = /*#__PURE__*/function (_PowerSystemResource) {
-    _inherits(Equipment, _PowerSystemResource);
-    var _super = _createSuper(Equipment);
     function Equipment() {
       _classCallCheck(this, Equipment);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Equipment, arguments);
     }
-    _createClass(Equipment, null, [{
+    _inherits(Equipment, _PowerSystemResource);
+    return _createClass(Equipment, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Equipment";
@@ -2094,7 +2016,6 @@
         return subClasses;
       }
     }]);
-    return Equipment;
   }(PowerSystemResource);
   _defineProperty(Equipment, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.EQ_BD],
@@ -2103,13 +2024,12 @@
   });
 
   var ConductingEquipment = /*#__PURE__*/function (_Equipment) {
-    _inherits(ConductingEquipment, _Equipment);
-    var _super = _createSuper(ConductingEquipment);
     function ConductingEquipment() {
       _classCallCheck(this, ConductingEquipment);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ConductingEquipment, arguments);
     }
-    _createClass(ConductingEquipment, null, [{
+    _inherits(ConductingEquipment, _Equipment);
+    return _createClass(ConductingEquipment, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ConductingEquipment";
@@ -2174,7 +2094,6 @@
         return subClasses;
       }
     }]);
-    return ConductingEquipment;
   }(Equipment);
   _defineProperty(ConductingEquipment, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.EQ_BD],
@@ -2183,13 +2102,12 @@
   });
 
   var ACDCConverter = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(ACDCConverter, _ConductingEquipment);
-    var _super = _createSuper(ACDCConverter);
     function ACDCConverter() {
       _classCallCheck(this, ACDCConverter);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ACDCConverter, arguments);
     }
-    _createClass(ACDCConverter, null, [{
+    _inherits(ACDCConverter, _ConductingEquipment);
+    return _createClass(ACDCConverter, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ACDCConverter";
@@ -2334,7 +2252,6 @@
         return subClasses;
       }
     }]);
-    return ACDCConverter;
   }(ConductingEquipment);
   _defineProperty(ACDCConverter, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV],
@@ -2359,13 +2276,12 @@
   });
 
   var ACDCTerminal = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(ACDCTerminal, _IdentifiedObject);
-    var _super = _createSuper(ACDCTerminal);
     function ACDCTerminal() {
       _classCallCheck(this, ACDCTerminal);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ACDCTerminal, arguments);
     }
-    _createClass(ACDCTerminal, null, [{
+    _inherits(ACDCTerminal, _IdentifiedObject);
+    return _createClass(ACDCTerminal, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ACDCTerminal";
@@ -2440,7 +2356,6 @@
         return subClasses;
       }
     }]);
-    return ACDCTerminal;
   }(IdentifiedObject);
   _defineProperty(ACDCTerminal, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP],
@@ -2451,13 +2366,12 @@
   });
 
   var DCBaseTerminal = /*#__PURE__*/function (_ACDCTerminal) {
-    _inherits(DCBaseTerminal, _ACDCTerminal);
-    var _super = _createSuper(DCBaseTerminal);
     function DCBaseTerminal() {
       _classCallCheck(this, DCBaseTerminal);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCBaseTerminal, arguments);
     }
-    _createClass(DCBaseTerminal, null, [{
+    _inherits(DCBaseTerminal, _ACDCTerminal);
+    return _createClass(DCBaseTerminal, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCBaseTerminal";
@@ -2522,7 +2436,6 @@
         return subClasses;
       }
     }]);
-    return DCBaseTerminal;
   }(ACDCTerminal);
   _defineProperty(DCBaseTerminal, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.TP],
@@ -2531,13 +2444,12 @@
   });
 
   var ACDCConverterDCTerminal = /*#__PURE__*/function (_DCBaseTerminal) {
-    _inherits(ACDCConverterDCTerminal, _DCBaseTerminal);
-    var _super = _createSuper(ACDCConverterDCTerminal);
     function ACDCConverterDCTerminal() {
       _classCallCheck(this, ACDCConverterDCTerminal);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ACDCConverterDCTerminal, arguments);
     }
-    _createClass(ACDCConverterDCTerminal, null, [{
+    _inherits(ACDCConverterDCTerminal, _DCBaseTerminal);
+    return _createClass(ACDCConverterDCTerminal, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ACDCConverterDCTerminal";
@@ -2602,7 +2514,6 @@
         return subClasses;
       }
     }]);
-    return ACDCConverterDCTerminal;
   }(DCBaseTerminal);
   _defineProperty(ACDCConverterDCTerminal, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.TP],
@@ -2611,13 +2522,12 @@
   });
 
   var Conductor = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(Conductor, _ConductingEquipment);
-    var _super = _createSuper(Conductor);
     function Conductor() {
       _classCallCheck(this, Conductor);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Conductor, arguments);
     }
-    _createClass(Conductor, null, [{
+    _inherits(Conductor, _ConductingEquipment);
+    return _createClass(Conductor, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Conductor";
@@ -2677,7 +2587,6 @@
         return subClasses;
       }
     }]);
-    return Conductor;
   }(ConductingEquipment);
   _defineProperty(Conductor, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -2685,13 +2594,12 @@
   });
 
   var ACLineSegment = /*#__PURE__*/function (_Conductor) {
-    _inherits(ACLineSegment, _Conductor);
-    var _super = _createSuper(ACLineSegment);
     function ACLineSegment() {
       _classCallCheck(this, ACLineSegment);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ACLineSegment, arguments);
     }
-    _createClass(ACLineSegment, null, [{
+    _inherits(ACLineSegment, _Conductor);
+    return _createClass(ACLineSegment, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ACLineSegment";
@@ -2791,7 +2699,6 @@
         return subClasses;
       }
     }]);
-    return ACLineSegment;
   }(Conductor);
   _defineProperty(ACLineSegment, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -2807,13 +2714,12 @@
   });
 
   var Measurement = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(Measurement, _IdentifiedObject);
-    var _super = _createSuper(Measurement);
     function Measurement() {
       _classCallCheck(this, Measurement);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Measurement, arguments);
     }
-    _createClass(Measurement, null, [{
+    _inherits(Measurement, _IdentifiedObject);
+    return _createClass(Measurement, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Measurement";
@@ -2898,7 +2804,6 @@
         return subClasses;
       }
     }]);
-    return Measurement;
   }(IdentifiedObject);
   _defineProperty(Measurement, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -2911,13 +2816,12 @@
   });
 
   var Accumulator = /*#__PURE__*/function (_Measurement) {
-    _inherits(Accumulator, _Measurement);
-    var _super = _createSuper(Accumulator);
     function Accumulator() {
       _classCallCheck(this, Accumulator);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Accumulator, arguments);
     }
-    _createClass(Accumulator, null, [{
+    _inherits(Accumulator, _Measurement);
+    return _createClass(Accumulator, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Accumulator";
@@ -2977,7 +2881,6 @@
         return subClasses;
       }
     }]);
-    return Accumulator;
   }(Measurement);
   _defineProperty(Accumulator, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -2985,13 +2888,12 @@
   });
 
   var Limit = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(Limit, _IdentifiedObject);
-    var _super = _createSuper(Limit);
     function Limit() {
       _classCallCheck(this, Limit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Limit, arguments);
     }
-    _createClass(Limit, null, [{
+    _inherits(Limit, _IdentifiedObject);
+    return _createClass(Limit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Limit";
@@ -3046,20 +2948,18 @@
         return subClasses;
       }
     }]);
-    return Limit;
   }(IdentifiedObject);
   _defineProperty(Limit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var AccumulatorLimit = /*#__PURE__*/function (_Limit) {
-    _inherits(AccumulatorLimit, _Limit);
-    var _super = _createSuper(AccumulatorLimit);
     function AccumulatorLimit() {
       _classCallCheck(this, AccumulatorLimit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AccumulatorLimit, arguments);
     }
-    _createClass(AccumulatorLimit, null, [{
+    _inherits(AccumulatorLimit, _Limit);
+    return _createClass(AccumulatorLimit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AccumulatorLimit";
@@ -3124,7 +3024,6 @@
         return subClasses;
       }
     }]);
-    return AccumulatorLimit;
   }(Limit);
   _defineProperty(AccumulatorLimit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -3133,13 +3032,12 @@
   });
 
   var LimitSet = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(LimitSet, _IdentifiedObject);
-    var _super = _createSuper(LimitSet);
     function LimitSet() {
       _classCallCheck(this, LimitSet);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LimitSet, arguments);
     }
-    _createClass(LimitSet, null, [{
+    _inherits(LimitSet, _IdentifiedObject);
+    return _createClass(LimitSet, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LimitSet";
@@ -3199,7 +3097,6 @@
         return subClasses;
       }
     }]);
-    return LimitSet;
   }(IdentifiedObject);
   _defineProperty(LimitSet, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -3207,13 +3104,12 @@
   });
 
   var AccumulatorLimitSet = /*#__PURE__*/function (_LimitSet) {
-    _inherits(AccumulatorLimitSet, _LimitSet);
-    var _super = _createSuper(AccumulatorLimitSet);
     function AccumulatorLimitSet() {
       _classCallCheck(this, AccumulatorLimitSet);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AccumulatorLimitSet, arguments);
     }
-    _createClass(AccumulatorLimitSet, null, [{
+    _inherits(AccumulatorLimitSet, _LimitSet);
+    return _createClass(AccumulatorLimitSet, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AccumulatorLimitSet";
@@ -3273,7 +3169,6 @@
         return subClasses;
       }
     }]);
-    return AccumulatorLimitSet;
   }(LimitSet);
   _defineProperty(AccumulatorLimitSet, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -3281,13 +3176,12 @@
   });
 
   var Control = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(Control, _IdentifiedObject);
-    var _super = _createSuper(Control);
     function Control() {
       _classCallCheck(this, Control);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Control, arguments);
     }
-    _createClass(Control, null, [{
+    _inherits(Control, _IdentifiedObject);
+    return _createClass(Control, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Control";
@@ -3372,7 +3266,6 @@
         return subClasses;
       }
     }]);
-    return Control;
   }(IdentifiedObject);
   _defineProperty(Control, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -3385,13 +3278,12 @@
   });
 
   var AccumulatorReset = /*#__PURE__*/function (_Control) {
-    _inherits(AccumulatorReset, _Control);
-    var _super = _createSuper(AccumulatorReset);
     function AccumulatorReset() {
       _classCallCheck(this, AccumulatorReset);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AccumulatorReset, arguments);
     }
-    _createClass(AccumulatorReset, null, [{
+    _inherits(AccumulatorReset, _Control);
+    return _createClass(AccumulatorReset, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AccumulatorReset";
@@ -3451,7 +3343,6 @@
         return subClasses;
       }
     }]);
-    return AccumulatorReset;
   }(Control);
   _defineProperty(AccumulatorReset, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -3459,13 +3350,12 @@
   });
 
   var MeasurementValue = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(MeasurementValue, _IdentifiedObject);
-    var _super = _createSuper(MeasurementValue);
     function MeasurementValue() {
       _classCallCheck(this, MeasurementValue);
-      return _super.apply(this, arguments);
+      return _callSuper(this, MeasurementValue, arguments);
     }
-    _createClass(MeasurementValue, null, [{
+    _inherits(MeasurementValue, _IdentifiedObject);
+    return _createClass(MeasurementValue, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "MeasurementValue";
@@ -3535,7 +3425,6 @@
         return subClasses;
       }
     }]);
-    return MeasurementValue;
   }(IdentifiedObject);
   _defineProperty(MeasurementValue, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -3545,13 +3434,12 @@
   });
 
   var AccumulatorValue = /*#__PURE__*/function (_MeasurementValue) {
-    _inherits(AccumulatorValue, _MeasurementValue);
-    var _super = _createSuper(AccumulatorValue);
     function AccumulatorValue() {
       _classCallCheck(this, AccumulatorValue);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AccumulatorValue, arguments);
     }
-    _createClass(AccumulatorValue, null, [{
+    _inherits(AccumulatorValue, _MeasurementValue);
+    return _createClass(AccumulatorValue, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AccumulatorValue";
@@ -3616,7 +3504,6 @@
         return subClasses;
       }
     }]);
-    return AccumulatorValue;
   }(MeasurementValue);
   _defineProperty(AccumulatorValue, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -3625,13 +3512,12 @@
   });
 
   var ActivePower = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ActivePower, _BaseClass);
-    var _super = _createSuper(ActivePower);
     function ActivePower() {
       _classCallCheck(this, ActivePower);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ActivePower, arguments);
     }
-    _createClass(ActivePower, null, [{
+    _inherits(ActivePower, _BaseClass);
+    return _createClass(ActivePower, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ActivePower";
@@ -3700,7 +3586,6 @@
         return subClasses;
       }
     }]);
-    return ActivePower;
   }(BaseClass);
   _defineProperty(ActivePower, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY],
@@ -3710,13 +3595,12 @@
   });
 
   var OperationalLimit = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(OperationalLimit, _IdentifiedObject);
-    var _super = _createSuper(OperationalLimit);
     function OperationalLimit() {
       _classCallCheck(this, OperationalLimit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OperationalLimit, arguments);
     }
-    _createClass(OperationalLimit, null, [{
+    _inherits(OperationalLimit, _IdentifiedObject);
+    return _createClass(OperationalLimit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OperationalLimit";
@@ -3781,7 +3665,6 @@
         return subClasses;
       }
     }]);
-    return OperationalLimit;
   }(IdentifiedObject);
   _defineProperty(OperationalLimit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -3790,13 +3673,12 @@
   });
 
   var ActivePowerLimit = /*#__PURE__*/function (_OperationalLimit) {
-    _inherits(ActivePowerLimit, _OperationalLimit);
-    var _super = _createSuper(ActivePowerLimit);
     function ActivePowerLimit() {
       _classCallCheck(this, ActivePowerLimit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ActivePowerLimit, arguments);
     }
-    _createClass(ActivePowerLimit, null, [{
+    _inherits(ActivePowerLimit, _OperationalLimit);
+    return _createClass(ActivePowerLimit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ActivePowerLimit";
@@ -3856,7 +3738,6 @@
         return subClasses;
       }
     }]);
-    return ActivePowerLimit;
   }(OperationalLimit);
   _defineProperty(ActivePowerLimit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -3864,13 +3745,12 @@
   });
 
   var ActivePowerPerCurrentFlow = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ActivePowerPerCurrentFlow, _BaseClass);
-    var _super = _createSuper(ActivePowerPerCurrentFlow);
     function ActivePowerPerCurrentFlow() {
       _classCallCheck(this, ActivePowerPerCurrentFlow);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ActivePowerPerCurrentFlow, arguments);
     }
-    _createClass(ActivePowerPerCurrentFlow, null, [{
+    _inherits(ActivePowerPerCurrentFlow, _BaseClass);
+    return _createClass(ActivePowerPerCurrentFlow, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ActivePowerPerCurrentFlow";
@@ -3950,7 +3830,6 @@
         return subClasses;
       }
     }]);
-    return ActivePowerPerCurrentFlow;
   }(BaseClass);
   _defineProperty(ActivePowerPerCurrentFlow, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -3962,13 +3841,12 @@
   });
 
   var ActivePowerPerFrequency = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ActivePowerPerFrequency, _BaseClass);
-    var _super = _createSuper(ActivePowerPerFrequency);
     function ActivePowerPerFrequency() {
       _classCallCheck(this, ActivePowerPerFrequency);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ActivePowerPerFrequency, arguments);
     }
-    _createClass(ActivePowerPerFrequency, null, [{
+    _inherits(ActivePowerPerFrequency, _BaseClass);
+    return _createClass(ActivePowerPerFrequency, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ActivePowerPerFrequency";
@@ -4048,7 +3926,6 @@
         return subClasses;
       }
     }]);
-    return ActivePowerPerFrequency;
   }(BaseClass);
   _defineProperty(ActivePowerPerFrequency, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -4060,13 +3937,12 @@
   });
 
   var Analog = /*#__PURE__*/function (_Measurement) {
-    _inherits(Analog, _Measurement);
-    var _super = _createSuper(Analog);
     function Analog() {
       _classCallCheck(this, Analog);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Analog, arguments);
     }
-    _createClass(Analog, null, [{
+    _inherits(Analog, _Measurement);
+    return _createClass(Analog, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Analog";
@@ -4131,7 +4007,6 @@
         return subClasses;
       }
     }]);
-    return Analog;
   }(Measurement);
   _defineProperty(Analog, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -4140,13 +4015,12 @@
   });
 
   var AnalogControl = /*#__PURE__*/function (_Control) {
-    _inherits(AnalogControl, _Control);
-    var _super = _createSuper(AnalogControl);
     function AnalogControl() {
       _classCallCheck(this, AnalogControl);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AnalogControl, arguments);
     }
-    _createClass(AnalogControl, null, [{
+    _inherits(AnalogControl, _Control);
+    return _createClass(AnalogControl, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AnalogControl";
@@ -4216,7 +4090,6 @@
         return subClasses;
       }
     }]);
-    return AnalogControl;
   }(Control);
   _defineProperty(AnalogControl, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -4226,13 +4099,12 @@
   });
 
   var AnalogLimit = /*#__PURE__*/function (_Limit) {
-    _inherits(AnalogLimit, _Limit);
-    var _super = _createSuper(AnalogLimit);
     function AnalogLimit() {
       _classCallCheck(this, AnalogLimit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AnalogLimit, arguments);
     }
-    _createClass(AnalogLimit, null, [{
+    _inherits(AnalogLimit, _Limit);
+    return _createClass(AnalogLimit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AnalogLimit";
@@ -4297,7 +4169,6 @@
         return subClasses;
       }
     }]);
-    return AnalogLimit;
   }(Limit);
   _defineProperty(AnalogLimit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -4306,13 +4177,12 @@
   });
 
   var AnalogLimitSet = /*#__PURE__*/function (_LimitSet) {
-    _inherits(AnalogLimitSet, _LimitSet);
-    var _super = _createSuper(AnalogLimitSet);
     function AnalogLimitSet() {
       _classCallCheck(this, AnalogLimitSet);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AnalogLimitSet, arguments);
     }
-    _createClass(AnalogLimitSet, null, [{
+    _inherits(AnalogLimitSet, _LimitSet);
+    return _createClass(AnalogLimitSet, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AnalogLimitSet";
@@ -4372,7 +4242,6 @@
         return subClasses;
       }
     }]);
-    return AnalogLimitSet;
   }(LimitSet);
   _defineProperty(AnalogLimitSet, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -4380,13 +4249,12 @@
   });
 
   var AnalogValue = /*#__PURE__*/function (_MeasurementValue) {
-    _inherits(AnalogValue, _MeasurementValue);
-    var _super = _createSuper(AnalogValue);
     function AnalogValue() {
       _classCallCheck(this, AnalogValue);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AnalogValue, arguments);
     }
-    _createClass(AnalogValue, null, [{
+    _inherits(AnalogValue, _MeasurementValue);
+    return _createClass(AnalogValue, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AnalogValue";
@@ -4451,7 +4319,6 @@
         return subClasses;
       }
     }]);
-    return AnalogValue;
   }(MeasurementValue);
   _defineProperty(AnalogValue, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -4460,13 +4327,12 @@
   });
 
   var AngleDegrees = /*#__PURE__*/function (_BaseClass) {
-    _inherits(AngleDegrees, _BaseClass);
-    var _super = _createSuper(AngleDegrees);
     function AngleDegrees() {
       _classCallCheck(this, AngleDegrees);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AngleDegrees, arguments);
     }
-    _createClass(AngleDegrees, null, [{
+    _inherits(AngleDegrees, _BaseClass);
+    return _createClass(AngleDegrees, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AngleDegrees";
@@ -4535,7 +4401,6 @@
         return subClasses;
       }
     }]);
-    return AngleDegrees;
   }(BaseClass);
   _defineProperty(AngleDegrees, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY],
@@ -4545,13 +4410,12 @@
   });
 
   var AngleRadians = /*#__PURE__*/function (_BaseClass) {
-    _inherits(AngleRadians, _BaseClass);
-    var _super = _createSuper(AngleRadians);
     function AngleRadians() {
       _classCallCheck(this, AngleRadians);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AngleRadians, arguments);
     }
-    _createClass(AngleRadians, null, [{
+    _inherits(AngleRadians, _BaseClass);
+    return _createClass(AngleRadians, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AngleRadians";
@@ -4620,7 +4484,6 @@
         return subClasses;
       }
     }]);
-    return AngleRadians;
   }(BaseClass);
   _defineProperty(AngleRadians, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -4630,13 +4493,12 @@
   });
 
   var ApparentPower = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ApparentPower, _BaseClass);
-    var _super = _createSuper(ApparentPower);
     function ApparentPower() {
       _classCallCheck(this, ApparentPower);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ApparentPower, arguments);
     }
-    _createClass(ApparentPower, null, [{
+    _inherits(ApparentPower, _BaseClass);
+    return _createClass(ApparentPower, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ApparentPower";
@@ -4705,7 +4567,6 @@
         return subClasses;
       }
     }]);
-    return ApparentPower;
   }(BaseClass);
   _defineProperty(ApparentPower, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY],
@@ -4715,13 +4576,12 @@
   });
 
   var ApparentPowerLimit = /*#__PURE__*/function (_OperationalLimit) {
-    _inherits(ApparentPowerLimit, _OperationalLimit);
-    var _super = _createSuper(ApparentPowerLimit);
     function ApparentPowerLimit() {
       _classCallCheck(this, ApparentPowerLimit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ApparentPowerLimit, arguments);
     }
-    _createClass(ApparentPowerLimit, null, [{
+    _inherits(ApparentPowerLimit, _OperationalLimit);
+    return _createClass(ApparentPowerLimit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ApparentPowerLimit";
@@ -4781,7 +4641,6 @@
         return subClasses;
       }
     }]);
-    return ApparentPowerLimit;
   }(OperationalLimit);
   _defineProperty(ApparentPowerLimit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -4789,13 +4648,12 @@
   });
 
   var Area = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Area, _BaseClass);
-    var _super = _createSuper(Area);
     function Area() {
       _classCallCheck(this, Area);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Area, arguments);
     }
-    _createClass(Area, null, [{
+    _inherits(Area, _BaseClass);
+    return _createClass(Area, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Area";
@@ -4864,7 +4722,6 @@
         return subClasses;
       }
     }]);
-    return Area;
   }(BaseClass);
   _defineProperty(Area, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -4874,13 +4731,12 @@
   });
 
   var RegulatingCondEq = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(RegulatingCondEq, _ConductingEquipment);
-    var _super = _createSuper(RegulatingCondEq);
     function RegulatingCondEq() {
       _classCallCheck(this, RegulatingCondEq);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RegulatingCondEq, arguments);
     }
-    _createClass(RegulatingCondEq, null, [{
+    _inherits(RegulatingCondEq, _ConductingEquipment);
+    return _createClass(RegulatingCondEq, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RegulatingCondEq";
@@ -4945,7 +4801,6 @@
         return subClasses;
       }
     }]);
-    return RegulatingCondEq;
   }(ConductingEquipment);
   _defineProperty(RegulatingCondEq, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY],
@@ -4954,13 +4809,12 @@
   });
 
   var RotatingMachine = /*#__PURE__*/function (_RegulatingCondEq) {
-    _inherits(RotatingMachine, _RegulatingCondEq);
-    var _super = _createSuper(RotatingMachine);
     function RotatingMachine() {
       _classCallCheck(this, RotatingMachine);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RotatingMachine, arguments);
     }
-    _createClass(RotatingMachine, null, [{
+    _inherits(RotatingMachine, _RegulatingCondEq);
+    return _createClass(RotatingMachine, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RotatingMachine";
@@ -5045,7 +4899,6 @@
         return subClasses;
       }
     }]);
-    return RotatingMachine;
   }(RegulatingCondEq);
   _defineProperty(RotatingMachine, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY],
@@ -5058,13 +4911,12 @@
   });
 
   var AsynchronousMachine = /*#__PURE__*/function (_RotatingMachine) {
-    _inherits(AsynchronousMachine, _RotatingMachine);
-    var _super = _createSuper(AsynchronousMachine);
     function AsynchronousMachine() {
       _classCallCheck(this, AsynchronousMachine);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AsynchronousMachine, arguments);
     }
-    _createClass(AsynchronousMachine, null, [{
+    _inherits(AsynchronousMachine, _RotatingMachine);
+    return _createClass(AsynchronousMachine, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AsynchronousMachine";
@@ -5169,7 +5021,6 @@
         return subClasses;
       }
     }]);
-    return AsynchronousMachine;
   }(RotatingMachine);
   _defineProperty(AsynchronousMachine, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY],
@@ -5186,13 +5037,12 @@
   });
 
   var DynamicsFunctionBlock = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(DynamicsFunctionBlock, _IdentifiedObject);
-    var _super = _createSuper(DynamicsFunctionBlock);
     function DynamicsFunctionBlock() {
       _classCallCheck(this, DynamicsFunctionBlock);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DynamicsFunctionBlock, arguments);
     }
-    _createClass(DynamicsFunctionBlock, null, [{
+    _inherits(DynamicsFunctionBlock, _IdentifiedObject);
+    return _createClass(DynamicsFunctionBlock, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DynamicsFunctionBlock";
@@ -5252,7 +5102,6 @@
         return subClasses;
       }
     }]);
-    return DynamicsFunctionBlock;
   }(IdentifiedObject);
   _defineProperty(DynamicsFunctionBlock, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -5260,13 +5109,12 @@
   });
 
   var RotatingMachineDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(RotatingMachineDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(RotatingMachineDynamics);
     function RotatingMachineDynamics() {
       _classCallCheck(this, RotatingMachineDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RotatingMachineDynamics, arguments);
     }
-    _createClass(RotatingMachineDynamics, null, [{
+    _inherits(RotatingMachineDynamics, _DynamicsFunctionBloc);
+    return _createClass(RotatingMachineDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RotatingMachineDynamics";
@@ -5351,7 +5199,6 @@
         return subClasses;
       }
     }]);
-    return RotatingMachineDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(RotatingMachineDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -5364,13 +5211,12 @@
   });
 
   var AsynchronousMachineDynamics = /*#__PURE__*/function (_RotatingMachineDynam) {
-    _inherits(AsynchronousMachineDynamics, _RotatingMachineDynam);
-    var _super = _createSuper(AsynchronousMachineDynamics);
     function AsynchronousMachineDynamics() {
       _classCallCheck(this, AsynchronousMachineDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AsynchronousMachineDynamics, arguments);
     }
-    _createClass(AsynchronousMachineDynamics, null, [{
+    _inherits(AsynchronousMachineDynamics, _RotatingMachineDynam);
+    return _createClass(AsynchronousMachineDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AsynchronousMachineDynamics";
@@ -5435,7 +5281,6 @@
         return subClasses;
       }
     }]);
-    return AsynchronousMachineDynamics;
   }(RotatingMachineDynamics);
   _defineProperty(AsynchronousMachineDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -5444,13 +5289,12 @@
   });
 
   var AsynchronousMachineEquivalentCircuit = /*#__PURE__*/function (_AsynchronousMachineD) {
-    _inherits(AsynchronousMachineEquivalentCircuit, _AsynchronousMachineD);
-    var _super = _createSuper(AsynchronousMachineEquivalentCircuit);
     function AsynchronousMachineEquivalentCircuit() {
       _classCallCheck(this, AsynchronousMachineEquivalentCircuit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AsynchronousMachineEquivalentCircuit, arguments);
     }
-    _createClass(AsynchronousMachineEquivalentCircuit, null, [{
+    _inherits(AsynchronousMachineEquivalentCircuit, _AsynchronousMachineD);
+    return _createClass(AsynchronousMachineEquivalentCircuit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AsynchronousMachineEquivalentCircuit";
@@ -5530,7 +5374,6 @@
         return subClasses;
       }
     }]);
-    return AsynchronousMachineEquivalentCircuit;
   }(AsynchronousMachineDynamics);
   _defineProperty(AsynchronousMachineEquivalentCircuit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -5551,13 +5394,12 @@
     "label": "motor"
   }];
   var AsynchronousMachineKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(AsynchronousMachineKind, _BaseClass);
-    var _super = _createSuper(AsynchronousMachineKind);
     function AsynchronousMachineKind() {
       _classCallCheck(this, AsynchronousMachineKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AsynchronousMachineKind, arguments);
     }
-    _createClass(AsynchronousMachineKind, null, [{
+    _inherits(AsynchronousMachineKind, _BaseClass);
+    return _createClass(AsynchronousMachineKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AsynchronousMachineKind";
@@ -5624,20 +5466,18 @@
         return subClasses;
       }
     }]);
-    return AsynchronousMachineKind;
   }(BaseClass);
   _defineProperty(AsynchronousMachineKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SSH]
   });
 
   var AsynchronousMachineTimeConstantReactance = /*#__PURE__*/function (_AsynchronousMachineD) {
-    _inherits(AsynchronousMachineTimeConstantReactance, _AsynchronousMachineD);
-    var _super = _createSuper(AsynchronousMachineTimeConstantReactance);
     function AsynchronousMachineTimeConstantReactance() {
       _classCallCheck(this, AsynchronousMachineTimeConstantReactance);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AsynchronousMachineTimeConstantReactance, arguments);
     }
-    _createClass(AsynchronousMachineTimeConstantReactance, null, [{
+    _inherits(AsynchronousMachineTimeConstantReactance, _AsynchronousMachineD);
+    return _createClass(AsynchronousMachineTimeConstantReactance, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AsynchronousMachineTimeConstantReactance";
@@ -5717,7 +5557,6 @@
         return subClasses;
       }
     }]);
-    return AsynchronousMachineTimeConstantReactance;
   }(AsynchronousMachineDynamics);
   _defineProperty(AsynchronousMachineTimeConstantReactance, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -5729,13 +5568,12 @@
   });
 
   var AsynchronousMachineUserDefined = /*#__PURE__*/function (_AsynchronousMachineD) {
-    _inherits(AsynchronousMachineUserDefined, _AsynchronousMachineD);
-    var _super = _createSuper(AsynchronousMachineUserDefined);
     function AsynchronousMachineUserDefined() {
       _classCallCheck(this, AsynchronousMachineUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, AsynchronousMachineUserDefined, arguments);
     }
-    _createClass(AsynchronousMachineUserDefined, null, [{
+    _inherits(AsynchronousMachineUserDefined, _AsynchronousMachineD);
+    return _createClass(AsynchronousMachineUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "AsynchronousMachineUserDefined";
@@ -5795,7 +5633,6 @@
         return subClasses;
       }
     }]);
-    return AsynchronousMachineUserDefined;
   }(AsynchronousMachineDynamics);
   _defineProperty(AsynchronousMachineUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -5803,13 +5640,12 @@
   });
 
   var BaseVoltage = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(BaseVoltage, _IdentifiedObject);
-    var _super = _createSuper(BaseVoltage);
     function BaseVoltage() {
       _classCallCheck(this, BaseVoltage);
-      return _super.apply(this, arguments);
+      return _callSuper(this, BaseVoltage, arguments);
     }
-    _createClass(BaseVoltage, null, [{
+    _inherits(BaseVoltage, _IdentifiedObject);
+    return _createClass(BaseVoltage, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "BaseVoltage";
@@ -5879,7 +5715,6 @@
         return subClasses;
       }
     }]);
-    return BaseVoltage;
   }(IdentifiedObject);
   _defineProperty(BaseVoltage, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD],
@@ -5889,13 +5724,12 @@
   });
 
   var BasicIntervalSchedule = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(BasicIntervalSchedule, _IdentifiedObject);
-    var _super = _createSuper(BasicIntervalSchedule);
     function BasicIntervalSchedule() {
       _classCallCheck(this, BasicIntervalSchedule);
-      return _super.apply(this, arguments);
+      return _callSuper(this, BasicIntervalSchedule, arguments);
     }
-    _createClass(BasicIntervalSchedule, null, [{
+    _inherits(BasicIntervalSchedule, _IdentifiedObject);
+    return _createClass(BasicIntervalSchedule, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "BasicIntervalSchedule";
@@ -5965,7 +5799,6 @@
         return subClasses;
       }
     }]);
-    return BasicIntervalSchedule;
   }(IdentifiedObject);
   _defineProperty(BasicIntervalSchedule, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -5975,13 +5808,12 @@
   });
 
   var ConnectivityNodeContainer = /*#__PURE__*/function (_PowerSystemResource) {
-    _inherits(ConnectivityNodeContainer, _PowerSystemResource);
-    var _super = _createSuper(ConnectivityNodeContainer);
     function ConnectivityNodeContainer() {
       _classCallCheck(this, ConnectivityNodeContainer);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ConnectivityNodeContainer, arguments);
     }
-    _createClass(ConnectivityNodeContainer, null, [{
+    _inherits(ConnectivityNodeContainer, _PowerSystemResource);
+    return _createClass(ConnectivityNodeContainer, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ConnectivityNodeContainer";
@@ -6041,7 +5873,6 @@
         return subClasses;
       }
     }]);
-    return ConnectivityNodeContainer;
   }(PowerSystemResource);
   _defineProperty(ConnectivityNodeContainer, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD],
@@ -6049,13 +5880,12 @@
   });
 
   var EquipmentContainer = /*#__PURE__*/function (_ConnectivityNodeCont) {
-    _inherits(EquipmentContainer, _ConnectivityNodeCont);
-    var _super = _createSuper(EquipmentContainer);
     function EquipmentContainer() {
       _classCallCheck(this, EquipmentContainer);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EquipmentContainer, arguments);
     }
-    _createClass(EquipmentContainer, null, [{
+    _inherits(EquipmentContainer, _ConnectivityNodeCont);
+    return _createClass(EquipmentContainer, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EquipmentContainer";
@@ -6110,20 +5940,18 @@
         return subClasses;
       }
     }]);
-    return EquipmentContainer;
   }(ConnectivityNodeContainer);
   _defineProperty(EquipmentContainer, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD]
   });
 
   var Bay = /*#__PURE__*/function (_EquipmentContainer) {
-    _inherits(Bay, _EquipmentContainer);
-    var _super = _createSuper(Bay);
     function Bay() {
       _classCallCheck(this, Bay);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Bay, arguments);
     }
-    _createClass(Bay, null, [{
+    _inherits(Bay, _EquipmentContainer);
+    return _createClass(Bay, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Bay";
@@ -6183,7 +6011,6 @@
         return subClasses;
       }
     }]);
-    return Bay;
   }(EquipmentContainer);
   _defineProperty(Bay, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -6191,13 +6018,12 @@
   });
 
   var Boolean$1 = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Boolean, _BaseClass);
-    var _super = _createSuper(Boolean);
     function Boolean() {
       _classCallCheck(this, Boolean);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Boolean, arguments);
     }
-    _createClass(Boolean, null, [{
+    _inherits(Boolean, _BaseClass);
+    return _createClass(Boolean, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Boolean";
@@ -6251,20 +6077,18 @@
         return subClasses;
       }
     }]);
-    return Boolean;
   }(BaseClass);
   _defineProperty(Boolean$1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD]
   });
 
   var Switch = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(Switch, _ConductingEquipment);
-    var _super = _createSuper(Switch);
     function Switch() {
       _classCallCheck(this, Switch);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Switch, arguments);
     }
-    _createClass(Switch, null, [{
+    _inherits(Switch, _ConductingEquipment);
+    return _createClass(Switch, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Switch";
@@ -6339,7 +6163,6 @@
         return subClasses;
       }
     }]);
-    return Switch;
   }(ConductingEquipment);
   _defineProperty(Switch, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -6350,13 +6173,12 @@
   });
 
   var ProtectedSwitch = /*#__PURE__*/function (_Switch) {
-    _inherits(ProtectedSwitch, _Switch);
-    var _super = _createSuper(ProtectedSwitch);
     function ProtectedSwitch() {
       _classCallCheck(this, ProtectedSwitch);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ProtectedSwitch, arguments);
     }
-    _createClass(ProtectedSwitch, null, [{
+    _inherits(ProtectedSwitch, _Switch);
+    return _createClass(ProtectedSwitch, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ProtectedSwitch";
@@ -6411,20 +6233,18 @@
         return subClasses;
       }
     }]);
-    return ProtectedSwitch;
   }(Switch);
   _defineProperty(ProtectedSwitch, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
   });
 
   var Breaker = /*#__PURE__*/function (_ProtectedSwitch) {
-    _inherits(Breaker, _ProtectedSwitch);
-    var _super = _createSuper(Breaker);
     function Breaker() {
       _classCallCheck(this, Breaker);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Breaker, arguments);
     }
-    _createClass(Breaker, null, [{
+    _inherits(Breaker, _ProtectedSwitch);
+    return _createClass(Breaker, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Breaker";
@@ -6479,20 +6299,18 @@
         return subClasses;
       }
     }]);
-    return Breaker;
   }(ProtectedSwitch);
   _defineProperty(Breaker, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
   });
 
   var BusNameMarker = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(BusNameMarker, _IdentifiedObject);
-    var _super = _createSuper(BusNameMarker);
     function BusNameMarker() {
       _classCallCheck(this, BusNameMarker);
-      return _super.apply(this, arguments);
+      return _callSuper(this, BusNameMarker, arguments);
     }
-    _createClass(BusNameMarker, null, [{
+    _inherits(BusNameMarker, _IdentifiedObject);
+    return _createClass(BusNameMarker, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "BusNameMarker";
@@ -6557,7 +6375,6 @@
         return subClasses;
       }
     }]);
-    return BusNameMarker;
   }(IdentifiedObject);
   _defineProperty(BusNameMarker, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -6566,13 +6383,12 @@
   });
 
   var Connector = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(Connector, _ConductingEquipment);
-    var _super = _createSuper(Connector);
     function Connector() {
       _classCallCheck(this, Connector);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Connector, arguments);
     }
-    _createClass(Connector, null, [{
+    _inherits(Connector, _ConductingEquipment);
+    return _createClass(Connector, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Connector";
@@ -6627,20 +6443,18 @@
         return subClasses;
       }
     }]);
-    return Connector;
   }(ConductingEquipment);
   _defineProperty(Connector, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD]
   });
 
   var BusbarSection = /*#__PURE__*/function (_Connector) {
-    _inherits(BusbarSection, _Connector);
-    var _super = _createSuper(BusbarSection);
     function BusbarSection() {
       _classCallCheck(this, BusbarSection);
-      return _super.apply(this, arguments);
+      return _callSuper(this, BusbarSection, arguments);
     }
-    _createClass(BusbarSection, null, [{
+    _inherits(BusbarSection, _Connector);
+    return _createClass(BusbarSection, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "BusbarSection";
@@ -6700,7 +6514,6 @@
         return subClasses;
       }
     }]);
-    return BusbarSection;
   }(Connector);
   _defineProperty(BusbarSection, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -6708,13 +6521,12 @@
   });
 
   var Capacitance = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Capacitance, _BaseClass);
-    var _super = _createSuper(Capacitance);
     function Capacitance() {
       _classCallCheck(this, Capacitance);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Capacitance, arguments);
     }
-    _createClass(Capacitance, null, [{
+    _inherits(Capacitance, _BaseClass);
+    return _createClass(Capacitance, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Capacitance";
@@ -6783,7 +6595,6 @@
         return subClasses;
       }
     }]);
-    return Capacitance;
   }(BaseClass);
   _defineProperty(Capacitance, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -6793,13 +6604,12 @@
   });
 
   var CapacitancePerLength = /*#__PURE__*/function (_BaseClass) {
-    _inherits(CapacitancePerLength, _BaseClass);
-    var _super = _createSuper(CapacitancePerLength);
     function CapacitancePerLength() {
       _classCallCheck(this, CapacitancePerLength);
-      return _super.apply(this, arguments);
+      return _callSuper(this, CapacitancePerLength, arguments);
     }
-    _createClass(CapacitancePerLength, null, [{
+    _inherits(CapacitancePerLength, _BaseClass);
+    return _createClass(CapacitancePerLength, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "CapacitancePerLength";
@@ -6879,7 +6689,6 @@
         return subClasses;
       }
     }]);
-    return CapacitancePerLength;
   }(BaseClass);
   _defineProperty(CapacitancePerLength, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -6891,13 +6700,12 @@
   });
 
   var Command = /*#__PURE__*/function (_Control) {
-    _inherits(Command, _Control);
-    var _super = _createSuper(Command);
     function Command() {
       _classCallCheck(this, Command);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Command, arguments);
     }
-    _createClass(Command, null, [{
+    _inherits(Command, _Control);
+    return _createClass(Command, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Command";
@@ -6972,7 +6780,6 @@
         return subClasses;
       }
     }]);
-    return Command;
   }(Control);
   _defineProperty(Command, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -6983,13 +6790,12 @@
   });
 
   var Conductance = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Conductance, _BaseClass);
-    var _super = _createSuper(Conductance);
     function Conductance() {
       _classCallCheck(this, Conductance);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Conductance, arguments);
     }
-    _createClass(Conductance, null, [{
+    _inherits(Conductance, _BaseClass);
+    return _createClass(Conductance, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Conductance";
@@ -7058,7 +6864,6 @@
         return subClasses;
       }
     }]);
-    return Conductance;
   }(BaseClass);
   _defineProperty(Conductance, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -7068,13 +6873,12 @@
   });
 
   var EnergyConsumer = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(EnergyConsumer, _ConductingEquipment);
-    var _super = _createSuper(EnergyConsumer);
     function EnergyConsumer() {
       _classCallCheck(this, EnergyConsumer);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EnergyConsumer, arguments);
     }
-    _createClass(EnergyConsumer, null, [{
+    _inherits(EnergyConsumer, _ConductingEquipment);
+    return _createClass(EnergyConsumer, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EnergyConsumer";
@@ -7169,7 +6973,6 @@
         return subClasses;
       }
     }]);
-    return EnergyConsumer;
   }(ConductingEquipment);
   _defineProperty(EnergyConsumer, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY],
@@ -7184,13 +6987,12 @@
   });
 
   var ConformLoad = /*#__PURE__*/function (_EnergyConsumer) {
-    _inherits(ConformLoad, _EnergyConsumer);
-    var _super = _createSuper(ConformLoad);
     function ConformLoad() {
       _classCallCheck(this, ConformLoad);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ConformLoad, arguments);
     }
-    _createClass(ConformLoad, null, [{
+    _inherits(ConformLoad, _EnergyConsumer);
+    return _createClass(ConformLoad, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ConformLoad";
@@ -7250,7 +7052,6 @@
         return subClasses;
       }
     }]);
-    return ConformLoad;
   }(EnergyConsumer);
   _defineProperty(ConformLoad, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -7258,13 +7059,12 @@
   });
 
   var LoadGroup = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(LoadGroup, _IdentifiedObject);
-    var _super = _createSuper(LoadGroup);
     function LoadGroup() {
       _classCallCheck(this, LoadGroup);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadGroup, arguments);
     }
-    _createClass(LoadGroup, null, [{
+    _inherits(LoadGroup, _IdentifiedObject);
+    return _createClass(LoadGroup, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadGroup";
@@ -7324,7 +7124,6 @@
         return subClasses;
       }
     }]);
-    return LoadGroup;
   }(IdentifiedObject);
   _defineProperty(LoadGroup, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -7332,13 +7131,12 @@
   });
 
   var ConformLoadGroup = /*#__PURE__*/function (_LoadGroup) {
-    _inherits(ConformLoadGroup, _LoadGroup);
-    var _super = _createSuper(ConformLoadGroup);
     function ConformLoadGroup() {
       _classCallCheck(this, ConformLoadGroup);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ConformLoadGroup, arguments);
     }
-    _createClass(ConformLoadGroup, null, [{
+    _inherits(ConformLoadGroup, _LoadGroup);
+    return _createClass(ConformLoadGroup, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ConformLoadGroup";
@@ -7398,7 +7196,6 @@
         return subClasses;
       }
     }]);
-    return ConformLoadGroup;
   }(LoadGroup);
   _defineProperty(ConformLoadGroup, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -7406,13 +7203,12 @@
   });
 
   var RegularIntervalSchedule = /*#__PURE__*/function (_BasicIntervalSchedul) {
-    _inherits(RegularIntervalSchedule, _BasicIntervalSchedul);
-    var _super = _createSuper(RegularIntervalSchedule);
     function RegularIntervalSchedule() {
       _classCallCheck(this, RegularIntervalSchedule);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RegularIntervalSchedule, arguments);
     }
-    _createClass(RegularIntervalSchedule, null, [{
+    _inherits(RegularIntervalSchedule, _BasicIntervalSchedul);
+    return _createClass(RegularIntervalSchedule, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RegularIntervalSchedule";
@@ -7477,7 +7273,6 @@
         return subClasses;
       }
     }]);
-    return RegularIntervalSchedule;
   }(BasicIntervalSchedule);
   _defineProperty(RegularIntervalSchedule, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -7486,13 +7281,12 @@
   });
 
   var SeasonDayTypeSchedule = /*#__PURE__*/function (_RegularIntervalSched) {
-    _inherits(SeasonDayTypeSchedule, _RegularIntervalSched);
-    var _super = _createSuper(SeasonDayTypeSchedule);
     function SeasonDayTypeSchedule() {
       _classCallCheck(this, SeasonDayTypeSchedule);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SeasonDayTypeSchedule, arguments);
     }
-    _createClass(SeasonDayTypeSchedule, null, [{
+    _inherits(SeasonDayTypeSchedule, _RegularIntervalSched);
+    return _createClass(SeasonDayTypeSchedule, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SeasonDayTypeSchedule";
@@ -7557,7 +7351,6 @@
         return subClasses;
       }
     }]);
-    return SeasonDayTypeSchedule;
   }(RegularIntervalSchedule);
   _defineProperty(SeasonDayTypeSchedule, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -7566,13 +7359,12 @@
   });
 
   var ConformLoadSchedule = /*#__PURE__*/function (_SeasonDayTypeSchedul) {
-    _inherits(ConformLoadSchedule, _SeasonDayTypeSchedul);
-    var _super = _createSuper(ConformLoadSchedule);
     function ConformLoadSchedule() {
       _classCallCheck(this, ConformLoadSchedule);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ConformLoadSchedule, arguments);
     }
-    _createClass(ConformLoadSchedule, null, [{
+    _inherits(ConformLoadSchedule, _SeasonDayTypeSchedul);
+    return _createClass(ConformLoadSchedule, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ConformLoadSchedule";
@@ -7632,7 +7424,6 @@
         return subClasses;
       }
     }]);
-    return ConformLoadSchedule;
   }(SeasonDayTypeSchedule);
   _defineProperty(ConformLoadSchedule, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -7640,13 +7431,12 @@
   });
 
   var ConnectivityNode = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(ConnectivityNode, _IdentifiedObject);
-    var _super = _createSuper(ConnectivityNode);
     function ConnectivityNode() {
       _classCallCheck(this, ConnectivityNode);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ConnectivityNode, arguments);
     }
-    _createClass(ConnectivityNode, null, [{
+    _inherits(ConnectivityNode, _IdentifiedObject);
+    return _createClass(ConnectivityNode, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ConnectivityNode";
@@ -7746,7 +7536,6 @@
         return subClasses;
       }
     }]);
-    return ConnectivityNode;
   }(IdentifiedObject);
   _defineProperty(ConnectivityNode, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD],
@@ -7762,13 +7551,12 @@
   });
 
   var ControlArea = /*#__PURE__*/function (_PowerSystemResource) {
-    _inherits(ControlArea, _PowerSystemResource);
-    var _super = _createSuper(ControlArea);
     function ControlArea() {
       _classCallCheck(this, ControlArea);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ControlArea, arguments);
     }
-    _createClass(ControlArea, null, [{
+    _inherits(ControlArea, _PowerSystemResource);
+    return _createClass(ControlArea, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ControlArea";
@@ -7848,7 +7636,6 @@
         return subClasses;
       }
     }]);
-    return ControlArea;
   }(PowerSystemResource);
   _defineProperty(ControlArea, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -7860,13 +7647,12 @@
   });
 
   var ControlAreaGeneratingUnit = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(ControlAreaGeneratingUnit, _IdentifiedObject);
-    var _super = _createSuper(ControlAreaGeneratingUnit);
     function ControlAreaGeneratingUnit() {
       _classCallCheck(this, ControlAreaGeneratingUnit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ControlAreaGeneratingUnit, arguments);
     }
-    _createClass(ControlAreaGeneratingUnit, null, [{
+    _inherits(ControlAreaGeneratingUnit, _IdentifiedObject);
+    return _createClass(ControlAreaGeneratingUnit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ControlAreaGeneratingUnit";
@@ -7931,7 +7717,6 @@
         return subClasses;
       }
     }]);
-    return ControlAreaGeneratingUnit;
   }(IdentifiedObject);
   _defineProperty(ControlAreaGeneratingUnit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -7952,13 +7737,12 @@
     "label": "Interchange"
   }];
   var ControlAreaTypeKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ControlAreaTypeKind, _BaseClass);
-    var _super = _createSuper(ControlAreaTypeKind);
     function ControlAreaTypeKind() {
       _classCallCheck(this, ControlAreaTypeKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ControlAreaTypeKind, arguments);
     }
-    _createClass(ControlAreaTypeKind, null, [{
+    _inherits(ControlAreaTypeKind, _BaseClass);
+    return _createClass(ControlAreaTypeKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ControlAreaTypeKind";
@@ -8025,20 +7809,18 @@
         return subClasses;
       }
     }]);
-    return ControlAreaTypeKind;
   }(BaseClass);
   _defineProperty(ControlAreaTypeKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var CoordinateSystem = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(CoordinateSystem, _IdentifiedObject);
-    var _super = _createSuper(CoordinateSystem);
     function CoordinateSystem() {
       _classCallCheck(this, CoordinateSystem);
-      return _super.apply(this, arguments);
+      return _callSuper(this, CoordinateSystem, arguments);
     }
-    _createClass(CoordinateSystem, null, [{
+    _inherits(CoordinateSystem, _IdentifiedObject);
+    return _createClass(CoordinateSystem, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "CoordinateSystem";
@@ -8098,7 +7880,6 @@
         return subClasses;
       }
     }]);
-    return CoordinateSystem;
   }(IdentifiedObject);
   _defineProperty(CoordinateSystem, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.GL],
@@ -8106,13 +7887,12 @@
   });
 
   var CsConverter = /*#__PURE__*/function (_ACDCConverter) {
-    _inherits(CsConverter, _ACDCConverter);
-    var _super = _createSuper(CsConverter);
     function CsConverter() {
       _classCallCheck(this, CsConverter);
-      return _super.apply(this, arguments);
+      return _callSuper(this, CsConverter, arguments);
     }
-    _createClass(CsConverter, null, [{
+    _inherits(CsConverter, _ACDCConverter);
+    return _createClass(CsConverter, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "CsConverter";
@@ -8237,7 +8017,6 @@
         return subClasses;
       }
     }]);
-    return CsConverter;
   }(ACDCConverter);
   _defineProperty(CsConverter, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV],
@@ -8267,13 +8046,12 @@
     "label": "rectifier"
   }];
   var CsOperatingModeKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(CsOperatingModeKind, _BaseClass);
-    var _super = _createSuper(CsOperatingModeKind);
     function CsOperatingModeKind() {
       _classCallCheck(this, CsOperatingModeKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, CsOperatingModeKind, arguments);
     }
-    _createClass(CsOperatingModeKind, null, [{
+    _inherits(CsOperatingModeKind, _BaseClass);
+    return _createClass(CsOperatingModeKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "CsOperatingModeKind";
@@ -8340,7 +8118,6 @@
         return subClasses;
       }
     }]);
-    return CsOperatingModeKind;
   }(BaseClass);
   _defineProperty(CsOperatingModeKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SSH]
@@ -8359,13 +8136,12 @@
     "label": "dcCurrent"
   }];
   var CsPpccControlKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(CsPpccControlKind, _BaseClass);
-    var _super = _createSuper(CsPpccControlKind);
     function CsPpccControlKind() {
       _classCallCheck(this, CsPpccControlKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, CsPpccControlKind, arguments);
     }
-    _createClass(CsPpccControlKind, null, [{
+    _inherits(CsPpccControlKind, _BaseClass);
+    return _createClass(CsPpccControlKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "CsPpccControlKind";
@@ -8432,7 +8208,6 @@
         return subClasses;
       }
     }]);
-    return CsPpccControlKind;
   }(BaseClass);
   _defineProperty(CsPpccControlKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SSH]
@@ -8484,13 +8259,12 @@
     "label": "other"
   }];
   var Currency = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Currency, _BaseClass);
-    var _super = _createSuper(Currency);
     function Currency() {
       _classCallCheck(this, Currency);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Currency, arguments);
     }
-    _createClass(Currency, null, [{
+    _inherits(Currency, _BaseClass);
+    return _createClass(Currency, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Currency";
@@ -8557,20 +8331,18 @@
         return subClasses;
       }
     }]);
-    return Currency;
   }(BaseClass);
   _defineProperty(Currency, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var CurrentFlow = /*#__PURE__*/function (_BaseClass) {
-    _inherits(CurrentFlow, _BaseClass);
-    var _super = _createSuper(CurrentFlow);
     function CurrentFlow() {
       _classCallCheck(this, CurrentFlow);
-      return _super.apply(this, arguments);
+      return _callSuper(this, CurrentFlow, arguments);
     }
-    _createClass(CurrentFlow, null, [{
+    _inherits(CurrentFlow, _BaseClass);
+    return _createClass(CurrentFlow, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "CurrentFlow";
@@ -8639,7 +8411,6 @@
         return subClasses;
       }
     }]);
-    return CurrentFlow;
   }(BaseClass);
   _defineProperty(CurrentFlow, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY],
@@ -8649,13 +8420,12 @@
   });
 
   var CurrentLimit = /*#__PURE__*/function (_OperationalLimit) {
-    _inherits(CurrentLimit, _OperationalLimit);
-    var _super = _createSuper(CurrentLimit);
     function CurrentLimit() {
       _classCallCheck(this, CurrentLimit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, CurrentLimit, arguments);
     }
-    _createClass(CurrentLimit, null, [{
+    _inherits(CurrentLimit, _OperationalLimit);
+    return _createClass(CurrentLimit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "CurrentLimit";
@@ -8715,7 +8485,6 @@
         return subClasses;
       }
     }]);
-    return CurrentLimit;
   }(OperationalLimit);
   _defineProperty(CurrentLimit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -8723,13 +8492,12 @@
   });
 
   var Curve = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(Curve, _IdentifiedObject);
-    var _super = _createSuper(Curve);
     function Curve() {
       _classCallCheck(this, Curve);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Curve, arguments);
     }
-    _createClass(Curve, null, [{
+    _inherits(Curve, _IdentifiedObject);
+    return _createClass(Curve, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Curve";
@@ -8804,7 +8572,6 @@
         return subClasses;
       }
     }]);
-    return Curve;
   }(IdentifiedObject);
   _defineProperty(Curve, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -8815,13 +8582,12 @@
   });
 
   var CurveData = /*#__PURE__*/function (_BaseClass) {
-    _inherits(CurveData, _BaseClass);
-    var _super = _createSuper(CurveData);
     function CurveData() {
       _classCallCheck(this, CurveData);
-      return _super.apply(this, arguments);
+      return _callSuper(this, CurveData, arguments);
     }
-    _createClass(CurveData, null, [{
+    _inherits(CurveData, _BaseClass);
+    return _createClass(CurveData, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "CurveData";
@@ -8896,7 +8662,6 @@
         return subClasses;
       }
     }]);
-    return CurveData;
   }(BaseClass);
   _defineProperty(CurveData, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -8916,13 +8681,12 @@
     "label": "straightLineYValues"
   }];
   var CurveStyle = /*#__PURE__*/function (_BaseClass) {
-    _inherits(CurveStyle, _BaseClass);
-    var _super = _createSuper(CurveStyle);
     function CurveStyle() {
       _classCallCheck(this, CurveStyle);
-      return _super.apply(this, arguments);
+      return _callSuper(this, CurveStyle, arguments);
     }
-    _createClass(CurveStyle, null, [{
+    _inherits(CurveStyle, _BaseClass);
+    return _createClass(CurveStyle, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "CurveStyle";
@@ -8989,20 +8753,18 @@
         return subClasses;
       }
     }]);
-    return CurveStyle;
   }(BaseClass);
   _defineProperty(CurveStyle, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var DCConductingEquipment = /*#__PURE__*/function (_Equipment) {
-    _inherits(DCConductingEquipment, _Equipment);
-    var _super = _createSuper(DCConductingEquipment);
     function DCConductingEquipment() {
       _classCallCheck(this, DCConductingEquipment);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCConductingEquipment, arguments);
     }
-    _createClass(DCConductingEquipment, null, [{
+    _inherits(DCConductingEquipment, _Equipment);
+    return _createClass(DCConductingEquipment, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCConductingEquipment";
@@ -9057,20 +8819,18 @@
         return subClasses;
       }
     }]);
-    return DCConductingEquipment;
   }(Equipment);
   _defineProperty(DCConductingEquipment, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var DCSwitch = /*#__PURE__*/function (_DCConductingEquipmen) {
-    _inherits(DCSwitch, _DCConductingEquipmen);
-    var _super = _createSuper(DCSwitch);
     function DCSwitch() {
       _classCallCheck(this, DCSwitch);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCSwitch, arguments);
     }
-    _createClass(DCSwitch, null, [{
+    _inherits(DCSwitch, _DCConductingEquipmen);
+    return _createClass(DCSwitch, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCSwitch";
@@ -9125,20 +8885,18 @@
         return subClasses;
       }
     }]);
-    return DCSwitch;
   }(DCConductingEquipment);
   _defineProperty(DCSwitch, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var DCBreaker = /*#__PURE__*/function (_DCSwitch) {
-    _inherits(DCBreaker, _DCSwitch);
-    var _super = _createSuper(DCBreaker);
     function DCBreaker() {
       _classCallCheck(this, DCBreaker);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCBreaker, arguments);
     }
-    _createClass(DCBreaker, null, [{
+    _inherits(DCBreaker, _DCSwitch);
+    return _createClass(DCBreaker, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCBreaker";
@@ -9193,20 +8951,18 @@
         return subClasses;
       }
     }]);
-    return DCBreaker;
   }(DCSwitch);
   _defineProperty(DCBreaker, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var DCBusbar = /*#__PURE__*/function (_DCConductingEquipmen) {
-    _inherits(DCBusbar, _DCConductingEquipmen);
-    var _super = _createSuper(DCBusbar);
     function DCBusbar() {
       _classCallCheck(this, DCBusbar);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCBusbar, arguments);
     }
-    _createClass(DCBusbar, null, [{
+    _inherits(DCBusbar, _DCConductingEquipmen);
+    return _createClass(DCBusbar, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCBusbar";
@@ -9261,20 +9017,18 @@
         return subClasses;
       }
     }]);
-    return DCBusbar;
   }(DCConductingEquipment);
   _defineProperty(DCBusbar, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var DCChopper = /*#__PURE__*/function (_DCConductingEquipmen) {
-    _inherits(DCChopper, _DCConductingEquipmen);
-    var _super = _createSuper(DCChopper);
     function DCChopper() {
       _classCallCheck(this, DCChopper);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCChopper, arguments);
     }
-    _createClass(DCChopper, null, [{
+    _inherits(DCChopper, _DCConductingEquipmen);
+    return _createClass(DCChopper, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCChopper";
@@ -9329,7 +9083,6 @@
         return subClasses;
       }
     }]);
-    return DCChopper;
   }(DCConductingEquipment);
   _defineProperty(DCChopper, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
@@ -9348,13 +9101,12 @@
     "label": "monopolarGroundReturn"
   }];
   var DCConverterOperatingModeKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(DCConverterOperatingModeKind, _BaseClass);
-    var _super = _createSuper(DCConverterOperatingModeKind);
     function DCConverterOperatingModeKind() {
       _classCallCheck(this, DCConverterOperatingModeKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCConverterOperatingModeKind, arguments);
     }
-    _createClass(DCConverterOperatingModeKind, null, [{
+    _inherits(DCConverterOperatingModeKind, _BaseClass);
+    return _createClass(DCConverterOperatingModeKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCConverterOperatingModeKind";
@@ -9421,20 +9173,18 @@
         return subClasses;
       }
     }]);
-    return DCConverterOperatingModeKind;
   }(BaseClass);
   _defineProperty(DCConverterOperatingModeKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var DCEquipmentContainer = /*#__PURE__*/function (_EquipmentContainer) {
-    _inherits(DCEquipmentContainer, _EquipmentContainer);
-    var _super = _createSuper(DCEquipmentContainer);
     function DCEquipmentContainer() {
       _classCallCheck(this, DCEquipmentContainer);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCEquipmentContainer, arguments);
     }
-    _createClass(DCEquipmentContainer, null, [{
+    _inherits(DCEquipmentContainer, _EquipmentContainer);
+    return _createClass(DCEquipmentContainer, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCEquipmentContainer";
@@ -9494,7 +9244,6 @@
         return subClasses;
       }
     }]);
-    return DCEquipmentContainer;
   }(EquipmentContainer);
   _defineProperty(DCEquipmentContainer, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP],
@@ -9502,13 +9251,12 @@
   });
 
   var DCConverterUnit = /*#__PURE__*/function (_DCEquipmentContainer) {
-    _inherits(DCConverterUnit, _DCEquipmentContainer);
-    var _super = _createSuper(DCConverterUnit);
     function DCConverterUnit() {
       _classCallCheck(this, DCConverterUnit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCConverterUnit, arguments);
     }
-    _createClass(DCConverterUnit, null, [{
+    _inherits(DCConverterUnit, _DCEquipmentContainer);
+    return _createClass(DCConverterUnit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCConverterUnit";
@@ -9573,7 +9321,6 @@
         return subClasses;
       }
     }]);
-    return DCConverterUnit;
   }(DCEquipmentContainer);
   _defineProperty(DCConverterUnit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -9582,13 +9329,12 @@
   });
 
   var DCDisconnector = /*#__PURE__*/function (_DCSwitch) {
-    _inherits(DCDisconnector, _DCSwitch);
-    var _super = _createSuper(DCDisconnector);
     function DCDisconnector() {
       _classCallCheck(this, DCDisconnector);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCDisconnector, arguments);
     }
-    _createClass(DCDisconnector, null, [{
+    _inherits(DCDisconnector, _DCSwitch);
+    return _createClass(DCDisconnector, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCDisconnector";
@@ -9643,20 +9389,18 @@
         return subClasses;
       }
     }]);
-    return DCDisconnector;
   }(DCSwitch);
   _defineProperty(DCDisconnector, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var DCGround = /*#__PURE__*/function (_DCConductingEquipmen) {
-    _inherits(DCGround, _DCConductingEquipmen);
-    var _super = _createSuper(DCGround);
     function DCGround() {
       _classCallCheck(this, DCGround);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCGround, arguments);
     }
-    _createClass(DCGround, null, [{
+    _inherits(DCGround, _DCConductingEquipmen);
+    return _createClass(DCGround, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCGround";
@@ -9721,7 +9465,6 @@
         return subClasses;
       }
     }]);
-    return DCGround;
   }(DCConductingEquipment);
   _defineProperty(DCGround, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -9730,13 +9473,12 @@
   });
 
   var DCLine = /*#__PURE__*/function (_DCEquipmentContainer) {
-    _inherits(DCLine, _DCEquipmentContainer);
-    var _super = _createSuper(DCLine);
     function DCLine() {
       _classCallCheck(this, DCLine);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCLine, arguments);
     }
-    _createClass(DCLine, null, [{
+    _inherits(DCLine, _DCEquipmentContainer);
+    return _createClass(DCLine, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCLine";
@@ -9796,7 +9538,6 @@
         return subClasses;
       }
     }]);
-    return DCLine;
   }(DCEquipmentContainer);
   _defineProperty(DCLine, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -9804,13 +9545,12 @@
   });
 
   var DCLineSegment = /*#__PURE__*/function (_DCConductingEquipmen) {
-    _inherits(DCLineSegment, _DCConductingEquipmen);
-    var _super = _createSuper(DCLineSegment);
     function DCLineSegment() {
       _classCallCheck(this, DCLineSegment);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCLineSegment, arguments);
     }
-    _createClass(DCLineSegment, null, [{
+    _inherits(DCLineSegment, _DCConductingEquipmen);
+    return _createClass(DCLineSegment, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCLineSegment";
@@ -9890,7 +9630,6 @@
         return subClasses;
       }
     }]);
-    return DCLineSegment;
   }(DCConductingEquipment);
   _defineProperty(DCLineSegment, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -9902,13 +9641,12 @@
   });
 
   var DCNode = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(DCNode, _IdentifiedObject);
-    var _super = _createSuper(DCNode);
     function DCNode() {
       _classCallCheck(this, DCNode);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCNode, arguments);
     }
-    _createClass(DCNode, null, [{
+    _inherits(DCNode, _IdentifiedObject);
+    return _createClass(DCNode, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCNode";
@@ -9973,7 +9711,6 @@
         return subClasses;
       }
     }]);
-    return DCNode;
   }(IdentifiedObject);
   _defineProperty(DCNode, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP],
@@ -9994,13 +9731,12 @@
     "label": "negative"
   }];
   var DCPolarityKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(DCPolarityKind, _BaseClass);
-    var _super = _createSuper(DCPolarityKind);
     function DCPolarityKind() {
       _classCallCheck(this, DCPolarityKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCPolarityKind, arguments);
     }
-    _createClass(DCPolarityKind, null, [{
+    _inherits(DCPolarityKind, _BaseClass);
+    return _createClass(DCPolarityKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCPolarityKind";
@@ -10067,20 +9803,18 @@
         return subClasses;
       }
     }]);
-    return DCPolarityKind;
   }(BaseClass);
   _defineProperty(DCPolarityKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var DCSeriesDevice = /*#__PURE__*/function (_DCConductingEquipmen) {
-    _inherits(DCSeriesDevice, _DCConductingEquipmen);
-    var _super = _createSuper(DCSeriesDevice);
     function DCSeriesDevice() {
       _classCallCheck(this, DCSeriesDevice);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCSeriesDevice, arguments);
     }
-    _createClass(DCSeriesDevice, null, [{
+    _inherits(DCSeriesDevice, _DCConductingEquipmen);
+    return _createClass(DCSeriesDevice, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCSeriesDevice";
@@ -10150,7 +9884,6 @@
         return subClasses;
       }
     }]);
-    return DCSeriesDevice;
   }(DCConductingEquipment);
   _defineProperty(DCSeriesDevice, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -10160,13 +9893,12 @@
   });
 
   var DCShunt = /*#__PURE__*/function (_DCConductingEquipmen) {
-    _inherits(DCShunt, _DCConductingEquipmen);
-    var _super = _createSuper(DCShunt);
     function DCShunt() {
       _classCallCheck(this, DCShunt);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCShunt, arguments);
     }
-    _createClass(DCShunt, null, [{
+    _inherits(DCShunt, _DCConductingEquipmen);
+    return _createClass(DCShunt, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCShunt";
@@ -10236,7 +9968,6 @@
         return subClasses;
       }
     }]);
-    return DCShunt;
   }(DCConductingEquipment);
   _defineProperty(DCShunt, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -10246,13 +9977,12 @@
   });
 
   var DCTerminal = /*#__PURE__*/function (_DCBaseTerminal) {
-    _inherits(DCTerminal, _DCBaseTerminal);
-    var _super = _createSuper(DCTerminal);
     function DCTerminal() {
       _classCallCheck(this, DCTerminal);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCTerminal, arguments);
     }
-    _createClass(DCTerminal, null, [{
+    _inherits(DCTerminal, _DCBaseTerminal);
+    return _createClass(DCTerminal, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCTerminal";
@@ -10312,7 +10042,6 @@
         return subClasses;
       }
     }]);
-    return DCTerminal;
   }(DCBaseTerminal);
   _defineProperty(DCTerminal, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.TP],
@@ -10320,13 +10049,12 @@
   });
 
   var DCTopologicalIsland = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(DCTopologicalIsland, _IdentifiedObject);
-    var _super = _createSuper(DCTopologicalIsland);
     function DCTopologicalIsland() {
       _classCallCheck(this, DCTopologicalIsland);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCTopologicalIsland, arguments);
     }
-    _createClass(DCTopologicalIsland, null, [{
+    _inherits(DCTopologicalIsland, _IdentifiedObject);
+    return _createClass(DCTopologicalIsland, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCTopologicalIsland";
@@ -10386,7 +10114,6 @@
         return subClasses;
       }
     }]);
-    return DCTopologicalIsland;
   }(IdentifiedObject);
   _defineProperty(DCTopologicalIsland, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV],
@@ -10394,13 +10121,12 @@
   });
 
   var DCTopologicalNode = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(DCTopologicalNode, _IdentifiedObject);
-    var _super = _createSuper(DCTopologicalNode);
     function DCTopologicalNode() {
       _classCallCheck(this, DCTopologicalNode);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DCTopologicalNode, arguments);
     }
-    _createClass(DCTopologicalNode, null, [{
+    _inherits(DCTopologicalNode, _IdentifiedObject);
+    return _createClass(DCTopologicalNode, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DCTopologicalNode";
@@ -10465,7 +10191,6 @@
         return subClasses;
       }
     }]);
-    return DCTopologicalNode;
   }(IdentifiedObject);
   _defineProperty(DCTopologicalNode, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV, CGMESProfile.shortNames.TP],
@@ -10474,13 +10199,12 @@
   });
 
   var Date$1 = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Date, _BaseClass);
-    var _super = _createSuper(Date);
     function Date() {
       _classCallCheck(this, Date);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Date, arguments);
     }
-    _createClass(Date, null, [{
+    _inherits(Date, _BaseClass);
+    return _createClass(Date, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Date";
@@ -10535,20 +10259,18 @@
         return subClasses;
       }
     }]);
-    return Date;
   }(BaseClass);
   _defineProperty(Date$1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.GL, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD, CGMESProfile.shortNames.EQ_BD]
   });
 
   var DateTime = /*#__PURE__*/function (_BaseClass) {
-    _inherits(DateTime, _BaseClass);
-    var _super = _createSuper(DateTime);
     function DateTime() {
       _classCallCheck(this, DateTime);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DateTime, arguments);
     }
-    _createClass(DateTime, null, [{
+    _inherits(DateTime, _BaseClass);
+    return _createClass(DateTime, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DateTime";
@@ -10603,20 +10325,18 @@
         return subClasses;
       }
     }]);
-    return DateTime;
   }(BaseClass);
   _defineProperty(DateTime, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var DayType = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(DayType, _IdentifiedObject);
-    var _super = _createSuper(DayType);
     function DayType() {
       _classCallCheck(this, DayType);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DayType, arguments);
     }
-    _createClass(DayType, null, [{
+    _inherits(DayType, _IdentifiedObject);
+    return _createClass(DayType, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DayType";
@@ -10671,20 +10391,18 @@
         return subClasses;
       }
     }]);
-    return DayType;
   }(IdentifiedObject);
   _defineProperty(DayType, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var Decimal = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Decimal, _BaseClass);
-    var _super = _createSuper(Decimal);
     function Decimal() {
       _classCallCheck(this, Decimal);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Decimal, arguments);
     }
-    _createClass(Decimal, null, [{
+    _inherits(Decimal, _BaseClass);
+    return _createClass(Decimal, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Decimal";
@@ -10739,20 +10457,18 @@
         return subClasses;
       }
     }]);
-    return Decimal;
   }(BaseClass);
   _defineProperty(Decimal, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var Diagram = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(Diagram, _IdentifiedObject);
-    var _super = _createSuper(Diagram);
     function Diagram() {
       _classCallCheck(this, Diagram);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Diagram, arguments);
     }
-    _createClass(Diagram, null, [{
+    _inherits(Diagram, _IdentifiedObject);
+    return _createClass(Diagram, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Diagram";
@@ -10837,7 +10553,6 @@
         return subClasses;
       }
     }]);
-    return Diagram;
   }(IdentifiedObject);
   _defineProperty(Diagram, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL],
@@ -10850,13 +10565,12 @@
   });
 
   var DiagramLayoutVersion = /*#__PURE__*/function (_BaseClass) {
-    _inherits(DiagramLayoutVersion, _BaseClass);
-    var _super = _createSuper(DiagramLayoutVersion);
     function DiagramLayoutVersion() {
       _classCallCheck(this, DiagramLayoutVersion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiagramLayoutVersion, arguments);
     }
-    _createClass(DiagramLayoutVersion, null, [{
+    _inherits(DiagramLayoutVersion, _BaseClass);
+    return _createClass(DiagramLayoutVersion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiagramLayoutVersion";
@@ -10961,7 +10675,6 @@
         return subClasses;
       }
     }]);
-    return DiagramLayoutVersion;
   }(BaseClass);
   _defineProperty(DiagramLayoutVersion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL],
@@ -10978,13 +10691,12 @@
   });
 
   var DiagramObject = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(DiagramObject, _IdentifiedObject);
-    var _super = _createSuper(DiagramObject);
     function DiagramObject() {
       _classCallCheck(this, DiagramObject);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiagramObject, arguments);
     }
-    _createClass(DiagramObject, null, [{
+    _inherits(DiagramObject, _IdentifiedObject);
+    return _createClass(DiagramObject, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiagramObject";
@@ -11084,7 +10796,6 @@
         return subClasses;
       }
     }]);
-    return DiagramObject;
   }(IdentifiedObject);
   _defineProperty(DiagramObject, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL],
@@ -11100,13 +10811,12 @@
   });
 
   var DiagramObjectGluePoint = /*#__PURE__*/function (_BaseClass) {
-    _inherits(DiagramObjectGluePoint, _BaseClass);
-    var _super = _createSuper(DiagramObjectGluePoint);
     function DiagramObjectGluePoint() {
       _classCallCheck(this, DiagramObjectGluePoint);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiagramObjectGluePoint, arguments);
     }
-    _createClass(DiagramObjectGluePoint, null, [{
+    _inherits(DiagramObjectGluePoint, _BaseClass);
+    return _createClass(DiagramObjectGluePoint, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiagramObjectGluePoint";
@@ -11161,20 +10871,18 @@
         return subClasses;
       }
     }]);
-    return DiagramObjectGluePoint;
   }(BaseClass);
   _defineProperty(DiagramObjectGluePoint, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL]
   });
 
   var DiagramObjectPoint = /*#__PURE__*/function (_BaseClass) {
-    _inherits(DiagramObjectPoint, _BaseClass);
-    var _super = _createSuper(DiagramObjectPoint);
     function DiagramObjectPoint() {
       _classCallCheck(this, DiagramObjectPoint);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiagramObjectPoint, arguments);
     }
-    _createClass(DiagramObjectPoint, null, [{
+    _inherits(DiagramObjectPoint, _BaseClass);
+    return _createClass(DiagramObjectPoint, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiagramObjectPoint";
@@ -11259,7 +10967,6 @@
         return subClasses;
       }
     }]);
-    return DiagramObjectPoint;
   }(BaseClass);
   _defineProperty(DiagramObjectPoint, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL],
@@ -11272,13 +10979,12 @@
   });
 
   var DiagramObjectStyle = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(DiagramObjectStyle, _IdentifiedObject);
-    var _super = _createSuper(DiagramObjectStyle);
     function DiagramObjectStyle() {
       _classCallCheck(this, DiagramObjectStyle);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiagramObjectStyle, arguments);
     }
-    _createClass(DiagramObjectStyle, null, [{
+    _inherits(DiagramObjectStyle, _IdentifiedObject);
+    return _createClass(DiagramObjectStyle, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiagramObjectStyle";
@@ -11333,20 +11039,18 @@
         return subClasses;
       }
     }]);
-    return DiagramObjectStyle;
   }(IdentifiedObject);
   _defineProperty(DiagramObjectStyle, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL]
   });
 
   var DiagramStyle = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(DiagramStyle, _IdentifiedObject);
-    var _super = _createSuper(DiagramStyle);
     function DiagramStyle() {
       _classCallCheck(this, DiagramStyle);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiagramStyle, arguments);
     }
-    _createClass(DiagramStyle, null, [{
+    _inherits(DiagramStyle, _IdentifiedObject);
+    return _createClass(DiagramStyle, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiagramStyle";
@@ -11401,20 +11105,18 @@
         return subClasses;
       }
     }]);
-    return DiagramStyle;
   }(IdentifiedObject);
   _defineProperty(DiagramStyle, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL]
   });
 
   var DiscontinuousExcitationControlDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(DiscontinuousExcitationControlDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(DiscontinuousExcitationControlDynamics);
     function DiscontinuousExcitationControlDynamics() {
       _classCallCheck(this, DiscontinuousExcitationControlDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiscontinuousExcitationControlDynamics, arguments);
     }
-    _createClass(DiscontinuousExcitationControlDynamics, null, [{
+    _inherits(DiscontinuousExcitationControlDynamics, _DynamicsFunctionBloc);
+    return _createClass(DiscontinuousExcitationControlDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiscontinuousExcitationControlDynamics";
@@ -11474,7 +11176,6 @@
         return subClasses;
       }
     }]);
-    return DiscontinuousExcitationControlDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(DiscontinuousExcitationControlDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -11482,13 +11183,12 @@
   });
 
   var DiscExcContIEEEDEC1A = /*#__PURE__*/function (_DiscontinuousExcitat) {
-    _inherits(DiscExcContIEEEDEC1A, _DiscontinuousExcitat);
-    var _super = _createSuper(DiscExcContIEEEDEC1A);
     function DiscExcContIEEEDEC1A() {
       _classCallCheck(this, DiscExcContIEEEDEC1A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiscExcContIEEEDEC1A, arguments);
     }
-    _createClass(DiscExcContIEEEDEC1A, null, [{
+    _inherits(DiscExcContIEEEDEC1A, _DiscontinuousExcitat);
+    return _createClass(DiscExcContIEEEDEC1A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiscExcContIEEEDEC1A";
@@ -11633,7 +11333,6 @@
         return subClasses;
       }
     }]);
-    return DiscExcContIEEEDEC1A;
   }(DiscontinuousExcitationControlDynamics);
   _defineProperty(DiscExcContIEEEDEC1A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -11658,13 +11357,12 @@
   });
 
   var DiscExcContIEEEDEC2A = /*#__PURE__*/function (_DiscontinuousExcitat) {
-    _inherits(DiscExcContIEEEDEC2A, _DiscontinuousExcitat);
-    var _super = _createSuper(DiscExcContIEEEDEC2A);
     function DiscExcContIEEEDEC2A() {
       _classCallCheck(this, DiscExcContIEEEDEC2A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiscExcContIEEEDEC2A, arguments);
     }
-    _createClass(DiscExcContIEEEDEC2A, null, [{
+    _inherits(DiscExcContIEEEDEC2A, _DiscontinuousExcitat);
+    return _createClass(DiscExcContIEEEDEC2A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiscExcContIEEEDEC2A";
@@ -11744,7 +11442,6 @@
         return subClasses;
       }
     }]);
-    return DiscExcContIEEEDEC2A;
   }(DiscontinuousExcitationControlDynamics);
   _defineProperty(DiscExcContIEEEDEC2A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -11756,13 +11453,12 @@
   });
 
   var DiscExcContIEEEDEC3A = /*#__PURE__*/function (_DiscontinuousExcitat) {
-    _inherits(DiscExcContIEEEDEC3A, _DiscontinuousExcitat);
-    var _super = _createSuper(DiscExcContIEEEDEC3A);
     function DiscExcContIEEEDEC3A() {
       _classCallCheck(this, DiscExcContIEEEDEC3A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiscExcContIEEEDEC3A, arguments);
     }
-    _createClass(DiscExcContIEEEDEC3A, null, [{
+    _inherits(DiscExcContIEEEDEC3A, _DiscontinuousExcitat);
+    return _createClass(DiscExcContIEEEDEC3A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiscExcContIEEEDEC3A";
@@ -11827,7 +11523,6 @@
         return subClasses;
       }
     }]);
-    return DiscExcContIEEEDEC3A;
   }(DiscontinuousExcitationControlDynamics);
   _defineProperty(DiscExcContIEEEDEC3A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -11836,13 +11531,12 @@
   });
 
   var Disconnector = /*#__PURE__*/function (_Switch) {
-    _inherits(Disconnector, _Switch);
-    var _super = _createSuper(Disconnector);
     function Disconnector() {
       _classCallCheck(this, Disconnector);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Disconnector, arguments);
     }
-    _createClass(Disconnector, null, [{
+    _inherits(Disconnector, _Switch);
+    return _createClass(Disconnector, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Disconnector";
@@ -11897,20 +11591,18 @@
         return subClasses;
       }
     }]);
-    return Disconnector;
   }(Switch);
   _defineProperty(Disconnector, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
   });
 
   var DiscontinuousExcitationControlUserDefined = /*#__PURE__*/function (_DiscontinuousExcitat) {
-    _inherits(DiscontinuousExcitationControlUserDefined, _DiscontinuousExcitat);
-    var _super = _createSuper(DiscontinuousExcitationControlUserDefined);
     function DiscontinuousExcitationControlUserDefined() {
       _classCallCheck(this, DiscontinuousExcitationControlUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiscontinuousExcitationControlUserDefined, arguments);
     }
-    _createClass(DiscontinuousExcitationControlUserDefined, null, [{
+    _inherits(DiscontinuousExcitationControlUserDefined, _DiscontinuousExcitat);
+    return _createClass(DiscontinuousExcitationControlUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiscontinuousExcitationControlUserDefined";
@@ -11970,7 +11662,6 @@
         return subClasses;
       }
     }]);
-    return DiscontinuousExcitationControlUserDefined;
   }(DiscontinuousExcitationControlDynamics);
   _defineProperty(DiscontinuousExcitationControlUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -11978,13 +11669,12 @@
   });
 
   var Discrete = /*#__PURE__*/function (_Measurement) {
-    _inherits(Discrete, _Measurement);
-    var _super = _createSuper(Discrete);
     function Discrete() {
       _classCallCheck(this, Discrete);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Discrete, arguments);
     }
-    _createClass(Discrete, null, [{
+    _inherits(Discrete, _Measurement);
+    return _createClass(Discrete, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Discrete";
@@ -12044,7 +11734,6 @@
         return subClasses;
       }
     }]);
-    return Discrete;
   }(Measurement);
   _defineProperty(Discrete, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -12052,13 +11741,12 @@
   });
 
   var DiscreteValue = /*#__PURE__*/function (_MeasurementValue) {
-    _inherits(DiscreteValue, _MeasurementValue);
-    var _super = _createSuper(DiscreteValue);
     function DiscreteValue() {
       _classCallCheck(this, DiscreteValue);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DiscreteValue, arguments);
     }
-    _createClass(DiscreteValue, null, [{
+    _inherits(DiscreteValue, _MeasurementValue);
+    return _createClass(DiscreteValue, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DiscreteValue";
@@ -12123,7 +11811,6 @@
         return subClasses;
       }
     }]);
-    return DiscreteValue;
   }(MeasurementValue);
   _defineProperty(DiscreteValue, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -12147,13 +11834,12 @@
     "label": "governorOutput"
   }];
   var DroopSignalFeedbackKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(DroopSignalFeedbackKind, _BaseClass);
-    var _super = _createSuper(DroopSignalFeedbackKind);
     function DroopSignalFeedbackKind() {
       _classCallCheck(this, DroopSignalFeedbackKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DroopSignalFeedbackKind, arguments);
     }
-    _createClass(DroopSignalFeedbackKind, null, [{
+    _inherits(DroopSignalFeedbackKind, _BaseClass);
+    return _createClass(DroopSignalFeedbackKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DroopSignalFeedbackKind";
@@ -12220,20 +11906,18 @@
         return subClasses;
       }
     }]);
-    return DroopSignalFeedbackKind;
   }(BaseClass);
   _defineProperty(DroopSignalFeedbackKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var DynamicsVersion = /*#__PURE__*/function (_BaseClass) {
-    _inherits(DynamicsVersion, _BaseClass);
-    var _super = _createSuper(DynamicsVersion);
     function DynamicsVersion() {
       _classCallCheck(this, DynamicsVersion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, DynamicsVersion, arguments);
     }
-    _createClass(DynamicsVersion, null, [{
+    _inherits(DynamicsVersion, _BaseClass);
+    return _createClass(DynamicsVersion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "DynamicsVersion";
@@ -12338,7 +12022,6 @@
         return subClasses;
       }
     }]);
-    return DynamicsVersion;
   }(BaseClass);
   _defineProperty(DynamicsVersion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -12355,13 +12038,12 @@
   });
 
   var EarthFaultCompensator = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(EarthFaultCompensator, _ConductingEquipment);
-    var _super = _createSuper(EarthFaultCompensator);
     function EarthFaultCompensator() {
       _classCallCheck(this, EarthFaultCompensator);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EarthFaultCompensator, arguments);
     }
-    _createClass(EarthFaultCompensator, null, [{
+    _inherits(EarthFaultCompensator, _ConductingEquipment);
+    return _createClass(EarthFaultCompensator, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EarthFaultCompensator";
@@ -12421,7 +12103,6 @@
         return subClasses;
       }
     }]);
-    return EarthFaultCompensator;
   }(ConductingEquipment);
   _defineProperty(EarthFaultCompensator, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -12429,13 +12110,12 @@
   });
 
   var EnergyArea = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(EnergyArea, _IdentifiedObject);
-    var _super = _createSuper(EnergyArea);
     function EnergyArea() {
       _classCallCheck(this, EnergyArea);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EnergyArea, arguments);
     }
-    _createClass(EnergyArea, null, [{
+    _inherits(EnergyArea, _IdentifiedObject);
+    return _createClass(EnergyArea, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EnergyArea";
@@ -12490,20 +12170,18 @@
         return subClasses;
       }
     }]);
-    return EnergyArea;
   }(IdentifiedObject);
   _defineProperty(EnergyArea, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var EnergySchedulingType = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(EnergySchedulingType, _IdentifiedObject);
-    var _super = _createSuper(EnergySchedulingType);
     function EnergySchedulingType() {
       _classCallCheck(this, EnergySchedulingType);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EnergySchedulingType, arguments);
     }
-    _createClass(EnergySchedulingType, null, [{
+    _inherits(EnergySchedulingType, _IdentifiedObject);
+    return _createClass(EnergySchedulingType, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EnergySchedulingType";
@@ -12558,20 +12236,18 @@
         return subClasses;
       }
     }]);
-    return EnergySchedulingType;
   }(IdentifiedObject);
   _defineProperty(EnergySchedulingType, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD]
   });
 
   var EnergySource = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(EnergySource, _ConductingEquipment);
-    var _super = _createSuper(EnergySource);
     function EnergySource() {
       _classCallCheck(this, EnergySource);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EnergySource, arguments);
     }
-    _createClass(EnergySource, null, [{
+    _inherits(EnergySource, _ConductingEquipment);
+    return _createClass(EnergySource, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EnergySource";
@@ -12686,7 +12362,6 @@
         return subClasses;
       }
     }]);
-    return EnergySource;
   }(ConductingEquipment);
   _defineProperty(EnergySource, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.EQ_BD],
@@ -12705,13 +12380,12 @@
   });
 
   var EquipmentBoundaryVersion = /*#__PURE__*/function (_BaseClass) {
-    _inherits(EquipmentBoundaryVersion, _BaseClass);
-    var _super = _createSuper(EquipmentBoundaryVersion);
     function EquipmentBoundaryVersion() {
       _classCallCheck(this, EquipmentBoundaryVersion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EquipmentBoundaryVersion, arguments);
     }
-    _createClass(EquipmentBoundaryVersion, null, [{
+    _inherits(EquipmentBoundaryVersion, _BaseClass);
+    return _createClass(EquipmentBoundaryVersion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EquipmentBoundaryVersion";
@@ -12821,7 +12495,6 @@
         return subClasses;
       }
     }]);
-    return EquipmentBoundaryVersion;
   }(BaseClass);
   _defineProperty(EquipmentBoundaryVersion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ_BD],
@@ -12839,13 +12512,12 @@
   });
 
   var EquipmentVersion = /*#__PURE__*/function (_BaseClass) {
-    _inherits(EquipmentVersion, _BaseClass);
-    var _super = _createSuper(EquipmentVersion);
     function EquipmentVersion() {
       _classCallCheck(this, EquipmentVersion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EquipmentVersion, arguments);
     }
-    _createClass(EquipmentVersion, null, [{
+    _inherits(EquipmentVersion, _BaseClass);
+    return _createClass(EquipmentVersion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EquipmentVersion";
@@ -12970,7 +12642,6 @@
         return subClasses;
       }
     }]);
-    return EquipmentVersion;
   }(BaseClass);
   _defineProperty(EquipmentVersion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -12991,13 +12662,12 @@
   });
 
   var EquivalentEquipment = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(EquivalentEquipment, _ConductingEquipment);
-    var _super = _createSuper(EquivalentEquipment);
     function EquivalentEquipment() {
       _classCallCheck(this, EquivalentEquipment);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EquivalentEquipment, arguments);
     }
-    _createClass(EquivalentEquipment, null, [{
+    _inherits(EquivalentEquipment, _ConductingEquipment);
+    return _createClass(EquivalentEquipment, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EquivalentEquipment";
@@ -13057,7 +12727,6 @@
         return subClasses;
       }
     }]);
-    return EquivalentEquipment;
   }(ConductingEquipment);
   _defineProperty(EquivalentEquipment, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -13065,13 +12734,12 @@
   });
 
   var EquivalentBranch = /*#__PURE__*/function (_EquivalentEquipment) {
-    _inherits(EquivalentBranch, _EquivalentEquipment);
-    var _super = _createSuper(EquivalentBranch);
     function EquivalentBranch() {
       _classCallCheck(this, EquivalentBranch);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EquivalentBranch, arguments);
     }
-    _createClass(EquivalentBranch, null, [{
+    _inherits(EquivalentBranch, _EquivalentEquipment);
+    return _createClass(EquivalentBranch, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EquivalentBranch";
@@ -13206,7 +12874,6 @@
         return subClasses;
       }
     }]);
-    return EquivalentBranch;
   }(EquivalentEquipment);
   _defineProperty(EquivalentBranch, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -13229,13 +12896,12 @@
   });
 
   var EquivalentInjection = /*#__PURE__*/function (_EquivalentEquipment) {
-    _inherits(EquivalentInjection, _EquivalentEquipment);
-    var _super = _createSuper(EquivalentInjection);
     function EquivalentInjection() {
       _classCallCheck(this, EquivalentInjection);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EquivalentInjection, arguments);
     }
-    _createClass(EquivalentInjection, null, [{
+    _inherits(EquivalentInjection, _EquivalentEquipment);
+    return _createClass(EquivalentInjection, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EquivalentInjection";
@@ -13370,7 +13036,6 @@
         return subClasses;
       }
     }]);
-    return EquivalentInjection;
   }(EquivalentEquipment);
   _defineProperty(EquivalentInjection, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -13393,13 +13058,12 @@
   });
 
   var EquivalentNetwork = /*#__PURE__*/function (_ConnectivityNodeCont) {
-    _inherits(EquivalentNetwork, _ConnectivityNodeCont);
-    var _super = _createSuper(EquivalentNetwork);
     function EquivalentNetwork() {
       _classCallCheck(this, EquivalentNetwork);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EquivalentNetwork, arguments);
     }
-    _createClass(EquivalentNetwork, null, [{
+    _inherits(EquivalentNetwork, _ConnectivityNodeCont);
+    return _createClass(EquivalentNetwork, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EquivalentNetwork";
@@ -13454,20 +13118,18 @@
         return subClasses;
       }
     }]);
-    return EquivalentNetwork;
   }(ConnectivityNodeContainer);
   _defineProperty(EquivalentNetwork, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var EquivalentShunt = /*#__PURE__*/function (_EquivalentEquipment) {
-    _inherits(EquivalentShunt, _EquivalentEquipment);
-    var _super = _createSuper(EquivalentShunt);
     function EquivalentShunt() {
       _classCallCheck(this, EquivalentShunt);
-      return _super.apply(this, arguments);
+      return _callSuper(this, EquivalentShunt, arguments);
     }
-    _createClass(EquivalentShunt, null, [{
+    _inherits(EquivalentShunt, _EquivalentEquipment);
+    return _createClass(EquivalentShunt, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "EquivalentShunt";
@@ -13532,7 +13194,6 @@
         return subClasses;
       }
     }]);
-    return EquivalentShunt;
   }(EquivalentEquipment);
   _defineProperty(EquivalentShunt, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -13541,13 +13202,12 @@
   });
 
   var ExcitationSystemDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(ExcitationSystemDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(ExcitationSystemDynamics);
     function ExcitationSystemDynamics() {
       _classCallCheck(this, ExcitationSystemDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcitationSystemDynamics, arguments);
     }
-    _createClass(ExcitationSystemDynamics, null, [{
+    _inherits(ExcitationSystemDynamics, _DynamicsFunctionBloc);
+    return _createClass(ExcitationSystemDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcitationSystemDynamics";
@@ -13622,7 +13282,6 @@
         return subClasses;
       }
     }]);
-    return ExcitationSystemDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(ExcitationSystemDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -13633,13 +13292,12 @@
   });
 
   var ExcAC1A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAC1A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAC1A);
     function ExcAC1A() {
       _classCallCheck(this, ExcAC1A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAC1A, arguments);
     }
-    _createClass(ExcAC1A, null, [{
+    _inherits(ExcAC1A, _ExcitationSystemDyna);
+    return _createClass(ExcAC1A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAC1A";
@@ -13804,7 +13462,6 @@
         return subClasses;
       }
     }]);
-    return ExcAC1A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAC1A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -13833,13 +13490,12 @@
   });
 
   var ExcAC2A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAC2A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAC2A);
     function ExcAC2A() {
       _classCallCheck(this, ExcAC2A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAC2A, arguments);
     }
-    _createClass(ExcAC2A, null, [{
+    _inherits(ExcAC2A, _ExcitationSystemDyna);
+    return _createClass(ExcAC2A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAC2A";
@@ -14034,7 +13690,6 @@
         return subClasses;
       }
     }]);
-    return ExcAC2A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAC2A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -14069,13 +13724,12 @@
   });
 
   var ExcAC3A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAC3A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAC3A);
     function ExcAC3A() {
       _classCallCheck(this, ExcAC3A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAC3A, arguments);
     }
-    _createClass(ExcAC3A, null, [{
+    _inherits(ExcAC3A, _ExcitationSystemDyna);
+    return _createClass(ExcAC3A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAC3A";
@@ -14260,7 +13914,6 @@
         return subClasses;
       }
     }]);
-    return ExcAC3A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAC3A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -14293,13 +13946,12 @@
   });
 
   var ExcAC4A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAC4A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAC4A);
     function ExcAC4A() {
       _classCallCheck(this, ExcAC4A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAC4A, arguments);
     }
-    _createClass(ExcAC4A, null, [{
+    _inherits(ExcAC4A, _ExcitationSystemDyna);
+    return _createClass(ExcAC4A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAC4A";
@@ -14399,7 +14051,6 @@
         return subClasses;
       }
     }]);
-    return ExcAC4A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAC4A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -14415,13 +14066,12 @@
   });
 
   var ExcAC5A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAC5A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAC5A);
     function ExcAC5A() {
       _classCallCheck(this, ExcAC5A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAC5A, arguments);
     }
-    _createClass(ExcAC5A, null, [{
+    _inherits(ExcAC5A, _ExcitationSystemDyna);
+    return _createClass(ExcAC5A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAC5A";
@@ -14566,7 +14216,6 @@
         return subClasses;
       }
     }]);
-    return ExcAC5A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAC5A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -14591,13 +14240,12 @@
   });
 
   var ExcAC6A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAC6A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAC6A);
     function ExcAC6A() {
       _classCallCheck(this, ExcAC6A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAC6A, arguments);
     }
-    _createClass(ExcAC6A, null, [{
+    _inherits(ExcAC6A, _ExcitationSystemDyna);
+    return _createClass(ExcAC6A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAC6A";
@@ -14767,7 +14415,6 @@
         return subClasses;
       }
     }]);
-    return ExcAC6A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAC6A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -14797,13 +14444,12 @@
   });
 
   var ExcAC8B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAC8B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAC8B);
     function ExcAC8B() {
       _classCallCheck(this, ExcAC8B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAC8B, arguments);
     }
-    _createClass(ExcAC8B, null, [{
+    _inherits(ExcAC8B, _ExcitationSystemDyna);
+    return _createClass(ExcAC8B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAC8B";
@@ -14993,7 +14639,6 @@
         return subClasses;
       }
     }]);
-    return ExcAC8B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAC8B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -15027,13 +14672,12 @@
   });
 
   var ExcANS = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcANS, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcANS);
     function ExcANS() {
       _classCallCheck(this, ExcANS);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcANS, arguments);
     }
-    _createClass(ExcANS, null, [{
+    _inherits(ExcANS, _ExcitationSystemDyna);
+    return _createClass(ExcANS, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcANS";
@@ -15158,7 +14802,6 @@
         return subClasses;
       }
     }]);
-    return ExcANS;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcANS, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -15179,13 +14822,12 @@
   });
 
   var ExcAVR1 = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAVR1, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAVR1);
     function ExcAVR1() {
       _classCallCheck(this, ExcAVR1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAVR1, arguments);
     }
-    _createClass(ExcAVR1, null, [{
+    _inherits(ExcAVR1, _ExcitationSystemDyna);
+    return _createClass(ExcAVR1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAVR1";
@@ -15300,7 +14942,6 @@
         return subClasses;
       }
     }]);
-    return ExcAVR1;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAVR1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -15319,13 +14960,12 @@
   });
 
   var ExcAVR2 = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAVR2, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAVR2);
     function ExcAVR2() {
       _classCallCheck(this, ExcAVR2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAVR2, arguments);
     }
-    _createClass(ExcAVR2, null, [{
+    _inherits(ExcAVR2, _ExcitationSystemDyna);
+    return _createClass(ExcAVR2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAVR2";
@@ -15445,7 +15085,6 @@
         return subClasses;
       }
     }]);
-    return ExcAVR2;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAVR2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -15465,13 +15104,12 @@
   });
 
   var ExcAVR3 = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAVR3, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAVR3);
     function ExcAVR3() {
       _classCallCheck(this, ExcAVR3);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAVR3, arguments);
     }
-    _createClass(ExcAVR3, null, [{
+    _inherits(ExcAVR3, _ExcitationSystemDyna);
+    return _createClass(ExcAVR3, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAVR3";
@@ -15586,7 +15224,6 @@
         return subClasses;
       }
     }]);
-    return ExcAVR3;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAVR3, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -15605,13 +15242,12 @@
   });
 
   var ExcAVR4 = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAVR4, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAVR4);
     function ExcAVR4() {
       _classCallCheck(this, ExcAVR4);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAVR4, arguments);
     }
-    _createClass(ExcAVR4, null, [{
+    _inherits(ExcAVR4, _ExcitationSystemDyna);
+    return _createClass(ExcAVR4, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAVR4";
@@ -15736,7 +15372,6 @@
         return subClasses;
       }
     }]);
-    return ExcAVR4;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAVR4, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -15757,13 +15392,12 @@
   });
 
   var ExcAVR5 = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAVR5, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAVR5);
     function ExcAVR5() {
       _classCallCheck(this, ExcAVR5);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAVR5, arguments);
     }
-    _createClass(ExcAVR5, null, [{
+    _inherits(ExcAVR5, _ExcitationSystemDyna);
+    return _createClass(ExcAVR5, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAVR5";
@@ -15833,7 +15467,6 @@
         return subClasses;
       }
     }]);
-    return ExcAVR5;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAVR5, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -15843,13 +15476,12 @@
   });
 
   var ExcAVR7 = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcAVR7, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcAVR7);
     function ExcAVR7() {
       _classCallCheck(this, ExcAVR7);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcAVR7, arguments);
     }
-    _createClass(ExcAVR7, null, [{
+    _inherits(ExcAVR7, _ExcitationSystemDyna);
+    return _createClass(ExcAVR7, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcAVR7";
@@ -16009,7 +15641,6 @@
         return subClasses;
       }
     }]);
-    return ExcAVR7;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcAVR7, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -16037,13 +15668,12 @@
   });
 
   var ExcBBC = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcBBC, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcBBC);
     function ExcBBC() {
       _classCallCheck(this, ExcBBC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcBBC, arguments);
     }
-    _createClass(ExcBBC, null, [{
+    _inherits(ExcBBC, _ExcitationSystemDyna);
+    return _createClass(ExcBBC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcBBC";
@@ -16153,7 +15783,6 @@
         return subClasses;
       }
     }]);
-    return ExcBBC;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcBBC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -16171,13 +15800,12 @@
   });
 
   var ExcCZ = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcCZ, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcCZ);
     function ExcCZ() {
       _classCallCheck(this, ExcCZ);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcCZ, arguments);
     }
-    _createClass(ExcCZ, null, [{
+    _inherits(ExcCZ, _ExcitationSystemDyna);
+    return _createClass(ExcCZ, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcCZ";
@@ -16282,7 +15910,6 @@
         return subClasses;
       }
     }]);
-    return ExcCZ;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcCZ, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -16299,13 +15926,12 @@
   });
 
   var ExcDC1A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcDC1A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcDC1A);
     function ExcDC1A() {
       _classCallCheck(this, ExcDC1A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcDC1A, arguments);
     }
-    _createClass(ExcDC1A, null, [{
+    _inherits(ExcDC1A, _ExcitationSystemDyna);
+    return _createClass(ExcDC1A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcDC1A";
@@ -16450,7 +16076,6 @@
         return subClasses;
       }
     }]);
-    return ExcDC1A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcDC1A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -16475,13 +16100,12 @@
   });
 
   var ExcDC2A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcDC2A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcDC2A);
     function ExcDC2A() {
       _classCallCheck(this, ExcDC2A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcDC2A, arguments);
     }
-    _createClass(ExcDC2A, null, [{
+    _inherits(ExcDC2A, _ExcitationSystemDyna);
+    return _createClass(ExcDC2A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcDC2A";
@@ -16626,7 +16250,6 @@
         return subClasses;
       }
     }]);
-    return ExcDC2A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcDC2A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -16651,13 +16274,12 @@
   });
 
   var ExcDC3A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcDC3A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcDC3A);
     function ExcDC3A() {
       _classCallCheck(this, ExcDC3A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcDC3A, arguments);
     }
-    _createClass(ExcDC3A, null, [{
+    _inherits(ExcDC3A, _ExcitationSystemDyna);
+    return _createClass(ExcDC3A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcDC3A";
@@ -16792,7 +16414,6 @@
         return subClasses;
       }
     }]);
-    return ExcDC3A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcDC3A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -16815,13 +16436,12 @@
   });
 
   var ExcDC3A1 = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcDC3A1, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcDC3A1);
     function ExcDC3A1() {
       _classCallCheck(this, ExcDC3A1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcDC3A1, arguments);
     }
-    _createClass(ExcDC3A1, null, [{
+    _inherits(ExcDC3A1, _ExcitationSystemDyna);
+    return _createClass(ExcDC3A1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcDC3A1";
@@ -16946,7 +16566,6 @@
         return subClasses;
       }
     }]);
-    return ExcDC3A1;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcDC3A1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -16967,13 +16586,12 @@
   });
 
   var ExcELIN1 = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcELIN1, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcELIN1);
     function ExcELIN1() {
       _classCallCheck(this, ExcELIN1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcELIN1, arguments);
     }
-    _createClass(ExcELIN1, null, [{
+    _inherits(ExcELIN1, _ExcitationSystemDyna);
+    return _createClass(ExcELIN1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcELIN1";
@@ -17103,7 +16721,6 @@
         return subClasses;
       }
     }]);
-    return ExcELIN1;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcELIN1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -17125,13 +16742,12 @@
   });
 
   var ExcELIN2 = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcELIN2, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcELIN2);
     function ExcELIN2() {
       _classCallCheck(this, ExcELIN2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcELIN2, arguments);
     }
-    _createClass(ExcELIN2, null, [{
+    _inherits(ExcELIN2, _ExcitationSystemDyna);
+    return _createClass(ExcELIN2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcELIN2";
@@ -17321,7 +16937,6 @@
         return subClasses;
       }
     }]);
-    return ExcELIN2;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcELIN2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -17355,13 +16970,12 @@
   });
 
   var ExcHU = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcHU, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcHU);
     function ExcHU() {
       _classCallCheck(this, ExcHU);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcHU, arguments);
     }
-    _createClass(ExcHU, null, [{
+    _inherits(ExcHU, _ExcitationSystemDyna);
+    return _createClass(ExcHU, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcHU";
@@ -17476,7 +17090,6 @@
         return subClasses;
       }
     }]);
-    return ExcHU;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcHU, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -17495,13 +17108,12 @@
   });
 
   var ExcIEEEAC1A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEAC1A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEAC1A);
     function ExcIEEEAC1A() {
       _classCallCheck(this, ExcIEEEAC1A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEAC1A, arguments);
     }
-    _createClass(ExcIEEEAC1A, null, [{
+    _inherits(ExcIEEEAC1A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEAC1A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEAC1A";
@@ -17646,7 +17258,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEAC1A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEAC1A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -17671,13 +17282,12 @@
   });
 
   var ExcIEEEAC2A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEAC2A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEAC2A);
     function ExcIEEEAC2A() {
       _classCallCheck(this, ExcIEEEAC2A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEAC2A, arguments);
     }
-    _createClass(ExcIEEEAC2A, null, [{
+    _inherits(ExcIEEEAC2A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEAC2A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEAC2A";
@@ -17837,7 +17447,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEAC2A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEAC2A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -17865,13 +17474,12 @@
   });
 
   var ExcIEEEAC3A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEAC3A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEAC3A);
     function ExcIEEEAC3A() {
       _classCallCheck(this, ExcIEEEAC3A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEAC3A, arguments);
     }
-    _createClass(ExcIEEEAC3A, null, [{
+    _inherits(ExcIEEEAC3A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEAC3A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEAC3A";
@@ -18031,7 +17639,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEAC3A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEAC3A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -18059,13 +17666,12 @@
   });
 
   var ExcIEEEAC4A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEAC4A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEAC4A);
     function ExcIEEEAC4A() {
       _classCallCheck(this, ExcIEEEAC4A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEAC4A, arguments);
     }
-    _createClass(ExcIEEEAC4A, null, [{
+    _inherits(ExcIEEEAC4A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEAC4A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEAC4A";
@@ -18165,7 +17771,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEAC4A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEAC4A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -18181,13 +17786,12 @@
   });
 
   var ExcIEEEAC5A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEAC5A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEAC5A);
     function ExcIEEEAC5A() {
       _classCallCheck(this, ExcIEEEAC5A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEAC5A, arguments);
     }
-    _createClass(ExcIEEEAC5A, null, [{
+    _inherits(ExcIEEEAC5A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEAC5A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEAC5A";
@@ -18312,7 +17916,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEAC5A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEAC5A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -18333,13 +17936,12 @@
   });
 
   var ExcIEEEAC6A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEAC6A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEAC6A);
     function ExcIEEEAC6A() {
       _classCallCheck(this, ExcIEEEAC6A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEAC6A, arguments);
     }
-    _createClass(ExcIEEEAC6A, null, [{
+    _inherits(ExcIEEEAC6A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEAC6A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEAC6A";
@@ -18504,7 +18106,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEAC6A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEAC6A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -18533,13 +18134,12 @@
   });
 
   var ExcIEEEAC7B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEAC7B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEAC7B);
     function ExcIEEEAC7B() {
       _classCallCheck(this, ExcIEEEAC7B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEAC7B, arguments);
     }
-    _createClass(ExcIEEEAC7B, null, [{
+    _inherits(ExcIEEEAC7B, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEAC7B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEAC7B";
@@ -18724,7 +18324,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEAC7B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEAC7B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -18757,13 +18356,12 @@
   });
 
   var ExcIEEEAC8B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEAC8B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEAC8B);
     function ExcIEEEAC8B() {
       _classCallCheck(this, ExcIEEEAC8B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEAC8B, arguments);
     }
-    _createClass(ExcIEEEAC8B, null, [{
+    _inherits(ExcIEEEAC8B, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEAC8B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEAC8B";
@@ -18908,7 +18506,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEAC8B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEAC8B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -18933,13 +18530,12 @@
   });
 
   var ExcIEEEDC1A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEDC1A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEDC1A);
     function ExcIEEEDC1A() {
       _classCallCheck(this, ExcIEEEDC1A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEDC1A, arguments);
     }
-    _createClass(ExcIEEEDC1A, null, [{
+    _inherits(ExcIEEEDC1A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEDC1A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEDC1A";
@@ -19074,7 +18670,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEDC1A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEDC1A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -19097,13 +18692,12 @@
   });
 
   var ExcIEEEDC2A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEDC2A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEDC2A);
     function ExcIEEEDC2A() {
       _classCallCheck(this, ExcIEEEDC2A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEDC2A, arguments);
     }
-    _createClass(ExcIEEEDC2A, null, [{
+    _inherits(ExcIEEEDC2A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEDC2A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEDC2A";
@@ -19238,7 +18832,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEDC2A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEDC2A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -19261,13 +18854,12 @@
   });
 
   var ExcIEEEDC3A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEDC3A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEDC3A);
     function ExcIEEEDC3A() {
       _classCallCheck(this, ExcIEEEDC3A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEDC3A, arguments);
     }
-    _createClass(ExcIEEEDC3A, null, [{
+    _inherits(ExcIEEEDC3A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEDC3A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEDC3A";
@@ -19377,7 +18969,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEDC3A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEDC3A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -19395,13 +18986,12 @@
   });
 
   var ExcIEEEDC4B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEDC4B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEDC4B);
     function ExcIEEEDC4B() {
       _classCallCheck(this, ExcIEEEDC4B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEDC4B, arguments);
     }
-    _createClass(ExcIEEEDC4B, null, [{
+    _inherits(ExcIEEEDC4B, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEDC4B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEDC4B";
@@ -19551,7 +19141,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEDC4B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEDC4B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -19577,13 +19166,12 @@
   });
 
   var ExcIEEEST1A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEST1A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEST1A);
     function ExcIEEEST1A() {
       _classCallCheck(this, ExcIEEEST1A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEST1A, arguments);
     }
-    _createClass(ExcIEEEST1A, null, [{
+    _inherits(ExcIEEEST1A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEST1A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEST1A";
@@ -19733,7 +19321,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEST1A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEST1A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -19774,13 +19361,12 @@
     "label": "inputAddedToErrorSignal"
   }];
   var ExcIEEEST1AUELselectorKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ExcIEEEST1AUELselectorKind, _BaseClass);
-    var _super = _createSuper(ExcIEEEST1AUELselectorKind);
     function ExcIEEEST1AUELselectorKind() {
       _classCallCheck(this, ExcIEEEST1AUELselectorKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEST1AUELselectorKind, arguments);
     }
-    _createClass(ExcIEEEST1AUELselectorKind, null, [{
+    _inherits(ExcIEEEST1AUELselectorKind, _BaseClass);
+    return _createClass(ExcIEEEST1AUELselectorKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEST1AUELselectorKind";
@@ -19847,20 +19433,18 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEST1AUELselectorKind;
   }(BaseClass);
   _defineProperty(ExcIEEEST1AUELselectorKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var ExcIEEEST2A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEST2A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEST2A);
     function ExcIEEEST2A() {
       _classCallCheck(this, ExcIEEEST2A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEST2A, arguments);
     }
-    _createClass(ExcIEEEST2A, null, [{
+    _inherits(ExcIEEEST2A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEST2A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEST2A";
@@ -19980,7 +19564,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEST2A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEST2A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -20000,13 +19583,12 @@
   });
 
   var ExcIEEEST3A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEST3A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEST3A);
     function ExcIEEEST3A() {
       _classCallCheck(this, ExcIEEEST3A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEST3A, arguments);
     }
-    _createClass(ExcIEEEST3A, null, [{
+    _inherits(ExcIEEEST3A, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEST3A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEST3A";
@@ -20161,7 +19743,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEST3A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEST3A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -20188,13 +19769,12 @@
   });
 
   var ExcIEEEST4B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEST4B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEST4B);
     function ExcIEEEST4B() {
       _classCallCheck(this, ExcIEEEST4B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEST4B, arguments);
     }
-    _createClass(ExcIEEEST4B, null, [{
+    _inherits(ExcIEEEST4B, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEST4B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEST4B";
@@ -20329,7 +19909,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEST4B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEST4B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -20352,13 +19931,12 @@
   });
 
   var ExcIEEEST5B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEST5B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEST5B);
     function ExcIEEEST5B() {
       _classCallCheck(this, ExcIEEEST5B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEST5B, arguments);
     }
-    _createClass(ExcIEEEST5B, null, [{
+    _inherits(ExcIEEEST5B, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEST5B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEST5B";
@@ -20498,7 +20076,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEST5B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEST5B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -20522,13 +20099,12 @@
   });
 
   var ExcIEEEST6B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEST6B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEST6B);
     function ExcIEEEST6B() {
       _classCallCheck(this, ExcIEEEST6B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEST6B, arguments);
     }
-    _createClass(ExcIEEEST6B, null, [{
+    _inherits(ExcIEEEST6B, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEST6B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEST6B";
@@ -20653,7 +20229,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEST6B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEST6B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -20674,13 +20249,12 @@
   });
 
   var ExcIEEEST7B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcIEEEST7B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcIEEEST7B);
     function ExcIEEEST7B() {
       _classCallCheck(this, ExcIEEEST7B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcIEEEST7B, arguments);
     }
-    _createClass(ExcIEEEST7B, null, [{
+    _inherits(ExcIEEEST7B, _ExcitationSystemDyna);
+    return _createClass(ExcIEEEST7B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcIEEEST7B";
@@ -20810,7 +20384,6 @@
         return subClasses;
       }
     }]);
-    return ExcIEEEST7B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcIEEEST7B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -20832,13 +20405,12 @@
   });
 
   var ExcOEX3T = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcOEX3T, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcOEX3T);
     function ExcOEX3T() {
       _classCallCheck(this, ExcOEX3T);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcOEX3T, arguments);
     }
-    _createClass(ExcOEX3T, null, [{
+    _inherits(ExcOEX3T, _ExcitationSystemDyna);
+    return _createClass(ExcOEX3T, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcOEX3T";
@@ -20988,7 +20560,6 @@
         return subClasses;
       }
     }]);
-    return ExcOEX3T;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcOEX3T, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -21014,13 +20585,12 @@
   });
 
   var ExcPIC = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcPIC, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcPIC);
     function ExcPIC() {
       _classCallCheck(this, ExcPIC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcPIC, arguments);
     }
-    _createClass(ExcPIC, null, [{
+    _inherits(ExcPIC, _ExcitationSystemDyna);
+    return _createClass(ExcPIC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcPIC";
@@ -21190,7 +20760,6 @@
         return subClasses;
       }
     }]);
-    return ExcPIC;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcPIC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -21220,13 +20789,12 @@
   });
 
   var ExcREXS = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcREXS, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcREXS);
     function ExcREXS() {
       _classCallCheck(this, ExcREXS);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcREXS, arguments);
     }
-    _createClass(ExcREXS, null, [{
+    _inherits(ExcREXS, _ExcitationSystemDyna);
+    return _createClass(ExcREXS, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcREXS";
@@ -21461,7 +21029,6 @@
         return subClasses;
       }
     }]);
-    return ExcREXS;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcREXS, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -21516,13 +21083,12 @@
     "label": "outputVoltage"
   }];
   var ExcREXSFeedbackSignalKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ExcREXSFeedbackSignalKind, _BaseClass);
-    var _super = _createSuper(ExcREXSFeedbackSignalKind);
     function ExcREXSFeedbackSignalKind() {
       _classCallCheck(this, ExcREXSFeedbackSignalKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcREXSFeedbackSignalKind, arguments);
     }
-    _createClass(ExcREXSFeedbackSignalKind, null, [{
+    _inherits(ExcREXSFeedbackSignalKind, _BaseClass);
+    return _createClass(ExcREXSFeedbackSignalKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcREXSFeedbackSignalKind";
@@ -21589,20 +21155,18 @@
         return subClasses;
       }
     }]);
-    return ExcREXSFeedbackSignalKind;
   }(BaseClass);
   _defineProperty(ExcREXSFeedbackSignalKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var ExcSCRX = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcSCRX, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcSCRX);
     function ExcSCRX() {
       _classCallCheck(this, ExcSCRX);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcSCRX, arguments);
     }
-    _createClass(ExcSCRX, null, [{
+    _inherits(ExcSCRX, _ExcitationSystemDyna);
+    return _createClass(ExcSCRX, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcSCRX";
@@ -21697,7 +21261,6 @@
         return subClasses;
       }
     }]);
-    return ExcSCRX;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcSCRX, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -21712,13 +21275,12 @@
   });
 
   var ExcSEXS = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcSEXS, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcSEXS);
     function ExcSEXS() {
       _classCallCheck(this, ExcSEXS);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcSEXS, arguments);
     }
-    _createClass(ExcSEXS, null, [{
+    _inherits(ExcSEXS, _ExcitationSystemDyna);
+    return _createClass(ExcSEXS, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcSEXS";
@@ -21823,7 +21385,6 @@
         return subClasses;
       }
     }]);
-    return ExcSEXS;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcSEXS, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -21840,13 +21401,12 @@
   });
 
   var ExcSK = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcSK, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcSK);
     function ExcSK() {
       _classCallCheck(this, ExcSK);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcSK, arguments);
     }
-    _createClass(ExcSK, null, [{
+    _inherits(ExcSK, _ExcitationSystemDyna);
+    return _createClass(ExcSK, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcSK";
@@ -22061,7 +21621,6 @@
         return subClasses;
       }
     }]);
-    return ExcSK;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcSK, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -22100,13 +21659,12 @@
   });
 
   var ExcST1A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcST1A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcST1A);
     function ExcST1A() {
       _classCallCheck(this, ExcST1A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcST1A, arguments);
     }
-    _createClass(ExcST1A, null, [{
+    _inherits(ExcST1A, _ExcitationSystemDyna);
+    return _createClass(ExcST1A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcST1A";
@@ -22251,7 +21809,6 @@
         return subClasses;
       }
     }]);
-    return ExcST1A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcST1A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -22276,13 +21833,12 @@
   });
 
   var ExcST2A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcST2A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcST2A);
     function ExcST2A() {
       _classCallCheck(this, ExcST2A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcST2A, arguments);
     }
-    _createClass(ExcST2A, null, [{
+    _inherits(ExcST2A, _ExcitationSystemDyna);
+    return _createClass(ExcST2A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcST2A";
@@ -22412,7 +21968,6 @@
         return subClasses;
       }
     }]);
-    return ExcST2A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcST2A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -22434,13 +21989,12 @@
   });
 
   var ExcST3A = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcST3A, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcST3A);
     function ExcST3A() {
       _classCallCheck(this, ExcST3A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcST3A, arguments);
     }
-    _createClass(ExcST3A, null, [{
+    _inherits(ExcST3A, _ExcitationSystemDyna);
+    return _createClass(ExcST3A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcST3A";
@@ -22595,7 +22149,6 @@
         return subClasses;
       }
     }]);
-    return ExcST3A;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcST3A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -22622,13 +22175,12 @@
   });
 
   var ExcST4B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcST4B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcST4B);
     function ExcST4B() {
       _classCallCheck(this, ExcST4B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcST4B, arguments);
     }
-    _createClass(ExcST4B, null, [{
+    _inherits(ExcST4B, _ExcitationSystemDyna);
+    return _createClass(ExcST4B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcST4B";
@@ -22778,7 +22330,6 @@
         return subClasses;
       }
     }]);
-    return ExcST4B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcST4B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -22804,13 +22355,12 @@
   });
 
   var ExcST6B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcST6B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcST6B);
     function ExcST6B() {
       _classCallCheck(this, ExcST6B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcST6B, arguments);
     }
-    _createClass(ExcST6B, null, [{
+    _inherits(ExcST6B, _ExcitationSystemDyna);
+    return _createClass(ExcST6B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcST6B";
@@ -22980,7 +22530,6 @@
         return subClasses;
       }
     }]);
-    return ExcST6B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcST6B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -23022,13 +22571,12 @@
     "label": "afterUEL"
   }];
   var ExcST6BOELselectorKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ExcST6BOELselectorKind, _BaseClass);
-    var _super = _createSuper(ExcST6BOELselectorKind);
     function ExcST6BOELselectorKind() {
       _classCallCheck(this, ExcST6BOELselectorKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcST6BOELselectorKind, arguments);
     }
-    _createClass(ExcST6BOELselectorKind, null, [{
+    _inherits(ExcST6BOELselectorKind, _BaseClass);
+    return _createClass(ExcST6BOELselectorKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcST6BOELselectorKind";
@@ -23095,20 +22643,18 @@
         return subClasses;
       }
     }]);
-    return ExcST6BOELselectorKind;
   }(BaseClass);
   _defineProperty(ExcST6BOELselectorKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var ExcST7B = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcST7B, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcST7B);
     function ExcST7B() {
       _classCallCheck(this, ExcST7B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcST7B, arguments);
     }
-    _createClass(ExcST7B, null, [{
+    _inherits(ExcST7B, _ExcitationSystemDyna);
+    return _createClass(ExcST7B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcST7B";
@@ -23243,7 +22789,6 @@
         return subClasses;
       }
     }]);
-    return ExcST7B;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcST7B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -23281,13 +22826,12 @@
     "label": "outputLVgate"
   }];
   var ExcST7BOELselectorKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ExcST7BOELselectorKind, _BaseClass);
-    var _super = _createSuper(ExcST7BOELselectorKind);
     function ExcST7BOELselectorKind() {
       _classCallCheck(this, ExcST7BOELselectorKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcST7BOELselectorKind, arguments);
     }
-    _createClass(ExcST7BOELselectorKind, null, [{
+    _inherits(ExcST7BOELselectorKind, _BaseClass);
+    return _createClass(ExcST7BOELselectorKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcST7BOELselectorKind";
@@ -23354,7 +22898,6 @@
         return subClasses;
       }
     }]);
-    return ExcST7BOELselectorKind;
   }(BaseClass);
   _defineProperty(ExcST7BOELselectorKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
@@ -23376,13 +22919,12 @@
     "label": "outputHVgate"
   }];
   var ExcST7BUELselectorKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ExcST7BUELselectorKind, _BaseClass);
-    var _super = _createSuper(ExcST7BUELselectorKind);
     function ExcST7BUELselectorKind() {
       _classCallCheck(this, ExcST7BUELselectorKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcST7BUELselectorKind, arguments);
     }
-    _createClass(ExcST7BUELselectorKind, null, [{
+    _inherits(ExcST7BUELselectorKind, _BaseClass);
+    return _createClass(ExcST7BUELselectorKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcST7BUELselectorKind";
@@ -23449,20 +22991,18 @@
         return subClasses;
       }
     }]);
-    return ExcST7BUELselectorKind;
   }(BaseClass);
   _defineProperty(ExcST7BUELselectorKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var ExcitationSystemUserDefined = /*#__PURE__*/function (_ExcitationSystemDyna) {
-    _inherits(ExcitationSystemUserDefined, _ExcitationSystemDyna);
-    var _super = _createSuper(ExcitationSystemUserDefined);
     function ExcitationSystemUserDefined() {
       _classCallCheck(this, ExcitationSystemUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExcitationSystemUserDefined, arguments);
     }
-    _createClass(ExcitationSystemUserDefined, null, [{
+    _inherits(ExcitationSystemUserDefined, _ExcitationSystemDyna);
+    return _createClass(ExcitationSystemUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExcitationSystemUserDefined";
@@ -23522,7 +23062,6 @@
         return subClasses;
       }
     }]);
-    return ExcitationSystemUserDefined;
   }(ExcitationSystemDynamics);
   _defineProperty(ExcitationSystemUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -23530,13 +23069,12 @@
   });
 
   var ExternalNetworkInjection = /*#__PURE__*/function (_RegulatingCondEq) {
-    _inherits(ExternalNetworkInjection, _RegulatingCondEq);
-    var _super = _createSuper(ExternalNetworkInjection);
     function ExternalNetworkInjection() {
       _classCallCheck(this, ExternalNetworkInjection);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ExternalNetworkInjection, arguments);
     }
-    _createClass(ExternalNetworkInjection, null, [{
+    _inherits(ExternalNetworkInjection, _RegulatingCondEq);
+    return _createClass(ExternalNetworkInjection, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ExternalNetworkInjection";
@@ -23681,7 +23219,6 @@
         return subClasses;
       }
     }]);
-    return ExternalNetworkInjection;
   }(RegulatingCondEq);
   _defineProperty(ExternalNetworkInjection, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -23706,13 +23243,12 @@
   });
 
   var Float = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Float, _BaseClass);
-    var _super = _createSuper(Float);
     function Float() {
       _classCallCheck(this, Float);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Float, arguments);
     }
-    _createClass(Float, null, [{
+    _inherits(Float, _BaseClass);
+    return _createClass(Float, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Float";
@@ -23767,20 +23303,18 @@
         return subClasses;
       }
     }]);
-    return Float;
   }(BaseClass);
   _defineProperty(Float, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.EQ_BD]
   });
 
   var FossilFuel = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(FossilFuel, _IdentifiedObject);
-    var _super = _createSuper(FossilFuel);
     function FossilFuel() {
       _classCallCheck(this, FossilFuel);
-      return _super.apply(this, arguments);
+      return _callSuper(this, FossilFuel, arguments);
     }
-    _createClass(FossilFuel, null, [{
+    _inherits(FossilFuel, _IdentifiedObject);
+    return _createClass(FossilFuel, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "FossilFuel";
@@ -23845,7 +23379,6 @@
         return subClasses;
       }
     }]);
-    return FossilFuel;
   }(IdentifiedObject);
   _defineProperty(FossilFuel, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -23866,13 +23399,12 @@
     "label": "electromechanicalElectrohydraulic"
   }];
   var FrancisGovernorControlKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(FrancisGovernorControlKind, _BaseClass);
-    var _super = _createSuper(FrancisGovernorControlKind);
     function FrancisGovernorControlKind() {
       _classCallCheck(this, FrancisGovernorControlKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, FrancisGovernorControlKind, arguments);
     }
-    _createClass(FrancisGovernorControlKind, null, [{
+    _inherits(FrancisGovernorControlKind, _BaseClass);
+    return _createClass(FrancisGovernorControlKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "FrancisGovernorControlKind";
@@ -23939,20 +23471,18 @@
         return subClasses;
       }
     }]);
-    return FrancisGovernorControlKind;
   }(BaseClass);
   _defineProperty(FrancisGovernorControlKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var Frequency = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Frequency, _BaseClass);
-    var _super = _createSuper(Frequency);
     function Frequency() {
       _classCallCheck(this, Frequency);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Frequency, arguments);
     }
-    _createClass(Frequency, null, [{
+    _inherits(Frequency, _BaseClass);
+    return _createClass(Frequency, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Frequency";
@@ -24021,7 +23551,6 @@
         return subClasses;
       }
     }]);
-    return Frequency;
   }(BaseClass);
   _defineProperty(Frequency, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY],
@@ -24052,13 +23581,12 @@
     "label": "oilShale"
   }];
   var FuelType = /*#__PURE__*/function (_BaseClass) {
-    _inherits(FuelType, _BaseClass);
-    var _super = _createSuper(FuelType);
     function FuelType() {
       _classCallCheck(this, FuelType);
-      return _super.apply(this, arguments);
+      return _callSuper(this, FuelType, arguments);
     }
-    _createClass(FuelType, null, [{
+    _inherits(FuelType, _BaseClass);
+    return _createClass(FuelType, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "FuelType";
@@ -24125,20 +23653,18 @@
         return subClasses;
       }
     }]);
-    return FuelType;
   }(BaseClass);
   _defineProperty(FuelType, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var GenICompensationForGenJ = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(GenICompensationForGenJ, _IdentifiedObject);
-    var _super = _createSuper(GenICompensationForGenJ);
     function GenICompensationForGenJ() {
       _classCallCheck(this, GenICompensationForGenJ);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GenICompensationForGenJ, arguments);
     }
-    _createClass(GenICompensationForGenJ, null, [{
+    _inherits(GenICompensationForGenJ, _IdentifiedObject);
+    return _createClass(GenICompensationForGenJ, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GenICompensationForGenJ";
@@ -24213,7 +23739,6 @@
         return subClasses;
       }
     }]);
-    return GenICompensationForGenJ;
   }(IdentifiedObject);
   _defineProperty(GenICompensationForGenJ, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -24224,13 +23749,12 @@
   });
 
   var GeneratingUnit = /*#__PURE__*/function (_Equipment) {
-    _inherits(GeneratingUnit, _Equipment);
-    var _super = _createSuper(GeneratingUnit);
     function GeneratingUnit() {
       _classCallCheck(this, GeneratingUnit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GeneratingUnit, arguments);
     }
-    _createClass(GeneratingUnit, null, [{
+    _inherits(GeneratingUnit, _Equipment);
+    return _createClass(GeneratingUnit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GeneratingUnit";
@@ -24370,7 +23894,6 @@
         return subClasses;
       }
     }]);
-    return GeneratingUnit;
   }(Equipment);
   _defineProperty(GeneratingUnit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -24409,13 +23932,12 @@
     "label": "plantControl"
   }];
   var GeneratorControlSource = /*#__PURE__*/function (_BaseClass) {
-    _inherits(GeneratorControlSource, _BaseClass);
-    var _super = _createSuper(GeneratorControlSource);
     function GeneratorControlSource() {
       _classCallCheck(this, GeneratorControlSource);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GeneratorControlSource, arguments);
     }
-    _createClass(GeneratorControlSource, null, [{
+    _inherits(GeneratorControlSource, _BaseClass);
+    return _createClass(GeneratorControlSource, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GeneratorControlSource";
@@ -24482,7 +24004,6 @@
         return subClasses;
       }
     }]);
-    return GeneratorControlSource;
   }(BaseClass);
   _defineProperty(GeneratorControlSource, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
@@ -24498,13 +24019,12 @@
     "label": "loadAdaptive"
   }];
   var GenericNonLinearLoadModelKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(GenericNonLinearLoadModelKind, _BaseClass);
-    var _super = _createSuper(GenericNonLinearLoadModelKind);
     function GenericNonLinearLoadModelKind() {
       _classCallCheck(this, GenericNonLinearLoadModelKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GenericNonLinearLoadModelKind, arguments);
     }
-    _createClass(GenericNonLinearLoadModelKind, null, [{
+    _inherits(GenericNonLinearLoadModelKind, _BaseClass);
+    return _createClass(GenericNonLinearLoadModelKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GenericNonLinearLoadModelKind";
@@ -24571,20 +24091,18 @@
         return subClasses;
       }
     }]);
-    return GenericNonLinearLoadModelKind;
   }(BaseClass);
   _defineProperty(GenericNonLinearLoadModelKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var GeographicalLocationVersion = /*#__PURE__*/function (_BaseClass) {
-    _inherits(GeographicalLocationVersion, _BaseClass);
-    var _super = _createSuper(GeographicalLocationVersion);
     function GeographicalLocationVersion() {
       _classCallCheck(this, GeographicalLocationVersion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GeographicalLocationVersion, arguments);
     }
-    _createClass(GeographicalLocationVersion, null, [{
+    _inherits(GeographicalLocationVersion, _BaseClass);
+    return _createClass(GeographicalLocationVersion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GeographicalLocationVersion";
@@ -24689,7 +24207,6 @@
         return subClasses;
       }
     }]);
-    return GeographicalLocationVersion;
   }(BaseClass);
   _defineProperty(GeographicalLocationVersion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.GL],
@@ -24706,13 +24223,12 @@
   });
 
   var GeographicalRegion = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(GeographicalRegion, _IdentifiedObject);
-    var _super = _createSuper(GeographicalRegion);
     function GeographicalRegion() {
       _classCallCheck(this, GeographicalRegion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GeographicalRegion, arguments);
     }
-    _createClass(GeographicalRegion, null, [{
+    _inherits(GeographicalRegion, _IdentifiedObject);
+    return _createClass(GeographicalRegion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GeographicalRegion";
@@ -24767,20 +24283,18 @@
         return subClasses;
       }
     }]);
-    return GeographicalRegion;
   }(IdentifiedObject);
   _defineProperty(GeographicalRegion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD]
   });
 
   var TurbineGovernorDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(TurbineGovernorDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(TurbineGovernorDynamics);
     function TurbineGovernorDynamics() {
       _classCallCheck(this, TurbineGovernorDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TurbineGovernorDynamics, arguments);
     }
-    _createClass(TurbineGovernorDynamics, null, [{
+    _inherits(TurbineGovernorDynamics, _DynamicsFunctionBloc);
+    return _createClass(TurbineGovernorDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TurbineGovernorDynamics";
@@ -24845,7 +24359,6 @@
         return subClasses;
       }
     }]);
-    return TurbineGovernorDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(TurbineGovernorDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -24854,13 +24367,12 @@
   });
 
   var GovCT1 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovCT1, _TurbineGovernorDynam);
-    var _super = _createSuper(GovCT1);
     function GovCT1() {
       _classCallCheck(this, GovCT1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovCT1, arguments);
     }
-    _createClass(GovCT1, null, [{
+    _inherits(GovCT1, _TurbineGovernorDynam);
+    return _createClass(GovCT1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovCT1";
@@ -25090,7 +24602,6 @@
         return subClasses;
       }
     }]);
-    return GovCT1;
   }(TurbineGovernorDynamics);
   _defineProperty(GovCT1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -25132,13 +24643,12 @@
   });
 
   var GovCT2 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovCT2, _TurbineGovernorDynam);
-    var _super = _createSuper(GovCT2);
     function GovCT2() {
       _classCallCheck(this, GovCT2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovCT2, arguments);
     }
-    _createClass(GovCT2, null, [{
+    _inherits(GovCT2, _TurbineGovernorDynam);
+    return _createClass(GovCT2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovCT2";
@@ -25473,7 +24983,6 @@
         return subClasses;
       }
     }]);
-    return GovCT2;
   }(TurbineGovernorDynamics);
   _defineProperty(GovCT2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -25536,13 +25045,12 @@
   });
 
   var GovGAST = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovGAST, _TurbineGovernorDynam);
-    var _super = _createSuper(GovGAST);
     function GovGAST() {
       _classCallCheck(this, GovGAST);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovGAST, arguments);
     }
-    _createClass(GovGAST, null, [{
+    _inherits(GovGAST, _TurbineGovernorDynam);
+    return _createClass(GovGAST, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovGAST";
@@ -25647,7 +25155,6 @@
         return subClasses;
       }
     }]);
-    return GovGAST;
   }(TurbineGovernorDynamics);
   _defineProperty(GovGAST, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -25664,13 +25171,12 @@
   });
 
   var GovGAST1 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovGAST1, _TurbineGovernorDynam);
-    var _super = _createSuper(GovGAST1);
     function GovGAST1() {
       _classCallCheck(this, GovGAST1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovGAST1, arguments);
     }
-    _createClass(GovGAST1, null, [{
+    _inherits(GovGAST1, _TurbineGovernorDynam);
+    return _createClass(GovGAST1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovGAST1";
@@ -25895,7 +25401,6 @@
         return subClasses;
       }
     }]);
-    return GovGAST1;
   }(TurbineGovernorDynamics);
   _defineProperty(GovGAST1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -25936,13 +25441,12 @@
   });
 
   var GovGAST2 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovGAST2, _TurbineGovernorDynam);
-    var _super = _createSuper(GovGAST2);
     function GovGAST2() {
       _classCallCheck(this, GovGAST2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovGAST2, arguments);
     }
-    _createClass(GovGAST2, null, [{
+    _inherits(GovGAST2, _TurbineGovernorDynam);
+    return _createClass(GovGAST2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovGAST2";
@@ -26157,7 +25661,6 @@
         return subClasses;
       }
     }]);
-    return GovGAST2;
   }(TurbineGovernorDynamics);
   _defineProperty(GovGAST2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -26196,13 +25699,12 @@
   });
 
   var GovGAST3 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovGAST3, _TurbineGovernorDynam);
-    var _super = _createSuper(GovGAST3);
     function GovGAST3() {
       _classCallCheck(this, GovGAST3);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovGAST3, arguments);
     }
-    _createClass(GovGAST3, null, [{
+    _inherits(GovGAST3, _TurbineGovernorDynam);
+    return _createClass(GovGAST3, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovGAST3";
@@ -26362,7 +25864,6 @@
         return subClasses;
       }
     }]);
-    return GovGAST3;
   }(TurbineGovernorDynamics);
   _defineProperty(GovGAST3, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -26390,13 +25891,12 @@
   });
 
   var GovGAST4 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovGAST4, _TurbineGovernorDynam);
-    var _super = _createSuper(GovGAST4);
     function GovGAST4() {
       _classCallCheck(this, GovGAST4);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovGAST4, arguments);
     }
-    _createClass(GovGAST4, null, [{
+    _inherits(GovGAST4, _TurbineGovernorDynam);
+    return _createClass(GovGAST4, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovGAST4";
@@ -26506,7 +26006,6 @@
         return subClasses;
       }
     }]);
-    return GovGAST4;
   }(TurbineGovernorDynamics);
   _defineProperty(GovGAST4, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -26524,13 +26023,12 @@
   });
 
   var GovGASTWD = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovGASTWD, _TurbineGovernorDynam);
-    var _super = _createSuper(GovGASTWD);
     function GovGASTWD() {
       _classCallCheck(this, GovGASTWD);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovGASTWD, arguments);
     }
-    _createClass(GovGASTWD, null, [{
+    _inherits(GovGASTWD, _TurbineGovernorDynam);
+    return _createClass(GovGASTWD, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovGASTWD";
@@ -26750,7 +26248,6 @@
         return subClasses;
       }
     }]);
-    return GovGASTWD;
   }(TurbineGovernorDynamics);
   _defineProperty(GovGASTWD, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -26790,13 +26287,12 @@
   });
 
   var GovHydro1 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydro1, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydro1);
     function GovHydro1() {
       _classCallCheck(this, GovHydro1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydro1, arguments);
     }
-    _createClass(GovHydro1, null, [{
+    _inherits(GovHydro1, _TurbineGovernorDynam);
+    return _createClass(GovHydro1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydro1";
@@ -26921,7 +26417,6 @@
         return subClasses;
       }
     }]);
-    return GovHydro1;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydro1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -26942,13 +26437,12 @@
   });
 
   var GovHydro2 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydro2, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydro2);
     function GovHydro2() {
       _classCallCheck(this, GovHydro2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydro2, arguments);
     }
-    _createClass(GovHydro2, null, [{
+    _inherits(GovHydro2, _TurbineGovernorDynam);
+    return _createClass(GovHydro2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydro2";
@@ -27148,7 +26642,6 @@
         return subClasses;
       }
     }]);
-    return GovHydro2;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydro2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -27184,13 +26677,12 @@
   });
 
   var GovHydro3 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydro3, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydro3);
     function GovHydro3() {
       _classCallCheck(this, GovHydro3);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydro3, arguments);
     }
-    _createClass(GovHydro3, null, [{
+    _inherits(GovHydro3, _TurbineGovernorDynam);
+    return _createClass(GovHydro3, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydro3";
@@ -27425,7 +26917,6 @@
         return subClasses;
       }
     }]);
-    return GovHydro3;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydro3, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -27468,13 +26959,12 @@
   });
 
   var GovHydro4 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydro4, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydro4);
     function GovHydro4() {
       _classCallCheck(this, GovHydro4);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydro4, arguments);
     }
-    _createClass(GovHydro4, null, [{
+    _inherits(GovHydro4, _TurbineGovernorDynam);
+    return _createClass(GovHydro4, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydro4";
@@ -27719,7 +27209,6 @@
         return subClasses;
       }
     }]);
-    return GovHydro4;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydro4, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -27764,13 +27253,12 @@
   });
 
   var GovHydroDD = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydroDD, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydroDD);
     function GovHydroDD() {
       _classCallCheck(this, GovHydroDD);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydroDD, arguments);
     }
-    _createClass(GovHydroDD, null, [{
+    _inherits(GovHydroDD, _TurbineGovernorDynam);
+    return _createClass(GovHydroDD, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydroDD";
@@ -28000,7 +27488,6 @@
         return subClasses;
       }
     }]);
-    return GovHydroDD;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydroDD, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -28042,13 +27529,12 @@
   });
 
   var GovHydroFrancis = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydroFrancis, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydroFrancis);
     function GovHydroFrancis() {
       _classCallCheck(this, GovHydroFrancis);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydroFrancis, arguments);
     }
-    _createClass(GovHydroFrancis, null, [{
+    _inherits(GovHydroFrancis, _TurbineGovernorDynam);
+    return _createClass(GovHydroFrancis, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydroFrancis";
@@ -28238,7 +27724,6 @@
         return subClasses;
       }
     }]);
-    return GovHydroFrancis;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydroFrancis, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -28272,13 +27757,12 @@
   });
 
   var GovHydroIEEE0 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydroIEEE0, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydroIEEE0);
     function GovHydroIEEE0() {
       _classCallCheck(this, GovHydroIEEE0);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydroIEEE0, arguments);
     }
-    _createClass(GovHydroIEEE0, null, [{
+    _inherits(GovHydroIEEE0, _TurbineGovernorDynam);
+    return _createClass(GovHydroIEEE0, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydroIEEE0";
@@ -28373,7 +27857,6 @@
         return subClasses;
       }
     }]);
-    return GovHydroIEEE0;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydroIEEE0, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -28388,13 +27871,12 @@
   });
 
   var GovHydroIEEE2 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydroIEEE2, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydroIEEE2);
     function GovHydroIEEE2() {
       _classCallCheck(this, GovHydroIEEE2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydroIEEE2, arguments);
     }
-    _createClass(GovHydroIEEE2, null, [{
+    _inherits(GovHydroIEEE2, _TurbineGovernorDynam);
+    return _createClass(GovHydroIEEE2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydroIEEE2";
@@ -28579,7 +28061,6 @@
         return subClasses;
       }
     }]);
-    return GovHydroIEEE2;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydroIEEE2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -28612,13 +28093,12 @@
   });
 
   var GovHydroPID = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydroPID, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydroPID);
     function GovHydroPID() {
       _classCallCheck(this, GovHydroPID);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydroPID, arguments);
     }
-    _createClass(GovHydroPID, null, [{
+    _inherits(GovHydroPID, _TurbineGovernorDynam);
+    return _createClass(GovHydroPID, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydroPID";
@@ -28838,7 +28318,6 @@
         return subClasses;
       }
     }]);
-    return GovHydroPID;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydroPID, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -28878,13 +28357,12 @@
   });
 
   var GovHydroPID2 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydroPID2, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydroPID2);
     function GovHydroPID2() {
       _classCallCheck(this, GovHydroPID2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydroPID2, arguments);
     }
-    _createClass(GovHydroPID2, null, [{
+    _inherits(GovHydroPID2, _TurbineGovernorDynam);
+    return _createClass(GovHydroPID2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydroPID2";
@@ -29049,7 +28527,6 @@
         return subClasses;
       }
     }]);
-    return GovHydroPID2;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydroPID2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -29078,13 +28555,12 @@
   });
 
   var GovHydroPelton = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydroPelton, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydroPelton);
     function GovHydroPelton() {
       _classCallCheck(this, GovHydroPelton);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydroPelton, arguments);
     }
-    _createClass(GovHydroPelton, null, [{
+    _inherits(GovHydroPelton, _TurbineGovernorDynam);
+    return _createClass(GovHydroPelton, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydroPelton";
@@ -29279,7 +28755,6 @@
         return subClasses;
       }
     }]);
-    return GovHydroPelton;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydroPelton, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -29314,13 +28789,12 @@
   });
 
   var GovHydroR = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydroR, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydroR);
     function GovHydroR() {
       _classCallCheck(this, GovHydroR);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydroR, arguments);
     }
-    _createClass(GovHydroR, null, [{
+    _inherits(GovHydroR, _TurbineGovernorDynam);
+    return _createClass(GovHydroR, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydroR";
@@ -29585,7 +29059,6 @@
         return subClasses;
       }
     }]);
-    return GovHydroR;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydroR, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -29634,13 +29107,12 @@
   });
 
   var GovHydroWEH = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydroWEH, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydroWEH);
     function GovHydroWEH() {
       _classCallCheck(this, GovHydroWEH);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydroWEH, arguments);
     }
-    _createClass(GovHydroWEH, null, [{
+    _inherits(GovHydroWEH, _TurbineGovernorDynam);
+    return _createClass(GovHydroWEH, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydroWEH";
@@ -29950,7 +29422,6 @@
         return subClasses;
       }
     }]);
-    return GovHydroWEH;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydroWEH, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -30008,13 +29479,12 @@
   });
 
   var GovHydroWPID = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovHydroWPID, _TurbineGovernorDynam);
-    var _super = _createSuper(GovHydroWPID);
     function GovHydroWPID() {
       _classCallCheck(this, GovHydroWPID);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovHydroWPID, arguments);
     }
-    _createClass(GovHydroWPID, null, [{
+    _inherits(GovHydroWPID, _TurbineGovernorDynam);
+    return _createClass(GovHydroWPID, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovHydroWPID";
@@ -30179,7 +29649,6 @@
         return subClasses;
       }
     }]);
-    return GovHydroWPID;
   }(TurbineGovernorDynamics);
   _defineProperty(GovHydroWPID, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -30208,13 +29677,12 @@
   });
 
   var GovSteam0 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovSteam0, _TurbineGovernorDynam);
-    var _super = _createSuper(GovSteam0);
     function GovSteam0() {
       _classCallCheck(this, GovSteam0);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovSteam0, arguments);
     }
-    _createClass(GovSteam0, null, [{
+    _inherits(GovSteam0, _TurbineGovernorDynam);
+    return _createClass(GovSteam0, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovSteam0";
@@ -30309,7 +29777,6 @@
         return subClasses;
       }
     }]);
-    return GovSteam0;
   }(TurbineGovernorDynamics);
   _defineProperty(GovSteam0, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -30324,13 +29791,12 @@
   });
 
   var GovSteam1 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovSteam1, _TurbineGovernorDynam);
-    var _super = _createSuper(GovSteam1);
     function GovSteam1() {
       _classCallCheck(this, GovSteam1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovSteam1, arguments);
     }
-    _createClass(GovSteam1, null, [{
+    _inherits(GovSteam1, _TurbineGovernorDynam);
+    return _createClass(GovSteam1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovSteam1";
@@ -30580,7 +30046,6 @@
         return subClasses;
       }
     }]);
-    return GovSteam1;
   }(TurbineGovernorDynamics);
   _defineProperty(GovSteam1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -30626,13 +30091,12 @@
   });
 
   var GovSteam2 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovSteam2, _TurbineGovernorDynam);
-    var _super = _createSuper(GovSteam2);
     function GovSteam2() {
       _classCallCheck(this, GovSteam2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovSteam2, arguments);
     }
-    _createClass(GovSteam2, null, [{
+    _inherits(GovSteam2, _TurbineGovernorDynam);
+    return _createClass(GovSteam2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovSteam2";
@@ -30727,7 +30191,6 @@
         return subClasses;
       }
     }]);
-    return GovSteam2;
   }(TurbineGovernorDynamics);
   _defineProperty(GovSteam2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -30742,13 +30205,12 @@
   });
 
   var GovSteamCC = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovSteamCC, _TurbineGovernorDynam);
-    var _super = _createSuper(GovSteamCC);
     function GovSteamCC() {
       _classCallCheck(this, GovSteamCC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovSteamCC, arguments);
     }
-    _createClass(GovSteamCC, null, [{
+    _inherits(GovSteamCC, _TurbineGovernorDynam);
+    return _createClass(GovSteamCC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovSteamCC";
@@ -30888,7 +30350,6 @@
         return subClasses;
       }
     }]);
-    return GovSteamCC;
   }(TurbineGovernorDynamics);
   _defineProperty(GovSteamCC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -30912,13 +30373,12 @@
   });
 
   var GovSteamEU = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovSteamEU, _TurbineGovernorDynam);
-    var _super = _createSuper(GovSteamEU);
     function GovSteamEU() {
       _classCallCheck(this, GovSteamEU);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovSteamEU, arguments);
     }
-    _createClass(GovSteamEU, null, [{
+    _inherits(GovSteamEU, _TurbineGovernorDynam);
+    return _createClass(GovSteamEU, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovSteamEU";
@@ -31148,7 +30608,6 @@
         return subClasses;
       }
     }]);
-    return GovSteamEU;
   }(TurbineGovernorDynamics);
   _defineProperty(GovSteamEU, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -31190,13 +30649,12 @@
   });
 
   var GovSteamFV2 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovSteamFV2, _TurbineGovernorDynam);
-    var _super = _createSuper(GovSteamFV2);
     function GovSteamFV2() {
       _classCallCheck(this, GovSteamFV2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovSteamFV2, arguments);
     }
-    _createClass(GovSteamFV2, null, [{
+    _inherits(GovSteamFV2, _TurbineGovernorDynam);
+    return _createClass(GovSteamFV2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovSteamFV2";
@@ -31316,7 +30774,6 @@
         return subClasses;
       }
     }]);
-    return GovSteamFV2;
   }(TurbineGovernorDynamics);
   _defineProperty(GovSteamFV2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -31336,13 +30793,12 @@
   });
 
   var GovSteamFV3 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovSteamFV3, _TurbineGovernorDynam);
-    var _super = _createSuper(GovSteamFV3);
     function GovSteamFV3() {
       _classCallCheck(this, GovSteamFV3);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovSteamFV3, arguments);
     }
-    _createClass(GovSteamFV3, null, [{
+    _inherits(GovSteamFV3, _TurbineGovernorDynam);
+    return _createClass(GovSteamFV3, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovSteamFV3";
@@ -31492,7 +30948,6 @@
         return subClasses;
       }
     }]);
-    return GovSteamFV3;
   }(TurbineGovernorDynamics);
   _defineProperty(GovSteamFV3, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -31518,13 +30973,12 @@
   });
 
   var GovSteamFV4 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovSteamFV4, _TurbineGovernorDynam);
-    var _super = _createSuper(GovSteamFV4);
     function GovSteamFV4() {
       _classCallCheck(this, GovSteamFV4);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovSteamFV4, arguments);
     }
-    _createClass(GovSteamFV4, null, [{
+    _inherits(GovSteamFV4, _TurbineGovernorDynam);
+    return _createClass(GovSteamFV4, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovSteamFV4";
@@ -31834,7 +31288,6 @@
         return subClasses;
       }
     }]);
-    return GovSteamFV4;
   }(TurbineGovernorDynamics);
   _defineProperty(GovSteamFV4, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -31892,13 +31345,12 @@
   });
 
   var GovSteamIEEE1 = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovSteamIEEE1, _TurbineGovernorDynam);
-    var _super = _createSuper(GovSteamIEEE1);
     function GovSteamIEEE1() {
       _classCallCheck(this, GovSteamIEEE1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovSteamIEEE1, arguments);
     }
-    _createClass(GovSteamIEEE1, null, [{
+    _inherits(GovSteamIEEE1, _TurbineGovernorDynam);
+    return _createClass(GovSteamIEEE1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovSteamIEEE1";
@@ -32058,7 +31510,6 @@
         return subClasses;
       }
     }]);
-    return GovSteamIEEE1;
   }(TurbineGovernorDynamics);
   _defineProperty(GovSteamIEEE1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -32086,13 +31537,12 @@
   });
 
   var GovSteamSGO = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(GovSteamSGO, _TurbineGovernorDynam);
-    var _super = _createSuper(GovSteamSGO);
     function GovSteamSGO() {
       _classCallCheck(this, GovSteamSGO);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GovSteamSGO, arguments);
     }
-    _createClass(GovSteamSGO, null, [{
+    _inherits(GovSteamSGO, _TurbineGovernorDynam);
+    return _createClass(GovSteamSGO, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GovSteamSGO";
@@ -32207,7 +31657,6 @@
         return subClasses;
       }
     }]);
-    return GovSteamSGO;
   }(TurbineGovernorDynamics);
   _defineProperty(GovSteamSGO, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -32226,13 +31675,12 @@
   });
 
   var GrossToNetActivePowerCurve = /*#__PURE__*/function (_Curve) {
-    _inherits(GrossToNetActivePowerCurve, _Curve);
-    var _super = _createSuper(GrossToNetActivePowerCurve);
     function GrossToNetActivePowerCurve() {
       _classCallCheck(this, GrossToNetActivePowerCurve);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GrossToNetActivePowerCurve, arguments);
     }
-    _createClass(GrossToNetActivePowerCurve, null, [{
+    _inherits(GrossToNetActivePowerCurve, _Curve);
+    return _createClass(GrossToNetActivePowerCurve, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GrossToNetActivePowerCurve";
@@ -32292,7 +31740,6 @@
         return subClasses;
       }
     }]);
-    return GrossToNetActivePowerCurve;
   }(Curve);
   _defineProperty(GrossToNetActivePowerCurve, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -32300,13 +31747,12 @@
   });
 
   var Ground = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(Ground, _ConductingEquipment);
-    var _super = _createSuper(Ground);
     function Ground() {
       _classCallCheck(this, Ground);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Ground, arguments);
     }
-    _createClass(Ground, null, [{
+    _inherits(Ground, _ConductingEquipment);
+    return _createClass(Ground, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Ground";
@@ -32361,20 +31807,18 @@
         return subClasses;
       }
     }]);
-    return Ground;
   }(ConductingEquipment);
   _defineProperty(Ground, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var GroundDisconnector = /*#__PURE__*/function (_Switch) {
-    _inherits(GroundDisconnector, _Switch);
-    var _super = _createSuper(GroundDisconnector);
     function GroundDisconnector() {
       _classCallCheck(this, GroundDisconnector);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GroundDisconnector, arguments);
     }
-    _createClass(GroundDisconnector, null, [{
+    _inherits(GroundDisconnector, _Switch);
+    return _createClass(GroundDisconnector, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GroundDisconnector";
@@ -32429,20 +31873,18 @@
         return subClasses;
       }
     }]);
-    return GroundDisconnector;
   }(Switch);
   _defineProperty(GroundDisconnector, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
   });
 
   var GroundingImpedance = /*#__PURE__*/function (_EarthFaultCompensato) {
-    _inherits(GroundingImpedance, _EarthFaultCompensato);
-    var _super = _createSuper(GroundingImpedance);
     function GroundingImpedance() {
       _classCallCheck(this, GroundingImpedance);
-      return _super.apply(this, arguments);
+      return _callSuper(this, GroundingImpedance, arguments);
     }
-    _createClass(GroundingImpedance, null, [{
+    _inherits(GroundingImpedance, _EarthFaultCompensato);
+    return _createClass(GroundingImpedance, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "GroundingImpedance";
@@ -32502,7 +31944,6 @@
         return subClasses;
       }
     }]);
-    return GroundingImpedance;
   }(EarthFaultCompensator);
   _defineProperty(GroundingImpedance, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -32519,13 +31960,12 @@
     "label": "pumpAndGenerator"
   }];
   var HydroEnergyConversionKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(HydroEnergyConversionKind, _BaseClass);
-    var _super = _createSuper(HydroEnergyConversionKind);
     function HydroEnergyConversionKind() {
       _classCallCheck(this, HydroEnergyConversionKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, HydroEnergyConversionKind, arguments);
     }
-    _createClass(HydroEnergyConversionKind, null, [{
+    _inherits(HydroEnergyConversionKind, _BaseClass);
+    return _createClass(HydroEnergyConversionKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "HydroEnergyConversionKind";
@@ -32592,20 +32032,18 @@
         return subClasses;
       }
     }]);
-    return HydroEnergyConversionKind;
   }(BaseClass);
   _defineProperty(HydroEnergyConversionKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var HydroGeneratingUnit = /*#__PURE__*/function (_GeneratingUnit) {
-    _inherits(HydroGeneratingUnit, _GeneratingUnit);
-    var _super = _createSuper(HydroGeneratingUnit);
     function HydroGeneratingUnit() {
       _classCallCheck(this, HydroGeneratingUnit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, HydroGeneratingUnit, arguments);
     }
-    _createClass(HydroGeneratingUnit, null, [{
+    _inherits(HydroGeneratingUnit, _GeneratingUnit);
+    return _createClass(HydroGeneratingUnit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "HydroGeneratingUnit";
@@ -32670,7 +32108,6 @@
         return subClasses;
       }
     }]);
-    return HydroGeneratingUnit;
   }(GeneratingUnit);
   _defineProperty(HydroGeneratingUnit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -32691,13 +32128,12 @@
     "label": "storage"
   }];
   var HydroPlantStorageKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(HydroPlantStorageKind, _BaseClass);
-    var _super = _createSuper(HydroPlantStorageKind);
     function HydroPlantStorageKind() {
       _classCallCheck(this, HydroPlantStorageKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, HydroPlantStorageKind, arguments);
     }
-    _createClass(HydroPlantStorageKind, null, [{
+    _inherits(HydroPlantStorageKind, _BaseClass);
+    return _createClass(HydroPlantStorageKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "HydroPlantStorageKind";
@@ -32764,20 +32200,18 @@
         return subClasses;
       }
     }]);
-    return HydroPlantStorageKind;
   }(BaseClass);
   _defineProperty(HydroPlantStorageKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var HydroPowerPlant = /*#__PURE__*/function (_PowerSystemResource) {
-    _inherits(HydroPowerPlant, _PowerSystemResource);
-    var _super = _createSuper(HydroPowerPlant);
     function HydroPowerPlant() {
       _classCallCheck(this, HydroPowerPlant);
-      return _super.apply(this, arguments);
+      return _callSuper(this, HydroPowerPlant, arguments);
     }
-    _createClass(HydroPowerPlant, null, [{
+    _inherits(HydroPowerPlant, _PowerSystemResource);
+    return _createClass(HydroPowerPlant, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "HydroPowerPlant";
@@ -32837,7 +32271,6 @@
         return subClasses;
       }
     }]);
-    return HydroPowerPlant;
   }(PowerSystemResource);
   _defineProperty(HydroPowerPlant, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -32845,13 +32278,12 @@
   });
 
   var HydroPump = /*#__PURE__*/function (_Equipment) {
-    _inherits(HydroPump, _Equipment);
-    var _super = _createSuper(HydroPump);
     function HydroPump() {
       _classCallCheck(this, HydroPump);
-      return _super.apply(this, arguments);
+      return _callSuper(this, HydroPump, arguments);
     }
-    _createClass(HydroPump, null, [{
+    _inherits(HydroPump, _Equipment);
+    return _createClass(HydroPump, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "HydroPump";
@@ -32916,7 +32348,6 @@
         return subClasses;
       }
     }]);
-    return HydroPump;
   }(Equipment);
   _defineProperty(HydroPump, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -32940,13 +32371,12 @@
     "label": "other"
   }];
   var IfdBaseKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(IfdBaseKind, _BaseClass);
-    var _super = _createSuper(IfdBaseKind);
     function IfdBaseKind() {
       _classCallCheck(this, IfdBaseKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, IfdBaseKind, arguments);
     }
-    _createClass(IfdBaseKind, null, [{
+    _inherits(IfdBaseKind, _BaseClass);
+    return _createClass(IfdBaseKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "IfdBaseKind";
@@ -33013,20 +32443,18 @@
         return subClasses;
       }
     }]);
-    return IfdBaseKind;
   }(BaseClass);
   _defineProperty(IfdBaseKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var Inductance = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Inductance, _BaseClass);
-    var _super = _createSuper(Inductance);
     function Inductance() {
       _classCallCheck(this, Inductance);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Inductance, arguments);
     }
-    _createClass(Inductance, null, [{
+    _inherits(Inductance, _BaseClass);
+    return _createClass(Inductance, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Inductance";
@@ -33095,7 +32523,6 @@
         return subClasses;
       }
     }]);
-    return Inductance;
   }(BaseClass);
   _defineProperty(Inductance, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -33105,13 +32532,12 @@
   });
 
   var InductancePerLength = /*#__PURE__*/function (_BaseClass) {
-    _inherits(InductancePerLength, _BaseClass);
-    var _super = _createSuper(InductancePerLength);
     function InductancePerLength() {
       _classCallCheck(this, InductancePerLength);
-      return _super.apply(this, arguments);
+      return _callSuper(this, InductancePerLength, arguments);
     }
-    _createClass(InductancePerLength, null, [{
+    _inherits(InductancePerLength, _BaseClass);
+    return _createClass(InductancePerLength, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "InductancePerLength";
@@ -33191,7 +32617,6 @@
         return subClasses;
       }
     }]);
-    return InductancePerLength;
   }(BaseClass);
   _defineProperty(InductancePerLength, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -33236,13 +32661,12 @@
     "label": "fieldCurrent"
   }];
   var InputSignalKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(InputSignalKind, _BaseClass);
-    var _super = _createSuper(InputSignalKind);
     function InputSignalKind() {
       _classCallCheck(this, InputSignalKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, InputSignalKind, arguments);
     }
-    _createClass(InputSignalKind, null, [{
+    _inherits(InputSignalKind, _BaseClass);
+    return _createClass(InputSignalKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "InputSignalKind";
@@ -33309,20 +32733,18 @@
         return subClasses;
       }
     }]);
-    return InputSignalKind;
   }(BaseClass);
   _defineProperty(InputSignalKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var Integer = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Integer, _BaseClass);
-    var _super = _createSuper(Integer);
     function Integer() {
       _classCallCheck(this, Integer);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Integer, arguments);
     }
-    _createClass(Integer, null, [{
+    _inherits(Integer, _BaseClass);
+    return _createClass(Integer, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Integer";
@@ -33376,20 +32798,18 @@
         return subClasses;
       }
     }]);
-    return Integer;
   }(BaseClass);
   _defineProperty(Integer, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.GL, CGMESProfile.shortNames.DY]
   });
 
   var Junction = /*#__PURE__*/function (_Connector) {
-    _inherits(Junction, _Connector);
-    var _super = _createSuper(Junction);
     function Junction() {
       _classCallCheck(this, Junction);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Junction, arguments);
     }
-    _createClass(Junction, null, [{
+    _inherits(Junction, _Connector);
+    return _createClass(Junction, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Junction";
@@ -33444,20 +32864,18 @@
         return subClasses;
       }
     }]);
-    return Junction;
   }(Connector);
   _defineProperty(Junction, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD]
   });
 
   var Length = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Length, _BaseClass);
-    var _super = _createSuper(Length);
     function Length() {
       _classCallCheck(this, Length);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Length, arguments);
     }
-    _createClass(Length, null, [{
+    _inherits(Length, _BaseClass);
+    return _createClass(Length, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Length";
@@ -33526,7 +32944,6 @@
         return subClasses;
       }
     }]);
-    return Length;
   }(BaseClass);
   _defineProperty(Length, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY],
@@ -33560,13 +32977,12 @@
     "label": "lowVoltage"
   }];
   var LimitTypeKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(LimitTypeKind, _BaseClass);
-    var _super = _createSuper(LimitTypeKind);
     function LimitTypeKind() {
       _classCallCheck(this, LimitTypeKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LimitTypeKind, arguments);
     }
-    _createClass(LimitTypeKind, null, [{
+    _inherits(LimitTypeKind, _BaseClass);
+    return _createClass(LimitTypeKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LimitTypeKind";
@@ -33633,20 +33049,18 @@
         return subClasses;
       }
     }]);
-    return LimitTypeKind;
   }(BaseClass);
   _defineProperty(LimitTypeKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var Line = /*#__PURE__*/function (_EquipmentContainer) {
-    _inherits(Line, _EquipmentContainer);
-    var _super = _createSuper(Line);
     function Line() {
       _classCallCheck(this, Line);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Line, arguments);
     }
-    _createClass(Line, null, [{
+    _inherits(Line, _EquipmentContainer);
+    return _createClass(Line, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Line";
@@ -33706,7 +33120,6 @@
         return subClasses;
       }
     }]);
-    return Line;
   }(EquipmentContainer);
   _defineProperty(Line, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD],
@@ -33714,13 +33127,12 @@
   });
 
   var ShuntCompensator = /*#__PURE__*/function (_RegulatingCondEq) {
-    _inherits(ShuntCompensator, _RegulatingCondEq);
-    var _super = _createSuper(ShuntCompensator);
     function ShuntCompensator() {
       _classCallCheck(this, ShuntCompensator);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ShuntCompensator, arguments);
     }
-    _createClass(ShuntCompensator, null, [{
+    _inherits(ShuntCompensator, _RegulatingCondEq);
+    return _createClass(ShuntCompensator, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ShuntCompensator";
@@ -33820,7 +33232,6 @@
         return subClasses;
       }
     }]);
-    return ShuntCompensator;
   }(RegulatingCondEq);
   _defineProperty(ShuntCompensator, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV],
@@ -33836,13 +33247,12 @@
   });
 
   var LinearShuntCompensator = /*#__PURE__*/function (_ShuntCompensator) {
-    _inherits(LinearShuntCompensator, _ShuntCompensator);
-    var _super = _createSuper(LinearShuntCompensator);
     function LinearShuntCompensator() {
       _classCallCheck(this, LinearShuntCompensator);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LinearShuntCompensator, arguments);
     }
-    _createClass(LinearShuntCompensator, null, [{
+    _inherits(LinearShuntCompensator, _ShuntCompensator);
+    return _createClass(LinearShuntCompensator, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LinearShuntCompensator";
@@ -33917,7 +33327,6 @@
         return subClasses;
       }
     }]);
-    return LinearShuntCompensator;
   }(ShuntCompensator);
   _defineProperty(LinearShuntCompensator, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -33928,13 +33337,12 @@
   });
 
   var LoadDynamics = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(LoadDynamics, _IdentifiedObject);
-    var _super = _createSuper(LoadDynamics);
     function LoadDynamics() {
       _classCallCheck(this, LoadDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadDynamics, arguments);
     }
-    _createClass(LoadDynamics, null, [{
+    _inherits(LoadDynamics, _IdentifiedObject);
+    return _createClass(LoadDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadDynamics";
@@ -33989,20 +33397,18 @@
         return subClasses;
       }
     }]);
-    return LoadDynamics;
   }(IdentifiedObject);
   _defineProperty(LoadDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var LoadAggregate = /*#__PURE__*/function (_LoadDynamics) {
-    _inherits(LoadAggregate, _LoadDynamics);
-    var _super = _createSuper(LoadAggregate);
     function LoadAggregate() {
       _classCallCheck(this, LoadAggregate);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadAggregate, arguments);
     }
-    _createClass(LoadAggregate, null, [{
+    _inherits(LoadAggregate, _LoadDynamics);
+    return _createClass(LoadAggregate, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadAggregate";
@@ -34062,7 +33468,6 @@
         return subClasses;
       }
     }]);
-    return LoadAggregate;
   }(LoadDynamics);
   _defineProperty(LoadAggregate, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -34070,13 +33475,12 @@
   });
 
   var LoadArea = /*#__PURE__*/function (_EnergyArea) {
-    _inherits(LoadArea, _EnergyArea);
-    var _super = _createSuper(LoadArea);
     function LoadArea() {
       _classCallCheck(this, LoadArea);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadArea, arguments);
     }
-    _createClass(LoadArea, null, [{
+    _inherits(LoadArea, _EnergyArea);
+    return _createClass(LoadArea, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadArea";
@@ -34131,20 +33535,18 @@
         return subClasses;
       }
     }]);
-    return LoadArea;
   }(EnergyArea);
   _defineProperty(LoadArea, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var LoadBreakSwitch = /*#__PURE__*/function (_ProtectedSwitch) {
-    _inherits(LoadBreakSwitch, _ProtectedSwitch);
-    var _super = _createSuper(LoadBreakSwitch);
     function LoadBreakSwitch() {
       _classCallCheck(this, LoadBreakSwitch);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadBreakSwitch, arguments);
     }
-    _createClass(LoadBreakSwitch, null, [{
+    _inherits(LoadBreakSwitch, _ProtectedSwitch);
+    return _createClass(LoadBreakSwitch, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadBreakSwitch";
@@ -34199,20 +33601,18 @@
         return subClasses;
       }
     }]);
-    return LoadBreakSwitch;
   }(ProtectedSwitch);
   _defineProperty(LoadBreakSwitch, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
   });
 
   var LoadComposite = /*#__PURE__*/function (_LoadDynamics) {
-    _inherits(LoadComposite, _LoadDynamics);
-    var _super = _createSuper(LoadComposite);
     function LoadComposite() {
       _classCallCheck(this, LoadComposite);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadComposite, arguments);
     }
-    _createClass(LoadComposite, null, [{
+    _inherits(LoadComposite, _LoadDynamics);
+    return _createClass(LoadComposite, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadComposite";
@@ -34322,7 +33722,6 @@
         return subClasses;
       }
     }]);
-    return LoadComposite;
   }(LoadDynamics);
   _defineProperty(LoadComposite, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -34340,13 +33739,12 @@
   });
 
   var LoadGenericNonLinear = /*#__PURE__*/function (_LoadDynamics) {
-    _inherits(LoadGenericNonLinear, _LoadDynamics);
-    var _super = _createSuper(LoadGenericNonLinear);
     function LoadGenericNonLinear() {
       _classCallCheck(this, LoadGenericNonLinear);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadGenericNonLinear, arguments);
     }
-    _createClass(LoadGenericNonLinear, null, [{
+    _inherits(LoadGenericNonLinear, _LoadDynamics);
+    return _createClass(LoadGenericNonLinear, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadGenericNonLinear";
@@ -34446,7 +33844,6 @@
         return subClasses;
       }
     }]);
-    return LoadGenericNonLinear;
   }(LoadDynamics);
   _defineProperty(LoadGenericNonLinear, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -34462,13 +33859,12 @@
   });
 
   var LoadMotor = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(LoadMotor, _IdentifiedObject);
-    var _super = _createSuper(LoadMotor);
     function LoadMotor() {
       _classCallCheck(this, LoadMotor);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadMotor, arguments);
     }
-    _createClass(LoadMotor, null, [{
+    _inherits(LoadMotor, _IdentifiedObject);
+    return _createClass(LoadMotor, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadMotor";
@@ -34593,7 +33989,6 @@
         return subClasses;
       }
     }]);
-    return LoadMotor;
   }(IdentifiedObject);
   _defineProperty(LoadMotor, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -34614,13 +34009,12 @@
   });
 
   var LoadResponseCharacteristic = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(LoadResponseCharacteristic, _IdentifiedObject);
-    var _super = _createSuper(LoadResponseCharacteristic);
     function LoadResponseCharacteristic() {
       _classCallCheck(this, LoadResponseCharacteristic);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadResponseCharacteristic, arguments);
     }
-    _createClass(LoadResponseCharacteristic, null, [{
+    _inherits(LoadResponseCharacteristic, _IdentifiedObject);
+    return _createClass(LoadResponseCharacteristic, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadResponseCharacteristic";
@@ -34730,7 +34124,6 @@
         return subClasses;
       }
     }]);
-    return LoadResponseCharacteristic;
   }(IdentifiedObject);
   _defineProperty(LoadResponseCharacteristic, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -34748,13 +34141,12 @@
   });
 
   var LoadStatic = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(LoadStatic, _IdentifiedObject);
-    var _super = _createSuper(LoadStatic);
     function LoadStatic() {
       _classCallCheck(this, LoadStatic);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadStatic, arguments);
     }
-    _createClass(LoadStatic, null, [{
+    _inherits(LoadStatic, _IdentifiedObject);
+    return _createClass(LoadStatic, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadStatic";
@@ -34899,7 +34291,6 @@
         return subClasses;
       }
     }]);
-    return LoadStatic;
   }(IdentifiedObject);
   _defineProperty(LoadStatic, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -34924,13 +34315,12 @@
   });
 
   var LoadUserDefined = /*#__PURE__*/function (_LoadDynamics) {
-    _inherits(LoadUserDefined, _LoadDynamics);
-    var _super = _createSuper(LoadUserDefined);
     function LoadUserDefined() {
       _classCallCheck(this, LoadUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, LoadUserDefined, arguments);
     }
-    _createClass(LoadUserDefined, null, [{
+    _inherits(LoadUserDefined, _LoadDynamics);
+    return _createClass(LoadUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "LoadUserDefined";
@@ -34990,7 +34380,6 @@
         return subClasses;
       }
     }]);
-    return LoadUserDefined;
   }(LoadDynamics);
   _defineProperty(LoadUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -34998,13 +34387,12 @@
   });
 
   var Location = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(Location, _IdentifiedObject);
-    var _super = _createSuper(Location);
     function Location() {
       _classCallCheck(this, Location);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Location, arguments);
     }
-    _createClass(Location, null, [{
+    _inherits(Location, _IdentifiedObject);
+    return _createClass(Location, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Location";
@@ -35069,7 +34457,6 @@
         return subClasses;
       }
     }]);
-    return Location;
   }(IdentifiedObject);
   _defineProperty(Location, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.GL],
@@ -35078,13 +34465,12 @@
   });
 
   var Quality61850 = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Quality61850, _BaseClass);
-    var _super = _createSuper(Quality61850);
     function Quality61850() {
       _classCallCheck(this, Quality61850);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Quality61850, arguments);
     }
-    _createClass(Quality61850, null, [{
+    _inherits(Quality61850, _BaseClass);
+    return _createClass(Quality61850, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Quality61850";
@@ -35199,7 +34585,6 @@
         return subClasses;
       }
     }]);
-    return Quality61850;
   }(BaseClass);
   _defineProperty(Quality61850, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -35218,13 +34603,12 @@
   });
 
   var MeasurementValueQuality = /*#__PURE__*/function (_Quality) {
-    _inherits(MeasurementValueQuality, _Quality);
-    var _super = _createSuper(MeasurementValueQuality);
     function MeasurementValueQuality() {
       _classCallCheck(this, MeasurementValueQuality);
-      return _super.apply(this, arguments);
+      return _callSuper(this, MeasurementValueQuality, arguments);
     }
-    _createClass(MeasurementValueQuality, null, [{
+    _inherits(MeasurementValueQuality, _Quality);
+    return _createClass(MeasurementValueQuality, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "MeasurementValueQuality";
@@ -35284,7 +34668,6 @@
         return subClasses;
       }
     }]);
-    return MeasurementValueQuality;
   }(Quality61850);
   _defineProperty(MeasurementValueQuality, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -35292,13 +34675,12 @@
   });
 
   var MeasurementValueSource = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(MeasurementValueSource, _IdentifiedObject);
-    var _super = _createSuper(MeasurementValueSource);
     function MeasurementValueSource() {
       _classCallCheck(this, MeasurementValueSource);
-      return _super.apply(this, arguments);
+      return _callSuper(this, MeasurementValueSource, arguments);
     }
-    _createClass(MeasurementValueSource, null, [{
+    _inherits(MeasurementValueSource, _IdentifiedObject);
+    return _createClass(MeasurementValueSource, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "MeasurementValueSource";
@@ -35353,20 +34735,18 @@
         return subClasses;
       }
     }]);
-    return MeasurementValueSource;
   }(IdentifiedObject);
   _defineProperty(MeasurementValueSource, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var MechanicalLoadDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(MechanicalLoadDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(MechanicalLoadDynamics);
     function MechanicalLoadDynamics() {
       _classCallCheck(this, MechanicalLoadDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, MechanicalLoadDynamics, arguments);
     }
-    _createClass(MechanicalLoadDynamics, null, [{
+    _inherits(MechanicalLoadDynamics, _DynamicsFunctionBloc);
+    return _createClass(MechanicalLoadDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "MechanicalLoadDynamics";
@@ -35431,7 +34811,6 @@
         return subClasses;
       }
     }]);
-    return MechanicalLoadDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(MechanicalLoadDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -35440,13 +34819,12 @@
   });
 
   var MechLoad1 = /*#__PURE__*/function (_MechanicalLoadDynami) {
-    _inherits(MechLoad1, _MechanicalLoadDynami);
-    var _super = _createSuper(MechLoad1);
     function MechLoad1() {
       _classCallCheck(this, MechLoad1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, MechLoad1, arguments);
     }
-    _createClass(MechLoad1, null, [{
+    _inherits(MechLoad1, _MechanicalLoadDynami);
+    return _createClass(MechLoad1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "MechLoad1";
@@ -35521,7 +34899,6 @@
         return subClasses;
       }
     }]);
-    return MechLoad1;
   }(MechanicalLoadDynamics);
   _defineProperty(MechLoad1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -35532,13 +34909,12 @@
   });
 
   var MechanicalLoadUserDefined = /*#__PURE__*/function (_MechanicalLoadDynami) {
-    _inherits(MechanicalLoadUserDefined, _MechanicalLoadDynami);
-    var _super = _createSuper(MechanicalLoadUserDefined);
     function MechanicalLoadUserDefined() {
       _classCallCheck(this, MechanicalLoadUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, MechanicalLoadUserDefined, arguments);
     }
-    _createClass(MechanicalLoadUserDefined, null, [{
+    _inherits(MechanicalLoadUserDefined, _MechanicalLoadDynami);
+    return _createClass(MechanicalLoadUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "MechanicalLoadUserDefined";
@@ -35598,7 +34974,6 @@
         return subClasses;
       }
     }]);
-    return MechanicalLoadUserDefined;
   }(MechanicalLoadDynamics);
   _defineProperty(MechanicalLoadUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -35606,13 +34981,12 @@
   });
 
   var Money = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Money, _BaseClass);
-    var _super = _createSuper(Money);
     function Money() {
       _classCallCheck(this, Money);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Money, arguments);
     }
-    _createClass(Money, null, [{
+    _inherits(Money, _BaseClass);
+    return _createClass(Money, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Money";
@@ -35681,7 +35055,6 @@
         return subClasses;
       }
     }]);
-    return Money;
   }(BaseClass);
   _defineProperty(Money, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -35691,13 +35064,12 @@
   });
 
   var MonthDay = /*#__PURE__*/function (_BaseClass) {
-    _inherits(MonthDay, _BaseClass);
-    var _super = _createSuper(MonthDay);
     function MonthDay() {
       _classCallCheck(this, MonthDay);
-      return _super.apply(this, arguments);
+      return _callSuper(this, MonthDay, arguments);
     }
-    _createClass(MonthDay, null, [{
+    _inherits(MonthDay, _BaseClass);
+    return _createClass(MonthDay, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "MonthDay";
@@ -35752,20 +35124,18 @@
         return subClasses;
       }
     }]);
-    return MonthDay;
   }(BaseClass);
   _defineProperty(MonthDay, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var MutualCoupling = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(MutualCoupling, _IdentifiedObject);
-    var _super = _createSuper(MutualCoupling);
     function MutualCoupling() {
       _classCallCheck(this, MutualCoupling);
-      return _super.apply(this, arguments);
+      return _callSuper(this, MutualCoupling, arguments);
     }
-    _createClass(MutualCoupling, null, [{
+    _inherits(MutualCoupling, _IdentifiedObject);
+    return _createClass(MutualCoupling, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "MutualCoupling";
@@ -35870,7 +35240,6 @@
         return subClasses;
       }
     }]);
-    return MutualCoupling;
   }(IdentifiedObject);
   _defineProperty(MutualCoupling, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -35887,13 +35256,12 @@
   });
 
   var NonConformLoad = /*#__PURE__*/function (_EnergyConsumer) {
-    _inherits(NonConformLoad, _EnergyConsumer);
-    var _super = _createSuper(NonConformLoad);
     function NonConformLoad() {
       _classCallCheck(this, NonConformLoad);
-      return _super.apply(this, arguments);
+      return _callSuper(this, NonConformLoad, arguments);
     }
-    _createClass(NonConformLoad, null, [{
+    _inherits(NonConformLoad, _EnergyConsumer);
+    return _createClass(NonConformLoad, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "NonConformLoad";
@@ -35953,7 +35321,6 @@
         return subClasses;
       }
     }]);
-    return NonConformLoad;
   }(EnergyConsumer);
   _defineProperty(NonConformLoad, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -35961,13 +35328,12 @@
   });
 
   var NonConformLoadGroup = /*#__PURE__*/function (_LoadGroup) {
-    _inherits(NonConformLoadGroup, _LoadGroup);
-    var _super = _createSuper(NonConformLoadGroup);
     function NonConformLoadGroup() {
       _classCallCheck(this, NonConformLoadGroup);
-      return _super.apply(this, arguments);
+      return _callSuper(this, NonConformLoadGroup, arguments);
     }
-    _createClass(NonConformLoadGroup, null, [{
+    _inherits(NonConformLoadGroup, _LoadGroup);
+    return _createClass(NonConformLoadGroup, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "NonConformLoadGroup";
@@ -36027,7 +35393,6 @@
         return subClasses;
       }
     }]);
-    return NonConformLoadGroup;
   }(LoadGroup);
   _defineProperty(NonConformLoadGroup, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -36035,13 +35400,12 @@
   });
 
   var NonConformLoadSchedule = /*#__PURE__*/function (_SeasonDayTypeSchedul) {
-    _inherits(NonConformLoadSchedule, _SeasonDayTypeSchedul);
-    var _super = _createSuper(NonConformLoadSchedule);
     function NonConformLoadSchedule() {
       _classCallCheck(this, NonConformLoadSchedule);
-      return _super.apply(this, arguments);
+      return _callSuper(this, NonConformLoadSchedule, arguments);
     }
-    _createClass(NonConformLoadSchedule, null, [{
+    _inherits(NonConformLoadSchedule, _SeasonDayTypeSchedul);
+    return _createClass(NonConformLoadSchedule, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "NonConformLoadSchedule";
@@ -36101,7 +35465,6 @@
         return subClasses;
       }
     }]);
-    return NonConformLoadSchedule;
   }(SeasonDayTypeSchedule);
   _defineProperty(NonConformLoadSchedule, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -36109,13 +35472,12 @@
   });
 
   var NonlinearShuntCompensator = /*#__PURE__*/function (_ShuntCompensator) {
-    _inherits(NonlinearShuntCompensator, _ShuntCompensator);
-    var _super = _createSuper(NonlinearShuntCompensator);
     function NonlinearShuntCompensator() {
       _classCallCheck(this, NonlinearShuntCompensator);
-      return _super.apply(this, arguments);
+      return _callSuper(this, NonlinearShuntCompensator, arguments);
     }
-    _createClass(NonlinearShuntCompensator, null, [{
+    _inherits(NonlinearShuntCompensator, _ShuntCompensator);
+    return _createClass(NonlinearShuntCompensator, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "NonlinearShuntCompensator";
@@ -36170,20 +35532,18 @@
         return subClasses;
       }
     }]);
-    return NonlinearShuntCompensator;
   }(ShuntCompensator);
   _defineProperty(NonlinearShuntCompensator, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
   });
 
   var NonlinearShuntCompensatorPoint = /*#__PURE__*/function (_BaseClass) {
-    _inherits(NonlinearShuntCompensatorPoint, _BaseClass);
-    var _super = _createSuper(NonlinearShuntCompensatorPoint);
     function NonlinearShuntCompensatorPoint() {
       _classCallCheck(this, NonlinearShuntCompensatorPoint);
-      return _super.apply(this, arguments);
+      return _callSuper(this, NonlinearShuntCompensatorPoint, arguments);
     }
-    _createClass(NonlinearShuntCompensatorPoint, null, [{
+    _inherits(NonlinearShuntCompensatorPoint, _BaseClass);
+    return _createClass(NonlinearShuntCompensatorPoint, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "NonlinearShuntCompensatorPoint";
@@ -36268,7 +35628,6 @@
         return subClasses;
       }
     }]);
-    return NonlinearShuntCompensatorPoint;
   }(BaseClass);
   _defineProperty(NonlinearShuntCompensatorPoint, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -36281,13 +35640,12 @@
   });
 
   var NuclearGeneratingUnit = /*#__PURE__*/function (_GeneratingUnit) {
-    _inherits(NuclearGeneratingUnit, _GeneratingUnit);
-    var _super = _createSuper(NuclearGeneratingUnit);
     function NuclearGeneratingUnit() {
       _classCallCheck(this, NuclearGeneratingUnit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, NuclearGeneratingUnit, arguments);
     }
-    _createClass(NuclearGeneratingUnit, null, [{
+    _inherits(NuclearGeneratingUnit, _GeneratingUnit);
+    return _createClass(NuclearGeneratingUnit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "NuclearGeneratingUnit";
@@ -36342,7 +35700,6 @@
         return subClasses;
       }
     }]);
-    return NuclearGeneratingUnit;
   }(GeneratingUnit);
   _defineProperty(NuclearGeneratingUnit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
@@ -36361,13 +35718,12 @@
     "label": "absoluteValue"
   }];
   var OperationalLimitDirectionKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(OperationalLimitDirectionKind, _BaseClass);
-    var _super = _createSuper(OperationalLimitDirectionKind);
     function OperationalLimitDirectionKind() {
       _classCallCheck(this, OperationalLimitDirectionKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OperationalLimitDirectionKind, arguments);
     }
-    _createClass(OperationalLimitDirectionKind, null, [{
+    _inherits(OperationalLimitDirectionKind, _BaseClass);
+    return _createClass(OperationalLimitDirectionKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OperationalLimitDirectionKind";
@@ -36434,20 +35790,18 @@
         return subClasses;
       }
     }]);
-    return OperationalLimitDirectionKind;
   }(BaseClass);
   _defineProperty(OperationalLimitDirectionKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var OperationalLimitSet = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(OperationalLimitSet, _IdentifiedObject);
-    var _super = _createSuper(OperationalLimitSet);
     function OperationalLimitSet() {
       _classCallCheck(this, OperationalLimitSet);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OperationalLimitSet, arguments);
     }
-    _createClass(OperationalLimitSet, null, [{
+    _inherits(OperationalLimitSet, _IdentifiedObject);
+    return _createClass(OperationalLimitSet, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OperationalLimitSet";
@@ -36512,7 +35866,6 @@
         return subClasses;
       }
     }]);
-    return OperationalLimitSet;
   }(IdentifiedObject);
   _defineProperty(OperationalLimitSet, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -36521,13 +35874,12 @@
   });
 
   var OperationalLimitType = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(OperationalLimitType, _IdentifiedObject);
-    var _super = _createSuper(OperationalLimitType);
     function OperationalLimitType() {
       _classCallCheck(this, OperationalLimitType);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OperationalLimitType, arguments);
     }
-    _createClass(OperationalLimitType, null, [{
+    _inherits(OperationalLimitType, _IdentifiedObject);
+    return _createClass(OperationalLimitType, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OperationalLimitType";
@@ -36597,7 +35949,6 @@
         return subClasses;
       }
     }]);
-    return OperationalLimitType;
   }(IdentifiedObject);
   _defineProperty(OperationalLimitType, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -36613,13 +35964,12 @@
     "label": "negative"
   }];
   var OrientationKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(OrientationKind, _BaseClass);
-    var _super = _createSuper(OrientationKind);
     function OrientationKind() {
       _classCallCheck(this, OrientationKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OrientationKind, arguments);
     }
-    _createClass(OrientationKind, null, [{
+    _inherits(OrientationKind, _BaseClass);
+    return _createClass(OrientationKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OrientationKind";
@@ -36686,20 +36036,18 @@
         return subClasses;
       }
     }]);
-    return OrientationKind;
   }(BaseClass);
   _defineProperty(OrientationKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL]
   });
 
   var OverexcitationLimiterDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(OverexcitationLimiterDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(OverexcitationLimiterDynamics);
     function OverexcitationLimiterDynamics() {
       _classCallCheck(this, OverexcitationLimiterDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OverexcitationLimiterDynamics, arguments);
     }
-    _createClass(OverexcitationLimiterDynamics, null, [{
+    _inherits(OverexcitationLimiterDynamics, _DynamicsFunctionBloc);
+    return _createClass(OverexcitationLimiterDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OverexcitationLimiterDynamics";
@@ -36759,7 +36107,6 @@
         return subClasses;
       }
     }]);
-    return OverexcitationLimiterDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(OverexcitationLimiterDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -36767,13 +36114,12 @@
   });
 
   var OverexcLim2 = /*#__PURE__*/function (_OverexcitationLimite) {
-    _inherits(OverexcLim2, _OverexcitationLimite);
-    var _super = _createSuper(OverexcLim2);
     function OverexcLim2() {
       _classCallCheck(this, OverexcLim2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OverexcLim2, arguments);
     }
-    _createClass(OverexcLim2, null, [{
+    _inherits(OverexcLim2, _OverexcitationLimite);
+    return _createClass(OverexcLim2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OverexcLim2";
@@ -36848,7 +36194,6 @@
         return subClasses;
       }
     }]);
-    return OverexcLim2;
   }(OverexcitationLimiterDynamics);
   _defineProperty(OverexcLim2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -36859,13 +36204,12 @@
   });
 
   var OverexcLimIEEE = /*#__PURE__*/function (_OverexcitationLimite) {
-    _inherits(OverexcLimIEEE, _OverexcitationLimite);
-    var _super = _createSuper(OverexcLimIEEE);
     function OverexcLimIEEE() {
       _classCallCheck(this, OverexcLimIEEE);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OverexcLimIEEE, arguments);
     }
-    _createClass(OverexcLimIEEE, null, [{
+    _inherits(OverexcLimIEEE, _OverexcitationLimite);
+    return _createClass(OverexcLimIEEE, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OverexcLimIEEE";
@@ -36950,7 +36294,6 @@
         return subClasses;
       }
     }]);
-    return OverexcLimIEEE;
   }(OverexcitationLimiterDynamics);
   _defineProperty(OverexcLimIEEE, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -36963,13 +36306,12 @@
   });
 
   var OverexcLimX1 = /*#__PURE__*/function (_OverexcitationLimite) {
-    _inherits(OverexcLimX1, _OverexcitationLimite);
-    var _super = _createSuper(OverexcLimX1);
     function OverexcLimX1() {
       _classCallCheck(this, OverexcLimX1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OverexcLimX1, arguments);
     }
-    _createClass(OverexcLimX1, null, [{
+    _inherits(OverexcLimX1, _OverexcitationLimite);
+    return _createClass(OverexcLimX1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OverexcLimX1";
@@ -37074,7 +36416,6 @@
         return subClasses;
       }
     }]);
-    return OverexcLimX1;
   }(OverexcitationLimiterDynamics);
   _defineProperty(OverexcLimX1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -37091,13 +36432,12 @@
   });
 
   var OverexcLimX2 = /*#__PURE__*/function (_OverexcitationLimite) {
-    _inherits(OverexcLimX2, _OverexcitationLimite);
-    var _super = _createSuper(OverexcLimX2);
     function OverexcLimX2() {
       _classCallCheck(this, OverexcLimX2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OverexcLimX2, arguments);
     }
-    _createClass(OverexcLimX2, null, [{
+    _inherits(OverexcLimX2, _OverexcitationLimite);
+    return _createClass(OverexcLimX2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OverexcLimX2";
@@ -37207,7 +36547,6 @@
         return subClasses;
       }
     }]);
-    return OverexcLimX2;
   }(OverexcitationLimiterDynamics);
   _defineProperty(OverexcLimX2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -37225,13 +36564,12 @@
   });
 
   var OverexcitationLimiterUserDefined = /*#__PURE__*/function (_OverexcitationLimite) {
-    _inherits(OverexcitationLimiterUserDefined, _OverexcitationLimite);
-    var _super = _createSuper(OverexcitationLimiterUserDefined);
     function OverexcitationLimiterUserDefined() {
       _classCallCheck(this, OverexcitationLimiterUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, OverexcitationLimiterUserDefined, arguments);
     }
-    _createClass(OverexcitationLimiterUserDefined, null, [{
+    _inherits(OverexcitationLimiterUserDefined, _OverexcitationLimite);
+    return _createClass(OverexcitationLimiterUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "OverexcitationLimiterUserDefined";
@@ -37291,7 +36629,6 @@
         return subClasses;
       }
     }]);
-    return OverexcitationLimiterUserDefined;
   }(OverexcitationLimiterDynamics);
   _defineProperty(OverexcitationLimiterUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -37299,13 +36636,12 @@
   });
 
   var PFVArControllerType1Dynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(PFVArControllerType1Dynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(PFVArControllerType1Dynamics);
     function PFVArControllerType1Dynamics() {
       _classCallCheck(this, PFVArControllerType1Dynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PFVArControllerType1Dynamics, arguments);
     }
-    _createClass(PFVArControllerType1Dynamics, null, [{
+    _inherits(PFVArControllerType1Dynamics, _DynamicsFunctionBloc);
+    return _createClass(PFVArControllerType1Dynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PFVArControllerType1Dynamics";
@@ -37365,7 +36701,6 @@
         return subClasses;
       }
     }]);
-    return PFVArControllerType1Dynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(PFVArControllerType1Dynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -37373,13 +36708,12 @@
   });
 
   var PFVArControllerType1UserDefined = /*#__PURE__*/function (_PFVArControllerType) {
-    _inherits(PFVArControllerType1UserDefined, _PFVArControllerType);
-    var _super = _createSuper(PFVArControllerType1UserDefined);
     function PFVArControllerType1UserDefined() {
       _classCallCheck(this, PFVArControllerType1UserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PFVArControllerType1UserDefined, arguments);
     }
-    _createClass(PFVArControllerType1UserDefined, null, [{
+    _inherits(PFVArControllerType1UserDefined, _PFVArControllerType);
+    return _createClass(PFVArControllerType1UserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PFVArControllerType1UserDefined";
@@ -37439,7 +36773,6 @@
         return subClasses;
       }
     }]);
-    return PFVArControllerType1UserDefined;
   }(PFVArControllerType1Dynamics);
   _defineProperty(PFVArControllerType1UserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -37447,13 +36780,12 @@
   });
 
   var PFVArControllerType2Dynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(PFVArControllerType2Dynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(PFVArControllerType2Dynamics);
     function PFVArControllerType2Dynamics() {
       _classCallCheck(this, PFVArControllerType2Dynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PFVArControllerType2Dynamics, arguments);
     }
-    _createClass(PFVArControllerType2Dynamics, null, [{
+    _inherits(PFVArControllerType2Dynamics, _DynamicsFunctionBloc);
+    return _createClass(PFVArControllerType2Dynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PFVArControllerType2Dynamics";
@@ -37513,7 +36845,6 @@
         return subClasses;
       }
     }]);
-    return PFVArControllerType2Dynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(PFVArControllerType2Dynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -37521,13 +36852,12 @@
   });
 
   var PFVArControllerType2UserDefined = /*#__PURE__*/function (_PFVArControllerType) {
-    _inherits(PFVArControllerType2UserDefined, _PFVArControllerType);
-    var _super = _createSuper(PFVArControllerType2UserDefined);
     function PFVArControllerType2UserDefined() {
       _classCallCheck(this, PFVArControllerType2UserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PFVArControllerType2UserDefined, arguments);
     }
-    _createClass(PFVArControllerType2UserDefined, null, [{
+    _inherits(PFVArControllerType2UserDefined, _PFVArControllerType);
+    return _createClass(PFVArControllerType2UserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PFVArControllerType2UserDefined";
@@ -37587,7 +36917,6 @@
         return subClasses;
       }
     }]);
-    return PFVArControllerType2UserDefined;
   }(PFVArControllerType2Dynamics);
   _defineProperty(PFVArControllerType2UserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -37595,13 +36924,12 @@
   });
 
   var PFVArType1IEEEPFController = /*#__PURE__*/function (_PFVArControllerType) {
-    _inherits(PFVArType1IEEEPFController, _PFVArControllerType);
-    var _super = _createSuper(PFVArType1IEEEPFController);
     function PFVArType1IEEEPFController() {
       _classCallCheck(this, PFVArType1IEEEPFController);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PFVArType1IEEEPFController, arguments);
     }
-    _createClass(PFVArType1IEEEPFController, null, [{
+    _inherits(PFVArType1IEEEPFController, _PFVArControllerType);
+    return _createClass(PFVArType1IEEEPFController, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PFVArType1IEEEPFController";
@@ -37696,7 +37024,6 @@
         return subClasses;
       }
     }]);
-    return PFVArType1IEEEPFController;
   }(PFVArControllerType1Dynamics);
   _defineProperty(PFVArType1IEEEPFController, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -37711,13 +37038,12 @@
   });
 
   var PFVArType1IEEEVArController = /*#__PURE__*/function (_PFVArControllerType) {
-    _inherits(PFVArType1IEEEVArController, _PFVArControllerType);
-    var _super = _createSuper(PFVArType1IEEEVArController);
     function PFVArType1IEEEVArController() {
       _classCallCheck(this, PFVArType1IEEEVArController);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PFVArType1IEEEVArController, arguments);
     }
-    _createClass(PFVArType1IEEEVArController, null, [{
+    _inherits(PFVArType1IEEEVArController, _PFVArControllerType);
+    return _createClass(PFVArType1IEEEVArController, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PFVArType1IEEEVArController";
@@ -37802,7 +37128,6 @@
         return subClasses;
       }
     }]);
-    return PFVArType1IEEEVArController;
   }(PFVArControllerType1Dynamics);
   _defineProperty(PFVArType1IEEEVArController, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -37815,13 +37140,12 @@
   });
 
   var PFVArType2Common1 = /*#__PURE__*/function (_PFVArControllerType) {
-    _inherits(PFVArType2Common1, _PFVArControllerType);
-    var _super = _createSuper(PFVArType2Common1);
     function PFVArType2Common1() {
       _classCallCheck(this, PFVArType2Common1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PFVArType2Common1, arguments);
     }
-    _createClass(PFVArType2Common1, null, [{
+    _inherits(PFVArType2Common1, _PFVArControllerType);
+    return _createClass(PFVArType2Common1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PFVArType2Common1";
@@ -37901,7 +37225,6 @@
         return subClasses;
       }
     }]);
-    return PFVArType2Common1;
   }(PFVArControllerType2Dynamics);
   _defineProperty(PFVArType2Common1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -37913,13 +37236,12 @@
   });
 
   var PFVArType2IEEEPFController = /*#__PURE__*/function (_PFVArControllerType) {
-    _inherits(PFVArType2IEEEPFController, _PFVArControllerType);
-    var _super = _createSuper(PFVArType2IEEEPFController);
     function PFVArType2IEEEPFController() {
       _classCallCheck(this, PFVArType2IEEEPFController);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PFVArType2IEEEPFController, arguments);
     }
-    _createClass(PFVArType2IEEEPFController, null, [{
+    _inherits(PFVArType2IEEEPFController, _PFVArControllerType);
+    return _createClass(PFVArType2IEEEPFController, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PFVArType2IEEEPFController";
@@ -38009,7 +37331,6 @@
         return subClasses;
       }
     }]);
-    return PFVArType2IEEEPFController;
   }(PFVArControllerType2Dynamics);
   _defineProperty(PFVArType2IEEEPFController, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -38023,13 +37344,12 @@
   });
 
   var PFVArType2IEEEVArController = /*#__PURE__*/function (_PFVArControllerType) {
-    _inherits(PFVArType2IEEEVArController, _PFVArControllerType);
-    var _super = _createSuper(PFVArType2IEEEVArController);
     function PFVArType2IEEEVArController() {
       _classCallCheck(this, PFVArType2IEEEVArController);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PFVArType2IEEEVArController, arguments);
     }
-    _createClass(PFVArType2IEEEVArController, null, [{
+    _inherits(PFVArType2IEEEVArController, _PFVArControllerType);
+    return _createClass(PFVArType2IEEEVArController, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PFVArType2IEEEVArController";
@@ -38119,7 +37439,6 @@
         return subClasses;
       }
     }]);
-    return PFVArType2IEEEVArController;
   }(PFVArControllerType2Dynamics);
   _defineProperty(PFVArType2IEEEVArController, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -38133,13 +37452,12 @@
   });
 
   var PU = /*#__PURE__*/function (_BaseClass) {
-    _inherits(PU, _BaseClass);
-    var _super = _createSuper(PU);
     function PU() {
       _classCallCheck(this, PU);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PU, arguments);
     }
-    _createClass(PU, null, [{
+    _inherits(PU, _BaseClass);
+    return _createClass(PU, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PU";
@@ -38208,7 +37526,6 @@
         return subClasses;
       }
     }]);
-    return PU;
   }(BaseClass);
   _defineProperty(PU, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY],
@@ -38218,13 +37535,12 @@
   });
 
   var PerCent = /*#__PURE__*/function (_BaseClass) {
-    _inherits(PerCent, _BaseClass);
-    var _super = _createSuper(PerCent);
     function PerCent() {
       _classCallCheck(this, PerCent);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PerCent, arguments);
     }
-    _createClass(PerCent, null, [{
+    _inherits(PerCent, _BaseClass);
+    return _createClass(PerCent, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PerCent";
@@ -38293,7 +37609,6 @@
         return subClasses;
       }
     }]);
-    return PerCent;
   }(BaseClass);
   _defineProperty(PerCent, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -38303,13 +37618,12 @@
   });
 
   var PerLengthDCLineParameter = /*#__PURE__*/function (_BaseClass) {
-    _inherits(PerLengthDCLineParameter, _BaseClass);
-    var _super = _createSuper(PerLengthDCLineParameter);
     function PerLengthDCLineParameter() {
       _classCallCheck(this, PerLengthDCLineParameter);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PerLengthDCLineParameter, arguments);
     }
-    _createClass(PerLengthDCLineParameter, null, [{
+    _inherits(PerLengthDCLineParameter, _BaseClass);
+    return _createClass(PerLengthDCLineParameter, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PerLengthDCLineParameter";
@@ -38379,7 +37693,6 @@
         return subClasses;
       }
     }]);
-    return PerLengthDCLineParameter;
   }(BaseClass);
   _defineProperty(PerLengthDCLineParameter, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -38389,13 +37702,12 @@
   });
 
   var PetersenCoil = /*#__PURE__*/function (_EarthFaultCompensato) {
-    _inherits(PetersenCoil, _EarthFaultCompensato);
-    var _super = _createSuper(PetersenCoil);
     function PetersenCoil() {
       _classCallCheck(this, PetersenCoil);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PetersenCoil, arguments);
     }
-    _createClass(PetersenCoil, null, [{
+    _inherits(PetersenCoil, _EarthFaultCompensato);
+    return _createClass(PetersenCoil, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PetersenCoil";
@@ -38485,7 +37797,6 @@
         return subClasses;
       }
     }]);
-    return PetersenCoil;
   }(EarthFaultCompensator);
   _defineProperty(PetersenCoil, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -38511,13 +37822,12 @@
     "label": "automaticPositioning"
   }];
   var PetersenCoilModeKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(PetersenCoilModeKind, _BaseClass);
-    var _super = _createSuper(PetersenCoilModeKind);
     function PetersenCoilModeKind() {
       _classCallCheck(this, PetersenCoilModeKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PetersenCoilModeKind, arguments);
     }
-    _createClass(PetersenCoilModeKind, null, [{
+    _inherits(PetersenCoilModeKind, _BaseClass);
+    return _createClass(PetersenCoilModeKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PetersenCoilModeKind";
@@ -38584,7 +37894,6 @@
         return subClasses;
       }
     }]);
-    return PetersenCoilModeKind;
   }(BaseClass);
   _defineProperty(PetersenCoilModeKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
@@ -38657,13 +37966,12 @@
     "label": "s12"
   }];
   var PhaseCode = /*#__PURE__*/function (_BaseClass) {
-    _inherits(PhaseCode, _BaseClass);
-    var _super = _createSuper(PhaseCode);
     function PhaseCode() {
       _classCallCheck(this, PhaseCode);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PhaseCode, arguments);
     }
-    _createClass(PhaseCode, null, [{
+    _inherits(PhaseCode, _BaseClass);
+    return _createClass(PhaseCode, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PhaseCode";
@@ -38730,20 +38038,18 @@
         return subClasses;
       }
     }]);
-    return PhaseCode;
   }(BaseClass);
   _defineProperty(PhaseCode, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var TapChanger = /*#__PURE__*/function (_PowerSystemResource) {
-    _inherits(TapChanger, _PowerSystemResource);
-    var _super = _createSuper(TapChanger);
     function TapChanger() {
       _classCallCheck(this, TapChanger);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TapChanger, arguments);
     }
-    _createClass(TapChanger, null, [{
+    _inherits(TapChanger, _PowerSystemResource);
+    return _createClass(TapChanger, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TapChanger";
@@ -38843,7 +38149,6 @@
         return subClasses;
       }
     }]);
-    return TapChanger;
   }(PowerSystemResource);
   _defineProperty(TapChanger, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV],
@@ -38859,13 +38164,12 @@
   });
 
   var PhaseTapChanger = /*#__PURE__*/function (_TapChanger) {
-    _inherits(PhaseTapChanger, _TapChanger);
-    var _super = _createSuper(PhaseTapChanger);
     function PhaseTapChanger() {
       _classCallCheck(this, PhaseTapChanger);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PhaseTapChanger, arguments);
     }
-    _createClass(PhaseTapChanger, null, [{
+    _inherits(PhaseTapChanger, _TapChanger);
+    return _createClass(PhaseTapChanger, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PhaseTapChanger";
@@ -38925,7 +38229,6 @@
         return subClasses;
       }
     }]);
-    return PhaseTapChanger;
   }(TapChanger);
   _defineProperty(PhaseTapChanger, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -38933,13 +38236,12 @@
   });
 
   var PhaseTapChangerNonLinear = /*#__PURE__*/function (_PhaseTapChanger) {
-    _inherits(PhaseTapChangerNonLinear, _PhaseTapChanger);
-    var _super = _createSuper(PhaseTapChangerNonLinear);
     function PhaseTapChangerNonLinear() {
       _classCallCheck(this, PhaseTapChangerNonLinear);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PhaseTapChangerNonLinear, arguments);
     }
-    _createClass(PhaseTapChangerNonLinear, null, [{
+    _inherits(PhaseTapChangerNonLinear, _PhaseTapChanger);
+    return _createClass(PhaseTapChangerNonLinear, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PhaseTapChangerNonLinear";
@@ -39009,7 +38311,6 @@
         return subClasses;
       }
     }]);
-    return PhaseTapChangerNonLinear;
   }(PhaseTapChanger);
   _defineProperty(PhaseTapChangerNonLinear, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -39019,13 +38320,12 @@
   });
 
   var PhaseTapChangerAsymmetrical = /*#__PURE__*/function (_PhaseTapChangerNonLi) {
-    _inherits(PhaseTapChangerAsymmetrical, _PhaseTapChangerNonLi);
-    var _super = _createSuper(PhaseTapChangerAsymmetrical);
     function PhaseTapChangerAsymmetrical() {
       _classCallCheck(this, PhaseTapChangerAsymmetrical);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PhaseTapChangerAsymmetrical, arguments);
     }
-    _createClass(PhaseTapChangerAsymmetrical, null, [{
+    _inherits(PhaseTapChangerAsymmetrical, _PhaseTapChangerNonLi);
+    return _createClass(PhaseTapChangerAsymmetrical, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PhaseTapChangerAsymmetrical";
@@ -39085,7 +38385,6 @@
         return subClasses;
       }
     }]);
-    return PhaseTapChangerAsymmetrical;
   }(PhaseTapChangerNonLinear);
   _defineProperty(PhaseTapChangerAsymmetrical, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -39093,13 +38392,12 @@
   });
 
   var PhaseTapChangerLinear = /*#__PURE__*/function (_PhaseTapChanger) {
-    _inherits(PhaseTapChangerLinear, _PhaseTapChanger);
-    var _super = _createSuper(PhaseTapChangerLinear);
     function PhaseTapChangerLinear() {
       _classCallCheck(this, PhaseTapChangerLinear);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PhaseTapChangerLinear, arguments);
     }
-    _createClass(PhaseTapChangerLinear, null, [{
+    _inherits(PhaseTapChangerLinear, _PhaseTapChanger);
+    return _createClass(PhaseTapChangerLinear, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PhaseTapChangerLinear";
@@ -39169,7 +38467,6 @@
         return subClasses;
       }
     }]);
-    return PhaseTapChangerLinear;
   }(PhaseTapChanger);
   _defineProperty(PhaseTapChangerLinear, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -39179,13 +38476,12 @@
   });
 
   var PhaseTapChangerSymmetrical = /*#__PURE__*/function (_PhaseTapChangerNonLi) {
-    _inherits(PhaseTapChangerSymmetrical, _PhaseTapChangerNonLi);
-    var _super = _createSuper(PhaseTapChangerSymmetrical);
     function PhaseTapChangerSymmetrical() {
       _classCallCheck(this, PhaseTapChangerSymmetrical);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PhaseTapChangerSymmetrical, arguments);
     }
-    _createClass(PhaseTapChangerSymmetrical, null, [{
+    _inherits(PhaseTapChangerSymmetrical, _PhaseTapChangerNonLi);
+    return _createClass(PhaseTapChangerSymmetrical, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PhaseTapChangerSymmetrical";
@@ -39240,20 +38536,18 @@
         return subClasses;
       }
     }]);
-    return PhaseTapChangerSymmetrical;
   }(PhaseTapChangerNonLinear);
   _defineProperty(PhaseTapChangerSymmetrical, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
   });
 
   var PhaseTapChangerTable = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(PhaseTapChangerTable, _IdentifiedObject);
-    var _super = _createSuper(PhaseTapChangerTable);
     function PhaseTapChangerTable() {
       _classCallCheck(this, PhaseTapChangerTable);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PhaseTapChangerTable, arguments);
     }
-    _createClass(PhaseTapChangerTable, null, [{
+    _inherits(PhaseTapChangerTable, _IdentifiedObject);
+    return _createClass(PhaseTapChangerTable, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PhaseTapChangerTable";
@@ -39313,7 +38607,6 @@
         return subClasses;
       }
     }]);
-    return PhaseTapChangerTable;
   }(IdentifiedObject);
   _defineProperty(PhaseTapChangerTable, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -39321,13 +38614,12 @@
   });
 
   var TapChangerTablePoint = /*#__PURE__*/function (_BaseClass) {
-    _inherits(TapChangerTablePoint, _BaseClass);
-    var _super = _createSuper(TapChangerTablePoint);
     function TapChangerTablePoint() {
       _classCallCheck(this, TapChangerTablePoint);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TapChangerTablePoint, arguments);
     }
-    _createClass(TapChangerTablePoint, null, [{
+    _inherits(TapChangerTablePoint, _BaseClass);
+    return _createClass(TapChangerTablePoint, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TapChangerTablePoint";
@@ -39412,7 +38704,6 @@
         return subClasses;
       }
     }]);
-    return TapChangerTablePoint;
   }(BaseClass);
   _defineProperty(TapChangerTablePoint, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -39425,13 +38716,12 @@
   });
 
   var PhaseTapChangerTablePoint = /*#__PURE__*/function (_TapChangerTablePoint) {
-    _inherits(PhaseTapChangerTablePoint, _TapChangerTablePoint);
-    var _super = _createSuper(PhaseTapChangerTablePoint);
     function PhaseTapChangerTablePoint() {
       _classCallCheck(this, PhaseTapChangerTablePoint);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PhaseTapChangerTablePoint, arguments);
     }
-    _createClass(PhaseTapChangerTablePoint, null, [{
+    _inherits(PhaseTapChangerTablePoint, _TapChangerTablePoint);
+    return _createClass(PhaseTapChangerTablePoint, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PhaseTapChangerTablePoint";
@@ -39496,7 +38786,6 @@
         return subClasses;
       }
     }]);
-    return PhaseTapChangerTablePoint;
   }(TapChangerTablePoint);
   _defineProperty(PhaseTapChangerTablePoint, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -39505,13 +38794,12 @@
   });
 
   var PhaseTapChangerTabular = /*#__PURE__*/function (_PhaseTapChanger) {
-    _inherits(PhaseTapChangerTabular, _PhaseTapChanger);
-    var _super = _createSuper(PhaseTapChangerTabular);
     function PhaseTapChangerTabular() {
       _classCallCheck(this, PhaseTapChangerTabular);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PhaseTapChangerTabular, arguments);
     }
-    _createClass(PhaseTapChangerTabular, null, [{
+    _inherits(PhaseTapChangerTabular, _PhaseTapChanger);
+    return _createClass(PhaseTapChangerTabular, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PhaseTapChangerTabular";
@@ -39571,7 +38859,6 @@
         return subClasses;
       }
     }]);
-    return PhaseTapChangerTabular;
   }(PhaseTapChanger);
   _defineProperty(PhaseTapChangerTabular, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -39579,13 +38866,12 @@
   });
 
   var PositionPoint = /*#__PURE__*/function (_BaseClass) {
-    _inherits(PositionPoint, _BaseClass);
-    var _super = _createSuper(PositionPoint);
     function PositionPoint() {
       _classCallCheck(this, PositionPoint);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PositionPoint, arguments);
     }
-    _createClass(PositionPoint, null, [{
+    _inherits(PositionPoint, _BaseClass);
+    return _createClass(PositionPoint, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PositionPoint";
@@ -39665,7 +38951,6 @@
         return subClasses;
       }
     }]);
-    return PositionPoint;
   }(BaseClass);
   _defineProperty(PositionPoint, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.GL],
@@ -39677,13 +38962,12 @@
   });
 
   var PowerSystemStabilizerDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(PowerSystemStabilizerDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(PowerSystemStabilizerDynamics);
     function PowerSystemStabilizerDynamics() {
       _classCallCheck(this, PowerSystemStabilizerDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PowerSystemStabilizerDynamics, arguments);
     }
-    _createClass(PowerSystemStabilizerDynamics, null, [{
+    _inherits(PowerSystemStabilizerDynamics, _DynamicsFunctionBloc);
+    return _createClass(PowerSystemStabilizerDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PowerSystemStabilizerDynamics";
@@ -39743,7 +39027,6 @@
         return subClasses;
       }
     }]);
-    return PowerSystemStabilizerDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(PowerSystemStabilizerDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -39751,13 +39034,12 @@
   });
 
   var PowerSystemStabilizerUserDefined = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PowerSystemStabilizerUserDefined, _PowerSystemStabilize);
-    var _super = _createSuper(PowerSystemStabilizerUserDefined);
     function PowerSystemStabilizerUserDefined() {
       _classCallCheck(this, PowerSystemStabilizerUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PowerSystemStabilizerUserDefined, arguments);
     }
-    _createClass(PowerSystemStabilizerUserDefined, null, [{
+    _inherits(PowerSystemStabilizerUserDefined, _PowerSystemStabilize);
+    return _createClass(PowerSystemStabilizerUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PowerSystemStabilizerUserDefined";
@@ -39817,7 +39099,6 @@
         return subClasses;
       }
     }]);
-    return PowerSystemStabilizerUserDefined;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PowerSystemStabilizerUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -39825,13 +39106,12 @@
   });
 
   var PowerTransformer = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(PowerTransformer, _ConductingEquipment);
-    var _super = _createSuper(PowerTransformer);
     function PowerTransformer() {
       _classCallCheck(this, PowerTransformer);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PowerTransformer, arguments);
     }
-    _createClass(PowerTransformer, null, [{
+    _inherits(PowerTransformer, _ConductingEquipment);
+    return _createClass(PowerTransformer, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PowerTransformer";
@@ -39916,7 +39196,6 @@
         return subClasses;
       }
     }]);
-    return PowerTransformer;
   }(ConductingEquipment);
   _defineProperty(PowerTransformer, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -39929,13 +39208,12 @@
   });
 
   var TransformerEnd = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(TransformerEnd, _IdentifiedObject);
-    var _super = _createSuper(TransformerEnd);
     function TransformerEnd() {
       _classCallCheck(this, TransformerEnd);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TransformerEnd, arguments);
     }
-    _createClass(TransformerEnd, null, [{
+    _inherits(TransformerEnd, _IdentifiedObject);
+    return _createClass(TransformerEnd, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TransformerEnd";
@@ -40025,7 +39303,6 @@
         return subClasses;
       }
     }]);
-    return TransformerEnd;
   }(IdentifiedObject);
   _defineProperty(TransformerEnd, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -40039,13 +39316,12 @@
   });
 
   var PowerTransformerEnd = /*#__PURE__*/function (_TransformerEnd) {
-    _inherits(PowerTransformerEnd, _TransformerEnd);
-    var _super = _createSuper(PowerTransformerEnd);
     function PowerTransformerEnd() {
       _classCallCheck(this, PowerTransformerEnd);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PowerTransformerEnd, arguments);
     }
-    _createClass(PowerTransformerEnd, null, [{
+    _inherits(PowerTransformerEnd, _TransformerEnd);
+    return _createClass(PowerTransformerEnd, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PowerTransformerEnd";
@@ -40165,7 +39441,6 @@
         return subClasses;
       }
     }]);
-    return PowerTransformerEnd;
   }(TransformerEnd);
   _defineProperty(PowerTransformerEnd, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -40185,13 +39460,12 @@
   });
 
   var ProprietaryParameterDynamics = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ProprietaryParameterDynamics, _BaseClass);
-    var _super = _createSuper(ProprietaryParameterDynamics);
     function ProprietaryParameterDynamics() {
       _classCallCheck(this, ProprietaryParameterDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ProprietaryParameterDynamics, arguments);
     }
-    _createClass(ProprietaryParameterDynamics, null, [{
+    _inherits(ProprietaryParameterDynamics, _BaseClass);
+    return _createClass(ProprietaryParameterDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ProprietaryParameterDynamics";
@@ -40356,7 +39630,6 @@
         return subClasses;
       }
     }]);
-    return ProprietaryParameterDynamics;
   }(BaseClass);
   _defineProperty(ProprietaryParameterDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -40385,13 +39658,12 @@
   });
 
   var Pss1 = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(Pss1, _PowerSystemStabilize);
-    var _super = _createSuper(Pss1);
     function Pss1() {
       _classCallCheck(this, Pss1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Pss1, arguments);
     }
-    _createClass(Pss1, null, [{
+    _inherits(Pss1, _PowerSystemStabilize);
+    return _createClass(Pss1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Pss1";
@@ -40521,7 +39793,6 @@
         return subClasses;
       }
     }]);
-    return Pss1;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(Pss1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -40543,13 +39814,12 @@
   });
 
   var Pss1A = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(Pss1A, _PowerSystemStabilize);
-    var _super = _createSuper(Pss1A);
     function Pss1A() {
       _classCallCheck(this, Pss1A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Pss1A, arguments);
     }
-    _createClass(Pss1A, null, [{
+    _inherits(Pss1A, _PowerSystemStabilize);
+    return _createClass(Pss1A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Pss1A";
@@ -40714,7 +39984,6 @@
         return subClasses;
       }
     }]);
-    return Pss1A;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(Pss1A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -40743,13 +40012,12 @@
   });
 
   var Pss2B = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(Pss2B, _PowerSystemStabilize);
-    var _super = _createSuper(Pss2B);
     function Pss2B() {
       _classCallCheck(this, Pss2B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Pss2B, arguments);
     }
-    _createClass(Pss2B, null, [{
+    _inherits(Pss2B, _PowerSystemStabilize);
+    return _createClass(Pss2B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Pss2B";
@@ -40959,7 +40227,6 @@
         return subClasses;
       }
     }]);
-    return Pss2B;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(Pss2B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -40997,13 +40264,12 @@
   });
 
   var Pss2ST = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(Pss2ST, _PowerSystemStabilize);
-    var _super = _createSuper(Pss2ST);
     function Pss2ST() {
       _classCallCheck(this, Pss2ST);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Pss2ST, arguments);
     }
-    _createClass(Pss2ST, null, [{
+    _inherits(Pss2ST, _PowerSystemStabilize);
+    return _createClass(Pss2ST, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Pss2ST";
@@ -41148,7 +40414,6 @@
         return subClasses;
       }
     }]);
-    return Pss2ST;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(Pss2ST, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -41173,13 +40438,12 @@
   });
 
   var Pss5 = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(Pss5, _PowerSystemStabilize);
-    var _super = _createSuper(Pss5);
     function Pss5() {
       _classCallCheck(this, Pss5);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Pss5, arguments);
     }
-    _createClass(Pss5, null, [{
+    _inherits(Pss5, _PowerSystemStabilize);
+    return _createClass(Pss5, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Pss5";
@@ -41319,7 +40583,6 @@
         return subClasses;
       }
     }]);
-    return Pss5;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(Pss5, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -41343,13 +40606,12 @@
   });
 
   var PssELIN2 = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssELIN2, _PowerSystemStabilize);
-    var _super = _createSuper(PssELIN2);
     function PssELIN2() {
       _classCallCheck(this, PssELIN2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssELIN2, arguments);
     }
-    _createClass(PssELIN2, null, [{
+    _inherits(PssELIN2, _PowerSystemStabilize);
+    return _createClass(PssELIN2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssELIN2";
@@ -41459,7 +40721,6 @@
         return subClasses;
       }
     }]);
-    return PssELIN2;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssELIN2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -41477,13 +40738,12 @@
   });
 
   var PssIEEE1A = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssIEEE1A, _PowerSystemStabilize);
-    var _super = _createSuper(PssIEEE1A);
     function PssIEEE1A() {
       _classCallCheck(this, PssIEEE1A);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssIEEE1A, arguments);
     }
-    _createClass(PssIEEE1A, null, [{
+    _inherits(PssIEEE1A, _PowerSystemStabilize);
+    return _createClass(PssIEEE1A, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssIEEE1A";
@@ -41598,7 +40858,6 @@
         return subClasses;
       }
     }]);
-    return PssIEEE1A;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssIEEE1A, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -41617,13 +40876,12 @@
   });
 
   var PssIEEE2B = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssIEEE2B, _PowerSystemStabilize);
-    var _super = _createSuper(PssIEEE2B);
     function PssIEEE2B() {
       _classCallCheck(this, PssIEEE2B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssIEEE2B, arguments);
     }
-    _createClass(PssIEEE2B, null, [{
+    _inherits(PssIEEE2B, _PowerSystemStabilize);
+    return _createClass(PssIEEE2B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssIEEE2B";
@@ -41813,7 +41071,6 @@
         return subClasses;
       }
     }]);
-    return PssIEEE2B;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssIEEE2B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -41847,13 +41104,12 @@
   });
 
   var PssIEEE3B = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssIEEE3B, _PowerSystemStabilize);
-    var _super = _createSuper(PssIEEE3B);
     function PssIEEE3B() {
       _classCallCheck(this, PssIEEE3B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssIEEE3B, arguments);
     }
-    _createClass(PssIEEE3B, null, [{
+    _inherits(PssIEEE3B, _PowerSystemStabilize);
+    return _createClass(PssIEEE3B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssIEEE3B";
@@ -42003,7 +41259,6 @@
         return subClasses;
       }
     }]);
-    return PssIEEE3B;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssIEEE3B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -42029,13 +41284,12 @@
   });
 
   var PssIEEE4B = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssIEEE4B, _PowerSystemStabilize);
-    var _super = _createSuper(PssIEEE4B);
     function PssIEEE4B() {
       _classCallCheck(this, PssIEEE4B);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssIEEE4B, arguments);
     }
-    _createClass(PssIEEE4B, null, [{
+    _inherits(PssIEEE4B, _PowerSystemStabilize);
+    return _createClass(PssIEEE4B, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssIEEE4B";
@@ -42425,7 +41679,6 @@
         return subClasses;
       }
     }]);
-    return PssIEEE4B;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssIEEE4B, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -42499,13 +41752,12 @@
   });
 
   var PssPTIST1 = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssPTIST1, _PowerSystemStabilize);
-    var _super = _createSuper(PssPTIST1);
     function PssPTIST1() {
       _classCallCheck(this, PssPTIST1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssPTIST1, arguments);
     }
-    _createClass(PssPTIST1, null, [{
+    _inherits(PssPTIST1, _PowerSystemStabilize);
+    return _createClass(PssPTIST1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssPTIST1";
@@ -42615,7 +41867,6 @@
         return subClasses;
       }
     }]);
-    return PssPTIST1;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssPTIST1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -42633,13 +41884,12 @@
   });
 
   var PssPTIST3 = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssPTIST3, _PowerSystemStabilize);
-    var _super = _createSuper(PssPTIST3);
     function PssPTIST3() {
       _classCallCheck(this, PssPTIST3);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssPTIST3, arguments);
     }
-    _createClass(PssPTIST3, null, [{
+    _inherits(PssPTIST3, _PowerSystemStabilize);
+    return _createClass(PssPTIST3, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssPTIST3";
@@ -42864,7 +42114,6 @@
         return subClasses;
       }
     }]);
-    return PssPTIST3;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssPTIST3, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -42905,13 +42154,12 @@
   });
 
   var PssSB4 = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssSB4, _PowerSystemStabilize);
-    var _super = _createSuper(PssSB4);
     function PssSB4() {
       _classCallCheck(this, PssSB4);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssSB4, arguments);
     }
-    _createClass(PssSB4, null, [{
+    _inherits(PssSB4, _PowerSystemStabilize);
+    return _createClass(PssSB4, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssSB4";
@@ -43021,7 +42269,6 @@
         return subClasses;
       }
     }]);
-    return PssSB4;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssSB4, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -43039,13 +42286,12 @@
   });
 
   var PssSH = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssSH, _PowerSystemStabilize);
-    var _super = _createSuper(PssSH);
     function PssSH() {
       _classCallCheck(this, PssSH);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssSH, arguments);
     }
-    _createClass(PssSH, null, [{
+    _inherits(PssSH, _PowerSystemStabilize);
+    return _createClass(PssSH, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssSH";
@@ -43165,7 +42411,6 @@
         return subClasses;
       }
     }]);
-    return PssSH;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssSH, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -43185,13 +42430,12 @@
   });
 
   var PssSK = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssSK, _PowerSystemStabilize);
-    var _super = _createSuper(PssSK);
     function PssSK() {
       _classCallCheck(this, PssSK);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssSK, arguments);
     }
-    _createClass(PssSK, null, [{
+    _inherits(PssSK, _PowerSystemStabilize);
+    return _createClass(PssSK, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssSK";
@@ -43301,7 +42545,6 @@
         return subClasses;
       }
     }]);
-    return PssSK;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssSK, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -43319,13 +42562,12 @@
   });
 
   var PssWECC = /*#__PURE__*/function (_PowerSystemStabilize) {
-    _inherits(PssWECC, _PowerSystemStabilize);
-    var _super = _createSuper(PssWECC);
     function PssWECC() {
       _classCallCheck(this, PssWECC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, PssWECC, arguments);
     }
-    _createClass(PssWECC, null, [{
+    _inherits(PssWECC, _PowerSystemStabilize);
+    return _createClass(PssWECC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "PssWECC";
@@ -43470,7 +42712,6 @@
         return subClasses;
       }
     }]);
-    return PssWECC;
   }(PowerSystemStabilizerDynamics);
   _defineProperty(PssWECC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -43495,13 +42736,12 @@
   });
 
   var RaiseLowerCommand = /*#__PURE__*/function (_AnalogControl) {
-    _inherits(RaiseLowerCommand, _AnalogControl);
-    var _super = _createSuper(RaiseLowerCommand);
     function RaiseLowerCommand() {
       _classCallCheck(this, RaiseLowerCommand);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RaiseLowerCommand, arguments);
     }
-    _createClass(RaiseLowerCommand, null, [{
+    _inherits(RaiseLowerCommand, _AnalogControl);
+    return _createClass(RaiseLowerCommand, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RaiseLowerCommand";
@@ -43561,7 +42801,6 @@
         return subClasses;
       }
     }]);
-    return RaiseLowerCommand;
   }(AnalogControl);
   _defineProperty(RaiseLowerCommand, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -43569,13 +42808,12 @@
   });
 
   var RatioTapChanger = /*#__PURE__*/function (_TapChanger) {
-    _inherits(RatioTapChanger, _TapChanger);
-    var _super = _createSuper(RatioTapChanger);
     function RatioTapChanger() {
       _classCallCheck(this, RatioTapChanger);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RatioTapChanger, arguments);
     }
-    _createClass(RatioTapChanger, null, [{
+    _inherits(RatioTapChanger, _TapChanger);
+    return _createClass(RatioTapChanger, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RatioTapChanger";
@@ -43650,7 +42888,6 @@
         return subClasses;
       }
     }]);
-    return RatioTapChanger;
   }(TapChanger);
   _defineProperty(RatioTapChanger, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -43661,13 +42898,12 @@
   });
 
   var RatioTapChangerTable = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(RatioTapChangerTable, _IdentifiedObject);
-    var _super = _createSuper(RatioTapChangerTable);
     function RatioTapChangerTable() {
       _classCallCheck(this, RatioTapChangerTable);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RatioTapChangerTable, arguments);
     }
-    _createClass(RatioTapChangerTable, null, [{
+    _inherits(RatioTapChangerTable, _IdentifiedObject);
+    return _createClass(RatioTapChangerTable, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RatioTapChangerTable";
@@ -43727,7 +42963,6 @@
         return subClasses;
       }
     }]);
-    return RatioTapChangerTable;
   }(IdentifiedObject);
   _defineProperty(RatioTapChangerTable, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -43735,13 +42970,12 @@
   });
 
   var RatioTapChangerTablePoint = /*#__PURE__*/function (_TapChangerTablePoint) {
-    _inherits(RatioTapChangerTablePoint, _TapChangerTablePoint);
-    var _super = _createSuper(RatioTapChangerTablePoint);
     function RatioTapChangerTablePoint() {
       _classCallCheck(this, RatioTapChangerTablePoint);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RatioTapChangerTablePoint, arguments);
     }
-    _createClass(RatioTapChangerTablePoint, null, [{
+    _inherits(RatioTapChangerTablePoint, _TapChangerTablePoint);
+    return _createClass(RatioTapChangerTablePoint, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RatioTapChangerTablePoint";
@@ -43801,7 +43035,6 @@
         return subClasses;
       }
     }]);
-    return RatioTapChangerTablePoint;
   }(TapChangerTablePoint);
   _defineProperty(RatioTapChangerTablePoint, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -43809,13 +43042,12 @@
   });
 
   var Reactance = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Reactance, _BaseClass);
-    var _super = _createSuper(Reactance);
     function Reactance() {
       _classCallCheck(this, Reactance);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Reactance, arguments);
     }
-    _createClass(Reactance, null, [{
+    _inherits(Reactance, _BaseClass);
+    return _createClass(Reactance, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Reactance";
@@ -43884,7 +43116,6 @@
         return subClasses;
       }
     }]);
-    return Reactance;
   }(BaseClass);
   _defineProperty(Reactance, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -43894,13 +43125,12 @@
   });
 
   var ReactiveCapabilityCurve = /*#__PURE__*/function (_Curve) {
-    _inherits(ReactiveCapabilityCurve, _Curve);
-    var _super = _createSuper(ReactiveCapabilityCurve);
     function ReactiveCapabilityCurve() {
       _classCallCheck(this, ReactiveCapabilityCurve);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ReactiveCapabilityCurve, arguments);
     }
-    _createClass(ReactiveCapabilityCurve, null, [{
+    _inherits(ReactiveCapabilityCurve, _Curve);
+    return _createClass(ReactiveCapabilityCurve, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ReactiveCapabilityCurve";
@@ -43960,7 +43190,6 @@
         return subClasses;
       }
     }]);
-    return ReactiveCapabilityCurve;
   }(Curve);
   _defineProperty(ReactiveCapabilityCurve, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -43968,13 +43197,12 @@
   });
 
   var ReactivePower = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ReactivePower, _BaseClass);
-    var _super = _createSuper(ReactivePower);
     function ReactivePower() {
       _classCallCheck(this, ReactivePower);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ReactivePower, arguments);
     }
-    _createClass(ReactivePower, null, [{
+    _inherits(ReactivePower, _BaseClass);
+    return _createClass(ReactivePower, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ReactivePower";
@@ -44043,7 +43271,6 @@
         return subClasses;
       }
     }]);
-    return ReactivePower;
   }(BaseClass);
   _defineProperty(ReactivePower, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV],
@@ -44053,13 +43280,12 @@
   });
 
   var RegularTimePoint = /*#__PURE__*/function (_BaseClass) {
-    _inherits(RegularTimePoint, _BaseClass);
-    var _super = _createSuper(RegularTimePoint);
     function RegularTimePoint() {
       _classCallCheck(this, RegularTimePoint);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RegularTimePoint, arguments);
     }
-    _createClass(RegularTimePoint, null, [{
+    _inherits(RegularTimePoint, _BaseClass);
+    return _createClass(RegularTimePoint, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RegularTimePoint";
@@ -44134,7 +43360,6 @@
         return subClasses;
       }
     }]);
-    return RegularTimePoint;
   }(BaseClass);
   _defineProperty(RegularTimePoint, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -44145,13 +43370,12 @@
   });
 
   var RegulatingControl = /*#__PURE__*/function (_PowerSystemResource) {
-    _inherits(RegulatingControl, _PowerSystemResource);
-    var _super = _createSuper(RegulatingControl);
     function RegulatingControl() {
       _classCallCheck(this, RegulatingControl);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RegulatingControl, arguments);
     }
-    _createClass(RegulatingControl, null, [{
+    _inherits(RegulatingControl, _PowerSystemResource);
+    return _createClass(RegulatingControl, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RegulatingControl";
@@ -44241,7 +43465,6 @@
         return subClasses;
       }
     }]);
-    return RegulatingControl;
   }(PowerSystemResource);
   _defineProperty(RegulatingControl, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -44282,13 +43505,12 @@
     "label": "powerFactor"
   }];
   var RegulatingControlModeKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(RegulatingControlModeKind, _BaseClass);
-    var _super = _createSuper(RegulatingControlModeKind);
     function RegulatingControlModeKind() {
       _classCallCheck(this, RegulatingControlModeKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RegulatingControlModeKind, arguments);
     }
-    _createClass(RegulatingControlModeKind, null, [{
+    _inherits(RegulatingControlModeKind, _BaseClass);
+    return _createClass(RegulatingControlModeKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RegulatingControlModeKind";
@@ -44355,20 +43577,18 @@
         return subClasses;
       }
     }]);
-    return RegulatingControlModeKind;
   }(BaseClass);
   _defineProperty(RegulatingControlModeKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var RegulationSchedule = /*#__PURE__*/function (_SeasonDayTypeSchedul) {
-    _inherits(RegulationSchedule, _SeasonDayTypeSchedul);
-    var _super = _createSuper(RegulationSchedule);
     function RegulationSchedule() {
       _classCallCheck(this, RegulationSchedule);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RegulationSchedule, arguments);
     }
-    _createClass(RegulationSchedule, null, [{
+    _inherits(RegulationSchedule, _SeasonDayTypeSchedul);
+    return _createClass(RegulationSchedule, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RegulationSchedule";
@@ -44428,7 +43648,6 @@
         return subClasses;
       }
     }]);
-    return RegulationSchedule;
   }(SeasonDayTypeSchedule);
   _defineProperty(RegulationSchedule, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -44436,13 +43655,12 @@
   });
 
   var RemoteInputSignal = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(RemoteInputSignal, _IdentifiedObject);
-    var _super = _createSuper(RemoteInputSignal);
     function RemoteInputSignal() {
       _classCallCheck(this, RemoteInputSignal);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RemoteInputSignal, arguments);
     }
-    _createClass(RemoteInputSignal, null, [{
+    _inherits(RemoteInputSignal, _IdentifiedObject);
+    return _createClass(RemoteInputSignal, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RemoteInputSignal";
@@ -44537,7 +43755,6 @@
         return subClasses;
       }
     }]);
-    return RemoteInputSignal;
   }(IdentifiedObject);
   _defineProperty(RemoteInputSignal, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -44582,13 +43799,12 @@
     "label": "remotePuBusVoltageDerivative"
   }];
   var RemoteSignalKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(RemoteSignalKind, _BaseClass);
-    var _super = _createSuper(RemoteSignalKind);
     function RemoteSignalKind() {
       _classCallCheck(this, RemoteSignalKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RemoteSignalKind, arguments);
     }
-    _createClass(RemoteSignalKind, null, [{
+    _inherits(RemoteSignalKind, _BaseClass);
+    return _createClass(RemoteSignalKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RemoteSignalKind";
@@ -44655,20 +43871,18 @@
         return subClasses;
       }
     }]);
-    return RemoteSignalKind;
   }(BaseClass);
   _defineProperty(RemoteSignalKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var ReportingGroup = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(ReportingGroup, _IdentifiedObject);
-    var _super = _createSuper(ReportingGroup);
     function ReportingGroup() {
       _classCallCheck(this, ReportingGroup);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ReportingGroup, arguments);
     }
-    _createClass(ReportingGroup, null, [{
+    _inherits(ReportingGroup, _IdentifiedObject);
+    return _createClass(ReportingGroup, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ReportingGroup";
@@ -44728,7 +43942,6 @@
         return subClasses;
       }
     }]);
-    return ReportingGroup;
   }(IdentifiedObject);
   _defineProperty(ReportingGroup, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.TP],
@@ -44736,13 +43949,12 @@
   });
 
   var Resistance = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Resistance, _BaseClass);
-    var _super = _createSuper(Resistance);
     function Resistance() {
       _classCallCheck(this, Resistance);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Resistance, arguments);
     }
-    _createClass(Resistance, null, [{
+    _inherits(Resistance, _BaseClass);
+    return _createClass(Resistance, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Resistance";
@@ -44811,7 +44023,6 @@
         return subClasses;
       }
     }]);
-    return Resistance;
   }(BaseClass);
   _defineProperty(Resistance, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -44821,13 +44032,12 @@
   });
 
   var ResistancePerLength = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ResistancePerLength, _BaseClass);
-    var _super = _createSuper(ResistancePerLength);
     function ResistancePerLength() {
       _classCallCheck(this, ResistancePerLength);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ResistancePerLength, arguments);
     }
-    _createClass(ResistancePerLength, null, [{
+    _inherits(ResistancePerLength, _BaseClass);
+    return _createClass(ResistancePerLength, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ResistancePerLength";
@@ -44907,7 +44117,6 @@
         return subClasses;
       }
     }]);
-    return ResistancePerLength;
   }(BaseClass);
   _defineProperty(ResistancePerLength, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -44919,13 +44128,12 @@
   });
 
   var RotationSpeed = /*#__PURE__*/function (_BaseClass) {
-    _inherits(RotationSpeed, _BaseClass);
-    var _super = _createSuper(RotationSpeed);
     function RotationSpeed() {
       _classCallCheck(this, RotationSpeed);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RotationSpeed, arguments);
     }
-    _createClass(RotationSpeed, null, [{
+    _inherits(RotationSpeed, _BaseClass);
+    return _createClass(RotationSpeed, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RotationSpeed";
@@ -45005,7 +44213,6 @@
         return subClasses;
       }
     }]);
-    return RotationSpeed;
   }(BaseClass);
   _defineProperty(RotationSpeed, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -45026,13 +44233,12 @@
     "label": "salientPole"
   }];
   var RotorKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(RotorKind, _BaseClass);
-    var _super = _createSuper(RotorKind);
     function RotorKind() {
       _classCallCheck(this, RotorKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, RotorKind, arguments);
     }
-    _createClass(RotorKind, null, [{
+    _inherits(RotorKind, _BaseClass);
+    return _createClass(RotorKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "RotorKind";
@@ -45099,7 +44305,6 @@
         return subClasses;
       }
     }]);
-    return RotorKind;
   }(BaseClass);
   _defineProperty(RotorKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
@@ -45115,13 +44320,12 @@
     "label": "voltage"
   }];
   var SVCControlMode = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SVCControlMode, _BaseClass);
-    var _super = _createSuper(SVCControlMode);
     function SVCControlMode() {
       _classCallCheck(this, SVCControlMode);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SVCControlMode, arguments);
     }
-    _createClass(SVCControlMode, null, [{
+    _inherits(SVCControlMode, _BaseClass);
+    return _createClass(SVCControlMode, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SVCControlMode";
@@ -45188,20 +44392,18 @@
         return subClasses;
       }
     }]);
-    return SVCControlMode;
   }(BaseClass);
   _defineProperty(SVCControlMode, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var Season = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(Season, _IdentifiedObject);
-    var _super = _createSuper(Season);
     function Season() {
       _classCallCheck(this, Season);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Season, arguments);
     }
-    _createClass(Season, null, [{
+    _inherits(Season, _IdentifiedObject);
+    return _createClass(Season, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Season";
@@ -45266,7 +44468,6 @@
         return subClasses;
       }
     }]);
-    return Season;
   }(IdentifiedObject);
   _defineProperty(Season, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -45275,13 +44476,12 @@
   });
 
   var Seconds = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Seconds, _BaseClass);
-    var _super = _createSuper(Seconds);
     function Seconds() {
       _classCallCheck(this, Seconds);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Seconds, arguments);
     }
-    _createClass(Seconds, null, [{
+    _inherits(Seconds, _BaseClass);
+    return _createClass(Seconds, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Seconds";
@@ -45350,7 +44550,6 @@
         return subClasses;
       }
     }]);
-    return Seconds;
   }(BaseClass);
   _defineProperty(Seconds, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY],
@@ -45360,13 +44559,12 @@
   });
 
   var SeriesCompensator = /*#__PURE__*/function (_ConductingEquipment) {
-    _inherits(SeriesCompensator, _ConductingEquipment);
-    var _super = _createSuper(SeriesCompensator);
     function SeriesCompensator() {
       _classCallCheck(this, SeriesCompensator);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SeriesCompensator, arguments);
     }
-    _createClass(SeriesCompensator, null, [{
+    _inherits(SeriesCompensator, _ConductingEquipment);
+    return _createClass(SeriesCompensator, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SeriesCompensator";
@@ -45456,7 +44654,6 @@
         return subClasses;
       }
     }]);
-    return SeriesCompensator;
   }(ConductingEquipment);
   _defineProperty(SeriesCompensator, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -45470,13 +44667,12 @@
   });
 
   var SetPoint = /*#__PURE__*/function (_AnalogControl) {
-    _inherits(SetPoint, _AnalogControl);
-    var _super = _createSuper(SetPoint);
     function SetPoint() {
       _classCallCheck(this, SetPoint);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SetPoint, arguments);
     }
-    _createClass(SetPoint, null, [{
+    _inherits(SetPoint, _AnalogControl);
+    return _createClass(SetPoint, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SetPoint";
@@ -45541,7 +44737,6 @@
         return subClasses;
       }
     }]);
-    return SetPoint;
   }(AnalogControl);
   _defineProperty(SetPoint, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -45565,13 +44760,12 @@
     "label": "turboSeries2"
   }];
   var ShortCircuitRotorKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(ShortCircuitRotorKind, _BaseClass);
-    var _super = _createSuper(ShortCircuitRotorKind);
     function ShortCircuitRotorKind() {
       _classCallCheck(this, ShortCircuitRotorKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ShortCircuitRotorKind, arguments);
     }
-    _createClass(ShortCircuitRotorKind, null, [{
+    _inherits(ShortCircuitRotorKind, _BaseClass);
+    return _createClass(ShortCircuitRotorKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ShortCircuitRotorKind";
@@ -45638,20 +44832,18 @@
         return subClasses;
       }
     }]);
-    return ShortCircuitRotorKind;
   }(BaseClass);
   _defineProperty(ShortCircuitRotorKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var Simple_Float = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Simple_Float, _BaseClass);
-    var _super = _createSuper(Simple_Float);
     function Simple_Float() {
       _classCallCheck(this, Simple_Float);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Simple_Float, arguments);
     }
-    _createClass(Simple_Float, null, [{
+    _inherits(Simple_Float, _BaseClass);
+    return _createClass(Simple_Float, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Simple_Float";
@@ -45710,7 +44902,6 @@
         return subClasses;
       }
     }]);
-    return Simple_Float;
   }(BaseClass);
   _defineProperty(Simple_Float, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY],
@@ -45718,13 +44909,12 @@
   });
 
   var SolarGeneratingUnit = /*#__PURE__*/function (_GeneratingUnit) {
-    _inherits(SolarGeneratingUnit, _GeneratingUnit);
-    var _super = _createSuper(SolarGeneratingUnit);
     function SolarGeneratingUnit() {
       _classCallCheck(this, SolarGeneratingUnit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SolarGeneratingUnit, arguments);
     }
-    _createClass(SolarGeneratingUnit, null, [{
+    _inherits(SolarGeneratingUnit, _GeneratingUnit);
+    return _createClass(SolarGeneratingUnit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SolarGeneratingUnit";
@@ -45779,7 +44969,6 @@
         return subClasses;
       }
     }]);
-    return SolarGeneratingUnit;
   }(GeneratingUnit);
   _defineProperty(SolarGeneratingUnit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
@@ -45798,13 +44987,12 @@
     "label": "SUBSTITUTED"
   }];
   var Source = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Source, _BaseClass);
-    var _super = _createSuper(Source);
     function Source() {
       _classCallCheck(this, Source);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Source, arguments);
     }
-    _createClass(Source, null, [{
+    _inherits(Source, _BaseClass);
+    return _createClass(Source, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Source";
@@ -45871,20 +45059,18 @@
         return subClasses;
       }
     }]);
-    return Source;
   }(BaseClass);
   _defineProperty(Source, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var StateVariablesVersion = /*#__PURE__*/function (_BaseClass) {
-    _inherits(StateVariablesVersion, _BaseClass);
-    var _super = _createSuper(StateVariablesVersion);
     function StateVariablesVersion() {
       _classCallCheck(this, StateVariablesVersion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, StateVariablesVersion, arguments);
     }
-    _createClass(StateVariablesVersion, null, [{
+    _inherits(StateVariablesVersion, _BaseClass);
+    return _createClass(StateVariablesVersion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "StateVariablesVersion";
@@ -45989,7 +45175,6 @@
         return subClasses;
       }
     }]);
-    return StateVariablesVersion;
   }(BaseClass);
   _defineProperty(StateVariablesVersion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV],
@@ -46021,13 +45206,12 @@
     "label": "constantZ"
   }];
   var StaticLoadModelKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(StaticLoadModelKind, _BaseClass);
-    var _super = _createSuper(StaticLoadModelKind);
     function StaticLoadModelKind() {
       _classCallCheck(this, StaticLoadModelKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, StaticLoadModelKind, arguments);
     }
-    _createClass(StaticLoadModelKind, null, [{
+    _inherits(StaticLoadModelKind, _BaseClass);
+    return _createClass(StaticLoadModelKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "StaticLoadModelKind";
@@ -46094,20 +45278,18 @@
         return subClasses;
       }
     }]);
-    return StaticLoadModelKind;
   }(BaseClass);
   _defineProperty(StaticLoadModelKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var StaticVarCompensator = /*#__PURE__*/function (_RegulatingCondEq) {
-    _inherits(StaticVarCompensator, _RegulatingCondEq);
-    var _super = _createSuper(StaticVarCompensator);
     function StaticVarCompensator() {
       _classCallCheck(this, StaticVarCompensator);
-      return _super.apply(this, arguments);
+      return _callSuper(this, StaticVarCompensator, arguments);
     }
-    _createClass(StaticVarCompensator, null, [{
+    _inherits(StaticVarCompensator, _RegulatingCondEq);
+    return _createClass(StaticVarCompensator, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "StaticVarCompensator";
@@ -46192,7 +45374,6 @@
         return subClasses;
       }
     }]);
-    return StaticVarCompensator;
   }(RegulatingCondEq);
   _defineProperty(StaticVarCompensator, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -46205,13 +45386,12 @@
   });
 
   var StationSupply = /*#__PURE__*/function (_EnergyConsumer) {
-    _inherits(StationSupply, _EnergyConsumer);
-    var _super = _createSuper(StationSupply);
     function StationSupply() {
       _classCallCheck(this, StationSupply);
-      return _super.apply(this, arguments);
+      return _callSuper(this, StationSupply, arguments);
     }
-    _createClass(StationSupply, null, [{
+    _inherits(StationSupply, _EnergyConsumer);
+    return _createClass(StationSupply, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "StationSupply";
@@ -46266,20 +45446,18 @@
         return subClasses;
       }
     }]);
-    return StationSupply;
   }(EnergyConsumer);
   _defineProperty(StationSupply, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
   });
 
   var SteadyStateHypothesisVersion = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SteadyStateHypothesisVersion, _BaseClass);
-    var _super = _createSuper(SteadyStateHypothesisVersion);
     function SteadyStateHypothesisVersion() {
       _classCallCheck(this, SteadyStateHypothesisVersion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SteadyStateHypothesisVersion, arguments);
     }
-    _createClass(SteadyStateHypothesisVersion, null, [{
+    _inherits(SteadyStateHypothesisVersion, _BaseClass);
+    return _createClass(SteadyStateHypothesisVersion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SteadyStateHypothesisVersion";
@@ -46384,7 +45562,6 @@
         return subClasses;
       }
     }]);
-    return SteadyStateHypothesisVersion;
   }(BaseClass);
   _defineProperty(SteadyStateHypothesisVersion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SSH],
@@ -46404,7 +45581,7 @@
     function String() {
       _classCallCheck(this, String);
     }
-    _createClass(String, null, [{
+    return _createClass(String, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         return {};
@@ -46430,17 +45607,15 @@
         return [];
       }
     }]);
-    return String;
   }();
 
   var StringMeasurement = /*#__PURE__*/function (_Measurement) {
-    _inherits(StringMeasurement, _Measurement);
-    var _super = _createSuper(StringMeasurement);
     function StringMeasurement() {
       _classCallCheck(this, StringMeasurement);
-      return _super.apply(this, arguments);
+      return _callSuper(this, StringMeasurement, arguments);
     }
-    _createClass(StringMeasurement, null, [{
+    _inherits(StringMeasurement, _Measurement);
+    return _createClass(StringMeasurement, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "StringMeasurement";
@@ -46495,20 +45670,18 @@
         return subClasses;
       }
     }]);
-    return StringMeasurement;
   }(Measurement);
   _defineProperty(StringMeasurement, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var StringMeasurementValue = /*#__PURE__*/function (_MeasurementValue) {
-    _inherits(StringMeasurementValue, _MeasurementValue);
-    var _super = _createSuper(StringMeasurementValue);
     function StringMeasurementValue() {
       _classCallCheck(this, StringMeasurementValue);
-      return _super.apply(this, arguments);
+      return _callSuper(this, StringMeasurementValue, arguments);
     }
-    _createClass(StringMeasurementValue, null, [{
+    _inherits(StringMeasurementValue, _MeasurementValue);
+    return _createClass(StringMeasurementValue, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "StringMeasurementValue";
@@ -46573,7 +45746,6 @@
         return subClasses;
       }
     }]);
-    return StringMeasurementValue;
   }(MeasurementValue);
   _defineProperty(StringMeasurementValue, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -46582,13 +45754,12 @@
   });
 
   var SubGeographicalRegion = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(SubGeographicalRegion, _IdentifiedObject);
-    var _super = _createSuper(SubGeographicalRegion);
     function SubGeographicalRegion() {
       _classCallCheck(this, SubGeographicalRegion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SubGeographicalRegion, arguments);
     }
-    _createClass(SubGeographicalRegion, null, [{
+    _inherits(SubGeographicalRegion, _IdentifiedObject);
+    return _createClass(SubGeographicalRegion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SubGeographicalRegion";
@@ -46653,7 +45824,6 @@
         return subClasses;
       }
     }]);
-    return SubGeographicalRegion;
   }(IdentifiedObject);
   _defineProperty(SubGeographicalRegion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.EQ_BD],
@@ -46662,13 +45832,12 @@
   });
 
   var SubLoadArea = /*#__PURE__*/function (_EnergyArea) {
-    _inherits(SubLoadArea, _EnergyArea);
-    var _super = _createSuper(SubLoadArea);
     function SubLoadArea() {
       _classCallCheck(this, SubLoadArea);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SubLoadArea, arguments);
     }
-    _createClass(SubLoadArea, null, [{
+    _inherits(SubLoadArea, _EnergyArea);
+    return _createClass(SubLoadArea, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SubLoadArea";
@@ -46728,7 +45897,6 @@
         return subClasses;
       }
     }]);
-    return SubLoadArea;
   }(EnergyArea);
   _defineProperty(SubLoadArea, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -46736,13 +45904,12 @@
   });
 
   var Substation = /*#__PURE__*/function (_EquipmentContainer) {
-    _inherits(Substation, _EquipmentContainer);
-    var _super = _createSuper(Substation);
     function Substation() {
       _classCallCheck(this, Substation);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Substation, arguments);
     }
-    _createClass(Substation, null, [{
+    _inherits(Substation, _EquipmentContainer);
+    return _createClass(Substation, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Substation";
@@ -46802,7 +45969,6 @@
         return subClasses;
       }
     }]);
-    return Substation;
   }(EquipmentContainer);
   _defineProperty(Substation, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -46810,13 +45976,12 @@
   });
 
   var Susceptance = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Susceptance, _BaseClass);
-    var _super = _createSuper(Susceptance);
     function Susceptance() {
       _classCallCheck(this, Susceptance);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Susceptance, arguments);
     }
-    _createClass(Susceptance, null, [{
+    _inherits(Susceptance, _BaseClass);
+    return _createClass(Susceptance, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Susceptance";
@@ -46885,7 +46050,6 @@
         return subClasses;
       }
     }]);
-    return Susceptance;
   }(BaseClass);
   _defineProperty(Susceptance, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -46895,13 +46059,12 @@
   });
 
   var SvInjection = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SvInjection, _BaseClass);
-    var _super = _createSuper(SvInjection);
     function SvInjection() {
       _classCallCheck(this, SvInjection);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SvInjection, arguments);
     }
-    _createClass(SvInjection, null, [{
+    _inherits(SvInjection, _BaseClass);
+    return _createClass(SvInjection, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SvInjection";
@@ -46971,7 +46134,6 @@
         return subClasses;
       }
     }]);
-    return SvInjection;
   }(BaseClass);
   _defineProperty(SvInjection, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV],
@@ -46981,13 +46143,12 @@
   });
 
   var SvPowerFlow = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SvPowerFlow, _BaseClass);
-    var _super = _createSuper(SvPowerFlow);
     function SvPowerFlow() {
       _classCallCheck(this, SvPowerFlow);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SvPowerFlow, arguments);
     }
-    _createClass(SvPowerFlow, null, [{
+    _inherits(SvPowerFlow, _BaseClass);
+    return _createClass(SvPowerFlow, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SvPowerFlow";
@@ -47057,7 +46218,6 @@
         return subClasses;
       }
     }]);
-    return SvPowerFlow;
   }(BaseClass);
   _defineProperty(SvPowerFlow, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV],
@@ -47067,13 +46227,12 @@
   });
 
   var SvShuntCompensatorSections = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SvShuntCompensatorSections, _BaseClass);
-    var _super = _createSuper(SvShuntCompensatorSections);
     function SvShuntCompensatorSections() {
       _classCallCheck(this, SvShuntCompensatorSections);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SvShuntCompensatorSections, arguments);
     }
-    _createClass(SvShuntCompensatorSections, null, [{
+    _inherits(SvShuntCompensatorSections, _BaseClass);
+    return _createClass(SvShuntCompensatorSections, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SvShuntCompensatorSections";
@@ -47138,7 +46297,6 @@
         return subClasses;
       }
     }]);
-    return SvShuntCompensatorSections;
   }(BaseClass);
   _defineProperty(SvShuntCompensatorSections, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV],
@@ -47147,13 +46305,12 @@
   });
 
   var SvStatus = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SvStatus, _BaseClass);
-    var _super = _createSuper(SvStatus);
     function SvStatus() {
       _classCallCheck(this, SvStatus);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SvStatus, arguments);
     }
-    _createClass(SvStatus, null, [{
+    _inherits(SvStatus, _BaseClass);
+    return _createClass(SvStatus, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SvStatus";
@@ -47218,7 +46375,6 @@
         return subClasses;
       }
     }]);
-    return SvStatus;
   }(BaseClass);
   _defineProperty(SvStatus, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV],
@@ -47227,13 +46383,12 @@
   });
 
   var SvTapStep = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SvTapStep, _BaseClass);
-    var _super = _createSuper(SvTapStep);
     function SvTapStep() {
       _classCallCheck(this, SvTapStep);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SvTapStep, arguments);
     }
-    _createClass(SvTapStep, null, [{
+    _inherits(SvTapStep, _BaseClass);
+    return _createClass(SvTapStep, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SvTapStep";
@@ -47298,7 +46453,6 @@
         return subClasses;
       }
     }]);
-    return SvTapStep;
   }(BaseClass);
   _defineProperty(SvTapStep, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV],
@@ -47307,13 +46461,12 @@
   });
 
   var SvVoltage = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SvVoltage, _BaseClass);
-    var _super = _createSuper(SvVoltage);
     function SvVoltage() {
       _classCallCheck(this, SvVoltage);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SvVoltage, arguments);
     }
-    _createClass(SvVoltage, null, [{
+    _inherits(SvVoltage, _BaseClass);
+    return _createClass(SvVoltage, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SvVoltage";
@@ -47383,7 +46536,6 @@
         return subClasses;
       }
     }]);
-    return SvVoltage;
   }(BaseClass);
   _defineProperty(SvVoltage, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV],
@@ -47393,13 +46545,12 @@
   });
 
   var SwitchSchedule = /*#__PURE__*/function (_SeasonDayTypeSchedul) {
-    _inherits(SwitchSchedule, _SeasonDayTypeSchedul);
-    var _super = _createSuper(SwitchSchedule);
     function SwitchSchedule() {
       _classCallCheck(this, SwitchSchedule);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SwitchSchedule, arguments);
     }
-    _createClass(SwitchSchedule, null, [{
+    _inherits(SwitchSchedule, _SeasonDayTypeSchedul);
+    return _createClass(SwitchSchedule, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SwitchSchedule";
@@ -47459,7 +46610,6 @@
         return subClasses;
       }
     }]);
-    return SwitchSchedule;
   }(SeasonDayTypeSchedule);
   _defineProperty(SwitchSchedule, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -47467,13 +46617,12 @@
   });
 
   var SynchronousMachine = /*#__PURE__*/function (_RotatingMachine) {
-    _inherits(SynchronousMachine, _RotatingMachine);
-    var _super = _createSuper(SynchronousMachine);
     function SynchronousMachine() {
       _classCallCheck(this, SynchronousMachine);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SynchronousMachine, arguments);
     }
-    _createClass(SynchronousMachine, null, [{
+    _inherits(SynchronousMachine, _RotatingMachine);
+    return _createClass(SynchronousMachine, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SynchronousMachine";
@@ -47638,7 +46787,6 @@
         return subClasses;
       }
     }]);
-    return SynchronousMachine;
   }(RotatingMachine);
   _defineProperty(SynchronousMachine, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.DY],
@@ -47667,13 +46815,12 @@
   });
 
   var SynchronousMachineDynamics = /*#__PURE__*/function (_RotatingMachineDynam) {
-    _inherits(SynchronousMachineDynamics, _RotatingMachineDynam);
-    var _super = _createSuper(SynchronousMachineDynamics);
     function SynchronousMachineDynamics() {
       _classCallCheck(this, SynchronousMachineDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SynchronousMachineDynamics, arguments);
     }
-    _createClass(SynchronousMachineDynamics, null, [{
+    _inherits(SynchronousMachineDynamics, _RotatingMachineDynam);
+    return _createClass(SynchronousMachineDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SynchronousMachineDynamics";
@@ -47743,7 +46890,6 @@
         return subClasses;
       }
     }]);
-    return SynchronousMachineDynamics;
   }(RotatingMachineDynamics);
   _defineProperty(SynchronousMachineDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -47753,13 +46899,12 @@
   });
 
   var SynchronousMachineDetailed = /*#__PURE__*/function (_SynchronousMachineDy) {
-    _inherits(SynchronousMachineDetailed, _SynchronousMachineDy);
-    var _super = _createSuper(SynchronousMachineDetailed);
     function SynchronousMachineDetailed() {
       _classCallCheck(this, SynchronousMachineDetailed);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SynchronousMachineDetailed, arguments);
     }
-    _createClass(SynchronousMachineDetailed, null, [{
+    _inherits(SynchronousMachineDetailed, _SynchronousMachineDy);
+    return _createClass(SynchronousMachineDetailed, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SynchronousMachineDetailed";
@@ -47839,7 +46984,6 @@
         return subClasses;
       }
     }]);
-    return SynchronousMachineDetailed;
   }(SynchronousMachineDynamics);
   _defineProperty(SynchronousMachineDetailed, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -47851,13 +46995,12 @@
   });
 
   var SynchronousMachineEquivalentCircuit = /*#__PURE__*/function (_SynchronousMachineDe) {
-    _inherits(SynchronousMachineEquivalentCircuit, _SynchronousMachineDe);
-    var _super = _createSuper(SynchronousMachineEquivalentCircuit);
     function SynchronousMachineEquivalentCircuit() {
       _classCallCheck(this, SynchronousMachineEquivalentCircuit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SynchronousMachineEquivalentCircuit, arguments);
     }
-    _createClass(SynchronousMachineEquivalentCircuit, null, [{
+    _inherits(SynchronousMachineEquivalentCircuit, _SynchronousMachineDe);
+    return _createClass(SynchronousMachineEquivalentCircuit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SynchronousMachineEquivalentCircuit";
@@ -47967,7 +47110,6 @@
         return subClasses;
       }
     }]);
-    return SynchronousMachineEquivalentCircuit;
   }(SynchronousMachineDetailed);
   _defineProperty(SynchronousMachineEquivalentCircuit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -48009,13 +47151,12 @@
     "label": "generatorOrCondenserOrMotor"
   }];
   var SynchronousMachineKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SynchronousMachineKind, _BaseClass);
-    var _super = _createSuper(SynchronousMachineKind);
     function SynchronousMachineKind() {
       _classCallCheck(this, SynchronousMachineKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SynchronousMachineKind, arguments);
     }
-    _createClass(SynchronousMachineKind, null, [{
+    _inherits(SynchronousMachineKind, _BaseClass);
+    return _createClass(SynchronousMachineKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SynchronousMachineKind";
@@ -48082,7 +47223,6 @@
         return subClasses;
       }
     }]);
-    return SynchronousMachineKind;
   }(BaseClass);
   _defineProperty(SynchronousMachineKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
@@ -48107,13 +47247,12 @@
     "label": "subtransientSimplifiedDirectAxis"
   }];
   var SynchronousMachineModelKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SynchronousMachineModelKind, _BaseClass);
-    var _super = _createSuper(SynchronousMachineModelKind);
     function SynchronousMachineModelKind() {
       _classCallCheck(this, SynchronousMachineModelKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SynchronousMachineModelKind, arguments);
     }
-    _createClass(SynchronousMachineModelKind, null, [{
+    _inherits(SynchronousMachineModelKind, _BaseClass);
+    return _createClass(SynchronousMachineModelKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SynchronousMachineModelKind";
@@ -48180,7 +47319,6 @@
         return subClasses;
       }
     }]);
-    return SynchronousMachineModelKind;
   }(BaseClass);
   _defineProperty(SynchronousMachineModelKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
@@ -48199,13 +47337,12 @@
     "label": "motor"
   }];
   var SynchronousMachineOperatingMode = /*#__PURE__*/function (_BaseClass) {
-    _inherits(SynchronousMachineOperatingMode, _BaseClass);
-    var _super = _createSuper(SynchronousMachineOperatingMode);
     function SynchronousMachineOperatingMode() {
       _classCallCheck(this, SynchronousMachineOperatingMode);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SynchronousMachineOperatingMode, arguments);
     }
-    _createClass(SynchronousMachineOperatingMode, null, [{
+    _inherits(SynchronousMachineOperatingMode, _BaseClass);
+    return _createClass(SynchronousMachineOperatingMode, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SynchronousMachineOperatingMode";
@@ -48272,20 +47409,18 @@
         return subClasses;
       }
     }]);
-    return SynchronousMachineOperatingMode;
   }(BaseClass);
   _defineProperty(SynchronousMachineOperatingMode, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SSH]
   });
 
   var SynchronousMachineSimplified = /*#__PURE__*/function (_SynchronousMachineDy) {
-    _inherits(SynchronousMachineSimplified, _SynchronousMachineDy);
-    var _super = _createSuper(SynchronousMachineSimplified);
     function SynchronousMachineSimplified() {
       _classCallCheck(this, SynchronousMachineSimplified);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SynchronousMachineSimplified, arguments);
     }
-    _createClass(SynchronousMachineSimplified, null, [{
+    _inherits(SynchronousMachineSimplified, _SynchronousMachineDy);
+    return _createClass(SynchronousMachineSimplified, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SynchronousMachineSimplified";
@@ -48340,20 +47475,18 @@
         return subClasses;
       }
     }]);
-    return SynchronousMachineSimplified;
   }(SynchronousMachineDynamics);
   _defineProperty(SynchronousMachineSimplified, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var SynchronousMachineTimeConstantReactance = /*#__PURE__*/function (_SynchronousMachineDe) {
-    _inherits(SynchronousMachineTimeConstantReactance, _SynchronousMachineDe);
-    var _super = _createSuper(SynchronousMachineTimeConstantReactance);
     function SynchronousMachineTimeConstantReactance() {
       _classCallCheck(this, SynchronousMachineTimeConstantReactance);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SynchronousMachineTimeConstantReactance, arguments);
     }
-    _createClass(SynchronousMachineTimeConstantReactance, null, [{
+    _inherits(SynchronousMachineTimeConstantReactance, _SynchronousMachineDe);
+    return _createClass(SynchronousMachineTimeConstantReactance, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SynchronousMachineTimeConstantReactance";
@@ -48478,7 +47611,6 @@
         return subClasses;
       }
     }]);
-    return SynchronousMachineTimeConstantReactance;
   }(SynchronousMachineDetailed);
   _defineProperty(SynchronousMachineTimeConstantReactance, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -48499,13 +47631,12 @@
   });
 
   var SynchronousMachineUserDefined = /*#__PURE__*/function (_SynchronousMachineDy) {
-    _inherits(SynchronousMachineUserDefined, _SynchronousMachineDy);
-    var _super = _createSuper(SynchronousMachineUserDefined);
     function SynchronousMachineUserDefined() {
       _classCallCheck(this, SynchronousMachineUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, SynchronousMachineUserDefined, arguments);
     }
-    _createClass(SynchronousMachineUserDefined, null, [{
+    _inherits(SynchronousMachineUserDefined, _SynchronousMachineDy);
+    return _createClass(SynchronousMachineUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "SynchronousMachineUserDefined";
@@ -48565,7 +47696,6 @@
         return subClasses;
       }
     }]);
-    return SynchronousMachineUserDefined;
   }(SynchronousMachineDynamics);
   _defineProperty(SynchronousMachineUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -48573,13 +47703,12 @@
   });
 
   var TapChangerControl = /*#__PURE__*/function (_RegulatingControl) {
-    _inherits(TapChangerControl, _RegulatingControl);
-    var _super = _createSuper(TapChangerControl);
     function TapChangerControl() {
       _classCallCheck(this, TapChangerControl);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TapChangerControl, arguments);
     }
-    _createClass(TapChangerControl, null, [{
+    _inherits(TapChangerControl, _RegulatingControl);
+    return _createClass(TapChangerControl, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TapChangerControl";
@@ -48634,20 +47763,18 @@
         return subClasses;
       }
     }]);
-    return TapChangerControl;
   }(RegulatingControl);
   _defineProperty(TapChangerControl, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
   });
 
   var TapSchedule = /*#__PURE__*/function (_SeasonDayTypeSchedul) {
-    _inherits(TapSchedule, _SeasonDayTypeSchedul);
-    var _super = _createSuper(TapSchedule);
     function TapSchedule() {
       _classCallCheck(this, TapSchedule);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TapSchedule, arguments);
     }
-    _createClass(TapSchedule, null, [{
+    _inherits(TapSchedule, _SeasonDayTypeSchedul);
+    return _createClass(TapSchedule, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TapSchedule";
@@ -48707,7 +47834,6 @@
         return subClasses;
       }
     }]);
-    return TapSchedule;
   }(SeasonDayTypeSchedule);
   _defineProperty(TapSchedule, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -48715,13 +47841,12 @@
   });
 
   var Temperature = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Temperature, _BaseClass);
-    var _super = _createSuper(Temperature);
     function Temperature() {
       _classCallCheck(this, Temperature);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Temperature, arguments);
     }
-    _createClass(Temperature, null, [{
+    _inherits(Temperature, _BaseClass);
+    return _createClass(Temperature, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Temperature";
@@ -48790,7 +47915,6 @@
         return subClasses;
       }
     }]);
-    return Temperature;
   }(BaseClass);
   _defineProperty(Temperature, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.DY],
@@ -48800,13 +47924,12 @@
   });
 
   var Terminal = /*#__PURE__*/function (_ACDCTerminal) {
-    _inherits(Terminal, _ACDCTerminal);
-    var _super = _createSuper(Terminal);
     function Terminal() {
       _classCallCheck(this, Terminal);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Terminal, arguments);
     }
-    _createClass(Terminal, null, [{
+    _inherits(Terminal, _ACDCTerminal);
+    return _createClass(Terminal, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Terminal";
@@ -48896,7 +48019,6 @@
         return subClasses;
       }
     }]);
-    return Terminal;
   }(ACDCTerminal);
   _defineProperty(Terminal, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.EQ_BD],
@@ -48910,13 +48032,12 @@
   });
 
   var TextDiagramObject = /*#__PURE__*/function (_DiagramObject) {
-    _inherits(TextDiagramObject, _DiagramObject);
-    var _super = _createSuper(TextDiagramObject);
     function TextDiagramObject() {
       _classCallCheck(this, TextDiagramObject);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TextDiagramObject, arguments);
     }
-    _createClass(TextDiagramObject, null, [{
+    _inherits(TextDiagramObject, _DiagramObject);
+    return _createClass(TextDiagramObject, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TextDiagramObject";
@@ -48976,7 +48097,6 @@
         return subClasses;
       }
     }]);
-    return TextDiagramObject;
   }(DiagramObject);
   _defineProperty(TextDiagramObject, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL],
@@ -48984,13 +48104,12 @@
   });
 
   var ThermalGeneratingUnit = /*#__PURE__*/function (_GeneratingUnit) {
-    _inherits(ThermalGeneratingUnit, _GeneratingUnit);
-    var _super = _createSuper(ThermalGeneratingUnit);
     function ThermalGeneratingUnit() {
       _classCallCheck(this, ThermalGeneratingUnit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ThermalGeneratingUnit, arguments);
     }
-    _createClass(ThermalGeneratingUnit, null, [{
+    _inherits(ThermalGeneratingUnit, _GeneratingUnit);
+    return _createClass(ThermalGeneratingUnit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ThermalGeneratingUnit";
@@ -49045,20 +48164,18 @@
         return subClasses;
       }
     }]);
-    return ThermalGeneratingUnit;
   }(GeneratingUnit);
   _defineProperty(ThermalGeneratingUnit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH]
   });
 
   var TieFlow = /*#__PURE__*/function (_BaseClass) {
-    _inherits(TieFlow, _BaseClass);
-    var _super = _createSuper(TieFlow);
     function TieFlow() {
       _classCallCheck(this, TieFlow);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TieFlow, arguments);
     }
-    _createClass(TieFlow, null, [{
+    _inherits(TieFlow, _BaseClass);
+    return _createClass(TieFlow, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TieFlow";
@@ -49128,7 +48245,6 @@
         return subClasses;
       }
     }]);
-    return TieFlow;
   }(BaseClass);
   _defineProperty(TieFlow, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -49138,13 +48254,12 @@
   });
 
   var TopologicalIsland = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(TopologicalIsland, _IdentifiedObject);
-    var _super = _createSuper(TopologicalIsland);
     function TopologicalIsland() {
       _classCallCheck(this, TopologicalIsland);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TopologicalIsland, arguments);
     }
-    _createClass(TopologicalIsland, null, [{
+    _inherits(TopologicalIsland, _IdentifiedObject);
+    return _createClass(TopologicalIsland, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TopologicalIsland";
@@ -49209,7 +48324,6 @@
         return subClasses;
       }
     }]);
-    return TopologicalIsland;
   }(IdentifiedObject);
   _defineProperty(TopologicalIsland, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV],
@@ -49218,13 +48332,12 @@
   });
 
   var TopologicalNode = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(TopologicalNode, _IdentifiedObject);
-    var _super = _createSuper(TopologicalNode);
     function TopologicalNode() {
       _classCallCheck(this, TopologicalNode);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TopologicalNode, arguments);
     }
-    _createClass(TopologicalNode, null, [{
+    _inherits(TopologicalNode, _IdentifiedObject);
+    return _createClass(TopologicalNode, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TopologicalNode";
@@ -49339,7 +48452,6 @@
         return subClasses;
       }
     }]);
-    return TopologicalNode;
   }(IdentifiedObject);
   _defineProperty(TopologicalNode, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SV, CGMESProfile.shortNames.TP, CGMESProfile.shortNames.TP_BD],
@@ -49358,13 +48470,12 @@
   });
 
   var TopologyBoundaryVersion = /*#__PURE__*/function (_BaseClass) {
-    _inherits(TopologyBoundaryVersion, _BaseClass);
-    var _super = _createSuper(TopologyBoundaryVersion);
     function TopologyBoundaryVersion() {
       _classCallCheck(this, TopologyBoundaryVersion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TopologyBoundaryVersion, arguments);
     }
-    _createClass(TopologyBoundaryVersion, null, [{
+    _inherits(TopologyBoundaryVersion, _BaseClass);
+    return _createClass(TopologyBoundaryVersion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TopologyBoundaryVersion";
@@ -49469,7 +48580,6 @@
         return subClasses;
       }
     }]);
-    return TopologyBoundaryVersion;
   }(BaseClass);
   _defineProperty(TopologyBoundaryVersion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.TP_BD],
@@ -49486,13 +48596,12 @@
   });
 
   var TopologyVersion = /*#__PURE__*/function (_BaseClass) {
-    _inherits(TopologyVersion, _BaseClass);
-    var _super = _createSuper(TopologyVersion);
     function TopologyVersion() {
       _classCallCheck(this, TopologyVersion);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TopologyVersion, arguments);
     }
-    _createClass(TopologyVersion, null, [{
+    _inherits(TopologyVersion, _BaseClass);
+    return _createClass(TopologyVersion, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TopologyVersion";
@@ -49597,7 +48706,6 @@
         return subClasses;
       }
     }]);
-    return TopologyVersion;
   }(BaseClass);
   _defineProperty(TopologyVersion, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.TP],
@@ -49623,13 +48731,12 @@
     "label": "reactive"
   }];
   var TransformerControlMode = /*#__PURE__*/function (_BaseClass) {
-    _inherits(TransformerControlMode, _BaseClass);
-    var _super = _createSuper(TransformerControlMode);
     function TransformerControlMode() {
       _classCallCheck(this, TransformerControlMode);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TransformerControlMode, arguments);
     }
-    _createClass(TransformerControlMode, null, [{
+    _inherits(TransformerControlMode, _BaseClass);
+    return _createClass(TransformerControlMode, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TransformerControlMode";
@@ -49696,20 +48803,18 @@
         return subClasses;
       }
     }]);
-    return TransformerControlMode;
   }(BaseClass);
   _defineProperty(TransformerControlMode, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var TurbineLoadControllerDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(TurbineLoadControllerDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(TurbineLoadControllerDynamics);
     function TurbineLoadControllerDynamics() {
       _classCallCheck(this, TurbineLoadControllerDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TurbineLoadControllerDynamics, arguments);
     }
-    _createClass(TurbineLoadControllerDynamics, null, [{
+    _inherits(TurbineLoadControllerDynamics, _DynamicsFunctionBloc);
+    return _createClass(TurbineLoadControllerDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TurbineLoadControllerDynamics";
@@ -49769,7 +48874,6 @@
         return subClasses;
       }
     }]);
-    return TurbineLoadControllerDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(TurbineLoadControllerDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -49777,13 +48881,12 @@
   });
 
   var TurbLCFB1 = /*#__PURE__*/function (_TurbineLoadControlle) {
-    _inherits(TurbLCFB1, _TurbineLoadControlle);
-    var _super = _createSuper(TurbLCFB1);
     function TurbLCFB1() {
       _classCallCheck(this, TurbLCFB1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TurbLCFB1, arguments);
     }
-    _createClass(TurbLCFB1, null, [{
+    _inherits(TurbLCFB1, _TurbineLoadControlle);
+    return _createClass(TurbLCFB1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TurbLCFB1";
@@ -49898,7 +49001,6 @@
         return subClasses;
       }
     }]);
-    return TurbLCFB1;
   }(TurbineLoadControllerDynamics);
   _defineProperty(TurbLCFB1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -49917,13 +49019,12 @@
   });
 
   var TurbineGovernorUserDefined = /*#__PURE__*/function (_TurbineGovernorDynam) {
-    _inherits(TurbineGovernorUserDefined, _TurbineGovernorDynam);
-    var _super = _createSuper(TurbineGovernorUserDefined);
     function TurbineGovernorUserDefined() {
       _classCallCheck(this, TurbineGovernorUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TurbineGovernorUserDefined, arguments);
     }
-    _createClass(TurbineGovernorUserDefined, null, [{
+    _inherits(TurbineGovernorUserDefined, _TurbineGovernorDynam);
+    return _createClass(TurbineGovernorUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TurbineGovernorUserDefined";
@@ -49983,7 +49084,6 @@
         return subClasses;
       }
     }]);
-    return TurbineGovernorUserDefined;
   }(TurbineGovernorDynamics);
   _defineProperty(TurbineGovernorUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -49991,13 +49091,12 @@
   });
 
   var TurbineLoadControllerUserDefined = /*#__PURE__*/function (_TurbineLoadControlle) {
-    _inherits(TurbineLoadControllerUserDefined, _TurbineLoadControlle);
-    var _super = _createSuper(TurbineLoadControllerUserDefined);
     function TurbineLoadControllerUserDefined() {
       _classCallCheck(this, TurbineLoadControllerUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, TurbineLoadControllerUserDefined, arguments);
     }
-    _createClass(TurbineLoadControllerUserDefined, null, [{
+    _inherits(TurbineLoadControllerUserDefined, _TurbineLoadControlle);
+    return _createClass(TurbineLoadControllerUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "TurbineLoadControllerUserDefined";
@@ -50057,7 +49156,6 @@
         return subClasses;
       }
     }]);
-    return TurbineLoadControllerUserDefined;
   }(TurbineLoadControllerDynamics);
   _defineProperty(TurbineLoadControllerUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -50065,13 +49163,12 @@
   });
 
   var UnderexcitationLimiterDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(UnderexcitationLimiterDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(UnderexcitationLimiterDynamics);
     function UnderexcitationLimiterDynamics() {
       _classCallCheck(this, UnderexcitationLimiterDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, UnderexcitationLimiterDynamics, arguments);
     }
-    _createClass(UnderexcitationLimiterDynamics, null, [{
+    _inherits(UnderexcitationLimiterDynamics, _DynamicsFunctionBloc);
+    return _createClass(UnderexcitationLimiterDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "UnderexcitationLimiterDynamics";
@@ -50131,7 +49228,6 @@
         return subClasses;
       }
     }]);
-    return UnderexcitationLimiterDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(UnderexcitationLimiterDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -50139,13 +49235,12 @@
   });
 
   var UnderexcLim2Simplified = /*#__PURE__*/function (_UnderexcitationLimit) {
-    _inherits(UnderexcLim2Simplified, _UnderexcitationLimit);
-    var _super = _createSuper(UnderexcLim2Simplified);
     function UnderexcLim2Simplified() {
       _classCallCheck(this, UnderexcLim2Simplified);
-      return _super.apply(this, arguments);
+      return _callSuper(this, UnderexcLim2Simplified, arguments);
     }
-    _createClass(UnderexcLim2Simplified, null, [{
+    _inherits(UnderexcLim2Simplified, _UnderexcitationLimit);
+    return _createClass(UnderexcLim2Simplified, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "UnderexcLim2Simplified";
@@ -50235,7 +49330,6 @@
         return subClasses;
       }
     }]);
-    return UnderexcLim2Simplified;
   }(UnderexcitationLimiterDynamics);
   _defineProperty(UnderexcLim2Simplified, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -50249,13 +49343,12 @@
   });
 
   var UnderexcLimIEEE1 = /*#__PURE__*/function (_UnderexcitationLimit) {
-    _inherits(UnderexcLimIEEE1, _UnderexcitationLimit);
-    var _super = _createSuper(UnderexcLimIEEE1);
     function UnderexcLimIEEE1() {
       _classCallCheck(this, UnderexcLimIEEE1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, UnderexcLimIEEE1, arguments);
     }
-    _createClass(UnderexcLimIEEE1, null, [{
+    _inherits(UnderexcLimIEEE1, _UnderexcitationLimit);
+    return _createClass(UnderexcLimIEEE1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "UnderexcLimIEEE1";
@@ -50385,7 +49478,6 @@
         return subClasses;
       }
     }]);
-    return UnderexcLimIEEE1;
   }(UnderexcitationLimiterDynamics);
   _defineProperty(UnderexcLimIEEE1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -50407,13 +49499,12 @@
   });
 
   var UnderexcLimIEEE2 = /*#__PURE__*/function (_UnderexcitationLimit) {
-    _inherits(UnderexcLimIEEE2, _UnderexcitationLimit);
-    var _super = _createSuper(UnderexcLimIEEE2);
     function UnderexcLimIEEE2() {
       _classCallCheck(this, UnderexcLimIEEE2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, UnderexcLimIEEE2, arguments);
     }
-    _createClass(UnderexcLimIEEE2, null, [{
+    _inherits(UnderexcLimIEEE2, _UnderexcitationLimit);
+    return _createClass(UnderexcLimIEEE2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "UnderexcLimIEEE2";
@@ -50668,7 +49759,6 @@
         return subClasses;
       }
     }]);
-    return UnderexcLimIEEE2;
   }(UnderexcitationLimiterDynamics);
   _defineProperty(UnderexcLimIEEE2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -50715,13 +49805,12 @@
   });
 
   var UnderexcLimX1 = /*#__PURE__*/function (_UnderexcitationLimit) {
-    _inherits(UnderexcLimX1, _UnderexcitationLimit);
-    var _super = _createSuper(UnderexcLimX1);
     function UnderexcLimX1() {
       _classCallCheck(this, UnderexcLimX1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, UnderexcLimX1, arguments);
     }
-    _createClass(UnderexcLimX1, null, [{
+    _inherits(UnderexcLimX1, _UnderexcitationLimit);
+    return _createClass(UnderexcLimX1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "UnderexcLimX1";
@@ -50806,7 +49895,6 @@
         return subClasses;
       }
     }]);
-    return UnderexcLimX1;
   }(UnderexcitationLimiterDynamics);
   _defineProperty(UnderexcLimX1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -50819,13 +49907,12 @@
   });
 
   var UnderexcLimX2 = /*#__PURE__*/function (_UnderexcitationLimit) {
-    _inherits(UnderexcLimX2, _UnderexcitationLimit);
-    var _super = _createSuper(UnderexcLimX2);
     function UnderexcLimX2() {
       _classCallCheck(this, UnderexcLimX2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, UnderexcLimX2, arguments);
     }
-    _createClass(UnderexcLimX2, null, [{
+    _inherits(UnderexcLimX2, _UnderexcitationLimit);
+    return _createClass(UnderexcLimX2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "UnderexcLimX2";
@@ -50915,7 +50002,6 @@
         return subClasses;
       }
     }]);
-    return UnderexcLimX2;
   }(UnderexcitationLimiterDynamics);
   _defineProperty(UnderexcLimX2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -50929,13 +50015,12 @@
   });
 
   var UnderexcitationLimiterUserDefined = /*#__PURE__*/function (_UnderexcitationLimit) {
-    _inherits(UnderexcitationLimiterUserDefined, _UnderexcitationLimit);
-    var _super = _createSuper(UnderexcitationLimiterUserDefined);
     function UnderexcitationLimiterUserDefined() {
       _classCallCheck(this, UnderexcitationLimiterUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, UnderexcitationLimiterUserDefined, arguments);
     }
-    _createClass(UnderexcitationLimiterUserDefined, null, [{
+    _inherits(UnderexcitationLimiterUserDefined, _UnderexcitationLimit);
+    return _createClass(UnderexcitationLimiterUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "UnderexcitationLimiterUserDefined";
@@ -50995,7 +50080,6 @@
         return subClasses;
       }
     }]);
-    return UnderexcitationLimiterUserDefined;
   }(UnderexcitationLimiterDynamics);
   _defineProperty(UnderexcitationLimiterUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -51039,13 +50123,12 @@
     "label": "none"
   }];
   var UnitMultiplier = /*#__PURE__*/function (_BaseClass) {
-    _inherits(UnitMultiplier, _BaseClass);
-    var _super = _createSuper(UnitMultiplier);
     function UnitMultiplier() {
       _classCallCheck(this, UnitMultiplier);
-      return _super.apply(this, arguments);
+      return _callSuper(this, UnitMultiplier, arguments);
     }
-    _createClass(UnitMultiplier, null, [{
+    _inherits(UnitMultiplier, _BaseClass);
+    return _createClass(UnitMultiplier, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "UnitMultiplier";
@@ -51112,7 +50195,6 @@
         return subClasses;
       }
     }]);
-    return UnitMultiplier;
   }(BaseClass);
   _defineProperty(UnitMultiplier, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.EQ_BD]
@@ -51203,13 +50285,12 @@
     "label": "m3"
   }];
   var UnitSymbol = /*#__PURE__*/function (_BaseClass) {
-    _inherits(UnitSymbol, _BaseClass);
-    var _super = _createSuper(UnitSymbol);
     function UnitSymbol() {
       _classCallCheck(this, UnitSymbol);
-      return _super.apply(this, arguments);
+      return _callSuper(this, UnitSymbol, arguments);
     }
-    _createClass(UnitSymbol, null, [{
+    _inherits(UnitSymbol, _BaseClass);
+    return _createClass(UnitSymbol, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "UnitSymbol";
@@ -51276,20 +50357,18 @@
         return subClasses;
       }
     }]);
-    return UnitSymbol;
   }(BaseClass);
   _defineProperty(UnitSymbol, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL, CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.DY, CGMESProfile.shortNames.EQ_BD]
   });
 
   var VoltageAdjusterDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(VoltageAdjusterDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(VoltageAdjusterDynamics);
     function VoltageAdjusterDynamics() {
       _classCallCheck(this, VoltageAdjusterDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VoltageAdjusterDynamics, arguments);
     }
-    _createClass(VoltageAdjusterDynamics, null, [{
+    _inherits(VoltageAdjusterDynamics, _DynamicsFunctionBloc);
+    return _createClass(VoltageAdjusterDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VoltageAdjusterDynamics";
@@ -51349,7 +50428,6 @@
         return subClasses;
       }
     }]);
-    return VoltageAdjusterDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(VoltageAdjusterDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -51357,13 +50435,12 @@
   });
 
   var VAdjIEEE = /*#__PURE__*/function (_VoltageAdjusterDynam) {
-    _inherits(VAdjIEEE, _VoltageAdjusterDynam);
-    var _super = _createSuper(VAdjIEEE);
     function VAdjIEEE() {
       _classCallCheck(this, VAdjIEEE);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VAdjIEEE, arguments);
     }
-    _createClass(VAdjIEEE, null, [{
+    _inherits(VAdjIEEE, _VoltageAdjusterDynam);
+    return _createClass(VAdjIEEE, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VAdjIEEE";
@@ -51448,7 +50525,6 @@
         return subClasses;
       }
     }]);
-    return VAdjIEEE;
   }(VoltageAdjusterDynamics);
   _defineProperty(VAdjIEEE, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -51461,13 +50537,12 @@
   });
 
   var VoltageCompensatorDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(VoltageCompensatorDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(VoltageCompensatorDynamics);
     function VoltageCompensatorDynamics() {
       _classCallCheck(this, VoltageCompensatorDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VoltageCompensatorDynamics, arguments);
     }
-    _createClass(VoltageCompensatorDynamics, null, [{
+    _inherits(VoltageCompensatorDynamics, _DynamicsFunctionBloc);
+    return _createClass(VoltageCompensatorDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VoltageCompensatorDynamics";
@@ -51527,7 +50602,6 @@
         return subClasses;
       }
     }]);
-    return VoltageCompensatorDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(VoltageCompensatorDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -51535,13 +50609,12 @@
   });
 
   var VCompIEEEType1 = /*#__PURE__*/function (_VoltageCompensatorDy) {
-    _inherits(VCompIEEEType1, _VoltageCompensatorDy);
-    var _super = _createSuper(VCompIEEEType1);
     function VCompIEEEType1() {
       _classCallCheck(this, VCompIEEEType1);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VCompIEEEType1, arguments);
     }
-    _createClass(VCompIEEEType1, null, [{
+    _inherits(VCompIEEEType1, _VoltageCompensatorDy);
+    return _createClass(VCompIEEEType1, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VCompIEEEType1";
@@ -51611,7 +50684,6 @@
         return subClasses;
       }
     }]);
-    return VCompIEEEType1;
   }(VoltageCompensatorDynamics);
   _defineProperty(VCompIEEEType1, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -51621,13 +50693,12 @@
   });
 
   var VCompIEEEType2 = /*#__PURE__*/function (_VoltageCompensatorDy) {
-    _inherits(VCompIEEEType2, _VoltageCompensatorDy);
-    var _super = _createSuper(VCompIEEEType2);
     function VCompIEEEType2() {
       _classCallCheck(this, VCompIEEEType2);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VCompIEEEType2, arguments);
     }
-    _createClass(VCompIEEEType2, null, [{
+    _inherits(VCompIEEEType2, _VoltageCompensatorDy);
+    return _createClass(VCompIEEEType2, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VCompIEEEType2";
@@ -51687,7 +50758,6 @@
         return subClasses;
       }
     }]);
-    return VCompIEEEType2;
   }(VoltageCompensatorDynamics);
   _defineProperty(VCompIEEEType2, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -51707,13 +50777,12 @@
     "label": "INVALID"
   }];
   var Validity = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Validity, _BaseClass);
-    var _super = _createSuper(Validity);
     function Validity() {
       _classCallCheck(this, Validity);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Validity, arguments);
     }
-    _createClass(Validity, null, [{
+    _inherits(Validity, _BaseClass);
+    return _createClass(Validity, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Validity";
@@ -51780,20 +50849,18 @@
         return subClasses;
       }
     }]);
-    return Validity;
   }(BaseClass);
   _defineProperty(Validity, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var ValueAliasSet = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(ValueAliasSet, _IdentifiedObject);
-    var _super = _createSuper(ValueAliasSet);
     function ValueAliasSet() {
       _classCallCheck(this, ValueAliasSet);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ValueAliasSet, arguments);
     }
-    _createClass(ValueAliasSet, null, [{
+    _inherits(ValueAliasSet, _IdentifiedObject);
+    return _createClass(ValueAliasSet, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ValueAliasSet";
@@ -51858,7 +50925,6 @@
         return subClasses;
       }
     }]);
-    return ValueAliasSet;
   }(IdentifiedObject);
   _defineProperty(ValueAliasSet, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -51867,13 +50933,12 @@
   });
 
   var ValueToAlias = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(ValueToAlias, _IdentifiedObject);
-    var _super = _createSuper(ValueToAlias);
     function ValueToAlias() {
       _classCallCheck(this, ValueToAlias);
-      return _super.apply(this, arguments);
+      return _callSuper(this, ValueToAlias, arguments);
     }
-    _createClass(ValueToAlias, null, [{
+    _inherits(ValueToAlias, _IdentifiedObject);
+    return _createClass(ValueToAlias, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "ValueToAlias";
@@ -51938,7 +51003,6 @@
         return subClasses;
       }
     }]);
-    return ValueToAlias;
   }(IdentifiedObject);
   _defineProperty(ValueToAlias, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -51947,13 +51011,12 @@
   });
 
   var VisibilityLayer = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(VisibilityLayer, _IdentifiedObject);
-    var _super = _createSuper(VisibilityLayer);
     function VisibilityLayer() {
       _classCallCheck(this, VisibilityLayer);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VisibilityLayer, arguments);
     }
-    _createClass(VisibilityLayer, null, [{
+    _inherits(VisibilityLayer, _IdentifiedObject);
+    return _createClass(VisibilityLayer, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VisibilityLayer";
@@ -52018,7 +51081,6 @@
         return subClasses;
       }
     }]);
-    return VisibilityLayer;
   }(IdentifiedObject);
   _defineProperty(VisibilityLayer, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DL],
@@ -52027,13 +51089,12 @@
   });
 
   var Voltage = /*#__PURE__*/function (_BaseClass) {
-    _inherits(Voltage, _BaseClass);
-    var _super = _createSuper(Voltage);
     function Voltage() {
       _classCallCheck(this, Voltage);
-      return _super.apply(this, arguments);
+      return _callSuper(this, Voltage, arguments);
     }
-    _createClass(Voltage, null, [{
+    _inherits(Voltage, _BaseClass);
+    return _createClass(Voltage, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Voltage";
@@ -52102,7 +51163,6 @@
         return subClasses;
       }
     }]);
-    return Voltage;
   }(BaseClass);
   _defineProperty(Voltage, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV, CGMESProfile.shortNames.EQ_BD],
@@ -52112,13 +51172,12 @@
   });
 
   var VoltageAdjusterUserDefined = /*#__PURE__*/function (_VoltageAdjusterDynam) {
-    _inherits(VoltageAdjusterUserDefined, _VoltageAdjusterDynam);
-    var _super = _createSuper(VoltageAdjusterUserDefined);
     function VoltageAdjusterUserDefined() {
       _classCallCheck(this, VoltageAdjusterUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VoltageAdjusterUserDefined, arguments);
     }
-    _createClass(VoltageAdjusterUserDefined, null, [{
+    _inherits(VoltageAdjusterUserDefined, _VoltageAdjusterDynam);
+    return _createClass(VoltageAdjusterUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VoltageAdjusterUserDefined";
@@ -52178,7 +51237,6 @@
         return subClasses;
       }
     }]);
-    return VoltageAdjusterUserDefined;
   }(VoltageAdjusterDynamics);
   _defineProperty(VoltageAdjusterUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -52186,13 +51244,12 @@
   });
 
   var VoltageCompensatorUserDefined = /*#__PURE__*/function (_VoltageCompensatorDy) {
-    _inherits(VoltageCompensatorUserDefined, _VoltageCompensatorDy);
-    var _super = _createSuper(VoltageCompensatorUserDefined);
     function VoltageCompensatorUserDefined() {
       _classCallCheck(this, VoltageCompensatorUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VoltageCompensatorUserDefined, arguments);
     }
-    _createClass(VoltageCompensatorUserDefined, null, [{
+    _inherits(VoltageCompensatorUserDefined, _VoltageCompensatorDy);
+    return _createClass(VoltageCompensatorUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VoltageCompensatorUserDefined";
@@ -52252,7 +51309,6 @@
         return subClasses;
       }
     }]);
-    return VoltageCompensatorUserDefined;
   }(VoltageCompensatorDynamics);
   _defineProperty(VoltageCompensatorUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -52260,13 +51316,12 @@
   });
 
   var VoltageLevel = /*#__PURE__*/function (_EquipmentContainer) {
-    _inherits(VoltageLevel, _EquipmentContainer);
-    var _super = _createSuper(VoltageLevel);
     function VoltageLevel() {
       _classCallCheck(this, VoltageLevel);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VoltageLevel, arguments);
     }
-    _createClass(VoltageLevel, null, [{
+    _inherits(VoltageLevel, _EquipmentContainer);
+    return _createClass(VoltageLevel, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VoltageLevel";
@@ -52341,7 +51396,6 @@
         return subClasses;
       }
     }]);
-    return VoltageLevel;
   }(EquipmentContainer);
   _defineProperty(VoltageLevel, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -52352,13 +51406,12 @@
   });
 
   var VoltageLimit = /*#__PURE__*/function (_OperationalLimit) {
-    _inherits(VoltageLimit, _OperationalLimit);
-    var _super = _createSuper(VoltageLimit);
     function VoltageLimit() {
       _classCallCheck(this, VoltageLimit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VoltageLimit, arguments);
     }
-    _createClass(VoltageLimit, null, [{
+    _inherits(VoltageLimit, _OperationalLimit);
+    return _createClass(VoltageLimit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VoltageLimit";
@@ -52418,7 +51471,6 @@
         return subClasses;
       }
     }]);
-    return VoltageLimit;
   }(OperationalLimit);
   _defineProperty(VoltageLimit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -52426,13 +51478,12 @@
   });
 
   var VoltagePerReactivePower = /*#__PURE__*/function (_BaseClass) {
-    _inherits(VoltagePerReactivePower, _BaseClass);
-    var _super = _createSuper(VoltagePerReactivePower);
     function VoltagePerReactivePower() {
       _classCallCheck(this, VoltagePerReactivePower);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VoltagePerReactivePower, arguments);
     }
-    _createClass(VoltagePerReactivePower, null, [{
+    _inherits(VoltagePerReactivePower, _BaseClass);
+    return _createClass(VoltagePerReactivePower, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VoltagePerReactivePower";
@@ -52512,7 +51563,6 @@
         return subClasses;
       }
     }]);
-    return VoltagePerReactivePower;
   }(BaseClass);
   _defineProperty(VoltagePerReactivePower, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ],
@@ -52524,13 +51574,12 @@
   });
 
   var VolumeFlowRate = /*#__PURE__*/function (_BaseClass) {
-    _inherits(VolumeFlowRate, _BaseClass);
-    var _super = _createSuper(VolumeFlowRate);
     function VolumeFlowRate() {
       _classCallCheck(this, VolumeFlowRate);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VolumeFlowRate, arguments);
     }
-    _createClass(VolumeFlowRate, null, [{
+    _inherits(VolumeFlowRate, _BaseClass);
+    return _createClass(VolumeFlowRate, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VolumeFlowRate";
@@ -52610,7 +51659,6 @@
         return subClasses;
       }
     }]);
-    return VolumeFlowRate;
   }(BaseClass);
   _defineProperty(VolumeFlowRate, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -52622,13 +51670,12 @@
   });
 
   var VsCapabilityCurve = /*#__PURE__*/function (_Curve) {
-    _inherits(VsCapabilityCurve, _Curve);
-    var _super = _createSuper(VsCapabilityCurve);
     function VsCapabilityCurve() {
       _classCallCheck(this, VsCapabilityCurve);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VsCapabilityCurve, arguments);
     }
-    _createClass(VsCapabilityCurve, null, [{
+    _inherits(VsCapabilityCurve, _Curve);
+    return _createClass(VsCapabilityCurve, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VsCapabilityCurve";
@@ -52683,20 +51730,18 @@
         return subClasses;
       }
     }]);
-    return VsCapabilityCurve;
   }(Curve);
   _defineProperty(VsCapabilityCurve, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var VsConverter = /*#__PURE__*/function (_ACDCConverter) {
-    _inherits(VsConverter, _ACDCConverter);
-    var _super = _createSuper(VsConverter);
     function VsConverter() {
       _classCallCheck(this, VsConverter);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VsConverter, arguments);
     }
-    _createClass(VsConverter, null, [{
+    _inherits(VsConverter, _ACDCConverter);
+    return _createClass(VsConverter, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VsConverter";
@@ -52811,7 +51856,6 @@
         return subClasses;
       }
     }]);
-    return VsConverter;
   }(ACDCConverter);
   _defineProperty(VsConverter, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH, CGMESProfile.shortNames.SV],
@@ -52848,13 +51892,12 @@
     "label": "pPccAndUdcDroopPilot"
   }];
   var VsPpccControlKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(VsPpccControlKind, _BaseClass);
-    var _super = _createSuper(VsPpccControlKind);
     function VsPpccControlKind() {
       _classCallCheck(this, VsPpccControlKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VsPpccControlKind, arguments);
     }
-    _createClass(VsPpccControlKind, null, [{
+    _inherits(VsPpccControlKind, _BaseClass);
+    return _createClass(VsPpccControlKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VsPpccControlKind";
@@ -52921,7 +51964,6 @@
         return subClasses;
       }
     }]);
-    return VsPpccControlKind;
   }(BaseClass);
   _defineProperty(VsPpccControlKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SSH]
@@ -52940,13 +51982,12 @@
     "label": "powerFactorPcc"
   }];
   var VsQpccControlKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(VsQpccControlKind, _BaseClass);
-    var _super = _createSuper(VsQpccControlKind);
     function VsQpccControlKind() {
       _classCallCheck(this, VsQpccControlKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, VsQpccControlKind, arguments);
     }
-    _createClass(VsQpccControlKind, null, [{
+    _inherits(VsQpccControlKind, _BaseClass);
+    return _createClass(VsQpccControlKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "VsQpccControlKind";
@@ -53013,20 +52054,18 @@
         return subClasses;
       }
     }]);
-    return VsQpccControlKind;
   }(BaseClass);
   _defineProperty(VsQpccControlKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.SSH]
   });
 
   var WindAeroConstIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindAeroConstIEC, _IdentifiedObject);
-    var _super = _createSuper(WindAeroConstIEC);
     function WindAeroConstIEC() {
       _classCallCheck(this, WindAeroConstIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindAeroConstIEC, arguments);
     }
-    _createClass(WindAeroConstIEC, null, [{
+    _inherits(WindAeroConstIEC, _IdentifiedObject);
+    return _createClass(WindAeroConstIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindAeroConstIEC";
@@ -53081,20 +52120,18 @@
         return subClasses;
       }
     }]);
-    return WindAeroConstIEC;
   }(IdentifiedObject);
   _defineProperty(WindAeroConstIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var WindAeroLinearIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindAeroLinearIEC, _IdentifiedObject);
-    var _super = _createSuper(WindAeroLinearIEC);
     function WindAeroLinearIEC() {
       _classCallCheck(this, WindAeroLinearIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindAeroLinearIEC, arguments);
     }
-    _createClass(WindAeroLinearIEC, null, [{
+    _inherits(WindAeroLinearIEC, _IdentifiedObject);
+    return _createClass(WindAeroLinearIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindAeroLinearIEC";
@@ -53174,7 +52211,6 @@
         return subClasses;
       }
     }]);
-    return WindAeroLinearIEC;
   }(IdentifiedObject);
   _defineProperty(WindAeroLinearIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -53186,13 +52222,12 @@
   });
 
   var WindContCurrLimIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindContCurrLimIEC, _IdentifiedObject);
-    var _super = _createSuper(WindContCurrLimIEC);
     function WindContCurrLimIEC() {
       _classCallCheck(this, WindContCurrLimIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindContCurrLimIEC, arguments);
     }
-    _createClass(WindContCurrLimIEC, null, [{
+    _inherits(WindContCurrLimIEC, _IdentifiedObject);
+    return _createClass(WindContCurrLimIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindContCurrLimIEC";
@@ -53277,7 +52312,6 @@
         return subClasses;
       }
     }]);
-    return WindContCurrLimIEC;
   }(IdentifiedObject);
   _defineProperty(WindContCurrLimIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -53290,13 +52324,12 @@
   });
 
   var WindContPType3IEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindContPType3IEC, _IdentifiedObject);
-    var _super = _createSuper(WindContPType3IEC);
     function WindContPType3IEC() {
       _classCallCheck(this, WindContPType3IEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindContPType3IEC, arguments);
     }
-    _createClass(WindContPType3IEC, null, [{
+    _inherits(WindContPType3IEC, _IdentifiedObject);
+    return _createClass(WindContPType3IEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindContPType3IEC";
@@ -53461,7 +52494,6 @@
         return subClasses;
       }
     }]);
-    return WindContPType3IEC;
   }(IdentifiedObject);
   _defineProperty(WindContPType3IEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -53490,13 +52522,12 @@
   });
 
   var WindContPType4aIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindContPType4aIEC, _IdentifiedObject);
-    var _super = _createSuper(WindContPType4aIEC);
     function WindContPType4aIEC() {
       _classCallCheck(this, WindContPType4aIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindContPType4aIEC, arguments);
     }
-    _createClass(WindContPType4aIEC, null, [{
+    _inherits(WindContPType4aIEC, _IdentifiedObject);
+    return _createClass(WindContPType4aIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindContPType4aIEC";
@@ -53566,7 +52597,6 @@
         return subClasses;
       }
     }]);
-    return WindContPType4aIEC;
   }(IdentifiedObject);
   _defineProperty(WindContPType4aIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -53576,13 +52606,12 @@
   });
 
   var WindContPType4bIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindContPType4bIEC, _IdentifiedObject);
-    var _super = _createSuper(WindContPType4bIEC);
     function WindContPType4bIEC() {
       _classCallCheck(this, WindContPType4bIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindContPType4bIEC, arguments);
     }
-    _createClass(WindContPType4bIEC, null, [{
+    _inherits(WindContPType4bIEC, _IdentifiedObject);
+    return _createClass(WindContPType4bIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindContPType4bIEC";
@@ -53657,7 +52686,6 @@
         return subClasses;
       }
     }]);
-    return WindContPType4bIEC;
   }(IdentifiedObject);
   _defineProperty(WindContPType4bIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -53668,13 +52696,12 @@
   });
 
   var WindContPitchAngleIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindContPitchAngleIEC, _IdentifiedObject);
-    var _super = _createSuper(WindContPitchAngleIEC);
     function WindContPitchAngleIEC() {
       _classCallCheck(this, WindContPitchAngleIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindContPitchAngleIEC, arguments);
     }
-    _createClass(WindContPitchAngleIEC, null, [{
+    _inherits(WindContPitchAngleIEC, _IdentifiedObject);
+    return _createClass(WindContPitchAngleIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindContPitchAngleIEC";
@@ -53779,7 +52806,6 @@
         return subClasses;
       }
     }]);
-    return WindContPitchAngleIEC;
   }(IdentifiedObject);
   _defineProperty(WindContPitchAngleIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -53796,13 +52822,12 @@
   });
 
   var WindContQIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindContQIEC, _IdentifiedObject);
-    var _super = _createSuper(WindContQIEC);
     function WindContQIEC() {
       _classCallCheck(this, WindContQIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindContQIEC, arguments);
     }
-    _createClass(WindContQIEC, null, [{
+    _inherits(WindContQIEC, _IdentifiedObject);
+    return _createClass(WindContQIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindContQIEC";
@@ -53987,7 +53012,6 @@
         return subClasses;
       }
     }]);
-    return WindContQIEC;
   }(IdentifiedObject);
   _defineProperty(WindContQIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54020,13 +53044,12 @@
   });
 
   var WindContRotorRIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindContRotorRIEC, _IdentifiedObject);
-    var _super = _createSuper(WindContRotorRIEC);
     function WindContRotorRIEC() {
       _classCallCheck(this, WindContRotorRIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindContRotorRIEC, arguments);
     }
-    _createClass(WindContRotorRIEC, null, [{
+    _inherits(WindContRotorRIEC, _IdentifiedObject);
+    return _createClass(WindContRotorRIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindContRotorRIEC";
@@ -54126,7 +53149,6 @@
         return subClasses;
       }
     }]);
-    return WindContRotorRIEC;
   }(IdentifiedObject);
   _defineProperty(WindContRotorRIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54142,13 +53164,12 @@
   });
 
   var WindDynamicsLookupTable = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindDynamicsLookupTable, _IdentifiedObject);
-    var _super = _createSuper(WindDynamicsLookupTable);
     function WindDynamicsLookupTable() {
       _classCallCheck(this, WindDynamicsLookupTable);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindDynamicsLookupTable, arguments);
     }
-    _createClass(WindDynamicsLookupTable, null, [{
+    _inherits(WindDynamicsLookupTable, _IdentifiedObject);
+    return _createClass(WindDynamicsLookupTable, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindDynamicsLookupTable";
@@ -54243,7 +53264,6 @@
         return subClasses;
       }
     }]);
-    return WindDynamicsLookupTable;
   }(IdentifiedObject);
   _defineProperty(WindDynamicsLookupTable, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54258,13 +53278,12 @@
   });
 
   var WindTurbineType1or2Dynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(WindTurbineType1or2Dynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(WindTurbineType1or2Dynamics);
     function WindTurbineType1or2Dynamics() {
       _classCallCheck(this, WindTurbineType1or2Dynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindTurbineType1or2Dynamics, arguments);
     }
-    _createClass(WindTurbineType1or2Dynamics, null, [{
+    _inherits(WindTurbineType1or2Dynamics, _DynamicsFunctionBloc);
+    return _createClass(WindTurbineType1or2Dynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindTurbineType1or2Dynamics";
@@ -54329,7 +53348,6 @@
         return subClasses;
       }
     }]);
-    return WindTurbineType1or2Dynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(WindTurbineType1or2Dynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54338,13 +53356,12 @@
   });
 
   var WindTurbineType1or2IEC = /*#__PURE__*/function (_WindTurbineType1or2D) {
-    _inherits(WindTurbineType1or2IEC, _WindTurbineType1or2D);
-    var _super = _createSuper(WindTurbineType1or2IEC);
     function WindTurbineType1or2IEC() {
       _classCallCheck(this, WindTurbineType1or2IEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindTurbineType1or2IEC, arguments);
     }
-    _createClass(WindTurbineType1or2IEC, null, [{
+    _inherits(WindTurbineType1or2IEC, _WindTurbineType1or2D);
+    return _createClass(WindTurbineType1or2IEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindTurbineType1or2IEC";
@@ -54409,7 +53426,6 @@
         return subClasses;
       }
     }]);
-    return WindTurbineType1or2IEC;
   }(WindTurbineType1or2Dynamics);
   _defineProperty(WindTurbineType1or2IEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54418,13 +53434,12 @@
   });
 
   var WindGenTurbineType1IEC = /*#__PURE__*/function (_WindTurbineType1or2I) {
-    _inherits(WindGenTurbineType1IEC, _WindTurbineType1or2I);
-    var _super = _createSuper(WindGenTurbineType1IEC);
     function WindGenTurbineType1IEC() {
       _classCallCheck(this, WindGenTurbineType1IEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindGenTurbineType1IEC, arguments);
     }
-    _createClass(WindGenTurbineType1IEC, null, [{
+    _inherits(WindGenTurbineType1IEC, _WindTurbineType1or2I);
+    return _createClass(WindGenTurbineType1IEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindGenTurbineType1IEC";
@@ -54484,7 +53499,6 @@
         return subClasses;
       }
     }]);
-    return WindGenTurbineType1IEC;
   }(WindTurbineType1or2IEC);
   _defineProperty(WindGenTurbineType1IEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54492,13 +53506,12 @@
   });
 
   var WindGenTurbineType2IEC = /*#__PURE__*/function (_WindTurbineType1or2I) {
-    _inherits(WindGenTurbineType2IEC, _WindTurbineType1or2I);
-    var _super = _createSuper(WindGenTurbineType2IEC);
     function WindGenTurbineType2IEC() {
       _classCallCheck(this, WindGenTurbineType2IEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindGenTurbineType2IEC, arguments);
     }
-    _createClass(WindGenTurbineType2IEC, null, [{
+    _inherits(WindGenTurbineType2IEC, _WindTurbineType1or2I);
+    return _createClass(WindGenTurbineType2IEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindGenTurbineType2IEC";
@@ -54563,7 +53576,6 @@
         return subClasses;
       }
     }]);
-    return WindGenTurbineType2IEC;
   }(WindTurbineType1or2IEC);
   _defineProperty(WindGenTurbineType2IEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54572,13 +53584,12 @@
   });
 
   var WindTurbineType3or4Dynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(WindTurbineType3or4Dynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(WindTurbineType3or4Dynamics);
     function WindTurbineType3or4Dynamics() {
       _classCallCheck(this, WindTurbineType3or4Dynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindTurbineType3or4Dynamics, arguments);
     }
-    _createClass(WindTurbineType3or4Dynamics, null, [{
+    _inherits(WindTurbineType3or4Dynamics, _DynamicsFunctionBloc);
+    return _createClass(WindTurbineType3or4Dynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindTurbineType3or4Dynamics";
@@ -54648,7 +53659,6 @@
         return subClasses;
       }
     }]);
-    return WindTurbineType3or4Dynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(WindTurbineType3or4Dynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54658,13 +53668,12 @@
   });
 
   var WindTurbineType3or4IEC = /*#__PURE__*/function (_WindTurbineType3or4D) {
-    _inherits(WindTurbineType3or4IEC, _WindTurbineType3or4D);
-    var _super = _createSuper(WindTurbineType3or4IEC);
     function WindTurbineType3or4IEC() {
       _classCallCheck(this, WindTurbineType3or4IEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindTurbineType3or4IEC, arguments);
     }
-    _createClass(WindTurbineType3or4IEC, null, [{
+    _inherits(WindTurbineType3or4IEC, _WindTurbineType3or4D);
+    return _createClass(WindTurbineType3or4IEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindTurbineType3or4IEC";
@@ -54734,7 +53743,6 @@
         return subClasses;
       }
     }]);
-    return WindTurbineType3or4IEC;
   }(WindTurbineType3or4Dynamics);
   _defineProperty(WindTurbineType3or4IEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54744,13 +53752,12 @@
   });
 
   var WindGenTurbineType3IEC = /*#__PURE__*/function (_WindTurbineType3or4I) {
-    _inherits(WindGenTurbineType3IEC, _WindTurbineType3or4I);
-    var _super = _createSuper(WindGenTurbineType3IEC);
     function WindGenTurbineType3IEC() {
       _classCallCheck(this, WindGenTurbineType3IEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindGenTurbineType3IEC, arguments);
     }
-    _createClass(WindGenTurbineType3IEC, null, [{
+    _inherits(WindGenTurbineType3IEC, _WindTurbineType3or4I);
+    return _createClass(WindGenTurbineType3IEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindGenTurbineType3IEC";
@@ -54835,7 +53842,6 @@
         return subClasses;
       }
     }]);
-    return WindGenTurbineType3IEC;
   }(WindTurbineType3or4IEC);
   _defineProperty(WindGenTurbineType3IEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54848,13 +53854,12 @@
   });
 
   var WindGenTurbineType3aIEC = /*#__PURE__*/function (_WindGenTurbineType3I) {
-    _inherits(WindGenTurbineType3aIEC, _WindGenTurbineType3I);
-    var _super = _createSuper(WindGenTurbineType3aIEC);
     function WindGenTurbineType3aIEC() {
       _classCallCheck(this, WindGenTurbineType3aIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindGenTurbineType3aIEC, arguments);
     }
-    _createClass(WindGenTurbineType3aIEC, null, [{
+    _inherits(WindGenTurbineType3aIEC, _WindGenTurbineType3I);
+    return _createClass(WindGenTurbineType3aIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindGenTurbineType3aIEC";
@@ -54924,7 +53929,6 @@
         return subClasses;
       }
     }]);
-    return WindGenTurbineType3aIEC;
   }(WindGenTurbineType3IEC);
   _defineProperty(WindGenTurbineType3aIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -54934,13 +53938,12 @@
   });
 
   var WindGenTurbineType3bIEC = /*#__PURE__*/function (_WindGenTurbineType3I) {
-    _inherits(WindGenTurbineType3bIEC, _WindGenTurbineType3I);
-    var _super = _createSuper(WindGenTurbineType3bIEC);
     function WindGenTurbineType3bIEC() {
       _classCallCheck(this, WindGenTurbineType3bIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindGenTurbineType3bIEC, arguments);
     }
-    _createClass(WindGenTurbineType3bIEC, null, [{
+    _inherits(WindGenTurbineType3bIEC, _WindGenTurbineType3I);
+    return _createClass(WindGenTurbineType3bIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindGenTurbineType3bIEC";
@@ -55020,7 +54023,6 @@
         return subClasses;
       }
     }]);
-    return WindGenTurbineType3bIEC;
   }(WindGenTurbineType3IEC);
   _defineProperty(WindGenTurbineType3bIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -55032,13 +54034,12 @@
   });
 
   var WindGenType4IEC = /*#__PURE__*/function (_WindTurbineType3or4I) {
-    _inherits(WindGenType4IEC, _WindTurbineType3or4I);
-    var _super = _createSuper(WindGenType4IEC);
     function WindGenType4IEC() {
       _classCallCheck(this, WindGenType4IEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindGenType4IEC, arguments);
     }
-    _createClass(WindGenType4IEC, null, [{
+    _inherits(WindGenType4IEC, _WindTurbineType3or4I);
+    return _createClass(WindGenType4IEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindGenType4IEC";
@@ -55113,7 +54114,6 @@
         return subClasses;
       }
     }]);
-    return WindGenType4IEC;
   }(WindTurbineType3or4IEC);
   _defineProperty(WindGenType4IEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -55133,13 +54133,12 @@
     "label": "onshore"
   }];
   var WindGenUnitKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(WindGenUnitKind, _BaseClass);
-    var _super = _createSuper(WindGenUnitKind);
     function WindGenUnitKind() {
       _classCallCheck(this, WindGenUnitKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindGenUnitKind, arguments);
     }
-    _createClass(WindGenUnitKind, null, [{
+    _inherits(WindGenUnitKind, _BaseClass);
+    return _createClass(WindGenUnitKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindGenUnitKind";
@@ -55206,20 +54205,18 @@
         return subClasses;
       }
     }]);
-    return WindGenUnitKind;
   }(BaseClass);
   _defineProperty(WindGenUnitKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
   });
 
   var WindGeneratingUnit = /*#__PURE__*/function (_GeneratingUnit) {
-    _inherits(WindGeneratingUnit, _GeneratingUnit);
-    var _super = _createSuper(WindGeneratingUnit);
     function WindGeneratingUnit() {
       _classCallCheck(this, WindGeneratingUnit);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindGeneratingUnit, arguments);
     }
-    _createClass(WindGeneratingUnit, null, [{
+    _inherits(WindGeneratingUnit, _GeneratingUnit);
+    return _createClass(WindGeneratingUnit, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindGeneratingUnit";
@@ -55279,7 +54276,6 @@
         return subClasses;
       }
     }]);
-    return WindGeneratingUnit;
   }(GeneratingUnit);
   _defineProperty(WindGeneratingUnit, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ, CGMESProfile.shortNames.SSH],
@@ -55299,13 +54295,12 @@
     "label": "mode3"
   }];
   var WindLVRTQcontrolModesKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(WindLVRTQcontrolModesKind, _BaseClass);
-    var _super = _createSuper(WindLVRTQcontrolModesKind);
     function WindLVRTQcontrolModesKind() {
       _classCallCheck(this, WindLVRTQcontrolModesKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindLVRTQcontrolModesKind, arguments);
     }
-    _createClass(WindLVRTQcontrolModesKind, null, [{
+    _inherits(WindLVRTQcontrolModesKind, _BaseClass);
+    return _createClass(WindLVRTQcontrolModesKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindLVRTQcontrolModesKind";
@@ -55372,7 +54367,6 @@
         return subClasses;
       }
     }]);
-    return WindLVRTQcontrolModesKind;
   }(BaseClass);
   _defineProperty(WindLVRTQcontrolModesKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
@@ -55397,13 +54391,12 @@
     "label": "fdpf"
   }];
   var WindLookupTableFunctionKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(WindLookupTableFunctionKind, _BaseClass);
-    var _super = _createSuper(WindLookupTableFunctionKind);
     function WindLookupTableFunctionKind() {
       _classCallCheck(this, WindLookupTableFunctionKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindLookupTableFunctionKind, arguments);
     }
-    _createClass(WindLookupTableFunctionKind, null, [{
+    _inherits(WindLookupTableFunctionKind, _BaseClass);
+    return _createClass(WindLookupTableFunctionKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindLookupTableFunctionKind";
@@ -55470,20 +54463,18 @@
         return subClasses;
       }
     }]);
-    return WindLookupTableFunctionKind;
   }(BaseClass);
   _defineProperty(WindLookupTableFunctionKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var WindMechIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindMechIEC, _IdentifiedObject);
-    var _super = _createSuper(WindMechIEC);
     function WindMechIEC() {
       _classCallCheck(this, WindMechIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindMechIEC, arguments);
     }
-    _createClass(WindMechIEC, null, [{
+    _inherits(WindMechIEC, _IdentifiedObject);
+    return _createClass(WindMechIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindMechIEC";
@@ -55563,7 +54554,6 @@
         return subClasses;
       }
     }]);
-    return WindMechIEC;
   }(IdentifiedObject);
   _defineProperty(WindMechIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -55575,13 +54565,12 @@
   });
 
   var WindPitchContEmulIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindPitchContEmulIEC, _IdentifiedObject);
-    var _super = _createSuper(WindPitchContEmulIEC);
     function WindPitchContEmulIEC() {
       _classCallCheck(this, WindPitchContEmulIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindPitchContEmulIEC, arguments);
     }
-    _createClass(WindPitchContEmulIEC, null, [{
+    _inherits(WindPitchContEmulIEC, _IdentifiedObject);
+    return _createClass(WindPitchContEmulIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindPitchContEmulIEC";
@@ -55686,7 +54675,6 @@
         return subClasses;
       }
     }]);
-    return WindPitchContEmulIEC;
   }(IdentifiedObject);
   _defineProperty(WindPitchContEmulIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -55703,13 +54691,12 @@
   });
 
   var WindPlantDynamics = /*#__PURE__*/function (_DynamicsFunctionBloc) {
-    _inherits(WindPlantDynamics, _DynamicsFunctionBloc);
-    var _super = _createSuper(WindPlantDynamics);
     function WindPlantDynamics() {
       _classCallCheck(this, WindPlantDynamics);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindPlantDynamics, arguments);
     }
-    _createClass(WindPlantDynamics, null, [{
+    _inherits(WindPlantDynamics, _DynamicsFunctionBloc);
+    return _createClass(WindPlantDynamics, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindPlantDynamics";
@@ -55769,7 +54756,6 @@
         return subClasses;
       }
     }]);
-    return WindPlantDynamics;
   }(DynamicsFunctionBlock);
   _defineProperty(WindPlantDynamics, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -55777,13 +54763,12 @@
   });
 
   var WindPlantFreqPcontrolIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindPlantFreqPcontrolIEC, _IdentifiedObject);
-    var _super = _createSuper(WindPlantFreqPcontrolIEC);
     function WindPlantFreqPcontrolIEC() {
       _classCallCheck(this, WindPlantFreqPcontrolIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindPlantFreqPcontrolIEC, arguments);
     }
-    _createClass(WindPlantFreqPcontrolIEC, null, [{
+    _inherits(WindPlantFreqPcontrolIEC, _IdentifiedObject);
+    return _createClass(WindPlantFreqPcontrolIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindPlantFreqPcontrolIEC";
@@ -55888,7 +54873,6 @@
         return subClasses;
       }
     }]);
-    return WindPlantFreqPcontrolIEC;
   }(IdentifiedObject);
   _defineProperty(WindPlantFreqPcontrolIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -55905,13 +54889,12 @@
   });
 
   var WindPlantIEC = /*#__PURE__*/function (_WindPlantDynamics) {
-    _inherits(WindPlantIEC, _WindPlantDynamics);
-    var _super = _createSuper(WindPlantIEC);
     function WindPlantIEC() {
       _classCallCheck(this, WindPlantIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindPlantIEC, arguments);
     }
-    _createClass(WindPlantIEC, null, [{
+    _inherits(WindPlantIEC, _WindPlantDynamics);
+    return _createClass(WindPlantIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindPlantIEC";
@@ -55976,7 +54959,6 @@
         return subClasses;
       }
     }]);
-    return WindPlantIEC;
   }(WindPlantDynamics);
   _defineProperty(WindPlantIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -55985,13 +54967,12 @@
   });
 
   var WindPlantReactiveControlIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindPlantReactiveControlIEC, _IdentifiedObject);
-    var _super = _createSuper(WindPlantReactiveControlIEC);
     function WindPlantReactiveControlIEC() {
       _classCallCheck(this, WindPlantReactiveControlIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindPlantReactiveControlIEC, arguments);
     }
-    _createClass(WindPlantReactiveControlIEC, null, [{
+    _inherits(WindPlantReactiveControlIEC, _IdentifiedObject);
+    return _createClass(WindPlantReactiveControlIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindPlantReactiveControlIEC";
@@ -56111,7 +55092,6 @@
         return subClasses;
       }
     }]);
-    return WindPlantReactiveControlIEC;
   }(IdentifiedObject);
   _defineProperty(WindPlantReactiveControlIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -56131,13 +55111,12 @@
   });
 
   var WindPlantUserDefined = /*#__PURE__*/function (_WindPlantDynamics) {
-    _inherits(WindPlantUserDefined, _WindPlantDynamics);
-    var _super = _createSuper(WindPlantUserDefined);
     function WindPlantUserDefined() {
       _classCallCheck(this, WindPlantUserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindPlantUserDefined, arguments);
     }
-    _createClass(WindPlantUserDefined, null, [{
+    _inherits(WindPlantUserDefined, _WindPlantDynamics);
+    return _createClass(WindPlantUserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindPlantUserDefined";
@@ -56197,7 +55176,6 @@
         return subClasses;
       }
     }]);
-    return WindPlantUserDefined;
   }(WindPlantDynamics);
   _defineProperty(WindPlantUserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -56205,13 +55183,12 @@
   });
 
   var WindProtectionIEC = /*#__PURE__*/function (_IdentifiedObject) {
-    _inherits(WindProtectionIEC, _IdentifiedObject);
-    var _super = _createSuper(WindProtectionIEC);
     function WindProtectionIEC() {
       _classCallCheck(this, WindProtectionIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindProtectionIEC, arguments);
     }
-    _createClass(WindProtectionIEC, null, [{
+    _inherits(WindProtectionIEC, _IdentifiedObject);
+    return _createClass(WindProtectionIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindProtectionIEC";
@@ -56311,7 +55288,6 @@
         return subClasses;
       }
     }]);
-    return WindProtectionIEC;
   }(IdentifiedObject);
   _defineProperty(WindProtectionIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -56342,13 +55318,12 @@
     "label": "powerFactor"
   }];
   var WindQcontrolModesKind = /*#__PURE__*/function (_BaseClass) {
-    _inherits(WindQcontrolModesKind, _BaseClass);
-    var _super = _createSuper(WindQcontrolModesKind);
     function WindQcontrolModesKind() {
       _classCallCheck(this, WindQcontrolModesKind);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindQcontrolModesKind, arguments);
     }
-    _createClass(WindQcontrolModesKind, null, [{
+    _inherits(WindQcontrolModesKind, _BaseClass);
+    return _createClass(WindQcontrolModesKind, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindQcontrolModesKind";
@@ -56415,20 +55390,18 @@
         return subClasses;
       }
     }]);
-    return WindQcontrolModesKind;
   }(BaseClass);
   _defineProperty(WindQcontrolModesKind, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY]
   });
 
   var WindTurbineType4aIEC = /*#__PURE__*/function (_WindGenType4IEC) {
-    _inherits(WindTurbineType4aIEC, _WindGenType4IEC);
-    var _super = _createSuper(WindTurbineType4aIEC);
     function WindTurbineType4aIEC() {
       _classCallCheck(this, WindTurbineType4aIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindTurbineType4aIEC, arguments);
     }
-    _createClass(WindTurbineType4aIEC, null, [{
+    _inherits(WindTurbineType4aIEC, _WindGenType4IEC);
+    return _createClass(WindTurbineType4aIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindTurbineType4aIEC";
@@ -56488,7 +55461,6 @@
         return subClasses;
       }
     }]);
-    return WindTurbineType4aIEC;
   }(WindGenType4IEC);
   _defineProperty(WindTurbineType4aIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -56496,13 +55468,12 @@
   });
 
   var WindTurbineType4bIEC = /*#__PURE__*/function (_WindGenType4IEC) {
-    _inherits(WindTurbineType4bIEC, _WindGenType4IEC);
-    var _super = _createSuper(WindTurbineType4bIEC);
     function WindTurbineType4bIEC() {
       _classCallCheck(this, WindTurbineType4bIEC);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindTurbineType4bIEC, arguments);
     }
-    _createClass(WindTurbineType4bIEC, null, [{
+    _inherits(WindTurbineType4bIEC, _WindGenType4IEC);
+    return _createClass(WindTurbineType4bIEC, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindTurbineType4bIEC";
@@ -56567,7 +55538,6 @@
         return subClasses;
       }
     }]);
-    return WindTurbineType4bIEC;
   }(WindGenType4IEC);
   _defineProperty(WindTurbineType4bIEC, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -56576,13 +55546,12 @@
   });
 
   var WindType1or2UserDefined = /*#__PURE__*/function (_WindTurbineType1or2D) {
-    _inherits(WindType1or2UserDefined, _WindTurbineType1or2D);
-    var _super = _createSuper(WindType1or2UserDefined);
     function WindType1or2UserDefined() {
       _classCallCheck(this, WindType1or2UserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindType1or2UserDefined, arguments);
     }
-    _createClass(WindType1or2UserDefined, null, [{
+    _inherits(WindType1or2UserDefined, _WindTurbineType1or2D);
+    return _createClass(WindType1or2UserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindType1or2UserDefined";
@@ -56642,7 +55611,6 @@
         return subClasses;
       }
     }]);
-    return WindType1or2UserDefined;
   }(WindTurbineType1or2Dynamics);
   _defineProperty(WindType1or2UserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -56650,13 +55618,12 @@
   });
 
   var WindType3or4UserDefined = /*#__PURE__*/function (_WindTurbineType3or4D) {
-    _inherits(WindType3or4UserDefined, _WindTurbineType3or4D);
-    var _super = _createSuper(WindType3or4UserDefined);
     function WindType3or4UserDefined() {
       _classCallCheck(this, WindType3or4UserDefined);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindType3or4UserDefined, arguments);
     }
-    _createClass(WindType3or4UserDefined, null, [{
+    _inherits(WindType3or4UserDefined, _WindTurbineType3or4D);
+    return _createClass(WindType3or4UserDefined, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindType3or4UserDefined";
@@ -56716,7 +55683,6 @@
         return subClasses;
       }
     }]);
-    return WindType3or4UserDefined;
   }(WindTurbineType3or4Dynamics);
   _defineProperty(WindType3or4UserDefined, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.DY],
@@ -56748,13 +55714,12 @@
     "label": "I"
   }];
   var WindingConnection = /*#__PURE__*/function (_BaseClass) {
-    _inherits(WindingConnection, _BaseClass);
-    var _super = _createSuper(WindingConnection);
     function WindingConnection() {
       _classCallCheck(this, WindingConnection);
-      return _super.apply(this, arguments);
+      return _callSuper(this, WindingConnection, arguments);
     }
-    _createClass(WindingConnection, null, [{
+    _inherits(WindingConnection, _BaseClass);
+    return _createClass(WindingConnection, null, [{
       key: "attributeHTML",
       value: function attributeHTML(object, cimmenu) {
         var classType = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "WindingConnection";
@@ -56821,7 +55786,6 @@
         return subClasses;
       }
     }]);
-    return WindingConnection;
   }(BaseClass);
   _defineProperty(WindingConnection, "possibleProfileList", {
     'class': [CGMESProfile.shortNames.EQ]
@@ -57336,7 +56300,7 @@
       this.contextMenu = new contextmenu(this.menuNode.querySelector("#context-menu"), "context-menu");
       this.addCss(leftnode, css);
     }
-    _createClass(cimmenu, [{
+    return _createClass(cimmenu, [{
       key: "addCss",
       value: function addCss(htmlNode, css) {
         var docu = svg.ownerDocument;
@@ -57482,7 +56446,6 @@
     }, {
       key: "populateFileLinks",
       value: function populateFileLinks() {
-        templates.handlebars_menu_json;
         this.panels["file-menu-panel"].querySelectorAll("#fileopen").forEach(function (elem) {
           elem.addEventListener("change", cimmenu.readFile, false);
         });
@@ -57745,7 +56708,6 @@
         cimmenu.currentCimmenuClass = cimmenuClass;
       }
     }]);
-    return cimmenu;
   }();
   cimmenu.currentCimmenuClass = null;
   var currentCimmenu$1 = function currentCimmenu() {
