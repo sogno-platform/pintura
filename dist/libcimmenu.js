@@ -412,9 +412,9 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "    <li class=\"wide-row floating-panel-item list-entry\">\n        <div class=\"row-left floating-panel-name tooltip\">"
-      + ((stack1 = (lookupProperty(helpers,"removeClass")||(depth0 && lookupProperty(depth0,"removeClass"))||alias2).call(alias1,(data && lookupProperty(data,"key")),{"name":"removeClass","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":58},"end":{"line":4,"column":95}}})) != null ? stack1 : "")
+      + ((stack1 = (lookupProperty(helpers,"removeClass")||(depth0 && lookupProperty(depth0,"removeClass"))||alias2).call(alias1,(data && lookupProperty(data,"key")),{"name":"removeClass","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":4,"column":58},"end":{"line":4,"column":95}}})) != null ? stack1 : "")
       + "\n            <span class=\"tooltiptext\">"
-      + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"key") || (data && lookupProperty(data,"key"))) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"key","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":5,"column":38},"end":{"line":5,"column":46}}}) : helper)))
+      + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"key") || (data && lookupProperty(data,"key"))) != null ? helper : alias2),(typeof helper === "function" ? helper.call(alias1,{"name":"key","hash":{},"data":data,"loc":{"start":{"line":5,"column":38},"end":{"line":5,"column":46}}}) : helper)))
       + "</span>\n        </div>\n        "
       + ((stack1 = container.lambda(depth0, depth0)) != null ? stack1 : "")
       + "\n    </li>\n";
@@ -429,7 +429,7 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "<ul class=\"floating-panel-list\">\n"
-      + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"attributes") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":0},"end":{"line":9,"column":9}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"attributes") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":2,"column":0},"end":{"line":9,"column":9}}})) != null ? stack1 : "")
       + "</ul>\n";
   },"useData":true});
   function handlebars_cim_class_render(data, options, asString) {
@@ -447,11 +447,11 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "<?xml version=\"1.0\" standalone=\"no\"?>\n<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 20010904//EN\"\n\"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd\">\n<svg id=\"svg\"\n     xmlns=\"http://www.w3.org/2000/svg\"\n     xmlns:xlink=\"http://www.w3.org/1999/xlink\"\n     viewBox=\""
-      + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"viewBox") || (depth0 != null ? lookupProperty(depth0,"viewBox") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"viewBox","hash":{},"data":data,"loc":{"start":{"line":7,"column":14},"end":{"line":7,"column":25}}}) : helper)))
+      + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"viewBox") || (depth0 != null ? lookupProperty(depth0,"viewBox") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"viewBox","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":7,"column":14},"end":{"line":7,"column":25}}}) : helper)))
       + "\">\n<style>\n"
-      + ((stack1 = ((helper = (helper = lookupProperty(helpers,"style") || (depth0 != null ? lookupProperty(depth0,"style") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"style","hash":{},"data":data,"loc":{"start":{"line":9,"column":0},"end":{"line":9,"column":11}}}) : helper))) != null ? stack1 : "")
+      + ((stack1 = ((helper = (helper = lookupProperty(helpers,"style") || (depth0 != null ? lookupProperty(depth0,"style") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"style","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":9,"column":0},"end":{"line":9,"column":11}}}) : helper))) != null ? stack1 : "")
       + "\n</style>\n"
-      + ((stack1 = ((helper = (helper = lookupProperty(helpers,"diagrams") || (depth0 != null ? lookupProperty(depth0,"diagrams") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"diagrams","hash":{},"data":data,"loc":{"start":{"line":11,"column":0},"end":{"line":11,"column":14}}}) : helper))) != null ? stack1 : "")
+      + ((stack1 = ((helper = (helper = lookupProperty(helpers,"diagrams") || (depth0 != null ? lookupProperty(depth0,"diagrams") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"diagrams","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":11,"column":0},"end":{"line":11,"column":14}}}) : helper))) != null ? stack1 : "")
       + "\n</svg>\n";
   },"useData":true});
   function handlebars_cim_create_svg(data, options, asString) {
@@ -471,13 +471,13 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
     return "            <option type=\""
       + alias1(container.lambda((depths[1] != null ? lookupProperty(depths[1],"requestedType") : depths[1]), depth0))
       + "\" value=\""
-      + alias1(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":55},"end":{"line":4,"column":64}}}) : helper)))
+      + alias1(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":55},"end":{"line":4,"column":64}}}) : helper)))
       + "\" "
-      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"disabled") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":66},"end":{"line":4,"column":110}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"disabled") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":66},"end":{"line":4,"column":110}}})) != null ? stack1 : "")
       + " "
-      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":111},"end":{"line":4,"column":144}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":111},"end":{"line":4,"column":144}}})) != null ? stack1 : "")
       + " >"
-      + alias1(((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"label","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":146},"end":{"line":4,"column":155}}}) : helper)))
+      + alias1(((helper = (helper = lookupProperty(helpers,"label") || (depth0 != null ? lookupProperty(depth0,"label") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"label","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":146},"end":{"line":4,"column":155}}}) : helper)))
       + "</option>\n";
   },"2":function(container,depth0,helpers,partials,data) {
       return " disabled=\"disabled\" ";
@@ -492,15 +492,15 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "<span class=\"row-right wide-row  floating-panel-value\">\n    <select id='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":16},"end":{"line":2,"column":30}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":16},"end":{"line":2,"column":30}}}) : helper)))
       + "' onchange=\"currentCimsvg().updateComponentRDF('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":78},"end":{"line":2,"column":91}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":78},"end":{"line":2,"column":91}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":95},"end":{"line":2,"column":110}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":95},"end":{"line":2,"column":110}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":114},"end":{"line":2,"column":127}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":114},"end":{"line":2,"column":127}}}) : helper)))
       + "', this.value)\" class=\"update-instance-type\">\n"
-      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"aggregates") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":3,"column":8},"end":{"line":5,"column":17}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"aggregates") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":3,"column":8},"end":{"line":5,"column":17}}})) != null ? stack1 : "")
       + "    </select>\n    <button class=\"hiddenbutton\"> + </button>\n    <button class=\"hiddenbutton\"> -> </button>\n</span>\n";
   },"useData":true,"useDepths":true});
   function handlebars_cim_instance_type(data, options, asString) {
@@ -526,18 +526,18 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "<span class=\"row-right wide-row  floating-panel-value\">\n    <select value=\""
-      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":19},"end":{"line":2,"column":28}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":19},"end":{"line":2,"column":28}}}) : helper)))
       + "\" id=\""
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":34},"end":{"line":2,"column":48}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":34},"end":{"line":2,"column":48}}}) : helper)))
       + "\" type=\"select\" onchange=\"currentCimsvg().updateComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":107},"end":{"line":2,"column":120}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":107},"end":{"line":2,"column":120}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":124},"end":{"line":2,"column":139}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":124},"end":{"line":2,"column":139}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":143},"end":{"line":2,"column":156}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":143},"end":{"line":2,"column":156}}}) : helper)))
       + "', this.value)\">\n        <option>Select</label>\n"
-      + ((stack1 = (lookupProperty(helpers,"eq")||(depth0 && lookupProperty(depth0,"eq"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"value") : depth0),"true",{"name":"eq","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":8},"end":{"line":8,"column":15}}})) != null ? stack1 : "")
-      + ((stack1 = (lookupProperty(helpers,"eq")||(depth0 && lookupProperty(depth0,"eq"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"value") : depth0),"false",{"name":"eq","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":9,"column":8},"end":{"line":13,"column":15}}})) != null ? stack1 : "")
+      + ((stack1 = (lookupProperty(helpers,"eq")||(depth0 && lookupProperty(depth0,"eq"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"value") : depth0),"true",{"name":"eq","hash":{},"fn":container.program(1, data, 0),"inverse":container.program(3, data, 0),"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":8},"end":{"line":8,"column":15}}})) != null ? stack1 : "")
+      + ((stack1 = (lookupProperty(helpers,"eq")||(depth0 && lookupProperty(depth0,"eq"))||alias2).call(alias1,(depth0 != null ? lookupProperty(depth0,"value") : depth0),"false",{"name":"eq","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":9,"column":8},"end":{"line":13,"column":15}}})) != null ? stack1 : "")
       + "    </select>\n    <button class=\"hiddenbutton\"> + </button>\n    <button class=\"hiddenbutton\"> -> </button>\n</span>\n";
   },"useData":true});
   function handlebars_cim_render_boolean(data, options, asString) {
@@ -555,15 +555,15 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "<span class=\"row-right wide-row  floating-panel-value\">\n    <input value='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":18},"end":{"line":2,"column":27}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":18},"end":{"line":2,"column":27}}}) : helper)))
       + "' id='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":33},"end":{"line":2,"column":47}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":33},"end":{"line":2,"column":47}}}) : helper)))
       + "' type=\"number\" step=\"any\" onchange=\"currentCimsvg().updateComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":117},"end":{"line":2,"column":130}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":117},"end":{"line":2,"column":130}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":134},"end":{"line":2,"column":149}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":134},"end":{"line":2,"column":149}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":153},"end":{"line":2,"column":166}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":153},"end":{"line":2,"column":166}}}) : helper)))
       + "', this.value)\" class=\"update-float\"/>\n    <button class=\"hiddenbutton\"> + </button>\n    <button class=\"hiddenbutton\"> -> </button>\n</span>\n";
   },"useData":true});
   function handlebars_cim_render_float(data, options, asString) {
@@ -581,15 +581,15 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "<span class=\"row-right wide-row  floating-panel-value\">\n    <input value='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":18},"end":{"line":2,"column":27}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":18},"end":{"line":2,"column":27}}}) : helper)))
       + "' id='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":33},"end":{"line":2,"column":47}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":33},"end":{"line":2,"column":47}}}) : helper)))
       + "' type=\"string\" step=\"any\" onchange=\"currentCimsvg().updateComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":117},"end":{"line":2,"column":130}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":117},"end":{"line":2,"column":130}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":134},"end":{"line":2,"column":149}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":134},"end":{"line":2,"column":149}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":153},"end":{"line":2,"column":166}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":153},"end":{"line":2,"column":166}}}) : helper)))
       + "', this.value)\"/>\n    <button class=\"hiddenbutton\"> + </button>\n    <button class=\"hiddenbutton\"> -> </button>\n</span>\n";
   },"useData":true});
   function handlebars_cim_render_string(data, options, asString) {
@@ -609,13 +609,13 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
     return "            <option type=\""
       + alias1(container.lambda((depths[1] != null ? lookupProperty(depths[1],"requestedType") : depths[1]), depth0))
       + "\" value=\""
-      + alias1(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":55},"end":{"line":4,"column":64}}}) : helper)))
+      + alias1(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":55},"end":{"line":4,"column":64}}}) : helper)))
       + "\" "
-      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"disabled") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":66},"end":{"line":4,"column":110}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"disabled") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":66},"end":{"line":4,"column":110}}})) != null ? stack1 : "")
       + " "
-      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":111},"end":{"line":4,"column":155}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(alias2,(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":111},"end":{"line":4,"column":155}}})) != null ? stack1 : "")
       + " >"
-      + alias1(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":157},"end":{"line":4,"column":165}}}) : helper)))
+      + alias1(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : alias3),(typeof helper === alias4 ? helper.call(alias2,{"name":"name","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":157},"end":{"line":4,"column":165}}}) : helper)))
       + "</option>\n";
   },"2":function(container,depth0,helpers,partials,data) {
       return " disabled=\"disabled\" ";
@@ -630,25 +630,25 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "<span class=\"row-right wide-row  floating-panel-value\">\n    <select id='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":16},"end":{"line":2,"column":30}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":16},"end":{"line":2,"column":30}}}) : helper)))
       + "' onchange=\"currentCimsvg().updateComponentRDF('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":78},"end":{"line":2,"column":91}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":78},"end":{"line":2,"column":91}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":95},"end":{"line":2,"column":110}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":95},"end":{"line":2,"column":110}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":114},"end":{"line":2,"column":127}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":114},"end":{"line":2,"column":127}}}) : helper)))
       + "', this.value)\" class=\"update-complex-type\">\n"
-      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"aggregates") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":3,"column":8},"end":{"line":5,"column":17}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"aggregates") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":3,"column":8},"end":{"line":5,"column":17}}})) != null ? stack1 : "")
       + "    </select>\n    <button class=\"smallbutton\" onclick=\"currentCimsvg().addComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"requestedType") || (depth0 != null ? lookupProperty(depth0,"requestedType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"requestedType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":7,"column":71},"end":{"line":7,"column":88}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"requestedType") || (depth0 != null ? lookupProperty(depth0,"requestedType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"requestedType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":7,"column":71},"end":{"line":7,"column":88}}}) : helper)))
       + "');currentCimsvg().populateAttributes('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":7,"column":127},"end":{"line":7,"column":140}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"classType") || (depth0 != null ? lookupProperty(depth0,"classType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"classType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":7,"column":127},"end":{"line":7,"column":140}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":7,"column":144},"end":{"line":7,"column":159}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"parentRdfid") || (depth0 != null ? lookupProperty(depth0,"parentRdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"parentRdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":7,"column":144},"end":{"line":7,"column":159}}}) : helper)))
       + "')\"> + </button>\n    <button class=\"smallbutton\" onclick=\"currentCimsvg().populateAttributes('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"requestedType") || (depth0 != null ? lookupProperty(depth0,"requestedType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"requestedType","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":8,"column":77},"end":{"line":8,"column":94}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"requestedType") || (depth0 != null ? lookupProperty(depth0,"requestedType") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"requestedType","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":8,"column":77},"end":{"line":8,"column":94}}}) : helper)))
       + "', currentCimmenu().getSelectFromDropdown('attributesPanel', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":8,"column":156},"end":{"line":8,"column":170}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"dropdownId") || (depth0 != null ? lookupProperty(depth0,"dropdownId") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"dropdownId","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":8,"column":156},"end":{"line":8,"column":170}}}) : helper)))
       + "').value)\"> -> </button>\n</span>\n";
   },"useData":true,"useDepths":true});
   function handlebars_cim_update_complex_type(data, options, asString) {
@@ -666,13 +666,13 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "<span class=\"row-right wide-row floating-panel-value\">\n    <input type=\"text\" value='"
-      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":30},"end":{"line":2,"column":39}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"value") || (depth0 != null ? lookupProperty(depth0,"value") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"value","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":30},"end":{"line":2,"column":39}}}) : helper)))
       + "' onchange=\"currentCimsvg().updateComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":84},"end":{"line":2,"column":92}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":84},"end":{"line":2,"column":92}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":96},"end":{"line":2,"column":105}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":96},"end":{"line":2,"column":105}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":109},"end":{"line":2,"column":122}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":109},"end":{"line":2,"column":122}}}) : helper)))
       + "', this.value)\"></input>\n<!--\n    <button style=\"visibility:hidden\"> + </button>\n    <button style=\"visibility:hidden\"> -> </button>\n-->\n</span>\n";
   },"useData":true});
   function handlebars_cim_update_primitive_type(data, options, asString) {
@@ -690,13 +690,13 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "        <select onchange=\"currentCimsvg().updateComponent('"
-      + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":3,"column":59},"end":{"line":3,"column":67}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"type") || (depth0 != null ? lookupProperty(depth0,"type") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"type","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":3,"column":59},"end":{"line":3,"column":67}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":3,"column":71},"end":{"line":3,"column":80}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"rdfid") || (depth0 != null ? lookupProperty(depth0,"rdfid") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"rdfid","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":3,"column":71},"end":{"line":3,"column":80}}}) : helper)))
       + "', '"
-      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":3,"column":84},"end":{"line":3,"column":97}}}) : helper)))
+      + alias4(((helper = (helper = lookupProperty(helpers,"attribute") || (depth0 != null ? lookupProperty(depth0,"attribute") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"attribute","hash":{},"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":3,"column":84},"end":{"line":3,"column":97}}}) : helper)))
       + "', this.value)\" class=\"update-simple-type\">\n"
-      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"values") : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":4,"column":8},"end":{"line":6,"column":17}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"values") : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":4,"column":8},"end":{"line":6,"column":17}}})) != null ? stack1 : "")
       + "        </select>\n";
   },"2":function(container,depth0,helpers,partials,data) {
       var stack1, alias1=container.lambda, alias2=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -709,7 +709,7 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
     return "            <option value=\""
       + alias2(alias1((depth0 != null ? lookupProperty(depth0,"value") : depth0), depth0))
       + "\" "
-      + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":5,"column":43},"end":{"line":5,"column":92}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"selected") : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":5,"column":43},"end":{"line":5,"column":92}}})) != null ? stack1 : "")
       + " >"
       + alias2(alias1((depth0 != null ? lookupProperty(depth0,"value") : depth0), depth0))
       + "</option>\n";
@@ -724,7 +724,7 @@ var libcimmenu = (function (exports, Handlebars, runtime) {
       };
 
     return "<span class=\"row-right wide-row floating-panel-value\">\n"
-      + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"simpletype") : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_create_svg.handlebars","start":{"line":2,"column":4},"end":{"line":8,"column":11}}})) != null ? stack1 : "")
+      + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"simpletype") : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"source":"cim_class_render.handlebars","start":{"line":2,"column":4},"end":{"line":8,"column":11}}})) != null ? stack1 : "")
       + "<!--\n    <button class=\"smallbutton\" style=\""
       + alias2(alias1((depth0 != null ? lookupProperty(depth0,"buttonVisibility") : depth0), depth0))
       + "\"> + </button>\n    <button class=\"smallbutton\" style=\""
