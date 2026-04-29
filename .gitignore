@@ -13,3 +13,5 @@ dist/*
 node_modules/*
 package-lock.json
 **/.*.swp
+docker
+dev
